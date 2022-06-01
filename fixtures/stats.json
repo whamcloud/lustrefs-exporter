@@ -1,0 +1,1670 @@
+[
+  {
+    "Host": {
+      "Memused": {
+        "param": "memused",
+        "value": 1196193562
+      }
+    }
+  },
+  {
+    "Host": {
+      "MemusedMax": {
+        "param": "memused_max",
+        "value": 3079541109
+      }
+    }
+  },
+  {
+    "Host": {
+      "LNetMemUsed": {
+        "param": "lnet_memused",
+        "value": 154189179
+      }
+    }
+  },
+  {
+    "Host": {
+      "HealthCheck": {
+        "param": "health_check",
+        "value": "healthy"
+      }
+    }
+  },
+  {
+    "Target": {
+      "ConnectedClients": {
+        "kind": "Mdt",
+        "param": "connected_clients",
+        "target": "ai400x2-MDT0000",
+        "value": 4
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesFree": {
+        "kind": "Mgt",
+        "param": "filesfree",
+        "target": "MGS",
+        "value": 130871
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesFree": {
+        "kind": "Mdt",
+        "param": "filesfree",
+        "target": "ai400x2-MDT0000",
+        "value": 97713887
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesFree": {
+        "kind": "Ost",
+        "param": "filesfree",
+        "target": "ai400x2-OST0000",
+        "value": 1073740846
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesFree": {
+        "kind": "Ost",
+        "param": "filesfree",
+        "target": "ai400x2-OST0001",
+        "value": 1073740847
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesTotal": {
+        "kind": "Mgt",
+        "param": "filestotal",
+        "target": "MGS",
+        "value": 131072
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesTotal": {
+        "kind": "Mdt",
+        "param": "filestotal",
+        "target": "ai400x2-MDT0000",
+        "value": 97714176
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesTotal": {
+        "kind": "Ost",
+        "param": "filestotal",
+        "target": "ai400x2-OST0000",
+        "value": 1073741824
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesTotal": {
+        "kind": "Ost",
+        "param": "filestotal",
+        "target": "ai400x2-OST0001",
+        "value": 1073741824
+      }
+    }
+  },
+  {
+    "Target": {
+      "FsType": {
+        "kind": "Mgt",
+        "param": "fstype",
+        "target": "MGS",
+        "value": "ldiskfs"
+      }
+    }
+  },
+  {
+    "Target": {
+      "FsType": {
+        "kind": "Mdt",
+        "param": "fstype",
+        "target": "ai400x2-MDT0000",
+        "value": "ldiskfs"
+      }
+    }
+  },
+  {
+    "Target": {
+      "FsType": {
+        "kind": "Ost",
+        "param": "fstype",
+        "target": "ai400x2-OST0000",
+        "value": "ldiskfs"
+      }
+    }
+  },
+  {
+    "Target": {
+      "FsType": {
+        "kind": "Ost",
+        "param": "fstype",
+        "target": "ai400x2-OST0001",
+        "value": "ldiskfs"
+      }
+    }
+  },
+  {
+    "Target": {
+      "BytesAvail": {
+        "kind": "Mgt",
+        "param": "kbytesavail",
+        "target": "MGS",
+        "value": 1918767104
+      }
+    }
+  },
+  {
+    "Target": {
+      "BytesAvail": {
+        "kind": "Mdt",
+        "param": "kbytesavail",
+        "target": "ai400x2-MDT0000",
+        "value": 142034284544
+      }
+    }
+  },
+  {
+    "Target": {
+      "BytesAvail": {
+        "kind": "Ost",
+        "param": "kbytesavail",
+        "target": "ai400x2-OST0000",
+        "value": 3334853013504
+      }
+    }
+  },
+  {
+    "Target": {
+      "BytesAvail": {
+        "kind": "Ost",
+        "param": "kbytesavail",
+        "target": "ai400x2-OST0001",
+        "value": 3335272443904
+      }
+    }
+  },
+  {
+    "Target": {
+      "BytesFree": {
+        "kind": "Mgt",
+        "param": "kbytesfree",
+        "target": "MGS",
+        "value": 2026139648
+      }
+    }
+  },
+  {
+    "Target": {
+      "BytesFree": {
+        "kind": "Mdt",
+        "param": "kbytesfree",
+        "target": "ai400x2-MDT0000",
+        "value": 144535597056
+      }
+    }
+  },
+  {
+    "Target": {
+      "BytesFree": {
+        "kind": "Ost",
+        "param": "kbytesfree",
+        "target": "ai400x2-OST0000",
+        "value": 3541028220928
+      }
+    }
+  },
+  {
+    "Target": {
+      "BytesFree": {
+        "kind": "Ost",
+        "param": "kbytesfree",
+        "target": "ai400x2-OST0001",
+        "value": 3541447651328
+      }
+    }
+  },
+  {
+    "Target": {
+      "BytesTotal": {
+        "kind": "Mgt",
+        "param": "kbytestotal",
+        "target": "MGS",
+        "value": 2027556864
+      }
+    }
+  },
+  {
+    "Target": {
+      "BytesTotal": {
+        "kind": "Mdt",
+        "param": "kbytestotal",
+        "target": "ai400x2-MDT0000",
+        "value": 144541634560
+      }
+    }
+  },
+  {
+    "Target": {
+      "BytesTotal": {
+        "kind": "Ost",
+        "param": "kbytestotal",
+        "target": "ai400x2-OST0000",
+        "value": 3544070828032
+      }
+    }
+  },
+  {
+    "Target": {
+      "BytesTotal": {
+        "kind": "Ost",
+        "param": "kbytestotal",
+        "target": "ai400x2-OST0001",
+        "value": 3544070828032
+      }
+    }
+  },
+  {
+    "Target": {
+      "BrwStats": {
+        "kind": "Mgt",
+        "param": "brw_stats",
+        "target": "MGS",
+        "value": [
+          {
+            "name": "pages",
+            "unit": "rpcs",
+            "buckets": []
+          },
+          {
+            "name": "discont_pages",
+            "unit": "rpcs",
+            "buckets": []
+          },
+          {
+            "name": "discont_blocks",
+            "unit": "rpcs",
+            "buckets": []
+          },
+          {
+            "name": "dio_frags",
+            "unit": "ios",
+            "buckets": []
+          },
+          {
+            "name": "rpc_hist",
+            "unit": "ios",
+            "buckets": []
+          },
+          {
+            "name": "io_time",
+            "unit": "ios",
+            "buckets": []
+          },
+          {
+            "name": "disk_iosize",
+            "unit": "ios",
+            "buckets": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "BrwStats": {
+        "kind": "Mdt",
+        "param": "brw_stats",
+        "target": "ai400x2-MDT0000",
+        "value": [
+          {
+            "name": "pages",
+            "unit": "rpcs",
+            "buckets": []
+          },
+          {
+            "name": "discont_pages",
+            "unit": "rpcs",
+            "buckets": []
+          },
+          {
+            "name": "discont_blocks",
+            "unit": "rpcs",
+            "buckets": []
+          },
+          {
+            "name": "dio_frags",
+            "unit": "ios",
+            "buckets": []
+          },
+          {
+            "name": "rpc_hist",
+            "unit": "ios",
+            "buckets": []
+          },
+          {
+            "name": "io_time",
+            "unit": "ios",
+            "buckets": []
+          },
+          {
+            "name": "disk_iosize",
+            "unit": "ios",
+            "buckets": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "BrwStats": {
+        "kind": "Ost",
+        "param": "brw_stats",
+        "target": "ai400x2-OST0000",
+        "value": [
+          {
+            "name": "pages",
+            "unit": "rpcs",
+            "buckets": [
+              {
+                "name": 256,
+                "read": 0,
+                "write": 2
+              },
+              {
+                "name": 512,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 1024,
+                "read": 0,
+                "write": 736
+              }
+            ]
+          },
+          {
+            "name": "discont_pages",
+            "unit": "rpcs",
+            "buckets": [
+              {
+                "name": 0,
+                "read": 0,
+                "write": 738
+              }
+            ]
+          },
+          {
+            "name": "discont_blocks",
+            "unit": "rpcs",
+            "buckets": [
+              {
+                "name": 0,
+                "read": 0,
+                "write": 738
+              }
+            ]
+          },
+          {
+            "name": "dio_frags",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 1,
+                "read": 0,
+                "write": 2
+              },
+              {
+                "name": 2,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 3,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 4,
+                "read": 0,
+                "write": 736
+              }
+            ]
+          },
+          {
+            "name": "rpc_hist",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 1,
+                "read": 0,
+                "write": 738
+              },
+              {
+                "name": 2,
+                "read": 0,
+                "write": 736
+              },
+              {
+                "name": 3,
+                "read": 0,
+                "write": 736
+              },
+              {
+                "name": 4,
+                "read": 0,
+                "write": 736
+              }
+            ]
+          },
+          {
+            "name": "io_time",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 1,
+                "read": 0,
+                "write": 734
+              },
+              {
+                "name": 2,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 4,
+                "read": 0,
+                "write": 3
+              },
+              {
+                "name": 8,
+                "read": 0,
+                "write": 1
+              }
+            ]
+          },
+          {
+            "name": "disk_iosize",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 1048576,
+                "read": 0,
+                "write": 2946
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "BrwStats": {
+        "kind": "Ost",
+        "param": "brw_stats",
+        "target": "ai400x2-OST0001",
+        "value": [
+          {
+            "name": "pages",
+            "unit": "rpcs",
+            "buckets": [
+              {
+                "name": 1024,
+                "read": 0,
+                "write": 625
+              }
+            ]
+          },
+          {
+            "name": "discont_pages",
+            "unit": "rpcs",
+            "buckets": [
+              {
+                "name": 0,
+                "read": 0,
+                "write": 625
+              }
+            ]
+          },
+          {
+            "name": "discont_blocks",
+            "unit": "rpcs",
+            "buckets": [
+              {
+                "name": 0,
+                "read": 0,
+                "write": 625
+              }
+            ]
+          },
+          {
+            "name": "dio_frags",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 4,
+                "read": 0,
+                "write": 625
+              }
+            ]
+          },
+          {
+            "name": "rpc_hist",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 1,
+                "read": 0,
+                "write": 625
+              },
+              {
+                "name": 2,
+                "read": 0,
+                "write": 625
+              },
+              {
+                "name": 3,
+                "read": 0,
+                "write": 625
+              },
+              {
+                "name": 4,
+                "read": 0,
+                "write": 625
+              }
+            ]
+          },
+          {
+            "name": "io_time",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 1,
+                "read": 0,
+                "write": 621
+              },
+              {
+                "name": 2,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 4,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 8,
+                "read": 0,
+                "write": 1
+              },
+              {
+                "name": 16,
+                "read": 0,
+                "write": 3
+              }
+            ]
+          },
+          {
+            "name": "disk_iosize",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 1048576,
+                "read": 0,
+                "write": 2500
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "ConnectedClients": {
+        "kind": "Mdt",
+        "param": "connected_clients",
+        "target": "ai400x2-MDT0000",
+        "value": 4
+      }
+    }
+  },
+  {
+    "Target": {
+      "Stats": {
+        "kind": "Mgt",
+        "param": "stats",
+        "target": "MGS",
+        "value": [
+          {
+            "name": "req_waittime",
+            "units": "usec",
+            "samples": 303452,
+            "min": 9,
+            "max": 31310,
+            "sum": 14749340,
+            "sumsquare": 62979167740
+          },
+          {
+            "name": "req_qdepth",
+            "units": "reqs",
+            "samples": 303452,
+            "min": 0,
+            "max": 0,
+            "sum": 0,
+            "sumsquare": 0
+          },
+          {
+            "name": "req_active",
+            "units": "reqs",
+            "samples": 303452,
+            "min": 1,
+            "max": 3,
+            "sum": 303491,
+            "sumsquare": 303573
+          },
+          {
+            "name": "req_timeout",
+            "units": "sec",
+            "samples": 303452,
+            "min": 1,
+            "max": 31,
+            "sum": 305891,
+            "sumsquare": 381311
+          },
+          {
+            "name": "reqbuf_avail",
+            "units": "bufs",
+            "samples": 854571,
+            "min": 61,
+            "max": 64,
+            "sum": 54085896,
+            "sumsquare": 3423278802
+          },
+          {
+            "name": "ldlm_plain_enqueue",
+            "units": "reqs",
+            "samples": 297,
+            "min": 1,
+            "max": 1,
+            "sum": 297,
+            "sumsquare": 297
+          },
+          {
+            "name": "mgs_connect",
+            "units": "usec",
+            "samples": 13,
+            "min": 23,
+            "max": 95,
+            "sum": 809,
+            "sumsquare": 55405
+          },
+          {
+            "name": "mgs_disconnect",
+            "units": "usec",
+            "samples": 9,
+            "min": 14,
+            "max": 65,
+            "sum": 329,
+            "sumsquare": 14411
+          },
+          {
+            "name": "mgs_target_reg",
+            "units": "usec",
+            "samples": 116,
+            "min": 11,
+            "max": 3191,
+            "sum": 39241,
+            "sumsquare": 52795125
+          },
+          {
+            "name": "mgs_config_read",
+            "units": "usec",
+            "samples": 56,
+            "min": 29,
+            "max": 15714,
+            "sum": 21490,
+            "sumsquare": 247662642
+          },
+          {
+            "name": "obd_ping",
+            "units": "usec",
+            "samples": 302013,
+            "min": 3,
+            "max": 46346,
+            "sum": 7305740,
+            "sumsquare": 29927097856
+          },
+          {
+            "name": "llog_origin_handle_open",
+            "units": "usec",
+            "samples": 220,
+            "min": 6,
+            "max": 425,
+            "sum": 4832,
+            "sumsquare": 314198
+          },
+          {
+            "name": "llog_origin_handle_next_block",
+            "units": "usec",
+            "samples": 524,
+            "min": 7,
+            "max": 40,
+            "sum": 7563,
+            "sumsquare": 130875
+          },
+          {
+            "name": "llog_origin_handle_read_header",
+            "units": "usec",
+            "samples": 204,
+            "min": 8,
+            "max": 46,
+            "sum": 3416,
+            "sumsquare": 68178
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "ThreadsMax": {
+        "kind": "Mgt",
+        "param": "threads_max",
+        "target": "MGS",
+        "value": 32
+      }
+    }
+  },
+  {
+    "Target": {
+      "ThreadsMin": {
+        "kind": "Mgt",
+        "param": "threads_min",
+        "target": "MGS",
+        "value": 3
+      }
+    }
+  },
+  {
+    "Target": {
+      "ThreadsStarted": {
+        "kind": "Mgt",
+        "param": "threads_started",
+        "target": "MGS",
+        "value": 4
+      }
+    }
+  },
+  {
+    "Target": {
+      "NumExports": {
+        "kind": "Mgt",
+        "param": "num_exports",
+        "target": "MGS",
+        "value": 4
+      }
+    }
+  },
+  {
+    "Target": {
+      "JobStatsOst": {
+        "kind": "Ost",
+        "param": "job_stats",
+        "target": "ai400x2-OST0000",
+        "value": null
+      }
+    }
+  },
+  {
+    "Target": {
+      "JobStatsOst": {
+        "kind": "Ost",
+        "param": "job_stats",
+        "target": "ai400x2-OST0001",
+        "value": null
+      }
+    }
+  },
+  {
+    "Target": {
+      "Stats": {
+        "kind": "Ost",
+        "param": "stats",
+        "target": "ai400x2-OST0000",
+        "value": [
+          {
+            "name": "write_bytes",
+            "units": "bytes",
+            "samples": 738,
+            "min": 1048576,
+            "max": 4194304,
+            "sum": 3089104896,
+            "sumsquare": 12950047951945728
+          },
+          {
+            "name": "write",
+            "units": "usecs",
+            "samples": 738,
+            "min": 151,
+            "max": 1240,
+            "sum": 406194,
+            "sumsquare": 232534590
+          },
+          {
+            "name": "punch",
+            "units": "usecs",
+            "samples": 4,
+            "min": 182,
+            "max": 3935,
+            "sum": 4865,
+            "sumsquare": 15852213
+          },
+          {
+            "name": "create",
+            "units": "usecs",
+            "samples": 8,
+            "min": 1,
+            "max": 5707,
+            "sum": 20519,
+            "sumsquare": 106824119
+          },
+          {
+            "name": "statfs",
+            "units": "usecs",
+            "samples": 1031857,
+            "min": 0,
+            "max": 79,
+            "sum": 3558535,
+            "sumsquare": 20245539
+          },
+          {
+            "name": "get_info",
+            "units": "usecs",
+            "samples": 4,
+            "min": 377,
+            "max": 757,
+            "sum": 2091,
+            "sumsquare": 1186063
+          },
+          {
+            "name": "set_info",
+            "units": "usecs",
+            "samples": 2,
+            "min": 8,
+            "max": 18,
+            "sum": 26,
+            "sumsquare": 388
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "Stats": {
+        "kind": "Ost",
+        "param": "stats",
+        "target": "ai400x2-OST0001",
+        "value": [
+          {
+            "name": "write_bytes",
+            "units": "bytes",
+            "samples": 625,
+            "min": 4194304,
+            "max": 4194304,
+            "sum": 2621440000,
+            "sumsquare": 10995116277760000
+          },
+          {
+            "name": "write",
+            "units": "usecs",
+            "samples": 625,
+            "min": 405,
+            "max": 28101,
+            "sum": 372440,
+            "sumsquare": 986024330
+          },
+          {
+            "name": "destroy",
+            "units": "usecs",
+            "samples": 1,
+            "min": 294,
+            "max": 294,
+            "sum": 294,
+            "sumsquare": 86436
+          },
+          {
+            "name": "create",
+            "units": "usecs",
+            "samples": 8,
+            "min": 1,
+            "max": 4007,
+            "sum": 14738,
+            "sumsquare": 54396988
+          },
+          {
+            "name": "statfs",
+            "units": "usecs",
+            "samples": 1031855,
+            "min": 0,
+            "max": 85,
+            "sum": 3737453,
+            "sumsquare": 22029863
+          },
+          {
+            "name": "get_info",
+            "units": "usecs",
+            "samples": 4,
+            "min": 379,
+            "max": 424,
+            "sum": 1584,
+            "sumsquare": 628578
+          },
+          {
+            "name": "set_info",
+            "units": "usecs",
+            "samples": 3,
+            "min": 7,
+            "max": 18,
+            "sum": 34,
+            "sumsquare": 454
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "NumExports": {
+        "kind": "Ost",
+        "param": "num_exports",
+        "target": "ai400x2-OST0000",
+        "value": 4
+      }
+    }
+  },
+  {
+    "Target": {
+      "NumExports": {
+        "kind": "Ost",
+        "param": "num_exports",
+        "target": "ai400x2-OST0001",
+        "value": 4
+      }
+    }
+  },
+  {
+    "Target": {
+      "TotDirty": {
+        "kind": "Ost",
+        "param": "tot_dirty",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "TotDirty": {
+        "kind": "Ost",
+        "param": "tot_dirty",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "TotGranted": {
+        "kind": "Ost",
+        "param": "tot_granted",
+        "target": "ai400x2-OST0000",
+        "value": 276416
+      }
+    }
+  },
+  {
+    "Target": {
+      "TotGranted": {
+        "kind": "Ost",
+        "param": "tot_granted",
+        "target": "ai400x2-OST0001",
+        "value": 276416
+      }
+    }
+  },
+  {
+    "Target": {
+      "TotPending": {
+        "kind": "Ost",
+        "param": "tot_pending",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "TotPending": {
+        "kind": "Ost",
+        "param": "tot_pending",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "ContendedLocks": {
+        "kind": "Mdt",
+        "param": "contended_locks",
+        "target": "ai400x2-MDT0000",
+        "value": 32
+      }
+    }
+  },
+  {
+    "Target": {
+      "ContendedLocks": {
+        "kind": "Ost",
+        "param": "contended_locks",
+        "target": "ai400x2-OST0000",
+        "value": 32
+      }
+    }
+  },
+  {
+    "Target": {
+      "ContendedLocks": {
+        "kind": "Ost",
+        "param": "contended_locks",
+        "target": "ai400x2-OST0001",
+        "value": 32
+      }
+    }
+  },
+  {
+    "Target": {
+      "ContentionSeconds": {
+        "kind": "Mdt",
+        "param": "contention_seconds",
+        "target": "ai400x2-MDT0000",
+        "value": 2
+      }
+    }
+  },
+  {
+    "Target": {
+      "ContentionSeconds": {
+        "kind": "Ost",
+        "param": "contention_seconds",
+        "target": "ai400x2-OST0000",
+        "value": 2
+      }
+    }
+  },
+  {
+    "Target": {
+      "ContentionSeconds": {
+        "kind": "Ost",
+        "param": "contention_seconds",
+        "target": "ai400x2-OST0001",
+        "value": 2
+      }
+    }
+  },
+  {
+    "Target": {
+      "CtimeAgeLimit": {
+        "kind": "Mdt",
+        "param": "ctime_age_limit",
+        "target": "ai400x2-MDT0000",
+        "value": 10
+      }
+    }
+  },
+  {
+    "Target": {
+      "CtimeAgeLimit": {
+        "kind": "Ost",
+        "param": "ctime_age_limit",
+        "target": "ai400x2-OST0000",
+        "value": 10
+      }
+    }
+  },
+  {
+    "Target": {
+      "CtimeAgeLimit": {
+        "kind": "Ost",
+        "param": "ctime_age_limit",
+        "target": "ai400x2-OST0001",
+        "value": 10
+      }
+    }
+  },
+  {
+    "Target": {
+      "EarlyLockCancel": {
+        "kind": "Mdt",
+        "param": "early_lock_cancel",
+        "target": "ai400x2-MDT0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "EarlyLockCancel": {
+        "kind": "Ost",
+        "param": "early_lock_cancel",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "EarlyLockCancel": {
+        "kind": "Ost",
+        "param": "early_lock_cancel",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockCount": {
+        "kind": "Mdt",
+        "param": "lock_count",
+        "target": "ai400x2-MDT0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockCount": {
+        "kind": "Ost",
+        "param": "lock_count",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockCount": {
+        "kind": "Ost",
+        "param": "lock_count",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockTimeouts": {
+        "kind": "Mdt",
+        "param": "lock_timeouts",
+        "target": "ai400x2-MDT0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockTimeouts": {
+        "kind": "Ost",
+        "param": "lock_timeouts",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockTimeouts": {
+        "kind": "Ost",
+        "param": "lock_timeouts",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockUnusedCount": {
+        "kind": "Mdt",
+        "param": "lock_unused_count",
+        "target": "ai400x2-MDT0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockUnusedCount": {
+        "kind": "Ost",
+        "param": "lock_unused_count",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockUnusedCount": {
+        "kind": "Ost",
+        "param": "lock_unused_count",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LruMaxAge": {
+        "kind": "Mdt",
+        "param": "lru_max_age",
+        "target": "ai400x2-MDT0000",
+        "value": 3900000
+      }
+    }
+  },
+  {
+    "Target": {
+      "LruMaxAge": {
+        "kind": "Ost",
+        "param": "lru_max_age",
+        "target": "ai400x2-OST0000",
+        "value": 3900000
+      }
+    }
+  },
+  {
+    "Target": {
+      "LruMaxAge": {
+        "kind": "Ost",
+        "param": "lru_max_age",
+        "target": "ai400x2-OST0001",
+        "value": 3900000
+      }
+    }
+  },
+  {
+    "Target": {
+      "LruSize": {
+        "kind": "Mdt",
+        "param": "lru_size",
+        "target": "ai400x2-MDT0000",
+        "value": 2000
+      }
+    }
+  },
+  {
+    "Target": {
+      "LruSize": {
+        "kind": "Ost",
+        "param": "lru_size",
+        "target": "ai400x2-OST0000",
+        "value": 2000
+      }
+    }
+  },
+  {
+    "Target": {
+      "LruSize": {
+        "kind": "Ost",
+        "param": "lru_size",
+        "target": "ai400x2-OST0001",
+        "value": 2000
+      }
+    }
+  },
+  {
+    "Target": {
+      "MaxNolockBytes": {
+        "kind": "Mdt",
+        "param": "max_nolock_bytes",
+        "target": "ai400x2-MDT0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "MaxNolockBytes": {
+        "kind": "Ost",
+        "param": "max_nolock_bytes",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "MaxNolockBytes": {
+        "kind": "Ost",
+        "param": "max_nolock_bytes",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "MaxParallelAst": {
+        "kind": "Mdt",
+        "param": "max_parallel_ast",
+        "target": "ai400x2-MDT0000",
+        "value": 1024
+      }
+    }
+  },
+  {
+    "Target": {
+      "MaxParallelAst": {
+        "kind": "Ost",
+        "param": "max_parallel_ast",
+        "target": "ai400x2-OST0000",
+        "value": 1024
+      }
+    }
+  },
+  {
+    "Target": {
+      "MaxParallelAst": {
+        "kind": "Ost",
+        "param": "max_parallel_ast",
+        "target": "ai400x2-OST0001",
+        "value": 1024
+      }
+    }
+  },
+  {
+    "Target": {
+      "ResourceCount": {
+        "kind": "Mdt",
+        "param": "resource_count",
+        "target": "ai400x2-MDT0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "ResourceCount": {
+        "kind": "Ost",
+        "param": "resource_count",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "ResourceCount": {
+        "kind": "Ost",
+        "param": "resource_count",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "JobStatsMdt": {
+        "kind": "Mdt",
+        "param": "job_stats",
+        "target": "ai400x2-MDT0000",
+        "value": null
+      }
+    }
+  },
+  {
+    "Target": {
+      "Stats": {
+        "kind": "Mdt",
+        "param": "md_stats",
+        "target": "ai400x2-MDT0000",
+        "value": [
+          {
+            "name": "open",
+            "units": "usecs",
+            "samples": 10,
+            "min": 55,
+            "max": 1160,
+            "sum": 2312,
+            "sumsquare": 1529624
+          },
+          {
+            "name": "close",
+            "units": "usecs",
+            "samples": 90,
+            "min": 7,
+            "max": 90,
+            "sum": 1926,
+            "sumsquare": 77484
+          },
+          {
+            "name": "mknod",
+            "units": "usecs",
+            "samples": 7,
+            "min": 69,
+            "max": 1138,
+            "sum": 2038,
+            "sumsquare": 1448670
+          },
+          {
+            "name": "unlink",
+            "units": "usecs",
+            "samples": 4,
+            "min": 58,
+            "max": 163,
+            "sum": 466,
+            "sumsquare": 60366
+          },
+          {
+            "name": "mkdir",
+            "units": "usecs",
+            "samples": 1,
+            "min": 5054,
+            "max": 5054,
+            "sum": 5054,
+            "sumsquare": 25542916
+          },
+          {
+            "name": "getattr",
+            "units": "usecs",
+            "samples": 37,
+            "min": 2,
+            "max": 97,
+            "sum": 787,
+            "sumsquare": 35117
+          },
+          {
+            "name": "setattr",
+            "units": "usecs",
+            "samples": 10,
+            "min": 34,
+            "max": 89,
+            "sum": 528,
+            "sumsquare": 30090
+          },
+          {
+            "name": "getxattr",
+            "units": "usecs",
+            "samples": 2,
+            "min": 13,
+            "max": 17,
+            "sum": 30,
+            "sumsquare": 458
+          },
+          {
+            "name": "statfs",
+            "units": "usecs",
+            "samples": 773897,
+            "min": 0,
+            "max": 104,
+            "sum": 5981127,
+            "sumsquare": 53619709
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "NumExports": {
+        "kind": "Mdt",
+        "param": "num_exports",
+        "target": "ai400x2-MDT0000",
+        "value": 19
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "SendCount": {
+        "nid": "0@lo",
+        "param": "send_count",
+        "value": 3647005
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "RecvCount": {
+        "nid": "0@lo",
+        "param": "recv_count",
+        "value": 3646880
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "DropCount": {
+        "nid": "0@lo",
+        "param": "drop_count",
+        "value": 125
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "SendCount": {
+        "nid": "172.16.0.24@o2ib",
+        "param": "send_count",
+        "value": 12450030
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "RecvCount": {
+        "nid": "172.16.0.24@o2ib",
+        "param": "recv_count",
+        "value": 12463326
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "DropCount": {
+        "nid": "172.16.0.24@o2ib",
+        "param": "drop_count",
+        "value": 57
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "SendCount": {
+        "nid": "172.16.0.28@o2ib",
+        "param": "send_count",
+        "value": 12448709
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "RecvCount": {
+        "nid": "172.16.0.28@o2ib",
+        "param": "recv_count",
+        "value": 12462034
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "DropCount": {
+        "nid": "172.16.0.28@o2ib",
+        "param": "drop_count",
+        "value": 69
+      }
+    }
+  },
+  {
+    "Target": {
+      "FsNames": {
+        "kind": "Mgt",
+        "param": "fsnames",
+        "target": "MGS",
+        "value": ["ai400x2"]
+      }
+    }
+  },
+  {
+    "Target": {
+      "RecoveryStatus": {
+        "kind": "Ost",
+        "param": "recovery_status",
+        "target": "ai400x2-OST0000",
+        "value": "Complete"
+      }
+    }
+  },
+  {
+    "Target": {
+      "RecoveryStatus": {
+        "kind": "Ost",
+        "param": "recovery_status",
+        "target": "ai400x2-OST0001",
+        "value": "Complete"
+      }
+    }
+  },
+  {
+    "Target": {
+      "RecoveryStatus": {
+        "kind": "Mdt",
+        "param": "recovery_status",
+        "target": "ai400x2-MDT0000",
+        "value": "Complete"
+      }
+    }
+  }
+]
