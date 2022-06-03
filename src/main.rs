@@ -184,15 +184,6 @@ impl LNetStatsMetric {
     };
 }
 
-// {"job_stats", "job_read_samples_total", readSamplesHelp, s.counterMetric, false, core},
-// {"job_stats", "job_read_minimum_size_bytes", readMinimumHelp, s.gaugeMetric, false, core},
-// {"job_stats", "job_read_maximum_size_bytes", readMaximumHelp, s.gaugeMetric, false, core},
-// {"job_stats", "job_read_bytes_total", readTotalHelp, s.counterMetric, false, core},
-// {"job_stats", "job_write_samples_total", writeSamplesHelp, s.counterMetric, false, core},
-// {"job_stats", "job_write_minimum_size_bytes", writeMinimumHelp, s.gaugeMetric, false, extended},
-// {"job_stats", "job_write_maximum_size_bytes", writeMaximumHelp, s.gaugeMetric, false, extended},
-// {"job_stats", "job_write_bytes_total", writeTotalHelp, s.counterMetric, false, core},
-// {"job_stats", "job_stats_total", jobStatsHelp, s.counterMetric, true, core},
 struct JobStatOstMetric {}
 
 impl JobStatOstMetric {
