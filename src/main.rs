@@ -183,6 +183,62 @@ impl LNetStatsMetric {
         r#type: MetricType::Counter,
     };
 }
+
+// {"job_stats", "job_read_samples_total", readSamplesHelp, s.counterMetric, false, core},
+// {"job_stats", "job_read_minimum_size_bytes", readMinimumHelp, s.gaugeMetric, false, core},
+// {"job_stats", "job_read_maximum_size_bytes", readMaximumHelp, s.gaugeMetric, false, core},
+// {"job_stats", "job_read_bytes_total", readTotalHelp, s.counterMetric, false, core},
+// {"job_stats", "job_write_samples_total", writeSamplesHelp, s.counterMetric, false, core},
+// {"job_stats", "job_write_minimum_size_bytes", writeMinimumHelp, s.gaugeMetric, false, extended},
+// {"job_stats", "job_write_maximum_size_bytes", writeMaximumHelp, s.gaugeMetric, false, extended},
+// {"job_stats", "job_write_bytes_total", writeTotalHelp, s.counterMetric, false, core},
+// {"job_stats", "job_stats_total", jobStatsHelp, s.counterMetric, true, core},
+struct JobStatOstMetric {}
+
+impl JobStatOstMetric {
+    const READ_SAMPLES: Metric = Metric {
+        name: "job_read_samples_total",
+        help: "Total number of reads that have been recorded.",
+        r#type: MetricType::Counter,
+    };
+    const READ_MIN_SIZE_BYTES: Metric = Metric {
+        name: "job_read_minimum_size_bytes",
+        help: "The minimum read size in bytes.",
+        r#type: MetricType::Gauge,
+    };
+    const READ_MAX_SIZE_BYTES: Metric = Metric {
+        name: "job_read_maximum_size_bytes",
+        help: "The maximum read size in bytes.",
+        r#type: MetricType::Gauge,
+    };
+    const READ_BYTES: Metric = Metric {
+        name: "job_read_bytes_total",
+        help: "The total number of bytes that have been read.",
+        r#type: MetricType::Counter,
+    };
+
+    const WRITE_SAMPLES: Metric = Metric {
+        name: "job_write_samples_total",
+        help: "Total number of writes that have been recorded.",
+        r#type: MetricType::Counter,
+    };
+    const WRITE_MIN_SIZE_BYTES: Metric = Metric {
+        name: "job_write_minimum_size_bytes",
+        help: "The minimum write size in bytes.",
+        r#type: MetricType::Gauge,
+    };
+    const WRITE_MAX_SIZE_BYTES: Metric = Metric {
+        name: "job_write_maximum_size_bytes",
+        help: "The maximum write size in bytes.",
+        r#type: MetricType::Gauge,
+    };
+    const WRITE_BYTES: Metric = Metric {
+        name: "job_write_bytes_total",
+        help: "The total number of bytes that have been written.",
+        r#type: MetricType::Counter,
+    };
+}
+
 trait Name {
     fn name(&self) -> &'static str;
 }
@@ -291,12 +347,12 @@ fn build_brw_stats(
 
 fn build_ost_job_stats(
     x: TargetStat<Option<Vec<JobStatOst>>>,
-    _stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
-    _time: Duration,
+    stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
+    time: Duration,
 ) {
     let TargetStat {
-        kind: _,
-        target: _,
+        kind,
+        target,
         value,
         ..
     } = x;
@@ -306,7 +362,35 @@ fn build_ost_job_stats(
         None => return,
     };
 
-    for _x in xs {}
+    for x in xs {
+        let (rs, rmin, rmax, rb, ws, wmin, wmax, wb) =
+            jobstatost_inst(&x, kind.deref(), target.deref(), time);
+
+        stats_map
+            .get_mut_metric(JobStatOstMetric::READ_SAMPLES)
+            .render_and_append_instance(&rs);
+        stats_map
+            .get_mut_metric(JobStatOstMetric::READ_MIN_SIZE_BYTES)
+            .render_and_append_instance(&rmin);
+        stats_map
+            .get_mut_metric(JobStatOstMetric::READ_MAX_SIZE_BYTES)
+            .render_and_append_instance(&rmax);
+        stats_map
+            .get_mut_metric(JobStatOstMetric::READ_BYTES)
+            .render_and_append_instance(&rb);
+        stats_map
+            .get_mut_metric(JobStatOstMetric::WRITE_SAMPLES)
+            .render_and_append_instance(&ws);
+        stats_map
+            .get_mut_metric(JobStatOstMetric::WRITE_MIN_SIZE_BYTES)
+            .render_and_append_instance(&wmin);
+        stats_map
+            .get_mut_metric(JobStatOstMetric::WRITE_MAX_SIZE_BYTES)
+            .render_and_append_instance(&wmax);
+        stats_map
+            .get_mut_metric(JobStatOstMetric::WRITE_BYTES)
+            .render_and_append_instance(&wb);
+    }
 }
 
 fn build_target_stats(
@@ -493,6 +577,75 @@ fn rw_inst<'a>(
     (read, write)
 }
 
+type JobStatOstPromInst<'a> = (
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+);
+
+fn jobstatost_inst<'a>(
+    x: &'a JobStatOst,
+    kind: &'a str,
+    target: &'a str,
+    time: Duration,
+) -> JobStatOstPromInst<'a> {
+    let rs = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_value(x.read_bytes.samples)
+        .with_timestamp(time.as_millis());
+    let rmin = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_value(x.read_bytes.min)
+        .with_timestamp(time.as_millis());
+    let rmax = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_value(x.read_bytes.max)
+        .with_timestamp(time.as_millis());
+    let rb = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_value(x.read_bytes.sum)
+        .with_timestamp(time.as_millis());
+    let ws = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_value(x.write_bytes.samples)
+        .with_timestamp(time.as_millis());
+    let wmin = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_value(x.write_bytes.min)
+        .with_timestamp(time.as_millis());
+    let wmax = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_value(x.write_bytes.max)
+        .with_timestamp(time.as_millis());
+    let wb = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_value(x.write_bytes.sum)
+        .with_timestamp(time.as_millis());
+
+    (rs, rmin, rmax, rb, ws, wmin, wmax, wb)
+}
+
 #[derive(Debug)]
 struct Options;
 
@@ -529,6 +682,16 @@ mod tests {
     #[test]
     fn test_stats() {
         let output = include_str!("../fixtures/stats.json");
+
+        let x = serde_json::from_str(output).unwrap();
+
+        let x = build_lustre_stats(x, UNIX_EPOCH.duration_since(UNIX_EPOCH).unwrap());
+
+        insta::assert_display_snapshot!(x);
+    }
+    #[test]
+    fn test_jobstats() {
+        let output = include_str!("../fixtures/jobstats.json");
 
         let x = serde_json::from_str(output).unwrap();
 
