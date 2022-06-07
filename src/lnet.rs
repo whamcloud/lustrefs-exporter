@@ -1,0 +1,46 @@
+use std::{collections::BTreeMap, time::Duration};
+
+use lustre_collector::LNetStats;
+use prometheus_exporter_base::prelude::*;
+
+use crate::{Metric, StatsMapExt, ToMetricInst};
+
+static SEND_COUNT: Metric = Metric {
+    name: "send_count_total",
+    help: "Total number of messages that have been sent",
+    r#type: MetricType::Counter,
+};
+static RECEIVE_COUNT: Metric = Metric {
+    name: "receive_count_total",
+    help: "Total number of messages that have been received",
+    r#type: MetricType::Counter,
+};
+static DROP_COUNT: Metric = Metric {
+    name: "drop_count_total",
+    help: "Total number of messages that have been dropped",
+    r#type: MetricType::Counter,
+};
+
+pub fn build_lnet_stats(
+    x: LNetStats,
+    stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
+    time: Duration,
+) {
+    match x {
+        LNetStats::SendCount(x) => {
+            stats_map
+                .get_mut_metric(SEND_COUNT)
+                .render_and_append_instance(&x.to_metric_inst(time));
+        }
+        LNetStats::RecvCount(x) => {
+            stats_map
+                .get_mut_metric(RECEIVE_COUNT)
+                .render_and_append_instance(&x.to_metric_inst(time));
+        }
+        LNetStats::DropCount(x) => {
+            stats_map
+                .get_mut_metric(DROP_COUNT)
+                .render_and_append_instance(&x.to_metric_inst(time));
+        }
+    };
+}

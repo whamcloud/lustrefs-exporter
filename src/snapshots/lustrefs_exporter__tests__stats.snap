@@ -1,5 +1,6 @@
 ---
 source: src/main.rs
+assertion_line: 537
 expression: x
 ---
 # HELP available_bytes Number of bytes readily available in the pool
@@ -73,6 +74,12 @@ disk_io_total{component="OST",operation="read",target="ai400x2-OST0000",size="10
 disk_io_total{component="OST",operation="write",target="ai400x2-OST0000",size="1048576"} 2946 0
 disk_io_total{component="OST",operation="read",target="ai400x2-OST0001",size="1048576"} 0 0
 disk_io_total{component="OST",operation="write",target="ai400x2-OST0001",size="1048576"} 2500 0
+
+# HELP drop_count_total Total number of messages that have been dropped
+# TYPE drop_count_total counter
+drop_count_total{nid="0@lo"} 125 0
+drop_count_total{nid="172.16.0.24@o2ib"} 57 0
+drop_count_total{nid="172.16.0.28@o2ib"} 69 0
 
 # HELP exports_dirty_total Total number of exports that have been marked dirty
 # TYPE exports_dirty_total counter
@@ -172,4 +179,16 @@ pages_per_bulk_rw_total{component="OST",operation="read",target="ai400x2-OST0000
 pages_per_bulk_rw_total{component="OST",operation="write",target="ai400x2-OST0000",size="1024"} 736 0
 pages_per_bulk_rw_total{component="OST",operation="read",target="ai400x2-OST0001",size="1024"} 0 0
 pages_per_bulk_rw_total{component="OST",operation="write",target="ai400x2-OST0001",size="1024"} 625 0
+
+# HELP receive_count_total Total number of messages that have been received
+# TYPE receive_count_total counter
+receive_count_total{nid="0@lo"} 3646880 0
+receive_count_total{nid="172.16.0.24@o2ib"} 12463326 0
+receive_count_total{nid="172.16.0.28@o2ib"} 12462034 0
+
+# HELP send_count_total Total number of messages that have been sent
+# TYPE send_count_total counter
+send_count_total{nid="0@lo"} 3647005 0
+send_count_total{nid="172.16.0.24@o2ib"} 12450030 0
+send_count_total{nid="172.16.0.28@o2ib"} 12448709 0
 

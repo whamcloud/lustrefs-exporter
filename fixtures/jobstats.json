@@ -1,0 +1,2153 @@
+[
+    {
+        "Host": {
+            "Memused": {
+                "param": "memused",
+                "value": 960353731
+            }
+        }
+    },
+    {
+        "Host": {
+            "MemusedMax": {
+                "param": "memused_max",
+                "value": 986837595
+            }
+        }
+    },
+    {
+        "Host": {
+            "LNetMemUsed": {
+                "param": "lnet_memused",
+                "value": 50039323
+            }
+        }
+    },
+    {
+        "Host": {
+            "HealthCheck": {
+                "param": "health_check",
+                "value": "healthy"
+            }
+        }
+    },
+    {
+        "Target": {
+            "ConnectedClients": {
+                "kind": "Mdt",
+                "param": "connected_clients",
+                "target": "fs-MDT0000",
+                "value": 1
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesFree": {
+                "kind": "Mgt",
+                "param": "filesfree",
+                "target": "MGS",
+                "value": 32570
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesFree": {
+                "kind": "Mdt",
+                "param": "filesfree",
+                "target": "fs-MDT0000",
+                "value": 1885348
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesFree": {
+                "kind": "Ost",
+                "param": "filesfree",
+                "target": "fs-OST0000",
+                "value": 40628
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesFree": {
+                "kind": "Ost",
+                "param": "filesfree",
+                "target": "fs-OST0001",
+                "value": 40628
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesTotal": {
+                "kind": "Mgt",
+                "param": "filestotal",
+                "target": "MGS",
+                "value": 32768
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesTotal": {
+                "kind": "Mdt",
+                "param": "filestotal",
+                "target": "fs-MDT0000",
+                "value": 1885696
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesTotal": {
+                "kind": "Ost",
+                "param": "filestotal",
+                "target": "fs-OST0000",
+                "value": 40960
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesTotal": {
+                "kind": "Ost",
+                "param": "filestotal",
+                "target": "fs-OST0001",
+                "value": 40960
+            }
+        }
+    },
+    {
+        "Target": {
+            "FsType": {
+                "kind": "Mgt",
+                "param": "fstype",
+                "target": "MGS",
+                "value": "ldiskfs"
+            }
+        }
+    },
+    {
+        "Target": {
+            "FsType": {
+                "kind": "Mdt",
+                "param": "fstype",
+                "target": "fs-MDT0000",
+                "value": "ldiskfs"
+            }
+        }
+    },
+    {
+        "Target": {
+            "FsType": {
+                "kind": "Ost",
+                "param": "fstype",
+                "target": "fs-OST0000",
+                "value": "ldiskfs"
+            }
+        }
+    },
+    {
+        "Target": {
+            "FsType": {
+                "kind": "Ost",
+                "param": "fstype",
+                "target": "fs-OST0001",
+                "value": "ldiskfs"
+            }
+        }
+    },
+    {
+        "Target": {
+            "BytesAvail": {
+                "kind": "Mgt",
+                "param": "kbytesavail",
+                "target": "MGS",
+                "value": 474824704
+            }
+        }
+    },
+    {
+        "Target": {
+            "BytesAvail": {
+                "kind": "Mdt",
+                "param": "kbytesavail",
+                "target": "fs-MDT0000",
+                "value": 2423201792
+            }
+        }
+    },
+    {
+        "Target": {
+            "BytesAvail": {
+                "kind": "Ost",
+                "param": "kbytesavail",
+                "target": "fs-OST0000",
+                "value": 4135227392
+            }
+        }
+    },
+    {
+        "Target": {
+            "BytesAvail": {
+                "kind": "Ost",
+                "param": "kbytesavail",
+                "target": "fs-OST0001",
+                "value": 4135227392
+            }
+        }
+    },
+    {
+        "Target": {
+            "BytesFree": {
+                "kind": "Mgt",
+                "param": "kbytesfree",
+                "target": "MGS",
+                "value": 501665792
+            }
+        }
+    },
+    {
+        "Target": {
+            "BytesFree": {
+                "kind": "Mdt",
+                "param": "kbytesfree",
+                "target": "fs-MDT0000",
+                "value": 2662928384
+            }
+        }
+    },
+    {
+        "Target": {
+            "BytesFree": {
+                "kind": "Ost",
+                "param": "kbytesfree",
+                "target": "fs-OST0000",
+                "value": 4205690880
+            }
+        }
+    },
+    {
+        "Target": {
+            "BytesFree": {
+                "kind": "Ost",
+                "param": "kbytesfree",
+                "target": "fs-OST0001",
+                "value": 4205690880
+            }
+        }
+    },
+    {
+        "Target": {
+            "BytesTotal": {
+                "kind": "Mgt",
+                "param": "kbytestotal",
+                "target": "MGS",
+                "value": 502878208
+            }
+        }
+    },
+    {
+        "Target": {
+            "BytesTotal": {
+                "kind": "Mdt",
+                "param": "kbytestotal",
+                "target": "fs-MDT0000",
+                "value": 2665299968
+            }
+        }
+    },
+    {
+        "Target": {
+            "BytesTotal": {
+                "kind": "Ost",
+                "param": "kbytestotal",
+                "target": "fs-OST0000",
+                "value": 4206989312
+            }
+        }
+    },
+    {
+        "Target": {
+            "BytesTotal": {
+                "kind": "Ost",
+                "param": "kbytestotal",
+                "target": "fs-OST0001",
+                "value": 4206989312
+            }
+        }
+    },
+    {
+        "Target": {
+            "BrwStats": {
+                "kind": "Mgt",
+                "param": "brw_stats",
+                "target": "MGS",
+                "value": [
+                    {
+                        "name": "pages",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "discont_pages",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "discont_blocks",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "dio_frags",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "rpc_hist",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "io_time",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "disk_iosize",
+                        "unit": "ios",
+                        "buckets": []
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "BrwStats": {
+                "kind": "Mdt",
+                "param": "brw_stats",
+                "target": "fs-MDT0000",
+                "value": [
+                    {
+                        "name": "pages",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "discont_pages",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "discont_blocks",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "dio_frags",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "rpc_hist",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "io_time",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "disk_iosize",
+                        "unit": "ios",
+                        "buckets": []
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "BrwStats": {
+                "kind": "Ost",
+                "param": "brw_stats",
+                "target": "fs-OST0000",
+                "value": [
+                    {
+                        "name": "pages",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 256,
+                                "read": 0,
+                                "write": 4
+                            },
+                            {
+                                "name": 512,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 1024,
+                                "read": 0,
+                                "write": 13
+                            }
+                        ]
+                    },
+                    {
+                        "name": "discont_pages",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 0,
+                                "read": 0,
+                                "write": 17
+                            },
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "discont_blocks",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 0,
+                                "read": 0,
+                                "write": 17
+                            },
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "dio_frags",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 2,
+                                "read": 0,
+                                "write": 4
+                            },
+                            {
+                                "name": 3,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 4,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 5,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 6,
+                                "read": 0,
+                                "write": 2
+                            },
+                            {
+                                "name": 7,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 8,
+                                "read": 0,
+                                "write": 11
+                            }
+                        ]
+                    },
+                    {
+                        "name": "rpc_hist",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 13
+                            },
+                            {
+                                "name": 2,
+                                "read": 0,
+                                "write": 18
+                            },
+                            {
+                                "name": 3,
+                                "read": 0,
+                                "write": 29
+                            },
+                            {
+                                "name": 4,
+                                "read": 0,
+                                "write": 19
+                            },
+                            {
+                                "name": 5,
+                                "read": 0,
+                                "write": 14
+                            },
+                            {
+                                "name": 6,
+                                "read": 0,
+                                "write": 11
+                            },
+                            {
+                                "name": 7,
+                                "read": 0,
+                                "write": 6
+                            },
+                            {
+                                "name": 8,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 9,
+                                "read": 0,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "io_time",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 16,
+                                "read": 0,
+                                "write": 2
+                            },
+                            {
+                                "name": 32,
+                                "read": 0,
+                                "write": 4
+                            },
+                            {
+                                "name": 64,
+                                "read": 0,
+                                "write": 9
+                            },
+                            {
+                                "name": 128,
+                                "read": 0,
+                                "write": 3
+                            }
+                        ]
+                    },
+                    {
+                        "name": "disk_iosize",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 524288,
+                                "read": 0,
+                                "write": 112
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "BrwStats": {
+                "kind": "Ost",
+                "param": "brw_stats",
+                "target": "fs-OST0001",
+                "value": [
+                    {
+                        "name": "pages",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 128,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 256,
+                                "read": 0,
+                                "write": 5
+                            },
+                            {
+                                "name": 512,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 1024,
+                                "read": 0,
+                                "write": 13
+                            }
+                        ]
+                    },
+                    {
+                        "name": "discont_pages",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 0,
+                                "read": 0,
+                                "write": 19
+                            },
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "discont_blocks",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 0,
+                                "read": 0,
+                                "write": 19
+                            },
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "dio_frags",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 2,
+                                "read": 0,
+                                "write": 5
+                            },
+                            {
+                                "name": 3,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 4,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 5,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 6,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 7,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 8,
+                                "read": 0,
+                                "write": 12
+                            }
+                        ]
+                    },
+                    {
+                        "name": "rpc_hist",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 15
+                            },
+                            {
+                                "name": 2,
+                                "read": 0,
+                                "write": 17
+                            },
+                            {
+                                "name": 3,
+                                "read": 0,
+                                "write": 23
+                            },
+                            {
+                                "name": 4,
+                                "read": 0,
+                                "write": 16
+                            },
+                            {
+                                "name": 5,
+                                "read": 0,
+                                "write": 15
+                            },
+                            {
+                                "name": 6,
+                                "read": 0,
+                                "write": 13
+                            },
+                            {
+                                "name": 7,
+                                "read": 0,
+                                "write": 6
+                            },
+                            {
+                                "name": 8,
+                                "read": 0,
+                                "write": 2
+                            },
+                            {
+                                "name": 9,
+                                "read": 0,
+                                "write": 2
+                            },
+                            {
+                                "name": 10,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 11,
+                                "read": 0,
+                                "write": 4
+                            },
+                            {
+                                "name": 12,
+                                "read": 0,
+                                "write": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": "io_time",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 16,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 32,
+                                "read": 0,
+                                "write": 10
+                            },
+                            {
+                                "name": 64,
+                                "read": 0,
+                                "write": 5
+                            },
+                            {
+                                "name": 128,
+                                "read": 0,
+                                "write": 4
+                            }
+                        ]
+                    },
+                    {
+                        "name": "disk_iosize",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 524288,
+                                "read": 0,
+                                "write": 116
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "ConnectedClients": {
+                "kind": "Mdt",
+                "param": "connected_clients",
+                "target": "fs-MDT0000",
+                "value": 1
+            }
+        }
+    },
+    {
+        "Target": {
+            "Stats": {
+                "kind": "Mgt",
+                "param": "stats",
+                "target": "MGS",
+                "value": [
+                    {
+                        "name": "req_waittime",
+                        "units": "usec",
+                        "samples": 3866,
+                        "min": 11,
+                        "max": 13328,
+                        "sum": 335392,
+                        "sumsquare": 235645948
+                    },
+                    {
+                        "name": "req_qdepth",
+                        "units": "reqs",
+                        "samples": 3866,
+                        "min": 0,
+                        "max": 0,
+                        "sum": 0,
+                        "sumsquare": 0
+                    },
+                    {
+                        "name": "req_active",
+                        "units": "reqs",
+                        "samples": 3866,
+                        "min": 1,
+                        "max": 2,
+                        "sum": 3874,
+                        "sumsquare": 3890
+                    },
+                    {
+                        "name": "req_timeout",
+                        "units": "sec",
+                        "samples": 3866,
+                        "min": 1,
+                        "max": 10,
+                        "sum": 3875,
+                        "sumsquare": 3965
+                    },
+                    {
+                        "name": "reqbuf_avail",
+                        "units": "bufs",
+                        "samples": 10892,
+                        "min": 62,
+                        "max": 64,
+                        "sum": 689352,
+                        "sumsquare": 43631204
+                    },
+                    {
+                        "name": "ldlm_plain_enqueue",
+                        "units": "reqs",
+                        "samples": 77,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 77,
+                        "sumsquare": 77
+                    },
+                    {
+                        "name": "mgs_connect",
+                        "units": "usec",
+                        "samples": 4,
+                        "min": 95,
+                        "max": 112,
+                        "sum": 425,
+                        "sumsquare": 45339
+                    },
+                    {
+                        "name": "mgs_target_reg",
+                        "units": "usec",
+                        "samples": 28,
+                        "min": 287,
+                        "max": 14125,
+                        "sum": 66380,
+                        "sumsquare": 465303626
+                    },
+                    {
+                        "name": "mgs_config_read",
+                        "units": "usec",
+                        "samples": 9,
+                        "min": 42,
+                        "max": 543,
+                        "sum": 3118,
+                        "sumsquare": 1436012
+                    },
+                    {
+                        "name": "obd_ping",
+                        "units": "usec",
+                        "samples": 3537,
+                        "min": 7,
+                        "max": 715,
+                        "sum": 133341,
+                        "sumsquare": 6999851
+                    },
+                    {
+                        "name": "llog_origin_handle_open",
+                        "units": "usec",
+                        "samples": 65,
+                        "min": 25,
+                        "max": 295,
+                        "sum": 3695,
+                        "sumsquare": 343939
+                    },
+                    {
+                        "name": "llog_origin_handle_next_block",
+                        "units": "usec",
+                        "samples": 89,
+                        "min": 20,
+                        "max": 9781,
+                        "sum": 21739,
+                        "sumsquare": 144853497
+                    },
+                    {
+                        "name": "llog_origin_handle_read_header",
+                        "units": "usec",
+                        "samples": 57,
+                        "min": 26,
+                        "max": 24207,
+                        "sum": 46691,
+                        "sumsquare": 772775043
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "ThreadsMax": {
+                "kind": "Mgt",
+                "param": "threads_max",
+                "target": "MGS",
+                "value": 32
+            }
+        }
+    },
+    {
+        "Target": {
+            "ThreadsMin": {
+                "kind": "Mgt",
+                "param": "threads_min",
+                "target": "MGS",
+                "value": 3
+            }
+        }
+    },
+    {
+        "Target": {
+            "ThreadsStarted": {
+                "kind": "Mgt",
+                "param": "threads_started",
+                "target": "MGS",
+                "value": 3
+            }
+        }
+    },
+    {
+        "Target": {
+            "NumExports": {
+                "kind": "Mgt",
+                "param": "num_exports",
+                "target": "MGS",
+                "value": 4
+            }
+        }
+    },
+    {
+        "Target": {
+            "JobStatsOst": {
+                "kind": "Ost",
+                "param": "job_stats",
+                "target": "fs-OST0000",
+                "value": [
+                    {
+                        "job_id": "kworker/2:2.0",
+                        "snapshot_time": 1654270796,
+                        "read_bytes": {
+                            "samples": 0,
+                            "unit": "bytes",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "write_bytes": {
+                            "samples": 0,
+                            "unit": "bytes",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "getattr": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "setattr": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "punch": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "sync": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "destroy": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "create": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "statfs": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "get_info": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "set_info": {
+                            "samples": 1,
+                            "unit": "usecs"
+                        },
+                        "quotactl": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        }
+                    },
+                    {
+                        "job_id": "dd.0",
+                        "snapshot_time": 1654271429,
+                        "read_bytes": {
+                            "samples": 0,
+                            "unit": "bytes",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "write_bytes": {
+                            "samples": 17,
+                            "unit": "bytes",
+                            "min": 1048576,
+                            "max": 4194304,
+                            "sum": 57671680
+                        },
+                        "getattr": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "setattr": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "punch": {
+                            "samples": 4,
+                            "unit": "usecs"
+                        },
+                        "sync": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "destroy": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "create": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "statfs": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "get_info": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "set_info": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "quotactl": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "JobStatsOst": {
+                "kind": "Ost",
+                "param": "job_stats",
+                "target": "fs-OST0001",
+                "value": [
+                    {
+                        "job_id": "kworker/2:2.0",
+                        "snapshot_time": 1654270796,
+                        "read_bytes": {
+                            "samples": 0,
+                            "unit": "bytes",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "write_bytes": {
+                            "samples": 0,
+                            "unit": "bytes",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "getattr": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "setattr": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "punch": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "sync": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "destroy": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "create": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "statfs": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "get_info": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "set_info": {
+                            "samples": 1,
+                            "unit": "usecs"
+                        },
+                        "quotactl": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        }
+                    },
+                    {
+                        "job_id": "dd.0",
+                        "snapshot_time": 1654271429,
+                        "read_bytes": {
+                            "samples": 0,
+                            "unit": "bytes",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "write_bytes": {
+                            "samples": 19,
+                            "unit": "bytes",
+                            "min": 524288,
+                            "max": 4194304,
+                            "sum": 59670528
+                        },
+                        "getattr": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "setattr": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "punch": {
+                            "samples": 4,
+                            "unit": "usecs"
+                        },
+                        "sync": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "destroy": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "create": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "statfs": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "get_info": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "set_info": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        },
+                        "quotactl": {
+                            "samples": 0,
+                            "unit": "usecs"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Stats": {
+                "kind": "Ost",
+                "param": "stats",
+                "target": "fs-OST0000",
+                "value": [
+                    {
+                        "name": "write_bytes",
+                        "units": "bytes",
+                        "samples": 18,
+                        "min": 1048576,
+                        "max": 4194304,
+                        "sum": 58720256,
+                        "sumsquare": 222101348810752
+                    },
+                    {
+                        "name": "write",
+                        "units": "usecs",
+                        "samples": 18,
+                        "min": 623,
+                        "max": 34050,
+                        "sum": 143273,
+                        "sumsquare": 2876079629
+                    },
+                    {
+                        "name": "punch",
+                        "units": "usecs",
+                        "samples": 7,
+                        "min": 35,
+                        "max": 3518,
+                        "sum": 3842,
+                        "sumsquare": 12398704
+                    },
+                    {
+                        "name": "create",
+                        "units": "usecs",
+                        "samples": 4,
+                        "min": 2,
+                        "max": 82810,
+                        "sum": 83462,
+                        "sumsquare": 6857913436
+                    },
+                    {
+                        "name": "statfs",
+                        "units": "usecs",
+                        "samples": 4395,
+                        "min": 1,
+                        "max": 638,
+                        "sum": 49699,
+                        "sumsquare": 1708199
+                    },
+                    {
+                        "name": "get_info",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 5,
+                        "max": 72680,
+                        "sum": 72685,
+                        "sumsquare": 5282382425
+                    },
+                    {
+                        "name": "set_info",
+                        "units": "usecs",
+                        "samples": 3,
+                        "min": 11,
+                        "max": 11,
+                        "sum": 33,
+                        "sumsquare": 363
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Stats": {
+                "kind": "Ost",
+                "param": "stats",
+                "target": "fs-OST0001",
+                "value": [
+                    {
+                        "name": "write_bytes",
+                        "units": "bytes",
+                        "samples": 20,
+                        "min": 524288,
+                        "max": 4194304,
+                        "sum": 60719104,
+                        "sumsquare": 227952168009728
+                    },
+                    {
+                        "name": "write",
+                        "units": "usecs",
+                        "samples": 20,
+                        "min": 334,
+                        "max": 33012,
+                        "sum": 77654,
+                        "sumsquare": 1221481394
+                    },
+                    {
+                        "name": "punch",
+                        "units": "usecs",
+                        "samples": 7,
+                        "min": 40,
+                        "max": 5119,
+                        "sum": 5876,
+                        "sumsquare": 26381960
+                    },
+                    {
+                        "name": "create",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 456,
+                        "max": 9555,
+                        "sum": 10011,
+                        "sumsquare": 91505961
+                    },
+                    {
+                        "name": "statfs",
+                        "units": "usecs",
+                        "samples": 4386,
+                        "min": 0,
+                        "max": 183,
+                        "sum": 45164,
+                        "sumsquare": 618892
+                    },
+                    {
+                        "name": "set_info",
+                        "units": "usecs",
+                        "samples": 3,
+                        "min": 6,
+                        "max": 11,
+                        "sum": 24,
+                        "sumsquare": 206
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "NumExports": {
+                "kind": "Ost",
+                "param": "num_exports",
+                "target": "fs-OST0000",
+                "value": 2
+            }
+        }
+    },
+    {
+        "Target": {
+            "NumExports": {
+                "kind": "Ost",
+                "param": "num_exports",
+                "target": "fs-OST0001",
+                "value": 2
+            }
+        }
+    },
+    {
+        "Target": {
+            "TotDirty": {
+                "kind": "Ost",
+                "param": "tot_dirty",
+                "target": "fs-OST0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "TotDirty": {
+                "kind": "Ost",
+                "param": "tot_dirty",
+                "target": "fs-OST0001",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "TotGranted": {
+                "kind": "Ost",
+                "param": "tot_granted",
+                "target": "fs-OST0000",
+                "value": 98188992
+            }
+        }
+    },
+    {
+        "Target": {
+            "TotGranted": {
+                "kind": "Ost",
+                "param": "tot_granted",
+                "target": "fs-OST0001",
+                "value": 113017408
+            }
+        }
+    },
+    {
+        "Target": {
+            "TotPending": {
+                "kind": "Ost",
+                "param": "tot_pending",
+                "target": "fs-OST0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "TotPending": {
+                "kind": "Ost",
+                "param": "tot_pending",
+                "target": "fs-OST0001",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "ContendedLocks": {
+                "kind": "Mdt",
+                "param": "contended_locks",
+                "target": "fs-MDT0000",
+                "value": 32
+            }
+        }
+    },
+    {
+        "Target": {
+            "ContendedLocks": {
+                "kind": "Ost",
+                "param": "contended_locks",
+                "target": "fs-OST0000",
+                "value": 32
+            }
+        }
+    },
+    {
+        "Target": {
+            "ContendedLocks": {
+                "kind": "Ost",
+                "param": "contended_locks",
+                "target": "fs-OST0001",
+                "value": 32
+            }
+        }
+    },
+    {
+        "Target": {
+            "ContentionSeconds": {
+                "kind": "Mdt",
+                "param": "contention_seconds",
+                "target": "fs-MDT0000",
+                "value": 2
+            }
+        }
+    },
+    {
+        "Target": {
+            "ContentionSeconds": {
+                "kind": "Ost",
+                "param": "contention_seconds",
+                "target": "fs-OST0000",
+                "value": 2
+            }
+        }
+    },
+    {
+        "Target": {
+            "ContentionSeconds": {
+                "kind": "Ost",
+                "param": "contention_seconds",
+                "target": "fs-OST0001",
+                "value": 2
+            }
+        }
+    },
+    {
+        "Target": {
+            "CtimeAgeLimit": {
+                "kind": "Mdt",
+                "param": "ctime_age_limit",
+                "target": "fs-MDT0000",
+                "value": 10
+            }
+        }
+    },
+    {
+        "Target": {
+            "CtimeAgeLimit": {
+                "kind": "Ost",
+                "param": "ctime_age_limit",
+                "target": "fs-OST0000",
+                "value": 10
+            }
+        }
+    },
+    {
+        "Target": {
+            "CtimeAgeLimit": {
+                "kind": "Ost",
+                "param": "ctime_age_limit",
+                "target": "fs-OST0001",
+                "value": 10
+            }
+        }
+    },
+    {
+        "Target": {
+            "EarlyLockCancel": {
+                "kind": "Mdt",
+                "param": "early_lock_cancel",
+                "target": "fs-MDT0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "EarlyLockCancel": {
+                "kind": "Ost",
+                "param": "early_lock_cancel",
+                "target": "fs-OST0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "EarlyLockCancel": {
+                "kind": "Ost",
+                "param": "early_lock_cancel",
+                "target": "fs-OST0001",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockCount": {
+                "kind": "Mdt",
+                "param": "lock_count",
+                "target": "fs-MDT0000",
+                "value": 32
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockCount": {
+                "kind": "Ost",
+                "param": "lock_count",
+                "target": "fs-OST0000",
+                "value": 1
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockCount": {
+                "kind": "Ost",
+                "param": "lock_count",
+                "target": "fs-OST0001",
+                "value": 1
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockTimeouts": {
+                "kind": "Mdt",
+                "param": "lock_timeouts",
+                "target": "fs-MDT0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockTimeouts": {
+                "kind": "Ost",
+                "param": "lock_timeouts",
+                "target": "fs-OST0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockTimeouts": {
+                "kind": "Ost",
+                "param": "lock_timeouts",
+                "target": "fs-OST0001",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockUnusedCount": {
+                "kind": "Mdt",
+                "param": "lock_unused_count",
+                "target": "fs-MDT0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockUnusedCount": {
+                "kind": "Ost",
+                "param": "lock_unused_count",
+                "target": "fs-OST0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockUnusedCount": {
+                "kind": "Ost",
+                "param": "lock_unused_count",
+                "target": "fs-OST0001",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LruMaxAge": {
+                "kind": "Mdt",
+                "param": "lru_max_age",
+                "target": "fs-MDT0000",
+                "value": 3900000
+            }
+        }
+    },
+    {
+        "Target": {
+            "LruMaxAge": {
+                "kind": "Ost",
+                "param": "lru_max_age",
+                "target": "fs-OST0000",
+                "value": 3900000
+            }
+        }
+    },
+    {
+        "Target": {
+            "LruMaxAge": {
+                "kind": "Ost",
+                "param": "lru_max_age",
+                "target": "fs-OST0001",
+                "value": 3900000
+            }
+        }
+    },
+    {
+        "Target": {
+            "LruSize": {
+                "kind": "Mdt",
+                "param": "lru_size",
+                "target": "fs-MDT0000",
+                "value": 800
+            }
+        }
+    },
+    {
+        "Target": {
+            "LruSize": {
+                "kind": "Ost",
+                "param": "lru_size",
+                "target": "fs-OST0000",
+                "value": 800
+            }
+        }
+    },
+    {
+        "Target": {
+            "LruSize": {
+                "kind": "Ost",
+                "param": "lru_size",
+                "target": "fs-OST0001",
+                "value": 800
+            }
+        }
+    },
+    {
+        "Target": {
+            "MaxNolockBytes": {
+                "kind": "Mdt",
+                "param": "max_nolock_bytes",
+                "target": "fs-MDT0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "MaxNolockBytes": {
+                "kind": "Ost",
+                "param": "max_nolock_bytes",
+                "target": "fs-OST0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "MaxNolockBytes": {
+                "kind": "Ost",
+                "param": "max_nolock_bytes",
+                "target": "fs-OST0001",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "MaxParallelAst": {
+                "kind": "Mdt",
+                "param": "max_parallel_ast",
+                "target": "fs-MDT0000",
+                "value": 1024
+            }
+        }
+    },
+    {
+        "Target": {
+            "MaxParallelAst": {
+                "kind": "Ost",
+                "param": "max_parallel_ast",
+                "target": "fs-OST0000",
+                "value": 1024
+            }
+        }
+    },
+    {
+        "Target": {
+            "MaxParallelAst": {
+                "kind": "Ost",
+                "param": "max_parallel_ast",
+                "target": "fs-OST0001",
+                "value": 1024
+            }
+        }
+    },
+    {
+        "Target": {
+            "ResourceCount": {
+                "kind": "Mdt",
+                "param": "resource_count",
+                "target": "fs-MDT0000",
+                "value": 7
+            }
+        }
+    },
+    {
+        "Target": {
+            "ResourceCount": {
+                "kind": "Ost",
+                "param": "resource_count",
+                "target": "fs-OST0000",
+                "value": 1
+            }
+        }
+    },
+    {
+        "Target": {
+            "ResourceCount": {
+                "kind": "Ost",
+                "param": "resource_count",
+                "target": "fs-OST0001",
+                "value": 1
+            }
+        }
+    },
+    {
+        "Target": {
+            "JobStatsMdt": {
+                "kind": "Mdt",
+                "param": "job_stats",
+                "target": "fs-MDT0000",
+                "value": [
+                    {
+                        "job_id": "dd.0",
+                        "snapshot_time": 1654271429,
+                        "open": {
+                            "samples": 1,
+                            "unit": "usecs",
+                            "min": 100,
+                            "max": 100,
+                            "sum": 100
+                        },
+                        "close": {
+                            "samples": 4,
+                            "unit": "usecs",
+                            "min": 79,
+                            "max": 142,
+                            "sum": 419
+                        },
+                        "mknod": {
+                            "samples": 0,
+                            "unit": "usecs",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "link": {
+                            "samples": 0,
+                            "unit": "usecs",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "unlink": {
+                            "samples": 0,
+                            "unit": "usecs",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "mkdir": {
+                            "samples": 0,
+                            "unit": "usecs",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "rmdir": {
+                            "samples": 0,
+                            "unit": "usecs",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "rename": {
+                            "samples": 0,
+                            "unit": "usecs",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "getattr": {
+                            "samples": 3,
+                            "unit": "usecs",
+                            "min": 20,
+                            "max": 24,
+                            "sum": 66
+                        },
+                        "setattr": {
+                            "samples": 4,
+                            "unit": "usecs",
+                            "min": 76,
+                            "max": 132,
+                            "sum": 370
+                        },
+                        "getxattr": {
+                            "samples": 1,
+                            "unit": "usecs",
+                            "min": 21,
+                            "max": 21,
+                            "sum": 21
+                        },
+                        "setxattr": {
+                            "samples": 0,
+                            "unit": "usecs",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "statfs": {
+                            "samples": 0,
+                            "unit": "usecs",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "sync": {
+                            "samples": 0,
+                            "unit": "usecs",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "samedir_rename": {
+                            "samples": 0,
+                            "unit": "usecs",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "crossdir_rename": {
+                            "samples": 0,
+                            "unit": "usecs",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "read_bytes": {
+                            "samples": 0,
+                            "unit": "bytes",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "write_bytes": {
+                            "samples": 0,
+                            "unit": "bytes",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        },
+                        "punch": {
+                            "samples": 0,
+                            "unit": "usecs",
+                            "min": 0,
+                            "max": 0,
+                            "sum": 0
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Stats": {
+                "kind": "Mdt",
+                "param": "md_stats",
+                "target": "fs-MDT0000",
+                "value": [
+                    {
+                        "name": "open",
+                        "units": "usecs",
+                        "samples": 4,
+                        "min": 100,
+                        "max": 1033,
+                        "sum": 1442,
+                        "sumsquare": 1129930
+                    },
+                    {
+                        "name": "close",
+                        "units": "usecs",
+                        "samples": 11,
+                        "min": 25,
+                        "max": 150,
+                        "sum": 1014,
+                        "sumsquare": 109180
+                    },
+                    {
+                        "name": "mknod",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 188,
+                        "max": 1008,
+                        "sum": 1196,
+                        "sumsquare": 1051408
+                    },
+                    {
+                        "name": "getattr",
+                        "units": "usecs",
+                        "samples": 15,
+                        "min": 11,
+                        "max": 237,
+                        "sum": 554,
+                        "sumsquare": 63678
+                    },
+                    {
+                        "name": "setattr",
+                        "units": "usecs",
+                        "samples": 7,
+                        "min": 76,
+                        "max": 132,
+                        "sum": 623,
+                        "sumsquare": 57821
+                    },
+                    {
+                        "name": "getxattr",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 21,
+                        "max": 23,
+                        "sum": 44,
+                        "sumsquare": 970
+                    },
+                    {
+                        "name": "statfs",
+                        "units": "usecs",
+                        "samples": 3,
+                        "min": 2,
+                        "max": 10,
+                        "sum": 18,
+                        "sumsquare": 140
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "NumExports": {
+                "kind": "Mdt",
+                "param": "num_exports",
+                "target": "fs-MDT0000",
+                "value": 10
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "SendCount": {
+                "nid": "0@lo",
+                "param": "send_count",
+                "value": 27014
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "RecvCount": {
+                "nid": "0@lo",
+                "param": "recv_count",
+                "value": 27011
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "DropCount": {
+                "nid": "0@lo",
+                "param": "drop_count",
+                "value": 3
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "SendCount": {
+                "nid": "10.73.20.11@tcp",
+                "param": "send_count",
+                "value": 25956
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "RecvCount": {
+                "nid": "10.73.20.11@tcp",
+                "param": "recv_count",
+                "value": 25960
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "DropCount": {
+                "nid": "10.73.20.11@tcp",
+                "param": "drop_count",
+                "value": 5
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "SendCount": {
+                "nid": "10.73.20.51@tcp",
+                "param": "send_count",
+                "value": 25870
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "RecvCount": {
+                "nid": "10.73.20.51@tcp",
+                "param": "recv_count",
+                "value": 25880
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "DropCount": {
+                "nid": "10.73.20.51@tcp",
+                "param": "drop_count",
+                "value": 6
+            }
+        }
+    },
+    {
+        "Target": {
+            "FsNames": {
+                "kind": "Mgt",
+                "param": "fsnames",
+                "target": "MGS",
+                "value": [
+                    "fs"
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "RecoveryStatus": {
+                "kind": "Ost",
+                "param": "recovery_status",
+                "target": "fs-OST0000",
+                "value": "Complete"
+            }
+        }
+    },
+    {
+        "Target": {
+            "RecoveryStatus": {
+                "kind": "Ost",
+                "param": "recovery_status",
+                "target": "fs-OST0001",
+                "value": "Complete"
+            }
+        }
+    },
+    {
+        "Target": {
+            "RecoveryStatus": {
+                "kind": "Mdt",
+                "param": "recovery_status",
+                "target": "fs-MDT0000",
+                "value": "Inactive"
+            }
+        }
+    }
+]
