@@ -8,6 +8,7 @@ use lustre_collector::{LNetStat, Record, TargetStat};
 use num_traits::Num;
 use prometheus_exporter_base::{prelude::*, Yes};
 use std::{collections::BTreeMap, fmt, ops::Deref, time::Duration};
+
 #[derive(Debug, Clone, Copy)]
 struct Metric {
     name: &'static str,
