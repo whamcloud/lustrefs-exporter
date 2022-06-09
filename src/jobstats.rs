@@ -6,43 +6,43 @@ use prometheus_exporter_base::{prelude::*, Yes};
 use crate::{Metric, StatsMapExt};
 
 static READ_SAMPLES: Metric = Metric {
-    name: "job_read_samples_total",
+    name: "lustre_job_read_samples_total",
     help: "Total number of reads that have been recorded.",
     r#type: MetricType::Counter,
 };
 static READ_MIN_SIZE_BYTES: Metric = Metric {
-    name: "job_read_minimum_size_bytes",
+    name: "lustre_job_read_minimum_size_bytes",
     help: "The minimum read size in bytes.",
     r#type: MetricType::Gauge,
 };
 static READ_MAX_SIZE_BYTES: Metric = Metric {
-    name: "job_read_maximum_size_bytes",
+    name: "lustre_job_read_maximum_size_bytes",
     help: "The maximum read size in bytes.",
     r#type: MetricType::Gauge,
 };
 static READ_BYTES: Metric = Metric {
-    name: "job_read_bytes_total",
+    name: "lustre_job_read_bytes_total",
     help: "The total number of bytes that have been read.",
     r#type: MetricType::Counter,
 };
 
 static WRITE_SAMPLES: Metric = Metric {
-    name: "job_write_samples_total",
+    name: "lustre_job_write_samples_total",
     help: "Total number of writes that have been recorded.",
     r#type: MetricType::Counter,
 };
 static WRITE_MIN_SIZE_BYTES: Metric = Metric {
-    name: "job_write_minimum_size_bytes",
+    name: "lustre_job_write_minimum_size_bytes",
     help: "The minimum write size in bytes.",
     r#type: MetricType::Gauge,
 };
 static WRITE_MAX_SIZE_BYTES: Metric = Metric {
-    name: "job_write_maximum_size_bytes",
+    name: "lustre_job_write_maximum_size_bytes",
     help: "The maximum write size in bytes.",
     r#type: MetricType::Gauge,
 };
 static WRITE_BYTES: Metric = Metric {
-    name: "job_write_bytes_total",
+    name: "lustre_job_write_bytes_total",
     help: "The total number of bytes that have been written.",
     r#type: MetricType::Counter,
 };
