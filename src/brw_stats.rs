@@ -3,7 +3,7 @@ use std::{collections::BTreeMap, ops::Deref, time::Duration};
 use lustre_collector::{BrwStats, BrwStatsBucket, TargetStat, TargetStats};
 use prometheus_exporter_base::{prelude::*, Yes};
 
-use crate::{jobstats::build_ost_job_stats, Metric, StatsMapExt, ToMetricInst};
+use crate::{jobstats::build_ost_job_stats, stats::build_stats, Metric, StatsMapExt, ToMetricInst};
 
 static DISK_IO_TOTAL: Metric = Metric {
     name: "disk_io_total",
@@ -204,7 +204,9 @@ pub fn build_target_stats(
         TargetStats::JobStatsOst(x) => {
             build_ost_job_stats(x, stats_map, time);
         }
-        TargetStats::Stats(_x) => {}
+        TargetStats::Stats(x) => {
+            build_stats(x, stats_map, time);
+        }
         TargetStats::BrwStats(x) => {
             build_brw_stats(x, stats_map, time);
         }

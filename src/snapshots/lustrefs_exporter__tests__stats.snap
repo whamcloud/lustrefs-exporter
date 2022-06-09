@@ -1,6 +1,5 @@
 ---
 source: src/main.rs
-assertion_line: 537
 expression: x
 ---
 # HELP available_bytes Number of bytes readily available in the pool
@@ -191,4 +190,24 @@ receive_count_total{nid="172.16.0.28@o2ib"} 12462034 0
 send_count_total{nid="0@lo"} 3647005 0
 send_count_total{nid="172.16.0.24@o2ib"} 12450030 0
 send_count_total{nid="172.16.0.28@o2ib"} 12448709 0
+
+# HELP write_bytes_total The total number of bytes that have been written.
+# TYPE write_bytes_total counter
+write_bytes_total{component="OST",operation="write",target="ai400x2-OST0000"} 3089104896 0
+write_bytes_total{component="OST",operation="write",target="ai400x2-OST0001"} 2621440000 0
+
+# HELP write_maximum_size_bytes The maximum write size in bytes.
+# TYPE write_maximum_size_bytes gauge
+write_maximum_size_bytes{component="OST",operation="write",target="ai400x2-OST0000"} 4194304 0
+write_maximum_size_bytes{component="OST",operation="write",target="ai400x2-OST0001"} 4194304 0
+
+# HELP write_minimum_size_bytes The minimum write size in bytes.
+# TYPE write_minimum_size_bytes gauge
+write_minimum_size_bytes{component="OST",operation="write",target="ai400x2-OST0000"} 1048576 0
+write_minimum_size_bytes{component="OST",operation="write",target="ai400x2-OST0001"} 4194304 0
+
+# HELP write_samples_total Total number of writes that have been recorded.
+# TYPE write_samples_total counter
+write_samples_total{component="OST",operation="write",target="ai400x2-OST0000"} 738 0
+write_samples_total{component="OST",operation="write",target="ai400x2-OST0001"} 625 0
 
