@@ -6,127 +6,127 @@ use prometheus_exporter_base::{prelude::*, Yes};
 use crate::{jobstats::build_ost_job_stats, stats::build_stats, Metric, StatsMapExt, ToMetricInst};
 
 static DISK_IO_TOTAL: Metric = Metric {
-    name: "disk_io_total",
+    name: "lustre_disk_io_total",
     help: "Total number of operations the filesystem has performed for the given size.",
     r#type: MetricType::Counter,
 };
 
 static DISK_IO_FRAGS: Metric = Metric {
-    name: "dio_frags",
+    name: "lustre_dio_frags",
     help: "Current disk IO fragmentation for the given size.",
     r#type: MetricType::Gauge,
 };
 
 static DISK_IO: Metric = Metric {
-    name: "disk_io",
+    name: "lustre_disk_io",
     help: "Current number of I/O operations that are processing during the snapshot.",
     r#type: MetricType::Gauge,
 };
 
 static DISCONTIGUOUS_PAGES_TOTAL: Metric = Metric {
-    name: "discontiguous_pages_total",
+    name: "lustre_discontiguous_pages_total",
     help: "Total number of logical discontinuities per RPC.",
     r#type: MetricType::Counter,
 };
 
 static DISCONTIGUOUS_BLOCKS_TOTAL: Metric = Metric {
-    name: "discontiguous_blocks_total",
+    name: "lustre_discontiguous_blocks_total",
     help: "",
     r#type: MetricType::Counter,
 };
 
 static IO_TIME_MILLISECONDS_TOTAL: Metric = Metric {
-    name: "io_time_milliseconds_total",
+    name: "lustre_io_time_milliseconds_total",
     help: "Total time in milliseconds the filesystem has spent processing various object sizes.",
     r#type: MetricType::Counter,
 };
 
 static PAGES_PER_BULK_RW_TOTAL: Metric = Metric {
-    name: "pages_per_bulk_rw_total",
+    name: "lustre_pages_per_bulk_rw_total",
     help: "Total number of pages per block RPC.",
     r#type: MetricType::Counter,
 };
 
 static INODES_FREE: Metric = Metric {
-    name: "inodes_free",
+    name: "lustre_inodes_free",
     help: "The number of inodes (objects) available",
     r#type: MetricType::Gauge,
 };
 
 static INODES_MAXIMUM: Metric = Metric {
-    name: "inodes_maximum",
+    name: "lustre_inodes_maximum",
     help: "The maximum number of inodes (objects) the filesystem can hold",
     r#type: MetricType::Gauge,
 };
 
 static AVAILABLE_BYTES: Metric = Metric {
-    name: "available_bytes",
+    name: "lustre_available_bytes",
     help: "Number of bytes readily available in the pool",
     r#type: MetricType::Gauge,
 };
 
 static FREE_BYTES: Metric = Metric {
-    name: "free_bytes",
+    name: "lustre_free_bytes",
     help: "Number of bytes allocated to the pool",
     r#type: MetricType::Gauge,
 };
 
 static CAPACITY_BYTES: Metric = Metric {
-    name: "capacity_bytes",
+    name: "lustre_capacity_bytes",
     help: "Capacity of the pool in bytes",
     r#type: MetricType::Gauge,
 };
 
 static EXPORTS_TOTAL: Metric = Metric {
-    name: "exports_total",
+    name: "lustre_exports_total",
     help: "Total number of times the pool has been exported",
     r#type: MetricType::Counter,
 };
 
 static EXPORTS_DIRTY_TOTAL: Metric = Metric {
-    name: "exports_dirty_total",
+    name: "lustre_exports_dirty_total",
     help: "Total number of exports that have been marked dirty",
     r#type: MetricType::Counter,
 };
 
 static EXPORTS_GRANTED_TOTAL: Metric = Metric {
-    name: "exports_granted_total",
+    name: "lustre_exports_granted_total",
     help: "Total number of exports that have been marked granted",
     r#type: MetricType::Counter,
 };
 
 static EXPORTS_PENDING_TOTAL: Metric = Metric {
-    name: "exports_pending_total",
+    name: "lustre_exports_pending_total",
     help: "Total number of exports that have been marked pending",
     r#type: MetricType::Counter,
 };
 
 static LOCK_CONTENDED_TOTAL: Metric = Metric {
-    name: "lock_contended_total",
+    name: "lustre_lock_contended_total",
     help: "Number of contended locks",
     r#type: MetricType::Counter,
 };
 
 static LOCK_CONTENTION_SECONDS_TOTAL: Metric = Metric {
-    name: "lock_contention_seconds_total",
+    name: "lustre_lock_contention_seconds_total",
     help: "Time in seconds during which locks were contended",
     r#type: MetricType::Counter,
 };
 
 static CONNECTED_CLIENTS: Metric = Metric {
-    name: "connected_clients",
+    name: "lustre_connected_clients",
     help: "Number of connected clients",
     r#type: MetricType::Gauge,
 };
 
 static LOCK_COUNT_TOTAL: Metric = Metric {
-    name: "lock_count_total",
+    name: "lustre_lock_count_total",
     help: "Number of locks",
     r#type: MetricType::Counter,
 };
 
 static LOCK_TIMEOUT_TOTAL: Metric = Metric {
-    name: "lock_timeout_total",
+    name: "lustre_lock_timeout_total",
     help: "Number of lock timeouts",
     r#type: MetricType::Counter,
 };

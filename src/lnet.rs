@@ -6,17 +6,17 @@ use prometheus_exporter_base::prelude::*;
 use crate::{Metric, StatsMapExt, ToMetricInst};
 
 static SEND_COUNT: Metric = Metric {
-    name: "send_count_total",
+    name: "lustre_send_count_total",
     help: "Total number of messages that have been sent",
     r#type: MetricType::Counter,
 };
 static RECEIVE_COUNT: Metric = Metric {
-    name: "receive_count_total",
+    name: "lustre_receive_count_total",
     help: "Total number of messages that have been received",
     r#type: MetricType::Counter,
 };
 static DROP_COUNT: Metric = Metric {
-    name: "drop_count_total",
+    name: "lustre_drop_count_total",
     help: "Total number of messages that have been dropped",
     r#type: MetricType::Counter,
 };
