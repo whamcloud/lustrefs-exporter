@@ -224,6 +224,25 @@ lustre_job_read_samples_total{component="OST",target="fs-OST0000",jobid="dd.0"} 
 lustre_job_read_samples_total{component="OST",target="fs-OST0001",jobid="kworker/2:2.0"} 0 0
 lustre_job_read_samples_total{component="OST",target="fs-OST0001",jobid="dd.0"} 0 0
 
+# HELP lustre_job_stats_total Number of operations the filesystem has performed, recorded by jobstats.
+# TYPE lustre_job_stats_total counter
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="open"} 1 0
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="close"} 4 0
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="mknod"} 0 0
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="link"} 0 0
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="unlink"} 0 0
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="mkdir"} 0 0
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="rmdir"} 0 0
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="rename"} 0 0
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="getattr"} 3 0
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="setattr"} 4 0
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="getxattr"} 1 0
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="setxattr"} 0 0
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="statfs"} 0 0
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="sync"} 0 0
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="samedir_rename"} 0 0
+lustre_job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="crossdir_rename"} 0 0
+
 # HELP lustre_job_write_bytes_total The total number of bytes that have been written.
 # TYPE lustre_job_write_bytes_total counter
 lustre_job_write_bytes_total{component="OST",target="fs-OST0000",jobid="kworker/2:2.0"} 0 0
