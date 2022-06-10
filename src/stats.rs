@@ -5,43 +5,43 @@ use lustre_collector::{Stat, Target, TargetStat};
 use prometheus_exporter_base::prelude::*;
 
 static READ_SAMPLES: Metric = Metric {
-    name: "read_samples_total",
+    name: "lustre_read_samples_total",
     help: "Total number of reads that have been recorded.",
     r#type: MetricType::Counter,
 };
 static READ_MIN_SIZE_BYTES: Metric = Metric {
-    name: "read_minimum_size_bytes",
+    name: "lustre_read_minimum_size_bytes",
     help: "The minimum read size in bytes.",
     r#type: MetricType::Gauge,
 };
 static READ_MAX_SIZE_BYTES: Metric = Metric {
-    name: "read_maximum_size_bytes",
+    name: "lustre_read_maximum_size_bytes",
     help: "The maximum read size in bytes.",
     r#type: MetricType::Gauge,
 };
 static READ_BYTES: Metric = Metric {
-    name: "read_bytes_total",
+    name: "lustre_read_bytes_total",
     help: "The total number of bytes that have been read.",
     r#type: MetricType::Counter,
 };
 
 static WRITE_SAMPLES: Metric = Metric {
-    name: "write_samples_total",
+    name: "lustre_write_samples_total",
     help: "Total number of writes that have been recorded.",
     r#type: MetricType::Counter,
 };
 static WRITE_MIN_SIZE_BYTES: Metric = Metric {
-    name: "write_minimum_size_bytes",
+    name: "lustre_write_minimum_size_bytes",
     help: "The minimum write size in bytes.",
     r#type: MetricType::Gauge,
 };
 static WRITE_MAX_SIZE_BYTES: Metric = Metric {
-    name: "write_maximum_size_bytes",
+    name: "lustre_write_maximum_size_bytes",
     help: "The maximum write size in bytes.",
     r#type: MetricType::Gauge,
 };
 static WRITE_BYTES: Metric = Metric {
-    name: "write_bytes_total",
+    name: "lustre_write_bytes_total",
     help: "The total number of bytes that have been written.",
     r#type: MetricType::Counter,
 };
@@ -159,7 +159,7 @@ pub fn build_ost_stats(
 }
 
 static MDT_STATS_SAMPLES: Metric = Metric {
-    name: "stats_total",
+    name: "lustre_stats_total",
     help: "Number of operations the filesystem has performed.",
     r#type: MetricType::Counter,
 };
