@@ -324,3 +324,33 @@ lustre_send_count_total{nid="0@lo"} 27014 0
 lustre_send_count_total{nid="10.73.20.11@tcp"} 25956 0
 lustre_send_count_total{nid="10.73.20.51@tcp"} 25870 0
 
+# HELP lustre_stats_total Number of operations the filesystem has performed.
+# TYPE lustre_stats_total counter
+lustre_stats_total{component="MDT",operation="open",target="fs-MDT0000"} 4 0
+lustre_stats_total{component="MDT",operation="close",target="fs-MDT0000"} 11 0
+lustre_stats_total{component="MDT",operation="mknod",target="fs-MDT0000"} 2 0
+lustre_stats_total{component="MDT",operation="getattr",target="fs-MDT0000"} 15 0
+lustre_stats_total{component="MDT",operation="setattr",target="fs-MDT0000"} 7 0
+lustre_stats_total{component="MDT",operation="getxattr",target="fs-MDT0000"} 2 0
+lustre_stats_total{component="MDT",operation="statfs",target="fs-MDT0000"} 3 0
+
+# HELP lustre_write_bytes_total The total number of bytes that have been written.
+# TYPE lustre_write_bytes_total counter
+lustre_write_bytes_total{component="OST",operation="write",target="fs-OST0000"} 58720256 0
+lustre_write_bytes_total{component="OST",operation="write",target="fs-OST0001"} 60719104 0
+
+# HELP lustre_write_maximum_size_bytes The maximum write size in bytes.
+# TYPE lustre_write_maximum_size_bytes gauge
+lustre_write_maximum_size_bytes{component="OST",operation="write",target="fs-OST0000"} 4194304 0
+lustre_write_maximum_size_bytes{component="OST",operation="write",target="fs-OST0001"} 4194304 0
+
+# HELP lustre_write_minimum_size_bytes The minimum write size in bytes.
+# TYPE lustre_write_minimum_size_bytes gauge
+lustre_write_minimum_size_bytes{component="OST",operation="write",target="fs-OST0000"} 1048576 0
+lustre_write_minimum_size_bytes{component="OST",operation="write",target="fs-OST0001"} 524288 0
+
+# HELP lustre_write_samples_total Total number of writes that have been recorded.
+# TYPE lustre_write_samples_total counter
+lustre_write_samples_total{component="OST",operation="write",target="fs-OST0000"} 18 0
+lustre_write_samples_total{component="OST",operation="write",target="fs-OST0001"} 20 0
+

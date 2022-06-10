@@ -1,6 +1,7 @@
 pub mod brw_stats;
 pub mod jobstats;
 pub mod lnet;
+pub mod stats;
 
 use brw_stats::build_target_stats;
 use lnet::build_lnet_stats;

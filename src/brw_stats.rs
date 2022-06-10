@@ -5,6 +5,7 @@ use prometheus_exporter_base::{prelude::*, Yes};
 
 use crate::{
     jobstats::{build_mdt_job_stats, build_ost_job_stats},
+    stats::build_stats,
     Metric, StatsMapExt, ToMetricInst,
 };
 
@@ -207,7 +208,9 @@ pub fn build_target_stats(
         TargetStats::JobStatsOst(x) => {
             build_ost_job_stats(x, stats_map, time);
         }
-        TargetStats::Stats(_x) => {}
+        TargetStats::Stats(x) => {
+            build_stats(x, stats_map, time);
+        }
         TargetStats::BrwStats(x) => {
             build_brw_stats(x, stats_map, time);
         }
