@@ -4,7 +4,6 @@ name = "lustrefs-exporter"
 version = "0.1.0"
 
 [dependencies]
-casey = "0.3.3"
 lustre_collector = "0.5.3"
 num-traits = "0.2.14"
 prometheus = "0.13.0"

@@ -224,6 +224,25 @@ job_read_samples_total{component="OST",target="fs-OST0000",jobid="dd.0"} 0 0
 job_read_samples_total{component="OST",target="fs-OST0001",jobid="kworker/2:2.0"} 0 0
 job_read_samples_total{component="OST",target="fs-OST0001",jobid="dd.0"} 0 0
 
+# HELP job_stats_total Number of operations the filesystem has performed, recorded by jobstats.
+# TYPE job_stats_total counter
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="open"} 1 0
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="close"} 4 0
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="mknod"} 0 0
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="link"} 0 0
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="unlink"} 0 0
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="mkdir"} 0 0
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="rmdir"} 0 0
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="rename"} 0 0
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="getattr"} 3 0
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="setattr"} 4 0
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="getxattr"} 1 0
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="setxattr"} 0 0
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="statfs"} 0 0
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="sync"} 0 0
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="samedir_rename"} 0 0
+job_stats_total{component="MDT",target="fs-MDT0000",jobid="dd.0",operation="crossdir_rename"} 0 0
+
 # HELP job_write_bytes_total The total number of bytes that have been written.
 # TYPE job_write_bytes_total counter
 job_write_bytes_total{component="OST",target="fs-OST0000",jobid="kworker/2:2.0"} 0 0
@@ -275,70 +294,6 @@ lock_count_total{component="OST",target="fs-OST0001"} 1 0
 lock_timeout_total{component="MDT",target="fs-MDT0000"} 0 0
 lock_timeout_total{component="OST",target="fs-OST0000"} 0 0
 lock_timeout_total{component="OST",target="fs-OST0001"} 0 0
-
-# HELP lustre_close_total Total number of CLOSE operations that have been recorded.
-# TYPE lustre_close_total counter
-lustre_close_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 4 0
-
-# HELP lustre_crossdir_rename_total Total number of CROSSDIR_RENAME operations that have been recorded.
-# TYPE lustre_crossdir_rename_total counter
-lustre_crossdir_rename_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 0 0
-
-# HELP lustre_getattr_total Total number of GETATTR operations that have been recorded.
-# TYPE lustre_getattr_total counter
-lustre_getattr_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 3 0
-
-# HELP lustre_getxattr_total Total number of GETXATTR operations that have been recorded.
-# TYPE lustre_getxattr_total counter
-lustre_getxattr_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 1 0
-
-# HELP lustre_link_total Total number of LINK operations that have been recorded.
-# TYPE lustre_link_total counter
-lustre_link_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 0 0
-
-# HELP lustre_mkdir_total Total number of MKDIR operations that have been recorded.
-# TYPE lustre_mkdir_total counter
-lustre_mkdir_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 0 0
-
-# HELP lustre_mknod_total Total number of MKNOD operations that have been recorded.
-# TYPE lustre_mknod_total counter
-lustre_mknod_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 0 0
-
-# HELP lustre_open_total Total number of OPEN operations that have been recorded.
-# TYPE lustre_open_total counter
-lustre_open_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 1 0
-
-# HELP lustre_rename_total Total number of RENAME operations that have been recorded.
-# TYPE lustre_rename_total counter
-lustre_rename_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 0 0
-
-# HELP lustre_rmdir_total Total number of RMDIR operations that have been recorded.
-# TYPE lustre_rmdir_total counter
-lustre_rmdir_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 0 0
-
-# HELP lustre_samedir_rename_total Total number of SAMEDIR_RENAME operations that have been recorded.
-# TYPE lustre_samedir_rename_total counter
-lustre_samedir_rename_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 0 0
-
-# HELP lustre_setattr_total Total number of SETATTR operations that have been recorded.
-# TYPE lustre_setattr_total counter
-lustre_setattr_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 4 0
-
-# HELP lustre_setxattr_total Total number of SETXATTR operations that have been recorded.
-# TYPE lustre_setxattr_total counter
-lustre_setxattr_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 0 0
-
-# HELP lustre_statfs_total Total number of STATFS operations that have been recorded.
-# TYPE lustre_statfs_total counter
-lustre_statfs_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 0 0
-
-# HELP lustre_sync_total Total number of SYNC operations that have been recorded.
-# TYPE lustre_sync_total counter
-lustre_sync_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 0 0
-
-# HELP lustre_unlink_total Total number of UNLINK operations that have been recorded.
-# TYPE lustre_unlink_total counter
-lustre_unlink_total{component="MDT",target="fs-MDT0000",jobid="dd.0"} 0 0
 
 # HELP pages_per_bulk_rw_total Total number of pages per block RPC.
 # TYPE pages_per_bulk_rw_total counter
