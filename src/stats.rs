@@ -1,7 +1,7 @@
 use std::{collections::BTreeMap, ops::Deref, time::Duration};
 
 use crate::{Metric, StatsMapExt};
-use lustre_collector::{Stat, Target, TargetStat, TargetVariant};
+use lustre_collector::{Stat, Target, TargetStat};
 use prometheus_exporter_base::prelude::*;
 
 static READ_SAMPLES: Metric = Metric {
@@ -48,11 +48,11 @@ static WRITE_BYTES: Metric = Metric {
 
 pub fn build_ost_stats(
     x: Vec<Stat>,
-    kind: TargetVariant,
     target: Target,
     stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
     time: Duration,
 ) {
+    let kind = lustre_collector::TargetVariant::Ost;
     for s in x {
         match s.name.as_str() {
             "read_bytes" => {
@@ -151,8 +151,37 @@ pub fn build_ost_stats(
                         )
                 });
             }
-            x => println!("{x}"),
+            _x => {
+                // Ignore
+            }
         }
+    }
+}
+
+static MDT_STATS_SAMPLES: Metric = Metric {
+    name: "stats_total",
+    help: "Number of operations the filesystem has performed.",
+    r#type: MetricType::Counter,
+};
+
+pub fn build_mdt_stats(
+    x: Vec<Stat>,
+    target: Target,
+    stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
+    time: Duration,
+) {
+    let kind = lustre_collector::TargetVariant::Mdt;
+    for s in x {
+        stats_map
+            .get_mut_metric(MDT_STATS_SAMPLES)
+            .render_and_append_instance(
+                &PrometheusInstance::new()
+                    .with_label("component", kind.deref())
+                    .with_label("operation", s.name.deref())
+                    .with_label("target", target.deref())
+                    .with_value(s.samples)
+                    .with_timestamp(time.as_millis()),
+            );
     }
 }
 
@@ -169,10 +198,8 @@ pub fn build_stats(
     } = x;
 
     match kind {
-        lustre_collector::TargetVariant::Ost => {
-            build_ost_stats(value, kind, target, stats_map, time)
-        }
+        lustre_collector::TargetVariant::Ost => build_ost_stats(value, target, stats_map, time),
         lustre_collector::TargetVariant::Mgt => { /*TODO*/ }
-        lustre_collector::TargetVariant::Mdt => { /*TODO*/ }
+        lustre_collector::TargetVariant::Mdt => build_mdt_stats(value, target, stats_map, time),
     }
 }

@@ -191,6 +191,18 @@ send_count_total{nid="0@lo"} 3647005 0
 send_count_total{nid="172.16.0.24@o2ib"} 12450030 0
 send_count_total{nid="172.16.0.28@o2ib"} 12448709 0
 
+# HELP stats_total Number of operations the filesystem has performed.
+# TYPE stats_total counter
+stats_total{component="MDT",operation="open",target="ai400x2-MDT0000"} 10 0
+stats_total{component="MDT",operation="close",target="ai400x2-MDT0000"} 90 0
+stats_total{component="MDT",operation="mknod",target="ai400x2-MDT0000"} 7 0
+stats_total{component="MDT",operation="unlink",target="ai400x2-MDT0000"} 4 0
+stats_total{component="MDT",operation="mkdir",target="ai400x2-MDT0000"} 1 0
+stats_total{component="MDT",operation="getattr",target="ai400x2-MDT0000"} 37 0
+stats_total{component="MDT",operation="setattr",target="ai400x2-MDT0000"} 10 0
+stats_total{component="MDT",operation="getxattr",target="ai400x2-MDT0000"} 2 0
+stats_total{component="MDT",operation="statfs",target="ai400x2-MDT0000"} 773897 0
+
 # HELP write_bytes_total The total number of bytes that have been written.
 # TYPE write_bytes_total counter
 write_bytes_total{component="OST",operation="write",target="ai400x2-OST0000"} 3089104896 0

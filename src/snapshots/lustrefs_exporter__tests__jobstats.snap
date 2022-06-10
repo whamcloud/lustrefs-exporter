@@ -305,6 +305,16 @@ send_count_total{nid="0@lo"} 27014 0
 send_count_total{nid="10.73.20.11@tcp"} 25956 0
 send_count_total{nid="10.73.20.51@tcp"} 25870 0
 
+# HELP stats_total Number of operations the filesystem has performed.
+# TYPE stats_total counter
+stats_total{component="MDT",operation="open",target="fs-MDT0000"} 4 0
+stats_total{component="MDT",operation="close",target="fs-MDT0000"} 11 0
+stats_total{component="MDT",operation="mknod",target="fs-MDT0000"} 2 0
+stats_total{component="MDT",operation="getattr",target="fs-MDT0000"} 15 0
+stats_total{component="MDT",operation="setattr",target="fs-MDT0000"} 7 0
+stats_total{component="MDT",operation="getxattr",target="fs-MDT0000"} 2 0
+stats_total{component="MDT",operation="statfs",target="fs-MDT0000"} 3 0
+
 # HELP write_bytes_total The total number of bytes that have been written.
 # TYPE write_bytes_total counter
 write_bytes_total{component="OST",operation="write",target="fs-OST0000"} 58720256 0
