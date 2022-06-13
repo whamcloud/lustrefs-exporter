@@ -1,6 +1,6 @@
 use std::{collections::BTreeMap, ops::Deref, time::Duration};
 
-use crate::{Metric, StatsMapExt};
+use crate::{LabelProm, Metric, StatsMapExt};
 use lustre_collector::{Stat, Target, TargetStat};
 use prometheus_exporter_base::prelude::*;
 
@@ -60,7 +60,7 @@ pub fn build_ost_stats(
                     .get_mut_metric(READ_SAMPLES)
                     .render_and_append_instance(
                         &PrometheusInstance::new()
-                            .with_label("component", kind.deref())
+                            .with_label("component", kind.to_prom_label())
                             .with_label("operation", "read")
                             .with_label("target", target.deref())
                             .with_value(s.samples)
@@ -71,7 +71,7 @@ pub fn build_ost_stats(
                         .get_mut_metric(READ_MIN_SIZE_BYTES)
                         .render_and_append_instance(
                             &PrometheusInstance::new()
-                                .with_label("component", kind.deref())
+                                .with_label("component", kind.to_prom_label())
                                 .with_label("operation", "read")
                                 .with_label("target", target.deref())
                                 .with_value(v)
@@ -83,7 +83,7 @@ pub fn build_ost_stats(
                         .get_mut_metric(READ_MAX_SIZE_BYTES)
                         .render_and_append_instance(
                             &PrometheusInstance::new()
-                                .with_label("component", kind.deref())
+                                .with_label("component", kind.to_prom_label())
                                 .with_label("operation", "read")
                                 .with_label("target", target.deref())
                                 .with_value(v)
@@ -95,7 +95,7 @@ pub fn build_ost_stats(
                         .get_mut_metric(READ_BYTES)
                         .render_and_append_instance(
                             &PrometheusInstance::new()
-                                .with_label("component", kind.deref())
+                                .with_label("component", kind.to_prom_label())
                                 .with_label("operation", "read")
                                 .with_label("target", target.deref())
                                 .with_value(v)
@@ -108,7 +108,7 @@ pub fn build_ost_stats(
                     .get_mut_metric(WRITE_SAMPLES)
                     .render_and_append_instance(
                         &PrometheusInstance::new()
-                            .with_label("component", kind.deref())
+                            .with_label("component", kind.to_prom_label())
                             .with_label("operation", "write")
                             .with_label("target", target.deref())
                             .with_value(s.samples)
@@ -119,7 +119,7 @@ pub fn build_ost_stats(
                         .get_mut_metric(WRITE_MIN_SIZE_BYTES)
                         .render_and_append_instance(
                             &PrometheusInstance::new()
-                                .with_label("component", kind.deref())
+                                .with_label("component", kind.to_prom_label())
                                 .with_label("operation", "write")
                                 .with_label("target", target.deref())
                                 .with_value(v)
@@ -131,7 +131,7 @@ pub fn build_ost_stats(
                         .get_mut_metric(WRITE_MAX_SIZE_BYTES)
                         .render_and_append_instance(
                             &PrometheusInstance::new()
-                                .with_label("component", kind.deref())
+                                .with_label("component", kind.to_prom_label())
                                 .with_label("operation", "write")
                                 .with_label("target", target.deref())
                                 .with_value(v)
@@ -143,7 +143,7 @@ pub fn build_ost_stats(
                         .get_mut_metric(WRITE_BYTES)
                         .render_and_append_instance(
                             &PrometheusInstance::new()
-                                .with_label("component", kind.deref())
+                                .with_label("component", kind.to_prom_label())
                                 .with_label("operation", "write")
                                 .with_label("target", target.deref())
                                 .with_value(v)
@@ -176,7 +176,7 @@ pub fn build_mdt_stats(
             .get_mut_metric(MDT_STATS_SAMPLES)
             .render_and_append_instance(
                 &PrometheusInstance::new()
-                    .with_label("component", kind.deref())
+                    .with_label("component", kind.to_prom_label())
                     .with_label("operation", s.name.deref())
                     .with_label("target", target.deref())
                     .with_value(s.samples)

@@ -1,6 +1,6 @@
 use std::{collections::BTreeMap, ops::Deref, time::Duration};
 
-use crate::{Metric, StatsMapExt};
+use crate::{LabelProm, Metric, StatsMapExt};
 use lustre_collector::{JobStatMdt, JobStatOst, TargetStat};
 use prometheus_exporter_base::{prelude::*, Yes};
 
@@ -134,7 +134,7 @@ pub fn build_ost_job_stats(
 
     for x in xs {
         let (rs, rmin, rmax, rb, ws, wmin, wmax, wb) =
-            jobstatost_inst(&x, kind.deref(), target.deref(), time);
+            jobstatost_inst(&x, kind.to_prom_label(), target.deref(), time);
 
         stats_map
             .get_mut_metric(READ_SAMPLES)
@@ -345,7 +345,7 @@ pub fn build_mdt_job_stats(
             sync,
             samedir_rename,
             crossdir_rename,
-        ) = jobstatmdt_inst(&x, kind.deref(), target.deref(), time);
+        ) = jobstatmdt_inst(&x, kind.to_prom_label(), target.deref(), time);
 
         stats_map
             .get_mut_metric(MDT_JOBSTATS_SAMPLES)

@@ -6,7 +6,7 @@ use prometheus_exporter_base::{prelude::*, Yes};
 use crate::{
     jobstats::{build_mdt_job_stats, build_ost_job_stats},
     stats::build_stats,
-    Metric, StatsMapExt, ToMetricInst,
+    LabelProm, Metric, StatsMapExt, ToMetricInst,
 };
 
 static DISK_IO_TOTAL: Metric = Metric {
@@ -64,20 +64,20 @@ static INODES_MAXIMUM: Metric = Metric {
 };
 
 static AVAILABLE_BYTES: Metric = Metric {
-    name: "lustre_available_bytes",
-    help: "Number of bytes readily available in the pool",
+    name: "lustre_available_kilobytes",
+    help: "Number of kilobytes readily available in the pool",
     r#type: MetricType::Gauge,
 };
 
 static FREE_BYTES: Metric = Metric {
-    name: "lustre_free_bytes",
-    help: "Number of bytes allocated to the pool",
+    name: "lustre_free_kilobytes",
+    help: "Number of kilobytes allocated to the pool",
     r#type: MetricType::Gauge,
 };
 
 static CAPACITY_BYTES: Metric = Metric {
-    name: "lustre_capacity_bytes",
-    help: "Capacity of the pool in bytes",
+    name: "lustre_capacity_kilobytes",
+    help: "Capacity of the pool in kilobytes",
     r#type: MetricType::Gauge,
 };
 
@@ -164,7 +164,7 @@ fn build_brw_stats(
         for b in buckets {
             let size = b.name.to_string();
 
-            let (r, w) = rw_inst(b, kind.deref(), target.deref(), time);
+            let (r, w) = rw_inst(b, kind.to_prom_label(), target.deref(), time);
 
             metric
                 .render_and_append_instance(&r.with_label("size", size.as_str()))

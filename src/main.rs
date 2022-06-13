@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use lustre_collector::{parse_lctl_output, parser};
+use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parser};
 use lustrefs_exporter::build_lustre_stats;
 use prometheus_exporter_base::prelude::*;
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -20,18 +20,30 @@ async fn main() {
     render_prometheus(addr, Options, |request, options| async move {
         println!("in our render_prometheus(request == {request:?}, options == {options:?})");
 
-        let output = Command::new("lctl")
+        let time = SystemTime::now().duration_since(UNIX_EPOCH)?;
+
+        let mut output = vec![];
+
+        let lctl = Command::new("lctl")
             .arg("get_param")
             .args(parser::params())
             .kill_on_drop(true)
             .output()
             .await?;
+        let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
+        output.append(&mut lctl_output);
 
-        let time = SystemTime::now().duration_since(UNIX_EPOCH)?;
+        let lnetctl = Command::new("lnetctl")
+            .args(["net", "show", "-v", "4"])
+            .kill_on_drop(true)
+            .output()
+            .await?;
 
-        let lctl_output = parse_lctl_output(&output.stdout)?;
+        let lnetctl_stats = std::str::from_utf8(&lnetctl.stdout)?;
+        let mut lnetctl_output = parse_lnetctl_output(lnetctl_stats)?;
+        output.append(&mut lnetctl_output);
 
-        Ok(build_lustre_stats(lctl_output, time))
+        Ok(build_lustre_stats(output, time))
     })
     .await;
 }
