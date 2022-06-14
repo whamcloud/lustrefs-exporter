@@ -5,7 +5,7 @@ pub mod stats;
 
 use brw_stats::build_target_stats;
 use lnet::build_lnet_stats;
-use lustre_collector::{LNetStat, Record, TargetStat, TargetVariant};
+use lustre_collector::{LNetStat, LNetStatGlobal, Record, TargetStat, TargetVariant};
 use num_traits::Num;
 use prometheus_exporter_base::{prelude::*, Yes};
 use std::{collections::BTreeMap, fmt, ops::Deref, time::Duration};
@@ -68,6 +68,17 @@ where
     fn to_metric_inst(&self, time: Duration) -> PrometheusInstance<'_, T, Yes> {
         PrometheusInstance::new()
             .with_label("nid", self.nid.deref())
+            .with_value(self.value)
+            .with_timestamp(time.as_millis())
+    }
+}
+
+impl<T> ToMetricInst<T> for LNetStatGlobal<T>
+where
+    T: Num + fmt::Display + fmt::Debug + Copy,
+{
+    fn to_metric_inst(&self, time: Duration) -> PrometheusInstance<'_, T, Yes> {
+        PrometheusInstance::new()
             .with_value(self.value)
             .with_timestamp(time.as_millis())
     }
