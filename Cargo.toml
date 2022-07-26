@@ -4,7 +4,7 @@ name = "lustrefs-exporter"
 version = "0.1.0"
 
 [dependencies]
-lustre_collector = {git = "https://github.com/whamcloud/lustre-collector.git", branch = "rdruon/lnetctl_stats" }
+lustre_collector = "0.6"
 num-traits = "0.2.14"
 prometheus = "0.13.0"
 prometheus_exporter_base = { version = "1.3.0", features = ["hyper_server"] }
