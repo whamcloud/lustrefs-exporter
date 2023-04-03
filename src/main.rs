@@ -13,11 +13,14 @@ struct Options;
 
 #[tokio::main]
 async fn main() {
-    let addr = ([0, 0, 0, 0], 32221).into();
+    let server_opts = ServerOptions {
+        addr: ([0, 0, 0, 0], 32221).into(),
+        authorization: Authorization::None,
+    };
 
-    println!("starting exporter on {addr}");
+    println!("starting exporter on {}", server_opts.addr);
 
-    render_prometheus(addr, Options, |request, options| async move {
+    render_prometheus(server_opts, Options, |request, options| async move {
         println!("in our render_prometheus(request == {request:?}, options == {options:?})");
 
         let time = SystemTime::now().duration_since(UNIX_EPOCH)?;
