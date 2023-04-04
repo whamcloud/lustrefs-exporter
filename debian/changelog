@@ -1,0 +1,5 @@
+prometheus-lustrefs-exporter (0.1.0-0.1) unstable; urgency=medium
+
+  * New release.
+
+ -- EMF Team <emf@whamcloud.com>  Wed, 05 Apr 2023 09:48:22 +0200

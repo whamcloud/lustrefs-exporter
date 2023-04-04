@@ -1,0 +1,27 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE=1
+export DEB_BUILD_OPTIONS=noddebs
+
+DH_DESTDIR ?= ..
+
+%:
+	dh $@ --destdir='$(DH_DESTDIR)'
+
+
+override_dh_auto_build:
+	cargo build --release
+
+override_dh_auto_install:
+	install -v -d debian/tmp/usr/bin
+	install -v -T target/release/lustrefs-exporter debian/tmp/usr/bin/prometheus-lustrefs-exporter
+
+
+override_dh_auto_clean:
+	cargo clean
+
+# No-ops:
+override_dh_auto_test:
+override_dh_update_autotools_config:
+override_dh_autoreconf:
+
