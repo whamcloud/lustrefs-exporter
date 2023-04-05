@@ -1,0 +1,169 @@
+name: CI
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      versionName:
+        description: "Release version"
+        required: true
+      isDraft:
+        description: "Draft release"
+        required: false
+        default: "true"
+
+defaults:
+  run:
+    shell: bash -eux {0}
+
+jobs:
+  build_centos7_rpms:
+    name: Build Centos 7 RPMs
+    runs-on: ubuntu-latest
+    container:
+      image: centos:7
+    steps:
+      - name: Cancel Workflow Action
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: yum install -y gcc make rpm-build
+
+      - name: Install latest rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          default: true
+          override: true
+
+      - name: Build
+        run: make rpm
+
+      - name: Summary
+        run: |
+          find _rpm -type f -name \*.rpm -print -exec rpm -qivlp {} \;
+
+      - name: Upload RPMs
+        uses: actions/upload-artifact@v2
+        with:
+          name: centos7_rpm
+          retention-days: 1
+          path: _rpm/RPMS/**/*.rpm
+
+  build_rocky8_rpms:
+    name: Build Rockylinux 8 RPMs
+    runs-on: ubuntu-latest
+    container:
+      image: rockylinux:8
+    steps:
+      - name: Cancel Workflow Action
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: dnf install -y gcc make rpm-build
+
+      - name: Install latest rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          default: true
+          override: true
+
+      - name: Build
+        run: make rpm
+
+      - name: Summary
+        run: |
+          find _rpm -type f -name \*.rpm -print -exec rpm -qivlp {} \;
+
+      - name: Upload RPMs
+        uses: actions/upload-artifact@v2
+        with:
+          name: rocky8_rpm
+          retention-days: 1
+          path: _rpm/RPMS/**/*.rpm
+
+  build_ubuntu20_debs:
+    name: Build Ubuntu 20.04 DEBs
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:20.04
+    steps:
+      - name: Cancel Workflow Action
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update
+          apt-get install -y curl fakeroot
+          apt-get build-dep -y .
+
+      - name: Install latest rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          default: true
+          override: true
+
+      - name: Build
+        run: make deb
+
+      - name: Summary
+        run: |
+          find _deb -type f -name \*.deb -print -exec dpkg -I {} \; -exec dpkg -c {} \;
+
+      - name: Upload DEBs
+        uses: actions/upload-artifact@v2
+        with:
+          name: ubuntu20_debs
+          retention-days: 1
+          path: _deb/*.deb
+
+
+  release:
+    if: github.event_name == 'workflow_dispatch'
+    name: Release
+    needs: [build_centos7_rpms, build_rocky8_rpms, build_ubuntu20_debs]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Centos 7 RPMs
+        uses: actions/download-artifact@v3
+        with:
+          name: centos7_rpm
+
+      - name: Download Rockylinux 8 RPMs
+        uses: actions/download-artifact@v3
+        with:
+          name: rocky8_rpm
+
+      - name: Download Ubuntu 20.04 DEBs
+        uses: actions/download-artifact@v3
+        with:
+          name: ubuntu20_debs
+
+      - name: Summary
+        run: find -ls
+
+      - name: Publish
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.versionName }}
+          draft: ${{ github.event.inputs.isDraft }}
+          files: |
+            **/*.rpm
+            **/*.deb

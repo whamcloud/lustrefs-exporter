@@ -1,0 +1,12 @@
+Source: prometheus-lustrefs-exporter
+Section: admin
+Priority: optional
+Maintainer: EMF Team <emf@whamcloud.com>
+Standards-Version: 4.5.1
+Build-Depends: debhelper-compat (= 12)
+
+Package: prometheus-lustrefs-exporter
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: prometheus exporter for the Lustre filesystem
+

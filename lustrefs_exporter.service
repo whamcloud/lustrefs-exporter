@@ -1,0 +1,12 @@
+[Unit]
+Description=Prometheus exporter for Lustre filesystem
+Documentation=https://github.com/whamcloud/lustrefs-exporter
+
+[Service]
+Restart=on-failure
+User=prometheus
+ExecStart=/usr/bin/lustrefs_exporter
+
+[Install]
+WantedBy=multi-user.target
+
