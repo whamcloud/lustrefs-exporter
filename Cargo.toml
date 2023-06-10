@@ -1,18 +1,18 @@
 [package]
 edition = "2021"
 name = "lustrefs-exporter"
-version = "0.2.2"
+version = "0.2.3"
 
 [dependencies]
 lustre_collector = "0.7"
 num-traits = "0.2.14"
 prometheus = "0.13.3"
-prometheus_exporter_base = { version = "1.4.0", features = ["hyper_server"] }
-tokio = { version = "1.27", features = [
-    "rt-multi-thread",
-    "macros",
-    "process",
-] }
+prometheus_exporter_base = {version = "1.4.0", features = ["hyper_server"]}
+tokio = {version = "1.27", features = [
+  "rt-multi-thread",
+  "macros",
+  "process",
+]}
 
 [dev-dependencies]
 insta = "1"
