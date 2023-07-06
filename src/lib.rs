@@ -1,6 +1,7 @@
 pub mod brw_stats;
 pub mod jobstats;
 pub mod lnet;
+pub mod service;
 pub mod stats;
 
 use brw_stats::build_target_stats;
@@ -8,6 +9,7 @@ use lnet::build_lnet_stats;
 use lustre_collector::{LNetStat, LNetStatGlobal, Record, TargetStat, TargetVariant};
 use num_traits::Num;
 use prometheus_exporter_base::{prelude::*, Yes};
+use service::build_service_stats;
 use std::{collections::BTreeMap, fmt, ops::Deref, time::Duration};
 
 #[derive(Debug, Clone, Copy)]
@@ -122,6 +124,9 @@ pub fn build_lustre_stats(output: Vec<Record>, time: Duration) -> String {
             }
             lustre_collector::Record::Target(x) => {
                 build_target_stats(x, &mut stats_map, time);
+            }
+            lustre_collector::Record::LustreService(x) => {
+                build_service_stats(x, &mut stats_map, time);
             }
         }
     }
