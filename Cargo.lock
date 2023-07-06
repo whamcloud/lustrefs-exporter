@@ -501,8 +501,9 @@ checksum = "518ef76f2f87365916b142844c16d8fefd85039bc5699050210a7778ee1cd1de"
 
 [[package]]
 name = "lustre_collector"
-version = "0.7.1"
-source = "git+https://github.com/whamcloud/lustre-collector#c072527fb6061363e926c8604a6eb0d04a9ff78f"
+version = "0.7.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d14041effdd770419d421860048f000dc849b470a482e416b0dd51c9bf3e225d"
 dependencies = [
  "clap",
  "combine",

@@ -1,7 +1,7 @@
-use std::{collections::BTreeMap, ops::Deref, time::Duration};
+use crate::{Metric, StatsMapExt};
 use lustre_collector::LustreServiceStats;
 use prometheus_exporter_base::prelude::*;
-use crate::{Metric, StatsMapExt};
+use std::{collections::BTreeMap, ops::Deref, time::Duration};
 
 static LDLM_CANCELD_STATS_SAMPLES: Metric = Metric {
     name: "lustre_ldlm_canceld_stats",
