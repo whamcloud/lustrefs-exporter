@@ -1,8 +1,6 @@
 use std::{collections::BTreeMap, ops::Deref, time::Duration};
-
 use lustre_collector::LustreServiceStats;
 use prometheus_exporter_base::prelude::*;
-
 use crate::{Metric, StatsMapExt};
 
 static LDLM_CANCELD_STATS_SAMPLES: Metric = Metric {
