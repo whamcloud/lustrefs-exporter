@@ -4,17 +4,17 @@ expression: x
 ---
 # HELP lustre_available_kilobytes Number of kilobytes readily available in the pool
 # TYPE lustre_available_kilobytes gauge
-lustre_available_kilobytes{component="mgt",target="MGS"} 1918767104 0
-lustre_available_kilobytes{component="mdt",target="ai400x2-MDT0000"} 142034284544 0
-lustre_available_kilobytes{component="ost",target="ai400x2-OST0000"} 3334853013504 0
-lustre_available_kilobytes{component="ost",target="ai400x2-OST0001"} 3335272443904 0
+lustre_available_kilobytes{component="mgt",target="MGS"} 1873796 0
+lustre_available_kilobytes{component="mdt",target="ai400x2-MDT0000"} 138705356 0
+lustre_available_kilobytes{component="ost",target="ai400x2-OST0000"} 3256692396 0
+lustre_available_kilobytes{component="ost",target="ai400x2-OST0001"} 3257101996 0
 
 # HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes
 # TYPE lustre_capacity_kilobytes gauge
-lustre_capacity_kilobytes{component="mgt",target="MGS"} 2027556864 0
-lustre_capacity_kilobytes{component="mdt",target="ai400x2-MDT0000"} 144541634560 0
-lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0000"} 3544070828032 0
-lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0001"} 3544070828032 0
+lustre_capacity_kilobytes{component="mgt",target="MGS"} 1980036 0
+lustre_capacity_kilobytes{component="mdt",target="ai400x2-MDT0000"} 141153940 0
+lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0000"} 3461006668 0
+lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0001"} 3461006668 0
 
 # HELP lustre_connected_clients Number of connected clients
 # TYPE lustre_connected_clients gauge
@@ -104,10 +104,10 @@ lustre_exports_total{component="mdt",target="ai400x2-MDT0000"} 19 0
 
 # HELP lustre_free_kilobytes Number of kilobytes allocated to the pool
 # TYPE lustre_free_kilobytes gauge
-lustre_free_kilobytes{component="mgt",target="MGS"} 2026139648 0
-lustre_free_kilobytes{component="mdt",target="ai400x2-MDT0000"} 144535597056 0
-lustre_free_kilobytes{component="ost",target="ai400x2-OST0000"} 3541028220928 0
-lustre_free_kilobytes{component="ost",target="ai400x2-OST0001"} 3541447651328 0
+lustre_free_kilobytes{component="mgt",target="MGS"} 1978652 0
+lustre_free_kilobytes{component="mdt",target="ai400x2-MDT0000"} 141148044 0
+lustre_free_kilobytes{component="ost",target="ai400x2-OST0000"} 3458035372 0
+lustre_free_kilobytes{component="ost",target="ai400x2-OST0001"} 3458444972 0
 
 # HELP lustre_inodes_free The number of inodes (objects) available
 # TYPE lustre_inodes_free gauge
