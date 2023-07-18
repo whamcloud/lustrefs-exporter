@@ -63,19 +63,19 @@ static INODES_MAXIMUM: Metric = Metric {
     r#type: MetricType::Gauge,
 };
 
-static AVAILABLE_BYTES: Metric = Metric {
+static AVAILABLE_KBYTES: Metric = Metric {
     name: "lustre_available_kilobytes",
     help: "Number of kilobytes readily available in the pool",
     r#type: MetricType::Gauge,
 };
 
-static FREE_BYTES: Metric = Metric {
+static FREE_KBYTES: Metric = Metric {
     name: "lustre_free_kilobytes",
     help: "Number of kilobytes allocated to the pool",
     r#type: MetricType::Gauge,
 };
 
-static CAPACITY_BYTES: Metric = Metric {
+static CAPACITY_KBYTES: Metric = Metric {
     name: "lustre_capacity_kilobytes",
     help: "Capacity of the pool in kilobytes",
     r#type: MetricType::Gauge,
@@ -228,19 +228,19 @@ pub fn build_target_stats(
                 .render_and_append_instance(&x.to_metric_inst(time));
         }
         TargetStats::FsType(_) => {}
-        TargetStats::BytesAvail(x) => {
+        TargetStats::KBytesAvail(x) => {
             stats_map
-                .get_mut_metric(AVAILABLE_BYTES)
+                .get_mut_metric(AVAILABLE_KBYTES)
                 .render_and_append_instance(&x.to_metric_inst(time));
         }
-        TargetStats::BytesFree(x) => {
+        TargetStats::KBytesFree(x) => {
             stats_map
-                .get_mut_metric(FREE_BYTES)
+                .get_mut_metric(FREE_KBYTES)
                 .render_and_append_instance(&x.to_metric_inst(time));
         }
-        TargetStats::BytesTotal(x) => {
+        TargetStats::KBytesTotal(x) => {
             stats_map
-                .get_mut_metric(CAPACITY_BYTES)
+                .get_mut_metric(CAPACITY_KBYTES)
                 .render_and_append_instance(&x.to_metric_inst(time));
         }
         TargetStats::NumExports(x) => {
@@ -302,5 +302,6 @@ pub fn build_target_stats(
         TargetStats::ThreadsMax(_x) => {}
         TargetStats::ThreadsStarted(_x) => {}
         TargetStats::RecoveryStatus(_x) => {}
+        TargetStats::Oss(_) => {}
     };
 }

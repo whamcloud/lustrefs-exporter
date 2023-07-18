@@ -163,7 +163,7 @@
     },
     {
         "Target": {
-            "BytesAvail": {
+            "KBytesAvail": {
                 "kind": "Mgt",
                 "param": "kbytesavail",
                 "target": "MGS",
@@ -173,7 +173,7 @@
     },
     {
         "Target": {
-            "BytesAvail": {
+            "KBytesAvail": {
                 "kind": "Mdt",
                 "param": "kbytesavail",
                 "target": "ai400x2-MDT0000",
@@ -183,7 +183,7 @@
     },
     {
         "Target": {
-            "BytesAvail": {
+            "KBytesAvail": {
                 "kind": "Ost",
                 "param": "kbytesavail",
                 "target": "ai400x2-OST0000",
@@ -193,7 +193,7 @@
     },
     {
         "Target": {
-            "BytesAvail": {
+            "KBytesAvail": {
                 "kind": "Ost",
                 "param": "kbytesavail",
                 "target": "ai400x2-OST0001",
@@ -203,7 +203,7 @@
     },
     {
         "Target": {
-            "BytesFree": {
+            "KBytesFree": {
                 "kind": "Mgt",
                 "param": "kbytesfree",
                 "target": "MGS",
@@ -213,7 +213,7 @@
     },
     {
         "Target": {
-            "BytesFree": {
+            "KBytesFree": {
                 "kind": "Mdt",
                 "param": "kbytesfree",
                 "target": "ai400x2-MDT0000",
@@ -223,7 +223,7 @@
     },
     {
         "Target": {
-            "BytesFree": {
+            "KBytesFree": {
                 "kind": "Ost",
                 "param": "kbytesfree",
                 "target": "ai400x2-OST0000",
@@ -233,7 +233,7 @@
     },
     {
         "Target": {
-            "BytesFree": {
+            "KBytesFree": {
                 "kind": "Ost",
                 "param": "kbytesfree",
                 "target": "ai400x2-OST0001",
@@ -243,7 +243,7 @@
     },
     {
         "Target": {
-            "BytesTotal": {
+            "KBytesTotal": {
                 "kind": "Mgt",
                 "param": "kbytestotal",
                 "target": "MGS",
@@ -253,7 +253,7 @@
     },
     {
         "Target": {
-            "BytesTotal": {
+            "KBytesTotal": {
                 "kind": "Mdt",
                 "param": "kbytestotal",
                 "target": "ai400x2-MDT0000",
@@ -263,7 +263,7 @@
     },
     {
         "Target": {
-            "BytesTotal": {
+            "KBytesTotal": {
                 "kind": "Ost",
                 "param": "kbytestotal",
                 "target": "ai400x2-OST0000",
@@ -273,7 +273,7 @@
     },
     {
         "Target": {
-            "BytesTotal": {
+            "KBytesTotal": {
                 "kind": "Ost",
                 "param": "kbytestotal",
                 "target": "ai400x2-OST0001",
