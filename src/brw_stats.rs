@@ -1,6 +1,6 @@
 use std::{collections::BTreeMap, ops::Deref, time::Duration};
 
-use lustre_collector::{BrwStats, BrwStatsBucket, TargetStat, TargetStats};
+use lustre_collector::{BrwStats, BrwStatsBucket, OssStat, Stat, TargetStat, TargetStats};
 use prometheus_exporter_base::{prelude::*, Yes};
 
 use crate::{
@@ -173,6 +173,56 @@ fn build_brw_stats(
     }
 }
 
+static OST_STATS: Metric = Metric {
+    name: "lustre_oss_ost_stats",
+    help: "OSS ost stats",
+    r#type: MetricType::Gauge,
+};
+
+static OST_IO_STATS: Metric = Metric {
+    name: "lustre_oss_ost_io_stats",
+    help: "OSS ost_io stats",
+    r#type: MetricType::Gauge,
+};
+
+static OST_CREATE_STATS: Metric = Metric {
+    name: "lustre_oss_ost_create_stats",
+    help: "OSS ost_create stats",
+    r#type: MetricType::Gauge,
+};
+
+fn build_oss_stats(
+    x: OssStat,
+    stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
+    time: Duration,
+) {
+    let OssStat { param, stats } = x;
+
+    for x in stats {
+        let Stat {
+            name,
+            units,
+            samples,
+            ..
+        } = x;
+
+        let metric = match param.0.as_str() {
+            "ost" => stats_map.get_mut_metric(OST_STATS),
+            "ost_io" => stats_map.get_mut_metric(OST_IO_STATS),
+            "ost_create" => stats_map.get_mut_metric(OST_CREATE_STATS),
+            _ => continue,
+        };
+
+        let stat = PrometheusInstance::new()
+            .with_label("operation", name.as_str())
+            .with_label("units", units.as_str())
+            .with_value(samples)
+            .with_timestamp(time.as_millis());
+
+        metric.render_and_append_instance(&stat);
+    }
+}
+
 fn rw_inst<'a>(
     x: BrwStatsBucket,
     kind: &'a str,
@@ -302,6 +352,6 @@ pub fn build_target_stats(
         TargetStats::ThreadsMax(_x) => {}
         TargetStats::ThreadsStarted(_x) => {}
         TargetStats::RecoveryStatus(_x) => {}
-        TargetStats::Oss(_) => {}
+        TargetStats::Oss(x) => build_oss_stats(x, stats_map, time),
     };
 }
