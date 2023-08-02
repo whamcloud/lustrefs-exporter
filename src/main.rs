@@ -36,8 +36,8 @@ async fn main() {
         let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
         output.append(&mut lctl_output);
 
-        let lnetctl = Command::new("lnetctl")
-            .args(["net", "show", "-v", "4"])
+        let lnetctl = Command::new("sudo")
+            .args(["/usr/sbin/lnetctl", "net", "show", "-v", "4"])
             .kill_on_drop(true)
             .output()
             .await?;
@@ -46,8 +46,8 @@ async fn main() {
         let mut lnetctl_output = parse_lnetctl_output(lnetctl_stats)?;
         output.append(&mut lnetctl_output);
 
-        let lnetctl_stats_output = Command::new("lnetctl")
-            .args(["stats", "show"])
+        let lnetctl_stats_output = Command::new("sudo")
+            .args(["/usr/sbin/lnetctl", "stats", "show"])
             .kill_on_drop(true)
             .output()
             .await?;
