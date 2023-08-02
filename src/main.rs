@@ -37,7 +37,7 @@ async fn main() {
         output.append(&mut lctl_output);
 
         let lnetctl = Command::new("sudo")
-            .args(["lnetctl", "net", "show", "-v", "4"])
+            .args(["/usr/sbin/lnetctl", "net", "show", "-v", "4"])
             .kill_on_drop(true)
             .output()
             .await?;
@@ -47,7 +47,7 @@ async fn main() {
         output.append(&mut lnetctl_output);
 
         let lnetctl_stats_output = Command::new("sudo")
-            .args(["lnetctl", "stats", "show"])
+            .args(["/usr/sbin/lnetctl", "stats", "show"])
             .kill_on_drop(true)
             .output()
             .await?;
