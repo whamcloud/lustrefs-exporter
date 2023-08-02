@@ -1,1 +1,2 @@
 /usr/bin/prometheus-lustrefs-exporter
+/etc/sudoers.d/prometheus
