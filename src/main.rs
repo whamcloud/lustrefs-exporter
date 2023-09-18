@@ -20,8 +20,6 @@ async fn main() {
         authorization: Authorization::None,
     };
 
-    println!("starting exporter on {}", server_opts.addr);
-
     render_prometheus(server_opts, Options, |request, options| async move {
         tracing::debug!(?request, ?options);
 
