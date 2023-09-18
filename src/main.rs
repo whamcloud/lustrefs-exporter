@@ -1,4 +1,4 @@
-// Copyright (c) 2022 DDN. All rights reserved.
+// Copyright (c) 2023 DDN. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
@@ -13,6 +13,8 @@ struct Options;
 
 #[tokio::main]
 async fn main() {
+    tracing_subscriber::fmt::init();
+
     let server_opts = ServerOptions {
         addr: ([0, 0, 0, 0], 32221).into(),
         authorization: Authorization::None,
@@ -21,7 +23,7 @@ async fn main() {
     println!("starting exporter on {}", server_opts.addr);
 
     render_prometheus(server_opts, Options, |request, options| async move {
-        println!("in our render_prometheus(request == {request:?}, options == {options:?})");
+        tracing::debug!(?request, ?options);
 
         let time = SystemTime::now().duration_since(UNIX_EPOCH)?;
 
@@ -33,7 +35,9 @@ async fn main() {
             .kill_on_drop(true)
             .output()
             .await?;
+
         let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
+
         output.append(&mut lctl_output);
 
         let lnetctl = Command::new("sudo")
@@ -44,6 +48,7 @@ async fn main() {
 
         let lnetctl_stats = std::str::from_utf8(&lnetctl.stdout)?;
         let mut lnetctl_output = parse_lnetctl_output(lnetctl_stats)?;
+
         output.append(&mut lnetctl_output);
 
         let lnetctl_stats_output = Command::new("sudo")
@@ -51,8 +56,10 @@ async fn main() {
             .kill_on_drop(true)
             .output()
             .await?;
+
         let mut lnetctl_stats_record =
             parse_lnetctl_stats(std::str::from_utf8(&lnetctl_stats_output.stdout)?)?;
+
         output.append(&mut lnetctl_stats_record);
 
         Ok(build_lustre_stats(output, time))

@@ -1,7 +1,7 @@
 [package]
 edition = "2021"
 name = "lustrefs-exporter"
-version = "0.2.6"
+version = "0.2.7"
 
 [dependencies]
 lustre_collector = "0.7"
@@ -13,6 +13,8 @@ tokio = {version = "1.27", features = [
   "macros",
   "process",
 ]}
+tracing = "0.1"
+tracing-subscriber = {version = "0.3", features = ["env-filter"]}
 
 [dev-dependencies]
 insta = "1"
