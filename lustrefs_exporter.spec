@@ -28,12 +28,6 @@ install -v target/release/lustrefs-exporter %{buildroot}%{_bindir}
 %{_bindir}/lustrefs_exporter
 %{_unitdir}/lustrefs_exporter.service
 
-%pre
-getent group prometheus >/dev/null || groupadd -r prometheus
-getent passwd prometheus >/dev/null || \
-  useradd -r -g prometheus -s /sbin/nologin \
-          -c "Prometheus services" prometheus
-
 %post
 %systemd_post %{name}.service
 

@@ -5,9 +5,7 @@ Documentation=https://github.com/whamcloud/lustrefs-exporter
 [Service]
 Environment=RUST_LOG=info
 Restart=on-failure
-User=prometheus
 ExecStart=/usr/bin/lustrefs_exporter
 
 [Install]
 WantedBy=multi-user.target
-
