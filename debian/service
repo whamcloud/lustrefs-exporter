@@ -4,7 +4,6 @@ Documentation=https://github.com/whamcloud/lustrefs-exporter
 
 [Service]
 Restart=on-failure
-User=prometheus
 ExecStart=/usr/bin/prometheus-lustrefs-exporter
 
 [Install]

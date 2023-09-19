@@ -19,23 +19,14 @@ cargo build --release
 %install
 install -v -d %{buildroot}%{_bindir}
 install -v -d %{buildroot}%{_unitdir}
-install -v -d %{buildroot}%{_sysconfdir}/sudoers.d/
 install -v -m 0644 lustrefs_exporter.service %{buildroot}%{_unitdir}
 install -v target/release/lustrefs-exporter %{buildroot}%{_bindir}
-install -v -m 0644 sudoers_file/prometheus %{buildroot}%{_sysconfdir}/sudoers.d/
 %{__ln_s} lustrefs-exporter %{buildroot}%{_bindir}/lustrefs_exporter
 
 %files
 %{_bindir}/lustrefs-exporter
 %{_bindir}/lustrefs_exporter
 %{_unitdir}/lustrefs_exporter.service
-%{_sysconfdir}/sudoers.d/prometheus
-
-%pre
-getent group prometheus >/dev/null || groupadd -r prometheus
-getent passwd prometheus >/dev/null || \
-  useradd -r -g prometheus -s /sbin/nologin \
-          -c "Prometheus services" prometheus
 
 %post
 %systemd_post %{name}.service

@@ -1,1 +1,0 @@
-prometheus ALL=(ALL) NOPASSWD: /usr/sbin/lnetctl net show -v 4, /usr/sbin/lnetctl stats show
