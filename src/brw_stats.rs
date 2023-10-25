@@ -158,7 +158,7 @@ fn build_brw_stats(
             "dio_frags" => stats_map.get_mut_metric(DISK_IO_FRAGS),
             "discont_blocks" => stats_map.get_mut_metric(DISCONTIGUOUS_BLOCKS_TOTAL),
             "io_time" => stats_map.get_mut_metric(IO_TIME_MILLISECONDS_TOTAL),
-            _ => return,
+            _ => continue,
         };
 
         for b in buckets {
