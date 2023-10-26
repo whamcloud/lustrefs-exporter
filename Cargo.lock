@@ -484,9 +484,9 @@ checksum = "b5e6163cb8c49088c2c36f57875e58ccd8c87c7427f7fbd50ea6710b2f3f2e8f"
 
 [[package]]
 name = "lustre_collector"
-version = "0.7.4"
+version = "0.7.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c645e07e3138687d588aeaa78e378c2836f500ff299d786abe0d163ededf27bb"
+checksum = "bf783df848abfec5ead69175976beb0f92c7d38021d5f0266c6950442e5a0047"
 dependencies = [
  "clap",
  "combine",
@@ -500,7 +500,7 @@ dependencies = [
 
 [[package]]
 name = "lustrefs-exporter"
-version = "0.2.7"
+version = "0.2.8"
 dependencies = [
  "insta",
  "lustre_collector",

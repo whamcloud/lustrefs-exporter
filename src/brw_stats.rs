@@ -135,6 +135,12 @@ static LOCK_TIMEOUT_TOTAL: Metric = Metric {
     r#type: MetricType::Counter,
 };
 
+static BLOCK_MAPS_MSEC_TOTAL: Metric = Metric {
+    name: "lustre_block_maps_milliseconds_total",
+    help: "Number of block maps in milliseconds",
+    r#type: MetricType::Counter,
+};
+
 fn build_brw_stats(
     x: TargetStat<Vec<BrwStats>>,
     stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
@@ -158,7 +164,8 @@ fn build_brw_stats(
             "dio_frags" => stats_map.get_mut_metric(DISK_IO_FRAGS),
             "discont_blocks" => stats_map.get_mut_metric(DISCONTIGUOUS_BLOCKS_TOTAL),
             "io_time" => stats_map.get_mut_metric(IO_TIME_MILLISECONDS_TOTAL),
-            _ => return,
+            "block_maps_msec" => stats_map.get_mut_metric(BLOCK_MAPS_MSEC_TOTAL),
+            _ => continue,
         };
 
         for b in buckets {
