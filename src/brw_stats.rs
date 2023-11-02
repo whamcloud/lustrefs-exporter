@@ -5,7 +5,7 @@ use prometheus_exporter_base::{prelude::*, Yes};
 
 use crate::{
     jobstats::{build_mdt_job_stats, build_ost_job_stats},
-    stats::build_stats,
+    stats::{build_stats, build_mds_stats},
     LabelProm, Metric, StatsMapExt, ToMetricInst,
 };
 
@@ -360,5 +360,6 @@ pub fn build_target_stats(
         TargetStats::ThreadsStarted(_x) => {}
         TargetStats::RecoveryStatus(_x) => {}
         TargetStats::Oss(x) => build_oss_stats(x, stats_map, time),
+        TargetStats::Mds(x) => build_mds_stats(x, stats_map, time),
     };
 }
