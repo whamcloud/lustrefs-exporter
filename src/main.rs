@@ -5,7 +5,7 @@
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
 use lustrefs_exporter::build_lustre_stats;
 use prometheus_exporter_base::prelude::*;
-use std::time::{SystemTime, UNIX_EPOCH};
+
 use tokio::process::Command;
 
 #[derive(Debug)]
@@ -22,8 +22,6 @@ async fn main() {
 
     render_prometheus(server_opts, Options, |request, options| async move {
         tracing::debug!(?request, ?options);
-
-        let time = SystemTime::now().duration_since(UNIX_EPOCH)?;
 
         let mut output = vec![];
 
@@ -60,7 +58,7 @@ async fn main() {
 
         output.append(&mut lnetctl_stats_record);
 
-        Ok(build_lustre_stats(output, time))
+        Ok(build_lustre_stats(output))
     })
     .await;
 }
@@ -68,7 +66,6 @@ async fn main() {
 #[cfg(test)]
 mod tests {
     use crate::build_lustre_stats;
-    use std::time::UNIX_EPOCH;
 
     #[test]
     fn test_stats() {
@@ -76,7 +73,7 @@ mod tests {
 
         let x = serde_json::from_str(output).unwrap();
 
-        let x = build_lustre_stats(x, UNIX_EPOCH.duration_since(UNIX_EPOCH).unwrap());
+        let x = build_lustre_stats(x);
 
         insta::assert_display_snapshot!(x);
     }
@@ -86,7 +83,7 @@ mod tests {
 
         let x = serde_json::from_str(output).unwrap();
 
-        let x = build_lustre_stats(x, UNIX_EPOCH.duration_since(UNIX_EPOCH).unwrap());
+        let x = build_lustre_stats(x);
 
         insta::assert_display_snapshot!(x);
     }
@@ -96,7 +93,7 @@ mod tests {
 
         let x = serde_json::from_str(output).unwrap();
 
-        let x = build_lustre_stats(x, UNIX_EPOCH.duration_since(UNIX_EPOCH).unwrap());
+        let x = build_lustre_stats(x);
 
         insta::assert_display_snapshot!(x);
     }

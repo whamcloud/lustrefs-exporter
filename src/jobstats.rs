@@ -1,4 +1,4 @@
-use std::{collections::BTreeMap, ops::Deref, time::Duration};
+use std::{collections::BTreeMap, ops::Deref};
 
 use crate::{LabelProm, Metric, StatsMapExt};
 use lustre_collector::{JobStatMdt, JobStatOst, TargetStat};
@@ -61,56 +61,47 @@ fn jobstatost_inst<'a>(
     x: &'a JobStatOst,
     kind: &'a str,
     target: &'a str,
-    time: Duration,
 ) -> JobStatOstPromInst<'a> {
     let rs = PrometheusInstance::new()
         .with_label("component", kind)
         .with_label("target", target)
         .with_label("jobid", x.job_id.deref())
-        .with_value(x.read_bytes.samples)
-        .with_timestamp(time.as_millis());
+        .with_value(x.read_bytes.samples);
     let rmin = PrometheusInstance::new()
         .with_label("component", kind)
         .with_label("target", target)
         .with_label("jobid", x.job_id.deref())
-        .with_value(x.read_bytes.min)
-        .with_timestamp(time.as_millis());
+        .with_value(x.read_bytes.min);
     let rmax = PrometheusInstance::new()
         .with_label("component", kind)
         .with_label("target", target)
         .with_label("jobid", x.job_id.deref())
-        .with_value(x.read_bytes.max)
-        .with_timestamp(time.as_millis());
+        .with_value(x.read_bytes.max);
     let rb = PrometheusInstance::new()
         .with_label("component", kind)
         .with_label("target", target)
         .with_label("jobid", x.job_id.deref())
-        .with_value(x.read_bytes.sum)
-        .with_timestamp(time.as_millis());
+        .with_value(x.read_bytes.sum);
     let ws = PrometheusInstance::new()
         .with_label("component", kind)
         .with_label("target", target)
         .with_label("jobid", x.job_id.deref())
-        .with_value(x.write_bytes.samples)
-        .with_timestamp(time.as_millis());
+        .with_value(x.write_bytes.samples);
     let wmin = PrometheusInstance::new()
         .with_label("component", kind)
         .with_label("target", target)
         .with_label("jobid", x.job_id.deref())
-        .with_value(x.write_bytes.min)
-        .with_timestamp(time.as_millis());
+        .with_value(x.write_bytes.min);
     let wmax = PrometheusInstance::new()
         .with_label("component", kind)
         .with_label("target", target)
         .with_label("jobid", x.job_id.deref())
-        .with_value(x.write_bytes.max)
-        .with_timestamp(time.as_millis());
+        .with_value(x.write_bytes.max);
     let wb = PrometheusInstance::new()
         .with_label("component", kind)
         .with_label("target", target)
         .with_label("jobid", x.job_id.deref())
-        .with_value(x.write_bytes.sum)
-        .with_timestamp(time.as_millis());
+        .with_value(x.write_bytes.sum);
 
     (rs, rmin, rmax, rb, ws, wmin, wmax, wb)
 }
@@ -118,7 +109,6 @@ fn jobstatost_inst<'a>(
 pub fn build_ost_job_stats(
     x: TargetStat<Option<Vec<JobStatOst>>>,
     stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
-    time: Duration,
 ) {
     let TargetStat {
         kind,
@@ -134,7 +124,7 @@ pub fn build_ost_job_stats(
 
     for x in xs {
         let (rs, rmin, rmax, rb, ws, wmin, wmax, wb) =
-            jobstatost_inst(&x, kind.to_prom_label(), target.deref(), time);
+            jobstatost_inst(&x, kind.to_prom_label(), target.deref());
 
         stats_map
             .get_mut_metric(READ_SAMPLES)
@@ -186,7 +176,6 @@ fn jobstatmdt_inst<'a>(
     x: &'a JobStatMdt,
     kind: &'a str,
     target: &'a str,
-    time: Duration,
 ) -> JobStatMdtPromInst<'a> {
     (
         PrometheusInstance::new()
@@ -194,113 +183,97 @@ fn jobstatmdt_inst<'a>(
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "open")
-            .with_value(x.open.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.open.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "close")
-            .with_value(x.close.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.close.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "mknod")
-            .with_value(x.mknod.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.mknod.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "link")
-            .with_value(x.link.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.link.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "unlink")
-            .with_value(x.unlink.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.unlink.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "mkdir")
-            .with_value(x.mkdir.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.mkdir.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "rmdir")
-            .with_value(x.rmdir.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.rmdir.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "rename")
-            .with_value(x.rename.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.rename.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "getattr")
-            .with_value(x.getattr.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.getattr.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "setattr")
-            .with_value(x.setattr.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.setattr.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "getxattr")
-            .with_value(x.getxattr.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.getxattr.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "setxattr")
-            .with_value(x.setxattr.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.setxattr.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "statfs")
-            .with_value(x.statfs.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.statfs.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "sync")
-            .with_value(x.sync.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.sync.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "samedir_rename")
-            .with_value(x.samedir_rename.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.samedir_rename.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
             .with_label("jobid", x.job_id.deref())
             .with_label("operation", "crossdir_rename")
-            .with_value(x.crossdir_rename.samples)
-            .with_timestamp(time.as_millis()),
+            .with_value(x.crossdir_rename.samples),
     )
 }
 
@@ -313,7 +286,6 @@ static MDT_JOBSTATS_SAMPLES: Metric = Metric {
 pub fn build_mdt_job_stats(
     x: TargetStat<Option<Vec<JobStatMdt>>>,
     stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
-    time: Duration,
 ) {
     let TargetStat {
         kind,
@@ -345,7 +317,7 @@ pub fn build_mdt_job_stats(
             sync,
             samedir_rename,
             crossdir_rename,
-        ) = jobstatmdt_inst(&x, kind.to_prom_label(), target.deref(), time);
+        ) = jobstatmdt_inst(&x, kind.to_prom_label(), target.deref());
 
         stats_map
             .get_mut_metric(MDT_JOBSTATS_SAMPLES)
