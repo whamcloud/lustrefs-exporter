@@ -1,7 +1,7 @@
 use crate::{Metric, StatsMapExt};
 use lustre_collector::LustreServiceStats;
 use prometheus_exporter_base::prelude::*;
-use std::{collections::BTreeMap, ops::Deref, time::Duration};
+use std::{collections::BTreeMap, ops::Deref};
 
 static LDLM_CANCELD_STATS_SAMPLES: Metric = Metric {
     name: "lustre_ldlm_canceld_stats",
@@ -18,7 +18,6 @@ static LDLM_CBD_STATS_SAMPLES: Metric = Metric {
 pub fn build_service_stats(
     x: LustreServiceStats,
     stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
-    time: Duration,
 ) {
     match x {
         LustreServiceStats::LdlmCanceld(xs) => {
@@ -28,8 +27,7 @@ pub fn build_service_stats(
                     .render_and_append_instance(
                         &PrometheusInstance::new()
                             .with_label("operation", s.name.deref())
-                            .with_value(s.samples)
-                            .with_timestamp(time.as_millis()),
+                            .with_value(s.samples),
                     );
             }
         }
@@ -40,8 +38,7 @@ pub fn build_service_stats(
                     .render_and_append_instance(
                         &PrometheusInstance::new()
                             .with_label("operation", s.name.deref())
-                            .with_value(s.samples)
-                            .with_timestamp(time.as_millis()),
+                            .with_value(s.samples),
                     );
             }
         }

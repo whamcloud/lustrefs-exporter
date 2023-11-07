@@ -1,4 +1,4 @@
-use std::{collections::BTreeMap, ops::Deref, time::Duration};
+use std::{collections::BTreeMap, ops::Deref};
 
 use crate::{LabelProm, Metric, StatsMapExt};
 use lustre_collector::{Stat, Target, TargetStat};
@@ -50,7 +50,6 @@ pub fn build_ost_stats(
     x: Vec<Stat>,
     target: Target,
     stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
-    time: Duration,
 ) {
     let kind = lustre_collector::TargetVariant::Ost;
     for s in x {
@@ -63,8 +62,7 @@ pub fn build_ost_stats(
                             .with_label("component", kind.to_prom_label())
                             .with_label("operation", "read")
                             .with_label("target", target.deref())
-                            .with_value(s.samples)
-                            .with_timestamp(time.as_millis()),
+                            .with_value(s.samples),
                     );
                 s.min.map(|v| {
                     stats_map
@@ -74,8 +72,7 @@ pub fn build_ost_stats(
                                 .with_label("component", kind.to_prom_label())
                                 .with_label("operation", "read")
                                 .with_label("target", target.deref())
-                                .with_value(v)
-                                .with_timestamp(time.as_millis()),
+                                .with_value(v),
                         )
                 });
                 s.max.map(|v| {
@@ -86,8 +83,7 @@ pub fn build_ost_stats(
                                 .with_label("component", kind.to_prom_label())
                                 .with_label("operation", "read")
                                 .with_label("target", target.deref())
-                                .with_value(v)
-                                .with_timestamp(time.as_millis()),
+                                .with_value(v),
                         )
                 });
                 s.sum.map(|v| {
@@ -98,8 +94,7 @@ pub fn build_ost_stats(
                                 .with_label("component", kind.to_prom_label())
                                 .with_label("operation", "read")
                                 .with_label("target", target.deref())
-                                .with_value(v)
-                                .with_timestamp(time.as_millis()),
+                                .with_value(v),
                         )
                 });
             }
@@ -111,8 +106,7 @@ pub fn build_ost_stats(
                             .with_label("component", kind.to_prom_label())
                             .with_label("operation", "write")
                             .with_label("target", target.deref())
-                            .with_value(s.samples)
-                            .with_timestamp(time.as_millis()),
+                            .with_value(s.samples),
                     );
                 s.min.map(|v| {
                     stats_map
@@ -122,8 +116,7 @@ pub fn build_ost_stats(
                                 .with_label("component", kind.to_prom_label())
                                 .with_label("operation", "write")
                                 .with_label("target", target.deref())
-                                .with_value(v)
-                                .with_timestamp(time.as_millis()),
+                                .with_value(v),
                         )
                 });
                 s.max.map(|v| {
@@ -134,8 +127,7 @@ pub fn build_ost_stats(
                                 .with_label("component", kind.to_prom_label())
                                 .with_label("operation", "write")
                                 .with_label("target", target.deref())
-                                .with_value(v)
-                                .with_timestamp(time.as_millis()),
+                                .with_value(v),
                         )
                 });
                 s.sum.map(|v| {
@@ -146,8 +138,7 @@ pub fn build_ost_stats(
                                 .with_label("component", kind.to_prom_label())
                                 .with_label("operation", "write")
                                 .with_label("target", target.deref())
-                                .with_value(v)
-                                .with_timestamp(time.as_millis()),
+                                .with_value(v),
                         )
                 });
             }
@@ -168,7 +159,6 @@ pub fn build_mdt_stats(
     x: Vec<Stat>,
     target: Target,
     stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
-    time: Duration,
 ) {
     let kind = lustre_collector::TargetVariant::Mdt;
     for s in x {
@@ -179,8 +169,7 @@ pub fn build_mdt_stats(
                     .with_label("component", kind.to_prom_label())
                     .with_label("operation", s.name.deref())
                     .with_label("target", target.deref())
-                    .with_value(s.samples)
-                    .with_timestamp(time.as_millis()),
+                    .with_value(s.samples),
             );
     }
 }
@@ -188,7 +177,6 @@ pub fn build_mdt_stats(
 pub fn build_stats(
     x: TargetStat<Vec<Stat>>,
     stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
-    time: Duration,
 ) {
     let TargetStat {
         kind,
@@ -198,8 +186,8 @@ pub fn build_stats(
     } = x;
 
     match kind {
-        lustre_collector::TargetVariant::Ost => build_ost_stats(value, target, stats_map, time),
+        lustre_collector::TargetVariant::Ost => build_ost_stats(value, target, stats_map),
         lustre_collector::TargetVariant::Mgt => { /*TODO*/ }
-        lustre_collector::TargetVariant::Mdt => build_mdt_stats(value, target, stats_map, time),
+        lustre_collector::TargetVariant::Mdt => build_mdt_stats(value, target, stats_map),
     }
 }

@@ -1,4 +1,4 @@
-use std::{collections::BTreeMap, ops::Deref, time::Duration};
+use std::{collections::BTreeMap, ops::Deref};
 
 use lustre_collector::{BrwStats, BrwStatsBucket, OssStat, Stat, TargetStat, TargetStats};
 use prometheus_exporter_base::{prelude::*, Yes};
@@ -144,7 +144,6 @@ static BLOCK_MAPS_MSEC_TOTAL: Metric = Metric {
 fn build_brw_stats(
     x: TargetStat<Vec<BrwStats>>,
     stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
-    time: Duration,
 ) {
     let TargetStat {
         kind,
@@ -171,7 +170,7 @@ fn build_brw_stats(
         for b in buckets {
             let size = b.name.to_string();
 
-            let (r, w) = rw_inst(b, kind.to_prom_label(), target.deref(), time);
+            let (r, w) = rw_inst(b, kind.to_prom_label(), target.deref());
 
             metric
                 .render_and_append_instance(&r.with_label("size", size.as_str()))
@@ -198,11 +197,7 @@ static OST_CREATE_STATS: Metric = Metric {
     r#type: MetricType::Gauge,
 };
 
-fn build_oss_stats(
-    x: OssStat,
-    stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
-    time: Duration,
-) {
+fn build_oss_stats(x: OssStat, stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>) {
     let OssStat { param, stats } = x;
 
     for x in stats {
@@ -223,8 +218,7 @@ fn build_oss_stats(
         let stat = PrometheusInstance::new()
             .with_label("operation", name.as_str())
             .with_label("units", units.as_str())
-            .with_value(samples)
-            .with_timestamp(time.as_millis());
+            .with_value(samples);
 
         metric.render_and_append_instance(&stat);
     }
@@ -234,7 +228,6 @@ fn rw_inst<'a>(
     x: BrwStatsBucket,
     kind: &'a str,
     target: &'a str,
-    time: Duration,
 ) -> (
     PrometheusInstance<'a, u64, Yes>,
     PrometheusInstance<'a, u64, Yes>,
@@ -243,15 +236,13 @@ fn rw_inst<'a>(
         .with_label("component", kind)
         .with_label("operation", "read")
         .with_label("target", target)
-        .with_value(x.read)
-        .with_timestamp(time.as_millis());
+        .with_value(x.read);
 
     let write = PrometheusInstance::new()
         .with_label("component", kind)
         .with_label("operation", "write")
         .with_label("target", target)
-        .with_value(x.write)
-        .with_timestamp(time.as_millis());
+        .with_value(x.write);
 
     (read, write)
 }
@@ -259,81 +250,80 @@ fn rw_inst<'a>(
 pub fn build_target_stats(
     x: TargetStats,
     stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
-    time: Duration,
 ) {
     match x {
         TargetStats::JobStatsOst(x) => {
-            build_ost_job_stats(x, stats_map, time);
+            build_ost_job_stats(x, stats_map);
         }
         TargetStats::Stats(x) => {
-            build_stats(x, stats_map, time);
+            build_stats(x, stats_map);
         }
         TargetStats::BrwStats(x) => {
-            build_brw_stats(x, stats_map, time);
+            build_brw_stats(x, stats_map);
         }
         TargetStats::JobStatsMdt(x) => {
-            build_mdt_job_stats(x, stats_map, time);
+            build_mdt_job_stats(x, stats_map);
         }
         TargetStats::FilesFree(x) => {
             stats_map
                 .get_mut_metric(INODES_FREE)
-                .render_and_append_instance(&x.to_metric_inst(time));
+                .render_and_append_instance(&x.to_metric_inst());
         }
         TargetStats::FilesTotal(x) => {
             stats_map
                 .get_mut_metric(INODES_MAXIMUM)
-                .render_and_append_instance(&x.to_metric_inst(time));
+                .render_and_append_instance(&x.to_metric_inst());
         }
         TargetStats::FsType(_) => {}
         TargetStats::KBytesAvail(x) => {
             stats_map
                 .get_mut_metric(AVAILABLE_KBYTES)
-                .render_and_append_instance(&x.to_metric_inst(time));
+                .render_and_append_instance(&x.to_metric_inst());
         }
         TargetStats::KBytesFree(x) => {
             stats_map
                 .get_mut_metric(FREE_KBYTES)
-                .render_and_append_instance(&x.to_metric_inst(time));
+                .render_and_append_instance(&x.to_metric_inst());
         }
         TargetStats::KBytesTotal(x) => {
             stats_map
                 .get_mut_metric(CAPACITY_KBYTES)
-                .render_and_append_instance(&x.to_metric_inst(time));
+                .render_and_append_instance(&x.to_metric_inst());
         }
         TargetStats::NumExports(x) => {
             stats_map
                 .get_mut_metric(EXPORTS_TOTAL)
-                .render_and_append_instance(&x.to_metric_inst(time));
+                .render_and_append_instance(&x.to_metric_inst());
         }
         TargetStats::TotDirty(x) => {
             stats_map
                 .get_mut_metric(EXPORTS_DIRTY_TOTAL)
-                .render_and_append_instance(&x.to_metric_inst(time));
+                .render_and_append_instance(&x.to_metric_inst());
         }
         TargetStats::TotGranted(x) => {
             stats_map
                 .get_mut_metric(EXPORTS_GRANTED_TOTAL)
-                .render_and_append_instance(&x.to_metric_inst(time));
+                .render_and_append_instance(&x.to_metric_inst());
         }
         TargetStats::TotPending(x) => {
             stats_map
                 .get_mut_metric(EXPORTS_PENDING_TOTAL)
-                .render_and_append_instance(&x.to_metric_inst(time));
+                .render_and_append_instance(&x.to_metric_inst());
         }
         TargetStats::ContendedLocks(x) => {
             stats_map
                 .get_mut_metric(LOCK_CONTENDED_TOTAL)
-                .render_and_append_instance(&x.to_metric_inst(time));
+                .render_and_append_instance(&x.to_metric_inst());
         }
         TargetStats::ContentionSeconds(x) => {
             stats_map
                 .get_mut_metric(LOCK_CONTENTION_SECONDS_TOTAL)
-                .render_and_append_instance(&x.to_metric_inst(time));
+                .render_and_append_instance(&x.to_metric_inst());
         }
         TargetStats::ConnectedClients(x) => {
             stats_map
                 .get_mut_metric(CONNECTED_CLIENTS)
-                .render_and_append_instance(&x.to_metric_inst(time));
+                .render_and_append_instance(&x.to_metric_inst());
         }
 
         TargetStats::CtimeAgeLimit(_x) => {}
@@ -342,12 +332,12 @@ pub fn build_target_stats(
         TargetStats::LockCount(x) => {
             stats_map
                 .get_mut_metric(LOCK_COUNT_TOTAL)
-                .render_and_append_instance(&x.to_metric_inst(time));
+                .render_and_append_instance(&x.to_metric_inst());
         }
         TargetStats::LockTimeouts(x) => {
             stats_map
                 .get_mut_metric(LOCK_TIMEOUT_TOTAL)
-                .render_and_append_instance(&x.to_metric_inst(time));
+                .render_and_append_instance(&x.to_metric_inst());
         }
         TargetStats::LockUnusedCount(_x) => {}
         TargetStats::LruMaxAge(_x) => {}
@@ -359,6 +349,6 @@ pub fn build_target_stats(
         TargetStats::ThreadsMax(_x) => {}
         TargetStats::ThreadsStarted(_x) => {}
         TargetStats::RecoveryStatus(_x) => {}
-        TargetStats::Oss(x) => build_oss_stats(x, stats_map, time),
+        TargetStats::Oss(x) => build_oss_stats(x, stats_map),
     };
 }
