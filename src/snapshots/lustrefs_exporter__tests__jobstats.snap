@@ -226,6 +226,46 @@ lustre_job_read_samples_total{component="ost",target="fs-OST0001",jobid="dd.0"} 
 
 # HELP lustre_job_stats_total Number of operations the filesystem has performed, recorded by jobstats.
 # TYPE lustre_job_stats_total counter
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="kworker/2:2.0",operation="create"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="kworker/2:2.0",operation="destroy"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="kworker/2:2.0",operation="get_info"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="kworker/2:2.0",operation="getattr"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="kworker/2:2.0",operation="punch"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="kworker/2:2.0",operation="quotactl"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="kworker/2:2.0",operation="set_info"} 1
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="kworker/2:2.0",operation="setattr"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="kworker/2:2.0",operation="statfs"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="kworker/2:2.0",operation="sync"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="dd.0",operation="create"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="dd.0",operation="destroy"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="dd.0",operation="get_info"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="dd.0",operation="getattr"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="dd.0",operation="punch"} 4
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="dd.0",operation="quotactl"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="dd.0",operation="set_info"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="dd.0",operation="setattr"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="dd.0",operation="statfs"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0000",jobid="dd.0",operation="sync"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="kworker/2:2.0",operation="create"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="kworker/2:2.0",operation="destroy"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="kworker/2:2.0",operation="get_info"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="kworker/2:2.0",operation="getattr"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="kworker/2:2.0",operation="punch"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="kworker/2:2.0",operation="quotactl"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="kworker/2:2.0",operation="set_info"} 1
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="kworker/2:2.0",operation="setattr"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="kworker/2:2.0",operation="statfs"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="kworker/2:2.0",operation="sync"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="dd.0",operation="create"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="dd.0",operation="destroy"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="dd.0",operation="get_info"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="dd.0",operation="getattr"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="dd.0",operation="punch"} 4
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="dd.0",operation="quotactl"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="dd.0",operation="set_info"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="dd.0",operation="setattr"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="dd.0",operation="statfs"} 0
+lustre_job_stats_total{component="ost",target="fs-OST0001",jobid="dd.0",operation="sync"} 0
 lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operation="open"} 1
 lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operation="close"} 4
 lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operation="mknod"} 0
