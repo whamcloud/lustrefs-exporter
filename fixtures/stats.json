@@ -27,7 +27,10 @@
     "Host": {
       "HealthCheck": {
         "param": "health_check",
-        "value": "healthy"
+        "value": {
+          "healthy": true,
+          "targets": []
+        }
       }
     }
   },
