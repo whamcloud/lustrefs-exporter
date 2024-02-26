@@ -744,8 +744,7 @@ dependencies = [
 [[package]]
 name = "prometheus_exporter_base"
 version = "1.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e42dafed8b073871c93f6082ff0fc597dbf26fb58974f0140f2c6a46c9f9f624"
+source = "git+https://github.com/RDruon/prometheus_exporter_base#fc929650c7991afc2e40a1d19bb61924e9b33df4"
 dependencies = [
  "base64 0.13.1",
  "env_logger",
