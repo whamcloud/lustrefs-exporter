@@ -9,6 +9,7 @@ use lnet::build_lnet_stats;
 use lustre_collector::{LNetStat, LNetStatGlobal, Record, TargetStat, TargetVariant};
 use num_traits::Num;
 use prometheus_exporter_base::{prelude::*, Yes};
+use rand::Rng;
 use service::build_service_stats;
 use std::{collections::BTreeMap, fmt, ops::Deref};
 
@@ -75,7 +76,7 @@ where
 
 impl<T> ToMetricInst<T> for LNetStatGlobal<T>
 where
-    T: Num + fmt::Display + fmt::Debug + Copy,
+    T: Num + fmt::Display + fmt::Debug + Copy
 {
     fn to_metric_inst(&self) -> PrometheusInstance<'_, T, Yes> {
         PrometheusInstance::new().with_value(self.value)

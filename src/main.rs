@@ -25,38 +25,39 @@ async fn main() {
 
         let mut output = vec![];
 
-        let lctl = Command::new("lctl")
-            .arg("get_param")
-            .args(parser::params())
-            .kill_on_drop(true)
-            .output()
-            .await?;
+        // let lctl = Command::new("lctl")
+        //     .arg("get_param")
+        //     .args(parser::params())
+        //     .kill_on_drop(true)
+        //     .output()
+        //     .await?;
+        let lctl_output = include_str!("../lctl-2-ALCF-01153298-202402292.txt");
 
-        let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
+        let mut lctl_output = parse_lctl_output(lctl_output.as_bytes())?;
 
         output.append(&mut lctl_output);
 
-        let lnetctl = Command::new("lnetctl")
-            .args(["net", "show", "-v", "4"])
-            .kill_on_drop(true)
-            .output()
-            .await?;
+        // let lnetctl = Command::new("lnetctl")
+        //     .args(["net", "show", "-v", "4"])
+        //     .kill_on_drop(true)
+        //     .output()
+        //     .await?;
 
-        let lnetctl_stats = std::str::from_utf8(&lnetctl.stdout)?;
-        let mut lnetctl_output = parse_lnetctl_output(lnetctl_stats)?;
+        // let lnetctl_stats = std::str::from_utf8(&lnetctl.stdout)?;
+        // let mut lnetctl_output = parse_lnetctl_output(lnetctl_stats)?;
 
-        output.append(&mut lnetctl_output);
+        // output.append(&mut lnetctl_output);
 
-        let lnetctl_stats_output = Command::new("lnetctl")
-            .args(["stats", "show"])
-            .kill_on_drop(true)
-            .output()
-            .await?;
+        // let lnetctl_stats_output = Command::new("lnetctl")
+        //     .args(["stats", "show"])
+        //     .kill_on_drop(true)
+        //     .output()
+        //     .await?;
 
-        let mut lnetctl_stats_record =
-            parse_lnetctl_stats(std::str::from_utf8(&lnetctl_stats_output.stdout)?)?;
+        // let mut lnetctl_stats_record =
+        //     parse_lnetctl_stats(std::str::from_utf8(&lnetctl_stats_output.stdout)?)?;
 
-        output.append(&mut lnetctl_stats_record);
+        // output.append(&mut lnetctl_stats_record);
 
         Ok(build_lustre_stats(output))
     })
