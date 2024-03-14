@@ -55,6 +55,16 @@ type JobStatOstPromInst<'a> = (
     PrometheusInstance<'a, i64, Yes>,
     PrometheusInstance<'a, i64, Yes>,
     PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
 );
 
 fn jobstatost_inst<'a>(
@@ -103,7 +113,71 @@ fn jobstatost_inst<'a>(
         .with_label("jobid", x.job_id.deref())
         .with_value(x.write_bytes.sum);
 
-    (rs, rmin, rmax, rb, ws, wmin, wmax, wb)
+    let create = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_label("operation", "create")
+        .with_value(x.create.samples);
+    let destroy = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_label("operation", "destroy")
+        .with_value(x.destroy.samples);
+    let get_info = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_label("operation", "get_info")
+        .with_value(x.get_info.samples);
+    let getattr = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_label("operation", "getattr")
+        .with_value(x.getattr.samples);
+    let punch = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_label("operation", "punch")
+        .with_value(x.punch.samples);
+    let quotactl = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_label("operation", "quotactl")
+        .with_value(x.quotactl.samples);
+    let set_info = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_label("operation", "set_info")
+        .with_value(x.set_info.samples);
+    let setattr = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_label("operation", "setattr")
+        .with_value(x.setattr.samples);
+    let statfs = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_label("operation", "statfs")
+        .with_value(x.statfs.samples);
+    let sync = PrometheusInstance::new()
+        .with_label("component", kind)
+        .with_label("target", target)
+        .with_label("jobid", x.job_id.deref())
+        .with_label("operation", "sync")
+        .with_value(x.sync.samples);
+
+    (
+        rs, rmin, rmax, rb, ws, wmin, wmax, wb, create, destroy, get_info, getattr, punch,
+        quotactl, set_info, setattr, statfs, sync,
+    )
 }
 
 pub fn build_ost_job_stats(
@@ -123,8 +197,26 @@ pub fn build_ost_job_stats(
     };
 
     for x in xs {
-        let (rs, rmin, rmax, rb, ws, wmin, wmax, wb) =
-            jobstatost_inst(&x, kind.to_prom_label(), target.deref());
+        let (
+            rs,
+            rmin,
+            rmax,
+            rb,
+            ws,
+            wmin,
+            wmax,
+            wb,
+            create,
+            destroy,
+            get_info,
+            getattr,
+            punch,
+            quotactl,
+            set_info,
+            setattr,
+            statfs,
+            sync,
+        ) = jobstatost_inst(&x, kind.to_prom_label(), target.deref());
 
         stats_map
             .get_mut_metric(READ_SAMPLES)
@@ -150,6 +242,19 @@ pub fn build_ost_job_stats(
         stats_map
             .get_mut_metric(WRITE_BYTES)
             .render_and_append_instance(&wb);
+
+        stats_map
+            .get_mut_metric(MDT_JOBSTATS_SAMPLES)
+            .render_and_append_instance(&create)
+            .render_and_append_instance(&destroy)
+            .render_and_append_instance(&get_info)
+            .render_and_append_instance(&getattr)
+            .render_and_append_instance(&punch)
+            .render_and_append_instance(&quotactl)
+            .render_and_append_instance(&set_info)
+            .render_and_append_instance(&setattr)
+            .render_and_append_instance(&statfs)
+            .render_and_append_instance(&sync);
     }
 }
 
