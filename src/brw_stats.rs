@@ -349,6 +349,9 @@ pub fn build_target_stats(
         TargetStats::ThreadsMax(_x) => {}
         TargetStats::ThreadsStarted(_x) => {}
         TargetStats::RecoveryStatus(_x) => {}
+        TargetStats::RecoveryCompletedClients(_) => {}
+        TargetStats::RecoveryConnectedClients(_) => {}
+        TargetStats::RecoveryEvictedClients(_) => {}
         TargetStats::Oss(x) => build_oss_stats(x, stats_map),
     };
 }

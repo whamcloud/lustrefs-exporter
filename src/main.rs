@@ -75,7 +75,7 @@ mod tests {
 
         let x = build_lustre_stats(x);
 
-        insta::assert_display_snapshot!(x);
+        insta::assert_snapshot!(x);
     }
     #[test]
     fn test_jobstats() {
@@ -85,7 +85,7 @@ mod tests {
 
         let x = build_lustre_stats(x);
 
-        insta::assert_display_snapshot!(x);
+        insta::assert_snapshot!(x);
     }
     #[test]
     fn test_lnetctl_stats() {
@@ -95,6 +95,6 @@ mod tests {
 
         let x = build_lustre_stats(x);
 
-        insta::assert_display_snapshot!(x);
+        insta::assert_snapshot!(x);
     }
 }
