@@ -7,33 +7,35 @@ use crate::{Metric, StatsMapExt, ToMetricInst};
 
 static SEND_COUNT: Metric = Metric {
     name: "lustre_send_count_total",
-    help: "Total number of messages that have been sent",
+    help: "Total number of messages that have been sent. Originating from 'lnetctl net show -v 4'",
     r#type: MetricType::Counter,
 };
 static RECEIVE_COUNT: Metric = Metric {
     name: "lustre_receive_count_total",
-    help: "Total number of messages that have been received",
+    help:
+        "Total number of messages that have been received. Originating from 'lnetctl net show -v 4'",
     r#type: MetricType::Counter,
 };
 static DROP_COUNT: Metric = Metric {
     name: "lustre_drop_count_total",
-    help: "Total number of messages that have been dropped",
+    help:
+        "Total number of messages that have been dropped. Originating from 'lnetctl net show -v 4'",
     r#type: MetricType::Counter,
 };
 
 static SEND_BYTES: Metric = Metric {
     name: "lustre_send_bytes_total",
-    help: "Total number of bytes that have been sent",
+    help: "Total number of bytes that have been sent. Originating from 'lnetctl stats show'",
     r#type: MetricType::Counter,
 };
 static RECEIVE_BYTES: Metric = Metric {
     name: "lustre_receive_bytes_total",
-    help: "Total number of bytes that have been received",
+    help: "Total number of bytes that have been received. Originating from 'lnetctl stats show'",
     r#type: MetricType::Counter,
 };
 static DROP_BYTES: Metric = Metric {
     name: "lustre_drop_bytes_total",
-    help: "Total number of bytes that have been dropped",
+    help: "Total number of bytes that have been dropped. Originating from 'lnetctl stats show'",
     r#type: MetricType::Counter,
 };
 

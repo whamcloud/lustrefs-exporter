@@ -5,13 +5,13 @@ use std::{collections::BTreeMap, ops::Deref};
 
 static LDLM_CANCELD_STATS_SAMPLES: Metric = Metric {
     name: "lustre_ldlm_canceld_stats",
-    help: "Gives information about LDLM Canceld service.",
+    help: "Gives information about LDLM Canceld service. Originating from 'ldlm.services.ldlm_canceld.stats'",
     r#type: MetricType::Counter,
 };
 
 static LDLM_CBD_STATS_SAMPLES: Metric = Metric {
     name: "lustre_ldlm_cbd_stats",
-    help: "Gives information about LDLM Callback service.",
+    help: "Gives information about LDLM Callback service. Originating from 'ldlm.services.ldlm_cbd.stats'",
     r#type: MetricType::Counter,
 };
 
