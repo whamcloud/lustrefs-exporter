@@ -365,6 +365,10 @@ lustre_free_kilobytes{component="mdt",target="ai400x2-MDT0000"} 427164896
 lustre_free_kilobytes{component="ost",target="ai400x2-OST0000"} 34539581312
 lustre_free_kilobytes{component="ost",target="ai400x2-OST0001"} 34540373392
 
+# HELP lustre_health_check_stats Gives information about Lustre health check status.
+# TYPE lustre_health_check_stats gauge
+lustre_health_check_stats 1
+
 # HELP lustre_inodes_free The number of inodes (objects) available
 # TYPE lustre_inodes_free gauge
 lustre_inodes_free{component="mgt",target="MGS"} 130871
@@ -430,6 +434,10 @@ lustre_ldlm_cbd_stats{operation="req_timeout"} 79
 lustre_ldlm_cbd_stats{operation="reqbuf_avail"} 177
 lustre_ldlm_cbd_stats{operation="ldlm_bl_callback"} 79
 
+# HELP lustre_lnet_mem_used Gives information about Lustre LNet memory usage.
+# TYPE lustre_lnet_mem_used gauge
+lustre_lnet_mem_used 174323852
+
 # HELP lustre_lock_contended_total Number of contended locks
 # TYPE lustre_lock_contended_total counter
 lustre_lock_contended_total{component="mdt",target="ai400x2-MDT0000"} 32
@@ -453,6 +461,14 @@ lustre_lock_count_total{component="ost",target="ai400x2-OST0001"} 0
 lustre_lock_timeout_total{component="mdt",target="ai400x2-MDT0000"} 0
 lustre_lock_timeout_total{component="ost",target="ai400x2-OST0000"} 0
 lustre_lock_timeout_total{component="ost",target="ai400x2-OST0001"} 0
+
+# HELP lustre_mem_used Gives information about Lustre memory usage.
+# TYPE lustre_mem_used gauge
+lustre_mem_used 1601002785
+
+# HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
+# TYPE lustre_mem_used_max gauge
+lustre_mem_used_max 1611219801
 
 # HELP lustre_oss_ost_create_stats OSS ost_create stats
 # TYPE lustre_oss_ost_create_stats gauge
@@ -620,4 +636,3 @@ lustre_write_minimum_size_bytes{component="ost",operation="write",target="ai400x
 # TYPE lustre_write_samples_total counter
 lustre_write_samples_total{component="ost",operation="write",target="ai400x2-OST0000"} 4114603
 lustre_write_samples_total{component="ost",operation="write",target="ai400x2-OST0001"} 4119187
-
