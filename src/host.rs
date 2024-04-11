@@ -2,10 +2,12 @@ use crate::{Metric, StatsMapExt, ToMetricInst};
 use lustre_collector::HostStats;
 use prometheus_exporter_base::prelude::*;
 use std::collections::BTreeMap;
+use std::ops::Deref;
 
-static HEALTH_CHECK_SAMPLES: Metric = Metric {
-    name: "lustre_health_check_stats",
-    help: "Gives information about Lustre health check status.",
+static LUSTRE_TARGETS_HEALTHY: Metric = Metric {
+    name: "lustre_health_healthy",
+    help:
+        "Indicates whether the Lustre target that are healthy or not. 1 is healthy, 0 is unhealthy.",
     r#type: MetricType::Gauge,
 };
 
@@ -33,9 +35,24 @@ pub fn build_host_stats(
 ) {
     match x {
         HostStats::HealthCheck(x) => {
+            let healthy = x.value.healthy;
+            let metric = PrometheusInstance::new().with_value(healthy as i32);
+
             stats_map
-                .get_mut_metric(HEALTH_CHECK_SAMPLES)
-                .render_and_append_instance(&x.to_metric_inst());
+                .get_mut_metric(LUSTRE_TARGETS_HEALTHY)
+                .render_and_append_instance(&metric);
+
+            if !x.value.targets.is_empty() {
+                for target in x.value.targets {
+                    let metric = PrometheusInstance::new()
+                        .with_label("target", target.deref())
+                        .with_value(healthy as i32);
+
+                    stats_map
+                        .get_mut_metric(LUSTRE_TARGETS_HEALTHY)
+                        .render_and_append_instance(&metric);
+                }
+            }
         }
         HostStats::LNetMemUsed(x) => {
             stats_map

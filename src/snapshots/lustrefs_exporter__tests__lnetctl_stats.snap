@@ -244,9 +244,9 @@ lustre_free_kilobytes{component="mdt",target="ai400x2-MDT0000"} 437329862656
 lustre_free_kilobytes{component="ost",target="ai400x2-OST0000"} 2395312779264
 lustre_free_kilobytes{component="ost",target="ai400x2-OST0001"} 1295779098624
 
-# HELP lustre_health_check_stats Gives information about Lustre health check status.
-# TYPE lustre_health_check_stats gauge
-lustre_health_check_stats 1
+# HELP lustre_health_healthy Indicates whether the Lustre target that are healthy or not. 1 is healthy, 0 is unhealthy.
+# TYPE lustre_health_healthy gauge
+lustre_health_healthy 1
 
 # HELP lustre_inodes_free The number of inodes (objects) available
 # TYPE lustre_inodes_free gauge
