@@ -8,9 +8,7 @@ pub mod stats;
 use brw_stats::build_target_stats;
 use host::build_host_stats;
 use lnet::build_lnet_stats;
-use lustre_collector::{
-    HealthCheckStat, HostStat, LNetStat, LNetStatGlobal, Record, TargetStat, TargetVariant,
-};
+use lustre_collector::{HostStat, LNetStat, LNetStatGlobal, Record, TargetStat, TargetVariant};
 use num_traits::Num;
 use prometheus_exporter_base::{prelude::*, Yes};
 use service::build_service_stats;
@@ -74,12 +72,6 @@ where
         PrometheusInstance::new()
             .with_label("nid", self.nid.deref())
             .with_value(self.value)
-    }
-}
-
-impl ToMetricInst<i32> for HostStat<HealthCheckStat> {
-    fn to_metric_inst(&self) -> PrometheusInstance<'_, i32, Yes> {
-        PrometheusInstance::new().with_value(self.value.healthy as i32)
     }
 }
 
