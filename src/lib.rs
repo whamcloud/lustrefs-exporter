@@ -2,6 +2,7 @@ pub mod brw_stats;
 pub mod host;
 pub mod jobstats;
 pub mod lnet;
+pub mod quota;
 pub mod service;
 pub mod stats;
 
