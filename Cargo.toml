@@ -4,6 +4,7 @@ name = "lustrefs-exporter"
 version = "0.2.11"
 
 [dependencies]
+clap = {version = "4", features = ["derive", "env", "wrap_help", "string"]}
 lustre_collector = "0.7"
 num-traits = "0.2.14"
 prometheus = "0.13.3"
