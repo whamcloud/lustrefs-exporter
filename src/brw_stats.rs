@@ -1,6 +1,8 @@
 use std::{collections::BTreeMap, ops::Deref};
 
-use lustre_collector::{BrwStats, BrwStatsBucket, OssStat, Stat, TargetStat, TargetStats};
+use lustre_collector::{
+    BrwStats, BrwStatsBucket, ChangeLogUser, ChangelogStat, OssStat, Stat, TargetStat, TargetStats,
+};
 use prometheus_exporter_base::{prelude::*, Yes};
 
 use crate::{
@@ -197,6 +199,24 @@ static OST_CREATE_STATS: Metric = Metric {
     r#type: MetricType::Gauge,
 };
 
+static CHANGELOG_CURRENT_INDEX: Metric = Metric {
+    name: "lustre_changelog_current_index",
+    help: "current changelog index.",
+    r#type: MetricType::Gauge,
+};
+
+static CHANGELOG_USER_INDEX: Metric = Metric {
+    name: "lustre_changelog_user_index",
+    help: "current, maximum changelog index per registered changelog user.",
+    r#type: MetricType::Gauge,
+};
+
+static CHANGELOG_USER_IDLE_SEC: Metric = Metric {
+    name: "lustre_changelog_user_idle_sec",
+    help: "current changelog user idle seconds.",
+    r#type: MetricType::Gauge,
+};
+
 fn build_oss_stats(x: OssStat, stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>) {
     let OssStat { param, stats } = x;
 
@@ -222,6 +242,53 @@ fn build_oss_stats(x: OssStat, stats_map: &mut BTreeMap<&'static str, Prometheus
 
         metric.render_and_append_instance(&stat);
     }
+}
+
+fn build_changelog_stats(
+    x: TargetStat<ChangelogStat>,
+    stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
+) {
+    let TargetStat {
+        kind: _,
+        target,
+        param: _,
+        value,
+    } = x;
+
+    let ChangelogStat {
+        current_index,
+        users,
+    } = value;
+
+    for user in users {
+        let ChangeLogUser {
+            user,
+            index,
+            idle_secs,
+        } = user;
+
+        let user_index = PrometheusInstance::new()
+            .with_label("user", user.as_str())
+            .with_label("target", target.deref())
+            .with_value(index);
+
+        let user_idle = PrometheusInstance::new()
+            .with_label("user", user.as_str())
+            .with_value(idle_secs);
+
+        stats_map
+            .get_mut_metric(CHANGELOG_USER_INDEX)
+            .render_and_append_instance(&user_index);
+        stats_map
+            .get_mut_metric(CHANGELOG_USER_IDLE_SEC)
+            .render_and_append_instance(&user_idle);
+    }
+    let current_index = PrometheusInstance::new()
+        .with_label("target", target.deref())
+        .with_value(current_index);
+    stats_map
+        .get_mut_metric(CHANGELOG_CURRENT_INDEX)
+        .render_and_append_instance(&current_index);
 }
 
 fn rw_inst<'a>(
@@ -355,9 +422,9 @@ pub fn build_target_stats(
         TargetStats::Llite(_) => {}
         TargetStats::ExportStats(_) => {}
         TargetStats::Mds(_) => {}
-        TargetStats::Changelog(_) => {}
         TargetStats::QuotaStats(_) => {}
         TargetStats::QuotaStatsOsd(_) => {}
         TargetStats::Oss(x) => build_oss_stats(x, stats_map),
+        TargetStats::Changelog(x) => build_changelog_stats(x, stats_map),
     };
 }

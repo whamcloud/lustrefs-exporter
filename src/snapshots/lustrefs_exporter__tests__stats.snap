@@ -16,6 +16,19 @@ lustre_capacity_kilobytes{component="mdt",target="ai400x2-MDT0000"} 427170984
 lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0000"} 34750424936
 lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0001"} 34750424936
 
+# HELP lustre_changelog_current_index current changelog index.
+# TYPE lustre_changelog_current_index gauge
+lustre_changelog_current_index{target="ai400x2-MDT0000"} 50
+lustre_changelog_current_index{target="ai400x2-MDT0001"} 0
+
+# HELP lustre_changelog_user_idle_sec current changelog user idle seconds.
+# TYPE lustre_changelog_user_idle_sec gauge
+lustre_changelog_user_idle_sec{user="cl2"} 180
+
+# HELP lustre_changelog_user_index current, maximum changelog index per registered changelog user.
+# TYPE lustre_changelog_user_index gauge
+lustre_changelog_user_index{user="cl2",target="ai400x2-MDT0000"} 8
+
 # HELP lustre_connected_clients Number of connected clients
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="ai400x2-MDT0000"} 1
