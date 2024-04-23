@@ -299,28 +299,22 @@ fn jobstatmdt_inst<'a>(
             .with_label("jobid", job_id.deref())
             .with_label("operation", "crossdir_rename")
             .with_value(crossdir_rename.samples),
-        match parallel_rename_dir {
-            None => None,
-            Some(parallel_rename_dir) => Some(
-                PrometheusInstance::new()
-                    .with_label("component", kind)
-                    .with_label("target", target)
-                    .with_label("jobid", job_id.deref())
-                    .with_label("operation", "parallel_rename_dir")
-                    .with_value(parallel_rename_dir.samples),
-            ),
-        },
-        match parallel_rename_file {
-            None => None,
-            Some(parallel_rename_file) => Some(
-                PrometheusInstance::new()
-                    .with_label("component", kind)
-                    .with_label("target", target)
-                    .with_label("jobid", job_id.deref())
-                    .with_label("operation", "parallel_rename_file")
-                    .with_value(parallel_rename_file.samples),
-            ),
-        },
+        parallel_rename_dir.as_ref().map(|parallel_rename_dir| {
+            PrometheusInstance::new()
+                .with_label("component", kind)
+                .with_label("target", target)
+                .with_label("jobid", job_id.deref())
+                .with_label("operation", "parallel_rename_dir")
+                .with_value(parallel_rename_dir.samples)
+        }),
+        parallel_rename_file.as_ref().map(|parallel_rename_file| {
+            PrometheusInstance::new()
+                .with_label("component", kind)
+                .with_label("target", target)
+                .with_label("jobid", job_id.deref())
+                .with_label("operation", "parallel_rename_file")
+                .with_value(parallel_rename_file.samples)
+        }),
     )
 }
 
