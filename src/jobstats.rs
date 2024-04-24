@@ -180,6 +180,10 @@ fn jobstatmdt_inst<'a>(
     target: &'a str,
 ) -> JobStatMdtPromInst<'a> {
     let JobStatMdt {
+        job_id,
+        snapshot_time: _,
+        start_time: _,
+        elapsed_time: _,
         open,
         close,
         mknod,
@@ -196,10 +200,11 @@ fn jobstatmdt_inst<'a>(
         sync,
         samedir_rename,
         crossdir_rename,
-        job_id,
+        read_bytes: _,
+        write_bytes: _,
+        punch: _,
         parallel_rename_dir,
         parallel_rename_file,
-        ..
     } = x;
 
     (
