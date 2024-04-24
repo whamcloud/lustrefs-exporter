@@ -170,6 +170,9 @@ type JobStatMdtPromInst<'a> = (
     PrometheusInstance<'a, i64, Yes>,
     PrometheusInstance<'a, i64, Yes>,
     PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
     Option<PrometheusInstance<'a, i64, Yes>>,
     Option<PrometheusInstance<'a, i64, Yes>>,
 );
@@ -200,9 +203,9 @@ fn jobstatmdt_inst<'a>(
         sync,
         samedir_rename,
         crossdir_rename,
-        read_bytes: _,
-        write_bytes: _,
-        punch: _,
+        read_bytes,
+        write_bytes,
+        punch,
         parallel_rename_dir,
         parallel_rename_file,
     } = x;
@@ -304,6 +307,24 @@ fn jobstatmdt_inst<'a>(
             .with_label("jobid", job_id.deref())
             .with_label("operation", "crossdir_rename")
             .with_value(crossdir_rename.samples),
+        PrometheusInstance::new()
+            .with_label("component", kind)
+            .with_label("target", target)
+            .with_label("jobid", job_id.deref())
+            .with_label("operation", "punch")
+            .with_value(punch.samples),
+        PrometheusInstance::new()
+            .with_label("component", kind)
+            .with_label("target", target)
+            .with_label("jobid", job_id.deref())
+            .with_label("operation", "read_bytes")
+            .with_value(read_bytes.samples),
+        PrometheusInstance::new()
+            .with_label("component", kind)
+            .with_label("target", target)
+            .with_label("jobid", job_id.deref())
+            .with_label("operation", "write_bytes")
+            .with_value(write_bytes.samples),
         parallel_rename_dir.as_ref().map(|parallel_rename_dir| {
             PrometheusInstance::new()
                 .with_label("component", kind)
@@ -363,6 +384,9 @@ pub fn build_mdt_job_stats(
             sync,
             samedir_rename,
             crossdir_rename,
+            punch,
+            read_bytes,
+            write_bytes,
             parallel_rename_dir,
             parallel_rename_file,
         ) = jobstatmdt_inst(&x, kind.to_prom_label(), target.deref());
@@ -384,7 +408,10 @@ pub fn build_mdt_job_stats(
             .render_and_append_instance(&statfs)
             .render_and_append_instance(&sync)
             .render_and_append_instance(&samedir_rename)
-            .render_and_append_instance(&crossdir_rename);
+            .render_and_append_instance(&crossdir_rename)
+            .render_and_append_instance(&punch)
+            .render_and_append_instance(&read_bytes)
+            .render_and_append_instance(&write_bytes);
         if let Some(parallel_rename_dir) = parallel_rename_dir {
             stats_map
                 .get_mut_metric(MDT_JOBSTATS_SAMPLES)

@@ -242,6 +242,9 @@ lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operatio
 lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operation="sync"} 0
 lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operation="samedir_rename"} 0
 lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operation="crossdir_rename"} 0
+lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operation="punch"} 0
+lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operation="read_bytes"} 0
+lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operation="write_bytes"} 0
 
 # HELP lustre_job_write_bytes_total The total number of bytes that have been written.
 # TYPE lustre_job_write_bytes_total counter
