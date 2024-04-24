@@ -242,6 +242,9 @@ lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operatio
 lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operation="sync"} 0
 lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operation="samedir_rename"} 0
 lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operation="crossdir_rename"} 0
+lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operation="punch"} 0
+lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operation="read_bytes"} 0
+lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="dd.0",operation="write_bytes"} 0
 
 # HELP lustre_job_write_bytes_total The total number of bytes that have been written.
 # TYPE lustre_job_write_bytes_total counter
@@ -333,6 +336,8 @@ lustre_stats_total{component="mdt",operation="getattr",target="fs-MDT0000"} 15
 lustre_stats_total{component="mdt",operation="setattr",target="fs-MDT0000"} 7
 lustre_stats_total{component="mdt",operation="getxattr",target="fs-MDT0000"} 2
 lustre_stats_total{component="mdt",operation="statfs",target="fs-MDT0000"} 3
+lustre_stats_total{component="mdt",operation="parallel_rename_dir",target="fs-MDT0000"} 4
+lustre_stats_total{component="mdt",operation="parallel_rename_file",target="fs-MDT0000"} 3
 
 # HELP lustre_write_bytes_total The total number of bytes that have been written.
 # TYPE lustre_write_bytes_total counter
@@ -353,4 +358,3 @@ lustre_write_minimum_size_bytes{component="ost",operation="write",target="fs-OST
 # TYPE lustre_write_samples_total counter
 lustre_write_samples_total{component="ost",operation="write",target="fs-OST0000"} 18
 lustre_write_samples_total{component="ost",operation="write",target="fs-OST0001"} 20
-

@@ -170,6 +170,11 @@ type JobStatMdtPromInst<'a> = (
     PrometheusInstance<'a, i64, Yes>,
     PrometheusInstance<'a, i64, Yes>,
     PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    PrometheusInstance<'a, i64, Yes>,
+    Option<PrometheusInstance<'a, i64, Yes>>,
+    Option<PrometheusInstance<'a, i64, Yes>>,
 );
 
 fn jobstatmdt_inst<'a>(
@@ -177,103 +182,165 @@ fn jobstatmdt_inst<'a>(
     kind: &'a str,
     target: &'a str,
 ) -> JobStatMdtPromInst<'a> {
+    let JobStatMdt {
+        job_id,
+        snapshot_time: _,
+        start_time: _,
+        elapsed_time: _,
+        open,
+        close,
+        mknod,
+        link,
+        unlink,
+        mkdir,
+        rmdir,
+        rename,
+        getattr,
+        setattr,
+        getxattr,
+        setxattr,
+        statfs,
+        sync,
+        samedir_rename,
+        crossdir_rename,
+        read_bytes,
+        write_bytes,
+        punch,
+        parallel_rename_dir,
+        parallel_rename_file,
+    } = x;
+
     (
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "open")
-            .with_value(x.open.samples),
+            .with_value(open.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "close")
-            .with_value(x.close.samples),
+            .with_value(close.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "mknod")
-            .with_value(x.mknod.samples),
+            .with_value(mknod.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "link")
-            .with_value(x.link.samples),
+            .with_value(link.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "unlink")
-            .with_value(x.unlink.samples),
+            .with_value(unlink.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "mkdir")
-            .with_value(x.mkdir.samples),
+            .with_value(mkdir.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "rmdir")
-            .with_value(x.rmdir.samples),
+            .with_value(rmdir.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "rename")
-            .with_value(x.rename.samples),
+            .with_value(rename.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "getattr")
-            .with_value(x.getattr.samples),
+            .with_value(getattr.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "setattr")
-            .with_value(x.setattr.samples),
+            .with_value(setattr.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "getxattr")
-            .with_value(x.getxattr.samples),
+            .with_value(getxattr.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "setxattr")
-            .with_value(x.setxattr.samples),
+            .with_value(setxattr.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "statfs")
-            .with_value(x.statfs.samples),
+            .with_value(statfs.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "sync")
-            .with_value(x.sync.samples),
+            .with_value(sync.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "samedir_rename")
-            .with_value(x.samedir_rename.samples),
+            .with_value(samedir_rename.samples),
         PrometheusInstance::new()
             .with_label("component", kind)
             .with_label("target", target)
-            .with_label("jobid", x.job_id.deref())
+            .with_label("jobid", job_id.deref())
             .with_label("operation", "crossdir_rename")
-            .with_value(x.crossdir_rename.samples),
+            .with_value(crossdir_rename.samples),
+        PrometheusInstance::new()
+            .with_label("component", kind)
+            .with_label("target", target)
+            .with_label("jobid", job_id.deref())
+            .with_label("operation", "punch")
+            .with_value(punch.samples),
+        PrometheusInstance::new()
+            .with_label("component", kind)
+            .with_label("target", target)
+            .with_label("jobid", job_id.deref())
+            .with_label("operation", "read_bytes")
+            .with_value(read_bytes.samples),
+        PrometheusInstance::new()
+            .with_label("component", kind)
+            .with_label("target", target)
+            .with_label("jobid", job_id.deref())
+            .with_label("operation", "write_bytes")
+            .with_value(write_bytes.samples),
+        parallel_rename_dir.as_ref().map(|parallel_rename_dir| {
+            PrometheusInstance::new()
+                .with_label("component", kind)
+                .with_label("target", target)
+                .with_label("jobid", job_id.deref())
+                .with_label("operation", "parallel_rename_dir")
+                .with_value(parallel_rename_dir.samples)
+        }),
+        parallel_rename_file.as_ref().map(|parallel_rename_file| {
+            PrometheusInstance::new()
+                .with_label("component", kind)
+                .with_label("target", target)
+                .with_label("jobid", job_id.deref())
+                .with_label("operation", "parallel_rename_file")
+                .with_value(parallel_rename_file.samples)
+        }),
     )
 }
 
@@ -317,6 +384,11 @@ pub fn build_mdt_job_stats(
             sync,
             samedir_rename,
             crossdir_rename,
+            punch,
+            read_bytes,
+            write_bytes,
+            parallel_rename_dir,
+            parallel_rename_file,
         ) = jobstatmdt_inst(&x, kind.to_prom_label(), target.deref());
 
         stats_map
@@ -336,6 +408,19 @@ pub fn build_mdt_job_stats(
             .render_and_append_instance(&statfs)
             .render_and_append_instance(&sync)
             .render_and_append_instance(&samedir_rename)
-            .render_and_append_instance(&crossdir_rename);
+            .render_and_append_instance(&crossdir_rename)
+            .render_and_append_instance(&punch)
+            .render_and_append_instance(&read_bytes)
+            .render_and_append_instance(&write_bytes);
+        if let Some(parallel_rename_dir) = parallel_rename_dir {
+            stats_map
+                .get_mut_metric(MDT_JOBSTATS_SAMPLES)
+                .render_and_append_instance(&parallel_rename_dir);
+        }
+        if let Some(parallel_rename_file) = parallel_rename_file {
+            stats_map
+                .get_mut_metric(MDT_JOBSTATS_SAMPLES)
+                .render_and_append_instance(&parallel_rename_file);
+        }
     }
 }
