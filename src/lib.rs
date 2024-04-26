@@ -1,6 +1,11 @@
+// Copyright (c) 2024 DDN. All rights reserved.
+// Use of this source code is governed by a MIT-style
+// license that can be found in the LICENSE file.
+
 pub mod brw_stats;
 pub mod host;
 pub mod jobstats;
+pub mod llite;
 pub mod lnet;
 pub mod quota;
 pub mod service;

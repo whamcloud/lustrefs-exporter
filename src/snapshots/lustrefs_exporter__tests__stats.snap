@@ -33,6 +33,14 @@ lustre_changelog_user_idle_sec{user="cl2"} 180
 # TYPE lustre_changelog_user_index gauge
 lustre_changelog_user_index{user="cl2",target="ai400x2-MDT0000"} 8
 
+# HELP lustre_client_stats Lustre client interface stats.
+# TYPE lustre_client_stats gauge
+lustre_client_stats{operation="ioctl",target="exatest-ff3f2ef8d0a64000"} 22
+lustre_client_stats{operation="getattr",target="exatest-ff3f2ef8d0a64000"} 84
+lustre_client_stats{operation="statfs",target="exatest-ff3f2ef8d0a64000"} 3468656
+lustre_client_stats{operation="inode_permission",target="exatest-ff3f2ef8d0a64000"} 18
+lustre_client_stats{operation="opencount",target="exatest-ff3f2ef8d0a64000"} 14
+
 # HELP lustre_connected_clients Number of connected clients
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="ai400x2-MDT0000"} 1

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 DDN. All rights reserved.
+// Use of this source code is governed by a MIT-style
+// license that can be found in the LICENSE file.
+
 use std::{collections::BTreeMap, ops::Deref};
 
 use lustre_collector::{
@@ -7,6 +11,7 @@ use prometheus_exporter_base::{prelude::*, Yes};
 
 use crate::{
     jobstats::{build_mdt_job_stats, build_ost_job_stats},
+    llite::build_llite_stats,
     quota::{build_ost_quota_stats, build_quota_stats},
     stats::build_stats,
     LabelProm, Metric, StatsMapExt, ToMetricInst,
@@ -410,6 +415,7 @@ pub fn build_target_stats(
         TargetStats::LockUnusedCount(_x) => {}
         TargetStats::LruMaxAge(_x) => {}
         TargetStats::LruSize(_x) => {}
+        TargetStats::Llite(x) => build_llite_stats(x, stats_map),
         TargetStats::MaxNolockBytes(_x) => {}
         TargetStats::MaxParallelAst(_x) => {}
         TargetStats::ResourceCount(_x) => {}
@@ -420,7 +426,6 @@ pub fn build_target_stats(
         TargetStats::RecoveryCompletedClients(_) => {}
         TargetStats::RecoveryConnectedClients(_) => {}
         TargetStats::RecoveryEvictedClients(_) => {}
-        TargetStats::Llite(_) => {}
         TargetStats::ExportStats(_) => {}
         TargetStats::Mds(_) => {}
         TargetStats::QuotaStats(x) => {

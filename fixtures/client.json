@@ -1,0 +1,618 @@
+[
+    {
+        "Host": {
+            "Memused": {
+                "param": "memused",
+                "value": 72132771
+            }
+        }
+    },
+    {
+        "Host": {
+            "MemusedMax": {
+                "param": "memused_max",
+                "value": 10924287079
+            }
+        }
+    },
+    {
+        "Host": {
+            "LNetMemUsed": {
+                "param": "lnet_memused",
+                "value": 178729063
+            }
+        }
+    },
+    {
+        "Host": {
+            "HealthCheck": {
+                "param": "health_check",
+                "value": {
+                    "healthy": true,
+                    "targets": []
+                }
+            }
+        }
+    },
+    {
+        "LustreService": {
+            "LdlmCbd": [
+                {
+                    "name": "req_waittime",
+                    "units": "usecs",
+                    "samples": 275530,
+                    "min": 1,
+                    "max": 7672,
+                    "sum": 4836387,
+                    "sumsquare": 801341611
+                },
+                {
+                    "name": "req_qdepth",
+                    "units": "reqs",
+                    "samples": 275530,
+                    "min": 0,
+                    "max": 5,
+                    "sum": 761,
+                    "sumsquare": 825
+                },
+                {
+                    "name": "req_active",
+                    "units": "reqs",
+                    "samples": 275530,
+                    "min": 1,
+                    "max": 4,
+                    "sum": 296065,
+                    "sumsquare": 340469
+                },
+                {
+                    "name": "req_timeout",
+                    "units": "secs",
+                    "samples": 275530,
+                    "min": 15,
+                    "max": 15,
+                    "sum": 4132950,
+                    "sumsquare": 61994250
+                },
+                {
+                    "name": "reqbuf_avail",
+                    "units": "bufs",
+                    "samples": 556804,
+                    "min": 0,
+                    "max": 2,
+                    "sum": 514508,
+                    "sumsquare": 515040
+                },
+                {
+                    "name": "ldlm_bl_callback",
+                    "units": "usecs",
+                    "samples": 238503,
+                    "min": 1,
+                    "max": 327,
+                    "sum": 3378907,
+                    "sumsquare": 57157485
+                },
+                {
+                    "name": "ldlm_cp_callback",
+                    "units": "usecs",
+                    "samples": 36972,
+                    "min": 4,
+                    "max": 51,
+                    "sum": 474831,
+                    "sumsquare": 7195225
+                },
+                {
+                    "name": "ldlm_gl_callback",
+                    "units": "usecs",
+                    "samples": 55,
+                    "min": 3,
+                    "max": 90,
+                    "sum": 761,
+                    "sumsquare": 23453
+                }
+            ]
+        }
+    },
+    {
+        "Target": {
+            "Llite": {
+                "target": "exafs-ffff9239aa0c4800",
+                "param": "stats",
+                "stats": [
+                    {
+                        "name": "read_bytes",
+                        "units": "bytes",
+                        "samples": 82152,
+                        "min": 1,
+                        "max": 5117760,
+                        "sum": 640379742,
+                        "sumsquare": 1048458794946704
+                    },
+                    {
+                        "name": "write_bytes",
+                        "units": "bytes",
+                        "samples": 2726169,
+                        "min": 1,
+                        "max": 38568731,
+                        "sum": 4027228138649,
+                        "sumsquare": 14020240095319233000
+                    },
+                    {
+                        "name": "read",
+                        "units": "usecs",
+                        "samples": 82150,
+                        "min": 0,
+                        "max": 24216,
+                        "sum": 547451,
+                        "sumsquare": 1490496111
+                    },
+                    {
+                        "name": "write",
+                        "units": "usecs",
+                        "samples": 2726169,
+                        "min": 0,
+                        "max": 1143751,
+                        "sum": 18381403576,
+                        "sumsquare": 578258825809454
+                    },
+                    {
+                        "name": "ioctl",
+                        "units": "reqs",
+                        "samples": 50690,
+                        "min": null,
+                        "max": null,
+                        "sum": null,
+                        "sumsquare": null
+                    },
+                    {
+                        "name": "open",
+                        "units": "usecs",
+                        "samples": 82098,
+                        "min": 0,
+                        "max": 18102,
+                        "sum": 5061683,
+                        "sumsquare": 2572052439
+                    },
+                    {
+                        "name": "close",
+                        "units": "usecs",
+                        "samples": 82098,
+                        "min": 0,
+                        "max": 25580,
+                        "sum": 8066352,
+                        "sumsquare": 6143484722
+                    },
+                    {
+                        "name": "mmap",
+                        "units": "usecs",
+                        "samples": 2763,
+                        "min": 1,
+                        "max": 14,
+                        "sum": 6408,
+                        "sumsquare": 17690
+                    },
+                    {
+                        "name": "page_fault",
+                        "units": "usecs",
+                        "samples": 70393,
+                        "min": 0,
+                        "max": 41,
+                        "sum": 479,
+                        "sumsquare": 2511
+                    },
+                    {
+                        "name": "seek",
+                        "units": "usecs",
+                        "samples": 80982,
+                        "min": 0,
+                        "max": 15,
+                        "sum": 238,
+                        "sumsquare": 734
+                    },
+                    {
+                        "name": "fsync",
+                        "units": "usecs",
+                        "samples": 1734,
+                        "min": 606,
+                        "max": 1885044,
+                        "sum": 80980622,
+                        "sumsquare": 77658881214968
+                    },
+                    {
+                        "name": "readdir",
+                        "units": "usecs",
+                        "samples": 26398,
+                        "min": 0,
+                        "max": 17600,
+                        "sum": 1357844,
+                        "sumsquare": 1602353176
+                    },
+                    {
+                        "name": "setattr",
+                        "units": "usecs",
+                        "samples": 1100,
+                        "min": 182,
+                        "max": 19562,
+                        "sum": 444842,
+                        "sumsquare": 1648653954
+                    },
+                    {
+                        "name": "truncate",
+                        "units": "usecs",
+                        "samples": 202,
+                        "min": 196,
+                        "max": 823475,
+                        "sum": 1847660,
+                        "sumsquare": 700166182294
+                    },
+                    {
+                        "name": "getattr",
+                        "units": "usecs",
+                        "samples": 632721,
+                        "min": 0,
+                        "max": 30792,
+                        "sum": 7724539,
+                        "sumsquare": 7364195421
+                    },
+                    {
+                        "name": "link",
+                        "units": "usecs",
+                        "samples": 6,
+                        "min": 108,
+                        "max": 379,
+                        "sum": 1259,
+                        "sumsquare": 333347
+                    },
+                    {
+                        "name": "unlink",
+                        "units": "usecs",
+                        "samples": 22512,
+                        "min": 89,
+                        "max": 2164,
+                        "sum": 3315505,
+                        "sumsquare": 507432331
+                    },
+                    {
+                        "name": "symlink",
+                        "units": "usecs",
+                        "samples": 18,
+                        "min": 90,
+                        "max": 150,
+                        "sum": 2004,
+                        "sumsquare": 227038
+                    },
+                    {
+                        "name": "mkdir",
+                        "units": "usecs",
+                        "samples": 7547,
+                        "min": 102,
+                        "max": 17658,
+                        "sum": 1325412,
+                        "sumsquare": 995428010
+                    },
+                    {
+                        "name": "rmdir",
+                        "units": "usecs",
+                        "samples": 4348,
+                        "min": 83,
+                        "max": 13541,
+                        "sum": 553995,
+                        "sumsquare": 266431061
+                    },
+                    {
+                        "name": "mknod",
+                        "units": "usecs",
+                        "samples": 38461,
+                        "min": 113,
+                        "max": 52852,
+                        "sum": 6804569,
+                        "sumsquare": 7441052317
+                    },
+                    {
+                        "name": "rename",
+                        "units": "usecs",
+                        "samples": 16394,
+                        "min": 91,
+                        "max": 10254,
+                        "sum": 2114591,
+                        "sumsquare": 486481239
+                    },
+                    {
+                        "name": "statfs",
+                        "units": "usecs",
+                        "samples": 40793,
+                        "min": 0,
+                        "max": 23107,
+                        "sum": 11630223,
+                        "sumsquare": 40520526461
+                    },
+                    {
+                        "name": "getxattr",
+                        "units": "usecs",
+                        "samples": 499,
+                        "min": 0,
+                        "max": 1873,
+                        "sum": 32345,
+                        "sumsquare": 10175463
+                    },
+                    {
+                        "name": "getxattr_hits",
+                        "units": "reqs",
+                        "samples": 291,
+                        "min": null,
+                        "max": null,
+                        "sum": null,
+                        "sumsquare": null
+                    },
+                    {
+                        "name": "listxattr",
+                        "units": "usecs",
+                        "samples": 12,
+                        "min": 83,
+                        "max": 114,
+                        "sum": 1164,
+                        "sumsquare": 113932
+                    },
+                    {
+                        "name": "inode_permission",
+                        "units": "usecs",
+                        "samples": 8318567,
+                        "min": 0,
+                        "max": 549,
+                        "sum": 1041805,
+                        "sumsquare": 4001801
+                    },
+                    {
+                        "name": "fallocate",
+                        "units": "usecs",
+                        "samples": 196,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 196,
+                        "sumsquare": 196
+                    },
+                    {
+                        "name": "opencount",
+                        "units": "reqs",
+                        "samples": 82130,
+                        "min": 1,
+                        "max": 69,
+                        "sum": 147935,
+                        "sumsquare": 755655
+                    },
+                    {
+                        "name": "openclosetime",
+                        "units": "usecs",
+                        "samples": 38877,
+                        "min": 61,
+                        "max": 419940741504,
+                        "sum": 19495082818214,
+                        "sumsquare": 10306184451952024000
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Llite": {
+                "target": "exatest-ffff923a1497d800",
+                "param": "stats",
+                "stats": [
+                    {
+                        "name": "write_bytes",
+                        "units": "bytes",
+                        "samples": 204800,
+                        "min": 1048576,
+                        "max": 1048576,
+                        "sum": 214748364800,
+                        "sumsquare": 225179981368524800
+                    },
+                    {
+                        "name": "write",
+                        "units": "usecs",
+                        "samples": 204800,
+                        "min": 495,
+                        "max": 146001,
+                        "sum": 1604789685,
+                        "sumsquare": 24987456246199
+                    },
+                    {
+                        "name": "ioctl",
+                        "units": "reqs",
+                        "samples": 74,
+                        "min": null,
+                        "max": null,
+                        "sum": null,
+                        "sumsquare": null
+                    },
+                    {
+                        "name": "open",
+                        "units": "usecs",
+                        "samples": 200,
+                        "min": 1,
+                        "max": 3652,
+                        "sum": 121373,
+                        "sumsquare": 200576313
+                    },
+                    {
+                        "name": "close",
+                        "units": "usecs",
+                        "samples": 200,
+                        "min": 89,
+                        "max": 14145,
+                        "sum": 198940,
+                        "sumsquare": 1806646818
+                    },
+                    {
+                        "name": "fsync",
+                        "units": "usecs",
+                        "samples": 100,
+                        "min": 2791,
+                        "max": 1455413,
+                        "sum": 64991178,
+                        "sumsquare": 56423981041092
+                    },
+                    {
+                        "name": "truncate",
+                        "units": "usecs",
+                        "samples": 100,
+                        "min": 273,
+                        "max": 2376,
+                        "sum": 71837,
+                        "sumsquare": 78000507
+                    },
+                    {
+                        "name": "getattr",
+                        "units": "usecs",
+                        "samples": 445,
+                        "min": 1,
+                        "max": 16694,
+                        "sum": 58681,
+                        "sumsquare": 646623643
+                    },
+                    {
+                        "name": "mkdir",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 1037,
+                        "max": 1037,
+                        "sum": 1037,
+                        "sumsquare": 1075369
+                    },
+                    {
+                        "name": "mknod",
+                        "units": "usecs",
+                        "samples": 100,
+                        "min": 159,
+                        "max": 1431,
+                        "sum": 31650,
+                        "sumsquare": 15626974
+                    },
+                    {
+                        "name": "statfs",
+                        "units": "usecs",
+                        "samples": 41036,
+                        "min": 0,
+                        "max": 43093,
+                        "sum": 127941248,
+                        "sumsquare": 1785397180634
+                    },
+                    {
+                        "name": "inode_permission",
+                        "units": "usecs",
+                        "samples": 7212,
+                        "min": 0,
+                        "max": 291,
+                        "sum": 29438,
+                        "sumsquare": 2775686
+                    },
+                    {
+                        "name": "fallocate",
+                        "units": "usecs",
+                        "samples": 100,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 100,
+                        "sumsquare": 100
+                    },
+                    {
+                        "name": "opencount",
+                        "units": "reqs",
+                        "samples": 201,
+                        "min": 1,
+                        "max": 2,
+                        "sum": 301,
+                        "sumsquare": 501
+                    },
+                    {
+                        "name": "openclosetime",
+                        "units": "usecs",
+                        "samples": 100,
+                        "min": 36806595,
+                        "max": 51632102,
+                        "sum": 4018177056,
+                        "sumsquare": 163525411049439500
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "SendCount": {
+                "nid": "0@lo",
+                "param": "send_count",
+                "value": 0
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "RecvCount": {
+                "nid": "0@lo",
+                "param": "recv_count",
+                "value": 0
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "DropCount": {
+                "nid": "0@lo",
+                "param": "drop_count",
+                "value": 0
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "SendCount": {
+                "nid": "172.18.2.101@o2ib",
+                "param": "send_count",
+                "value": 33503282
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "RecvCount": {
+                "nid": "172.18.2.101@o2ib",
+                "param": "recv_count",
+                "value": 39769486
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "DropCount": {
+                "nid": "172.18.2.101@o2ib",
+                "param": "drop_count",
+                "value": 0
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "SendLength": {
+                "param": "send_length",
+                "value": 6673532934057
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "RecvLength": {
+                "param": "recv_length",
+                "value": 3943753915256
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "DropLength": {
+                "param": "drop_length",
+                "value": 0
+            }
+        }
+    }
+]
