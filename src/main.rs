@@ -2,21 +2,32 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
+use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
 use lustrefs_exporter::build_lustre_stats;
 use prometheus_exporter_base::prelude::*;
 
 use tokio::process::Command;
 
+const LUSTREFS_EXPORTER_PORT: &str = "32221";
+
 #[derive(Debug)]
 struct Options;
+
+#[derive(Debug, Parser)]
+pub struct CommandOpts {
+    /// Port that exporter will listen to
+    #[clap(short, long, env = "LUSTREFS_EXPORTER_PORT", default_value = LUSTREFS_EXPORTER_PORT)]
+    pub port: u16,
+}
 
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt::init();
+    let opts = CommandOpts::parse();
 
     let server_opts = ServerOptions {
-        addr: ([0, 0, 0, 0], 32221).into(),
+        addr: ([0, 0, 0, 0], opts.port).into(),
         authorization: Authorization::None,
     };
 
