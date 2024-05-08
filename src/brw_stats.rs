@@ -352,6 +352,12 @@ pub fn build_target_stats(
         TargetStats::RecoveryCompletedClients(_) => {}
         TargetStats::RecoveryConnectedClients(_) => {}
         TargetStats::RecoveryEvictedClients(_) => {}
+        TargetStats::Llite(_) => {}
+        TargetStats::ExportStats(_) => {}
+        TargetStats::Mds(_) => {}
+        TargetStats::Changelog(_) => {}
+        TargetStats::QuotaStats(_) => {}
+        TargetStats::QuotaStatsOsd(_) => {}
         TargetStats::Oss(x) => build_oss_stats(x, stats_map),
     };
 }

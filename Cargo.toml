@@ -1,7 +1,7 @@
 [package]
 edition = "2021"
 name = "lustrefs-exporter"
-version = "0.2.11"
+version = "0.3.0"
 
 [lints.clippy]
 cast_lossless = "warn"
@@ -10,7 +10,7 @@ unwrap_used = "warn"
 
 [dependencies]
 clap = {version = "4", features = ["derive", "env", "wrap_help", "string"]}
-lustre_collector = "0.7"
+lustre_collector = "0.8"
 num-traits = "0.2.14"
 prometheus = "0.13.3"
 prometheus_exporter_base = {version = "1.4.0", features = ["hyper_server"]}
