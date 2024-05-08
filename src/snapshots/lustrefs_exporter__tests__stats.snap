@@ -365,7 +365,7 @@ lustre_free_kilobytes{component="mdt",target="ai400x2-MDT0000"} 427164896
 lustre_free_kilobytes{component="ost",target="ai400x2-OST0000"} 34539581312
 lustre_free_kilobytes{component="ost",target="ai400x2-OST0001"} 34540373392
 
-# HELP lustre_health_healthy Indicates whether the Lustre target that are healthy or not. 1 is healthy, 0 is unhealthy.
+# HELP lustre_health_healthy Indicates whether the Lustre target is healthy or not. 1 is healthy, 0 is unhealthy.
 # TYPE lustre_health_healthy gauge
 lustre_health_healthy 1
 
