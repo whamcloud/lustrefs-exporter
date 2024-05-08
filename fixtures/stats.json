@@ -2381,6 +2381,42 @@
   },
   {
     "Target": {
+      "Changelog": {
+        "kind": "Mdt",
+        "param": "changelog_users",
+        "target": "ai400x2-MDT0000",
+        "value": {
+          "users": 
+            [
+              {
+                "user": "cl2",
+                "index": 8,
+                "idle_secs": 180
+              }
+            ],
+          "current_index": 50
+          }
+        }
+    }
+  },
+  {
+    "Target": {
+      "Changelog": {
+        "kind": "Mdt",
+        "param": "changelog_users",
+        "target": "ai400x2-MDT0001",
+        "value": {
+          "users": 
+            [
+
+            ],
+          "current_index": 0
+          }
+        }
+    }
+  },
+  {
+    "Target": {
       "Stats": {
         "kind": "Mdt",
         "param": "md_stats",
