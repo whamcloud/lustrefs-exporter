@@ -6,8 +6,7 @@ use std::ops::Deref;
 
 static LUSTRE_TARGETS_HEALTHY: Metric = Metric {
     name: "lustre_health_healthy",
-    help:
-        "Indicates whether the Lustre target is healthy or not. 1 is healthy, 0 is unhealthy.",
+    help: "Indicates whether the Lustre target is healthy or not. 1 is healthy, 0 is unhealthy.",
     r#type: MetricType::Gauge,
 };
 
