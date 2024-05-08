@@ -3,6 +3,11 @@ edition = "2021"
 name = "lustrefs-exporter"
 version = "0.2.11"
 
+[lints.clippy]
+cast_lossless = "warn"
+cast_possible_wrap = "warn"
+unwrap_used = "warn"
+
 [dependencies]
 clap = {version = "4", features = ["derive", "env", "wrap_help", "string"]}
 lustre_collector = "0.7"
