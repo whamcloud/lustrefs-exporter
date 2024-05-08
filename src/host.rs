@@ -35,7 +35,7 @@ pub fn build_host_stats(
     match x {
         HostStats::HealthCheck(x) => {
             let healthy = x.value.healthy;
-            let metric = PrometheusInstance::new().with_value(healthy as i32);
+            let metric = PrometheusInstance::new().with_value(i32::from(healthy));
 
             stats_map
                 .get_mut_metric(LUSTRE_TARGETS_HEALTHY)
@@ -45,7 +45,7 @@ pub fn build_host_stats(
                 for target in x.value.targets {
                     let metric = PrometheusInstance::new()
                         .with_label("target", target.deref())
-                        .with_value(healthy as i32);
+                        .with_value(i32::from(healthy));
 
                     stats_map
                         .get_mut_metric(LUSTRE_TARGETS_HEALTHY)
