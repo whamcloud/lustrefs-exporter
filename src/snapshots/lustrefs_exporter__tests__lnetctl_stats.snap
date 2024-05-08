@@ -244,6 +244,10 @@ lustre_free_kilobytes{component="mdt",target="ai400x2-MDT0000"} 437329862656
 lustre_free_kilobytes{component="ost",target="ai400x2-OST0000"} 2395312779264
 lustre_free_kilobytes{component="ost",target="ai400x2-OST0001"} 1295779098624
 
+# HELP lustre_health_healthy Indicates whether the Lustre target is healthy or not. 1 is healthy, 0 is unhealthy.
+# TYPE lustre_health_healthy gauge
+lustre_health_healthy 1
+
 # HELP lustre_inodes_free The number of inodes (objects) available
 # TYPE lustre_inodes_free gauge
 lustre_inodes_free{component="mgt",target="MGS"} 130871
@@ -301,6 +305,10 @@ lustre_io_time_milliseconds_total{component="ost",operation="write",target="ai40
 lustre_io_time_milliseconds_total{component="ost",operation="read",target="ai400x2-OST0001",size="512"} 0
 lustre_io_time_milliseconds_total{component="ost",operation="write",target="ai400x2-OST0001",size="512"} 73
 
+# HELP lustre_lnet_mem_used Gives information about Lustre LNet memory usage.
+# TYPE lustre_lnet_mem_used gauge
+lustre_lnet_mem_used 73956309
+
 # HELP lustre_lock_contended_total Number of contended locks
 # TYPE lustre_lock_contended_total counter
 lustre_lock_contended_total{component="mdt",target="ai400x2-MDT0000"} 32
@@ -324,6 +332,14 @@ lustre_lock_count_total{component="ost",target="ai400x2-OST0001"} 0
 lustre_lock_timeout_total{component="mdt",target="ai400x2-MDT0000"} 0
 lustre_lock_timeout_total{component="ost",target="ai400x2-OST0000"} 0
 lustre_lock_timeout_total{component="ost",target="ai400x2-OST0001"} 0
+
+# HELP lustre_mem_used Gives information about Lustre memory usage.
+# TYPE lustre_mem_used gauge
+lustre_mem_used 3642490860
+
+# HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
+# TYPE lustre_mem_used_max gauge
+lustre_mem_used_max 5683347385
 
 # HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC.
 # TYPE lustre_pages_per_bulk_rw_total counter
@@ -428,4 +444,3 @@ lustre_write_minimum_size_bytes{component="ost",operation="write",target="ai400x
 # TYPE lustre_write_samples_total counter
 lustre_write_samples_total{component="ost",operation="write",target="ai400x2-OST0000"} 7603209
 lustre_write_samples_total{component="ost",operation="write",target="ai400x2-OST0001"} 8646209
-

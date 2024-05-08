@@ -367,7 +367,10 @@ lustre_free_kilobytes{component="ost",target="ai400x2-OST0001"} 34540373392
 
 # HELP lustre_health_healthy Indicates whether the Lustre target is healthy or not. 1 is healthy, 0 is unhealthy.
 # TYPE lustre_health_healthy gauge
-lustre_health_healthy 1
+lustre_health_healthy 0
+lustre_health_healthy{target="lustre-OST0012"} 0
+lustre_health_healthy{target="lustre-OST0014"} 0
+lustre_health_healthy{target="lustre-OST0016"} 0
 
 # HELP lustre_inodes_free The number of inodes (objects) available
 # TYPE lustre_inodes_free gauge

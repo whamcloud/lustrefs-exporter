@@ -163,6 +163,10 @@ lustre_free_kilobytes{component="mdt",target="fs-MDT0000"} 2662928384
 lustre_free_kilobytes{component="ost",target="fs-OST0000"} 4205690880
 lustre_free_kilobytes{component="ost",target="fs-OST0001"} 4205690880
 
+# HELP lustre_health_healthy Indicates whether the Lustre target is healthy or not. 1 is healthy, 0 is unhealthy.
+# TYPE lustre_health_healthy gauge
+lustre_health_healthy 1
+
 # HELP lustre_inodes_free The number of inodes (objects) available
 # TYPE lustre_inodes_free gauge
 lustre_inodes_free{component="mgt",target="MGS"} 32570
@@ -314,6 +318,10 @@ lustre_job_write_samples_total{component="ost",target="fs-OST0000",jobid="dd.0"}
 lustre_job_write_samples_total{component="ost",target="fs-OST0001",jobid="kworker/2:2.0"} 0
 lustre_job_write_samples_total{component="ost",target="fs-OST0001",jobid="dd.0"} 19
 
+# HELP lustre_lnet_mem_used Gives information about Lustre LNet memory usage.
+# TYPE lustre_lnet_mem_used gauge
+lustre_lnet_mem_used 50039323
+
 # HELP lustre_lock_contended_total Number of contended locks
 # TYPE lustre_lock_contended_total counter
 lustre_lock_contended_total{component="mdt",target="fs-MDT0000"} 32
@@ -337,6 +345,14 @@ lustre_lock_count_total{component="ost",target="fs-OST0001"} 1
 lustre_lock_timeout_total{component="mdt",target="fs-MDT0000"} 0
 lustre_lock_timeout_total{component="ost",target="fs-OST0000"} 0
 lustre_lock_timeout_total{component="ost",target="fs-OST0001"} 0
+
+# HELP lustre_mem_used Gives information about Lustre memory usage.
+# TYPE lustre_mem_used gauge
+lustre_mem_used 960353731
+
+# HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
+# TYPE lustre_mem_used_max gauge
+lustre_mem_used_max 986837595
 
 # HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC.
 # TYPE lustre_pages_per_bulk_rw_total counter

@@ -108,4 +108,15 @@ mod tests {
 
         insta::assert_snapshot!(x);
     }
+
+    #[test]
+    fn test_host_stats_non_healthy() {
+        let output = include_str!("../fixtures/host_stats_non_healthy.json");
+
+        let x = serde_json::from_str(output).unwrap();
+
+        let x = build_lustre_stats(x);
+
+        insta::assert_snapshot!(x);
+    }
 }

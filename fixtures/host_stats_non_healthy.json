@@ -1,0 +1,3131 @@
+[
+  {
+    "Host": {
+      "Memused": {
+        "param": "memused",
+        "value": 1601002785
+      }
+    }
+  },
+  {
+    "Host": {
+      "MemusedMax": {
+        "param": "memused_max",
+        "value": 1611219801
+      }
+    }
+  },
+  {
+    "Host": {
+      "LNetMemUsed": {
+        "param": "lnet_memused",
+        "value": 174323852
+      }
+    }
+  },
+  {
+    "Host": {
+      "HealthCheck": {
+        "param": "health_check",
+        "value": {
+          "healthy": false,
+          "targets": ["lustre-OST0012",
+          "lustre-OST0014",
+          "lustre-OST0016"]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "ConnectedClients": {
+        "kind": "Mdt",
+        "param": "connected_clients",
+        "target": "ai400x2-MDT0000",
+        "value": 1
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesFree": {
+        "kind": "Mgt",
+        "param": "filesfree",
+        "target": "MGS",
+        "value": 130871
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesFree": {
+        "kind": "Mdt",
+        "param": "filesfree",
+        "target": "ai400x2-MDT0000",
+        "value": 289887431
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesFree": {
+        "kind": "Ost",
+        "param": "filesfree",
+        "target": "ai400x2-OST0000",
+        "value": 274725135
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesFree": {
+        "kind": "Ost",
+        "param": "filesfree",
+        "target": "ai400x2-OST0001",
+        "value": 274725134
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesTotal": {
+        "kind": "Mgt",
+        "param": "filestotal",
+        "target": "MGS",
+        "value": 131072
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesTotal": {
+        "kind": "Mdt",
+        "param": "filestotal",
+        "target": "ai400x2-MDT0000",
+        "value": 289887952
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesTotal": {
+        "kind": "Ost",
+        "param": "filestotal",
+        "target": "ai400x2-OST0000",
+        "value": 274726912
+      }
+    }
+  },
+  {
+    "Target": {
+      "FilesTotal": {
+        "kind": "Ost",
+        "param": "filestotal",
+        "target": "ai400x2-OST0001",
+        "value": 274726912
+      }
+    }
+  },
+  {
+    "Target": {
+      "FsType": {
+        "kind": "Mgt",
+        "param": "fstype",
+        "target": "MGS",
+        "value": "ldiskfs"
+      }
+    }
+  },
+  {
+    "Target": {
+      "FsType": {
+        "kind": "Mdt",
+        "param": "fstype",
+        "target": "ai400x2-MDT0000",
+        "value": "ldiskfs"
+      }
+    }
+  },
+  {
+    "Target": {
+      "FsType": {
+        "kind": "Ost",
+        "param": "fstype",
+        "target": "ai400x2-OST0000",
+        "value": "ldiskfs"
+      }
+    }
+  },
+  {
+    "Target": {
+      "FsType": {
+        "kind": "Ost",
+        "param": "fstype",
+        "target": "ai400x2-OST0001",
+        "value": "ldiskfs"
+      }
+    }
+  },
+  {
+    "Target": {
+      "KBytesAvail": {
+        "kind": "Mgt",
+        "param": "kbytesavail",
+        "target": "MGS",
+        "value": 1873772
+      }
+    }
+  },
+  {
+    "Target": {
+      "KBytesAvail": {
+        "kind": "Mdt",
+        "param": "kbytesavail",
+        "target": "ai400x2-MDT0000",
+        "value": 419917436
+      }
+    }
+  },
+  {
+    "Target": {
+      "KBytesAvail": {
+        "kind": "Ost",
+        "param": "kbytesavail",
+        "target": "ai400x2-OST0000",
+        "value": 34187914484
+      }
+    }
+  },
+  {
+    "Target": {
+      "KBytesAvail": {
+        "kind": "Ost",
+        "param": "kbytesavail",
+        "target": "ai400x2-OST0001",
+        "value": 34188706564
+      }
+    }
+  },
+  {
+    "Target": {
+      "KBytesFree": {
+        "kind": "Mgt",
+        "param": "kbytesfree",
+        "target": "MGS",
+        "value": 1978628
+      }
+    }
+  },
+  {
+    "Target": {
+      "KBytesFree": {
+        "kind": "Mdt",
+        "param": "kbytesfree",
+        "target": "ai400x2-MDT0000",
+        "value": 427164896
+      }
+    }
+  },
+  {
+    "Target": {
+      "KBytesFree": {
+        "kind": "Ost",
+        "param": "kbytesfree",
+        "target": "ai400x2-OST0000",
+        "value": 34539581312
+      }
+    }
+  },
+  {
+    "Target": {
+      "KBytesFree": {
+        "kind": "Ost",
+        "param": "kbytesfree",
+        "target": "ai400x2-OST0001",
+        "value": 34540373392
+      }
+    }
+  },
+  {
+    "Target": {
+      "KBytesTotal": {
+        "kind": "Mgt",
+        "param": "kbytestotal",
+        "target": "MGS",
+        "value": 1980036
+      }
+    }
+  },
+  {
+    "Target": {
+      "KBytesTotal": {
+        "kind": "Mdt",
+        "param": "kbytestotal",
+        "target": "ai400x2-MDT0000",
+        "value": 427170984
+      }
+    }
+  },
+  {
+    "Target": {
+      "KBytesTotal": {
+        "kind": "Ost",
+        "param": "kbytestotal",
+        "target": "ai400x2-OST0000",
+        "value": 34750424936
+      }
+    }
+  },
+  {
+    "Target": {
+      "KBytesTotal": {
+        "kind": "Ost",
+        "param": "kbytestotal",
+        "target": "ai400x2-OST0001",
+        "value": 34750424936
+      }
+    }
+  },
+  {
+    "Target": {
+      "BrwStats": {
+        "kind": "Mgt",
+        "param": "brw_stats",
+        "target": "MGS",
+        "value": [
+          {
+            "name": "pages",
+            "unit": "rpcs",
+            "buckets": []
+          },
+          {
+            "name": "discont_pages",
+            "unit": "rpcs",
+            "buckets": []
+          },
+          {
+            "name": "discont_blocks",
+            "unit": "rpcs",
+            "buckets": []
+          },
+          {
+            "name": "dio_frags",
+            "unit": "ios",
+            "buckets": []
+          },
+          {
+            "name": "rpc_hist",
+            "unit": "ios",
+            "buckets": []
+          },
+          {
+            "name": "io_time",
+            "unit": "ios",
+            "buckets": []
+          },
+          {
+            "name": "disk_iosize",
+            "unit": "ios",
+            "buckets": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "BrwStats": {
+        "kind": "Mdt",
+        "param": "brw_stats",
+        "target": "ai400x2-MDT0000",
+        "value": [
+          {
+            "name": "pages",
+            "unit": "rpcs",
+            "buckets": []
+          },
+          {
+            "name": "discont_pages",
+            "unit": "rpcs",
+            "buckets": []
+          },
+          {
+            "name": "discont_blocks",
+            "unit": "rpcs",
+            "buckets": []
+          },
+          {
+            "name": "dio_frags",
+            "unit": "ios",
+            "buckets": []
+          },
+          {
+            "name": "rpc_hist",
+            "unit": "ios",
+            "buckets": []
+          },
+          {
+            "name": "io_time",
+            "unit": "ios",
+            "buckets": []
+          },
+          {
+            "name": "disk_iosize",
+            "unit": "ios",
+            "buckets": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "BrwStats": {
+        "kind": "Ost",
+        "param": "brw_stats",
+        "target": "ai400x2-OST0000",
+        "value": [
+          {
+            "name": "pages",
+            "unit": "rpcs",
+            "buckets": [
+              {
+                "name": 1,
+                "read": 45221,
+                "write": 192
+              },
+              {
+                "name": 2,
+                "read": 807,
+                "write": 67
+              },
+              {
+                "name": 4,
+                "read": 341,
+                "write": 262
+              },
+              {
+                "name": 8,
+                "read": 818,
+                "write": 262
+              },
+              {
+                "name": 16,
+                "read": 1382,
+                "write": 728
+              },
+              {
+                "name": 32,
+                "read": 3718,
+                "write": 1548
+              },
+              {
+                "name": 64,
+                "read": 5363,
+                "write": 2295
+              },
+              {
+                "name": 128,
+                "read": 7996,
+                "write": 3506
+              },
+              {
+                "name": 256,
+                "read": 9230582,
+                "write": 4068108
+              },
+              {
+                "name": 512,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 1024,
+                "read": 50,
+                "write": 3411
+              },
+              {
+                "name": 2048,
+                "read": 11,
+                "write": 2509
+              },
+              {
+                "name": 4096,
+                "read": 55774,
+                "write": 40752
+              }
+            ]
+          },
+          {
+            "name": "discont_pages",
+            "unit": "rpcs",
+            "buckets": [
+              {
+                "name": 0,
+                "read": 9351652,
+                "write": 4114231
+              },
+              {
+                "name": 1,
+                "read": 409,
+                "write": 9407
+              },
+              {
+                "name": 2,
+                "read": 2,
+                "write": 2
+              }
+            ]
+          },
+          {
+            "name": "discont_blocks",
+            "unit": "rpcs",
+            "buckets": [
+              {
+                "name": 0,
+                "read": 9292664,
+                "write": 4072612
+              },
+              {
+                "name": 1,
+                "read": 42047,
+                "write": 28493
+              },
+              {
+                "name": 2,
+                "read": 17352,
+                "write": 21665
+              },
+              {
+                "name": 3,
+                "read": 0,
+                "write": 687
+              },
+              {
+                "name": 4,
+                "read": 0,
+                "write": 137
+              },
+              {
+                "name": 5,
+                "read": 0,
+                "write": 27
+              },
+              {
+                "name": 6,
+                "read": 0,
+                "write": 13
+              },
+              {
+                "name": 7,
+                "read": 0,
+                "write": 5
+              },
+              {
+                "name": 8,
+                "read": 0,
+                "write": 1
+              }
+            ]
+          },
+          {
+            "name": "dio_frags",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 1,
+                "read": 9292607,
+                "write": 4076945
+              },
+              {
+                "name": 2,
+                "read": 3669,
+                "write": 3434
+              },
+              {
+                "name": 3,
+                "read": 2,
+                "write": 0
+              },
+              {
+                "name": 4,
+                "read": 11,
+                "write": 2509
+              },
+              {
+                "name": 5,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 6,
+                "read": 6,
+                "write": 2041
+              },
+              {
+                "name": 7,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 8,
+                "read": 55768,
+                "write": 38711
+              }
+            ]
+          },
+          {
+            "name": "rpc_hist",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 1,
+                "read": 2499387,
+                "write": 1187036
+              },
+              {
+                "name": 2,
+                "read": 1883945,
+                "write": 793707
+              },
+              {
+                "name": 3,
+                "read": 1493683,
+                "write": 503920
+              },
+              {
+                "name": 4,
+                "read": 1058167,
+                "write": 395381
+              },
+              {
+                "name": 5,
+                "read": 704804,
+                "write": 288275
+              },
+              {
+                "name": 6,
+                "read": 495027,
+                "write": 197769
+              },
+              {
+                "name": 7,
+                "read": 356780,
+                "write": 132864
+              },
+              {
+                "name": 8,
+                "read": 256413,
+                "write": 89052
+              },
+              {
+                "name": 9,
+                "read": 181632,
+                "write": 58501
+              },
+              {
+                "name": 10,
+                "read": 123818,
+                "write": 26704
+              },
+              {
+                "name": 11,
+                "read": 90035,
+                "write": 14119
+              },
+              {
+                "name": 12,
+                "read": 68887,
+                "write": 8829
+              },
+              {
+                "name": 13,
+                "read": 55465,
+                "write": 6550
+              },
+              {
+                "name": 14,
+                "read": 45232,
+                "write": 5547
+              },
+              {
+                "name": 15,
+                "read": 38000,
+                "write": 5383
+              },
+              {
+                "name": 16,
+                "read": 31971,
+                "write": 5481
+              },
+              {
+                "name": 17,
+                "read": 25211,
+                "write": 6177
+              },
+              {
+                "name": 18,
+                "read": 21467,
+                "write": 6767
+              },
+              {
+                "name": 19,
+                "read": 18780,
+                "write": 8074
+              },
+              {
+                "name": 20,
+                "read": 16625,
+                "write": 9646
+              },
+              {
+                "name": 21,
+                "read": 15098,
+                "write": 12313
+              },
+              {
+                "name": 22,
+                "read": 13849,
+                "write": 15267
+              },
+              {
+                "name": 23,
+                "read": 13017,
+                "write": 19877
+              },
+              {
+                "name": 24,
+                "read": 12337,
+                "write": 24453
+              },
+              {
+                "name": 25,
+                "read": 11413,
+                "write": 30315
+              },
+              {
+                "name": 26,
+                "read": 11028,
+                "write": 34324
+              },
+              {
+                "name": 27,
+                "read": 10704,
+                "write": 37750
+              },
+              {
+                "name": 28,
+                "read": 10471,
+                "write": 38776
+              },
+              {
+                "name": 29,
+                "read": 10297,
+                "write": 38871
+              },
+              {
+                "name": 30,
+                "read": 10119,
+                "write": 36556
+              },
+              {
+                "name": 31,
+                "read": 162513,
+                "write": 377499
+              }
+            ]
+          },
+          {
+            "name": "io_time",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 1,
+                "read": 9244557,
+                "write": 3616861
+              },
+              {
+                "name": 2,
+                "read": 45925,
+                "write": 83848
+              },
+              {
+                "name": 4,
+                "read": 30611,
+                "write": 314948
+              },
+              {
+                "name": 8,
+                "read": 26141,
+                "write": 49922
+              },
+              {
+                "name": 16,
+                "read": 4808,
+                "write": 51585
+              },
+              {
+                "name": 32,
+                "read": 14,
+                "write": 6394
+              },
+              {
+                "name": 64,
+                "read": 6,
+                "write": 82
+              },
+              {
+                "name": 128,
+                "read": 1,
+                "write": 0
+              }
+            ]
+          },
+          {
+            "name": "disk_iosize",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 4096,
+                "read": 48747,
+                "write": 9253
+              },
+              {
+                "name": 8192,
+                "read": 808,
+                "write": 24
+              },
+              {
+                "name": 16384,
+                "read": 342,
+                "write": 144
+              },
+              {
+                "name": 32768,
+                "read": 819,
+                "write": 129
+              },
+              {
+                "name": 65536,
+                "read": 1394,
+                "write": 344
+              },
+              {
+                "name": 131072,
+                "read": 3731,
+                "write": 777
+              },
+              {
+                "name": 262144,
+                "read": 5397,
+                "write": 1152
+              },
+              {
+                "name": 524288,
+                "read": 8031,
+                "write": 1759
+              },
+              {
+                "name": 1048576,
+                "read": 9230582,
+                "write": 4063409
+              },
+              {
+                "name": 2097152,
+                "read": 446324,
+                "write": 338792
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "BrwStats": {
+        "kind": "Ost",
+        "param": "brw_stats",
+        "target": "ai400x2-OST0001",
+        "value": [
+          {
+            "name": "pages",
+            "unit": "rpcs",
+            "buckets": [
+              {
+                "name": 1,
+                "read": 46495,
+                "write": 208
+              },
+              {
+                "name": 2,
+                "read": 709,
+                "write": 85
+              },
+              {
+                "name": 4,
+                "read": 281,
+                "write": 248
+              },
+              {
+                "name": 8,
+                "read": 867,
+                "write": 281
+              },
+              {
+                "name": 16,
+                "read": 1396,
+                "write": 702
+              },
+              {
+                "name": 32,
+                "read": 3421,
+                "write": 1478
+              },
+              {
+                "name": 64,
+                "read": 5613,
+                "write": 2418
+              },
+              {
+                "name": 128,
+                "read": 7951,
+                "write": 3519
+              },
+              {
+                "name": 256,
+                "read": 9191867,
+                "write": 4072014
+              },
+              {
+                "name": 512,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 1024,
+                "read": 46,
+                "write": 3569
+              },
+              {
+                "name": 2048,
+                "read": 14,
+                "write": 2603
+              },
+              {
+                "name": 4096,
+                "read": 57301,
+                "write": 41094
+              }
+            ]
+          },
+          {
+            "name": "discont_pages",
+            "unit": "rpcs",
+            "buckets": [
+              {
+                "name": 0,
+                "read": 9315526,
+                "write": 4118794
+              },
+              {
+                "name": 1,
+                "read": 435,
+                "write": 9423
+              },
+              {
+                "name": 2,
+                "read": 0,
+                "write": 2
+              }
+            ]
+          },
+          {
+            "name": "discont_blocks",
+            "unit": "rpcs",
+            "buckets": [
+              {
+                "name": 0,
+                "read": 9254895,
+                "write": 4076814
+              },
+              {
+                "name": 1,
+                "read": 41231,
+                "write": 28934
+              },
+              {
+                "name": 2,
+                "read": 19835,
+                "write": 21641
+              },
+              {
+                "name": 3,
+                "read": 0,
+                "write": 635
+              },
+              {
+                "name": 4,
+                "read": 0,
+                "write": 146
+              },
+              {
+                "name": 5,
+                "read": 0,
+                "write": 33
+              },
+              {
+                "name": 6,
+                "read": 0,
+                "write": 12
+              },
+              {
+                "name": 7,
+                "read": 0,
+                "write": 3
+              },
+              {
+                "name": 8,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 9,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 10,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 11,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 12,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 13,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 14,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 15,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 16,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 17,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 18,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 19,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 20,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 21,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 22,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 23,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 24,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 25,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 26,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 27,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 28,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 29,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 30,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 31,
+                "read": 0,
+                "write": 1
+              }
+            ]
+          },
+          {
+            "name": "dio_frags",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 1,
+                "read": 9254837,
+                "write": 4080923
+              },
+              {
+                "name": 2,
+                "read": 3808,
+                "write": 3599
+              },
+              {
+                "name": 3,
+                "read": 1,
+                "write": 0
+              },
+              {
+                "name": 4,
+                "read": 14,
+                "write": 2603
+              },
+              {
+                "name": 5,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 6,
+                "read": 7,
+                "write": 2055
+              },
+              {
+                "name": 7,
+                "read": 0,
+                "write": 0
+              },
+              {
+                "name": 8,
+                "read": 57294,
+                "write": 39039
+              }
+            ]
+          },
+          {
+            "name": "rpc_hist",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 1,
+                "read": 2488039,
+                "write": 1185285
+              },
+              {
+                "name": 2,
+                "read": 1873744,
+                "write": 787309
+              },
+              {
+                "name": 3,
+                "read": 1490244,
+                "write": 498673
+              },
+              {
+                "name": 4,
+                "read": 1058749,
+                "write": 395423
+              },
+              {
+                "name": 5,
+                "read": 704439,
+                "write": 291932
+              },
+              {
+                "name": 6,
+                "read": 495012,
+                "write": 201902
+              },
+              {
+                "name": 7,
+                "read": 357583,
+                "write": 137081
+              },
+              {
+                "name": 8,
+                "read": 255910,
+                "write": 91340
+              },
+              {
+                "name": 9,
+                "read": 181672,
+                "write": 59739
+              },
+              {
+                "name": 10,
+                "read": 122401,
+                "write": 27549
+              },
+              {
+                "name": 11,
+                "read": 88149,
+                "write": 14513
+              },
+              {
+                "name": 12,
+                "read": 67154,
+                "write": 9077
+              },
+              {
+                "name": 13,
+                "read": 53823,
+                "write": 6688
+              },
+              {
+                "name": 14,
+                "read": 44023,
+                "write": 5725
+              },
+              {
+                "name": 15,
+                "read": 37170,
+                "write": 5530
+              },
+              {
+                "name": 16,
+                "read": 31368,
+                "write": 5664
+              },
+              {
+                "name": 17,
+                "read": 24929,
+                "write": 6440
+              },
+              {
+                "name": 18,
+                "read": 21347,
+                "write": 7087
+              },
+              {
+                "name": 19,
+                "read": 18674,
+                "write": 8465
+              },
+              {
+                "name": 20,
+                "read": 16527,
+                "write": 10044
+              },
+              {
+                "name": 21,
+                "read": 15156,
+                "write": 12647
+              },
+              {
+                "name": 22,
+                "read": 14051,
+                "write": 15863
+              },
+              {
+                "name": 23,
+                "read": 13243,
+                "write": 20105
+              },
+              {
+                "name": 24,
+                "read": 12577,
+                "write": 24737
+              },
+              {
+                "name": 25,
+                "read": 11661,
+                "write": 30564
+              },
+              {
+                "name": 26,
+                "read": 11371,
+                "write": 34765
+              },
+              {
+                "name": 27,
+                "read": 11019,
+                "write": 37755
+              },
+              {
+                "name": 28,
+                "read": 10843,
+                "write": 38708
+              },
+              {
+                "name": 29,
+                "read": 10656,
+                "write": 38610
+              },
+              {
+                "name": 30,
+                "read": 10512,
+                "write": 36144
+              },
+              {
+                "name": 31,
+                "read": 168860,
+                "write": 377811
+              }
+            ]
+          },
+          {
+            "name": "io_time",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 1,
+                "read": 9207507,
+                "write": 3621675
+              },
+              {
+                "name": 2,
+                "read": 45907,
+                "write": 83387
+              },
+              {
+                "name": 4,
+                "read": 31151,
+                "write": 314557
+              },
+              {
+                "name": 8,
+                "read": 26619,
+                "write": 50234
+              },
+              {
+                "name": 16,
+                "read": 4762,
+                "write": 52033
+              },
+              {
+                "name": 32,
+                "read": 9,
+                "write": 6238
+              },
+              {
+                "name": 64,
+                "read": 6,
+                "write": 95
+              }
+            ]
+          },
+          {
+            "name": "disk_iosize",
+            "unit": "ios",
+            "buckets": [
+              {
+                "name": 4096,
+                "read": 50197,
+                "write": 9280
+              },
+              {
+                "name": 8192,
+                "read": 710,
+                "write": 28
+              },
+              {
+                "name": 16384,
+                "read": 281,
+                "write": 125
+              },
+              {
+                "name": 32768,
+                "read": 867,
+                "write": 148
+              },
+              {
+                "name": 65536,
+                "read": 1407,
+                "write": 329
+              },
+              {
+                "name": 131072,
+                "read": 3430,
+                "write": 741
+              },
+              {
+                "name": 262144,
+                "read": 5639,
+                "write": 1216
+              },
+              {
+                "name": 524288,
+                "read": 7966,
+                "write": 1763
+              },
+              {
+                "name": 1048576,
+                "read": 9191867,
+                "write": 4067353
+              },
+              {
+                "name": 2097152,
+                "read": 458542,
+                "write": 342192
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "ConnectedClients": {
+        "kind": "Mdt",
+        "param": "connected_clients",
+        "target": "ai400x2-MDT0000",
+        "value": 1
+      }
+    }
+  },
+  {
+    "Target": {
+      "Stats": {
+        "kind": "Mgt",
+        "param": "stats",
+        "target": "MGS",
+        "value": [
+          {
+            "name": "req_waittime",
+            "units": "usec",
+            "samples": 41486,
+            "min": 7,
+            "max": 48373,
+            "sum": 4436399,
+            "sumsquare": 66817492203
+          },
+          {
+            "name": "req_qdepth",
+            "units": "reqs",
+            "samples": 41486,
+            "min": 0,
+            "max": 1,
+            "sum": 33,
+            "sumsquare": 33
+          },
+          {
+            "name": "req_active",
+            "units": "reqs",
+            "samples": 41486,
+            "min": 1,
+            "max": 3,
+            "sum": 47679,
+            "sumsquare": 60067
+          },
+          {
+            "name": "req_timeout",
+            "units": "sec",
+            "samples": 41486,
+            "min": 1,
+            "max": 15,
+            "sum": 616475,
+            "sumsquare": 9241265
+          },
+          {
+            "name": "reqbuf_avail",
+            "units": "bufs",
+            "samples": 86048,
+            "min": 61,
+            "max": 64,
+            "sum": 5394829,
+            "sumsquare": 338250681
+          },
+          {
+            "name": "ldlm_plain_enqueue",
+            "units": "reqs",
+            "samples": 379,
+            "min": 1,
+            "max": 1,
+            "sum": 379,
+            "sumsquare": 379
+          },
+          {
+            "name": "mgs_connect",
+            "units": "usec",
+            "samples": 8,
+            "min": 34,
+            "max": 77,
+            "sum": 419,
+            "sumsquare": 22987
+          },
+          {
+            "name": "mgs_disconnect",
+            "units": "usec",
+            "samples": 2,
+            "min": 31,
+            "max": 36,
+            "sum": 67,
+            "sumsquare": 2257
+          },
+          {
+            "name": "mgs_target_reg",
+            "units": "usec",
+            "samples": 20,
+            "min": 11,
+            "max": 331,
+            "sum": 2706,
+            "sumsquare": 595784
+          },
+          {
+            "name": "mgs_config_read",
+            "units": "usec",
+            "samples": 14,
+            "min": 33,
+            "max": 205,
+            "sum": 1315,
+            "sumsquare": 161729
+          },
+          {
+            "name": "obd_ping",
+            "units": "usec",
+            "samples": 39853,
+            "min": 2,
+            "max": 46832,
+            "sum": 2578221,
+            "sumsquare": 42371052125
+          },
+          {
+            "name": "llog_origin_handle_open",
+            "units": "usec",
+            "samples": 360,
+            "min": 5,
+            "max": 1355,
+            "sum": 6847,
+            "sumsquare": 2147729
+          },
+          {
+            "name": "llog_origin_handle_next_block",
+            "units": "usec",
+            "samples": 532,
+            "min": 6,
+            "max": 275,
+            "sum": 12196,
+            "sumsquare": 1492540
+          },
+          {
+            "name": "llog_origin_handle_read_header",
+            "units": "usec",
+            "samples": 318,
+            "min": 6,
+            "max": 293,
+            "sum": 7446,
+            "sumsquare": 1063150
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "ThreadsMax": {
+        "kind": "Mgt",
+        "param": "threads_max",
+        "target": "MGS",
+        "value": 32
+      }
+    }
+  },
+  {
+    "Target": {
+      "ThreadsMin": {
+        "kind": "Mgt",
+        "param": "threads_min",
+        "target": "MGS",
+        "value": 3
+      }
+    }
+  },
+  {
+    "Target": {
+      "ThreadsStarted": {
+        "kind": "Mgt",
+        "param": "threads_started",
+        "target": "MGS",
+        "value": 4
+      }
+    }
+  },
+  {
+    "Target": {
+      "NumExports": {
+        "kind": "Mgt",
+        "param": "num_exports",
+        "target": "MGS",
+        "value": 6
+      }
+    }
+  },
+  {
+    "Target": {
+      "JobStatsOst": {
+        "kind": "Ost",
+        "param": "job_stats",
+        "target": "ai400x2-OST0000",
+        "value": null
+      }
+    }
+  },
+  {
+    "Target": {
+      "JobStatsOst": {
+        "kind": "Ost",
+        "param": "job_stats",
+        "target": "ai400x2-OST0001",
+        "value": null
+      }
+    }
+  },
+  {
+    "Target": {
+      "Stats": {
+        "kind": "Ost",
+        "param": "stats",
+        "target": "ai400x2-OST0000",
+        "value": [
+          {
+            "name": "read_bytes",
+            "units": "bytes",
+            "samples": 9352060,
+            "min": 4096,
+            "max": 16777216,
+            "sum": 10614117224448,
+            "sumsquare": 7393889699900686336
+          },
+          {
+            "name": "write_bytes",
+            "units": "bytes",
+            "samples": 4114603,
+            "min": 183,
+            "max": 16777216,
+            "sum": 4971114377425,
+            "sumsquare": 15921893747369135927
+          },
+          {
+            "name": "read",
+            "units": "usecs",
+            "samples": 9352060,
+            "min": 18,
+            "max": 66767,
+            "sum": 8475506312,
+            "sumsquare": 17311638021000
+          },
+          {
+            "name": "write",
+            "units": "usecs",
+            "samples": 4114603,
+            "min": 2,
+            "max": 68119,
+            "sum": 1678932253,
+            "sumsquare": 1403596852083
+          },
+          {
+            "name": "punch",
+            "units": "usecs",
+            "samples": 31,
+            "min": 16,
+            "max": 697,
+            "sum": 2155,
+            "sumsquare": 782325
+          },
+          {
+            "name": "sync",
+            "units": "usecs",
+            "samples": 28,
+            "min": 0,
+            "max": 3747,
+            "sum": 8832,
+            "sumsquare": 15468294
+          },
+          {
+            "name": "destroy",
+            "units": "usecs",
+            "samples": 7681,
+            "min": 40,
+            "max": 16193,
+            "sum": 4065089,
+            "sumsquare": 8546659631
+          },
+          {
+            "name": "create",
+            "units": "usecs",
+            "samples": 289,
+            "min": 1,
+            "max": 2206,
+            "sum": 101519,
+            "sumsquare": 44866565
+          },
+          {
+            "name": "statfs",
+            "units": "usecs",
+            "samples": 122497,
+            "min": 0,
+            "max": 46132,
+            "sum": 613392,
+            "sumsquare": 3254812084
+          },
+          {
+            "name": "get_info",
+            "units": "usecs",
+            "samples": 4,
+            "min": 723,
+            "max": 5778,
+            "sum": 7955,
+            "sumsquare": 34965073
+          },
+          {
+            "name": "set_info",
+            "units": "usecs",
+            "samples": 8,
+            "min": 3,
+            "max": 11,
+            "sum": 71,
+            "sumsquare": 687
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "Stats": {
+        "kind": "Ost",
+        "param": "stats",
+        "target": "ai400x2-OST0001",
+        "value": [
+          {
+            "name": "read_bytes",
+            "units": "bytes",
+            "samples": 9315947,
+            "min": 4096,
+            "max": 16777216,
+            "sum": 10599265554432,
+            "sumsquare": 7781353419029086208
+          },
+          {
+            "name": "write_bytes",
+            "units": "bytes",
+            "samples": 4119187,
+            "min": 183,
+            "max": 16777216,
+            "sum": 4982409908141,
+            "sumsquare": 16030200894436904983
+          },
+          {
+            "name": "read",
+            "units": "usecs",
+            "samples": 9315947,
+            "min": 19,
+            "max": 65425,
+            "sum": 8478868967,
+            "sumsquare": 17416751612153
+          },
+          {
+            "name": "write",
+            "units": "usecs",
+            "samples": 4119187,
+            "min": 2,
+            "max": 64436,
+            "sum": 1676141801,
+            "sumsquare": 1388228758619
+          },
+          {
+            "name": "punch",
+            "units": "usecs",
+            "samples": 28,
+            "min": 13,
+            "max": 497,
+            "sum": 1067,
+            "sumsquare": 259627
+          },
+          {
+            "name": "sync",
+            "units": "usecs",
+            "samples": 28,
+            "min": 0,
+            "max": 3680,
+            "sum": 8374,
+            "sumsquare": 14946056
+          },
+          {
+            "name": "destroy",
+            "units": "usecs",
+            "samples": 7680,
+            "min": 47,
+            "max": 16360,
+            "sum": 4073496,
+            "sumsquare": 8670965576
+          },
+          {
+            "name": "create",
+            "units": "usecs",
+            "samples": 289,
+            "min": 2,
+            "max": 2895,
+            "sum": 104936,
+            "sumsquare": 51638974
+          },
+          {
+            "name": "statfs",
+            "units": "usecs",
+            "samples": 122497,
+            "min": 0,
+            "max": 31296,
+            "sum": 560743,
+            "sumsquare": 1163174149
+          },
+          {
+            "name": "get_info",
+            "units": "usecs",
+            "samples": 4,
+            "min": 631,
+            "max": 4625,
+            "sum": 6553,
+            "sumsquare": 22629915
+          },
+          {
+            "name": "set_info",
+            "units": "usecs",
+            "samples": 12,
+            "min": 3,
+            "max": 12,
+            "sum": 111,
+            "sumsquare": 1135
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "NumExports": {
+        "kind": "Ost",
+        "param": "num_exports",
+        "target": "ai400x2-OST0000",
+        "value": 4
+      }
+    }
+  },
+  {
+    "Target": {
+      "NumExports": {
+        "kind": "Ost",
+        "param": "num_exports",
+        "target": "ai400x2-OST0001",
+        "value": 4
+      }
+    }
+  },
+  {
+    "Target": {
+      "TotDirty": {
+        "kind": "Ost",
+        "param": "tot_dirty",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "TotDirty": {
+        "kind": "Ost",
+        "param": "tot_dirty",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "TotGranted": {
+        "kind": "Ost",
+        "param": "tot_granted",
+        "target": "ai400x2-OST0000",
+        "value": 143424
+      }
+    }
+  },
+  {
+    "Target": {
+      "TotGranted": {
+        "kind": "Ost",
+        "param": "tot_granted",
+        "target": "ai400x2-OST0001",
+        "value": 143424
+      }
+    }
+  },
+  {
+    "Target": {
+      "TotPending": {
+        "kind": "Ost",
+        "param": "tot_pending",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "TotPending": {
+        "kind": "Ost",
+        "param": "tot_pending",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "Oss": {
+        "param": "ost",
+        "stats": [
+          {
+            "name": "req_waittime",
+            "units": "usec",
+            "samples": 77655,
+            "min": 3,
+            "max": 15952,
+            "sum": 2114553,
+            "sumsquare": 2370684671
+          },
+          {
+            "name": "req_qdepth",
+            "units": "reqs",
+            "samples": 77655,
+            "min": 0,
+            "max": 3,
+            "sum": 167,
+            "sumsquare": 195
+          },
+          {
+            "name": "req_active",
+            "units": "reqs",
+            "samples": 77655,
+            "min": 1,
+            "max": 16,
+            "sum": 165685,
+            "sumsquare": 859411
+          },
+          {
+            "name": "req_timeout",
+            "units": "sec",
+            "samples": 77655,
+            "min": 1,
+            "max": 15,
+            "sum": 1164317,
+            "sumsquare": 17463707
+          },
+          {
+            "name": "reqbuf_avail",
+            "units": "bufs",
+            "samples": 157527,
+            "min": 62,
+            "max": 64,
+            "sum": 10069194,
+            "sumsquare": 643638790
+          },
+          {
+            "name": "ldlm_glimpse_enqueue",
+            "units": "reqs",
+            "samples": 42486,
+            "min": 1,
+            "max": 1,
+            "sum": 42486,
+            "sumsquare": 42486
+          },
+          {
+            "name": "ldlm_extent_enqueue",
+            "units": "reqs",
+            "samples": 17980,
+            "min": 1,
+            "max": 1,
+            "sum": 17980,
+            "sumsquare": 17980
+          },
+          {
+            "name": "ost_create",
+            "units": "usec",
+            "samples": 578,
+            "min": 6,
+            "max": 2913,
+            "sum": 213507,
+            "sumsquare": 101752771
+          },
+          {
+            "name": "ost_destroy",
+            "units": "usec",
+            "samples": 15361,
+            "min": 45,
+            "max": 16367,
+            "sum": 8257699,
+            "sumsquare": 17357666429
+          },
+          {
+            "name": "ost_get_info",
+            "units": "usec",
+            "samples": 8,
+            "min": 645,
+            "max": 5798,
+            "sum": 14611,
+            "sumsquare": 58099255
+          },
+          {
+            "name": "ost_connect",
+            "units": "usec",
+            "samples": 68,
+            "min": 27,
+            "max": 151,
+            "sum": 4590,
+            "sumsquare": 346116
+          },
+          {
+            "name": "ost_disconnect",
+            "units": "usec",
+            "samples": 48,
+            "min": 28,
+            "max": 319,
+            "sum": 8078,
+            "sumsquare": 1610542
+          },
+          {
+            "name": "ost_sync",
+            "units": "usec",
+            "samples": 56,
+            "min": 5,
+            "max": 3754,
+            "sum": 17692,
+            "sumsquare": 30724000
+          },
+          {
+            "name": "ost_set_info",
+            "units": "usec",
+            "samples": 20,
+            "min": 10,
+            "max": 38,
+            "sum": 569,
+            "sumsquare": 17685
+          },
+          {
+            "name": "obd_ping",
+            "units": "usec",
+            "samples": 1050,
+            "min": 3,
+            "max": 47,
+            "sum": 17869,
+            "sumsquare": 352157
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "Oss": {
+        "param": "ost_io",
+        "stats": [
+          {
+            "name": "req_waittime",
+            "units": "usec",
+            "samples": 26901856,
+            "min": 3,
+            "max": 30377,
+            "sum": 634484024,
+            "sumsquare": 67017160966
+          },
+          {
+            "name": "req_qdepth",
+            "units": "reqs",
+            "samples": 26901856,
+            "min": 0,
+            "max": 35,
+            "sum": 128008,
+            "sumsquare": 168296
+          },
+          {
+            "name": "req_active",
+            "units": "reqs",
+            "samples": 26901856,
+            "min": 1,
+            "max": 59,
+            "sum": 186318394,
+            "sumsquare": 2748893296
+          },
+          {
+            "name": "req_timeout",
+            "units": "sec",
+            "samples": 26901856,
+            "min": 15,
+            "max": 15,
+            "sum": 403527840,
+            "sumsquare": 6052917600
+          },
+          {
+            "name": "reqbuf_avail",
+            "units": "bufs",
+            "samples": 55114862,
+            "min": 63,
+            "max": 64,
+            "sum": 3526259632,
+            "sumsquare": 225611849680
+          },
+          {
+            "name": "ost_read",
+            "units": "usec",
+            "samples": 18668007,
+            "min": 26,
+            "max": 67617,
+            "sum": 17213363616,
+            "sumsquare": 35519190864978
+          },
+          {
+            "name": "ost_write",
+            "units": "usec",
+            "samples": 8233790,
+            "min": 57,
+            "max": 70720,
+            "sum": 12884209522,
+            "sumsquare": 60924472063584
+          },
+          {
+            "name": "ost_punch",
+            "units": "usec",
+            "samples": 59,
+            "min": 19,
+            "max": 705,
+            "sum": 3808,
+            "sumsquare": 1117930
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "Oss": {
+        "param": "ost_create",
+        "stats": [
+          {
+            "name": "req_waittime",
+            "units": "usec",
+            "samples": 244994,
+            "min": 5,
+            "max": 47720,
+            "sum": 13993585,
+            "sumsquare": 87692498449
+          },
+          {
+            "name": "req_qdepth",
+            "units": "reqs",
+            "samples": 244994,
+            "min": 0,
+            "max": 1,
+            "sum": 105,
+            "sumsquare": 105
+          },
+          {
+            "name": "req_active",
+            "units": "reqs",
+            "samples": 244994,
+            "min": 1,
+            "max": 2,
+            "sum": 279479,
+            "sumsquare": 348449
+          },
+          {
+            "name": "req_timeout",
+            "units": "sec",
+            "samples": 244994,
+            "min": 1,
+            "max": 15,
+            "sum": 3673611,
+            "sumsquare": 55102641
+          },
+          {
+            "name": "reqbuf_avail",
+            "units": "bufs",
+            "samples": 507392,
+            "min": 63,
+            "max": 64,
+            "sum": 32463727,
+            "sumsquare": 2077088785
+          },
+          {
+            "name": "ost_statfs",
+            "units": "usec",
+            "samples": 244994,
+            "min": 4,
+            "max": 48630,
+            "sum": 7834717,
+            "sumsquare": 39139477245
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "Oss": {
+        "param": "ost_out",
+        "stats": [
+          {
+            "name": "req_waittime",
+            "units": "usec",
+            "samples": 51413,
+            "min": 7,
+            "max": 16344,
+            "sum": 1985680,
+            "sumsquare": 2133648502
+          },
+          {
+            "name": "req_qdepth",
+            "units": "reqs",
+            "samples": 51413,
+            "min": 0,
+            "max": 0,
+            "sum": 0,
+            "sumsquare": 0
+          },
+          {
+            "name": "req_active",
+            "units": "reqs",
+            "samples": 51413,
+            "min": 1,
+            "max": 2,
+            "sum": 51416,
+            "sumsquare": 51422
+          },
+          {
+            "name": "req_timeout",
+            "units": "sec",
+            "samples": 51413,
+            "min": 1,
+            "max": 15,
+            "sum": 770432,
+            "sumsquare": 11555402
+          },
+          {
+            "name": "reqbuf_avail",
+            "units": "bufs",
+            "samples": 105488,
+            "min": 63,
+            "max": 64,
+            "sum": 6750253,
+            "sumsquare": 431954515
+          },
+          {
+            "name": "ldlm_ibits_enqueue",
+            "units": "reqs",
+            "samples": 26,
+            "min": 1,
+            "max": 1,
+            "sum": 26,
+            "sumsquare": 26
+          },
+          {
+            "name": "mds_connect",
+            "units": "usec",
+            "samples": 11,
+            "min": 49,
+            "max": 85,
+            "sum": 697,
+            "sumsquare": 45139
+          },
+          {
+            "name": "mds_statfs",
+            "units": "usec",
+            "samples": 51236,
+            "min": 5,
+            "max": 709,
+            "sum": 1406304,
+            "sumsquare": 42157834
+          },
+          {
+            "name": "obd_ping",
+            "units": "usec",
+            "samples": 6,
+            "min": 6,
+            "max": 17,
+            "sum": 68,
+            "sumsquare": 846
+          },
+          {
+            "name": "out_update",
+            "units": "usec",
+            "samples": 134,
+            "min": 6,
+            "max": 1557,
+            "sum": 11942,
+            "sumsquare": 8735808
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "Oss": {
+        "param": "ost_seq",
+        "stats": [
+          {
+            "name": "req_waittime",
+            "units": "usec",
+            "samples": 30,
+            "min": 15,
+            "max": 563,
+            "sum": 1776,
+            "sumsquare": 381252
+          },
+          {
+            "name": "req_qdepth",
+            "units": "reqs",
+            "samples": 30,
+            "min": 0,
+            "max": 0,
+            "sum": 0,
+            "sumsquare": 0
+          },
+          {
+            "name": "req_active",
+            "units": "reqs",
+            "samples": 30,
+            "min": 1,
+            "max": 2,
+            "sum": 32,
+            "sumsquare": 36
+          },
+          {
+            "name": "req_timeout",
+            "units": "sec",
+            "samples": 30,
+            "min": 1,
+            "max": 10,
+            "sum": 75,
+            "sumsquare": 525
+          },
+          {
+            "name": "reqbuf_avail",
+            "units": "bufs",
+            "samples": 79,
+            "min": 64,
+            "max": 64,
+            "sum": 5056,
+            "sumsquare": 323584
+          },
+          {
+            "name": "seq_query",
+            "units": "usec",
+            "samples": 30,
+            "min": 3,
+            "max": 5309,
+            "sum": 28881,
+            "sumsquare": 134979703
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "JobStatsMdt": {
+        "kind": "Mdt",
+        "param": "job_stats",
+        "target": "ai400x2-MDT0000",
+        "value": null
+      }
+    }
+  },
+  {
+    "Target": {
+      "Stats": {
+        "kind": "Mdt",
+        "param": "md_stats",
+        "target": "ai400x2-MDT0000",
+        "value": [
+          {
+            "name": "open",
+            "units": "usecs",
+            "samples": 232,
+            "min": 24,
+            "max": 1091,
+            "sum": 22203,
+            "sumsquare": 3836069
+          },
+          {
+            "name": "close",
+            "units": "usecs",
+            "samples": 7632,
+            "min": 7,
+            "max": 255,
+            "sum": 191804,
+            "sumsquare": 6447596
+          },
+          {
+            "name": "mknod",
+            "units": "usecs",
+            "samples": 228,
+            "min": 47,
+            "max": 1081,
+            "sum": 19926,
+            "sumsquare": 3382060
+          },
+          {
+            "name": "unlink",
+            "units": "usecs",
+            "samples": 3,
+            "min": 412,
+            "max": 4498,
+            "sum": 5408,
+            "sumsquare": 20649752
+          },
+          {
+            "name": "mkdir",
+            "units": "usecs",
+            "samples": 6,
+            "min": 162,
+            "max": 2911,
+            "sum": 5639,
+            "sumsquare": 10578071
+          },
+          {
+            "name": "rmdir",
+            "units": "usecs",
+            "samples": 4,
+            "min": 58,
+            "max": 115,
+            "sum": 302,
+            "sumsquare": 24994
+          },
+          {
+            "name": "getattr",
+            "units": "usecs",
+            "samples": 9464,
+            "min": 0,
+            "max": 1740,
+            "sum": 44670,
+            "sumsquare": 5861688
+          },
+          {
+            "name": "setattr",
+            "units": "usecs",
+            "samples": 228,
+            "min": 18,
+            "max": 241,
+            "sum": 8279,
+            "sumsquare": 363795
+          },
+          {
+            "name": "getxattr",
+            "units": "usecs",
+            "samples": 3591,
+            "min": 6,
+            "max": 47,
+            "sum": 50689,
+            "sumsquare": 765417
+          },
+          {
+            "name": "statfs",
+            "units": "usecs",
+            "samples": 91893,
+            "min": 0,
+            "max": 65,
+            "sum": 634431,
+            "sumsquare": 5333055
+          },
+          {
+            "name": "sync",
+            "units": "usecs",
+            "samples": 224,
+            "min": 2,
+            "max": 24,
+            "sum": 1433,
+            "sumsquare": 11323
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "NumExports": {
+        "kind": "Mdt",
+        "param": "num_exports",
+        "target": "ai400x2-MDT0000",
+        "value": 16
+      }
+    }
+  },
+  {
+    "Target": {
+      "ContendedLocks": {
+        "kind": "Mdt",
+        "param": "contended_locks",
+        "target": "ai400x2-MDT0000",
+        "value": 32
+      }
+    }
+  },
+  {
+    "Target": {
+      "ContendedLocks": {
+        "kind": "Ost",
+        "param": "contended_locks",
+        "target": "ai400x2-OST0000",
+        "value": 32
+      }
+    }
+  },
+  {
+    "Target": {
+      "ContendedLocks": {
+        "kind": "Ost",
+        "param": "contended_locks",
+        "target": "ai400x2-OST0001",
+        "value": 32
+      }
+    }
+  },
+  {
+    "Target": {
+      "ContentionSeconds": {
+        "kind": "Mdt",
+        "param": "contention_seconds",
+        "target": "ai400x2-MDT0000",
+        "value": 2
+      }
+    }
+  },
+  {
+    "Target": {
+      "ContentionSeconds": {
+        "kind": "Ost",
+        "param": "contention_seconds",
+        "target": "ai400x2-OST0000",
+        "value": 2
+      }
+    }
+  },
+  {
+    "Target": {
+      "ContentionSeconds": {
+        "kind": "Ost",
+        "param": "contention_seconds",
+        "target": "ai400x2-OST0001",
+        "value": 2
+      }
+    }
+  },
+  {
+    "Target": {
+      "CtimeAgeLimit": {
+        "kind": "Mdt",
+        "param": "ctime_age_limit",
+        "target": "ai400x2-MDT0000",
+        "value": 10
+      }
+    }
+  },
+  {
+    "Target": {
+      "CtimeAgeLimit": {
+        "kind": "Ost",
+        "param": "ctime_age_limit",
+        "target": "ai400x2-OST0000",
+        "value": 10
+      }
+    }
+  },
+  {
+    "Target": {
+      "CtimeAgeLimit": {
+        "kind": "Ost",
+        "param": "ctime_age_limit",
+        "target": "ai400x2-OST0001",
+        "value": 10
+      }
+    }
+  },
+  {
+    "Target": {
+      "EarlyLockCancel": {
+        "kind": "Mdt",
+        "param": "early_lock_cancel",
+        "target": "ai400x2-MDT0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "EarlyLockCancel": {
+        "kind": "Ost",
+        "param": "early_lock_cancel",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "EarlyLockCancel": {
+        "kind": "Ost",
+        "param": "early_lock_cancel",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockCount": {
+        "kind": "Mdt",
+        "param": "lock_count",
+        "target": "ai400x2-MDT0000",
+        "value": 2
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockCount": {
+        "kind": "Ost",
+        "param": "lock_count",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockCount": {
+        "kind": "Ost",
+        "param": "lock_count",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockTimeouts": {
+        "kind": "Mdt",
+        "param": "lock_timeouts",
+        "target": "ai400x2-MDT0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockTimeouts": {
+        "kind": "Ost",
+        "param": "lock_timeouts",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockTimeouts": {
+        "kind": "Ost",
+        "param": "lock_timeouts",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockUnusedCount": {
+        "kind": "Mdt",
+        "param": "lock_unused_count",
+        "target": "ai400x2-MDT0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockUnusedCount": {
+        "kind": "Ost",
+        "param": "lock_unused_count",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LockUnusedCount": {
+        "kind": "Ost",
+        "param": "lock_unused_count",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "LruMaxAge": {
+        "kind": "Mdt",
+        "param": "lru_max_age",
+        "target": "ai400x2-MDT0000",
+        "value": 3900000
+      }
+    }
+  },
+  {
+    "Target": {
+      "LruMaxAge": {
+        "kind": "Ost",
+        "param": "lru_max_age",
+        "target": "ai400x2-OST0000",
+        "value": 3900000
+      }
+    }
+  },
+  {
+    "Target": {
+      "LruMaxAge": {
+        "kind": "Ost",
+        "param": "lru_max_age",
+        "target": "ai400x2-OST0001",
+        "value": 3900000
+      }
+    }
+  },
+  {
+    "Target": {
+      "LruSize": {
+        "kind": "Mdt",
+        "param": "lru_size",
+        "target": "ai400x2-MDT0000",
+        "value": 2400
+      }
+    }
+  },
+  {
+    "Target": {
+      "LruSize": {
+        "kind": "Ost",
+        "param": "lru_size",
+        "target": "ai400x2-OST0000",
+        "value": 2400
+      }
+    }
+  },
+  {
+    "Target": {
+      "LruSize": {
+        "kind": "Ost",
+        "param": "lru_size",
+        "target": "ai400x2-OST0001",
+        "value": 2400
+      }
+    }
+  },
+  {
+    "Target": {
+      "MaxNolockBytes": {
+        "kind": "Mdt",
+        "param": "max_nolock_bytes",
+        "target": "ai400x2-MDT0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "MaxNolockBytes": {
+        "kind": "Ost",
+        "param": "max_nolock_bytes",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "MaxNolockBytes": {
+        "kind": "Ost",
+        "param": "max_nolock_bytes",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "MaxParallelAst": {
+        "kind": "Mdt",
+        "param": "max_parallel_ast",
+        "target": "ai400x2-MDT0000",
+        "value": 1024
+      }
+    }
+  },
+  {
+    "Target": {
+      "MaxParallelAst": {
+        "kind": "Ost",
+        "param": "max_parallel_ast",
+        "target": "ai400x2-OST0000",
+        "value": 1024
+      }
+    }
+  },
+  {
+    "Target": {
+      "MaxParallelAst": {
+        "kind": "Ost",
+        "param": "max_parallel_ast",
+        "target": "ai400x2-OST0001",
+        "value": 1024
+      }
+    }
+  },
+  {
+    "Target": {
+      "ResourceCount": {
+        "kind": "Mdt",
+        "param": "resource_count",
+        "target": "ai400x2-MDT0000",
+        "value": 1
+      }
+    }
+  },
+  {
+    "Target": {
+      "ResourceCount": {
+        "kind": "Ost",
+        "param": "resource_count",
+        "target": "ai400x2-OST0000",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "ResourceCount": {
+        "kind": "Ost",
+        "param": "resource_count",
+        "target": "ai400x2-OST0001",
+        "value": 0
+      }
+    }
+  },
+  {
+    "LustreService": {
+      "LdlmCanceld": [
+        {
+          "name": "req_waittime",
+          "units": "usec",
+          "samples": 30049,
+          "min": 3,
+          "max": 7981,
+          "sum": 755915,
+          "sumsquare": 287075573
+        },
+        {
+          "name": "req_qdepth",
+          "units": "reqs",
+          "samples": 30049,
+          "min": 0,
+          "max": 3,
+          "sum": 125,
+          "sumsquare": 159
+        },
+        {
+          "name": "req_active",
+          "units": "reqs",
+          "samples": 30049,
+          "min": 1,
+          "max": 4,
+          "sum": 35199,
+          "sumsquare": 48323
+        },
+        {
+          "name": "req_timeout",
+          "units": "sec",
+          "samples": 30049,
+          "min": 1,
+          "max": 15,
+          "sum": 450182,
+          "sumsquare": 6751862
+        },
+        {
+          "name": "reqbuf_avail",
+          "units": "bufs",
+          "samples": 61601,
+          "min": 60,
+          "max": 64,
+          "sum": 3929009,
+          "sumsquare": 250609501
+        },
+        {
+          "name": "ldlm_cancel",
+          "units": "usec",
+          "samples": 30049,
+          "min": 3,
+          "max": 13824,
+          "sum": 2293482,
+          "sumsquare": 1623673342
+        }
+      ]
+    }
+  },
+  {
+    "LustreService": {
+      "LdlmCbd": [
+        {
+          "name": "req_waittime",
+          "units": "usec",
+          "samples": 79,
+          "min": 11,
+          "max": 106,
+          "sum": 3906,
+          "sumsquare": 229000
+        },
+        {
+          "name": "req_qdepth",
+          "units": "reqs",
+          "samples": 79,
+          "min": 0,
+          "max": 1,
+          "sum": 3,
+          "sumsquare": 3
+        },
+        {
+          "name": "req_active",
+          "units": "reqs",
+          "samples": 79,
+          "min": 1,
+          "max": 3,
+          "sum": 117,
+          "sumsquare": 213
+        },
+        {
+          "name": "req_timeout",
+          "units": "sec",
+          "samples": 79,
+          "min": 1,
+          "max": 15,
+          "sum": 1049,
+          "sumsquare": 15509
+        },
+        {
+          "name": "reqbuf_avail",
+          "units": "bufs",
+          "samples": 177,
+          "min": 0,
+          "max": 1,
+          "sum": 163,
+          "sumsquare": 163
+        },
+        {
+          "name": "ldlm_bl_callback",
+          "units": "usec",
+          "samples": 79,
+          "min": 4,
+          "max": 42,
+          "sum": 1378,
+          "sumsquare": 29612
+        }
+      ]
+    }
+  },
+  {
+    "LNetStat": {
+      "SendCount": {
+        "nid": "0@lo",
+        "param": "send_count",
+        "value": 191882
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "RecvCount": {
+        "nid": "0@lo",
+        "param": "recv_count",
+        "value": 191882
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "DropCount": {
+        "nid": "0@lo",
+        "param": "drop_count",
+        "value": 0
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "SendCount": {
+        "nid": "172.16.240.133@o2ib",
+        "param": "send_count",
+        "value": 28893723
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "RecvCount": {
+        "nid": "172.16.240.133@o2ib",
+        "param": "recv_count",
+        "value": 24143352
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "DropCount": {
+        "nid": "172.16.240.133@o2ib",
+        "param": "drop_count",
+        "value": 0
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "SendCount": {
+        "nid": "172.16.241.133@o2ib",
+        "param": "send_count",
+        "value": 28892480
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "RecvCount": {
+        "nid": "172.16.241.133@o2ib",
+        "param": "recv_count",
+        "value": 24141806
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "DropCount": {
+        "nid": "172.16.241.133@o2ib",
+        "param": "drop_count",
+        "value": 0
+      }
+    }
+  },
+  {
+    "Target": {
+      "FsNames": {
+        "kind": "Mgt",
+        "param": "fsnames",
+        "target": "MGS",
+        "value": [
+          "ai400x2"
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "RecoveryStatus": {
+        "kind": "Ost",
+        "param": "recovery_status",
+        "target": "ai400x2-OST0000",
+        "value": "Inactive"
+      }
+    }
+  },
+  {
+    "Target": {
+      "RecoveryStatus": {
+        "kind": "Ost",
+        "param": "recovery_status",
+        "target": "ai400x2-OST0001",
+        "value": "Inactive"
+      }
+    }
+  },
+  {
+    "Target": {
+      "RecoveryStatus": {
+        "kind": "Mdt",
+        "param": "recovery_status",
+        "target": "ai400x2-MDT0000",
+        "value": "Inactive"
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "SendLength": {
+        "param": "send_length",
+        "value": 21225620772816
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "RecvLength": {
+        "param": "recv_length",
+        "value": 9966973976959
+      }
+    }
+  },
+  {
+    "LNetStat": {
+      "DropLength": {
+        "param": "drop_length",
+        "value": 0
+      }
+    }
+  }
+]

@@ -1,12 +1,14 @@
 pub mod brw_stats;
+pub mod host;
 pub mod jobstats;
 pub mod lnet;
 pub mod service;
 pub mod stats;
 
 use brw_stats::build_target_stats;
+use host::build_host_stats;
 use lnet::build_lnet_stats;
-use lustre_collector::{LNetStat, LNetStatGlobal, Record, TargetStat, TargetVariant};
+use lustre_collector::{HostStat, LNetStat, LNetStatGlobal, Record, TargetStat, TargetVariant};
 use num_traits::Num;
 use prometheus_exporter_base::{prelude::*, Yes};
 use service::build_service_stats;
@@ -82,6 +84,15 @@ where
     }
 }
 
+impl<T> ToMetricInst<T> for HostStat<T>
+where
+    T: Num + fmt::Display + fmt::Debug + Copy,
+{
+    fn to_metric_inst(&self) -> PrometheusInstance<'_, T, Yes> {
+        PrometheusInstance::new().with_value(self.value)
+    }
+}
+
 trait Name {
     fn name(&self) -> &'static str;
 }
@@ -113,7 +124,9 @@ pub fn build_lustre_stats(output: Vec<Record>) -> String {
 
     for x in output {
         match x {
-            lustre_collector::Record::Host(_) => {}
+            lustre_collector::Record::Host(x) => {
+                build_host_stats(x, &mut stats_map);
+            }
             lustre_collector::Record::Node(_) => {}
             lustre_collector::Record::LNetStat(x) => {
                 build_lnet_stats(x, &mut stats_map);
