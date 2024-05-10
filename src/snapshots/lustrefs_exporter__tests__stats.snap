@@ -20,6 +20,10 @@ lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0001"} 34750424936
 # TYPE lustre_changelog_current_index gauge
 lustre_changelog_current_index{target="ai400x2-MDT0000"} 50
 lustre_changelog_current_index{target="ai400x2-MDT0001"} 0
+lustre_changelog_current_index{target="exatest-MDT0000"} 0
+lustre_changelog_current_index{target="exatest-MDT0003"} 0
+lustre_changelog_current_index{target="exatest-MDT0004"} 0
+lustre_changelog_current_index{target="exatest-MDT0007"} 0
 
 # HELP lustre_changelog_user_idle_sec current changelog user idle seconds.
 # TYPE lustre_changelog_user_idle_sec gauge
@@ -575,6 +579,189 @@ lustre_pages_per_bulk_rw_total{component="ost",operation="read",target="ai400x2-
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",target="ai400x2-OST0001",size="2048"} 2603
 lustre_pages_per_bulk_rw_total{component="ost",operation="read",target="ai400x2-OST0001",size="4096"} 57301
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",target="ai400x2-OST0001",size="4096"} 41094
+
+# HELP lustre_quota_granted The granted quota for a given component.
+# TYPE lustre_quota_granted gauge
+lustre_quota_granted{target="exatest-QMT0000",pool="",accounting="user",manager="dt",id="0"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="",accounting="user",manager="dt",id="1000028"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="ddn_ssd",accounting="user",manager="dt",id="0"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="sfa_0",accounting="user",manager="dt",id="0"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="",accounting="user",manager="md",id="0"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="",accounting="user",manager="md",id="1000028"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="",accounting="project",manager="dt",id="0"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="",accounting="project",manager="dt",id="1000118"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="",accounting="project",manager="dt",id="1234"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="ddn_ssd",accounting="project",manager="dt",id="0"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="sfa_0",accounting="project",manager="dt",id="0"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="",accounting="project",manager="md",id="0"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="",accounting="project",manager="md",id="1000118"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="",accounting="project",manager="md",id="1234"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="",accounting="group",manager="dt",id="0"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="",accounting="group",manager="dt",id="1000032"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="ddn_ssd",accounting="group",manager="dt",id="0"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="sfa_0",accounting="group",manager="dt",id="0"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="",accounting="group",manager="md",id="0"} 0
+lustre_quota_granted{target="exatest-QMT0000",pool="",accounting="group",manager="md",id="1000032"} 0
+
+# HELP lustre_quota_hard The hard quota for a given component.
+# TYPE lustre_quota_hard gauge
+lustre_quota_hard{target="exatest-QMT0000",pool="",accounting="user",manager="dt",id="0"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="",accounting="user",manager="dt",id="1000028"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="ddn_ssd",accounting="user",manager="dt",id="0"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="sfa_0",accounting="user",manager="dt",id="0"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="",accounting="user",manager="md",id="0"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="",accounting="user",manager="md",id="1000028"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="",accounting="project",manager="dt",id="0"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="",accounting="project",manager="dt",id="1000118"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="",accounting="project",manager="dt",id="1234"} 104857600
+lustre_quota_hard{target="exatest-QMT0000",pool="ddn_ssd",accounting="project",manager="dt",id="0"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="sfa_0",accounting="project",manager="dt",id="0"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="",accounting="project",manager="md",id="0"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="",accounting="project",manager="md",id="1000118"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="",accounting="project",manager="md",id="1234"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="",accounting="group",manager="dt",id="0"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="",accounting="group",manager="dt",id="1000032"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="ddn_ssd",accounting="group",manager="dt",id="0"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="sfa_0",accounting="group",manager="dt",id="0"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="",accounting="group",manager="md",id="0"} 0
+lustre_quota_hard{target="exatest-QMT0000",pool="",accounting="group",manager="md",id="1000032"} 0
+
+# HELP lustre_quota_soft The soft quota for a given component.
+# TYPE lustre_quota_soft gauge
+lustre_quota_soft{target="exatest-QMT0000",pool="",accounting="user",manager="dt",id="0"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="",accounting="user",manager="dt",id="1000028"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="ddn_ssd",accounting="user",manager="dt",id="0"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="sfa_0",accounting="user",manager="dt",id="0"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="",accounting="user",manager="md",id="0"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="",accounting="user",manager="md",id="1000028"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="",accounting="project",manager="dt",id="0"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="",accounting="project",manager="dt",id="1000118"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="",accounting="project",manager="dt",id="1234"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="ddn_ssd",accounting="project",manager="dt",id="0"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="sfa_0",accounting="project",manager="dt",id="0"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="",accounting="project",manager="md",id="0"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="",accounting="project",manager="md",id="1000118"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="",accounting="project",manager="md",id="1234"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="",accounting="group",manager="dt",id="0"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="",accounting="group",manager="dt",id="1000032"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="ddn_ssd",accounting="group",manager="dt",id="0"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="sfa_0",accounting="group",manager="dt",id="0"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="",accounting="group",manager="md",id="0"} 0
+lustre_quota_soft{target="exatest-QMT0000",pool="",accounting="group",manager="md",id="1000032"} 0
+
+# HELP lustre_quota_used_inodes The amount of inodes used by quota.
+# TYPE lustre_quota_used_inodes gauge
+lustre_quota_used_inodes{component="mdt",accounting="group",target="exatest-MDT0003",id="0"} 300
+lustre_quota_used_inodes{component="mdt",accounting="group",target="exatest-MDT0003",id="1000017"} 8
+lustre_quota_used_inodes{component="mdt",accounting="group",target="exatest-MDT0003",id="1000007"} 2
+lustre_quota_used_inodes{component="mdt",accounting="group",target="exatest-MDT0003",id="1000022"} 392
+lustre_quota_used_inodes{component="mdt",accounting="group",target="exatest-MDT0004",id="0"} 357
+lustre_quota_used_inodes{component="mdt",accounting="group",target="exatest-MDT0004",id="1000017"} 11
+lustre_quota_used_inodes{component="mdt",accounting="group",target="exatest-MDT0004",id="1000007"} 2
+lustre_quota_used_inodes{component="mdt",accounting="group",target="exatest-MDT0004",id="1000022"} 205
+lustre_quota_used_inodes{component="mdt",accounting="group",target="exatest-MDT0007",id="0"} 298
+lustre_quota_used_inodes{component="mdt",accounting="group",target="exatest-MDT0007",id="1000017"} 8
+lustre_quota_used_inodes{component="mdt",accounting="group",target="exatest-MDT0007",id="1000007"} 1
+lustre_quota_used_inodes{component="mdt",accounting="group",target="exatest-MDT0007",id="1000022"} 397
+lustre_quota_used_inodes{component="ost",accounting="group",target="exatest-OST0000",id="0"} 103724
+lustre_quota_used_inodes{component="ost",accounting="group",target="exatest-OST0000",id="1000022"} 134
+lustre_quota_used_inodes{component="ost",accounting="group",target="exatest-OST0003",id="0"} 120204
+lustre_quota_used_inodes{component="ost",accounting="group",target="exatest-OST0003",id="1000017"} 1
+lustre_quota_used_inodes{component="ost",accounting="group",target="exatest-OST0003",id="1000022"} 135
+lustre_quota_used_inodes{component="ost",accounting="group",target="exatest-OST0004",id="0"} 106143
+lustre_quota_used_inodes{component="ost",accounting="group",target="exatest-OST0004",id="1000022"} 135
+lustre_quota_used_inodes{component="ost",accounting="group",target="exatest-OST0007",id="0"} 99920
+lustre_quota_used_inodes{component="ost",accounting="group",target="exatest-OST0007",id="1000022"} 136
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0000",id="0"} 428
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0000",id="1000013"} 10
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0000",id="1000000"} 3
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0000",id="1000018"} 152
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0003",id="0"} 300
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0003",id="1000013"} 8
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0003",id="1000000"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0003",id="1000018"} 392
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0004",id="0"} 357
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0004",id="1000013"} 11
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0004",id="1000000"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0004",id="1000018"} 205
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0007",id="0"} 298
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0007",id="1000013"} 8
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0007",id="1000000"} 1
+lustre_quota_used_inodes{component="mdt",accounting="user",target="exatest-MDT0007",id="1000018"} 397
+lustre_quota_used_inodes{component="ost",accounting="user",target="exatest-OST0000",id="0"} 103724
+lustre_quota_used_inodes{component="ost",accounting="user",target="exatest-OST0000",id="1000018"} 134
+lustre_quota_used_inodes{component="ost",accounting="user",target="exatest-OST0003",id="0"} 120204
+lustre_quota_used_inodes{component="ost",accounting="user",target="exatest-OST0003",id="1000013"} 1
+lustre_quota_used_inodes{component="ost",accounting="user",target="exatest-OST0003",id="1000018"} 135
+lustre_quota_used_inodes{component="ost",accounting="user",target="exatest-OST0004",id="0"} 106143
+lustre_quota_used_inodes{component="ost",accounting="user",target="exatest-OST0004",id="1000018"} 135
+lustre_quota_used_inodes{component="ost",accounting="user",target="exatest-OST0007",id="0"} 99920
+lustre_quota_used_inodes{component="ost",accounting="user",target="exatest-OST0007",id="1000018"} 136
+lustre_quota_used_inodes{component="mdt",accounting="project",target="exatest-MDT0000",id="0"} 593
+lustre_quota_used_inodes{component="mdt",accounting="project",target="exatest-MDT0003",id="0"} 702
+lustre_quota_used_inodes{component="mdt",accounting="project",target="exatest-MDT0004",id="0"} 575
+lustre_quota_used_inodes{component="mdt",accounting="project",target="exatest-MDT0007",id="0"} 704
+lustre_quota_used_inodes{component="ost",accounting="project",target="exatest-OST0000",id="0"} 103858
+lustre_quota_used_inodes{component="ost",accounting="project",target="exatest-OST0003",id="0"} 120340
+lustre_quota_used_inodes{component="ost",accounting="project",target="exatest-OST0004",id="0"} 106278
+lustre_quota_used_inodes{component="ost",accounting="project",target="exatest-OST0007",id="0"} 100056
+
+# HELP lustre_quota_used_kbytes The hard quota for a given component.
+# TYPE lustre_quota_used_kbytes gauge
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="exatest-MDT0003",id="0"} 1454216
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="exatest-MDT0003",id="1000017"} 32
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="exatest-MDT0003",id="1000007"} 8
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="exatest-MDT0003",id="1000022"} 224
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="exatest-MDT0004",id="0"} 1448448
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="exatest-MDT0004",id="1000017"} 36
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="exatest-MDT0004",id="1000007"} 8
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="exatest-MDT0004",id="1000022"} 140
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="exatest-MDT0007",id="0"} 1395244
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="exatest-MDT0007",id="1000017"} 32
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="exatest-MDT0007",id="1000007"} 4
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="exatest-MDT0007",id="1000022"} 528
+lustre_quota_used_kbytes{component="ost",accounting="group",target="exatest-OST0000",id="0"} 1496920
+lustre_quota_used_kbytes{component="ost",accounting="group",target="exatest-OST0000",id="1000022"} 604
+lustre_quota_used_kbytes{component="ost",accounting="group",target="exatest-OST0003",id="0"} 1494996
+lustre_quota_used_kbytes{component="ost",accounting="group",target="exatest-OST0003",id="1000017"} 4
+lustre_quota_used_kbytes{component="ost",accounting="group",target="exatest-OST0003",id="1000022"} 672
+lustre_quota_used_kbytes{component="ost",accounting="group",target="exatest-OST0004",id="0"} 1494860
+lustre_quota_used_kbytes{component="ost",accounting="group",target="exatest-OST0004",id="1000022"} 940
+lustre_quota_used_kbytes{component="ost",accounting="group",target="exatest-OST0007",id="0"} 1492820
+lustre_quota_used_kbytes{component="ost",accounting="group",target="exatest-OST0007",id="1000022"} 1460
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0000",id="0"} 1624872
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0000",id="1000013"} 56
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0000",id="1000000"} 56
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0000",id="1000018"} 148
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0003",id="0"} 1454216
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0003",id="1000013"} 32
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0003",id="1000000"} 8
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0003",id="1000018"} 224
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0004",id="0"} 1448448
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0004",id="1000013"} 36
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0004",id="1000000"} 8
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0004",id="1000018"} 140
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0007",id="0"} 1395244
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0007",id="1000013"} 32
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0007",id="1000000"} 4
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="exatest-MDT0007",id="1000018"} 528
+lustre_quota_used_kbytes{component="ost",accounting="user",target="exatest-OST0000",id="0"} 1496920
+lustre_quota_used_kbytes{component="ost",accounting="user",target="exatest-OST0000",id="1000018"} 604
+lustre_quota_used_kbytes{component="ost",accounting="user",target="exatest-OST0003",id="0"} 1494996
+lustre_quota_used_kbytes{component="ost",accounting="user",target="exatest-OST0003",id="1000013"} 4
+lustre_quota_used_kbytes{component="ost",accounting="user",target="exatest-OST0003",id="1000018"} 672
+lustre_quota_used_kbytes{component="ost",accounting="user",target="exatest-OST0004",id="0"} 1494860
+lustre_quota_used_kbytes{component="ost",accounting="user",target="exatest-OST0004",id="1000018"} 940
+lustre_quota_used_kbytes{component="ost",accounting="user",target="exatest-OST0007",id="0"} 1492820
+lustre_quota_used_kbytes{component="ost",accounting="user",target="exatest-OST0007",id="1000018"} 1460
+lustre_quota_used_kbytes{component="mdt",accounting="project",target="exatest-MDT0000",id="0"} 1625132
+lustre_quota_used_kbytes{component="mdt",accounting="project",target="exatest-MDT0003",id="0"} 1454480
+lustre_quota_used_kbytes{component="mdt",accounting="project",target="exatest-MDT0004",id="0"} 1448632
+lustre_quota_used_kbytes{component="mdt",accounting="project",target="exatest-MDT0007",id="0"} 1395808
+lustre_quota_used_kbytes{component="ost",accounting="project",target="exatest-OST0000",id="0"} 1497524
+lustre_quota_used_kbytes{component="ost",accounting="project",target="exatest-OST0003",id="0"} 1495672
+lustre_quota_used_kbytes{component="ost",accounting="project",target="exatest-OST0004",id="0"} 1495800
+lustre_quota_used_kbytes{component="ost",accounting="project",target="exatest-OST0007",id="0"} 1494280
 
 # HELP lustre_read_bytes_total The total number of bytes that have been read.
 # TYPE lustre_read_bytes_total counter
