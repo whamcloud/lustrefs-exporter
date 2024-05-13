@@ -1,8 +1,7 @@
-use std::{collections::BTreeMap, ops::Deref};
-
 use crate::{LabelProm, Metric, StatsMapExt};
 use lustre_collector::{Stat, Target, TargetStat};
 use prometheus_exporter_base::prelude::*;
+use std::{collections::BTreeMap, ops::Deref};
 
 static READ_SAMPLES: Metric = Metric {
     name: "lustre_read_samples_total",

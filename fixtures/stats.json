@@ -2386,7 +2386,7 @@
         "param": "changelog_users",
         "target": "ai400x2-MDT0000",
         "value": {
-          "users": 
+          "users":
             [
               {
                 "user": "cl2",
@@ -2406,7 +2406,7 @@
         "param": "changelog_users",
         "target": "ai400x2-MDT0001",
         "value": {
-          "users": 
+          "users":
             [
 
             ],
@@ -3013,6 +3013,1173 @@
           "sumsquare": 29612
         }
       ]
+    }
+  },
+  {
+    "Target": {
+      "Llite": {
+        "target": "exatest-ff3f2ef8d0a64000",
+        "param": "stats",
+        "stats": [
+          {
+            "name": "ioctl",
+            "units": "reqs",
+            "samples": 22,
+            "min": null,
+            "max": null,
+            "sum": null,
+            "sumsquare": null
+          },
+          {
+            "name": "getattr",
+            "units": "usecs",
+            "samples": 84,
+            "min": 1,
+            "max": 513,
+            "sum": 13196,
+            "sumsquare": 2498214
+          },
+          {
+            "name": "statfs",
+            "units": "usecs",
+            "samples": 3468656,
+            "min": 0,
+            "max": 184655,
+            "sum": 377137837,
+            "sumsquare": 1090598845443
+          },
+          {
+            "name": "inode_permission",
+            "units": "usecs",
+            "samples": 18,
+            "min": 1,
+            "max": 159,
+            "sum": 659,
+            "sumsquare": 86963
+          },
+          {
+            "name": "opencount",
+            "units": "reqs",
+            "samples": 14,
+            "min": 1,
+            "max": 1,
+            "sum": 14,
+            "sumsquare": 14
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Target": {
+      "Changelog": {
+        "kind": "Mdt",
+        "param": "changelog_users",
+        "target": "exatest-MDT0000",
+        "value": {
+          "current_index": 0,
+          "users": []
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "Changelog": {
+        "kind": "Mdt",
+        "param": "changelog_users",
+        "target": "exatest-MDT0003",
+        "value": {
+          "current_index": 0,
+          "users": []
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "Changelog": {
+        "kind": "Mdt",
+        "param": "changelog_users",
+        "target": "exatest-MDT0004",
+        "value": {
+          "current_index": 0,
+          "users": []
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "Changelog": {
+        "kind": "Mdt",
+        "param": "changelog_users",
+        "target": "exatest-MDT0007",
+        "value": {
+          "current_index": 0,
+          "users": []
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Mdt",
+        "param": "quota_slave.acct_group",
+        "target": "exatest-MDT0003",
+        "value": {
+          "kind": "Grp",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 300,
+                "kbytes": 1454216
+              }
+            },
+            {
+              "id": 1000017,
+              "usage": {
+                "inodes": 8,
+                "kbytes": 32
+              }
+            },
+            {
+              "id": 1000007,
+              "usage": {
+                "inodes": 2,
+                "kbytes": 8
+              }
+            },
+            {
+              "id": 1000022,
+              "usage": {
+                "inodes": 392,
+                "kbytes": 224
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Mdt",
+        "param": "quota_slave.acct_group",
+        "target": "exatest-MDT0004",
+        "value": {
+          "kind": "Grp",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 357,
+                "kbytes": 1448448
+              }
+            },
+            {
+              "id": 1000017,
+              "usage": {
+                "inodes": 11,
+                "kbytes": 36
+              }
+            },
+            {
+              "id": 1000007,
+              "usage": {
+                "inodes": 2,
+                "kbytes": 8
+              }
+            },
+            {
+              "id": 1000022,
+              "usage": {
+                "inodes": 205,
+                "kbytes": 140
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Mdt",
+        "param": "quota_slave.acct_group",
+        "target": "exatest-MDT0007",
+        "value": {
+          "kind": "Grp",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 298,
+                "kbytes": 1395244
+              }
+            },
+            {
+              "id": 1000017,
+              "usage": {
+                "inodes": 8,
+                "kbytes": 32
+              }
+            },
+            {
+              "id": 1000007,
+              "usage": {
+                "inodes": 1,
+                "kbytes": 4
+              }
+            },
+            {
+              "id": 1000022,
+              "usage": {
+                "inodes": 397,
+                "kbytes": 528
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Ost",
+        "param": "quota_slave.acct_group",
+        "target": "exatest-OST0000",
+        "value": {
+          "kind": "Grp",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 103724,
+                "kbytes": 1496920
+              }
+            },
+            {
+              "id": 1000022,
+              "usage": {
+                "inodes": 134,
+                "kbytes": 604
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Ost",
+        "param": "quota_slave.acct_group",
+        "target": "exatest-OST0003",
+        "value": {
+          "kind": "Grp",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 120204,
+                "kbytes": 1494996
+              }
+            },
+            {
+              "id": 1000017,
+              "usage": {
+                "inodes": 1,
+                "kbytes": 4
+              }
+            },
+            {
+              "id": 1000022,
+              "usage": {
+                "inodes": 135,
+                "kbytes": 672
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Ost",
+        "param": "quota_slave.acct_group",
+        "target": "exatest-OST0004",
+        "value": {
+          "kind": "Grp",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 106143,
+                "kbytes": 1494860
+              }
+            },
+            {
+              "id": 1000022,
+              "usage": {
+                "inodes": 135,
+                "kbytes": 940
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Ost",
+        "param": "quota_slave.acct_group",
+        "target": "exatest-OST0007",
+        "value": {
+          "kind": "Grp",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 99920,
+                "kbytes": 1492820
+              }
+            },
+            {
+              "id": 1000022,
+              "usage": {
+                "inodes": 136,
+                "kbytes": 1460
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Mdt",
+        "param": "quota_slave.acct_user",
+        "target": "exatest-MDT0000",
+        "value": {
+          "kind": "Usr",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 428,
+                "kbytes": 1624872
+              }
+            },
+            {
+              "id": 1000013,
+              "usage": {
+                "inodes": 10,
+                "kbytes": 56
+              }
+            },
+            {
+              "id": 1000000,
+              "usage": {
+                "inodes": 3,
+                "kbytes": 56
+              }
+            },
+            {
+              "id": 1000018,
+              "usage": {
+                "inodes": 152,
+                "kbytes": 148
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Mdt",
+        "param": "quota_slave.acct_user",
+        "target": "exatest-MDT0003",
+        "value": {
+          "kind": "Usr",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 300,
+                "kbytes": 1454216
+              }
+            },
+            {
+              "id": 1000013,
+              "usage": {
+                "inodes": 8,
+                "kbytes": 32
+              }
+            },
+            {
+              "id": 1000000,
+              "usage": {
+                "inodes": 2,
+                "kbytes": 8
+              }
+            },
+            {
+              "id": 1000018,
+              "usage": {
+                "inodes": 392,
+                "kbytes": 224
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Mdt",
+        "param": "quota_slave.acct_user",
+        "target": "exatest-MDT0004",
+        "value": {
+          "kind": "Usr",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 357,
+                "kbytes": 1448448
+              }
+            },
+            {
+              "id": 1000013,
+              "usage": {
+                "inodes": 11,
+                "kbytes": 36
+              }
+            },
+            {
+              "id": 1000000,
+              "usage": {
+                "inodes": 2,
+                "kbytes": 8
+              }
+            },
+            {
+              "id": 1000018,
+              "usage": {
+                "inodes": 205,
+                "kbytes": 140
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Mdt",
+        "param": "quota_slave.acct_user",
+        "target": "exatest-MDT0007",
+        "value": {
+          "kind": "Usr",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 298,
+                "kbytes": 1395244
+              }
+            },
+            {
+              "id": 1000013,
+              "usage": {
+                "inodes": 8,
+                "kbytes": 32
+              }
+            },
+            {
+              "id": 1000000,
+              "usage": {
+                "inodes": 1,
+                "kbytes": 4
+              }
+            },
+            {
+              "id": 1000018,
+              "usage": {
+                "inodes": 397,
+                "kbytes": 528
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Ost",
+        "param": "quota_slave.acct_user",
+        "target": "exatest-OST0000",
+        "value": {
+          "kind": "Usr",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 103724,
+                "kbytes": 1496920
+              }
+            },
+            {
+              "id": 1000018,
+              "usage": {
+                "inodes": 134,
+                "kbytes": 604
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Ost",
+        "param": "quota_slave.acct_user",
+        "target": "exatest-OST0003",
+        "value": {
+          "kind": "Usr",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 120204,
+                "kbytes": 1494996
+              }
+            },
+            {
+              "id": 1000013,
+              "usage": {
+                "inodes": 1,
+                "kbytes": 4
+              }
+            },
+            {
+              "id": 1000018,
+              "usage": {
+                "inodes": 135,
+                "kbytes": 672
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Ost",
+        "param": "quota_slave.acct_user",
+        "target": "exatest-OST0004",
+        "value": {
+          "kind": "Usr",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 106143,
+                "kbytes": 1494860
+              }
+            },
+            {
+              "id": 1000018,
+              "usage": {
+                "inodes": 135,
+                "kbytes": 940
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Ost",
+        "param": "quota_slave.acct_user",
+        "target": "exatest-OST0007",
+        "value": {
+          "kind": "Usr",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 99920,
+                "kbytes": 1492820
+              }
+            },
+            {
+              "id": 1000018,
+              "usage": {
+                "inodes": 136,
+                "kbytes": 1460
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Mdt",
+        "param": "quota_slave.acct_project",
+        "target": "exatest-MDT0000",
+        "value": {
+          "kind": "Prj",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 593,
+                "kbytes": 1625132
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Mdt",
+        "param": "quota_slave.acct_project",
+        "target": "exatest-MDT0003",
+        "value": {
+          "kind": "Prj",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 702,
+                "kbytes": 1454480
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Mdt",
+        "param": "quota_slave.acct_project",
+        "target": "exatest-MDT0004",
+        "value": {
+          "kind": "Prj",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 575,
+                "kbytes": 1448632
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Mdt",
+        "param": "quota_slave.acct_project",
+        "target": "exatest-MDT0007",
+        "value": {
+          "kind": "Prj",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 704,
+                "kbytes": 1395808
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Ost",
+        "param": "quota_slave.acct_project",
+        "target": "exatest-OST0000",
+        "value": {
+          "kind": "Prj",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 103858,
+                "kbytes": 1497524
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Ost",
+        "param": "quota_slave.acct_project",
+        "target": "exatest-OST0003",
+        "value": {
+          "kind": "Prj",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 120340,
+                "kbytes": 1495672
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Ost",
+        "param": "quota_slave.acct_project",
+        "target": "exatest-OST0004",
+        "value": {
+          "kind": "Prj",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 106278,
+                "kbytes": 1495800
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStatsOsd": {
+        "kind": "Ost",
+        "param": "quota_slave.acct_project",
+        "target": "exatest-OST0007",
+        "value": {
+          "kind": "Prj",
+          "stats": [
+            {
+              "id": 0,
+              "usage": {
+                "inodes": 100056,
+                "kbytes": 1494280
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStats": {
+        "pool": "0x0",
+        "manager": "dt",
+        "param": "usr",
+        "target": "exatest-QMT0000",
+        "value": {
+          "kind": "Usr",
+          "stats": [
+            {
+              "id": 0,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 604800
+              }
+            },
+            {
+              "id": 1000028,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 281474976710656
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStats": {
+        "pool": "ddn_ssd",
+        "manager": "dt",
+        "param": "usr",
+        "target": "exatest-QMT0000",
+        "value": {
+          "kind": "Usr",
+          "stats": [
+            {
+              "id": 0,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 604800
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStats": {
+        "pool": "sfa_0",
+        "manager": "dt",
+        "param": "usr",
+        "target": "exatest-QMT0000",
+        "value": {
+          "kind": "Usr",
+          "stats": [
+            {
+              "id": 0,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 604800
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStats": {
+        "pool": "0x0",
+        "manager": "md",
+        "param": "usr",
+        "target": "exatest-QMT0000",
+        "value": {
+          "kind": "Usr",
+          "stats": [
+            {
+              "id": 0,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 604800
+              }
+            },
+            {
+              "id": 1000028,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 281474976710656
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStats": {
+        "pool": "0x0",
+        "manager": "dt",
+        "param": "prj",
+        "target": "exatest-QMT0000",
+        "value": {
+          "kind": "Prj",
+          "stats": [
+            {
+              "id": 0,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 604800
+              }
+            },
+            {
+              "id": 1000118,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 281474976710656
+              }
+            },
+            {
+              "id": 1234,
+              "limits": {
+                "hard": 104857600,
+                "soft": 0,
+                "granted": 0,
+                "time": 0
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStats": {
+        "pool": "ddn_ssd",
+        "manager": "dt",
+        "param": "prj",
+        "target": "exatest-QMT0000",
+        "value": {
+          "kind": "Prj",
+          "stats": [
+            {
+              "id": 0,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 604800
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStats": {
+        "pool": "sfa_0",
+        "manager": "dt",
+        "param": "prj",
+        "target": "exatest-QMT0000",
+        "value": {
+          "kind": "Prj",
+          "stats": [
+            {
+              "id": 0,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 604800
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStats": {
+        "pool": "0x0",
+        "manager": "md",
+        "param": "prj",
+        "target": "exatest-QMT0000",
+        "value": {
+          "kind": "Prj",
+          "stats": [
+            {
+              "id": 0,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 604800
+              }
+            },
+            {
+              "id": 1000118,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 281474976710656
+              }
+            },
+            {
+              "id": 1234,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 281474976710656
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStats": {
+        "pool": "0x0",
+        "manager": "dt",
+        "param": "grp",
+        "target": "exatest-QMT0000",
+        "value": {
+          "kind": "Grp",
+          "stats": [
+            {
+              "id": 0,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 604800
+              }
+            },
+            {
+              "id": 1000032,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 281474976710656
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStats": {
+        "pool": "ddn_ssd",
+        "manager": "dt",
+        "param": "grp",
+        "target": "exatest-QMT0000",
+        "value": {
+          "kind": "Grp",
+          "stats": [
+            {
+              "id": 0,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 604800
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStats": {
+        "pool": "sfa_0",
+        "manager": "dt",
+        "param": "grp",
+        "target": "exatest-QMT0000",
+        "value": {
+          "kind": "Grp",
+          "stats": [
+            {
+              "id": 0,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 604800
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Target": {
+      "QuotaStats": {
+        "pool": "0x0",
+        "manager": "md",
+        "param": "grp",
+        "target": "exatest-QMT0000",
+        "value": {
+          "kind": "Grp",
+          "stats": [
+            {
+              "id": 0,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 604800
+              }
+            },
+            {
+              "id": 1000032,
+              "limits": {
+                "hard": 0,
+                "soft": 0,
+                "granted": 0,
+                "time": 281474976710656
+              }
+            }
+          ]
+        }
+      }
     }
   },
   {
