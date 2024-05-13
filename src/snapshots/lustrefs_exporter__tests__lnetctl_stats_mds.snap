@@ -1,0 +1,520 @@
+---
+source: src/main.rs
+expression: x
+---
+# HELP lustre_available_kilobytes Number of kilobytes readily available in the pool
+# TYPE lustre_available_kilobytes gauge
+lustre_available_kilobytes{component="mgt",target="MGS"} 463676
+lustre_available_kilobytes{component="mdt",target="fs-MDT0000"} 2366352
+lustre_available_kilobytes{component="ost",target="fs-OST0000"} 3935772
+lustre_available_kilobytes{component="ost",target="fs-OST0001"} 4038172
+
+# HELP lustre_block_maps_milliseconds_total Number of block maps in milliseconds
+# TYPE lustre_block_maps_milliseconds_total counter
+lustre_block_maps_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="1"} 0
+lustre_block_maps_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="1"} 33
+lustre_block_maps_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="1"} 0
+lustre_block_maps_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="1"} 33
+
+# HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes
+# TYPE lustre_capacity_kilobytes gauge
+lustre_capacity_kilobytes{component="mgt",target="MGS"} 491092
+lustre_capacity_kilobytes{component="mdt",target="fs-MDT0000"} 2602832
+lustre_capacity_kilobytes{component="ost",target="fs-OST0000"} 4108388
+lustre_capacity_kilobytes{component="ost",target="fs-OST0001"} 4108388
+
+# HELP lustre_changelog_current_index current changelog index.
+# TYPE lustre_changelog_current_index gauge
+lustre_changelog_current_index{target="fs-MDT0000"} 0
+
+# HELP lustre_connected_clients Number of connected clients
+# TYPE lustre_connected_clients gauge
+lustre_connected_clients{component="mdt",target="fs-MDT0000"} 1
+
+# HELP lustre_dio_frags Current disk IO fragmentation for the given size.
+# TYPE lustre_dio_frags gauge
+lustre_dio_frags{component="ost",operation="read",target="fs-OST0000",size="1"} 0
+lustre_dio_frags{component="ost",operation="write",target="fs-OST0000",size="1"} 1
+lustre_dio_frags{component="ost",operation="read",target="fs-OST0000",size="2"} 0
+lustre_dio_frags{component="ost",operation="write",target="fs-OST0000",size="2"} 18
+lustre_dio_frags{component="ost",operation="read",target="fs-OST0000",size="3"} 0
+lustre_dio_frags{component="ost",operation="write",target="fs-OST0000",size="3"} 7
+lustre_dio_frags{component="ost",operation="read",target="fs-OST0000",size="1"} 0
+lustre_dio_frags{component="ost",operation="write",target="fs-OST0000",size="1"} 1
+lustre_dio_frags{component="ost",operation="read",target="fs-OST0000",size="2"} 0
+lustre_dio_frags{component="ost",operation="write",target="fs-OST0000",size="2"} 18
+lustre_dio_frags{component="ost",operation="read",target="fs-OST0000",size="3"} 0
+lustre_dio_frags{component="ost",operation="write",target="fs-OST0000",size="3"} 7
+
+# HELP lustre_discontiguous_blocks_total 
+# TYPE lustre_discontiguous_blocks_total counter
+lustre_discontiguous_blocks_total{component="ost",operation="read",target="fs-OST0000",size="0"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",target="fs-OST0000",size="0"} 19
+lustre_discontiguous_blocks_total{component="ost",operation="read",target="fs-OST0000",size="1"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",target="fs-OST0000",size="1"} 7
+lustre_discontiguous_blocks_total{component="ost",operation="read",target="fs-OST0000",size="0"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",target="fs-OST0000",size="0"} 19
+lustre_discontiguous_blocks_total{component="ost",operation="read",target="fs-OST0000",size="1"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",target="fs-OST0000",size="1"} 7
+
+# HELP lustre_discontiguous_pages_total Total number of logical discontinuities per RPC.
+# TYPE lustre_discontiguous_pages_total counter
+lustre_discontiguous_pages_total{component="ost",operation="read",target="fs-OST0000",size="0"} 0
+lustre_discontiguous_pages_total{component="ost",operation="write",target="fs-OST0000",size="0"} 19
+lustre_discontiguous_pages_total{component="ost",operation="read",target="fs-OST0000",size="1"} 0
+lustre_discontiguous_pages_total{component="ost",operation="write",target="fs-OST0000",size="1"} 7
+lustre_discontiguous_pages_total{component="ost",operation="read",target="fs-OST0000",size="0"} 0
+lustre_discontiguous_pages_total{component="ost",operation="write",target="fs-OST0000",size="0"} 19
+lustre_discontiguous_pages_total{component="ost",operation="read",target="fs-OST0000",size="1"} 0
+lustre_discontiguous_pages_total{component="ost",operation="write",target="fs-OST0000",size="1"} 7
+
+# HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot.
+# TYPE lustre_disk_io gauge
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="1"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="1"} 2
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="2"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="2"} 2
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="3"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="3"} 6
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="4"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="4"} 2
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="5"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="5"} 3
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="6"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="6"} 5
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="7"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="7"} 5
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="8"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="8"} 5
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="9"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="9"} 7
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="10"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="10"} 7
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="11"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="11"} 7
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="12"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="12"} 5
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="13"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="13"} 2
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="1"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="1"} 2
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="2"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="2"} 2
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="3"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="3"} 6
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="4"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="4"} 2
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="5"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="5"} 3
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="6"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="6"} 5
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="7"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="7"} 5
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="8"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="8"} 5
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="9"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="9"} 7
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="10"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="10"} 7
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="11"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="11"} 7
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="12"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="12"} 5
+lustre_disk_io{component="ost",operation="read",target="fs-OST0000",size="13"} 0
+lustre_disk_io{component="ost",operation="write",target="fs-OST0000",size="13"} 2
+
+# HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size.
+# TYPE lustre_disk_io_total counter
+lustre_disk_io_total{component="ost",operation="read",target="fs-OST0000",size="32768"} 0
+lustre_disk_io_total{component="ost",operation="write",target="fs-OST0000",size="32768"} 1
+lustre_disk_io_total{component="ost",operation="read",target="fs-OST0000",size="65536"} 0
+lustre_disk_io_total{component="ost",operation="write",target="fs-OST0000",size="65536"} 1
+lustre_disk_io_total{component="ost",operation="read",target="fs-OST0000",size="131072"} 0
+lustre_disk_io_total{component="ost",operation="write",target="fs-OST0000",size="131072"} 3
+lustre_disk_io_total{component="ost",operation="read",target="fs-OST0000",size="262144"} 0
+lustre_disk_io_total{component="ost",operation="write",target="fs-OST0000",size="262144"} 3
+lustre_disk_io_total{component="ost",operation="read",target="fs-OST0000",size="524288"} 0
+lustre_disk_io_total{component="ost",operation="write",target="fs-OST0000",size="524288"} 0
+lustre_disk_io_total{component="ost",operation="read",target="fs-OST0000",size="1048576"} 0
+lustre_disk_io_total{component="ost",operation="write",target="fs-OST0000",size="1048576"} 0
+lustre_disk_io_total{component="ost",operation="read",target="fs-OST0000",size="2097152"} 0
+lustre_disk_io_total{component="ost",operation="write",target="fs-OST0000",size="2097152"} 50
+lustre_disk_io_total{component="ost",operation="read",target="fs-OST0000",size="32768"} 0
+lustre_disk_io_total{component="ost",operation="write",target="fs-OST0000",size="32768"} 1
+lustre_disk_io_total{component="ost",operation="read",target="fs-OST0000",size="65536"} 0
+lustre_disk_io_total{component="ost",operation="write",target="fs-OST0000",size="65536"} 1
+lustre_disk_io_total{component="ost",operation="read",target="fs-OST0000",size="131072"} 0
+lustre_disk_io_total{component="ost",operation="write",target="fs-OST0000",size="131072"} 3
+lustre_disk_io_total{component="ost",operation="read",target="fs-OST0000",size="262144"} 0
+lustre_disk_io_total{component="ost",operation="write",target="fs-OST0000",size="262144"} 3
+lustre_disk_io_total{component="ost",operation="read",target="fs-OST0000",size="524288"} 0
+lustre_disk_io_total{component="ost",operation="write",target="fs-OST0000",size="524288"} 0
+lustre_disk_io_total{component="ost",operation="read",target="fs-OST0000",size="1048576"} 0
+lustre_disk_io_total{component="ost",operation="write",target="fs-OST0000",size="1048576"} 0
+lustre_disk_io_total{component="ost",operation="read",target="fs-OST0000",size="2097152"} 0
+lustre_disk_io_total{component="ost",operation="write",target="fs-OST0000",size="2097152"} 50
+
+# HELP lustre_drop_bytes_total Total number of bytes that have been dropped
+# TYPE lustre_drop_bytes_total counter
+lustre_drop_bytes_total 3120
+
+# HELP lustre_drop_count_total Total number of messages that have been dropped
+# TYPE lustre_drop_count_total counter
+lustre_drop_count_total{nid="0@lo"} 2
+lustre_drop_count_total{nid="10.73.20.11@tcp"} 4
+
+# HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
+# TYPE lustre_exports_dirty_total counter
+lustre_exports_dirty_total{component="ost",target="fs-OST0000"} 0
+lustre_exports_dirty_total{component="ost",target="fs-OST0001"} 0
+
+# HELP lustre_exports_granted_total Total number of exports that have been marked granted
+# TYPE lustre_exports_granted_total counter
+lustre_exports_granted_total{component="ost",target="fs-OST0000"} 122430016
+lustre_exports_granted_total{component="ost",target="fs-OST0001"} 279104
+
+# HELP lustre_exports_pending_total Total number of exports that have been marked pending
+# TYPE lustre_exports_pending_total counter
+lustre_exports_pending_total{component="ost",target="fs-OST0000"} 0
+lustre_exports_pending_total{component="ost",target="fs-OST0001"} 0
+
+# HELP lustre_exports_total Total number of times the pool has been exported
+# TYPE lustre_exports_total counter
+lustre_exports_total{component="mgt",target="MGS"} 4
+lustre_exports_total{component="ost",target="fs-OST0000"} 2
+lustre_exports_total{component="ost",target="fs-OST0001"} 1
+lustre_exports_total{component="mdt",target="fs-MDT0000"} 10
+
+# HELP lustre_free_kilobytes Number of kilobytes allocated to the pool
+# TYPE lustre_free_kilobytes gauge
+lustre_free_kilobytes{component="mgt",target="MGS"} 489888
+lustre_free_kilobytes{component="mdt",target="fs-MDT0000"} 2600460
+lustre_free_kilobytes{component="ost",target="fs-OST0000"} 4004584
+lustre_free_kilobytes{component="ost",target="fs-OST0001"} 4106984
+
+# HELP lustre_health_healthy Indicates whether the Lustre target is healthy or not. 1 is healthy, 0 is unhealthy.
+# TYPE lustre_health_healthy gauge
+lustre_health_healthy 1
+
+# HELP lustre_inodes_free The number of inodes (objects) available
+# TYPE lustre_inodes_free gauge
+lustre_inodes_free{component="mgt",target="MGS"} 32570
+lustre_inodes_free{component="mdt",target="fs-MDT0000"} 1885341
+lustre_inodes_free{component="ost",target="fs-OST0000"} 40658
+lustre_inodes_free{component="ost",target="fs-OST0001"} 40658
+
+# HELP lustre_inodes_maximum The maximum number of inodes (objects) the filesystem can hold
+# TYPE lustre_inodes_maximum gauge
+lustre_inodes_maximum{component="mgt",target="MGS"} 32768
+lustre_inodes_maximum{component="mdt",target="fs-MDT0000"} 1885696
+lustre_inodes_maximum{component="ost",target="fs-OST0000"} 40960
+lustre_inodes_maximum{component="ost",target="fs-OST0001"} 40960
+
+# HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes.
+# TYPE lustre_io_time_milliseconds_total counter
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="32"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="32"} 1
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="64"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="64"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="128"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="128"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="256"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="256"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="512"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="512"} 1
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="1024"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="1024"} 7
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="2048"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="2048"} 12
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="4096"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="4096"} 5
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="32"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="32"} 1
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="64"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="64"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="128"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="128"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="256"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="256"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="512"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="512"} 1
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="1024"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="1024"} 7
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="2048"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="2048"} 12
+lustre_io_time_milliseconds_total{component="ost",operation="read",target="fs-OST0000",size="4096"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="4096"} 5
+
+# HELP lustre_ldlm_canceld_stats Gives information about LDLM Canceld service.
+# TYPE lustre_ldlm_canceld_stats counter
+lustre_ldlm_canceld_stats{operation="req_waittime"} 101
+lustre_ldlm_canceld_stats{operation="req_qdepth"} 101
+lustre_ldlm_canceld_stats{operation="req_active"} 101
+lustre_ldlm_canceld_stats{operation="req_timeout"} 101
+lustre_ldlm_canceld_stats{operation="reqbuf_avail"} 218
+lustre_ldlm_canceld_stats{operation="ldlm_cancel"} 101
+
+# HELP lustre_ldlm_cbd_stats Gives information about LDLM Callback service.
+# TYPE lustre_ldlm_cbd_stats counter
+lustre_ldlm_cbd_stats{operation="req_waittime"} 33
+lustre_ldlm_cbd_stats{operation="req_qdepth"} 33
+lustre_ldlm_cbd_stats{operation="req_active"} 33
+lustre_ldlm_cbd_stats{operation="req_timeout"} 33
+lustre_ldlm_cbd_stats{operation="reqbuf_avail"} 74
+lustre_ldlm_cbd_stats{operation="ldlm_bl_callback"} 33
+
+# HELP lustre_lnet_mem_used Gives information about Lustre LNet memory usage.
+# TYPE lustre_lnet_mem_used gauge
+lustre_lnet_mem_used 49757220
+
+# HELP lustre_lock_contended_total Number of contended locks
+# TYPE lustre_lock_contended_total counter
+lustre_lock_contended_total{component="mdt",target="fs-MDT0000"} 32
+lustre_lock_contended_total{component="ost",target="fs-OST0000"} 32
+lustre_lock_contended_total{component="ost",target="fs-OST0001"} 32
+
+# HELP lustre_lock_contention_seconds_total Time in seconds during which locks were contended
+# TYPE lustre_lock_contention_seconds_total counter
+lustre_lock_contention_seconds_total{component="mdt",target="fs-MDT0000"} 2
+lustre_lock_contention_seconds_total{component="ost",target="fs-OST0000"} 2
+lustre_lock_contention_seconds_total{component="ost",target="fs-OST0001"} 2
+
+# HELP lustre_lock_count_total Number of locks
+# TYPE lustre_lock_count_total counter
+lustre_lock_count_total{component="mdt",target="fs-MDT0000"} 32
+lustre_lock_count_total{component="ost",target="fs-OST0000"} 1
+lustre_lock_count_total{component="ost",target="fs-OST0001"} 0
+
+# HELP lustre_lock_timeout_total Number of lock timeouts
+# TYPE lustre_lock_timeout_total counter
+lustre_lock_timeout_total{component="mdt",target="fs-MDT0000"} 0
+lustre_lock_timeout_total{component="ost",target="fs-OST0000"} 0
+lustre_lock_timeout_total{component="ost",target="fs-OST0001"} 0
+
+# HELP lustre_mds_mdt_fld_stats MDS mdt_fld stats
+# TYPE lustre_mds_mdt_fld_stats gauge
+lustre_mds_mdt_fld_stats{operation="req_waittime",units="usecs"} 7
+lustre_mds_mdt_fld_stats{operation="req_qdepth",units="reqs"} 7
+lustre_mds_mdt_fld_stats{operation="req_active",units="reqs"} 7
+lustre_mds_mdt_fld_stats{operation="req_timeout",units="secs"} 7
+lustre_mds_mdt_fld_stats{operation="reqbuf_avail",units="bufs"} 15
+lustre_mds_mdt_fld_stats{operation="fld_read",units="usecs"} 7
+
+# HELP lustre_mds_mdt_readpage_stats MDS mdt_readpage stats
+# TYPE lustre_mds_mdt_readpage_stats gauge
+lustre_mds_mdt_readpage_stats{operation="req_waittime",units="usecs"} 64
+lustre_mds_mdt_readpage_stats{operation="req_qdepth",units="reqs"} 64
+lustre_mds_mdt_readpage_stats{operation="req_active",units="reqs"} 64
+lustre_mds_mdt_readpage_stats{operation="req_timeout",units="secs"} 64
+lustre_mds_mdt_readpage_stats{operation="reqbuf_avail",units="bufs"} 137
+lustre_mds_mdt_readpage_stats{operation="ldlm_ibits_enqueue",units="reqs"} 30
+lustre_mds_mdt_readpage_stats{operation="mds_getattr",units="usecs"} 1
+lustre_mds_mdt_readpage_stats{operation="mds_close",units="usecs"} 2
+lustre_mds_mdt_readpage_stats{operation="mds_readpage",units="usecs"} 1
+lustre_mds_mdt_readpage_stats{operation="dt_index_read",units="usecs"} 30
+
+# HELP lustre_mds_mdt_seqm_stats MDS mdt_seqm stats
+# TYPE lustre_mds_mdt_seqm_stats gauge
+lustre_mds_mdt_seqm_stats{operation="req_waittime",units="usecs"} 1
+lustre_mds_mdt_seqm_stats{operation="req_qdepth",units="reqs"} 1
+lustre_mds_mdt_seqm_stats{operation="req_active",units="reqs"} 1
+lustre_mds_mdt_seqm_stats{operation="req_timeout",units="secs"} 1
+lustre_mds_mdt_seqm_stats{operation="reqbuf_avail",units="bufs"} 3
+lustre_mds_mdt_seqm_stats{operation="seq_query",units="usecs"} 1
+
+# HELP lustre_mds_mdt_seqs_stats MDS mdt_seqs stats
+# TYPE lustre_mds_mdt_seqs_stats gauge
+lustre_mds_mdt_seqs_stats{operation="req_waittime",units="usecs"} 8
+lustre_mds_mdt_seqs_stats{operation="req_qdepth",units="reqs"} 8
+lustre_mds_mdt_seqs_stats{operation="req_active",units="reqs"} 8
+lustre_mds_mdt_seqs_stats{operation="req_timeout",units="secs"} 8
+lustre_mds_mdt_seqs_stats{operation="reqbuf_avail",units="bufs"} 17
+lustre_mds_mdt_seqs_stats{operation="seq_query",units="usecs"} 8
+
+# HELP lustre_mds_mdt_stats MDS mdt stats
+# TYPE lustre_mds_mdt_stats gauge
+lustre_mds_mdt_stats{operation="req_waittime",units="usecs"} 357
+lustre_mds_mdt_stats{operation="req_qdepth",units="reqs"} 357
+lustre_mds_mdt_stats{operation="req_active",units="reqs"} 357
+lustre_mds_mdt_stats{operation="req_timeout",units="secs"} 357
+lustre_mds_mdt_stats{operation="reqbuf_avail",units="bufs"} 840
+lustre_mds_mdt_stats{operation="ldlm_ibits_enqueue",units="reqs"} 4
+lustre_mds_mdt_stats{operation="mds_reint_open",units="reqs"} 2
+lustre_mds_mdt_stats{operation="mds_connect",units="usecs"} 11
+lustre_mds_mdt_stats{operation="mds_get_root",units="usecs"} 1
+lustre_mds_mdt_stats{operation="mds_statfs",units="usecs"} 2
+lustre_mds_mdt_stats{operation="obd_ping",units="usecs"} 339
+
+# HELP lustre_mem_used Gives information about Lustre memory usage.
+# TYPE lustre_mem_used gauge
+lustre_mem_used 1015120175
+
+# HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
+# TYPE lustre_mem_used_max gauge
+lustre_mem_used_max 1015698967
+
+# HELP lustre_oss_ost_create_stats OSS ost_create stats
+# TYPE lustre_oss_ost_create_stats gauge
+lustre_oss_ost_create_stats{operation="req_waittime",units="usecs"} 366
+lustre_oss_ost_create_stats{operation="req_qdepth",units="reqs"} 366
+lustre_oss_ost_create_stats{operation="req_active",units="reqs"} 366
+lustre_oss_ost_create_stats{operation="req_timeout",units="secs"} 366
+lustre_oss_ost_create_stats{operation="reqbuf_avail",units="bufs"} 788
+lustre_oss_ost_create_stats{operation="ost_statfs",units="usecs"} 366
+
+# HELP lustre_oss_ost_io_stats OSS ost_io stats
+# TYPE lustre_oss_ost_io_stats gauge
+lustre_oss_ost_io_stats{operation="req_waittime",units="usecs"} 26
+lustre_oss_ost_io_stats{operation="req_qdepth",units="reqs"} 26
+lustre_oss_ost_io_stats{operation="req_active",units="reqs"} 26
+lustre_oss_ost_io_stats{operation="req_timeout",units="secs"} 26
+lustre_oss_ost_io_stats{operation="reqbuf_avail",units="bufs"} 58
+lustre_oss_ost_io_stats{operation="ost_write",units="usecs"} 26
+
+# HELP lustre_oss_ost_stats OSS ost stats
+# TYPE lustre_oss_ost_stats gauge
+lustre_oss_ost_stats{operation="req_waittime",units="usecs"} 21
+lustre_oss_ost_stats{operation="req_qdepth",units="reqs"} 21
+lustre_oss_ost_stats{operation="req_active",units="reqs"} 21
+lustre_oss_ost_stats{operation="req_timeout",units="secs"} 21
+lustre_oss_ost_stats{operation="reqbuf_avail",units="bufs"} 55
+lustre_oss_ost_stats{operation="ldlm_extent_enqueue",units="reqs"} 1
+lustre_oss_ost_stats{operation="ost_create",units="usecs"} 4
+lustre_oss_ost_stats{operation="ost_get_info",units="usecs"} 2
+lustre_oss_ost_stats{operation="ost_connect",units="usecs"} 4
+lustre_oss_ost_stats{operation="ost_disconnect",units="usecs"} 1
+lustre_oss_ost_stats{operation="obd_ping",units="usecs"} 9
+
+# HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC.
+# TYPE lustre_pages_per_bulk_rw_total counter
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",target="fs-OST0000",size="64"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",target="fs-OST0000",size="64"} 1
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",target="fs-OST0000",size="128"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",target="fs-OST0000",size="128"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",target="fs-OST0000",size="256"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",target="fs-OST0000",size="256"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",target="fs-OST0000",size="512"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",target="fs-OST0000",size="512"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",target="fs-OST0000",size="1024"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",target="fs-OST0000",size="1024"} 25
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",target="fs-OST0000",size="64"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",target="fs-OST0000",size="64"} 1
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",target="fs-OST0000",size="128"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",target="fs-OST0000",size="128"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",target="fs-OST0000",size="256"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",target="fs-OST0000",size="256"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",target="fs-OST0000",size="512"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",target="fs-OST0000",size="512"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",target="fs-OST0000",size="1024"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",target="fs-OST0000",size="1024"} 25
+
+# HELP lustre_quota_granted The granted quota for a given component.
+# TYPE lustre_quota_granted gauge
+lustre_quota_granted{target="fs-QMT0000",pool="",accounting="user",manager="dt",id="0"} 0
+lustre_quota_granted{target="fs-QMT0000",pool="ddn_hdd",accounting="user",manager="dt",id="0"} 0
+lustre_quota_granted{target="fs-QMT0000",pool="ddn_ssd",accounting="user",manager="dt",id="0"} 0
+lustre_quota_granted{target="fs-QMT0000",pool="",accounting="user",manager="md",id="0"} 0
+lustre_quota_granted{target="fs-QMT0000",pool="",accounting="project",manager="dt",id="0"} 0
+lustre_quota_granted{target="fs-QMT0000",pool="ddn_hdd",accounting="project",manager="dt",id="0"} 0
+lustre_quota_granted{target="fs-QMT0000",pool="ddn_ssd",accounting="project",manager="dt",id="0"} 0
+lustre_quota_granted{target="fs-QMT0000",pool="",accounting="project",manager="md",id="0"} 0
+lustre_quota_granted{target="fs-QMT0000",pool="",accounting="group",manager="dt",id="0"} 0
+lustre_quota_granted{target="fs-QMT0000",pool="ddn_hdd",accounting="group",manager="dt",id="0"} 0
+lustre_quota_granted{target="fs-QMT0000",pool="ddn_ssd",accounting="group",manager="dt",id="0"} 0
+lustre_quota_granted{target="fs-QMT0000",pool="",accounting="group",manager="md",id="0"} 0
+
+# HELP lustre_quota_hard The hard quota for a given component.
+# TYPE lustre_quota_hard gauge
+lustre_quota_hard{target="fs-QMT0000",pool="",accounting="user",manager="dt",id="0"} 0
+lustre_quota_hard{target="fs-QMT0000",pool="ddn_hdd",accounting="user",manager="dt",id="0"} 0
+lustre_quota_hard{target="fs-QMT0000",pool="ddn_ssd",accounting="user",manager="dt",id="0"} 0
+lustre_quota_hard{target="fs-QMT0000",pool="",accounting="user",manager="md",id="0"} 0
+lustre_quota_hard{target="fs-QMT0000",pool="",accounting="project",manager="dt",id="0"} 0
+lustre_quota_hard{target="fs-QMT0000",pool="ddn_hdd",accounting="project",manager="dt",id="0"} 0
+lustre_quota_hard{target="fs-QMT0000",pool="ddn_ssd",accounting="project",manager="dt",id="0"} 0
+lustre_quota_hard{target="fs-QMT0000",pool="",accounting="project",manager="md",id="0"} 0
+lustre_quota_hard{target="fs-QMT0000",pool="",accounting="group",manager="dt",id="0"} 0
+lustre_quota_hard{target="fs-QMT0000",pool="ddn_hdd",accounting="group",manager="dt",id="0"} 0
+lustre_quota_hard{target="fs-QMT0000",pool="ddn_ssd",accounting="group",manager="dt",id="0"} 0
+lustre_quota_hard{target="fs-QMT0000",pool="",accounting="group",manager="md",id="0"} 0
+
+# HELP lustre_quota_soft The soft quota for a given component.
+# TYPE lustre_quota_soft gauge
+lustre_quota_soft{target="fs-QMT0000",pool="",accounting="user",manager="dt",id="0"} 0
+lustre_quota_soft{target="fs-QMT0000",pool="ddn_hdd",accounting="user",manager="dt",id="0"} 0
+lustre_quota_soft{target="fs-QMT0000",pool="ddn_ssd",accounting="user",manager="dt",id="0"} 0
+lustre_quota_soft{target="fs-QMT0000",pool="",accounting="user",manager="md",id="0"} 0
+lustre_quota_soft{target="fs-QMT0000",pool="",accounting="project",manager="dt",id="0"} 0
+lustre_quota_soft{target="fs-QMT0000",pool="ddn_hdd",accounting="project",manager="dt",id="0"} 0
+lustre_quota_soft{target="fs-QMT0000",pool="ddn_ssd",accounting="project",manager="dt",id="0"} 0
+lustre_quota_soft{target="fs-QMT0000",pool="",accounting="project",manager="md",id="0"} 0
+lustre_quota_soft{target="fs-QMT0000",pool="",accounting="group",manager="dt",id="0"} 0
+lustre_quota_soft{target="fs-QMT0000",pool="ddn_hdd",accounting="group",manager="dt",id="0"} 0
+lustre_quota_soft{target="fs-QMT0000",pool="ddn_ssd",accounting="group",manager="dt",id="0"} 0
+lustre_quota_soft{target="fs-QMT0000",pool="",accounting="group",manager="md",id="0"} 0
+
+# HELP lustre_quota_used_inodes The amount of inodes used by quota.
+# TYPE lustre_quota_used_inodes gauge
+lustre_quota_used_inodes{component="mdt",accounting="group",target="fs-MDT0000",id="0"} 345
+lustre_quota_used_inodes{component="ost",accounting="group",target="fs-OST0000",id="0"} 292
+lustre_quota_used_inodes{component="ost",accounting="group",target="fs-OST0001",id="0"} 292
+lustre_quota_used_inodes{component="mdt",accounting="user",target="fs-MDT0000",id="0"} 345
+lustre_quota_used_inodes{component="ost",accounting="user",target="fs-OST0000",id="0"} 292
+lustre_quota_used_inodes{component="ost",accounting="user",target="fs-OST0001",id="0"} 292
+lustre_quota_used_inodes{component="mdt",accounting="project",target="fs-MDT0000",id="0"} 345
+lustre_quota_used_inodes{component="ost",accounting="project",target="fs-OST0000",id="0"} 292
+lustre_quota_used_inodes{component="ost",accounting="project",target="fs-OST0001",id="0"} 292
+
+# HELP lustre_quota_used_kbytes The hard quota for a given component.
+# TYPE lustre_quota_used_kbytes gauge
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="fs-MDT0000",id="0"} 2152
+lustre_quota_used_kbytes{component="ost",accounting="group",target="fs-OST0000",id="0"} 103768
+lustre_quota_used_kbytes{component="ost",accounting="group",target="fs-OST0001",id="0"} 1368
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="fs-MDT0000",id="0"} 2152
+lustre_quota_used_kbytes{component="ost",accounting="user",target="fs-OST0000",id="0"} 103768
+lustre_quota_used_kbytes{component="ost",accounting="user",target="fs-OST0001",id="0"} 1368
+lustre_quota_used_kbytes{component="mdt",accounting="project",target="fs-MDT0000",id="0"} 2152
+lustre_quota_used_kbytes{component="ost",accounting="project",target="fs-OST0000",id="0"} 103768
+lustre_quota_used_kbytes{component="ost",accounting="project",target="fs-OST0001",id="0"} 1368
+
+# HELP lustre_receive_bytes_total Total number of bytes that have been received
+# TYPE lustre_receive_bytes_total counter
+lustre_receive_bytes_total 120086240
+
+# HELP lustre_receive_count_total Total number of messages that have been received
+# TYPE lustre_receive_count_total counter
+lustre_receive_count_total{nid="0@lo"} 2225
+lustre_receive_count_total{nid="10.73.20.11@tcp"} 2733
+
+# HELP lustre_send_bytes_total Total number of bytes that have been sent
+# TYPE lustre_send_bytes_total counter
+lustre_send_bytes_total 140887016
+
+# HELP lustre_send_count_total Total number of messages that have been sent
+# TYPE lustre_send_count_total counter
+lustre_send_count_total{nid="0@lo"} 2227
+lustre_send_count_total{nid="10.73.20.11@tcp"} 2736
+
+# HELP lustre_stats_total Number of operations the filesystem has performed.
+# TYPE lustre_stats_total counter
+lustre_stats_total{component="mdt",operation="open",target="fs-MDT0000"} 2
+lustre_stats_total{component="mdt",operation="close",target="fs-MDT0000"} 2
+lustre_stats_total{component="mdt",operation="mknod",target="fs-MDT0000"} 1
+lustre_stats_total{component="mdt",operation="getattr",target="fs-MDT0000"} 3
+lustre_stats_total{component="mdt",operation="statfs",target="fs-MDT0000"} 2
+
+# HELP lustre_write_bytes_total The total number of bytes that have been written.
+# TYPE lustre_write_bytes_total counter
+lustre_write_bytes_total{component="ost",operation="write",target="fs-OST0000"} 104857600
+
+# HELP lustre_write_maximum_size_bytes The maximum write size in bytes.
+# TYPE lustre_write_maximum_size_bytes gauge
+lustre_write_maximum_size_bytes{component="ost",operation="write",target="fs-OST0000"} 4194304
+
+# HELP lustre_write_minimum_size_bytes The minimum write size in bytes.
+# TYPE lustre_write_minimum_size_bytes gauge
+lustre_write_minimum_size_bytes{component="ost",operation="write",target="fs-OST0000"} 196608
+
+# HELP lustre_write_samples_total Total number of writes that have been recorded.
+# TYPE lustre_write_samples_total counter
+lustre_write_samples_total{component="ost",operation="write",target="fs-OST0000"} 26
