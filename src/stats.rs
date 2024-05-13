@@ -1,5 +1,5 @@
 use crate::{LabelProm, Metric, StatsMapExt};
-use lustre_collector::{Stat, Target, TargetStat, MdsStat};
+use lustre_collector::{MdsStat, Stat, Target, TargetStat};
 use prometheus_exporter_base::prelude::*;
 use std::{collections::BTreeMap, ops::Deref};
 
@@ -239,10 +239,9 @@ static MDS_SETATTR_STATS: Metric = Metric {
     r#type: MetricType::Gauge,
 };
 
-
 pub fn build_mds_stats(
     x: MdsStat,
-    stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>
+    stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
 ) {
     let MdsStat { param, stats } = x;
 
