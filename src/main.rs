@@ -1,4 +1,4 @@
-// Copyright (c) 2023 DDN. All rights reserved.
+// Copyright (c) 2024 DDN. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
@@ -112,6 +112,17 @@ mod tests {
     #[test]
     fn test_host_stats_non_healthy() {
         let output = include_str!("../fixtures/host_stats_non_healthy.json");
+
+        let x = serde_json::from_str(output).unwrap();
+
+        let x = build_lustre_stats(x);
+
+        insta::assert_snapshot!(x);
+    }
+
+    #[test]
+    fn test_client_stats() {
+        let output = include_str!("../fixtures/client.json");
 
         let x = serde_json::from_str(output).unwrap();
 
