@@ -82,7 +82,8 @@ mod tests {
     use insta::assert_snapshot;
     use lustre_collector::parser::parse;
 
-    static VALID_FIXTURES: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/../lustre-collector/src/fixtures/valid/");
+    static VALID_FIXTURES: Dir<'_> =
+        include_dir!("$CARGO_MANIFEST_DIR/../lustre-collector/src/fixtures/valid/");
 
     #[test]
     fn test_valid_fixtures() {

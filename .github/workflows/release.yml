@@ -111,6 +111,7 @@ jobs:
           export DEBIAN_FRONTEND=noninteractive
           apt-get update
           apt-get install -y curl fakeroot
+          cd lustrefs-exporter
           apt-get build-dep -y .
 
       - name: Install latest rust toolchain
