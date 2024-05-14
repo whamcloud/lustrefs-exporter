@@ -1,0 +1,160 @@
+---
+source: src/recovery_status_parser.rs
+expression: records
+---
+[
+    Target(
+        RecoveryStatus(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0000",
+                ),
+                value: Complete,
+            },
+        ),
+    ),
+    Target(
+        RecoveryCompletedClients(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0000",
+                ),
+                value: 4,
+            },
+        ),
+    ),
+    Target(
+        RecoveryStatus(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0001",
+                ),
+                value: Complete,
+            },
+        ),
+    ),
+    Target(
+        RecoveryCompletedClients(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0001",
+                ),
+                value: 4,
+            },
+        ),
+    ),
+    Target(
+        RecoveryStatus(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0004",
+                ),
+                value: Complete,
+            },
+        ),
+    ),
+    Target(
+        RecoveryCompletedClients(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0004",
+                ),
+                value: 8,
+            },
+        ),
+    ),
+    Target(
+        RecoveryStatus(
+            TargetStat {
+                kind: Mdt,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-MDT0000",
+                ),
+                value: Complete,
+            },
+        ),
+    ),
+    Target(
+        RecoveryCompletedClients(
+            TargetStat {
+                kind: Mdt,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-MDT0000",
+                ),
+                value: 3,
+            },
+        ),
+    ),
+    Target(
+        RecoveryStatus(
+            TargetStat {
+                kind: Mdt,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-MDT0002",
+                ),
+                value: Recovering,
+            },
+        ),
+    ),
+    Target(
+        RecoveryConnectedClients(
+            TargetStat {
+                kind: Mdt,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-MDT0002",
+                ),
+                value: 3,
+            },
+        ),
+    ),
+    Target(
+        RecoveryCompletedClients(
+            TargetStat {
+                kind: Mdt,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-MDT0002",
+                ),
+                value: 3,
+            },
+        ),
+    ),
+]

@@ -1,0 +1,15 @@
+---
+source: src/recovery_status_parser.rs
+expression: records
+---
+[
+    Status(
+        Recovering,
+    ),
+    Connected(
+        3,
+    ),
+    Completed(
+        3,
+    ),
+]

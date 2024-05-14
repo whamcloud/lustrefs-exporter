@@ -1,0 +1,49 @@
+---
+source: src/mdd_parser.rs
+expression: result
+---
+(
+    [
+        Target(
+            Changelog(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "changelog_users",
+                    ),
+                    target: Target(
+                        "ai400x2-MDT0000",
+                    ),
+                    value: ChangelogStat {
+                        current_index: 0,
+                        users: [
+                            ChangeLogUser {
+                                user: "cl1",
+                                index: 0,
+                                idle_secs: 327,
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            Changelog(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "changelog_users",
+                    ),
+                    target: Target(
+                        "ai400x2-MDT0001",
+                    ),
+                    value: ChangelogStat {
+                        current_index: 0,
+                        users: [],
+                    },
+                },
+            ),
+        ),
+    ],
+    "",
+)

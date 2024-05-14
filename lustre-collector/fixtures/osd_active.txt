@@ -1,0 +1,141 @@
+osd-ldiskfs.MGS.filesfree=130871
+osd-ldiskfs.ai400x2-MDT0000.filesfree=97713887
+osd-ldiskfs.ai400x2-OST0000.filesfree=1073740846
+osd-ldiskfs.ai400x2-OST0001.filesfree=1073740847
+osd-ldiskfs.MGS.filestotal=131072
+osd-ldiskfs.ai400x2-MDT0000.filestotal=97714176
+osd-ldiskfs.ai400x2-OST0000.filestotal=1073741824
+osd-ldiskfs.ai400x2-OST0001.filestotal=1073741824
+osd-ldiskfs.MGS.fstype=ldiskfs
+osd-ldiskfs.ai400x2-MDT0000.fstype=ldiskfs
+osd-ldiskfs.ai400x2-OST0000.fstype=ldiskfs
+osd-ldiskfs.ai400x2-OST0001.fstype=ldiskfs
+osd-ldiskfs.MGS.kbytesavail=1873796
+osd-ldiskfs.ai400x2-MDT0000.kbytesavail=138705356
+osd-ldiskfs.ai400x2-OST0000.kbytesavail=3258994352
+osd-ldiskfs.ai400x2-OST0001.kbytesavail=3259399856
+osd-ldiskfs.MGS.kbytesfree=1978652
+osd-ldiskfs.ai400x2-MDT0000.kbytesfree=141148044
+osd-ldiskfs.ai400x2-OST0000.kbytesfree=3460337328
+osd-ldiskfs.ai400x2-OST0001.kbytesfree=3460742832
+osd-ldiskfs.MGS.kbytestotal=1980036
+osd-ldiskfs.ai400x2-MDT0000.kbytestotal=141153940
+osd-ldiskfs.ai400x2-OST0000.kbytestotal=3461006668
+osd-ldiskfs.ai400x2-OST0001.kbytestotal=3461006668
+osd-ldiskfs.MGS.brw_stats=
+snapshot_time:         1648756189.775843543 (secs.nsecs)
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+osd-ldiskfs.ai400x2-MDT0000.brw_stats=
+snapshot_time:         1648756189.775990671 (secs.nsecs)
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+osd-ldiskfs.ai400x2-OST0000.brw_stats=
+snapshot_time:         1648756189.776128799 (secs.nsecs)
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+256:		         0   0   0   |    2   1   1
+512:		         0   0   0   |    0   0   1
+1K:		         0   0   0   |  174  98 100
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+0:		         0   0   0   |  176 100 100
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+0:		         0   0   0   |  176 100 100
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+1:		         0   0   0   |    2   1   1
+2:		         0   0   0   |    0   0   1
+3:		         0   0   0   |    0   0   1
+4:		         0   0   0   |  174  98 100
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+1:		         0   0   0   |  176  25  25
+2:		         0   0   0   |  174  24  50
+3:		         0   0   0   |  174  24  75
+4:		         0   0   0   |  174  24 100
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+1:		         0   0   0   |  176 100 100
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+1M:		         0   0   0   |  698 100 100
+osd-ldiskfs.ai400x2-OST0001.brw_stats=
+snapshot_time:         1648756189.776499035 (secs.nsecs)
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+1K:		         0   0   0   |   64 100 100
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+0:		         0   0   0   |   64 100 100
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+0:		         0   0   0   |   64 100 100
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+4:		         0   0   0   |   64 100 100
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+1:		         0   0   0   |   64  25  25
+2:		         0   0   0   |   64  25  50
+3:		         0   0   0   |   64  25  75
+4:		         0   0   0   |   64  25 100
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+1:		         0   0   0   |   64 100 100
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+1M:		         0   0   0   |  256 100 100

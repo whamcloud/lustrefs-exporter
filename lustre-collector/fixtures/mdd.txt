@@ -1,0 +1,7 @@
+mdd.ai400x2-MDT0000.changelog_users=
+current_index: 0
+ID                            index (idle) mask
+cl1                               0 (327)
+mdd.ai400x2-MDT0001.changelog_users=
+current_index: 0
+ID                            index (idle) mask

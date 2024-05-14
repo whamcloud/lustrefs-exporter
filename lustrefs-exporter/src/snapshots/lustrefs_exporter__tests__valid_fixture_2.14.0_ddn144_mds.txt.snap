@@ -1,0 +1,224 @@
+---
+source: lustrefs-exporter/src/main.rs
+expression: x
+---
+# HELP lustre_available_kilobytes Number of kilobytes readily available in the pool
+# TYPE lustre_available_kilobytes gauge
+lustre_available_kilobytes{component="mgt",target="MGS"} 463676
+lustre_available_kilobytes{component="mdt",target="fs-MDT0000"} 2366352
+lustre_available_kilobytes{component="ost",target="fs-OST0000"} 4038172
+lustre_available_kilobytes{component="ost",target="fs-OST0001"} 4038172
+
+# HELP lustre_block_maps_milliseconds_total Number of block maps in milliseconds
+# TYPE lustre_block_maps_milliseconds_total counter
+
+# HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes
+# TYPE lustre_capacity_kilobytes gauge
+lustre_capacity_kilobytes{component="mgt",target="MGS"} 491092
+lustre_capacity_kilobytes{component="mdt",target="fs-MDT0000"} 2602832
+lustre_capacity_kilobytes{component="ost",target="fs-OST0000"} 4108388
+lustre_capacity_kilobytes{component="ost",target="fs-OST0001"} 4108388
+
+# HELP lustre_client_stats Lustre client interface stats.
+# TYPE lustre_client_stats gauge
+lustre_client_stats{operation="ioctl",target="fs-ffff8920f73de000"} 148
+lustre_client_stats{operation="getattr",target="fs-ffff8920f73de000"} 4
+lustre_client_stats{operation="statfs",target="fs-ffff8920f73de000"} 1701
+lustre_client_stats{operation="inode_permission",target="fs-ffff8920f73de000"} 2
+lustre_client_stats{operation="opencount",target="fs-ffff8920f73de000"} 2
+
+# HELP lustre_connected_clients Number of connected clients
+# TYPE lustre_connected_clients gauge
+lustre_connected_clients{component="mdt",target="fs-MDT0000"} 1
+
+# HELP lustre_dio_frags Current disk IO fragmentation for the given size.
+# TYPE lustre_dio_frags gauge
+
+# HELP lustre_discontiguous_blocks_total 
+# TYPE lustre_discontiguous_blocks_total counter
+
+# HELP lustre_discontiguous_pages_total Total number of logical discontinuities per RPC.
+# TYPE lustre_discontiguous_pages_total counter
+
+# HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot.
+# TYPE lustre_disk_io gauge
+
+# HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size.
+# TYPE lustre_disk_io_total counter
+
+# HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
+# TYPE lustre_exports_dirty_total counter
+lustre_exports_dirty_total{component="ost",target="fs-OST0000"} 0
+lustre_exports_dirty_total{component="ost",target="fs-OST0001"} 0
+
+# HELP lustre_exports_granted_total Total number of exports that have been marked granted
+# TYPE lustre_exports_granted_total counter
+lustre_exports_granted_total{component="ost",target="fs-OST0000"} 279104
+lustre_exports_granted_total{component="ost",target="fs-OST0001"} 279104
+
+# HELP lustre_exports_pending_total Total number of exports that have been marked pending
+# TYPE lustre_exports_pending_total counter
+lustre_exports_pending_total{component="ost",target="fs-OST0000"} 0
+lustre_exports_pending_total{component="ost",target="fs-OST0001"} 0
+
+# HELP lustre_exports_total Total number of times the pool has been exported
+# TYPE lustre_exports_total counter
+lustre_exports_total{component="mgt",target="MGS"} 4
+lustre_exports_total{component="ost",target="fs-OST0000"} 1
+lustre_exports_total{component="ost",target="fs-OST0001"} 1
+lustre_exports_total{component="mdt",target="fs-MDT0000"} 10
+
+# HELP lustre_free_kilobytes Number of kilobytes allocated to the pool
+# TYPE lustre_free_kilobytes gauge
+lustre_free_kilobytes{component="mgt",target="MGS"} 489888
+lustre_free_kilobytes{component="mdt",target="fs-MDT0000"} 2600460
+lustre_free_kilobytes{component="ost",target="fs-OST0000"} 4106984
+lustre_free_kilobytes{component="ost",target="fs-OST0001"} 4106984
+
+# HELP lustre_health_healthy Indicates whether the Lustre target is healthy or not. 1 is healthy, 0 is unhealthy.
+# TYPE lustre_health_healthy gauge
+lustre_health_healthy 1
+
+# HELP lustre_inodes_free The number of inodes (objects) available
+# TYPE lustre_inodes_free gauge
+lustre_inodes_free{component="mgt",target="MGS"} 32570
+lustre_inodes_free{component="mdt",target="fs-MDT0000"} 1885342
+lustre_inodes_free{component="ost",target="fs-OST0000"} 40658
+lustre_inodes_free{component="ost",target="fs-OST0001"} 40658
+
+# HELP lustre_inodes_maximum The maximum number of inodes (objects) the filesystem can hold
+# TYPE lustre_inodes_maximum gauge
+lustre_inodes_maximum{component="mgt",target="MGS"} 32768
+lustre_inodes_maximum{component="mdt",target="fs-MDT0000"} 1885696
+lustre_inodes_maximum{component="ost",target="fs-OST0000"} 40960
+lustre_inodes_maximum{component="ost",target="fs-OST0001"} 40960
+
+# HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes.
+# TYPE lustre_io_time_milliseconds_total counter
+
+# HELP lustre_ldlm_canceld_stats Gives information about LDLM Canceld service.
+# TYPE lustre_ldlm_canceld_stats counter
+lustre_ldlm_canceld_stats{operation="req_waittime"} 105
+lustre_ldlm_canceld_stats{operation="req_qdepth"} 105
+lustre_ldlm_canceld_stats{operation="req_active"} 105
+lustre_ldlm_canceld_stats{operation="req_timeout"} 105
+lustre_ldlm_canceld_stats{operation="reqbuf_avail"} 228
+lustre_ldlm_canceld_stats{operation="ldlm_cancel"} 105
+
+# HELP lustre_ldlm_cbd_stats Gives information about LDLM Callback service.
+# TYPE lustre_ldlm_cbd_stats counter
+lustre_ldlm_cbd_stats{operation="req_waittime"} 34
+lustre_ldlm_cbd_stats{operation="req_qdepth"} 34
+lustre_ldlm_cbd_stats{operation="req_active"} 34
+lustre_ldlm_cbd_stats{operation="req_timeout"} 34
+lustre_ldlm_cbd_stats{operation="reqbuf_avail"} 80
+lustre_ldlm_cbd_stats{operation="ldlm_bl_callback"} 34
+
+# HELP lustre_lnet_mem_used Gives information about Lustre LNet memory usage.
+# TYPE lustre_lnet_mem_used gauge
+lustre_lnet_mem_used 49781444
+
+# HELP lustre_lock_contended_total Number of contended locks
+# TYPE lustre_lock_contended_total counter
+lustre_lock_contended_total{component="mdt",target="fs-MDT0000"} 32
+lustre_lock_contended_total{component="ost",target="fs-OST0000"} 32
+lustre_lock_contended_total{component="ost",target="fs-OST0001"} 32
+
+# HELP lustre_lock_contention_seconds_total Time in seconds during which locks were contended
+# TYPE lustre_lock_contention_seconds_total counter
+lustre_lock_contention_seconds_total{component="mdt",target="fs-MDT0000"} 2
+lustre_lock_contention_seconds_total{component="ost",target="fs-OST0000"} 2
+lustre_lock_contention_seconds_total{component="ost",target="fs-OST0001"} 2
+
+# HELP lustre_lock_count_total Number of locks
+# TYPE lustre_lock_count_total counter
+lustre_lock_count_total{component="mdt",target="fs-MDT0000"} 30
+lustre_lock_count_total{component="ost",target="fs-OST0000"} 0
+lustre_lock_count_total{component="ost",target="fs-OST0001"} 0
+
+# HELP lustre_lock_timeout_total Number of lock timeouts
+# TYPE lustre_lock_timeout_total counter
+lustre_lock_timeout_total{component="mdt",target="fs-MDT0000"} 0
+lustre_lock_timeout_total{component="ost",target="fs-OST0000"} 0
+lustre_lock_timeout_total{component="ost",target="fs-OST0001"} 0
+
+# HELP lustre_mds_mdt_fld_stats MDS mdt_fld stats
+# TYPE lustre_mds_mdt_fld_stats gauge
+lustre_mds_mdt_fld_stats{operation="req_waittime",units="usecs"} 7
+lustre_mds_mdt_fld_stats{operation="req_qdepth",units="reqs"} 7
+lustre_mds_mdt_fld_stats{operation="req_active",units="reqs"} 7
+lustre_mds_mdt_fld_stats{operation="req_timeout",units="secs"} 7
+lustre_mds_mdt_fld_stats{operation="reqbuf_avail",units="bufs"} 15
+lustre_mds_mdt_fld_stats{operation="fld_read",units="usecs"} 7
+
+# HELP lustre_mds_mdt_readpage_stats MDS mdt_readpage stats
+# TYPE lustre_mds_mdt_readpage_stats gauge
+lustre_mds_mdt_readpage_stats{operation="req_waittime",units="usecs"} 67
+lustre_mds_mdt_readpage_stats{operation="req_qdepth",units="reqs"} 67
+lustre_mds_mdt_readpage_stats{operation="req_active",units="reqs"} 67
+lustre_mds_mdt_readpage_stats{operation="req_timeout",units="secs"} 67
+lustre_mds_mdt_readpage_stats{operation="reqbuf_avail",units="bufs"} 145
+lustre_mds_mdt_readpage_stats{operation="ldlm_ibits_enqueue",units="reqs"} 36
+lustre_mds_mdt_readpage_stats{operation="mds_getattr",units="usecs"} 1
+lustre_mds_mdt_readpage_stats{operation="dt_index_read",units="usecs"} 30
+
+# HELP lustre_mds_mdt_seqs_stats MDS mdt_seqs stats
+# TYPE lustre_mds_mdt_seqs_stats gauge
+lustre_mds_mdt_seqs_stats{operation="req_waittime",units="usecs"} 8
+lustre_mds_mdt_seqs_stats{operation="req_qdepth",units="reqs"} 8
+lustre_mds_mdt_seqs_stats{operation="req_active",units="reqs"} 8
+lustre_mds_mdt_seqs_stats{operation="req_timeout",units="secs"} 8
+lustre_mds_mdt_seqs_stats{operation="reqbuf_avail",units="bufs"} 17
+lustre_mds_mdt_seqs_stats{operation="seq_query",units="usecs"} 8
+
+# HELP lustre_mds_mdt_stats MDS mdt stats
+# TYPE lustre_mds_mdt_stats gauge
+lustre_mds_mdt_stats{operation="req_waittime",units="usecs"} 641698
+lustre_mds_mdt_stats{operation="req_qdepth",units="reqs"} 641698
+lustre_mds_mdt_stats{operation="req_active",units="reqs"} 641698
+lustre_mds_mdt_stats{operation="req_timeout",units="secs"} 641698
+lustre_mds_mdt_stats{operation="reqbuf_avail",units="bufs"} 1489755
+lustre_mds_mdt_stats{operation="ldlm_ibits_enqueue",units="reqs"} 1
+lustre_mds_mdt_stats{operation="ost_set_info",units="usecs"} 14
+lustre_mds_mdt_stats{operation="mds_connect",units="usecs"} 25
+lustre_mds_mdt_stats{operation="mds_get_root",units="usecs"} 1
+lustre_mds_mdt_stats{operation="mds_statfs",units="usecs"} 1704
+lustre_mds_mdt_stats{operation="obd_ping",units="usecs"} 639953
+
+# HELP lustre_mem_used Gives information about Lustre memory usage.
+# TYPE lustre_mem_used gauge
+lustre_mem_used 979131675
+
+# HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
+# TYPE lustre_mem_used_max gauge
+lustre_mem_used_max 980531339
+
+# HELP lustre_oss_ost_create_stats OSS ost_create stats
+# TYPE lustre_oss_ost_create_stats gauge
+lustre_oss_ost_create_stats{operation="req_waittime",units="usecs"} 678910
+lustre_oss_ost_create_stats{operation="req_qdepth",units="reqs"} 678910
+lustre_oss_ost_create_stats{operation="req_active",units="reqs"} 678910
+lustre_oss_ost_create_stats{operation="req_timeout",units="secs"} 678910
+lustre_oss_ost_create_stats{operation="reqbuf_avail",units="bufs"} 1380569
+lustre_oss_ost_create_stats{operation="ost_statfs",units="usecs"} 678910
+
+# HELP lustre_oss_ost_stats OSS ost stats
+# TYPE lustre_oss_ost_stats gauge
+lustre_oss_ost_stats{operation="req_waittime",units="usecs"} 40
+lustre_oss_ost_stats{operation="req_qdepth",units="reqs"} 40
+lustre_oss_ost_stats{operation="req_active",units="reqs"} 40
+lustre_oss_ost_stats{operation="req_timeout",units="secs"} 40
+lustre_oss_ost_stats{operation="reqbuf_avail",units="bufs"} 88
+lustre_oss_ost_stats{operation="ost_create",units="usecs"} 4
+lustre_oss_ost_stats{operation="ost_get_info",units="usecs"} 2
+lustre_oss_ost_stats{operation="ost_connect",units="usecs"} 28
+lustre_oss_ost_stats{operation="ost_disconnect",units="usecs"} 2
+lustre_oss_ost_stats{operation="obd_ping",units="usecs"} 4
+
+# HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC.
+# TYPE lustre_pages_per_bulk_rw_total counter
+
+# HELP lustre_stats_total Number of operations the filesystem has performed.
+# TYPE lustre_stats_total counter
+lustre_stats_total{component="mdt",operation="getattr",target="fs-MDT0000"} 2
+lustre_stats_total{component="mdt",operation="statfs",target="fs-MDT0000"} 1704

@@ -1,0 +1,4580 @@
+[
+    {
+        "Host": {
+            "Memused": {
+                "param": "memused",
+                "value": 1009903509
+            }
+        }
+    },
+    {
+        "Host": {
+            "MemusedMax": {
+                "param": "memused_max",
+                "value": 1019668997
+            }
+        }
+    },
+    {
+        "Host": {
+            "LNetMemUsed": {
+                "param": "lnet_memused",
+                "value": 49809308
+            }
+        }
+    },
+    {
+        "Host": {
+            "HealthCheck": {
+                "param": "health_check",
+                "value": {
+                    "healthy": true,
+                    "targets": []
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "ConnectedClients": {
+                "kind": "Mdt",
+                "param": "connected_clients",
+                "target": "fs-MDT0000",
+                "value": 1
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesFree": {
+                "kind": "Mgt",
+                "param": "filesfree",
+                "target": "MGS",
+                "value": 32570
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesFree": {
+                "kind": "Mdt",
+                "param": "filesfree",
+                "target": "fs-MDT0000",
+                "value": 1885340
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesFree": {
+                "kind": "Ost",
+                "param": "filesfree",
+                "target": "fs-OST0000",
+                "value": 40658
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesFree": {
+                "kind": "Ost",
+                "param": "filesfree",
+                "target": "fs-OST0001",
+                "value": 40658
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesTotal": {
+                "kind": "Mgt",
+                "param": "filestotal",
+                "target": "MGS",
+                "value": 32768
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesTotal": {
+                "kind": "Mdt",
+                "param": "filestotal",
+                "target": "fs-MDT0000",
+                "value": 1885696
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesTotal": {
+                "kind": "Ost",
+                "param": "filestotal",
+                "target": "fs-OST0000",
+                "value": 40960
+            }
+        }
+    },
+    {
+        "Target": {
+            "FilesTotal": {
+                "kind": "Ost",
+                "param": "filestotal",
+                "target": "fs-OST0001",
+                "value": 40960
+            }
+        }
+    },
+    {
+        "Target": {
+            "FsType": {
+                "kind": "Mgt",
+                "param": "fstype",
+                "target": "MGS",
+                "value": "ldiskfs"
+            }
+        }
+    },
+    {
+        "Target": {
+            "FsType": {
+                "kind": "Mdt",
+                "param": "fstype",
+                "target": "fs-MDT0000",
+                "value": "ldiskfs"
+            }
+        }
+    },
+    {
+        "Target": {
+            "FsType": {
+                "kind": "Ost",
+                "param": "fstype",
+                "target": "fs-OST0000",
+                "value": "ldiskfs"
+            }
+        }
+    },
+    {
+        "Target": {
+            "FsType": {
+                "kind": "Ost",
+                "param": "fstype",
+                "target": "fs-OST0001",
+                "value": "ldiskfs"
+            }
+        }
+    },
+    {
+        "Target": {
+            "KBytesAvail": {
+                "kind": "Mgt",
+                "param": "kbytesavail",
+                "target": "MGS",
+                "value": 463676
+            }
+        }
+    },
+    {
+        "Target": {
+            "KBytesAvail": {
+                "kind": "Mdt",
+                "param": "kbytesavail",
+                "target": "fs-MDT0000",
+                "value": 2365948
+            }
+        }
+    },
+    {
+        "Target": {
+            "KBytesAvail": {
+                "kind": "Ost",
+                "param": "kbytesavail",
+                "target": "fs-OST0000",
+                "value": 3935772
+            }
+        }
+    },
+    {
+        "Target": {
+            "KBytesAvail": {
+                "kind": "Ost",
+                "param": "kbytesavail",
+                "target": "fs-OST0001",
+                "value": 4038172
+            }
+        }
+    },
+    {
+        "Target": {
+            "KBytesFree": {
+                "kind": "Mgt",
+                "param": "kbytesfree",
+                "target": "MGS",
+                "value": 489888
+            }
+        }
+    },
+    {
+        "Target": {
+            "KBytesFree": {
+                "kind": "Mdt",
+                "param": "kbytesfree",
+                "target": "fs-MDT0000",
+                "value": 2600056
+            }
+        }
+    },
+    {
+        "Target": {
+            "KBytesFree": {
+                "kind": "Ost",
+                "param": "kbytesfree",
+                "target": "fs-OST0000",
+                "value": 4004584
+            }
+        }
+    },
+    {
+        "Target": {
+            "KBytesFree": {
+                "kind": "Ost",
+                "param": "kbytesfree",
+                "target": "fs-OST0001",
+                "value": 4106984
+            }
+        }
+    },
+    {
+        "Target": {
+            "KBytesTotal": {
+                "kind": "Mgt",
+                "param": "kbytestotal",
+                "target": "MGS",
+                "value": 491092
+            }
+        }
+    },
+    {
+        "Target": {
+            "KBytesTotal": {
+                "kind": "Mdt",
+                "param": "kbytestotal",
+                "target": "fs-MDT0000",
+                "value": 2602832
+            }
+        }
+    },
+    {
+        "Target": {
+            "KBytesTotal": {
+                "kind": "Ost",
+                "param": "kbytestotal",
+                "target": "fs-OST0000",
+                "value": 4108388
+            }
+        }
+    },
+    {
+        "Target": {
+            "KBytesTotal": {
+                "kind": "Ost",
+                "param": "kbytestotal",
+                "target": "fs-OST0001",
+                "value": 4108388
+            }
+        }
+    },
+    {
+        "Target": {
+            "BrwStats": {
+                "kind": "Mgt",
+                "param": "brw_stats",
+                "target": "MGS",
+                "value": [
+                    {
+                        "name": "pages",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "discont_pages",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "discont_blocks",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "dio_frags",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "rpc_hist",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "io_time",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "disk_iosize",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "block_maps_msec",
+                        "unit": "maps",
+                        "buckets": []
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "BrwStats": {
+                "kind": "Mdt",
+                "param": "brw_stats",
+                "target": "fs-MDT0000",
+                "value": [
+                    {
+                        "name": "pages",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 1,
+                                "write": 0
+                            },
+                            {
+                                "name": 2,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 4,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 8,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 16,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 32,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 64,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 128,
+                                "read": 1,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "discont_pages",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 0,
+                                "read": 2,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "discont_blocks",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 0,
+                                "read": 1,
+                                "write": 0
+                            },
+                            {
+                                "name": 1,
+                                "read": 1,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "dio_frags",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 1,
+                                "write": 0
+                            },
+                            {
+                                "name": 2,
+                                "read": 1,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "rpc_hist",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 2,
+                                "write": 1
+                            },
+                            {
+                                "name": 2,
+                                "read": 1,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "io_time",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 4,
+                                "read": 1,
+                                "write": 0
+                            },
+                            {
+                                "name": 8,
+                                "read": 1,
+                                "write": 0
+                            },
+                            {
+                                "name": 16,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 32,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 64,
+                                "read": 0,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "disk_iosize",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 4096,
+                                "read": 1,
+                                "write": 0
+                            },
+                            {
+                                "name": 8192,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 16384,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 32768,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 65536,
+                                "read": 1,
+                                "write": 1
+                            },
+                            {
+                                "name": 131072,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 262144,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 524288,
+                                "read": 1,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "block_maps_msec",
+                        "unit": "maps",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 2,
+                                "write": 13
+                            },
+                            {
+                                "name": 2,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 4,
+                                "read": 1,
+                                "write": 0
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "BrwStats": {
+                "kind": "Ost",
+                "param": "brw_stats",
+                "target": "fs-OST0000",
+                "value": [
+                    {
+                        "name": "pages",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 64,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 128,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 256,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 512,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 1024,
+                                "read": 0,
+                                "write": 25
+                            }
+                        ]
+                    },
+                    {
+                        "name": "discont_pages",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 0,
+                                "read": 0,
+                                "write": 19
+                            },
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 7
+                            }
+                        ]
+                    },
+                    {
+                        "name": "discont_blocks",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 0,
+                                "read": 0,
+                                "write": 19
+                            },
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 7
+                            }
+                        ]
+                    },
+                    {
+                        "name": "dio_frags",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 2,
+                                "read": 0,
+                                "write": 18
+                            },
+                            {
+                                "name": 3,
+                                "read": 0,
+                                "write": 7
+                            }
+                        ]
+                    },
+                    {
+                        "name": "rpc_hist",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 2
+                            },
+                            {
+                                "name": 2,
+                                "read": 0,
+                                "write": 2
+                            },
+                            {
+                                "name": 3,
+                                "read": 0,
+                                "write": 6
+                            },
+                            {
+                                "name": 4,
+                                "read": 0,
+                                "write": 2
+                            },
+                            {
+                                "name": 5,
+                                "read": 0,
+                                "write": 3
+                            },
+                            {
+                                "name": 6,
+                                "read": 0,
+                                "write": 5
+                            },
+                            {
+                                "name": 7,
+                                "read": 0,
+                                "write": 5
+                            },
+                            {
+                                "name": 8,
+                                "read": 0,
+                                "write": 5
+                            },
+                            {
+                                "name": 9,
+                                "read": 0,
+                                "write": 7
+                            },
+                            {
+                                "name": 10,
+                                "read": 0,
+                                "write": 7
+                            },
+                            {
+                                "name": 11,
+                                "read": 0,
+                                "write": 7
+                            },
+                            {
+                                "name": 12,
+                                "read": 0,
+                                "write": 5
+                            },
+                            {
+                                "name": 13,
+                                "read": 0,
+                                "write": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": "io_time",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 32,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 64,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 128,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 256,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 512,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 1024,
+                                "read": 0,
+                                "write": 7
+                            },
+                            {
+                                "name": 2048,
+                                "read": 0,
+                                "write": 12
+                            },
+                            {
+                                "name": 4096,
+                                "read": 0,
+                                "write": 5
+                            }
+                        ]
+                    },
+                    {
+                        "name": "disk_iosize",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 32768,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 65536,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 131072,
+                                "read": 0,
+                                "write": 3
+                            },
+                            {
+                                "name": 262144,
+                                "read": 0,
+                                "write": 3
+                            },
+                            {
+                                "name": 524288,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 1048576,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 2097152,
+                                "read": 0,
+                                "write": 50
+                            }
+                        ]
+                    },
+                    {
+                        "name": "block_maps_msec",
+                        "unit": "maps",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 33
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "BrwStats": {
+                "kind": "Ost",
+                "param": "brw_stats",
+                "target": "fs-OST0001",
+                "value": [
+                    {
+                        "name": "pages",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "discont_pages",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "discont_blocks",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "dio_frags",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "rpc_hist",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "io_time",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "disk_iosize",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "block_maps_msec",
+                        "unit": "maps",
+                        "buckets": []
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "BrwStats": {
+                "kind": "Mgt",
+                "param": "brw_stats",
+                "target": "MGS",
+                "value": [
+                    {
+                        "name": "pages",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "discont_pages",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "discont_blocks",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "dio_frags",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "rpc_hist",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "io_time",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "disk_iosize",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "block_maps_msec",
+                        "unit": "maps",
+                        "buckets": []
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "BrwStats": {
+                "kind": "Mdt",
+                "param": "brw_stats",
+                "target": "fs-MDT0000",
+                "value": [
+                    {
+                        "name": "pages",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 1,
+                                "write": 0
+                            },
+                            {
+                                "name": 2,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 4,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 8,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 16,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 32,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 64,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 128,
+                                "read": 1,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "discont_pages",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 0,
+                                "read": 2,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "discont_blocks",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 0,
+                                "read": 1,
+                                "write": 0
+                            },
+                            {
+                                "name": 1,
+                                "read": 1,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "dio_frags",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 1,
+                                "write": 0
+                            },
+                            {
+                                "name": 2,
+                                "read": 1,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "rpc_hist",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 2,
+                                "write": 1
+                            },
+                            {
+                                "name": 2,
+                                "read": 1,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "io_time",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 4,
+                                "read": 1,
+                                "write": 0
+                            },
+                            {
+                                "name": 8,
+                                "read": 1,
+                                "write": 0
+                            },
+                            {
+                                "name": 16,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 32,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 64,
+                                "read": 0,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "disk_iosize",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 4096,
+                                "read": 1,
+                                "write": 0
+                            },
+                            {
+                                "name": 8192,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 16384,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 32768,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 65536,
+                                "read": 1,
+                                "write": 1
+                            },
+                            {
+                                "name": 131072,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 262144,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 524288,
+                                "read": 1,
+                                "write": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "block_maps_msec",
+                        "unit": "maps",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 2,
+                                "write": 13
+                            },
+                            {
+                                "name": 2,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 4,
+                                "read": 1,
+                                "write": 0
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "BrwStats": {
+                "kind": "Ost",
+                "param": "brw_stats",
+                "target": "fs-OST0000",
+                "value": [
+                    {
+                        "name": "pages",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 64,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 128,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 256,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 512,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 1024,
+                                "read": 0,
+                                "write": 25
+                            }
+                        ]
+                    },
+                    {
+                        "name": "discont_pages",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 0,
+                                "read": 0,
+                                "write": 19
+                            },
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 7
+                            }
+                        ]
+                    },
+                    {
+                        "name": "discont_blocks",
+                        "unit": "rpcs",
+                        "buckets": [
+                            {
+                                "name": 0,
+                                "read": 0,
+                                "write": 19
+                            },
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 7
+                            }
+                        ]
+                    },
+                    {
+                        "name": "dio_frags",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 2,
+                                "read": 0,
+                                "write": 18
+                            },
+                            {
+                                "name": 3,
+                                "read": 0,
+                                "write": 7
+                            }
+                        ]
+                    },
+                    {
+                        "name": "rpc_hist",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 2
+                            },
+                            {
+                                "name": 2,
+                                "read": 0,
+                                "write": 2
+                            },
+                            {
+                                "name": 3,
+                                "read": 0,
+                                "write": 6
+                            },
+                            {
+                                "name": 4,
+                                "read": 0,
+                                "write": 2
+                            },
+                            {
+                                "name": 5,
+                                "read": 0,
+                                "write": 3
+                            },
+                            {
+                                "name": 6,
+                                "read": 0,
+                                "write": 5
+                            },
+                            {
+                                "name": 7,
+                                "read": 0,
+                                "write": 5
+                            },
+                            {
+                                "name": 8,
+                                "read": 0,
+                                "write": 5
+                            },
+                            {
+                                "name": 9,
+                                "read": 0,
+                                "write": 7
+                            },
+                            {
+                                "name": 10,
+                                "read": 0,
+                                "write": 7
+                            },
+                            {
+                                "name": 11,
+                                "read": 0,
+                                "write": 7
+                            },
+                            {
+                                "name": 12,
+                                "read": 0,
+                                "write": 5
+                            },
+                            {
+                                "name": 13,
+                                "read": 0,
+                                "write": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": "io_time",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 32,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 64,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 128,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 256,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 512,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 1024,
+                                "read": 0,
+                                "write": 7
+                            },
+                            {
+                                "name": 2048,
+                                "read": 0,
+                                "write": 12
+                            },
+                            {
+                                "name": 4096,
+                                "read": 0,
+                                "write": 5
+                            }
+                        ]
+                    },
+                    {
+                        "name": "disk_iosize",
+                        "unit": "ios",
+                        "buckets": [
+                            {
+                                "name": 32768,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 65536,
+                                "read": 0,
+                                "write": 1
+                            },
+                            {
+                                "name": 131072,
+                                "read": 0,
+                                "write": 3
+                            },
+                            {
+                                "name": 262144,
+                                "read": 0,
+                                "write": 3
+                            },
+                            {
+                                "name": 524288,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 1048576,
+                                "read": 0,
+                                "write": 0
+                            },
+                            {
+                                "name": 2097152,
+                                "read": 0,
+                                "write": 50
+                            }
+                        ]
+                    },
+                    {
+                        "name": "block_maps_msec",
+                        "unit": "maps",
+                        "buckets": [
+                            {
+                                "name": 1,
+                                "read": 0,
+                                "write": 33
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "BrwStats": {
+                "kind": "Ost",
+                "param": "brw_stats",
+                "target": "fs-OST0001",
+                "value": [
+                    {
+                        "name": "pages",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "discont_pages",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "discont_blocks",
+                        "unit": "rpcs",
+                        "buckets": []
+                    },
+                    {
+                        "name": "dio_frags",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "rpc_hist",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "io_time",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "disk_iosize",
+                        "unit": "ios",
+                        "buckets": []
+                    },
+                    {
+                        "name": "block_maps_msec",
+                        "unit": "maps",
+                        "buckets": []
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStatsOsd": {
+                "kind": "Mdt",
+                "param": "quota_slave.acct_group",
+                "target": "fs-MDT0000",
+                "value": {
+                    "kind": "Grp",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "usage": {
+                                "inodes": 346,
+                                "kbytes": 2556
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStatsOsd": {
+                "kind": "Ost",
+                "param": "quota_slave.acct_group",
+                "target": "fs-OST0000",
+                "value": {
+                    "kind": "Grp",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "usage": {
+                                "inodes": 292,
+                                "kbytes": 103768
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStatsOsd": {
+                "kind": "Ost",
+                "param": "quota_slave.acct_group",
+                "target": "fs-OST0001",
+                "value": {
+                    "kind": "Grp",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "usage": {
+                                "inodes": 292,
+                                "kbytes": 1368
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStatsOsd": {
+                "kind": "Mdt",
+                "param": "quota_slave.acct_user",
+                "target": "fs-MDT0000",
+                "value": {
+                    "kind": "Usr",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "usage": {
+                                "inodes": 346,
+                                "kbytes": 2556
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStatsOsd": {
+                "kind": "Ost",
+                "param": "quota_slave.acct_user",
+                "target": "fs-OST0000",
+                "value": {
+                    "kind": "Usr",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "usage": {
+                                "inodes": 292,
+                                "kbytes": 103768
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStatsOsd": {
+                "kind": "Ost",
+                "param": "quota_slave.acct_user",
+                "target": "fs-OST0001",
+                "value": {
+                    "kind": "Usr",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "usage": {
+                                "inodes": 292,
+                                "kbytes": 1368
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStatsOsd": {
+                "kind": "Mdt",
+                "param": "quota_slave.acct_project",
+                "target": "fs-MDT0000",
+                "value": {
+                    "kind": "Prj",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "usage": {
+                                "inodes": 346,
+                                "kbytes": 2556
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStatsOsd": {
+                "kind": "Ost",
+                "param": "quota_slave.acct_project",
+                "target": "fs-OST0000",
+                "value": {
+                    "kind": "Prj",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "usage": {
+                                "inodes": 292,
+                                "kbytes": 103768
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStatsOsd": {
+                "kind": "Ost",
+                "param": "quota_slave.acct_project",
+                "target": "fs-OST0001",
+                "value": {
+                    "kind": "Prj",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "usage": {
+                                "inodes": 292,
+                                "kbytes": 1368
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "Stats": {
+                "kind": "Mgt",
+                "param": "stats",
+                "target": "MGS",
+                "value": [
+                    {
+                        "name": "req_waittime",
+                        "units": "usecs",
+                        "samples": 2181,
+                        "min": 7,
+                        "max": 4531,
+                        "sum": 115241,
+                        "sumsquare": 30076659
+                    },
+                    {
+                        "name": "req_qdepth",
+                        "units": "reqs",
+                        "samples": 2181,
+                        "min": 0,
+                        "max": 0,
+                        "sum": 0,
+                        "sumsquare": 0
+                    },
+                    {
+                        "name": "req_active",
+                        "units": "reqs",
+                        "samples": 2181,
+                        "min": 1,
+                        "max": 2,
+                        "sum": 2187,
+                        "sumsquare": 2199
+                    },
+                    {
+                        "name": "req_timeout",
+                        "units": "secs",
+                        "samples": 2181,
+                        "min": 1,
+                        "max": 15,
+                        "sum": 29462,
+                        "sumsquare": 438632
+                    },
+                    {
+                        "name": "reqbuf_avail",
+                        "units": "bufs",
+                        "samples": 4482,
+                        "min": 62,
+                        "max": 64,
+                        "sum": 282484,
+                        "sumsquare": 17804072
+                    },
+                    {
+                        "name": "ldlm_plain_enqueue",
+                        "units": "reqs",
+                        "samples": 140,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 140,
+                        "sumsquare": 140
+                    },
+                    {
+                        "name": "mgs_connect",
+                        "units": "usecs",
+                        "samples": 4,
+                        "min": 64,
+                        "max": 95,
+                        "sum": 314,
+                        "sumsquare": 25354
+                    },
+                    {
+                        "name": "mgs_target_reg",
+                        "units": "usecs",
+                        "samples": 18,
+                        "min": 130,
+                        "max": 73570,
+                        "sum": 411893,
+                        "sumsquare": 20048963093
+                    },
+                    {
+                        "name": "mgs_config_read",
+                        "units": "usecs",
+                        "samples": 7,
+                        "min": 29,
+                        "max": 541,
+                        "sum": 1369,
+                        "sumsquare": 494645
+                    },
+                    {
+                        "name": "obd_ping",
+                        "units": "usecs",
+                        "samples": 1595,
+                        "min": 4,
+                        "max": 63,
+                        "sum": 41405,
+                        "sumsquare": 1183365
+                    },
+                    {
+                        "name": "llog_origin_handle_open",
+                        "units": "usecs",
+                        "samples": 131,
+                        "min": 10,
+                        "max": 482,
+                        "sum": 4178,
+                        "sumsquare": 380188
+                    },
+                    {
+                        "name": "llog_origin_handle_next_block",
+                        "units": "usecs",
+                        "samples": 175,
+                        "min": 12,
+                        "max": 2423,
+                        "sum": 9074,
+                        "sumsquare": 7224980
+                    },
+                    {
+                        "name": "llog_origin_handle_read_header",
+                        "units": "usecs",
+                        "samples": 111,
+                        "min": 13,
+                        "max": 24796,
+                        "sum": 61882,
+                        "sumsquare": 821519762
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "ThreadsMax": {
+                "kind": "Mgt",
+                "param": "threads_max",
+                "target": "MGS",
+                "value": 32
+            }
+        }
+    },
+    {
+        "Target": {
+            "ThreadsMin": {
+                "kind": "Mgt",
+                "param": "threads_min",
+                "target": "MGS",
+                "value": 3
+            }
+        }
+    },
+    {
+        "Target": {
+            "ThreadsStarted": {
+                "kind": "Mgt",
+                "param": "threads_started",
+                "target": "MGS",
+                "value": 3
+            }
+        }
+    },
+    {
+        "Target": {
+            "NumExports": {
+                "kind": "Mgt",
+                "param": "num_exports",
+                "target": "MGS",
+                "value": 4
+            }
+        }
+    },
+    {
+        "Target": {
+            "JobStatsOst": {
+                "kind": "Ost",
+                "param": "job_stats",
+                "target": "fs-OST0000",
+                "value": null
+            }
+        }
+    },
+    {
+        "Target": {
+            "JobStatsOst": {
+                "kind": "Ost",
+                "param": "job_stats",
+                "target": "fs-OST0001",
+                "value": null
+            }
+        }
+    },
+    {
+        "Target": {
+            "Stats": {
+                "kind": "Ost",
+                "param": "stats",
+                "target": "fs-OST0000",
+                "value": [
+                    {
+                        "name": "write_bytes",
+                        "units": "bytes",
+                        "samples": 26,
+                        "min": 196608,
+                        "max": 4194304,
+                        "sum": 104857600,
+                        "sumsquare": 438198870212608
+                    },
+                    {
+                        "name": "write",
+                        "units": "usecs",
+                        "samples": 26,
+                        "min": 146,
+                        "max": 1893462,
+                        "sum": 6834466,
+                        "sumsquare": 8049837728956
+                    },
+                    {
+                        "name": "setattr",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 46,
+                        "max": 46,
+                        "sum": 46,
+                        "sumsquare": 2116
+                    },
+                    {
+                        "name": "create",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 2,
+                        "max": 39344,
+                        "sum": 39346,
+                        "sumsquare": 1547950340
+                    },
+                    {
+                        "name": "statfs",
+                        "units": "usecs",
+                        "samples": 1940,
+                        "min": 2,
+                        "max": 38,
+                        "sum": 16897,
+                        "sumsquare": 158813
+                    },
+                    {
+                        "name": "get_info",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 56470,
+                        "max": 56470,
+                        "sum": 56470,
+                        "sumsquare": 3188860900
+                    },
+                    {
+                        "name": "set_info",
+                        "units": "usecs",
+                        "samples": 5,
+                        "min": 14,
+                        "max": 16,
+                        "sum": 73,
+                        "sumsquare": 1069
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Stats": {
+                "kind": "Ost",
+                "param": "stats",
+                "target": "fs-OST0001",
+                "value": [
+                    {
+                        "name": "create",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 3,
+                        "max": 12838,
+                        "sum": 12841,
+                        "sumsquare": 164814253
+                    },
+                    {
+                        "name": "statfs",
+                        "units": "usecs",
+                        "samples": 1940,
+                        "min": 1,
+                        "max": 33,
+                        "sum": 15778,
+                        "sumsquare": 138220
+                    },
+                    {
+                        "name": "get_info",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 21408,
+                        "max": 21408,
+                        "sum": 21408,
+                        "sumsquare": 458302464
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "NumExports": {
+                "kind": "Ost",
+                "param": "num_exports",
+                "target": "fs-OST0000",
+                "value": 1
+            }
+        }
+    },
+    {
+        "Target": {
+            "NumExports": {
+                "kind": "Ost",
+                "param": "num_exports",
+                "target": "fs-OST0001",
+                "value": 1
+            }
+        }
+    },
+    {
+        "Target": {
+            "TotDirty": {
+                "kind": "Ost",
+                "param": "tot_dirty",
+                "target": "fs-OST0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "TotDirty": {
+                "kind": "Ost",
+                "param": "tot_dirty",
+                "target": "fs-OST0001",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "TotGranted": {
+                "kind": "Ost",
+                "param": "tot_granted",
+                "target": "fs-OST0000",
+                "value": 279104
+            }
+        }
+    },
+    {
+        "Target": {
+            "TotGranted": {
+                "kind": "Ost",
+                "param": "tot_granted",
+                "target": "fs-OST0001",
+                "value": 279104
+            }
+        }
+    },
+    {
+        "Target": {
+            "TotPending": {
+                "kind": "Ost",
+                "param": "tot_pending",
+                "target": "fs-OST0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "TotPending": {
+                "kind": "Ost",
+                "param": "tot_pending",
+                "target": "fs-OST0001",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "ExportStats": {
+                "kind": "Ost",
+                "param": "exports",
+                "target": "fs-OST0000",
+                "value": [
+                    {
+                        "nid": "0@lo",
+                        "stats": [
+                            {
+                                "name": "write_bytes",
+                                "units": "bytes",
+                                "samples": 26,
+                                "min": 196608,
+                                "max": 4194304,
+                                "sum": 104857600,
+                                "sumsquare": 438198870212608
+                            },
+                            {
+                                "name": "write",
+                                "units": "usecs",
+                                "samples": 26,
+                                "min": 146,
+                                "max": 1893462,
+                                "sum": 6834466,
+                                "sumsquare": 8049837728956
+                            },
+                            {
+                                "name": "setattr",
+                                "units": "usecs",
+                                "samples": 1,
+                                "min": 46,
+                                "max": 46,
+                                "sum": 46,
+                                "sumsquare": 2116
+                            },
+                            {
+                                "name": "create",
+                                "units": "usecs",
+                                "samples": 2,
+                                "min": 2,
+                                "max": 39344,
+                                "sum": 39346,
+                                "sumsquare": 1547950340
+                            },
+                            {
+                                "name": "statfs",
+                                "units": "usecs",
+                                "samples": 1940,
+                                "min": 2,
+                                "max": 38,
+                                "sum": 16897,
+                                "sumsquare": 158813
+                            },
+                            {
+                                "name": "get_info",
+                                "units": "usecs",
+                                "samples": 1,
+                                "min": 56470,
+                                "max": 56470,
+                                "sum": 56470,
+                                "sumsquare": 3188860900
+                            },
+                            {
+                                "name": "set_info",
+                                "units": "usecs",
+                                "samples": 5,
+                                "min": 14,
+                                "max": 16,
+                                "sum": 73,
+                                "sumsquare": 1069
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "ExportStats": {
+                "kind": "Ost",
+                "param": "exports",
+                "target": "fs-OST0001",
+                "value": [
+                    {
+                        "nid": "0@lo",
+                        "stats": [
+                            {
+                                "name": "create",
+                                "units": "usecs",
+                                "samples": 2,
+                                "min": 3,
+                                "max": 12838,
+                                "sum": 12841,
+                                "sumsquare": 164814253
+                            },
+                            {
+                                "name": "statfs",
+                                "units": "usecs",
+                                "samples": 1940,
+                                "min": 1,
+                                "max": 33,
+                                "sum": 15778,
+                                "sumsquare": 138220
+                            },
+                            {
+                                "name": "get_info",
+                                "units": "usecs",
+                                "samples": 1,
+                                "min": 21408,
+                                "max": 21408,
+                                "sum": 21408,
+                                "sumsquare": 458302464
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Oss": {
+                "param": "ost",
+                "stats": [
+                    {
+                        "name": "req_waittime",
+                        "units": "usecs",
+                        "samples": 288,
+                        "min": 18,
+                        "max": 597,
+                        "sum": 19242,
+                        "sumsquare": 1960720
+                    },
+                    {
+                        "name": "req_qdepth",
+                        "units": "reqs",
+                        "samples": 288,
+                        "min": 0,
+                        "max": 0,
+                        "sum": 0,
+                        "sumsquare": 0
+                    },
+                    {
+                        "name": "req_active",
+                        "units": "reqs",
+                        "samples": 288,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 288,
+                        "sumsquare": 288
+                    },
+                    {
+                        "name": "req_timeout",
+                        "units": "secs",
+                        "samples": 288,
+                        "min": 1,
+                        "max": 15,
+                        "sum": 4207,
+                        "sumsquare": 62857
+                    },
+                    {
+                        "name": "reqbuf_avail",
+                        "units": "bufs",
+                        "samples": 861,
+                        "min": 63,
+                        "max": 64,
+                        "sum": 55100,
+                        "sumsquare": 3526148
+                    },
+                    {
+                        "name": "ldlm_extent_enqueue",
+                        "units": "reqs",
+                        "samples": 1,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 1,
+                        "sumsquare": 1
+                    },
+                    {
+                        "name": "ost_setattr",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 88,
+                        "max": 88,
+                        "sum": 88,
+                        "sumsquare": 7744
+                    },
+                    {
+                        "name": "ost_create",
+                        "units": "usecs",
+                        "samples": 4,
+                        "min": 14,
+                        "max": 39393,
+                        "sum": 52293,
+                        "sumsquare": 1717394393
+                    },
+                    {
+                        "name": "ost_get_info",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 21439,
+                        "max": 56505,
+                        "sum": 77944,
+                        "sumsquare": 3652445746
+                    },
+                    {
+                        "name": "ost_connect",
+                        "units": "usecs",
+                        "samples": 4,
+                        "min": 23,
+                        "max": 109,
+                        "sum": 291,
+                        "sumsquare": 25811
+                    },
+                    {
+                        "name": "ost_disconnect",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 71,
+                        "max": 73,
+                        "sum": 144,
+                        "sumsquare": 10370
+                    },
+                    {
+                        "name": "ost_set_info",
+                        "units": "usecs",
+                        "samples": 5,
+                        "min": 28,
+                        "max": 39,
+                        "sum": 171,
+                        "sumsquare": 5927
+                    },
+                    {
+                        "name": "obd_ping",
+                        "units": "usecs",
+                        "samples": 269,
+                        "min": 4,
+                        "max": 48,
+                        "sum": 3005,
+                        "sumsquare": 46985
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Oss": {
+                "param": "ost_io",
+                "stats": [
+                    {
+                        "name": "req_waittime",
+                        "units": "usecs",
+                        "samples": 26,
+                        "min": 23,
+                        "max": 2120,
+                        "sum": 14164,
+                        "sumsquare": 16287244
+                    },
+                    {
+                        "name": "req_qdepth",
+                        "units": "reqs",
+                        "samples": 26,
+                        "min": 0,
+                        "max": 0,
+                        "sum": 0,
+                        "sumsquare": 0
+                    },
+                    {
+                        "name": "req_active",
+                        "units": "reqs",
+                        "samples": 26,
+                        "min": 1,
+                        "max": 6,
+                        "sum": 78,
+                        "sumsquare": 304
+                    },
+                    {
+                        "name": "req_timeout",
+                        "units": "secs",
+                        "samples": 26,
+                        "min": 15,
+                        "max": 15,
+                        "sum": 390,
+                        "sumsquare": 5850
+                    },
+                    {
+                        "name": "reqbuf_avail",
+                        "units": "bufs",
+                        "samples": 58,
+                        "min": 64,
+                        "max": 64,
+                        "sum": 3712,
+                        "sumsquare": 237568
+                    },
+                    {
+                        "name": "ost_write",
+                        "units": "usecs",
+                        "samples": 26,
+                        "min": 25496,
+                        "max": 3565691,
+                        "sum": 42682730,
+                        "sumsquare": 97777975391960
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Oss": {
+                "param": "ost_create",
+                "stats": [
+                    {
+                        "name": "req_waittime",
+                        "units": "usecs",
+                        "samples": 3880,
+                        "min": 17,
+                        "max": 7510,
+                        "sum": 179613,
+                        "sumsquare": 83083799
+                    },
+                    {
+                        "name": "req_qdepth",
+                        "units": "reqs",
+                        "samples": 3880,
+                        "min": 0,
+                        "max": 0,
+                        "sum": 0,
+                        "sumsquare": 0
+                    },
+                    {
+                        "name": "req_active",
+                        "units": "reqs",
+                        "samples": 3880,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 3880,
+                        "sumsquare": 3880
+                    },
+                    {
+                        "name": "req_timeout",
+                        "units": "secs",
+                        "samples": 3880,
+                        "min": 1,
+                        "max": 15,
+                        "sum": 57555,
+                        "sumsquare": 862545
+                    },
+                    {
+                        "name": "reqbuf_avail",
+                        "units": "bufs",
+                        "samples": 7924,
+                        "min": 63,
+                        "max": 64,
+                        "sum": 507026,
+                        "sumsquare": 32442734
+                    },
+                    {
+                        "name": "ost_statfs",
+                        "units": "usecs",
+                        "samples": 3880,
+                        "min": 13,
+                        "max": 108,
+                        "sum": 118894,
+                        "sumsquare": 3921762
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Oss": {
+                "param": "ost_out",
+                "stats": []
+            }
+        }
+    },
+    {
+        "Target": {
+            "Oss": {
+                "param": "ost_seq",
+                "stats": [
+                    {
+                        "name": "req_waittime",
+                        "units": "usecs",
+                        "samples": 11,
+                        "min": 19,
+                        "max": 2202,
+                        "sum": 2605,
+                        "sumsquare": 4866277
+                    },
+                    {
+                        "name": "req_qdepth",
+                        "units": "reqs",
+                        "samples": 11,
+                        "min": 0,
+                        "max": 0,
+                        "sum": 0,
+                        "sumsquare": 0
+                    },
+                    {
+                        "name": "req_active",
+                        "units": "reqs",
+                        "samples": 11,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 11,
+                        "sumsquare": 11
+                    },
+                    {
+                        "name": "req_timeout",
+                        "units": "secs",
+                        "samples": 11,
+                        "min": 1,
+                        "max": 10,
+                        "sum": 38,
+                        "sumsquare": 308
+                    },
+                    {
+                        "name": "reqbuf_avail",
+                        "units": "bufs",
+                        "samples": 29,
+                        "min": 64,
+                        "max": 64,
+                        "sum": 1856,
+                        "sumsquare": 118784
+                    },
+                    {
+                        "name": "seq_query",
+                        "units": "usecs",
+                        "samples": 11,
+                        "min": 13,
+                        "max": 163160,
+                        "sum": 259737,
+                        "sumsquare": 35267079219
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Mds": {
+                "param": "mdt",
+                "stats": [
+                    {
+                        "name": "req_waittime",
+                        "units": "usecs",
+                        "samples": 4036,
+                        "min": 4,
+                        "max": 2645,
+                        "sum": 239312,
+                        "sumsquare": 27946416
+                    },
+                    {
+                        "name": "req_qdepth",
+                        "units": "reqs",
+                        "samples": 4036,
+                        "min": 0,
+                        "max": 2,
+                        "sum": 13,
+                        "sumsquare": 15
+                    },
+                    {
+                        "name": "req_active",
+                        "units": "reqs",
+                        "samples": 4036,
+                        "min": 1,
+                        "max": 2,
+                        "sum": 5362,
+                        "sumsquare": 8014
+                    },
+                    {
+                        "name": "req_timeout",
+                        "units": "secs",
+                        "samples": 4036,
+                        "min": 1,
+                        "max": 15,
+                        "sum": 59913,
+                        "sumsquare": 897843
+                    },
+                    {
+                        "name": "reqbuf_avail",
+                        "units": "bufs",
+                        "samples": 9318,
+                        "min": 63,
+                        "max": 64,
+                        "sum": 596340,
+                        "sumsquare": 38165004
+                    },
+                    {
+                        "name": "ldlm_ibits_enqueue",
+                        "units": "reqs",
+                        "samples": 16,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 16,
+                        "sumsquare": 16
+                    },
+                    {
+                        "name": "mds_reint_setattr",
+                        "units": "reqs",
+                        "samples": 3,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 3,
+                        "sumsquare": 3
+                    },
+                    {
+                        "name": "mds_reint_open",
+                        "units": "reqs",
+                        "samples": 6,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 6,
+                        "sumsquare": 6
+                    },
+                    {
+                        "name": "ost_set_info",
+                        "units": "usecs",
+                        "samples": 7,
+                        "min": 25,
+                        "max": 41,
+                        "sum": 216,
+                        "sumsquare": 6840
+                    },
+                    {
+                        "name": "mds_connect",
+                        "units": "usecs",
+                        "samples": 11,
+                        "min": 12,
+                        "max": 1375,
+                        "sum": 2103,
+                        "sumsquare": 1955337
+                    },
+                    {
+                        "name": "mds_get_root",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 8,
+                        "max": 8,
+                        "sum": 8,
+                        "sumsquare": 64
+                    },
+                    {
+                        "name": "mds_statfs",
+                        "units": "usecs",
+                        "samples": 4,
+                        "min": 5,
+                        "max": 76,
+                        "sum": 148,
+                        "sumsquare": 8086
+                    },
+                    {
+                        "name": "obd_ping",
+                        "units": "usecs",
+                        "samples": 3994,
+                        "min": 2,
+                        "max": 558,
+                        "sum": 67029,
+                        "sumsquare": 1810155
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Mds": {
+                "param": "mdt_fld",
+                "stats": [
+                    {
+                        "name": "req_waittime",
+                        "units": "usecs",
+                        "samples": 8,
+                        "min": 16,
+                        "max": 92,
+                        "sum": 336,
+                        "sumsquare": 18060
+                    },
+                    {
+                        "name": "req_qdepth",
+                        "units": "reqs",
+                        "samples": 8,
+                        "min": 0,
+                        "max": 0,
+                        "sum": 0,
+                        "sumsquare": 0
+                    },
+                    {
+                        "name": "req_active",
+                        "units": "reqs",
+                        "samples": 8,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 8,
+                        "sumsquare": 8
+                    },
+                    {
+                        "name": "req_timeout",
+                        "units": "secs",
+                        "samples": 8,
+                        "min": 1,
+                        "max": 15,
+                        "sum": 31,
+                        "sumsquare": 331
+                    },
+                    {
+                        "name": "reqbuf_avail",
+                        "units": "bufs",
+                        "samples": 18,
+                        "min": 64,
+                        "max": 64,
+                        "sum": 1152,
+                        "sumsquare": 73728
+                    },
+                    {
+                        "name": "fld_query",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 21,
+                        "max": 21,
+                        "sum": 21,
+                        "sumsquare": 441
+                    },
+                    {
+                        "name": "fld_read",
+                        "units": "usecs",
+                        "samples": 7,
+                        "min": 9,
+                        "max": 46,
+                        "sum": 211,
+                        "sumsquare": 7375
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Mds": {
+                "param": "mdt_io",
+                "stats": [
+                    {
+                        "name": "req_waittime",
+                        "units": "usecs",
+                        "samples": 4,
+                        "min": 19,
+                        "max": 66,
+                        "sum": 205,
+                        "sumsquare": 11967
+                    },
+                    {
+                        "name": "req_qdepth",
+                        "units": "reqs",
+                        "samples": 4,
+                        "min": 0,
+                        "max": 0,
+                        "sum": 0,
+                        "sumsquare": 0
+                    },
+                    {
+                        "name": "req_active",
+                        "units": "reqs",
+                        "samples": 4,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 4,
+                        "sumsquare": 4
+                    },
+                    {
+                        "name": "req_timeout",
+                        "units": "secs",
+                        "samples": 4,
+                        "min": 15,
+                        "max": 15,
+                        "sum": 60,
+                        "sumsquare": 900
+                    },
+                    {
+                        "name": "reqbuf_avail",
+                        "units": "bufs",
+                        "samples": 11,
+                        "min": 64,
+                        "max": 64,
+                        "sum": 704,
+                        "sumsquare": 45056
+                    },
+                    {
+                        "name": "ost_read",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 4601,
+                        "max": 10854,
+                        "sum": 15455,
+                        "sumsquare": 138978517
+                    },
+                    {
+                        "name": "ost_write",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 41301,
+                        "max": 41301,
+                        "sum": 41301,
+                        "sumsquare": 1705772601
+                    },
+                    {
+                        "name": "ost_punch",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 39,
+                        "max": 39,
+                        "sum": 39,
+                        "sumsquare": 1521
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Mds": {
+                "param": "mdt_out",
+                "stats": [
+                    {
+                        "name": "req_waittime",
+                        "units": "usecs",
+                        "samples": 4,
+                        "min": 19,
+                        "max": 66,
+                        "sum": 205,
+                        "sumsquare": 11967
+                    },
+                    {
+                        "name": "req_qdepth",
+                        "units": "reqs",
+                        "samples": 4,
+                        "min": 0,
+                        "max": 0,
+                        "sum": 0,
+                        "sumsquare": 0
+                    },
+                    {
+                        "name": "req_active",
+                        "units": "reqs",
+                        "samples": 4,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 4,
+                        "sumsquare": 4
+                    },
+                    {
+                        "name": "req_timeout",
+                        "units": "secs",
+                        "samples": 4,
+                        "min": 15,
+                        "max": 15,
+                        "sum": 60,
+                        "sumsquare": 900
+                    },
+                    {
+                        "name": "reqbuf_avail",
+                        "units": "bufs",
+                        "samples": 11,
+                        "min": 64,
+                        "max": 64,
+                        "sum": 704,
+                        "sumsquare": 45056
+                    },
+                    {
+                        "name": "ost_read",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 4601,
+                        "max": 10854,
+                        "sum": 15455,
+                        "sumsquare": 138978517
+                    },
+                    {
+                        "name": "ost_write",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 41301,
+                        "max": 41301,
+                        "sum": 41301,
+                        "sumsquare": 1705772601
+                    },
+                    {
+                        "name": "ost_punch",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 39,
+                        "max": 39,
+                        "sum": 39,
+                        "sumsquare": 1521
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Mds": {
+                "param": "mdt_readpage",
+                "stats": [
+                    {
+                        "name": "req_waittime",
+                        "units": "usecs",
+                        "samples": 69,
+                        "min": 9,
+                        "max": 12427,
+                        "sum": 59771,
+                        "sumsquare": 481221001
+                    },
+                    {
+                        "name": "req_qdepth",
+                        "units": "reqs",
+                        "samples": 69,
+                        "min": 0,
+                        "max": 0,
+                        "sum": 0,
+                        "sumsquare": 0
+                    },
+                    {
+                        "name": "req_active",
+                        "units": "reqs",
+                        "samples": 69,
+                        "min": 1,
+                        "max": 4,
+                        "sum": 118,
+                        "sumsquare": 268
+                    },
+                    {
+                        "name": "req_timeout",
+                        "units": "secs",
+                        "samples": 69,
+                        "min": 1,
+                        "max": 15,
+                        "sum": 599,
+                        "sumsquare": 8279
+                    },
+                    {
+                        "name": "reqbuf_avail",
+                        "units": "bufs",
+                        "samples": 151,
+                        "min": 62,
+                        "max": 64,
+                        "sum": 9611,
+                        "sumsquare": 611769
+                    },
+                    {
+                        "name": "ldlm_ibits_enqueue",
+                        "units": "reqs",
+                        "samples": 30,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 30,
+                        "sumsquare": 30
+                    },
+                    {
+                        "name": "mds_getattr",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 72,
+                        "max": 72,
+                        "sum": 72,
+                        "sumsquare": 5184
+                    },
+                    {
+                        "name": "mds_close",
+                        "units": "usecs",
+                        "samples": 6,
+                        "min": 30,
+                        "max": 137,
+                        "sum": 483,
+                        "sumsquare": 51211
+                    },
+                    {
+                        "name": "mds_readpage",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 183,
+                        "max": 201,
+                        "sum": 384,
+                        "sumsquare": 73890
+                    },
+                    {
+                        "name": "dt_index_read",
+                        "units": "usecs",
+                        "samples": 30,
+                        "min": 239,
+                        "max": 4776,
+                        "sum": 48508,
+                        "sumsquare": 133655116
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Mds": {
+                "param": "mdt_seqm",
+                "stats": [
+                    {
+                        "name": "req_waittime",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 80,
+                        "max": 80,
+                        "sum": 80,
+                        "sumsquare": 6400
+                    },
+                    {
+                        "name": "req_qdepth",
+                        "units": "reqs",
+                        "samples": 1,
+                        "min": 0,
+                        "max": 0,
+                        "sum": 0,
+                        "sumsquare": 0
+                    },
+                    {
+                        "name": "req_active",
+                        "units": "reqs",
+                        "samples": 1,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 1,
+                        "sumsquare": 1
+                    },
+                    {
+                        "name": "req_timeout",
+                        "units": "secs",
+                        "samples": 1,
+                        "min": 15,
+                        "max": 15,
+                        "sum": 15,
+                        "sumsquare": 225
+                    },
+                    {
+                        "name": "reqbuf_avail",
+                        "units": "bufs",
+                        "samples": 3,
+                        "min": 64,
+                        "max": 64,
+                        "sum": 192,
+                        "sumsquare": 12288
+                    },
+                    {
+                        "name": "seq_query",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 37,
+                        "max": 37,
+                        "sum": 37,
+                        "sumsquare": 1369
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Mds": {
+                "param": "mdt_seqs",
+                "stats": [
+                    {
+                        "name": "req_waittime",
+                        "units": "usecs",
+                        "samples": 8,
+                        "min": 33,
+                        "max": 206,
+                        "sum": 582,
+                        "sumsquare": 69118
+                    },
+                    {
+                        "name": "req_qdepth",
+                        "units": "reqs",
+                        "samples": 8,
+                        "min": 0,
+                        "max": 0,
+                        "sum": 0,
+                        "sumsquare": 0
+                    },
+                    {
+                        "name": "req_active",
+                        "units": "reqs",
+                        "samples": 8,
+                        "min": 1,
+                        "max": 3,
+                        "sum": 14,
+                        "sumsquare": 30
+                    },
+                    {
+                        "name": "req_timeout",
+                        "units": "secs",
+                        "samples": 8,
+                        "min": 1,
+                        "max": 10,
+                        "sum": 35,
+                        "sumsquare": 305
+                    },
+                    {
+                        "name": "reqbuf_avail",
+                        "units": "bufs",
+                        "samples": 17,
+                        "min": 64,
+                        "max": 64,
+                        "sum": 1088,
+                        "sumsquare": 69632
+                    },
+                    {
+                        "name": "seq_query",
+                        "units": "usecs",
+                        "samples": 8,
+                        "min": 21375,
+                        "max": 168585,
+                        "sum": 665087,
+                        "sumsquare": 70873841357
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Mds": {
+                "param": "mdt_fake",
+                "stats": [
+                    {
+                        "name": "req_waittime",
+                        "units": "usecs",
+                        "samples": 8,
+                        "min": 33,
+                        "max": 206,
+                        "sum": 582,
+                        "sumsquare": 69118
+                    },
+                    {
+                        "name": "req_qdepth",
+                        "units": "reqs",
+                        "samples": 8,
+                        "min": 0,
+                        "max": 0,
+                        "sum": 0,
+                        "sumsquare": 0
+                    },
+                    {
+                        "name": "req_active",
+                        "units": "reqs",
+                        "samples": 8,
+                        "min": 1,
+                        "max": 3,
+                        "sum": 14,
+                        "sumsquare": 30
+                    },
+                    {
+                        "name": "req_timeout",
+                        "units": "secs",
+                        "samples": 8,
+                        "min": 1,
+                        "max": 10,
+                        "sum": 35,
+                        "sumsquare": 305
+                    },
+                    {
+                        "name": "reqbuf_avail",
+                        "units": "bufs",
+                        "samples": 17,
+                        "min": 64,
+                        "max": 64,
+                        "sum": 1088,
+                        "sumsquare": 69632
+                    },
+                    {
+                        "name": "seq_query",
+                        "units": "usecs",
+                        "samples": 8,
+                        "min": 21375,
+                        "max": 168585,
+                        "sum": 665087,
+                        "sumsquare": 70873841357
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Mds": {
+                "param": "mdt_setattr",
+                "stats": [
+                    {
+                        "name": "req_waittime",
+                        "units": "usecs",
+                        "samples": 4,
+                        "min": 19,
+                        "max": 66,
+                        "sum": 205,
+                        "sumsquare": 11967
+                    },
+                    {
+                        "name": "req_qdepth",
+                        "units": "reqs",
+                        "samples": 4,
+                        "min": 0,
+                        "max": 0,
+                        "sum": 0,
+                        "sumsquare": 0
+                    },
+                    {
+                        "name": "req_active",
+                        "units": "reqs",
+                        "samples": 4,
+                        "min": 1,
+                        "max": 1,
+                        "sum": 4,
+                        "sumsquare": 4
+                    },
+                    {
+                        "name": "req_timeout",
+                        "units": "secs",
+                        "samples": 4,
+                        "min": 15,
+                        "max": 15,
+                        "sum": 60,
+                        "sumsquare": 900
+                    },
+                    {
+                        "name": "reqbuf_avail",
+                        "units": "bufs",
+                        "samples": 11,
+                        "min": 64,
+                        "max": 64,
+                        "sum": 704,
+                        "sumsquare": 45056
+                    },
+                    {
+                        "name": "ost_read",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 4601,
+                        "max": 10854,
+                        "sum": 15455,
+                        "sumsquare": 138978517
+                    },
+                    {
+                        "name": "ost_write",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 41301,
+                        "max": 41301,
+                        "sum": 41301,
+                        "sumsquare": 1705772601
+                    },
+                    {
+                        "name": "ost_punch",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 39,
+                        "max": 39,
+                        "sum": 39,
+                        "sumsquare": 1521
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "JobStatsMdt": {
+                "kind": "Mdt",
+                "param": "job_stats",
+                "target": "fs-MDT0000",
+                "value": null
+            }
+        }
+    },
+    {
+        "Target": {
+            "Stats": {
+                "kind": "Mdt",
+                "param": "md_stats",
+                "target": "fs-MDT0000",
+                "value": [
+                    {
+                        "name": "open",
+                        "units": "usecs",
+                        "samples": 6,
+                        "min": 52,
+                        "max": 16976,
+                        "sum": 23055,
+                        "sumsquare": 317429597
+                    },
+                    {
+                        "name": "close",
+                        "units": "usecs",
+                        "samples": 6,
+                        "min": 17,
+                        "max": 103,
+                        "sum": 352,
+                        "sumsquare": 29064
+                    },
+                    {
+                        "name": "mknod",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 223,
+                        "max": 5357,
+                        "sum": 5580,
+                        "sumsquare": 28747178
+                    },
+                    {
+                        "name": "getattr",
+                        "units": "usecs",
+                        "samples": 8,
+                        "min": 10,
+                        "max": 6928,
+                        "sum": 7053,
+                        "sumsquare": 47999633
+                    },
+                    {
+                        "name": "setattr",
+                        "units": "usecs",
+                        "samples": 3,
+                        "min": 100,
+                        "max": 319,
+                        "sum": 605,
+                        "sumsquare": 146357
+                    },
+                    {
+                        "name": "getxattr",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 15,
+                        "max": 15,
+                        "sum": 15,
+                        "sumsquare": 225
+                    },
+                    {
+                        "name": "statfs",
+                        "units": "usecs",
+                        "samples": 4,
+                        "min": 0,
+                        "max": 33,
+                        "sum": 63,
+                        "sumsquare": 1547
+                    },
+                    {
+                        "name": "read",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 4577,
+                        "max": 10837,
+                        "sum": 15414,
+                        "sumsquare": 138389498
+                    },
+                    {
+                        "name": "write",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 363,
+                        "max": 363,
+                        "sum": 363,
+                        "sumsquare": 131769
+                    },
+                    {
+                        "name": "read_bytes",
+                        "units": "bytes",
+                        "samples": 2,
+                        "min": 4096,
+                        "max": 405504,
+                        "sum": 409600,
+                        "sumsquare": 164450271232
+                    },
+                    {
+                        "name": "write_bytes",
+                        "units": "bytes",
+                        "samples": 1,
+                        "min": 409600,
+                        "max": 409600,
+                        "sum": 409600,
+                        "sumsquare": 167772160000
+                    },
+                    {
+                        "name": "punch",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 28,
+                        "max": 28,
+                        "sum": 28,
+                        "sumsquare": 784
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "NumExports": {
+                "kind": "Mdt",
+                "param": "num_exports",
+                "target": "fs-MDT0000",
+                "value": 10
+            }
+        }
+    },
+    {
+        "Target": {
+            "ExportStats": {
+                "kind": "Mdt",
+                "param": "exports",
+                "target": "fs-MDT0000",
+                "value": [
+                    {
+                        "nid": "0@lo",
+                        "stats": [
+                            {
+                                "name": "open",
+                                "units": "usecs",
+                                "samples": 6,
+                                "min": 52,
+                                "max": 16976,
+                                "sum": 23055,
+                                "sumsquare": 317429597
+                            },
+                            {
+                                "name": "close",
+                                "units": "usecs",
+                                "samples": 6,
+                                "min": 17,
+                                "max": 103,
+                                "sum": 352,
+                                "sumsquare": 29064
+                            },
+                            {
+                                "name": "mknod",
+                                "units": "usecs",
+                                "samples": 2,
+                                "min": 223,
+                                "max": 5357,
+                                "sum": 5580,
+                                "sumsquare": 28747178
+                            },
+                            {
+                                "name": "getattr",
+                                "units": "usecs",
+                                "samples": 8,
+                                "min": 10,
+                                "max": 6928,
+                                "sum": 7053,
+                                "sumsquare": 47999633
+                            },
+                            {
+                                "name": "setattr",
+                                "units": "usecs",
+                                "samples": 3,
+                                "min": 100,
+                                "max": 319,
+                                "sum": 605,
+                                "sumsquare": 146357
+                            },
+                            {
+                                "name": "getxattr",
+                                "units": "usecs",
+                                "samples": 1,
+                                "min": 15,
+                                "max": 15,
+                                "sum": 15,
+                                "sumsquare": 225
+                            },
+                            {
+                                "name": "statfs",
+                                "units": "usecs",
+                                "samples": 4,
+                                "min": 0,
+                                "max": 33,
+                                "sum": 63,
+                                "sumsquare": 1547
+                            },
+                            {
+                                "name": "read",
+                                "units": "usecs",
+                                "samples": 2,
+                                "min": 4577,
+                                "max": 10837,
+                                "sum": 15414,
+                                "sumsquare": 138389498
+                            },
+                            {
+                                "name": "write",
+                                "units": "usecs",
+                                "samples": 1,
+                                "min": 363,
+                                "max": 363,
+                                "sum": 363,
+                                "sumsquare": 131769
+                            },
+                            {
+                                "name": "read_bytes",
+                                "units": "bytes",
+                                "samples": 2,
+                                "min": 4096,
+                                "max": 405504,
+                                "sum": 409600,
+                                "sumsquare": 164450271232
+                            },
+                            {
+                                "name": "write_bytes",
+                                "units": "bytes",
+                                "samples": 1,
+                                "min": 409600,
+                                "max": 409600,
+                                "sum": 409600,
+                                "sumsquare": 167772160000
+                            },
+                            {
+                                "name": "punch",
+                                "units": "usecs",
+                                "samples": 1,
+                                "min": 28,
+                                "max": 28,
+                                "sum": 28,
+                                "sumsquare": 784
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "ExportStats": {
+                "kind": "Mdt",
+                "param": "exports",
+                "target": "fs-MDT0000",
+                "value": [
+                    {
+                        "nid": "10.73.20.12@tcp",
+                        "stats": []
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "ExportStats": {
+                "kind": "Mdt",
+                "param": "exports",
+                "target": "fs-MDT0000",
+                "value": [
+                    {
+                        "nid": "10.73.20.13@tcp",
+                        "stats": []
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "ExportStats": {
+                "kind": "Mdt",
+                "param": "exports",
+                "target": "fs-MDT0000",
+                "value": [
+                    {
+                        "nid": "10.73.20.14@tcp",
+                        "stats": []
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "ContendedLocks": {
+                "kind": "Mdt",
+                "param": "contended_locks",
+                "target": "fs-MDT0000",
+                "value": 32
+            }
+        }
+    },
+    {
+        "Target": {
+            "ContendedLocks": {
+                "kind": "Ost",
+                "param": "contended_locks",
+                "target": "fs-OST0000",
+                "value": 32
+            }
+        }
+    },
+    {
+        "Target": {
+            "ContendedLocks": {
+                "kind": "Ost",
+                "param": "contended_locks",
+                "target": "fs-OST0001",
+                "value": 32
+            }
+        }
+    },
+    {
+        "Target": {
+            "ContentionSeconds": {
+                "kind": "Mdt",
+                "param": "contention_seconds",
+                "target": "fs-MDT0000",
+                "value": 2
+            }
+        }
+    },
+    {
+        "Target": {
+            "ContentionSeconds": {
+                "kind": "Ost",
+                "param": "contention_seconds",
+                "target": "fs-OST0000",
+                "value": 2
+            }
+        }
+    },
+    {
+        "Target": {
+            "ContentionSeconds": {
+                "kind": "Ost",
+                "param": "contention_seconds",
+                "target": "fs-OST0001",
+                "value": 2
+            }
+        }
+    },
+    {
+        "Target": {
+            "CtimeAgeLimit": {
+                "kind": "Mdt",
+                "param": "ctime_age_limit",
+                "target": "fs-MDT0000",
+                "value": 10
+            }
+        }
+    },
+    {
+        "Target": {
+            "CtimeAgeLimit": {
+                "kind": "Ost",
+                "param": "ctime_age_limit",
+                "target": "fs-OST0000",
+                "value": 10
+            }
+        }
+    },
+    {
+        "Target": {
+            "CtimeAgeLimit": {
+                "kind": "Ost",
+                "param": "ctime_age_limit",
+                "target": "fs-OST0001",
+                "value": 10
+            }
+        }
+    },
+    {
+        "Target": {
+            "EarlyLockCancel": {
+                "kind": "Mdt",
+                "param": "early_lock_cancel",
+                "target": "fs-MDT0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "EarlyLockCancel": {
+                "kind": "Ost",
+                "param": "early_lock_cancel",
+                "target": "fs-OST0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "EarlyLockCancel": {
+                "kind": "Ost",
+                "param": "early_lock_cancel",
+                "target": "fs-OST0001",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockCount": {
+                "kind": "Mdt",
+                "param": "lock_count",
+                "target": "fs-MDT0000",
+                "value": 32
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockCount": {
+                "kind": "Ost",
+                "param": "lock_count",
+                "target": "fs-OST0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockCount": {
+                "kind": "Ost",
+                "param": "lock_count",
+                "target": "fs-OST0001",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockTimeouts": {
+                "kind": "Mdt",
+                "param": "lock_timeouts",
+                "target": "fs-MDT0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockTimeouts": {
+                "kind": "Ost",
+                "param": "lock_timeouts",
+                "target": "fs-OST0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockTimeouts": {
+                "kind": "Ost",
+                "param": "lock_timeouts",
+                "target": "fs-OST0001",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockUnusedCount": {
+                "kind": "Mdt",
+                "param": "lock_unused_count",
+                "target": "fs-MDT0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockUnusedCount": {
+                "kind": "Ost",
+                "param": "lock_unused_count",
+                "target": "fs-OST0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LockUnusedCount": {
+                "kind": "Ost",
+                "param": "lock_unused_count",
+                "target": "fs-OST0001",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "LruMaxAge": {
+                "kind": "Mdt",
+                "param": "lru_max_age",
+                "target": "fs-MDT0000",
+                "value": 3900000
+            }
+        }
+    },
+    {
+        "Target": {
+            "LruMaxAge": {
+                "kind": "Ost",
+                "param": "lru_max_age",
+                "target": "fs-OST0000",
+                "value": 3900000
+            }
+        }
+    },
+    {
+        "Target": {
+            "LruMaxAge": {
+                "kind": "Ost",
+                "param": "lru_max_age",
+                "target": "fs-OST0001",
+                "value": 3900000
+            }
+        }
+    },
+    {
+        "Target": {
+            "LruSize": {
+                "kind": "Mdt",
+                "param": "lru_size",
+                "target": "fs-MDT0000",
+                "value": 800
+            }
+        }
+    },
+    {
+        "Target": {
+            "LruSize": {
+                "kind": "Ost",
+                "param": "lru_size",
+                "target": "fs-OST0000",
+                "value": 800
+            }
+        }
+    },
+    {
+        "Target": {
+            "LruSize": {
+                "kind": "Ost",
+                "param": "lru_size",
+                "target": "fs-OST0001",
+                "value": 800
+            }
+        }
+    },
+    {
+        "Target": {
+            "MaxNolockBytes": {
+                "kind": "Mdt",
+                "param": "max_nolock_bytes",
+                "target": "fs-MDT0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "MaxNolockBytes": {
+                "kind": "Ost",
+                "param": "max_nolock_bytes",
+                "target": "fs-OST0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "MaxNolockBytes": {
+                "kind": "Ost",
+                "param": "max_nolock_bytes",
+                "target": "fs-OST0001",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "MaxParallelAst": {
+                "kind": "Mdt",
+                "param": "max_parallel_ast",
+                "target": "fs-MDT0000",
+                "value": 1024
+            }
+        }
+    },
+    {
+        "Target": {
+            "MaxParallelAst": {
+                "kind": "Ost",
+                "param": "max_parallel_ast",
+                "target": "fs-OST0000",
+                "value": 1024
+            }
+        }
+    },
+    {
+        "Target": {
+            "MaxParallelAst": {
+                "kind": "Ost",
+                "param": "max_parallel_ast",
+                "target": "fs-OST0001",
+                "value": 1024
+            }
+        }
+    },
+    {
+        "Target": {
+            "ResourceCount": {
+                "kind": "Mdt",
+                "param": "resource_count",
+                "target": "fs-MDT0000",
+                "value": 8
+            }
+        }
+    },
+    {
+        "Target": {
+            "ResourceCount": {
+                "kind": "Ost",
+                "param": "resource_count",
+                "target": "fs-OST0000",
+                "value": 0
+            }
+        }
+    },
+    {
+        "Target": {
+            "ResourceCount": {
+                "kind": "Ost",
+                "param": "resource_count",
+                "target": "fs-OST0001",
+                "value": 0
+            }
+        }
+    },
+    {
+        "LustreService": {
+            "LdlmCanceld": [
+                {
+                    "name": "req_waittime",
+                    "units": "usecs",
+                    "samples": 106,
+                    "min": 9,
+                    "max": 1062,
+                    "sum": 5531,
+                    "sumsquare": 1346083
+                },
+                {
+                    "name": "req_qdepth",
+                    "units": "reqs",
+                    "samples": 106,
+                    "min": 0,
+                    "max": 0,
+                    "sum": 0,
+                    "sumsquare": 0
+                },
+                {
+                    "name": "req_active",
+                    "units": "reqs",
+                    "samples": 106,
+                    "min": 1,
+                    "max": 2,
+                    "sum": 133,
+                    "sumsquare": 187
+                },
+                {
+                    "name": "req_timeout",
+                    "units": "secs",
+                    "samples": 106,
+                    "min": 1,
+                    "max": 15,
+                    "sum": 1164,
+                    "sumsquare": 16854
+                },
+                {
+                    "name": "reqbuf_avail",
+                    "units": "bufs",
+                    "samples": 232,
+                    "min": 63,
+                    "max": 64,
+                    "sum": 14759,
+                    "sumsquare": 938969
+                },
+                {
+                    "name": "ldlm_convert",
+                    "units": "usecs",
+                    "samples": 2,
+                    "min": 28,
+                    "max": 34,
+                    "sum": 62,
+                    "sumsquare": 1940
+                },
+                {
+                    "name": "ldlm_cancel",
+                    "units": "usecs",
+                    "samples": 104,
+                    "min": 3,
+                    "max": 252,
+                    "sum": 2062,
+                    "sumsquare": 143608
+                }
+            ]
+        }
+    },
+    {
+        "LustreService": {
+            "LdlmCbd": [
+                {
+                    "name": "req_waittime",
+                    "units": "usecs",
+                    "samples": 36,
+                    "min": 24,
+                    "max": 1124,
+                    "sum": 6635,
+                    "sumsquare": 4082071
+                },
+                {
+                    "name": "req_qdepth",
+                    "units": "reqs",
+                    "samples": 36,
+                    "min": 0,
+                    "max": 1,
+                    "sum": 1,
+                    "sumsquare": 1
+                },
+                {
+                    "name": "req_active",
+                    "units": "reqs",
+                    "samples": 36,
+                    "min": 1,
+                    "max": 2,
+                    "sum": 40,
+                    "sumsquare": 48
+                },
+                {
+                    "name": "req_timeout",
+                    "units": "secs",
+                    "samples": 36,
+                    "min": 1,
+                    "max": 15,
+                    "sum": 390,
+                    "sumsquare": 5610
+                },
+                {
+                    "name": "reqbuf_avail",
+                    "units": "bufs",
+                    "samples": 83,
+                    "min": 0,
+                    "max": 1,
+                    "sum": 79,
+                    "sumsquare": 79
+                },
+                {
+                    "name": "ldlm_bl_callback",
+                    "units": "usecs",
+                    "samples": 36,
+                    "min": 2,
+                    "max": 57,
+                    "sum": 544,
+                    "sumsquare": 13974
+                }
+            ]
+        }
+    },
+    {
+        "Target": {
+            "Llite": {
+                "target": "fs-ffff9f7daee63800",
+                "param": "stats",
+                "stats": [
+                    {
+                        "name": "read_bytes",
+                        "units": "bytes",
+                        "samples": 125,
+                        "min": 4096,
+                        "max": 4194304,
+                        "sum": 105267200,
+                        "sumsquare": 439806328832000
+                    },
+                    {
+                        "name": "write_bytes",
+                        "units": "bytes",
+                        "samples": 200,
+                        "min": 4096,
+                        "max": 1048576,
+                        "sum": 105267200,
+                        "sumsquare": 109952840499200
+                    },
+                    {
+                        "name": "read",
+                        "units": "usecs",
+                        "samples": 125,
+                        "min": 1,
+                        "max": 11163,
+                        "sum": 37975,
+                        "sumsquare": 171070541
+                    },
+                    {
+                        "name": "write",
+                        "units": "usecs",
+                        "samples": 200,
+                        "min": 11,
+                        "max": 580719,
+                        "sum": 3771460,
+                        "sumsquare": 1390945311572
+                    },
+                    {
+                        "name": "open",
+                        "units": "usecs",
+                        "samples": 5,
+                        "min": 6,
+                        "max": 274,
+                        "sum": 316,
+                        "sumsquare": 75558
+                    },
+                    {
+                        "name": "close",
+                        "units": "usecs",
+                        "samples": 5,
+                        "min": 62,
+                        "max": 802,
+                        "sum": 1471,
+                        "sumsquare": 786845
+                    },
+                    {
+                        "name": "seek",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 0,
+                        "max": 0,
+                        "sum": 0,
+                        "sumsquare": 0
+                    },
+                    {
+                        "name": "readdir",
+                        "units": "usecs",
+                        "samples": 20,
+                        "min": 0,
+                        "max": 14,
+                        "sum": 85,
+                        "sumsquare": 801
+                    },
+                    {
+                        "name": "setattr",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 191,
+                        "max": 820,
+                        "sum": 1011,
+                        "sumsquare": 708881
+                    },
+                    {
+                        "name": "truncate",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 614,
+                        "max": 614,
+                        "sum": 614,
+                        "sumsquare": 376996
+                    },
+                    {
+                        "name": "getattr",
+                        "units": "usecs",
+                        "samples": 50,
+                        "min": 1,
+                        "max": 447,
+                        "sum": 2541,
+                        "sumsquare": 660689
+                    },
+                    {
+                        "name": "mknod",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 410,
+                        "max": 5947,
+                        "sum": 6357,
+                        "sumsquare": 35534909
+                    },
+                    {
+                        "name": "statfs",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 186,
+                        "max": 198,
+                        "sum": 384,
+                        "sumsquare": 73800
+                    },
+                    {
+                        "name": "setxattr",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 704,
+                        "max": 704,
+                        "sum": 704,
+                        "sumsquare": 495616
+                    },
+                    {
+                        "name": "getxattr",
+                        "units": "usecs",
+                        "samples": 1,
+                        "min": 94,
+                        "max": 94,
+                        "sum": 94,
+                        "sumsquare": 8836
+                    },
+                    {
+                        "name": "inode_permission",
+                        "units": "usecs",
+                        "samples": 35,
+                        "min": 0,
+                        "max": 7803,
+                        "sum": 9223,
+                        "sumsquare": 61634903
+                    },
+                    {
+                        "name": "opencount",
+                        "units": "reqs",
+                        "samples": 15,
+                        "min": 1,
+                        "max": 2,
+                        "sum": 17,
+                        "sumsquare": 21
+                    },
+                    {
+                        "name": "openclosetime",
+                        "units": "usecs",
+                        "samples": 2,
+                        "min": 8012512,
+                        "max": 8377531,
+                        "sum": 16390043,
+                        "sumsquare": 134383374206105
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "Changelog": {
+                "kind": "Mdt",
+                "param": "changelog_users",
+                "target": "fs-MDT0000",
+                "value": {
+                    "current_index": 0,
+                    "users": []
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStats": {
+                "pool": "0x0",
+                "manager": "dt",
+                "param": "usr",
+                "target": "fs-QMT0000",
+                "value": {
+                    "kind": "Usr",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "limits": {
+                                "hard": 0,
+                                "soft": 0,
+                                "granted": 0,
+                                "time": 604800
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStats": {
+                "pool": "ddn_hdd",
+                "manager": "dt",
+                "param": "usr",
+                "target": "fs-QMT0000",
+                "value": {
+                    "kind": "Usr",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "limits": {
+                                "hard": 0,
+                                "soft": 0,
+                                "granted": 0,
+                                "time": 604800
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStats": {
+                "pool": "ddn_ssd",
+                "manager": "dt",
+                "param": "usr",
+                "target": "fs-QMT0000",
+                "value": {
+                    "kind": "Usr",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "limits": {
+                                "hard": 0,
+                                "soft": 0,
+                                "granted": 0,
+                                "time": 604800
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStats": {
+                "pool": "0x0",
+                "manager": "md",
+                "param": "usr",
+                "target": "fs-QMT0000",
+                "value": {
+                    "kind": "Usr",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "limits": {
+                                "hard": 0,
+                                "soft": 0,
+                                "granted": 0,
+                                "time": 604800
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStats": {
+                "pool": "0x0",
+                "manager": "dt",
+                "param": "prj",
+                "target": "fs-QMT0000",
+                "value": {
+                    "kind": "Prj",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "limits": {
+                                "hard": 0,
+                                "soft": 0,
+                                "granted": 0,
+                                "time": 604800
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStats": {
+                "pool": "ddn_hdd",
+                "manager": "dt",
+                "param": "prj",
+                "target": "fs-QMT0000",
+                "value": {
+                    "kind": "Prj",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "limits": {
+                                "hard": 0,
+                                "soft": 0,
+                                "granted": 0,
+                                "time": 604800
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStats": {
+                "pool": "ddn_ssd",
+                "manager": "dt",
+                "param": "prj",
+                "target": "fs-QMT0000",
+                "value": {
+                    "kind": "Prj",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "limits": {
+                                "hard": 0,
+                                "soft": 0,
+                                "granted": 0,
+                                "time": 604800
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStats": {
+                "pool": "0x0",
+                "manager": "md",
+                "param": "prj",
+                "target": "fs-QMT0000",
+                "value": {
+                    "kind": "Prj",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "limits": {
+                                "hard": 0,
+                                "soft": 0,
+                                "granted": 0,
+                                "time": 604800
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStats": {
+                "pool": "0x0",
+                "manager": "dt",
+                "param": "grp",
+                "target": "fs-QMT0000",
+                "value": {
+                    "kind": "Grp",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "limits": {
+                                "hard": 0,
+                                "soft": 0,
+                                "granted": 0,
+                                "time": 604800
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStats": {
+                "pool": "ddn_hdd",
+                "manager": "dt",
+                "param": "grp",
+                "target": "fs-QMT0000",
+                "value": {
+                    "kind": "Grp",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "limits": {
+                                "hard": 0,
+                                "soft": 0,
+                                "granted": 0,
+                                "time": 604800
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStats": {
+                "pool": "ddn_ssd",
+                "manager": "dt",
+                "param": "grp",
+                "target": "fs-QMT0000",
+                "value": {
+                    "kind": "Grp",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "limits": {
+                                "hard": 0,
+                                "soft": 0,
+                                "granted": 0,
+                                "time": 604800
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Target": {
+            "QuotaStats": {
+                "pool": "0x0",
+                "manager": "md",
+                "param": "grp",
+                "target": "fs-QMT0000",
+                "value": {
+                    "kind": "Grp",
+                    "stats": [
+                        {
+                            "id": 0,
+                            "limits": {
+                                "hard": 0,
+                                "soft": 0,
+                                "granted": 0,
+                                "time": 604800
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "SendCount": {
+                "nid": "0@lo",
+                "param": "send_count",
+                "value": 13649
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "RecvCount": {
+                "nid": "0@lo",
+                "param": "recv_count",
+                "value": 13647
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "DropCount": {
+                "nid": "0@lo",
+                "param": "drop_count",
+                "value": 2
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "SendCount": {
+                "nid": "10.73.20.11@tcp",
+                "param": "send_count",
+                "value": 20083
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "RecvCount": {
+                "nid": "10.73.20.11@tcp",
+                "param": "recv_count",
+                "value": 20080
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "DropCount": {
+                "nid": "10.73.20.11@tcp",
+                "param": "drop_count",
+                "value": 4
+            }
+        }
+    },
+    {
+        "Target": {
+            "FsNames": {
+                "kind": "Mgt",
+                "param": "fsnames",
+                "target": "MGS",
+                "value": [
+                    "fs"
+                ]
+            }
+        }
+    },
+    {
+        "Target": {
+            "RecoveryStatus": {
+                "kind": "Ost",
+                "param": "recovery_status",
+                "target": "fs-OST0000",
+                "value": "Inactive"
+            }
+        }
+    },
+    {
+        "Target": {
+            "RecoveryStatus": {
+                "kind": "Ost",
+                "param": "recovery_status",
+                "target": "fs-OST0001",
+                "value": "Inactive"
+            }
+        }
+    },
+    {
+        "Target": {
+            "RecoveryStatus": {
+                "kind": "Mdt",
+                "param": "recovery_status",
+                "target": "fs-MDT0000",
+                "value": "Inactive"
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "SendLength": {
+                "param": "send_length",
+                "value": 147965048
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "RecvLength": {
+                "param": "recv_length",
+                "value": 128681744
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "DropLength": {
+                "param": "drop_length",
+                "value": 3120
+            }
+        }
+    }
+]

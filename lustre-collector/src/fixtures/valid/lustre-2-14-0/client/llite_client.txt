@@ -1,0 +1,28 @@
+memused=35721854085
+memused_max=41220347397
+lnet_memused=22228358
+health_check=healthy
+ldlm.services.ldlm_cbd.stats=
+snapshot_time             1710759783.270541554 secs.nsecs
+req_waittime              41083956 samples [usecs] 1 33890 255153949 6336801119
+req_qdepth                41083956 samples [reqs] 0 7 429581 432557
+req_active                41083956 samples [reqs] 1 14 53101359 86233965
+req_timeout               41083956 samples [secs] 15 15 616259340 9243890100
+reqbuf_avail              87745428 samples [bufs] 0 3 80539671 80656909
+ldlm_bl_callback          41083956 samples [usecs] 1 1623 446351106 6062478214
+llite.ai400x2-ff47bce9ca35d800.stats=
+snapshot_time             1710759783.271040288 secs.nsecs
+ioctl                     114 samples [reqs]
+open                      35955554 samples [usecs] 0 172939 3393651645 8836730033307
+close                     35955554 samples [usecs] 63 194037 5402095148 11956065309788
+readdir                   60 samples [usecs] 0 2242 34741 52343869
+getattr                   35955647 samples [usecs] 0 85505 2317024138 904252691326
+unlink                    17977752 samples [usecs] 107 148413 3846291010 6948473454642
+mkdir                     17987059 samples [usecs] 104 1306648 23731812831 644644512447919
+rmdir                     17987079 samples [usecs] 95 1478009 37000527306 744761005599966
+mknod                     17977752 samples [usecs] 119 193901 4144162753 7852936850197
+statfs                    17864 samples [usecs] 0 88480 10257950 80137794724
+setxattr                  1 samples [usecs] 8760 8760 8760 76737600
+inode_permission          629305628 samples [usecs] 0 147014 196719589 76130795547
+opencount                 35955576 samples [reqs] 1 2 40433335 49388853
+openclosetime             17977772 samples [usecs] 34302 20804335332 4185265858629453 2084188699388296969
