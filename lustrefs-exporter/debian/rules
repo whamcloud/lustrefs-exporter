@@ -14,7 +14,7 @@ override_dh_auto_build:
 
 override_dh_auto_install:
 	install -v -d debian/tmp/usr/bin
-	install -v -T target/release/lustrefs-exporter debian/tmp/usr/bin/prometheus-lustrefs-exporter
+	install -v -T ../target/release/lustrefs-exporter debian/tmp/usr/bin/prometheus-lustrefs-exporter
 
 
 override_dh_auto_clean:
@@ -24,4 +24,3 @@ override_dh_auto_clean:
 override_dh_auto_test:
 override_dh_update_autotools_config:
 override_dh_autoreconf:
-

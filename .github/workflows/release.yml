@@ -45,14 +45,14 @@ jobs:
 
       - name: Summary
         run: |
-          find _rpm -type f -name \*.rpm -print -exec rpm -qivlp {} \;
+          find lustrefs-exporter/_rpm -type f -name \*.rpm -print -exec rpm -qivlp {} \;
 
       - name: Upload RPMs
         uses: actions/upload-artifact@v2
         with:
           name: centos7_rpm
           retention-days: 1
-          path: _rpm/RPMS/**/*.rpm
+          path: lustrefs-exporter/_rpm/RPMS/**/*.rpm
 
   build_rocky8_rpms:
     name: Build Rockylinux 8 RPMs
@@ -83,14 +83,14 @@ jobs:
 
       - name: Summary
         run: |
-          find _rpm -type f -name \*.rpm -print -exec rpm -qivlp {} \;
+          find lustrefs-exporter/_rpm -type f -name \*.rpm -print -exec rpm -qivlp {} \;
 
       - name: Upload RPMs
         uses: actions/upload-artifact@v2
         with:
           name: rocky8_rpm
           retention-days: 1
-          path: _rpm/RPMS/**/*.rpm
+          path: lustrefs-exporter/_rpm/RPMS/**/*.rpm
 
   build_ubuntu20_debs:
     name: Build Ubuntu 20.04 DEBs
@@ -126,14 +126,14 @@ jobs:
 
       - name: Summary
         run: |
-          find _deb -type f -name \*.deb -print -exec dpkg -I {} \; -exec dpkg -c {} \;
+          find lustrefs-exporter/_deb -type f -name \*.deb -print -exec dpkg -I {} \; -exec dpkg -c {} \;
 
       - name: Upload DEBs
         uses: actions/upload-artifact@v2
         with:
           name: ubuntu20_debs
           retention-days: 1
-          path: _deb/*.deb
+          path: lustrefs-exporter/_deb/*.deb
 
 
   release:

@@ -1,5 +1,5 @@
 ---
-source: src/main.rs
+source: lustrefs-exporter/src/main.rs
 expression: x
 ---
 # HELP lustre_available_kilobytes Number of kilobytes readily available in the pool
@@ -38,6 +38,31 @@ lustre_capacity_kilobytes{component="ost",target="fs-OST0001"} 4108388
 # HELP lustre_changelog_current_index current changelog index.
 # TYPE lustre_changelog_current_index gauge
 lustre_changelog_current_index{target="fs-MDT0000"} 0
+
+# HELP lustre_client_export_stats Number of operations the target has performed per export.
+# TYPE lustre_client_export_stats counter
+lustre_client_export_stats{component="ost",target="fs-OST0000",nid="0@lo",name="write_bytes",units="bytes"} 26
+lustre_client_export_stats{component="ost",target="fs-OST0000",nid="0@lo",name="write",units="usecs"} 26
+lustre_client_export_stats{component="ost",target="fs-OST0000",nid="0@lo",name="setattr",units="usecs"} 1
+lustre_client_export_stats{component="ost",target="fs-OST0000",nid="0@lo",name="create",units="usecs"} 2
+lustre_client_export_stats{component="ost",target="fs-OST0000",nid="0@lo",name="statfs",units="usecs"} 1940
+lustre_client_export_stats{component="ost",target="fs-OST0000",nid="0@lo",name="get_info",units="usecs"} 1
+lustre_client_export_stats{component="ost",target="fs-OST0000",nid="0@lo",name="set_info",units="usecs"} 5
+lustre_client_export_stats{component="ost",target="fs-OST0001",nid="0@lo",name="create",units="usecs"} 2
+lustre_client_export_stats{component="ost",target="fs-OST0001",nid="0@lo",name="statfs",units="usecs"} 1940
+lustre_client_export_stats{component="ost",target="fs-OST0001",nid="0@lo",name="get_info",units="usecs"} 1
+lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="open",units="usecs"} 6
+lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="close",units="usecs"} 6
+lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="mknod",units="usecs"} 2
+lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="getattr",units="usecs"} 8
+lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="setattr",units="usecs"} 3
+lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="getxattr",units="usecs"} 1
+lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="statfs",units="usecs"} 4
+lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="read",units="usecs"} 2
+lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="write",units="usecs"} 1
+lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="read_bytes",units="bytes"} 2
+lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="write_bytes",units="bytes"} 1
+lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="punch",units="usecs"} 1
 
 # HELP lustre_client_stats Lustre client interface stats.
 # TYPE lustre_client_stats gauge
