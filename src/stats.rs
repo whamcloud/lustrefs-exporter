@@ -1,5 +1,5 @@
 use crate::{LabelProm, Metric, StatsMapExt};
-use lustre_collector::{MdsStat, Stat, Target, TargetStat};
+use lustre_collector::{ExportStats, MdsStat, Stat, Target, TargetStat};
 use prometheus_exporter_base::prelude::*;
 use std::{collections::BTreeMap, ops::Deref};
 
@@ -271,5 +271,49 @@ pub fn build_mds_stats(
             .with_value(samples);
 
         metric.render_and_append_instance(&stat);
+    }
+}
+
+static EXPORT_STATS: Metric = Metric {
+    name: "lustre_client_export_stats",
+    help: "Number of operations the target has performed per export.",
+    r#type: MetricType::Counter,
+};
+
+pub fn build_export_stats(
+    x: TargetStat<Vec<ExportStats>>,
+    stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
+) {
+    let TargetStat {
+        kind,
+        value: export_stats,
+        param,
+        target,
+    } = x;
+
+    for e in export_stats {
+        let ExportStats { nid, stats } = e;
+        for s in stats {
+            let Stat {
+                name,
+                units,
+                samples,
+                ..
+            } = s;
+            let metric = match param.0.as_str() {
+                "exports" => stats_map.get_mut_metric(EXPORT_STATS),
+                _ => continue,
+            };
+
+            let stat = PrometheusInstance::new()
+                .with_label("component", kind.to_prom_label())
+                .with_label("target", target.deref())
+                .with_label("nid", nid.as_str())
+                .with_label("name", name.as_str())
+                .with_label("units", units.as_str())
+                .with_value(samples);
+
+            metric.render_and_append_instance(&stat);
+        }
     }
 }

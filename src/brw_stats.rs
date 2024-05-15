@@ -13,7 +13,7 @@ use crate::{
     jobstats::{build_mdt_job_stats, build_ost_job_stats},
     llite::build_llite_stats,
     quota::{build_ost_quota_stats, build_quota_stats},
-    stats::{build_mds_stats, build_stats},
+    stats::{build_export_stats, build_mds_stats, build_stats},
     LabelProm, Metric, StatsMapExt, ToMetricInst,
 };
 
@@ -426,7 +426,9 @@ pub fn build_target_stats(
         TargetStats::RecoveryCompletedClients(_) => {}
         TargetStats::RecoveryConnectedClients(_) => {}
         TargetStats::RecoveryEvictedClients(_) => {}
-        TargetStats::ExportStats(_) => {}
+        TargetStats::ExportStats(x) => {
+            build_export_stats(x, stats_map);
+        }
         TargetStats::QuotaStats(x) => {
             build_quota_stats(x, stats_map);
         }
