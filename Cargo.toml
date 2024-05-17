@@ -1,27 +1,31 @@
-[package]
-edition = "2021"
-name = "lustrefs-exporter"
-version = "0.4.0"
+[workspace]
+members = [
+  'lustre-collector',
+  'lustrefs-exporter',
+]
+resolver = "2"
 
-[lints.clippy]
+[workspace.package]
+authors = ["EMF Team <emf@whamcloud.com>"]
+edition = "2021"
+license = "MIT"
+version = "0.8.1"
+
+[workspace.lints.rust]
+unreachable_pub = "deny"
+
+[workspace.lints.clippy]
 cast_lossless = "warn"
 cast_possible_wrap = "warn"
 unwrap_used = "warn"
 
-[dependencies]
-clap = {version = "4", features = ["derive", "env", "wrap_help", "string"]}
-lustre_collector = "0.8"
-num-traits = "0.2.14"
-prometheus = "0.13.3"
-prometheus_exporter_base = {version = "1.4.0", features = ["hyper_server"]}
-tokio = {version = "1.27", features = [
-  "rt-multi-thread",
-  "macros",
-  "process",
-]}
+[workspace.dependencies]
+clap = "4"
+combine = "=4.6.7"
+include_dir = {version = "0.7", features = ["glob"]}
+insta = "1"
 tracing = "0.1"
 tracing-subscriber = {version = "0.3", features = ["env-filter"]}
 
-[dev-dependencies]
-insta = "1"
-serde_json = "1"
+[profile.release]
+lto = true

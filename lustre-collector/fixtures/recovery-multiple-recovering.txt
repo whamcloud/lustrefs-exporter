@@ -1,0 +1,44 @@
+obdfilter.fs-OST0000.recovery_status=
+status: COMPLETE
+recovery_start: 1620410016
+recovery_duration: 150
+completed_clients: 4/8
+replayed_requests: 0
+last_transno: 4294967296
+VBR: ENABLED
+IR: ENABLED
+obdfilter.fs-OST0001.recovery_status=
+status: COMPLETE
+recovery_start: 1620410016
+recovery_duration: 150
+completed_clients: 4/8
+replayed_requests: 0
+last_transno: 4294967296
+VBR: ENABLED
+IR: ENABLED
+obdfilter.fs-OST0004.recovery_status=
+status: COMPLETE
+recovery_start: 1620920834
+recovery_duration: 13
+completed_clients: 8/8
+replayed_requests: 0
+last_transno: 42949672960
+VBR: DISABLED
+IR: ENABLED
+mdt.fs-MDT0000.recovery_status=
+status: COMPLETE
+recovery_start: 1620410024
+recovery_duration: 1760
+completed_clients: 3/7
+replayed_requests: 0
+last_transno: 4294967310
+VBR: ENABLED
+IR: ENABLED
+mdt.fs-MDT0002.recovery_status=
+status: RECOVERING
+recovery_start: 1620920843
+time_remaining: 119
+connected_clients: 3/7
+req_replay_clients: 0
+lock_repay_clients: 0
+completed_clients: 3

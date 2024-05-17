@@ -1,0 +1,684 @@
+---
+source: src/osd_parser.rs
+expression: result
+---
+(
+    [
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 130871,
+                },
+            ),
+        ),
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "ai400x2-MDT0000",
+                    ),
+                    value: 97713887,
+                },
+            ),
+        ),
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "ai400x2-OST0000",
+                    ),
+                    value: 1073740846,
+                },
+            ),
+        ),
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "ai400x2-OST0001",
+                    ),
+                    value: 1073740847,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 131072,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "ai400x2-MDT0000",
+                    ),
+                    value: 97714176,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "ai400x2-OST0000",
+                    ),
+                    value: 1073741824,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "ai400x2-OST0001",
+                    ),
+                    value: 1073741824,
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "ai400x2-MDT0000",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "ai400x2-OST0000",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "ai400x2-OST0001",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 1873796,
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "ai400x2-MDT0000",
+                    ),
+                    value: 138705356,
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "ai400x2-OST0000",
+                    ),
+                    value: 3258994352,
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "ai400x2-OST0001",
+                    ),
+                    value: 3259399856,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 1978652,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "ai400x2-MDT0000",
+                    ),
+                    value: 141148044,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "ai400x2-OST0000",
+                    ),
+                    value: 3460337328,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "ai400x2-OST0001",
+                    ),
+                    value: 3460742832,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 1980036,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "ai400x2-MDT0000",
+                    ),
+                    value: 141153940,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "ai400x2-OST0000",
+                    ),
+                    value: 3461006668,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "ai400x2-OST0001",
+                    ),
+                    value: 3461006668,
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "ai400x2-MDT0000",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "ai400x2-OST0000",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 256,
+                                    read: 0,
+                                    write: 2,
+                                },
+                                BrwStatsBucket {
+                                    name: 512,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 1024,
+                                    read: 0,
+                                    write: 174,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 0,
+                                    read: 0,
+                                    write: 176,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 0,
+                                    read: 0,
+                                    write: 176,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1,
+                                    read: 0,
+                                    write: 2,
+                                },
+                                BrwStatsBucket {
+                                    name: 2,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 3,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 4,
+                                    read: 0,
+                                    write: 174,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1,
+                                    read: 0,
+                                    write: 176,
+                                },
+                                BrwStatsBucket {
+                                    name: 2,
+                                    read: 0,
+                                    write: 174,
+                                },
+                                BrwStatsBucket {
+                                    name: 3,
+                                    read: 0,
+                                    write: 174,
+                                },
+                                BrwStatsBucket {
+                                    name: 4,
+                                    read: 0,
+                                    write: 174,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1,
+                                    read: 0,
+                                    write: 176,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1048576,
+                                    read: 0,
+                                    write: 698,
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "ai400x2-OST0001",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1024,
+                                    read: 0,
+                                    write: 64,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 0,
+                                    read: 0,
+                                    write: 64,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 0,
+                                    read: 0,
+                                    write: 64,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 4,
+                                    read: 0,
+                                    write: 64,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1,
+                                    read: 0,
+                                    write: 64,
+                                },
+                                BrwStatsBucket {
+                                    name: 2,
+                                    read: 0,
+                                    write: 64,
+                                },
+                                BrwStatsBucket {
+                                    name: 3,
+                                    read: 0,
+                                    write: 64,
+                                },
+                                BrwStatsBucket {
+                                    name: 4,
+                                    read: 0,
+                                    write: 64,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1,
+                                    read: 0,
+                                    write: 64,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1048576,
+                                    read: 0,
+                                    write: 256,
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ),
+        ),
+    ],
+    "",
+)

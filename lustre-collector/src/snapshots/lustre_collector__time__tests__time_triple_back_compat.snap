@@ -1,0 +1,8 @@
+---
+source: src/time.rs
+expression: result
+---
+(
+    "1596728874.484750908",
+    "req_waittime              31280 samples [usec] 11 2695 5020274 1032267156\n\n",
+)

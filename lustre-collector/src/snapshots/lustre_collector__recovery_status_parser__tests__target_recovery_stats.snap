@@ -1,0 +1,12 @@
+---
+source: src/recovery_status_parser.rs
+expression: records
+---
+[
+    Status(
+        Complete,
+    ),
+    Completed(
+        4,
+    ),
+]

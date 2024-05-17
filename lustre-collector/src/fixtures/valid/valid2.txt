@@ -1,0 +1,364 @@
+memused=1428667814
+memused_max=1431117162
+lnet_memused=179561964
+health_check=healthy
+mdt.testfs-MDT0000.exports.0@lo.uuid=
+2c4650cb-5887-4266-ae49-bcaf8322982c
+testfs-MDT0000-lwp-OST0001_UUID
+testfs-MDT0000-lwp-OST0000_UUID
+testfs-MDT0000-lwp-MDT0000_UUID
+mdt.testfs-MDT0000.exports.172.16.240.131@o2ib.uuid=
+testfs-MDT0000-lwp-OST0005_UUID
+testfs-MDT0000-lwp-OST0004_UUID
+testfs-MDT0002-mdtlov_UUID
+testfs-MDT0000-lwp-MDT0002_UUID
+mdt.testfs-MDT0000.exports.172.16.240.132@o2ib.uuid=
+testfs-MDT0000-lwp-OST0003_UUID
+testfs-MDT0000-lwp-OST0002_UUID
+testfs-MDT0001-mdtlov_UUID
+testfs-MDT0000-lwp-MDT0001_UUID
+mdt.testfs-MDT0000.exports.172.16.240.133@o2ib.uuid=
+testfs-MDT0000-lwp-OST0006_UUID
+testfs-MDT0000-lwp-OST0007_UUID
+testfs-MDT0003-mdtlov_UUID
+testfs-MDT0000-lwp-MDT0003_UUID
+osd-ldiskfs.MGS.filesfree=130871
+osd-ldiskfs.testfs-MDT0000.filesfree=257722634
+osd-ldiskfs.testfs-OST0000.filesfree=274726412
+osd-ldiskfs.testfs-OST0001.filesfree=274726412
+osd-ldiskfs.MGS.filestotal=131072
+osd-ldiskfs.testfs-MDT0000.filestotal=257722920
+osd-ldiskfs.testfs-OST0000.filestotal=274726912
+osd-ldiskfs.testfs-OST0001.filestotal=274726912
+osd-ldiskfs.MGS.fstype=ldiskfs
+osd-ldiskfs.testfs-MDT0000.fstype=ldiskfs
+osd-ldiskfs.testfs-OST0000.fstype=ldiskfs
+osd-ldiskfs.testfs-OST0001.fstype=ldiskfs
+osd-ldiskfs.MGS.kbytesavail=1873816
+osd-ldiskfs.testfs-MDT0000.kbytesavail=359762008
+osd-ldiskfs.testfs-OST0000.kbytesavail=34398756288
+osd-ldiskfs.testfs-OST0001.kbytesavail=34398756288
+osd-ldiskfs.MGS.kbytesfree=1978672
+osd-ldiskfs.testfs-MDT0000.kbytesfree=366204132
+osd-ldiskfs.testfs-OST0000.kbytesfree=34750423116
+osd-ldiskfs.testfs-OST0001.kbytesfree=34750423116
+osd-ldiskfs.MGS.kbytestotal=1980036
+osd-ldiskfs.testfs-MDT0000.kbytestotal=366222772
+osd-ldiskfs.testfs-OST0000.kbytestotal=34750424936
+osd-ldiskfs.testfs-OST0001.kbytestotal=34750424936
+osd-ldiskfs.MGS.brw_stats=
+snapshot_time:            1701093031.364733547 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+osd-ldiskfs.testfs-MDT0000.brw_stats=
+snapshot_time:            1701093031.364752320 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+osd-ldiskfs.testfs-OST0000.brw_stats=
+snapshot_time:            1701093031.364765737 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+osd-ldiskfs.testfs-OST0001.brw_stats=
+snapshot_time:            1701093031.364778711 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+mdt.testfs-MDT0000.exports.0@lo.uuid=
+2c4650cb-5887-4266-ae49-bcaf8322982c
+testfs-MDT0000-lwp-OST0001_UUID
+testfs-MDT0000-lwp-OST0000_UUID
+testfs-MDT0000-lwp-MDT0000_UUID
+mdt.testfs-MDT0000.exports.172.16.240.131@o2ib.uuid=
+testfs-MDT0000-lwp-OST0005_UUID
+testfs-MDT0000-lwp-OST0004_UUID
+testfs-MDT0002-mdtlov_UUID
+testfs-MDT0000-lwp-MDT0002_UUID
+mdt.testfs-MDT0000.exports.172.16.240.132@o2ib.uuid=
+testfs-MDT0000-lwp-OST0003_UUID
+testfs-MDT0000-lwp-OST0002_UUID
+testfs-MDT0001-mdtlov_UUID
+testfs-MDT0000-lwp-MDT0001_UUID
+mdt.testfs-MDT0000.exports.172.16.240.133@o2ib.uuid=
+testfs-MDT0000-lwp-OST0006_UUID
+testfs-MDT0000-lwp-OST0007_UUID
+testfs-MDT0003-mdtlov_UUID
+testfs-MDT0000-lwp-MDT0003_UUID
+mgs.MGS.mgs.stats=
+snapshot_time             1701093031.364906323 secs.nsecs
+req_waittime              2401 samples [usecs] 8 47029 275681 5985183985
+req_qdepth                2401 samples [reqs] 0 0 0 0
+req_active                2401 samples [reqs] 1 3 2425 2475
+req_timeout               2401 samples [secs] 1 10 2410 2500
+reqbuf_avail              6560 samples [bufs] 61 64 414962 26250410
+ldlm_plain_enqueue        59 samples [reqs] 1 1 59 59
+mgs_connect               4 samples [usecs] 40 63 204 10670
+mgs_target_reg            24 samples [usecs] 12 691 4172 1491574
+mgs_config_read           12 samples [usecs] 26 439 1406 295580
+obd_ping                  2121 samples [usecs] 6 47006 147929 3631971991
+llog_origin_handle_open   42 samples [usecs] 6 50 677 14905
+llog_origin_handle_next_block 101 samples [usecs] 6 259 2656 169606
+llog_origin_handle_read_header 38 samples [usecs] 7 190 1271 93967
+mgs.MGS.mgs.threads_max=32
+mgs.MGS.mgs.threads_min=3
+mgs.MGS.mgs.threads_started=4
+mgs.MGS.num_exports=4
+obdfilter.testfs-OST0000.job_stats=job_stats:
+obdfilter.testfs-OST0001.job_stats=job_stats:
+obdfilter.testfs-OST0000.stats=
+snapshot_time             1701093031.365202411 secs.nsecs
+create                    8 samples [usecs] 1 1201 2230 1751346
+statfs                    9714 samples [usecs] 0 27 26301 156187
+get_info                  4 samples [usecs] 872 1999 4718 6464074
+obdfilter.testfs-OST0001.stats=
+snapshot_time             1701093031.365218851 secs.nsecs
+create                    8 samples [usecs] 1 1673 2685 3107485
+statfs                    9714 samples [usecs] 0 27 26831 166481
+get_info                  4 samples [usecs] 1009 1724 5464 7883602
+obdfilter.testfs-OST0000.num_exports=4
+obdfilter.testfs-OST0001.num_exports=4
+obdfilter.testfs-OST0000.tot_dirty=0
+obdfilter.testfs-OST0001.tot_dirty=0
+obdfilter.testfs-OST0000.tot_granted=276416
+obdfilter.testfs-OST0001.tot_granted=276416
+obdfilter.testfs-OST0000.tot_pending=0
+obdfilter.testfs-OST0001.tot_pending=0
+ost.OSS.ost.stats=
+snapshot_time             1701093031.365458026 secs.nsecs
+req_waittime              42 samples [usecs] 9 76 1159 37619
+req_qdepth                42 samples [reqs] 0 0 0 0
+req_active                42 samples [reqs] 1 2 51 69
+req_timeout               42 samples [secs] 1 10 96 636
+reqbuf_avail              96 samples [bufs] 64 64 6144 393216
+ost_create                16 samples [usecs] 6 1693 5130 5041288
+ost_get_info              8 samples [usecs] 890 2014 10289 14624345
+ost_connect               10 samples [usecs] 40 799 1324 673562
+ost_disconnect            2 samples [usecs] 51 54 105 5517
+obd_ping                  6 samples [usecs] 16 37 166 4920
+ost.OSS.ost_io.stats=snapshot_time             1701093031.365499666 secs.nsecs
+ost.OSS.ost_create.stats=
+snapshot_time             1701093031.365524221 secs.nsecs
+req_waittime              19428 samples [usecs] 7 47856 2170021 33504364513
+req_qdepth                19428 samples [reqs] 0 1 14 14
+req_active                19428 samples [reqs] 1 2 22581 28887
+req_timeout               19428 samples [secs] 1 31 20142 41142
+reqbuf_avail              50071 samples [bufs] 63 64 3203764 204991756
+ost_statfs                19428 samples [usecs] 3 47562 907024 13525897792
+ost.OSS.ost_out.stats=
+snapshot_time             1701093031.365568924 secs.nsecs
+req_waittime              7306 samples [usecs] 8 31307 572613 6070930167
+req_qdepth                7306 samples [reqs] 0 0 0 0
+req_active                7306 samples [reqs] 1 2 7307 7309
+req_timeout               7306 samples [secs] 1 10 8146 12100
+reqbuf_avail              20590 samples [bufs] 63 64 1317624 84319368
+mds_connect               10 samples [usecs] 11 7319 7685 53586307
+mds_statfs                7284 samples [usecs] 4 66 180765 5025495
+obd_ping                  3 samples [usecs] 10 14 37 465
+out_update                9 samples [usecs] 9 103 382 25354
+ost.OSS.ost_seq.stats=
+snapshot_time             1701093031.365608717 secs.nsecs
+req_waittime              26 samples [usecs] 20 4013 7178 21315024
+req_qdepth                26 samples [reqs] 0 0 0 0
+req_active                26 samples [reqs] 1 2 30 38
+req_timeout               26 samples [secs] 1 10 71 521
+reqbuf_avail              65 samples [bufs] 64 64 4160 266240
+seq_query                 26 samples [usecs] 9 4057 16420 57794128
+mdt.testfs-MDT0000.job_stats=
+job_stats:
+- job_id:          dd.0
+  snapshot_time:   1701093009
+  open:            { samples:           1, unit: usecs, min:      185, max:      185, sum:
+  185, sumsq:              34225 }
+  close:           { samples:           1, unit: usecs, min:       51, max:       51, sum:
+   51, sumsq:               2601 }
+  mknod:           { samples:           1, unit: usecs, min:      170, max:      170, sum:
+  170, sumsq:              28900 }
+  link:            { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  unlink:          { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  mkdir:           { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  rmdir:           { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  rename:          { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  getxattr:        { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  setxattr:        { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  samedir_rename:  { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  parallel_rename_file: { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  parallel_rename_dir: { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  crossdir_rename: { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  write:           { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  write_bytes:     { samples:           0, unit: bytes, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  punch:           { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+  migrate:         { samples:           0, unit: usecs, min:        0, max:        0, sum:
+    0, sumsq:                  0 }
+mdt.testfs-MDT0000.md_stats=
+snapshot_time             1701093031.365709921 secs.nsecs
+open                      4 samples [usecs] 62 392 794 215758
+close                     5 samples [usecs] 26 51 175 6707
+mknod                     3 samples [usecs] 146 376 692 191592
+unlink                    2 samples [usecs] 108 118 226 25588
+getattr                   9 samples [usecs] 6 23 142 2390
+setattr                   2 samples [usecs] 41 64 105 5777
+getxattr                  1 samples [usecs] 16 16 16 256
+statfs                    7286 samples [usecs] 0 33 44145 370781
+mdt.testfs-MDT0000.num_exports=16
+ldlm.namespaces.mdt-testfs-MDT0000_UUID.contended_locks=32
+ldlm.namespaces.filter-testfs-OST0000_UUID.contended_locks=32
+ldlm.namespaces.filter-testfs-OST0001_UUID.contended_locks=32
+ldlm.namespaces.mdt-testfs-MDT0000_UUID.contention_seconds=2
+ldlm.namespaces.filter-testfs-OST0000_UUID.contention_seconds=2
+ldlm.namespaces.filter-testfs-OST0001_UUID.contention_seconds=2
+ldlm.namespaces.mdt-testfs-MDT0000_UUID.ctime_age_limit=10
+ldlm.namespaces.filter-testfs-OST0000_UUID.ctime_age_limit=10
+ldlm.namespaces.filter-testfs-OST0001_UUID.ctime_age_limit=10
+ldlm.namespaces.mdt-testfs-MDT0000_UUID.early_lock_cancel=0
+ldlm.namespaces.filter-testfs-OST0000_UUID.early_lock_cancel=0
+ldlm.namespaces.filter-testfs-OST0001_UUID.early_lock_cancel=0
+ldlm.namespaces.mdt-testfs-MDT0000_UUID.lock_count=1
+ldlm.namespaces.filter-testfs-OST0000_UUID.lock_count=0
+ldlm.namespaces.filter-testfs-OST0001_UUID.lock_count=0
+ldlm.namespaces.mdt-testfs-MDT0000_UUID.lock_timeouts=0
+ldlm.namespaces.filter-testfs-OST0000_UUID.lock_timeouts=0
+ldlm.namespaces.filter-testfs-OST0001_UUID.lock_timeouts=0
+ldlm.namespaces.mdt-testfs-MDT0000_UUID.lock_unused_count=0
+ldlm.namespaces.filter-testfs-OST0000_UUID.lock_unused_count=0
+ldlm.namespaces.filter-testfs-OST0001_UUID.lock_unused_count=0
+ldlm.namespaces.mdt-testfs-MDT0000_UUID.lru_max_age=3900000
+ldlm.namespaces.filter-testfs-OST0000_UUID.lru_max_age=3900000
+ldlm.namespaces.filter-testfs-OST0001_UUID.lru_max_age=3900000
+ldlm.namespaces.mdt-testfs-MDT0000_UUID.lru_size=2400
+ldlm.namespaces.filter-testfs-OST0000_UUID.lru_size=2400
+ldlm.namespaces.filter-testfs-OST0001_UUID.lru_size=2400
+ldlm.namespaces.mdt-testfs-MDT0000_UUID.max_nolock_bytes=0
+ldlm.namespaces.filter-testfs-OST0000_UUID.max_nolock_bytes=0
+ldlm.namespaces.filter-testfs-OST0001_UUID.max_nolock_bytes=0
+ldlm.namespaces.mdt-testfs-MDT0000_UUID.max_parallel_ast=1024
+ldlm.namespaces.filter-testfs-OST0000_UUID.max_parallel_ast=1024
+ldlm.namespaces.filter-testfs-OST0001_UUID.max_parallel_ast=1024
+ldlm.namespaces.mdt-testfs-MDT0000_UUID.resource_count=1
+ldlm.namespaces.filter-testfs-OST0000_UUID.resource_count=0
+ldlm.namespaces.filter-testfs-OST0001_UUID.resource_count=0
+ldlm.services.ldlm_canceld.stats=
+snapshot_time             1701093031.367196745 secs.nsecs
+req_waittime              5 samples [usecs] 23 35 138 3890
+req_qdepth                5 samples [reqs] 0 0 0 0
+req_active                5 samples [reqs] 1 1 5 5
+req_timeout               5 samples [secs] 1 10 32 302
+reqbuf_avail              14 samples [bufs] 64 64 896 57344
+ldlm_cancel               5 samples [usecs] 11 45 118 3480
+ldlm.services.ldlm_cbd.stats=
+snapshot_time             1701093031.367229301 secs.nsecs
+req_waittime              3 samples [usecs] 34 42 117 4601
+req_qdepth                3 samples [reqs] 0 0 0 0
+req_active                3 samples [reqs] 1 1 3 3
+req_timeout               3 samples [secs] 1 10 12 102
+reqbuf_avail              9 samples [bufs] 1 1 9 9
+ldlm_bl_callback          3 samples [usecs] 17 25 61 1275

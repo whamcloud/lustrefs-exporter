@@ -1,0 +1,3602 @@
+---
+source: src/parser.rs
+expression: result
+---
+(
+    [
+        Host(
+            Memused(
+                HostStat {
+                    param: Param(
+                        "memused",
+                    ),
+                    value: 979131675,
+                },
+            ),
+        ),
+        Host(
+            MemusedMax(
+                HostStat {
+                    param: Param(
+                        "memused_max",
+                    ),
+                    value: 980531339,
+                },
+            ),
+        ),
+        Host(
+            LNetMemUsed(
+                HostStat {
+                    param: Param(
+                        "lnet_memused",
+                    ),
+                    value: 49781444,
+                },
+            ),
+        ),
+        Host(
+            HealthCheck(
+                HostStat {
+                    param: Param(
+                        "health_check",
+                    ),
+                    value: HealthCheckStat {
+                        healthy: true,
+                        targets: [],
+                    },
+                },
+            ),
+        ),
+        Target(
+            ConnectedClients(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "connected_clients",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 1,
+                },
+            ),
+        ),
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 32570,
+                },
+            ),
+        ),
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 1885342,
+                },
+            ),
+        ),
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 40658,
+                },
+            ),
+        ),
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 40658,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 32768,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 1885696,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 40960,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 40960,
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 463676,
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 2366352,
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 4038172,
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 4038172,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 489888,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 2600460,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 4106984,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 4106984,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 491092,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 2602832,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 4108388,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 4108388,
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "block_maps_msec",
+                            unit: "maps",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "block_maps_msec",
+                            unit: "maps",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "block_maps_msec",
+                            unit: "maps",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "block_maps_msec",
+                            unit: "maps",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "block_maps_msec",
+                            unit: "maps",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "block_maps_msec",
+                            unit: "maps",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "block_maps_msec",
+                            unit: "maps",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "block_maps_msec",
+                            unit: "maps",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Stats(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "stats",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usecs",
+                            samples: 283261,
+                            min: Some(
+                                6,
+                            ),
+                            max: Some(
+                                17732,
+                            ),
+                            sum: Some(
+                                18689093,
+                            ),
+                            sumsquare: Some(
+                                10319338087,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 283261,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                0,
+                            ),
+                            sum: Some(
+                                0,
+                            ),
+                            sumsquare: Some(
+                                0,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 283261,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                2,
+                            ),
+                            sum: Some(
+                                283272,
+                            ),
+                            sumsquare: Some(
+                                283294,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "secs",
+                            samples: 283261,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                15,
+                            ),
+                            sum: Some(
+                                4245284,
+                            ),
+                            sumsquare: Some(
+                                63675584,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 573298,
+                            min: Some(
+                                62,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                36125424,
+                            ),
+                            sumsquare: Some(
+                                2276391356,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_plain_enqueue",
+                            units: "reqs",
+                            samples: 164,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                164,
+                            ),
+                            sumsquare: Some(
+                                164,
+                            ),
+                        },
+                        Stat {
+                            name: "mgs_connect",
+                            units: "usecs",
+                            samples: 13,
+                            min: Some(
+                                34,
+                            ),
+                            max: Some(
+                                912,
+                            ),
+                            sum: Some(
+                                3991,
+                            ),
+                            sumsquare: Some(
+                                2779623,
+                            ),
+                        },
+                        Stat {
+                            name: "mgs_disconnect",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                59,
+                            ),
+                            max: Some(
+                                59,
+                            ),
+                            sum: Some(
+                                59,
+                            ),
+                            sumsquare: Some(
+                                3481,
+                            ),
+                        },
+                        Stat {
+                            name: "mgs_target_reg",
+                            units: "usecs",
+                            samples: 20,
+                            min: Some(
+                                176,
+                            ),
+                            max: Some(
+                                113059,
+                            ),
+                            sum: Some(
+                                534630,
+                            ),
+                            sumsquare: Some(
+                                27317946500,
+                            ),
+                        },
+                        Stat {
+                            name: "mgs_config_read",
+                            units: "usecs",
+                            samples: 11,
+                            min: Some(
+                                33,
+                            ),
+                            max: Some(
+                                391,
+                            ),
+                            sum: Some(
+                                2110,
+                            ),
+                            sumsquare: Some(
+                                623708,
+                            ),
+                        },
+                        Stat {
+                            name: "obd_ping",
+                            units: "usecs",
+                            samples: 282582,
+                            min: Some(
+                                3,
+                            ),
+                            max: Some(
+                                3495,
+                            ),
+                            sum: Some(
+                                7074734,
+                            ),
+                            sumsquare: Some(
+                                281054538,
+                            ),
+                        },
+                        Stat {
+                            name: "llog_origin_handle_open",
+                            units: "usecs",
+                            samples: 151,
+                            min: Some(
+                                8,
+                            ),
+                            max: Some(
+                                133,
+                            ),
+                            sum: Some(
+                                4354,
+                            ),
+                            sumsquare: Some(
+                                174038,
+                            ),
+                        },
+                        Stat {
+                            name: "llog_origin_handle_next_block",
+                            units: "usecs",
+                            samples: 191,
+                            min: Some(
+                                12,
+                            ),
+                            max: Some(
+                                16734,
+                            ),
+                            sum: Some(
+                                34134,
+                            ),
+                            sumsquare: Some(
+                                396818036,
+                            ),
+                        },
+                        Stat {
+                            name: "llog_origin_handle_read_header",
+                            units: "usecs",
+                            samples: 128,
+                            min: Some(
+                                10,
+                            ),
+                            max: Some(
+                                43229,
+                            ),
+                            sum: Some(
+                                74626,
+                            ),
+                            sumsquare: Some(
+                                2189883640,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ThreadsMax(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "threads_max",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 32,
+                },
+            ),
+        ),
+        Target(
+            ThreadsMin(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "threads_min",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 3,
+                },
+            ),
+        ),
+        Target(
+            ThreadsStarted(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "threads_started",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 3,
+                },
+            ),
+        ),
+        Target(
+            NumExports(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "num_exports",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 4,
+                },
+            ),
+        ),
+        Target(
+            JobStatsOst(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "job_stats",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: None,
+                },
+            ),
+        ),
+        Target(
+            JobStatsOst(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "job_stats",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: None,
+                },
+            ),
+        ),
+        Target(
+            Stats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "stats",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: [
+                        Stat {
+                            name: "create",
+                            units: "usecs",
+                            samples: 2,
+                            min: Some(
+                                2,
+                            ),
+                            max: Some(
+                                8322,
+                            ),
+                            sum: Some(
+                                8324,
+                            ),
+                            sumsquare: Some(
+                                69255688,
+                            ),
+                        },
+                        Stat {
+                            name: "statfs",
+                            units: "usecs",
+                            samples: 339455,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                1848,
+                            ),
+                            sum: Some(
+                                2630128,
+                            ),
+                            sumsquare: Some(
+                                31850120,
+                            ),
+                        },
+                        Stat {
+                            name: "get_info",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                64384,
+                            ),
+                            max: Some(
+                                64384,
+                            ),
+                            sum: Some(
+                                64384,
+                            ),
+                            sumsquare: Some(
+                                4145299456,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Stats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "stats",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: [
+                        Stat {
+                            name: "create",
+                            units: "usecs",
+                            samples: 2,
+                            min: Some(
+                                2,
+                            ),
+                            max: Some(
+                                25320,
+                            ),
+                            sum: Some(
+                                25322,
+                            ),
+                            sumsquare: Some(
+                                641102404,
+                            ),
+                        },
+                        Stat {
+                            name: "statfs",
+                            units: "usecs",
+                            samples: 339455,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                1926,
+                            ),
+                            sum: Some(
+                                2661704,
+                            ),
+                            sumsquare: Some(
+                                38803568,
+                            ),
+                        },
+                        Stat {
+                            name: "get_info",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                59934,
+                            ),
+                            max: Some(
+                                59934,
+                            ),
+                            sum: Some(
+                                59934,
+                            ),
+                            sumsquare: Some(
+                                3592084356,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            NumExports(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "num_exports",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 1,
+                },
+            ),
+        ),
+        Target(
+            NumExports(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "num_exports",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 1,
+                },
+            ),
+        ),
+        Target(
+            TotDirty(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "tot_dirty",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            TotDirty(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "tot_dirty",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            TotGranted(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "tot_granted",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 279104,
+                },
+            ),
+        ),
+        Target(
+            TotGranted(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "tot_granted",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 279104,
+                },
+            ),
+        ),
+        Target(
+            TotPending(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "tot_pending",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            TotPending(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "tot_pending",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "0@lo",
+                            stats: [
+                                Stat {
+                                    name: "create",
+                                    units: "usecs",
+                                    samples: 2,
+                                    min: Some(
+                                        2,
+                                    ),
+                                    max: Some(
+                                        8322,
+                                    ),
+                                    sum: Some(
+                                        8324,
+                                    ),
+                                    sumsquare: Some(
+                                        69255688,
+                                    ),
+                                },
+                                Stat {
+                                    name: "statfs",
+                                    units: "usecs",
+                                    samples: 339455,
+                                    min: Some(
+                                        0,
+                                    ),
+                                    max: Some(
+                                        1848,
+                                    ),
+                                    sum: Some(
+                                        2630128,
+                                    ),
+                                    sumsquare: Some(
+                                        31850120,
+                                    ),
+                                },
+                                Stat {
+                                    name: "get_info",
+                                    units: "usecs",
+                                    samples: 1,
+                                    min: Some(
+                                        64384,
+                                    ),
+                                    max: Some(
+                                        64384,
+                                    ),
+                                    sum: Some(
+                                        64384,
+                                    ),
+                                    sumsquare: Some(
+                                        4145299456,
+                                    ),
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "0@lo",
+                            stats: [
+                                Stat {
+                                    name: "create",
+                                    units: "usecs",
+                                    samples: 2,
+                                    min: Some(
+                                        2,
+                                    ),
+                                    max: Some(
+                                        25320,
+                                    ),
+                                    sum: Some(
+                                        25322,
+                                    ),
+                                    sumsquare: Some(
+                                        641102404,
+                                    ),
+                                },
+                                Stat {
+                                    name: "statfs",
+                                    units: "usecs",
+                                    samples: 339455,
+                                    min: Some(
+                                        0,
+                                    ),
+                                    max: Some(
+                                        1926,
+                                    ),
+                                    sum: Some(
+                                        2661704,
+                                    ),
+                                    sumsquare: Some(
+                                        38803568,
+                                    ),
+                                },
+                                Stat {
+                                    name: "get_info",
+                                    units: "usecs",
+                                    samples: 1,
+                                    min: Some(
+                                        59934,
+                                    ),
+                                    max: Some(
+                                        59934,
+                                    ),
+                                    sum: Some(
+                                        59934,
+                                    ),
+                                    sumsquare: Some(
+                                        3592084356,
+                                    ),
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Oss(
+                OssStat {
+                    param: Param(
+                        "ost",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usecs",
+                            samples: 40,
+                            min: Some(
+                                13,
+                            ),
+                            max: Some(
+                                1795,
+                            ),
+                            sum: Some(
+                                12157,
+                            ),
+                            sumsquare: Some(
+                                15009259,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 40,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                0,
+                            ),
+                            sum: Some(
+                                0,
+                            ),
+                            sumsquare: Some(
+                                0,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 40,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                2,
+                            ),
+                            sum: Some(
+                                46,
+                            ),
+                            sumsquare: Some(
+                                58,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "secs",
+                            samples: 40,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                15,
+                            ),
+                            sum: Some(
+                                467,
+                            ),
+                            sumsquare: Some(
+                                6503,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 88,
+                            min: Some(
+                                64,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                5632,
+                            ),
+                            sumsquare: Some(
+                                360448,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_create",
+                            units: "usecs",
+                            samples: 4,
+                            min: Some(
+                                13,
+                            ),
+                            max: Some(
+                                25346,
+                            ),
+                            sum: Some(
+                                33734,
+                            ),
+                            sumsquare: Some(
+                                712242982,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_get_info",
+                            units: "usecs",
+                            samples: 2,
+                            min: Some(
+                                59952,
+                            ),
+                            max: Some(
+                                64411,
+                            ),
+                            sum: Some(
+                                124363,
+                            ),
+                            sumsquare: Some(
+                                7743019225,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_connect",
+                            units: "usecs",
+                            samples: 28,
+                            min: Some(
+                                21,
+                            ),
+                            max: Some(
+                                1291,
+                            ),
+                            sum: Some(
+                                10615,
+                            ),
+                            sumsquare: Some(
+                                11543299,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_disconnect",
+                            units: "usecs",
+                            samples: 2,
+                            min: Some(
+                                46,
+                            ),
+                            max: Some(
+                                132,
+                            ),
+                            sum: Some(
+                                178,
+                            ),
+                            sumsquare: Some(
+                                19540,
+                            ),
+                        },
+                        Stat {
+                            name: "obd_ping",
+                            units: "usecs",
+                            samples: 4,
+                            min: Some(
+                                3,
+                            ),
+                            max: Some(
+                                15,
+                            ),
+                            sum: Some(
+                                37,
+                            ),
+                            sumsquare: Some(
+                                439,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Oss(
+                OssStat {
+                    param: Param(
+                        "ost_io",
+                    ),
+                    stats: [],
+                },
+            ),
+        ),
+        Target(
+            Oss(
+                OssStat {
+                    param: Param(
+                        "ost_create",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usecs",
+                            samples: 678910,
+                            min: Some(
+                                5,
+                            ),
+                            max: Some(
+                                17968,
+                            ),
+                            sum: Some(
+                                29371956,
+                            ),
+                            sumsquare: Some(
+                                15465967690,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 678910,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                178,
+                            ),
+                            sumsquare: Some(
+                                178,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 678910,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                2,
+                            ),
+                            sum: Some(
+                                712788,
+                            ),
+                            sumsquare: Some(
+                                780544,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "secs",
+                            samples: 678910,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                15,
+                            ),
+                            sum: Some(
+                                10183173,
+                            ),
+                            sumsquare: Some(
+                                152746983,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 1380569,
+                            min: Some(
+                                63,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                88333951,
+                            ),
+                            sumsquare: Some(
+                                5651957569,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_statfs",
+                            units: "usecs",
+                            samples: 678910,
+                            min: Some(
+                                5,
+                            ),
+                            max: Some(
+                                5212,
+                            ),
+                            sum: Some(
+                                19032012,
+                            ),
+                            sumsquare: Some(
+                                797600520,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Oss(
+                OssStat {
+                    param: Param(
+                        "ost_out",
+                    ),
+                    stats: [],
+                },
+            ),
+        ),
+        Target(
+            Oss(
+                OssStat {
+                    param: Param(
+                        "ost_seq",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usecs",
+                            samples: 11,
+                            min: Some(
+                                17,
+                            ),
+                            max: Some(
+                                60,
+                            ),
+                            sum: Some(
+                                378,
+                            ),
+                            sumsquare: Some(
+                                14328,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 11,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                0,
+                            ),
+                            sum: Some(
+                                0,
+                            ),
+                            sumsquare: Some(
+                                0,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 11,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                11,
+                            ),
+                            sumsquare: Some(
+                                11,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "secs",
+                            samples: 11,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                10,
+                            ),
+                            sum: Some(
+                                38,
+                            ),
+                            sumsquare: Some(
+                                308,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 28,
+                            min: Some(
+                                64,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                1792,
+                            ),
+                            sumsquare: Some(
+                                114688,
+                            ),
+                        },
+                        Stat {
+                            name: "seq_query",
+                            units: "usecs",
+                            samples: 11,
+                            min: Some(
+                                11,
+                            ),
+                            max: Some(
+                                74564,
+                            ),
+                            sum: Some(
+                                142855,
+                            ),
+                            sumsquare: Some(
+                                9759512647,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usecs",
+                            samples: 641698,
+                            min: Some(
+                                3,
+                            ),
+                            max: Some(
+                                13405,
+                            ),
+                            sum: Some(
+                                37626253,
+                            ),
+                            sumsquare: Some(
+                                12582911701,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 641698,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                2,
+                            ),
+                            sum: Some(
+                                2669,
+                            ),
+                            sumsquare: Some(
+                                3291,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 641698,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                2,
+                            ),
+                            sum: Some(
+                                844660,
+                            ),
+                            sumsquare: Some(
+                                1250584,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "secs",
+                            samples: 641698,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                15,
+                            ),
+                            sum: Some(
+                                9624974,
+                            ),
+                            sumsquare: Some(
+                                144373934,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 1489755,
+                            min: Some(
+                                63,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                95341111,
+                            ),
+                            sumsquare: Some(
+                                6101628937,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_ibits_enqueue",
+                            units: "reqs",
+                            samples: 1,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                1,
+                            ),
+                            sumsquare: Some(
+                                1,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_set_info",
+                            units: "usecs",
+                            samples: 14,
+                            min: Some(
+                                25,
+                            ),
+                            max: Some(
+                                66,
+                            ),
+                            sum: Some(
+                                509,
+                            ),
+                            sumsquare: Some(
+                                19957,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_connect",
+                            units: "usecs",
+                            samples: 25,
+                            min: Some(
+                                10,
+                            ),
+                            max: Some(
+                                1336,
+                            ),
+                            sum: Some(
+                                5433,
+                            ),
+                            sumsquare: Some(
+                                3991277,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_get_root",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                11,
+                            ),
+                            max: Some(
+                                11,
+                            ),
+                            sum: Some(
+                                11,
+                            ),
+                            sumsquare: Some(
+                                121,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_statfs",
+                            units: "usecs",
+                            samples: 1704,
+                            min: Some(
+                                27,
+                            ),
+                            max: Some(
+                                118,
+                            ),
+                            sum: Some(
+                                77567,
+                            ),
+                            sumsquare: Some(
+                                3738119,
+                            ),
+                        },
+                        Stat {
+                            name: "obd_ping",
+                            units: "usecs",
+                            samples: 639953,
+                            min: Some(
+                                2,
+                            ),
+                            max: Some(
+                                12092,
+                            ),
+                            sum: Some(
+                                10786085,
+                            ),
+                            sumsquare: Some(
+                                560307343,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_fld",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usecs",
+                            samples: 7,
+                            min: Some(
+                                23,
+                            ),
+                            max: Some(
+                                61,
+                            ),
+                            sum: Some(
+                                245,
+                            ),
+                            sumsquare: Some(
+                                9493,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 7,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                0,
+                            ),
+                            sum: Some(
+                                0,
+                            ),
+                            sumsquare: Some(
+                                0,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 7,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                7,
+                            ),
+                            sumsquare: Some(
+                                7,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "secs",
+                            samples: 7,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                10,
+                            ),
+                            sum: Some(
+                                16,
+                            ),
+                            sumsquare: Some(
+                                106,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 15,
+                            min: Some(
+                                64,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                960,
+                            ),
+                            sumsquare: Some(
+                                61440,
+                            ),
+                        },
+                        Stat {
+                            name: "fld_read",
+                            units: "usecs",
+                            samples: 7,
+                            min: Some(
+                                8,
+                            ),
+                            max: Some(
+                                37,
+                            ),
+                            sum: Some(
+                                217,
+                            ),
+                            sumsquare: Some(
+                                7355,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_io",
+                    ),
+                    stats: [],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_out",
+                    ),
+                    stats: [],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_readpage",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usecs",
+                            samples: 67,
+                            min: Some(
+                                10,
+                            ),
+                            max: Some(
+                                6319,
+                            ),
+                            sum: Some(
+                                48456,
+                            ),
+                            sumsquare: Some(
+                                184360858,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 67,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                0,
+                            ),
+                            sum: Some(
+                                0,
+                            ),
+                            sumsquare: Some(
+                                0,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 67,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                3,
+                            ),
+                            sum: Some(
+                                98,
+                            ),
+                            sumsquare: Some(
+                                168,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "secs",
+                            samples: 67,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                15,
+                            ),
+                            sum: Some(
+                                378,
+                            ),
+                            sumsquare: Some(
+                                4818,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 145,
+                            min: Some(
+                                63,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                9229,
+                            ),
+                            sumsquare: Some(
+                                587443,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_ibits_enqueue",
+                            units: "reqs",
+                            samples: 36,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                36,
+                            ),
+                            sumsquare: Some(
+                                36,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_getattr",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                65,
+                            ),
+                            max: Some(
+                                65,
+                            ),
+                            sum: Some(
+                                65,
+                            ),
+                            sumsquare: Some(
+                                4225,
+                            ),
+                        },
+                        Stat {
+                            name: "dt_index_read",
+                            units: "usecs",
+                            samples: 30,
+                            min: Some(
+                                240,
+                            ),
+                            max: Some(
+                                5150,
+                            ),
+                            sum: Some(
+                                43647,
+                            ),
+                            sumsquare: Some(
+                                135777241,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_seqm",
+                    ),
+                    stats: [],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_seqs",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usecs",
+                            samples: 8,
+                            min: Some(
+                                24,
+                            ),
+                            max: Some(
+                                162,
+                            ),
+                            sum: Some(
+                                414,
+                            ),
+                            sumsquare: Some(
+                                35928,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 8,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                0,
+                            ),
+                            sum: Some(
+                                0,
+                            ),
+                            sumsquare: Some(
+                                0,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 8,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                2,
+                            ),
+                            sum: Some(
+                                12,
+                            ),
+                            sumsquare: Some(
+                                20,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "secs",
+                            samples: 8,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                10,
+                            ),
+                            sum: Some(
+                                26,
+                            ),
+                            sumsquare: Some(
+                                206,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 17,
+                            min: Some(
+                                64,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                1088,
+                            ),
+                            sumsquare: Some(
+                                69632,
+                            ),
+                        },
+                        Stat {
+                            name: "seq_query",
+                            units: "usecs",
+                            samples: 8,
+                            min: Some(
+                                24335,
+                            ),
+                            max: Some(
+                                119683,
+                            ),
+                            sum: Some(
+                                501529,
+                            ),
+                            sumsquare: Some(
+                                39841495099,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_setattr",
+                    ),
+                    stats: [],
+                },
+            ),
+        ),
+        Target(
+            JobStatsMdt(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "job_stats",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: None,
+                },
+            ),
+        ),
+        Target(
+            Stats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "md_stats",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: [
+                        Stat {
+                            name: "getattr",
+                            units: "usecs",
+                            samples: 2,
+                            min: Some(
+                                10,
+                            ),
+                            max: Some(
+                                25,
+                            ),
+                            sum: Some(
+                                35,
+                            ),
+                            sumsquare: Some(
+                                725,
+                            ),
+                        },
+                        Stat {
+                            name: "statfs",
+                            units: "usecs",
+                            samples: 1704,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                79,
+                            ),
+                            sum: Some(
+                                30579,
+                            ),
+                            sumsquare: Some(
+                                575641,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            NumExports(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "num_exports",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 10,
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "0@lo",
+                            stats: [
+                                Stat {
+                                    name: "getattr",
+                                    units: "usecs",
+                                    samples: 2,
+                                    min: Some(
+                                        10,
+                                    ),
+                                    max: Some(
+                                        25,
+                                    ),
+                                    sum: Some(
+                                        35,
+                                    ),
+                                    sumsquare: Some(
+                                        725,
+                                    ),
+                                },
+                                Stat {
+                                    name: "statfs",
+                                    units: "usecs",
+                                    samples: 1704,
+                                    min: Some(
+                                        1,
+                                    ),
+                                    max: Some(
+                                        79,
+                                    ),
+                                    sum: Some(
+                                        30579,
+                                    ),
+                                    sumsquare: Some(
+                                        575641,
+                                    ),
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.73.20.12@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.73.20.13@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.73.20.14@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ContendedLocks(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "contended_locks",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 32,
+                },
+            ),
+        ),
+        Target(
+            ContendedLocks(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "contended_locks",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 32,
+                },
+            ),
+        ),
+        Target(
+            ContendedLocks(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "contended_locks",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 32,
+                },
+            ),
+        ),
+        Target(
+            ContentionSeconds(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "contention_seconds",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 2,
+                },
+            ),
+        ),
+        Target(
+            ContentionSeconds(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "contention_seconds",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 2,
+                },
+            ),
+        ),
+        Target(
+            ContentionSeconds(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "contention_seconds",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 2,
+                },
+            ),
+        ),
+        Target(
+            CtimeAgeLimit(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "ctime_age_limit",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 10,
+                },
+            ),
+        ),
+        Target(
+            CtimeAgeLimit(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "ctime_age_limit",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 10,
+                },
+            ),
+        ),
+        Target(
+            CtimeAgeLimit(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "ctime_age_limit",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 10,
+                },
+            ),
+        ),
+        Target(
+            EarlyLockCancel(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "early_lock_cancel",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            EarlyLockCancel(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "early_lock_cancel",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            EarlyLockCancel(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "early_lock_cancel",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            LockCount(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "lock_count",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 30,
+                },
+            ),
+        ),
+        Target(
+            LockCount(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "lock_count",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            LockCount(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "lock_count",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            LockTimeouts(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "lock_timeouts",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            LockTimeouts(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "lock_timeouts",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            LockTimeouts(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "lock_timeouts",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            LockUnusedCount(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "lock_unused_count",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            LockUnusedCount(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "lock_unused_count",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            LockUnusedCount(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "lock_unused_count",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            LruMaxAge(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "lru_max_age",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 3900000,
+                },
+            ),
+        ),
+        Target(
+            LruMaxAge(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "lru_max_age",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 3900000,
+                },
+            ),
+        ),
+        Target(
+            LruMaxAge(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "lru_max_age",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 3900000,
+                },
+            ),
+        ),
+        Target(
+            LruSize(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "lru_size",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 800,
+                },
+            ),
+        ),
+        Target(
+            LruSize(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "lru_size",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 800,
+                },
+            ),
+        ),
+        Target(
+            LruSize(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "lru_size",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 800,
+                },
+            ),
+        ),
+        Target(
+            MaxNolockBytes(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "max_nolock_bytes",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            MaxNolockBytes(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "max_nolock_bytes",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            MaxNolockBytes(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "max_nolock_bytes",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            MaxParallelAst(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "max_parallel_ast",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 1024,
+                },
+            ),
+        ),
+        Target(
+            MaxParallelAst(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "max_parallel_ast",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 1024,
+                },
+            ),
+        ),
+        Target(
+            MaxParallelAst(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "max_parallel_ast",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 1024,
+                },
+            ),
+        ),
+        Target(
+            ResourceCount(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "resource_count",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 6,
+                },
+            ),
+        ),
+        Target(
+            ResourceCount(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "resource_count",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            ResourceCount(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "resource_count",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        LustreService(
+            LdlmCanceld(
+                [
+                    Stat {
+                        name: "req_waittime",
+                        units: "usecs",
+                        samples: 105,
+                        min: Some(
+                            9,
+                        ),
+                        max: Some(
+                            119,
+                        ),
+                        sum: Some(
+                            4716,
+                        ),
+                        sumsquare: Some(
+                            246288,
+                        ),
+                    },
+                    Stat {
+                        name: "req_qdepth",
+                        units: "reqs",
+                        samples: 105,
+                        min: Some(
+                            0,
+                        ),
+                        max: Some(
+                            0,
+                        ),
+                        sum: Some(
+                            0,
+                        ),
+                        sumsquare: Some(
+                            0,
+                        ),
+                    },
+                    Stat {
+                        name: "req_active",
+                        units: "reqs",
+                        samples: 105,
+                        min: Some(
+                            1,
+                        ),
+                        max: Some(
+                            2,
+                        ),
+                        sum: Some(
+                            133,
+                        ),
+                        sumsquare: Some(
+                            189,
+                        ),
+                    },
+                    Stat {
+                        name: "req_timeout",
+                        units: "secs",
+                        samples: 105,
+                        min: Some(
+                            1,
+                        ),
+                        max: Some(
+                            15,
+                        ),
+                        sum: Some(
+                            1158,
+                        ),
+                        sumsquare: Some(
+                            16728,
+                        ),
+                    },
+                    Stat {
+                        name: "reqbuf_avail",
+                        units: "bufs",
+                        samples: 228,
+                        min: Some(
+                            63,
+                        ),
+                        max: Some(
+                            64,
+                        ),
+                        sum: Some(
+                            14513,
+                        ),
+                        sumsquare: Some(
+                            923855,
+                        ),
+                    },
+                    Stat {
+                        name: "ldlm_cancel",
+                        units: "usecs",
+                        samples: 105,
+                        min: Some(
+                            3,
+                        ),
+                        max: Some(
+                            62,
+                        ),
+                        sum: Some(
+                            1388,
+                        ),
+                        sumsquare: Some(
+                            28858,
+                        ),
+                    },
+                ],
+            ),
+        ),
+        LustreService(
+            LdlmCbd(
+                [
+                    Stat {
+                        name: "req_waittime",
+                        units: "usecs",
+                        samples: 34,
+                        min: Some(
+                            20,
+                        ),
+                        max: Some(
+                            843,
+                        ),
+                        sum: Some(
+                            4966,
+                        ),
+                        sumsquare: Some(
+                            2306660,
+                        ),
+                    },
+                    Stat {
+                        name: "req_qdepth",
+                        units: "reqs",
+                        samples: 34,
+                        min: Some(
+                            0,
+                        ),
+                        max: Some(
+                            1,
+                        ),
+                        sum: Some(
+                            1,
+                        ),
+                        sumsquare: Some(
+                            1,
+                        ),
+                    },
+                    Stat {
+                        name: "req_active",
+                        units: "reqs",
+                        samples: 34,
+                        min: Some(
+                            1,
+                        ),
+                        max: Some(
+                            1,
+                        ),
+                        sum: Some(
+                            34,
+                        ),
+                        sumsquare: Some(
+                            34,
+                        ),
+                    },
+                    Stat {
+                        name: "req_timeout",
+                        units: "secs",
+                        samples: 34,
+                        min: Some(
+                            1,
+                        ),
+                        max: Some(
+                            15,
+                        ),
+                        sum: Some(
+                            369,
+                        ),
+                        sumsquare: Some(
+                            5259,
+                        ),
+                    },
+                    Stat {
+                        name: "reqbuf_avail",
+                        units: "bufs",
+                        samples: 80,
+                        min: Some(
+                            0,
+                        ),
+                        max: Some(
+                            1,
+                        ),
+                        sum: Some(
+                            76,
+                        ),
+                        sumsquare: Some(
+                            76,
+                        ),
+                    },
+                    Stat {
+                        name: "ldlm_bl_callback",
+                        units: "usecs",
+                        samples: 34,
+                        min: Some(
+                            3,
+                        ),
+                        max: Some(
+                            64,
+                        ),
+                        sum: Some(
+                            552,
+                        ),
+                        sumsquare: Some(
+                            15442,
+                        ),
+                    },
+                ],
+            ),
+        ),
+        Target(
+            Llite(
+                LliteStat {
+                    target: Target(
+                        "fs-ffff8920f73de000",
+                    ),
+                    param: Param(
+                        "stats",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "ioctl",
+                            units: "reqs",
+                            samples: 148,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "getattr",
+                            units: "usecs",
+                            samples: 4,
+                            min: Some(
+                                7,
+                            ),
+                            max: Some(
+                                253,
+                            ),
+                            sum: Some(
+                                307,
+                            ),
+                            sumsquare: Some(
+                                65203,
+                            ),
+                        },
+                        Stat {
+                            name: "statfs",
+                            units: "usecs",
+                            samples: 1701,
+                            min: Some(
+                                97,
+                            ),
+                            max: Some(
+                                10545,
+                            ),
+                            sum: Some(
+                                310052,
+                            ),
+                            sumsquare: Some(
+                                169878942,
+                            ),
+                        },
+                        Stat {
+                            name: "inode_permission",
+                            units: "usecs",
+                            samples: 2,
+                            min: Some(
+                                2,
+                            ),
+                            max: Some(
+                                7,
+                            ),
+                            sum: Some(
+                                9,
+                            ),
+                            sumsquare: Some(
+                                53,
+                            ),
+                        },
+                        Stat {
+                            name: "opencount",
+                            units: "reqs",
+                            samples: 2,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                2,
+                            ),
+                            sumsquare: Some(
+                                2,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+    ],
+    "",
+)

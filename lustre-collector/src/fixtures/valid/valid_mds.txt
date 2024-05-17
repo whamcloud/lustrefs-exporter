@@ -1,0 +1,263 @@
+memused=1457821523
+memused_max=1458113635
+lnet_memused=62041660
+health_check=healthy
+mdt.ai400x2-MDT0000.exports.0@lo.uuid=
+ai400x2-MDT0000-lwp-OST0000_UUID
+ai400x2-MDT0000-lwp-OST0001_UUID
+ai400x2-MDT0000-lwp-MDT0000_UUID
+mdt.ai400x2-MDT0000.exports.192.168.5.131@tcp.uuid=
+ai400x2-MDT0000-lwp-OST0003_UUID
+ai400x2-MDT0000-lwp-OST0002_UUID
+ai400x2-MDT0001-mdtlov_UUID
+ai400x2-MDT0000-lwp-MDT0001_UUID
+mdt.ai400x2-MDT0000.exports.192.168.5.132@tcp.uuid=
+ai400x2-MDT0000-lwp-OST0005_UUID
+ai400x2-MDT0000-lwp-OST0004_UUID
+ai400x2-MDT0000-lwp-MDT0002_UUID
+ai400x2-MDT0002-mdtlov_UUID
+mdt.ai400x2-MDT0000.exports.192.168.5.133@tcp.uuid=
+ai400x2-MDT0003-mdtlov_UUID
+ai400x2-MDT0000-lwp-OST0007_UUID
+ai400x2-MDT0000-lwp-MDT0003_UUID
+ai400x2-MDT0000-lwp-OST0006_UUID
+osd-ldiskfs.ai400x2-MDT0000.filesfree=289693298
+osd-ldiskfs.ai400x2-OST0000.filesfree=274719433
+osd-ldiskfs.ai400x2-OST0001.filesfree=274719491
+osd-ldiskfs.ai400x2-MDT0000.filestotal=289887952
+osd-ldiskfs.ai400x2-OST0000.filestotal=274726912
+osd-ldiskfs.ai400x2-OST0001.filestotal=274726912
+osd-ldiskfs.ai400x2-MDT0000.fstype=ldiskfs
+osd-ldiskfs.ai400x2-OST0000.fstype=ldiskfs
+osd-ldiskfs.ai400x2-OST0001.fstype=ldiskfs
+osd-ldiskfs.ai400x2-MDT0000.kbytesavail=405704300
+osd-ldiskfs.ai400x2-OST0000.kbytesavail=32526506848
+osd-ldiskfs.ai400x2-OST0001.kbytesavail=32532536272
+osd-ldiskfs.ai400x2-MDT0000.kbytesfree=412951760
+osd-ldiskfs.ai400x2-OST0000.kbytesfree=32878173676
+osd-ldiskfs.ai400x2-OST0001.kbytesfree=32884203100
+osd-ldiskfs.ai400x2-MDT0000.kbytestotal=414229176
+osd-ldiskfs.ai400x2-OST0000.kbytestotal=34750424936
+osd-ldiskfs.ai400x2-OST0001.kbytestotal=34750424936
+osd-ldiskfs.ai400x2-MDT0000.brw_stats=
+snapshot_time:            1709915907.131002949 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+osd-ldiskfs.ai400x2-OST0000.brw_stats=
+snapshot_time:            1709915907.131035195 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+osd-ldiskfs.ai400x2-OST0001.brw_stats=
+snapshot_time:            1709915907.131054918 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+mdt.ai400x2-MDT0000.exports.0@lo.uuid=
+ai400x2-MDT0000-lwp-OST0000_UUID
+ai400x2-MDT0000-lwp-OST0001_UUID
+ai400x2-MDT0000-lwp-MDT0000_UUID
+mdt.ai400x2-MDT0000.exports.192.168.5.131@tcp.uuid=
+ai400x2-MDT0000-lwp-OST0003_UUID
+ai400x2-MDT0000-lwp-OST0002_UUID
+ai400x2-MDT0001-mdtlov_UUID
+ai400x2-MDT0000-lwp-MDT0001_UUID
+mdt.ai400x2-MDT0000.exports.192.168.5.132@tcp.uuid=
+ai400x2-MDT0000-lwp-OST0005_UUID
+ai400x2-MDT0000-lwp-OST0004_UUID
+ai400x2-MDT0000-lwp-MDT0002_UUID
+ai400x2-MDT0002-mdtlov_UUID
+mdt.ai400x2-MDT0000.exports.192.168.5.133@tcp.uuid=
+ai400x2-MDT0003-mdtlov_UUID
+ai400x2-MDT0000-lwp-OST0007_UUID
+ai400x2-MDT0000-lwp-MDT0003_UUID
+ai400x2-MDT0000-lwp-OST0006_UUID
+obdfilter.ai400x2-OST0000.job_stats=job_stats:
+obdfilter.ai400x2-OST0001.job_stats=job_stats:
+obdfilter.ai400x2-OST0000.stats=
+snapshot_time             1709915907.131555726 secs.nsecs
+create                    4 samples [usecs] 419 36248 71884 2404689422
+statfs                    2263 samples [usecs] 0 68 13225 154557
+get_info                  2 samples [usecs] 349 528 877 400585
+obdfilter.ai400x2-OST0001.stats=
+snapshot_time             1709915907.131611450 secs.nsecs
+create                    4 samples [usecs] 2289 13310 31780 365440262
+statfs                    2263 samples [usecs] 0 89 13156 158076
+get_info                  2 samples [usecs] 391 593 984 504530
+obdfilter.ai400x2-OST0000.num_exports=4
+obdfilter.ai400x2-OST0001.num_exports=4
+obdfilter.ai400x2-OST0000.tot_dirty=0
+obdfilter.ai400x2-OST0001.tot_dirty=0
+obdfilter.ai400x2-OST0000.tot_granted=278208
+obdfilter.ai400x2-OST0001.tot_granted=278208
+obdfilter.ai400x2-OST0000.tot_pending=0
+obdfilter.ai400x2-OST0001.tot_pending=0
+ost.OSS.ost.stats=
+snapshot_time             1709915907.132079324 secs.nsecs
+req_waittime              50 samples [usecs] 14 137 1714 84462
+req_qdepth                50 samples [reqs] 0 0 0 0
+req_active                50 samples [reqs] 1 2 65 95
+req_timeout               50 samples [secs] 15 15 750 11250
+reqbuf_avail              109 samples [bufs] 64 64 6976 446464
+ost_create                8 samples [usecs] 430 36268 103802 2774247166
+ost_get_info              4 samples [usecs] 359 603 1907 949227
+ost_connect               28 samples [usecs] 12 5366 10092 37142598
+obd_ping                  10 samples [usecs] 5 18 112 1364
+ost.OSS.ost_io.stats=snapshot_time             1709915907.132154184 secs.nsecs
+ost.OSS.ost_create.stats=
+snapshot_time             1709915907.132218970 secs.nsecs
+req_waittime              4526 samples [usecs] 9 3372 207465 24493441
+req_qdepth                4526 samples [reqs] 0 1 9 9
+req_active                4526 samples [reqs] 1 2 5985 8903
+req_timeout               4526 samples [secs] 15 15 67890 1018350
+reqbuf_avail              9411 samples [bufs] 63 64 602091 38520405
+ost_statfs                4526 samples [usecs] 4 212 146840 6075330
+ost.OSS.ost_out.stats=
+snapshot_time             1709915907.132299016 secs.nsecs
+req_waittime              1715 samples [usecs] 17 38109 178574 2370654740
+req_qdepth                1715 samples [reqs] 0 0 0 0
+req_active                1715 samples [reqs] 1 2 1717 1721
+req_timeout               1715 samples [secs] 15 15 25725 385875
+reqbuf_avail              3501 samples [bufs] 63 64 224032 14336032
+mds_connect               17 samples [usecs] 40 4497 10692 35297466
+mds_statfs                1691 samples [usecs] 3 228 61155 2818127
+obd_ping                  3 samples [usecs] 12 17 44 658
+out_update                4 samples [usecs] 21 1133 1336 1307420
+ost.OSS.ost_seq.stats=snapshot_time             1709915907.132368586 secs.nsecs
+mds.MDS.mdt.stats=
+snapshot_time             1709915907.132422579 secs.nsecs
+req_waittime              1502 samples [usecs] 8 425 73117 4892951
+req_qdepth                1502 samples [reqs] 0 1 2 2
+req_active                1502 samples [reqs] 1 3 2727 5911
+req_timeout               1502 samples [secs] 15 15 22530 337950
+reqbuf_avail              3571 samples [bufs] 64 64 228544 14626816
+mds_connect               18 samples [usecs] 13 85 839 52169
+obd_ping                  1484 samples [usecs] 2 24312 92285 1056816433
+mds.MDS.mdt_fld.stats=
+snapshot_time             1709915907.132515220 secs.nsecs
+req_waittime              3 samples [usecs] 36 57 131 5989
+req_qdepth                3 samples [reqs] 0 0 0 0
+req_active                3 samples [reqs] 1 1 3 3
+req_timeout               3 samples [secs] 15 15 45 675
+reqbuf_avail              7 samples [bufs] 64 64 448 28672
+fld_query                 3 samples [usecs] 6 23 51 1049
+mds.MDS.mdt_io.stats=snapshot_time             1709915907.132570592 secs.nsecs
+mds.MDS.mdt_out.stats=snapshot_time             1709915907.132676363 secs.nsecs
+mds.MDS.mdt_readpage.stats=snapshot_time             1709915907.132721126 secs.nsecs
+mds.MDS.mdt_seqm.stats=snapshot_time             1709915907.132804255 secs.nsecs
+mds.MDS.mdt_seqs.stats=snapshot_time             1709915907.132844937 secs.nsecs
+mds.MDS.mdt_setattr.stats=snapshot_time             1709915907.132887540 secs.nsecs
+mdt.ai400x2-MDT0000.job_stats=job_stats:
+mdt.ai400x2-MDT0000.md_stats=
+snapshot_time             1709915907.133029192 secs.nsecs
+statfs                    1691 samples [usecs] 0 92 15198 245368
+mdt.ai400x2-MDT0000.num_exports=15
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.contended_locks=32
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.contended_locks=32
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.contended_locks=32
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.contention_seconds=2
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.contention_seconds=2
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.contention_seconds=2
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.ctime_age_limit=10
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.ctime_age_limit=10
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.ctime_age_limit=10
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.early_lock_cancel=0
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.early_lock_cancel=0
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.early_lock_cancel=0
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.lock_count=0
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.lock_count=0
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.lock_count=0
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.lock_timeouts=0
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.lock_timeouts=0
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.lock_timeouts=0
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.lock_unused_count=0
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.lock_unused_count=0
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.lock_unused_count=0
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.lru_max_age=3900000
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.lru_max_age=3900000
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.lru_max_age=3900000
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.lru_size=2400
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.lru_size=2400
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.lru_size=2400
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.max_nolock_bytes=0
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.max_nolock_bytes=0
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.max_nolock_bytes=0
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.max_parallel_ast=1024
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.max_parallel_ast=1024
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.max_parallel_ast=1024
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.resource_count=0
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.resource_count=0
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.resource_count=0
+ldlm.services.ldlm_canceld.stats=snapshot_time             1709915907.135170975 secs.nsecs
+ldlm.services.ldlm_cbd.stats=
+snapshot_time             1709915907.135211631 secs.nsecs
+req_waittime              1 samples [usecs] 30 30 30 900
+req_qdepth                1 samples [reqs] 0 0 0 0
+req_active                1 samples [reqs] 1 1 1 1
+req_timeout               1 samples [secs] 15 15 15 225
+reqbuf_avail              3 samples [bufs] 1 1 3 3
+ldlm_bl_callback          1 samples [usecs] 23 23 23 529

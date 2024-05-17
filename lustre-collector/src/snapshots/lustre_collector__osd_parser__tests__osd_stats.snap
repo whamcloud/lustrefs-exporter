@@ -1,0 +1,600 @@
+---
+source: src/osd_parser.rs
+expression: result
+---
+(
+    [
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 32531,
+                },
+            ),
+        ),
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 1885343,
+                },
+            ),
+        ),
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 39110,
+                },
+            ),
+        ),
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "fs-OST0010",
+                    ),
+                    value: 39110,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 32768,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 1885696,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 40960,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "fs-OST0010",
+                    ),
+                    value: 40960,
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "fs-OST0010",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 462528,
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 2365872,
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 4037288,
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "fs-OST0010",
+                    ),
+                    value: 4037288,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 488740,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 2599980,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 4106100,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "fs-OST0010",
+                    ),
+                    value: 4106100,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 491092,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 2602832,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 4108388,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "fs-OST0010",
+                    ),
+                    value: 4108388,
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "fs-OST0010",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "exa01-OST0013",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "block_maps_msec",
+                            unit: "maps",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+    ],
+    "",
+)

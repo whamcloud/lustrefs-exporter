@@ -20,7 +20,7 @@ cargo build --release
 install -v -d %{buildroot}%{_bindir}
 install -v -d %{buildroot}%{_unitdir}
 install -v -m 0644 lustrefs_exporter.service %{buildroot}%{_unitdir}
-install -v target/release/lustrefs-exporter %{buildroot}%{_bindir}
+install -v ../target/release/lustrefs-exporter %{buildroot}%{_bindir}
 %{__ln_s} lustrefs-exporter %{buildroot}%{_bindir}/lustrefs_exporter
 
 %files

@@ -77,6 +77,36 @@ async fn main() {
 #[cfg(test)]
 mod tests {
     use crate::build_lustre_stats;
+    use combine::parser::EasyParser;
+    use include_dir::{include_dir, Dir};
+    use insta::assert_snapshot;
+    use lustre_collector::parser::parse;
+
+    static VALID_FIXTURES: Dir<'_> =
+        include_dir!("$CARGO_MANIFEST_DIR/../lustre-collector/src/fixtures/valid/");
+
+    #[test]
+    fn test_valid_fixtures() {
+        for dir in VALID_FIXTURES.find("*").unwrap() {
+            match dir {
+                include_dir::DirEntry::Dir(_) => {}
+                include_dir::DirEntry::File(file) => {
+                    let name = file.path().to_string_lossy();
+
+                    let contents = file.contents_utf8().unwrap();
+
+                    let result = parse()
+                        .easy_parse(contents)
+                        .map_err(|err| err.map_position(|p| p.translate_position(contents)))
+                        .unwrap();
+
+                    let x = build_lustre_stats(result.0);
+
+                    assert_snapshot!(format!("valid_fixture_{name}"), x);
+                }
+            }
+        }
+    }
 
     #[test]
     fn test_stats() {

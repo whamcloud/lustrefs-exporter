@@ -1,0 +1,911 @@
+---
+source: src/mds/mds_parser.rs
+expression: result
+---
+(
+    [
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usec",
+                            samples: 96931,
+                            min: Some(
+                                4,
+                            ),
+                            max: Some(
+                                62710,
+                            ),
+                            sum: Some(
+                                5997491,
+                            ),
+                            sumsquare: Some(
+                                90147428825,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 96931,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                2,
+                            ),
+                            sum: Some(
+                                433,
+                            ),
+                            sumsquare: Some(
+                                455,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 96931,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                4,
+                            ),
+                            sum: Some(
+                                127024,
+                            ),
+                            sumsquare: Some(
+                                195224,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "sec",
+                            samples: 96931,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                15,
+                            ),
+                            sum: Some(
+                                1453215,
+                            ),
+                            sumsquare: Some(
+                                21794505,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 214247,
+                            min: Some(
+                                63,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                13711216,
+                            ),
+                            sumsquare: Some(
+                                877480528,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_ibits_enqueue",
+                            units: "reqs",
+                            samples: 14567,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                14567,
+                            ),
+                            sumsquare: Some(
+                                14567,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_reint_setattr",
+                            units: "reqs",
+                            samples: 257,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                257,
+                            ),
+                            sumsquare: Some(
+                                257,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_reint_create",
+                            units: "reqs",
+                            samples: 2,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                2,
+                            ),
+                            sumsquare: Some(
+                                2,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_reint_open",
+                            units: "reqs",
+                            samples: 5505,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                5505,
+                            ),
+                            sumsquare: Some(
+                                5505,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_set_info",
+                            units: "usec",
+                            samples: 3,
+                            min: Some(
+                                11,
+                            ),
+                            max: Some(
+                                19,
+                            ),
+                            sum: Some(
+                                47,
+                            ),
+                            sumsquare: Some(
+                                771,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_connect",
+                            units: "usec",
+                            samples: 88,
+                            min: Some(
+                                13,
+                            ),
+                            max: Some(
+                                4222,
+                            ),
+                            sum: Some(
+                                15363,
+                            ),
+                            sumsquare: Some(
+                                40886015,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_get_root",
+                            units: "usec",
+                            samples: 1,
+                            min: Some(
+                                5,
+                            ),
+                            max: Some(
+                                5,
+                            ),
+                            sum: Some(
+                                5,
+                            ),
+                            sumsquare: Some(
+                                25,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_statfs",
+                            units: "usec",
+                            samples: 4,
+                            min: Some(
+                                14,
+                            ),
+                            max: Some(
+                                35,
+                            ),
+                            sum: Some(
+                                100,
+                            ),
+                            sumsquare: Some(
+                                2726,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_sync",
+                            units: "usec",
+                            samples: 256,
+                            min: Some(
+                                8,
+                            ),
+                            max: Some(
+                                45,
+                            ),
+                            sum: Some(
+                                5212,
+                            ),
+                            sumsquare: Some(
+                                119940,
+                            ),
+                        },
+                        Stat {
+                            name: "obd_ping",
+                            units: "usec",
+                            samples: 81753,
+                            min: Some(
+                                2,
+                            ),
+                            max: Some(
+                                63010,
+                            ),
+                            sum: Some(
+                                2811336,
+                            ),
+                            sumsquare: Some(
+                                56636492420,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_fld",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usec",
+                            samples: 65,
+                            min: Some(
+                                6,
+                            ),
+                            max: Some(
+                                42,
+                            ),
+                            sum: Some(
+                                1212,
+                            ),
+                            sumsquare: Some(
+                                25042,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 65,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                0,
+                            ),
+                            sum: Some(
+                                0,
+                            ),
+                            sumsquare: Some(
+                                0,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 65,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                65,
+                            ),
+                            sumsquare: Some(
+                                65,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "sec",
+                            samples: 65,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                15,
+                            ),
+                            sum: Some(
+                                186,
+                            ),
+                            sumsquare: Some(
+                                1956,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 141,
+                            min: Some(
+                                63,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                9012,
+                            ),
+                            sumsquare: Some(
+                                576012,
+                            ),
+                        },
+                        Stat {
+                            name: "fld_query",
+                            units: "usec",
+                            samples: 57,
+                            min: Some(
+                                3,
+                            ),
+                            max: Some(
+                                23,
+                            ),
+                            sum: Some(
+                                510,
+                            ),
+                            sumsquare: Some(
+                                6280,
+                            ),
+                        },
+                        Stat {
+                            name: "fld_read",
+                            units: "usec",
+                            samples: 8,
+                            min: Some(
+                                11,
+                            ),
+                            max: Some(
+                                42,
+                            ),
+                            sum: Some(
+                                220,
+                            ),
+                            sumsquare: Some(
+                                6736,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_io",
+                    ),
+                    stats: [],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_out",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usec",
+                            samples: 42447,
+                            min: Some(
+                                12,
+                            ),
+                            max: Some(
+                                22802,
+                            ),
+                            sum: Some(
+                                1589380,
+                            ),
+                            sumsquare: Some(
+                                2854834950,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 42447,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                0,
+                            ),
+                            sum: Some(
+                                0,
+                            ),
+                            sumsquare: Some(
+                                0,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 42447,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                2,
+                            ),
+                            sum: Some(
+                                42451,
+                            ),
+                            sumsquare: Some(
+                                42459,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "sec",
+                            samples: 42447,
+                            min: Some(
+                                15,
+                            ),
+                            max: Some(
+                                15,
+                            ),
+                            sum: Some(
+                                636705,
+                            ),
+                            sumsquare: Some(
+                                9550575,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 85306,
+                            min: Some(
+                                63,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                5458793,
+                            ),
+                            sumsquare: Some(
+                                349312919,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_statfs",
+                            units: "usec",
+                            samples: 42437,
+                            min: Some(
+                                5,
+                            ),
+                            max: Some(
+                                11264,
+                            ),
+                            sum: Some(
+                                1188972,
+                            ),
+                            sumsquare: Some(
+                                162527406,
+                            ),
+                        },
+                        Stat {
+                            name: "out_update",
+                            units: "usec",
+                            samples: 10,
+                            min: Some(
+                                9,
+                            ),
+                            max: Some(
+                                24,
+                            ),
+                            sum: Some(
+                                146,
+                            ),
+                            sumsquare: Some(
+                                2296,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_readpage",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usec",
+                            samples: 5506,
+                            min: Some(
+                                3,
+                            ),
+                            max: Some(
+                                641,
+                            ),
+                            sum: Some(
+                                120123,
+                            ),
+                            sumsquare: Some(
+                                4566199,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 5506,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                12,
+                            ),
+                            sumsquare: Some(
+                                12,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 5506,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                3,
+                            ),
+                            sum: Some(
+                                6103,
+                            ),
+                            sumsquare: Some(
+                                7421,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "sec",
+                            samples: 5506,
+                            min: Some(
+                                15,
+                            ),
+                            max: Some(
+                                15,
+                            ),
+                            sum: Some(
+                                82590,
+                            ),
+                            sumsquare: Some(
+                                1238850,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 11604,
+                            min: Some(
+                                63,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                740345,
+                            ),
+                            sumsquare: Some(
+                                47236487,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_getattr",
+                            units: "usec",
+                            samples: 1,
+                            min: Some(
+                                40,
+                            ),
+                            max: Some(
+                                40,
+                            ),
+                            sum: Some(
+                                40,
+                            ),
+                            sumsquare: Some(
+                                1600,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_close",
+                            units: "usec",
+                            samples: 5505,
+                            min: Some(
+                                11,
+                            ),
+                            max: Some(
+                                245,
+                            ),
+                            sum: Some(
+                                178562,
+                            ),
+                            sumsquare: Some(
+                                7560868,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_seqm",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usec",
+                            samples: 1,
+                            min: Some(
+                                28,
+                            ),
+                            max: Some(
+                                28,
+                            ),
+                            sum: Some(
+                                28,
+                            ),
+                            sumsquare: Some(
+                                784,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 1,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                0,
+                            ),
+                            sum: Some(
+                                0,
+                            ),
+                            sumsquare: Some(
+                                0,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 1,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                1,
+                            ),
+                            sumsquare: Some(
+                                1,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "sec",
+                            samples: 1,
+                            min: Some(
+                                15,
+                            ),
+                            max: Some(
+                                15,
+                            ),
+                            sum: Some(
+                                15,
+                            ),
+                            sumsquare: Some(
+                                225,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 3,
+                            min: Some(
+                                64,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                192,
+                            ),
+                            sumsquare: Some(
+                                12288,
+                            ),
+                        },
+                        Stat {
+                            name: "seq_query",
+                            units: "usec",
+                            samples: 1,
+                            min: Some(
+                                14,
+                            ),
+                            max: Some(
+                                14,
+                            ),
+                            sum: Some(
+                                14,
+                            ),
+                            sumsquare: Some(
+                                196,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_seqs",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usec",
+                            samples: 16,
+                            min: Some(
+                                17,
+                            ),
+                            max: Some(
+                                3399,
+                            ),
+                            sum: Some(
+                                7042,
+                            ),
+                            sumsquare: Some(
+                                21343934,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 16,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                0,
+                            ),
+                            sum: Some(
+                                0,
+                            ),
+                            sumsquare: Some(
+                                0,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 16,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                3,
+                            ),
+                            sum: Some(
+                                26,
+                            ),
+                            sumsquare: Some(
+                                52,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "sec",
+                            samples: 16,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                10,
+                            ),
+                            sum: Some(
+                                25,
+                            ),
+                            sumsquare: Some(
+                                115,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 37,
+                            min: Some(
+                                63,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                2364,
+                            ),
+                            sumsquare: Some(
+                                151044,
+                            ),
+                        },
+                        Stat {
+                            name: "seq_query",
+                            units: "usec",
+                            samples: 16,
+                            min: Some(
+                                119,
+                            ),
+                            max: Some(
+                                3577,
+                            ),
+                            sum: Some(
+                                17742,
+                            ),
+                            sumsquare: Some(
+                                46177518,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_setattr",
+                    ),
+                    stats: [],
+                },
+            ),
+        ),
+    ],
+    "",
+)

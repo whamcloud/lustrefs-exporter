@@ -1,0 +1,29 @@
+mdt.fs-MDT0000.recovery_status=
+status: COMPLETE
+recovery_start: 1620410024
+recovery_duration: 1760
+completed_clients: 3/7
+replayed_requests: 0
+last_transno: 4294967310
+VBR: ENABLED
+IR: ENABLED
+mdt.fs-MDT0002.recovery_status=status: WAITING_FOR_CLIENTS
+obdfilter.fs-OST0000.recovery_status=
+status: COMPLETE
+recovery_start: 1620410016
+recovery_duration: 150
+completed_clients: 4/8
+replayed_requests: 0
+last_transno: 4294967296
+VBR: ENABLED
+IR: ENABLED
+obdfilter.fs-OST0001.recovery_status=
+status: COMPLETE
+recovery_start: 1620410016
+recovery_duration: 150
+completed_clients: 4/8
+replayed_requests: 0
+last_transno: 4294967296
+VBR: ENABLED
+IR: ENABLED
+obdfilter.fs-OST0004.recovery_status=status: WAITING_FOR_CLIENTS
