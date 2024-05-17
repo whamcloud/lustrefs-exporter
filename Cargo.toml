@@ -9,7 +9,7 @@ resolver = "2"
 authors = ["EMF Team <emf@whamcloud.com>"]
 edition = "2021"
 license = "MIT"
-version = "6.3.1"
+version = "0.8.1"
 
 [workspace.lints.rust]
 unreachable_pub = "deny"
@@ -21,6 +21,7 @@ unwrap_used = "warn"
 
 [workspace.dependencies]
 clap = "4"
+combine = "=4.6.7"
 include_dir = {version = "0.7", features = ["glob"]}
 insta = "1"
 tracing = "0.1"
