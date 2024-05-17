@@ -19,127 +19,129 @@ use crate::{
 
 static DISK_IO_TOTAL: Metric = Metric {
     name: "lustre_disk_io_total",
-    help: "Total number of operations the filesystem has performed for the given size.",
+    help: "Total number of operations the filesystem has performed for the given size. Originating from 'osd-*.*.brw_stats'",
     r#type: MetricType::Counter,
 };
 
 static DISK_IO_FRAGS: Metric = Metric {
     name: "lustre_dio_frags",
-    help: "Current disk IO fragmentation for the given size.",
+    help: "Current disk IO fragmentation for the given size. Originating from 'osd-*.*.brw_stats'",
     r#type: MetricType::Gauge,
 };
 
 static DISK_IO: Metric = Metric {
     name: "lustre_disk_io",
-    help: "Current number of I/O operations that are processing during the snapshot.",
+    help: "Current number of I/O operations that are processing during the snapshot. Originating from 'osd-*.*.brw_stats'",
     r#type: MetricType::Gauge,
 };
 
 static DISCONTIGUOUS_PAGES_TOTAL: Metric = Metric {
     name: "lustre_discontiguous_pages_total",
-    help: "Total number of logical discontinuities per RPC.",
+    help: "Total number of logical discontinuities per RPC. Originating from 'osd-*.*.brw_stats'",
     r#type: MetricType::Counter,
 };
 
 static DISCONTIGUOUS_BLOCKS_TOTAL: Metric = Metric {
     name: "lustre_discontiguous_blocks_total",
-    help: "",
+    help: "Originating from 'osd-*.*.brw_stats'",
     r#type: MetricType::Counter,
 };
 
 static IO_TIME_MILLISECONDS_TOTAL: Metric = Metric {
     name: "lustre_io_time_milliseconds_total",
-    help: "Total time in milliseconds the filesystem has spent processing various object sizes.",
+    help: "Total time in milliseconds the filesystem has spent processing various object sizes. Originating from 'osd-*.*.brw_stats'",
     r#type: MetricType::Counter,
 };
 
 static PAGES_PER_BULK_RW_TOTAL: Metric = Metric {
     name: "lustre_pages_per_bulk_rw_total",
-    help: "Total number of pages per block RPC.",
+    help: "Total number of pages per block RPC. Originating from 'osd-*.*.brw_stats'",
     r#type: MetricType::Counter,
 };
 
 static INODES_FREE: Metric = Metric {
     name: "lustre_inodes_free",
-    help: "The number of inodes (objects) available",
+    help: "The number of inodes (objects) available. Originating from 'osd-*.*.filesfree'",
     r#type: MetricType::Gauge,
 };
 
 static INODES_MAXIMUM: Metric = Metric {
     name: "lustre_inodes_maximum",
-    help: "The maximum number of inodes (objects) the filesystem can hold",
+    help: "The maximum number of inodes (objects) the filesystem can hold. Originating from 'osd-*.*.filestotal'",
     r#type: MetricType::Gauge,
 };
 
 static AVAILABLE_KBYTES: Metric = Metric {
     name: "lustre_available_kilobytes",
-    help: "Number of kilobytes readily available in the pool",
+    help:
+        "Number of kilobytes readily available in the pool. Originating from 'osd-*.*.kbytesavail'",
     r#type: MetricType::Gauge,
 };
 
 static FREE_KBYTES: Metric = Metric {
     name: "lustre_free_kilobytes",
-    help: "Number of kilobytes allocated to the pool",
+    help: "Number of kilobytes allocated to the pool. Originating from 'osd-*.*.kbytesfree'",
     r#type: MetricType::Gauge,
 };
 
 static CAPACITY_KBYTES: Metric = Metric {
     name: "lustre_capacity_kilobytes",
-    help: "Capacity of the pool in kilobytes",
+    help: "Capacity of the pool in kilobytes. Originating from 'osd-*.*.kbytestotal'",
     r#type: MetricType::Gauge,
 };
 
 static EXPORTS_TOTAL: Metric = Metric {
     name: "lustre_exports_total",
-    help: "Total number of times the pool has been exported",
+    help: "Total number of times the pool has been exported. Originating from 'mgs.*.num_exports'/'mdt.*MDT*.num_exports'/'obdfilter.*OST*.num_exports' for MGT/MDT/OST",
     r#type: MetricType::Counter,
 };
 
 static EXPORTS_DIRTY_TOTAL: Metric = Metric {
     name: "lustre_exports_dirty_total",
-    help: "Total number of exports that have been marked dirty",
+    help: "Total number of exports that have been marked dirty. Originating from 'obdfilter.*OST*.tot_dirty'",
     r#type: MetricType::Counter,
 };
 
 static EXPORTS_GRANTED_TOTAL: Metric = Metric {
     name: "lustre_exports_granted_total",
-    help: "Total number of exports that have been marked granted",
+    help: "Total number of exports that have been marked granted. Originating from 'obdfilter.*OST*.tot_granted'",
     r#type: MetricType::Counter,
 };
 
 static EXPORTS_PENDING_TOTAL: Metric = Metric {
     name: "lustre_exports_pending_total",
-    help: "Total number of exports that have been marked pending",
+    help: "Total number of exports that have been marked pending. Originating from 'obdfilter.*OST*.tot_pending'",
     r#type: MetricType::Counter,
 };
 
 static LOCK_CONTENDED_TOTAL: Metric = Metric {
     name: "lustre_lock_contended_total",
-    help: "Number of contended locks",
+    help: "Number of contended locks. Originating from 'ldlm.namespaces.{mdt-,filter-}*.contended_locks'",
     r#type: MetricType::Counter,
 };
 
 static LOCK_CONTENTION_SECONDS_TOTAL: Metric = Metric {
     name: "lustre_lock_contention_seconds_total",
-    help: "Time in seconds during which locks were contended",
+    help: "Time in seconds during which locks were contended. Originating from 'ldlm.namespaces.{mdt-,filter-}*.contention_seconds'",
     r#type: MetricType::Counter,
 };
 
 static CONNECTED_CLIENTS: Metric = Metric {
     name: "lustre_connected_clients",
-    help: "Number of connected clients",
+    help: "Number of connected clients. Originating from 'mdt.*.exports.*.uuid'",
     r#type: MetricType::Gauge,
 };
 
 static LOCK_COUNT_TOTAL: Metric = Metric {
     name: "lustre_lock_count_total",
-    help: "Number of locks",
+    help: "Number of locks. Originating from 'ldlm.namespaces.{mdt-,filter-}*.lock_count'",
     r#type: MetricType::Counter,
 };
 
 static LOCK_TIMEOUT_TOTAL: Metric = Metric {
     name: "lustre_lock_timeout_total",
-    help: "Number of lock timeouts",
+    help:
+        "Number of lock timeouts. Originating from 'ldlm.namespaces.{mdt-,filter-}*.lock_timeouts'",
     r#type: MetricType::Counter,
 };
 
@@ -189,19 +191,19 @@ fn build_brw_stats(
 
 static OST_STATS: Metric = Metric {
     name: "lustre_oss_ost_stats",
-    help: "OSS ost stats",
+    help: "OSS ost stats. Originating from 'ost.OSS.ost.stats'",
     r#type: MetricType::Gauge,
 };
 
 static OST_IO_STATS: Metric = Metric {
     name: "lustre_oss_ost_io_stats",
-    help: "OSS ost_io stats",
+    help: "OSS ost_io stats. Originating from 'ost.OSS.ost_io.stats'",
     r#type: MetricType::Gauge,
 };
 
 static OST_CREATE_STATS: Metric = Metric {
     name: "lustre_oss_ost_create_stats",
-    help: "OSS ost_create stats",
+    help: "OSS ost_create stats. Originating from 'ost.OSS.ost_create.stats'",
     r#type: MetricType::Gauge,
 };
 
