@@ -4,7 +4,6 @@ Release:        1%{?dist}
 Summary:        prometheus exporter for lustre
 License:        MIT
 
-
 Requires(pre): shadow-utils
 
 %description
