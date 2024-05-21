@@ -83,9 +83,25 @@ jobs:
           set -e
           set -o pipefail
           cargo llvm-cov --all-features --workspace --codecov --output-path codecov.json
+
+      - name: Measure code coverage for specific lustre version 2.14.0_ddn_145
+        run: |
+          # Fail if any tests fail
+          set -e
+          set -o pipefail
+          cargo llvm-cov --codecov --output-path codecov_2.14.0_ddn_145.json --package lustre_collector --lib -- parser::tests::test_lustre_ddn145_fixtures
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: codecov.json
+          fail_ci_if_error: true
+
+      - name: Upload coverage for specific lustre version 2.14.0_ddn_145
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: codecov_2.14.0_ddn_145.json
+          flags: 2.14.0_ddn_145
           fail_ci_if_error: true

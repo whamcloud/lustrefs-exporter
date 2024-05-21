@@ -1,0 +1,11 @@
+obdfilter.fs-OST0000.recovery_status=status: INACTIVE
+obdfilter.fs-OST0001.recovery_status=status: INACTIVE
+mdt.fs-MDT0000.recovery_status=
+status: COMPLETE
+recovery_start: 1715712434
+recovery_duration: 0
+completed_clients: 1/1
+replayed_requests: 0
+last_transno: 4294967298
+VBR: DISABLED
+IR: DISABLED

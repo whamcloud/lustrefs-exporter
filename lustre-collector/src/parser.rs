@@ -55,26 +55,33 @@ mod tests {
 
     static VALID_FIXTURES: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/src/fixtures/valid/");
 
-    #[test]
-    fn test_valid_fixtures() {
-        for dir in VALID_FIXTURES.find("*").unwrap() {
-            match dir {
-                include_dir::DirEntry::Dir(_) => {}
-                include_dir::DirEntry::File(file) => {
-                    let name = file.path().to_string_lossy();
+    macro_rules! test_fixtures {
+        ($name:ident, $pattern:expr) => {
+            #[test]
+            fn $name() {
+                for dir in VALID_FIXTURES.find($pattern).unwrap() {
+                    match dir {
+                        include_dir::DirEntry::Dir(_) => {}
+                        include_dir::DirEntry::File(file) => {
+                            let name = file.path().to_string_lossy();
 
-                    let contents = file.contents_utf8().unwrap();
+                            let contents = file.contents_utf8().unwrap();
 
-                    let result = parse()
-                        .easy_parse(contents)
-                        .map_err(|err| err.map_position(|p| p.translate_position(contents)))
-                        .unwrap();
+                            let result = parse()
+                                .easy_parse(contents)
+                                .map_err(|err| err.map_position(|p| p.translate_position(contents)))
+                                .unwrap();
 
-                    assert_debug_snapshot!(format!("valid_fixture_{name}"), result);
+                            assert_debug_snapshot!(format!("valid_fixture_{name}"), result);
+                        }
+                    }
                 }
             }
-        }
+        };
     }
+
+    test_fixtures!(test_valid_fixtures, "*");
+    test_fixtures!(test_lustre_ddn145_fixtures, "*ddn145*");
 
     #[test]
     fn test_params() {
