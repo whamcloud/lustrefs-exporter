@@ -216,7 +216,7 @@ mod tests {
 
     #[test]
     fn test_osd_stats() {
-        static FIXTURE: &str = include_str!("../fixtures/osd.txt");
+        static FIXTURE: &str = include_str!("fixtures/osd.txt");
 
         let result = many::<Vec<_>, _, _>(parse())
             .easy_parse(FIXTURE)
@@ -228,7 +228,7 @@ mod tests {
 
     #[test]
     fn test_osd_active_stats() {
-        static FIXTURE: &str = include_str!("../fixtures/osd_active.txt");
+        static FIXTURE: &str = include_str!("fixtures/osd_active.txt");
 
         let result = many::<Vec<_>, _, _>(parse())
             .easy_parse(FIXTURE)

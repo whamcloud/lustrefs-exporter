@@ -83,9 +83,42 @@ jobs:
           set -e
           set -o pipefail
           cargo llvm-cov --all-features --workspace --codecov --output-path codecov.json
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: codecov.json
+          flags: all-tests
+          fail_ci_if_error: true
+
+  lustre-coverage:
+    name: lustre-coverage
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        lustre_version: ["2.14.0_ddn_133", "2.14.0_ddn_145"]
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install `cargo-llvm-cov`
+        uses: taiki-e/install-action@cargo-llvm-cov
+
+      - name: Measure code coverage for specific lustre version ${{ matrix.lustre_version }}
+        run: |
+          # Fail if any tests fail
+          set -e
+          set -o pipefail
+          cargo llvm-cov --codecov --output-path codecov_${{ matrix.lustre_version }}.json --package lustre_collector --lib -- parser::tests::test_lustre_ddn${{ matrix.lustre_version }}_fixtures
+
+      - name: Upload coverage for specific lustre version ${{ matrix.lustre_version }}
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: codecov_${{ matrix.lustre_version }}.json
+          flags: ${{ matrix.lustre_version }}
           fail_ci_if_error: true

@@ -203,7 +203,7 @@ mod tests {
 
     #[test]
     fn test_multiple() {
-        let x = include_str!("../fixtures/recovery-multiple.txt");
+        let x = include_str!("fixtures/recovery-multiple.txt");
 
         let (records, _): (Vec<_>, _) = parse().easy_parse(position::Stream::new(x)).unwrap();
 
@@ -212,7 +212,7 @@ mod tests {
 
     #[test]
     fn test_multiple_recovering() {
-        let x = include_str!("../fixtures/recovery-multiple-recovering.txt");
+        let x = include_str!("fixtures/recovery-multiple-recovering.txt");
 
         let (records, _): (Vec<_>, _) = parse().easy_parse(position::Stream::new(x)).unwrap();
 
@@ -228,7 +228,7 @@ mod tests {
 
     #[test]
     fn test_waiting_for_clients() {
-        let x = include_str!("../fixtures/recovery-waiting-for-clients.txt");
+        let x = include_str!("fixtures/recovery-waiting-for-clients.txt");
 
         let (records, _): (Vec<_>, _) = parse().easy_parse(position::Stream::new(x)).unwrap();
 

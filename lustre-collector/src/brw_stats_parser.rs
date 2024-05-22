@@ -259,7 +259,7 @@ pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
 
     #[test]
     fn test_empty_brw_stats() {
-        let x = include_str!("../fixtures/brw_stats_empty.txt");
+        let x = include_str!("fixtures/brw_stats_empty.txt");
 
         let result = brw_stats().parse(x);
 
@@ -315,7 +315,7 @@ pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
 
     #[test]
     fn test_brw_stats() {
-        let x = include_str!("../fixtures/brw_stats_with_data.txt");
+        let x = include_str!("fixtures/brw_stats_with_data.txt");
 
         let result: (Vec<_>, _) = brw_stats().parse(x).unwrap();
 
@@ -324,7 +324,7 @@ pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
 
     #[test]
     fn test_brw_stats_with_start_and_elapsed_time() {
-        let x = include_str!("../fixtures/brw_stats_with_start_and_elapsed_time.txt");
+        let x = include_str!("fixtures/brw_stats_with_start_and_elapsed_time.txt");
 
         let result = brw_stats().parse(x).unwrap();
 
