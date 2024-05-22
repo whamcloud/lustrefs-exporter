@@ -135,7 +135,7 @@ mod tests {
 
     #[test]
     fn test_mdd_stats() {
-        static FIXTURE: &str = include_str!("../fixtures/mdd.txt");
+        static FIXTURE: &str = include_str!("fixtures/mdd.txt");
 
         let result = many::<Vec<_>, _, _>(parse())
             .easy_parse(FIXTURE)

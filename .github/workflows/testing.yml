@@ -97,7 +97,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        lustre_version: ["2.14.0_ddn_145"]
+        lustre_version: ["2.14.0_ddn_133", "2.14.0_ddn_145"]
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
