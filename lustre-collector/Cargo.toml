@@ -1,6 +1,8 @@
 [package]
 authors.workspace = true
+description = "Scrapes Lustre stats and aggregates into JSON or YAML"
 edition.workspace = true
+license.workspace = true
 name = "lustre_collector"
 version.workspace = true
 
