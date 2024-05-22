@@ -81,7 +81,9 @@ mod tests {
     }
 
     test_fixtures!(test_valid_fixtures, "*");
-    test_fixtures!(test_lustre_ddn145_fixtures, "*ddn145*");
+    test_fixtures!(test_lustre_2_14_0_ddn145_fixtures, "*ddn145*");
+
+    test_fixtures!(test_lustre_2_14_0_ddn133_fixtures, "*ddn133*");
 
     #[test]
     fn test_params() {
