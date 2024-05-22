@@ -113,7 +113,7 @@ jobs:
           # Fail if any tests fail
           set -e
           set -o pipefail
-          cargo llvm-cov --codecov --output-path codecov_${{ matrix.lustre_version }}.json --package lustre_collector --lib -- parser::tests::test_lustre_ddn${{ matrix.lustre_version }}_fixtures
+          cargo llvm-cov --codecov --output-path codecov_${{ matrix.lustre_version }}.json --package lustre_collector --lib -- parser::tests::test_lustre_${{ matrix.lustre_version }}_fixtures
 
       - name: Upload coverage for specific lustre version ${{ matrix.lustre_version }}
         uses: codecov/codecov-action@v3
