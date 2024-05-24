@@ -151,7 +151,8 @@ static BLOCK_MAPS_MSEC_TOTAL: Metric = Metric {
 
 static RECOVERY_STATUS: Metric = Metric {
     name: "recovery_status",
-    help: "Gives the recovery status on a target.",
+    help: "Gives the recovery status off a target. 0=Complete 1=Inactive 2=Waiting 3=WaitingForClients 4=Recovering 5=Unknown
+    }",
     r#type: MetricType::Summary,
 };
 
