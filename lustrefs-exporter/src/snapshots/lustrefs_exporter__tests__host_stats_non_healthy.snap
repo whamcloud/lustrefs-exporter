@@ -1,5 +1,5 @@
 ---
-source: src/main.rs
+source: lustrefs-exporter/src/main.rs
 expression: x
 ---
 # HELP lustre_available_kilobytes Number of kilobytes readily available in the pool
@@ -639,3 +639,18 @@ lustre_write_minimum_size_bytes{component="ost",operation="write",target="ai400x
 # TYPE lustre_write_samples_total counter
 lustre_write_samples_total{component="ost",operation="write",target="ai400x2-OST0000"} 4114603
 lustre_write_samples_total{component="ost",operation="write",target="ai400x2-OST0001"} 4119187
+
+# HELP recovery_status_completed_clients Gives the count of clients that complete the recovery on a target.
+# TYPE recovery_status_completed_clients gauge
+recovery_status_completed_clients{target="fs-MDT0000",kind="MDT"} 3
+recovery_status_completed_clients{target="fs-OST0000",kind="OST"} 4
+
+# HELP recovery_status_connected_clients Gives the count of clients connected to a target.
+# TYPE recovery_status_connected_clients gauge
+recovery_status_connected_clients{target="fs-MDT0000",kind="MDT"} 199
+recovery_status_connected_clients{target="fs-OST0000",kind="OST"} 199
+
+# HELP recovery_status_evicted_clients Gives the count of clients evicted from a target.
+# TYPE recovery_status_evicted_clients gauge
+recovery_status_evicted_clients{target="fs-MDT0000",kind="MDT"} 1
+recovery_status_evicted_clients{target="fs-OST0000",kind="OST"} 1

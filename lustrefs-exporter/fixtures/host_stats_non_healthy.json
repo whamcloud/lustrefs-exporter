@@ -3127,5 +3127,65 @@
         "value": 0
       }
     }
+  },
+  {
+    "Target": {
+      "RecoveryCompletedClients": {
+        "kind": "Mdt",
+        "param": "recovery_status",
+        "target": "fs-MDT0000",
+        "value": 3
+      }
+    }
+  },
+  {
+    "Target": {
+      "RecoveryCompletedClients": {
+        "kind": "Ost",
+        "param": "recovery_status",
+        "target": "fs-OST0000",
+        "value": 4
+      }
+    }
+  },
+  {
+    "Target": {
+      "RecoveryConnectedClients": {
+        "kind": "Mdt",
+        "param": "recovery_status",
+        "target": "fs-MDT0000",
+        "value": 199
+      }
+    }
+  },
+  {
+    "Target": {
+      "RecoveryConnectedClients": {
+        "kind": "Ost",
+        "param": "recovery_status",
+        "target": "fs-OST0000",
+        "value": 199
+      }
+    }
+  },
+  {
+    "Target": {
+      "RecoveryEvictedClients": {
+        "kind": "Mdt",
+        "param": "recovery_status",
+        "target": "fs-MDT0000",
+        "value": 1
+      }
+    }
+  },
+  {
+    "Target": {
+      "RecoveryEvictedClients": {
+        "kind": "Ost",
+        "param": "recovery_status",
+        "target": "fs-OST0000",
+        "value": 1
+      }
+    }
   }
 ]

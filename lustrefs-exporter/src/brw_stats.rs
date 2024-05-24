@@ -149,6 +149,24 @@ static BLOCK_MAPS_MSEC_TOTAL: Metric = Metric {
     r#type: MetricType::Counter,
 };
 
+static RECOVERY_STATUS_COMPLETED_CLIENTS: Metric = Metric {
+    name: "recovery_status_completed_clients",
+    help: "Gives the count of clients that complete the recovery on a target.",
+    r#type: MetricType::Gauge,
+};
+
+static RECOVERY_STATUS_CONNECTED_CLIENTS: Metric = Metric {
+    name: "recovery_status_connected_clients",
+    help: "Gives the count of clients connected to a target.",
+    r#type: MetricType::Gauge,
+};
+
+static RECOVERY_STATUS_EVICTED_CLIENTS: Metric = Metric {
+    name: "recovery_status_evicted_clients",
+    help: "Gives the count of clients evicted from a target.",
+    r#type: MetricType::Gauge,
+};
+
 fn build_brw_stats(
     x: TargetStat<Vec<BrwStats>>,
     stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
@@ -423,9 +441,36 @@ pub fn build_target_stats(
         TargetStats::ThreadsMax(_x) => {}
         TargetStats::ThreadsStarted(_x) => {}
         TargetStats::RecoveryStatus(_x) => {}
-        TargetStats::RecoveryCompletedClients(_) => {}
-        TargetStats::RecoveryConnectedClients(_) => {}
-        TargetStats::RecoveryEvictedClients(_) => {}
+        TargetStats::RecoveryCompletedClients(x) => {
+            stats_map
+                .get_mut_metric(RECOVERY_STATUS_COMPLETED_CLIENTS)
+                .render_and_append_instance(
+                    &PrometheusInstance::new()
+                        .with_label("target", x.target.deref())
+                        .with_label("kind", x.kind.deref())
+                        .with_value(x.value),
+                );
+        }
+        TargetStats::RecoveryConnectedClients(x) => {
+            stats_map
+                .get_mut_metric(RECOVERY_STATUS_CONNECTED_CLIENTS)
+                .render_and_append_instance(
+                    &PrometheusInstance::new()
+                        .with_label("target", x.target.deref())
+                        .with_label("kind", x.kind.deref())
+                        .with_value(x.value),
+                );
+        }
+        TargetStats::RecoveryEvictedClients(x) => {
+            stats_map
+                .get_mut_metric(RECOVERY_STATUS_EVICTED_CLIENTS)
+                .render_and_append_instance(
+                    &PrometheusInstance::new()
+                        .with_label("target", x.target.deref())
+                        .with_label("kind", x.kind.deref())
+                        .with_value(x.value),
+                );
+        }
         TargetStats::ExportStats(x) => {
             build_export_stats(x, stats_map);
         }
