@@ -149,6 +149,12 @@ static BLOCK_MAPS_MSEC_TOTAL: Metric = Metric {
     r#type: MetricType::Counter,
 };
 
+static RECOVERY_STATUS: Metric = Metric {
+    name: "recovery_status",
+    help: "Gives the recovery status on a target.",
+    r#type: MetricType::Summary,
+};
+
 static RECOVERY_STATUS_COMPLETED_CLIENTS: Metric = Metric {
     name: "recovery_status_completed_clients",
     help: "Gives the count of clients that complete the recovery on a target.",
@@ -440,7 +446,16 @@ pub fn build_target_stats(
         TargetStats::ThreadsMin(_x) => {}
         TargetStats::ThreadsMax(_x) => {}
         TargetStats::ThreadsStarted(_x) => {}
-        TargetStats::RecoveryStatus(_x) => {}
+        TargetStats::RecoveryStatus(x) => {
+            stats_map
+                .get_mut_metric(RECOVERY_STATUS)
+                .render_and_append_instance(
+                    &PrometheusInstance::new()
+                        .with_label("target", x.target.deref())
+                        .with_label("kind", x.kind.deref())
+                        .with_value(x.value as u8),
+                );
+        }
         TargetStats::RecoveryCompletedClients(x) => {
             stats_map
                 .get_mut_metric(RECOVERY_STATUS_COMPLETED_CLIENTS)
