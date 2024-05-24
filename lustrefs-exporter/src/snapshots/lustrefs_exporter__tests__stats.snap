@@ -1,5 +1,5 @@
 ---
-source: src/main.rs
+source: lustrefs-exporter/src/main.rs
 expression: x
 ---
 # HELP lustre_available_kilobytes Number of kilobytes readily available in the pool
@@ -844,3 +844,10 @@ lustre_write_minimum_size_bytes{component="ost",operation="write",target="ai400x
 # TYPE lustre_write_samples_total counter
 lustre_write_samples_total{component="ost",operation="write",target="ai400x2-OST0000"} 4114603
 lustre_write_samples_total{component="ost",operation="write",target="ai400x2-OST0001"} 4119187
+
+# HELP recovery_status Gives the recovery status off a target. 0=Complete 1=Inactive 2=Waiting 3=WaitingForClients 4=Recovering 5=Unknown
+    }
+# TYPE recovery_status summary
+recovery_status{target="ai400x2-OST0000",kind="OST"} 1
+recovery_status{target="ai400x2-OST0001",kind="OST"} 1
+recovery_status{target="ai400x2-MDT0000",kind="MDT"} 1

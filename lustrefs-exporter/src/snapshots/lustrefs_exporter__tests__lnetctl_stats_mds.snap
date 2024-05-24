@@ -734,3 +734,10 @@ lustre_write_minimum_size_bytes{component="ost",operation="write",target="fs-OST
 # HELP lustre_write_samples_total Total number of writes that have been recorded.
 # TYPE lustre_write_samples_total counter
 lustre_write_samples_total{component="ost",operation="write",target="fs-OST0000"} 26
+
+# HELP recovery_status Gives the recovery status off a target. 0=Complete 1=Inactive 2=Waiting 3=WaitingForClients 4=Recovering 5=Unknown
+    }
+# TYPE recovery_status summary
+recovery_status{target="fs-OST0000",kind="OST"} 1
+recovery_status{target="fs-OST0001",kind="OST"} 1
+recovery_status{target="fs-MDT0000",kind="MDT"} 1
