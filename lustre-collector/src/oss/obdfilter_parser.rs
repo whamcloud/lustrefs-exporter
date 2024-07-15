@@ -39,10 +39,35 @@ pub(crate) const OBD_STATS: [&str; 7] = [
     EXPORTS_PARAMS,
 ];
 
+pub(crate) const OBD_STATS_NO_JOBSTATS: [&str; 6] = [
+    STATS,
+    NUM_EXPORTS,
+    TOT_DIRTY,
+    TOT_GRANTED,
+    TOT_PENDING,
+    EXPORTS_PARAMS,
+];
+
+pub(crate) const OBD_STATS_JOBSTATS_ONLY: [&str; 1] = [JOBSTATS];
 /// Takes OBD_STATS and produces a list of params for
 /// consumption in proper ltcl get_param format.
 pub(crate) fn obd_params() -> Vec<String> {
     OBD_STATS
+        .iter()
+        .map(|x| format!("obdfilter.*OST*.{x}"))
+        .collect()
+}
+
+/// Takes OBD_STATS and produces a list of params for
+/// consumption in proper ltcl get_param format.
+pub(crate) fn obd_params_no_jobstats() -> Vec<String> {
+    OBD_STATS_NO_JOBSTATS
+        .iter()
+        .map(|x| format!("obdfilter.*OST*.{x}"))
+        .collect()
+}
+pub(crate) fn obd_params_jobstats_only() -> Vec<String> {
+    OBD_STATS_JOBSTATS_ONLY
         .iter()
         .map(|x| format!("obdfilter.*OST*.{x}"))
         .collect()

@@ -26,6 +26,28 @@ pub fn params() -> Vec<String> {
         .collect()
 }
 
+pub fn params_no_jobstats() -> Vec<String> {
+    top_level_parser::top_level_params()
+        .into_iter()
+        .chain(client_count_parser::params())
+        .chain(osd_parser::params())
+        .chain(mgs_parser::params())
+        .chain(oss::params_no_jobstats())
+        .chain(mds::params_no_jobstats())
+        .chain(ldlm::params())
+        .chain(llite::params())
+        .chain(mdd_parser::params())
+        .chain(quota::params())
+        .collect()
+}
+
+pub fn params_jobstats_only() -> Vec<String> {
+    oss::params_jobstats_only()
+        .into_iter()
+        .chain(mds::params_jobstats_only())
+        .collect()
+}
+
 pub fn parse<I>() -> impl Parser<I, Output = Vec<Record>>
 where
     I: Stream<Token = char>,
@@ -88,6 +110,16 @@ mod tests {
     #[test]
     fn test_params() {
         assert_debug_snapshot!(params());
+    }
+
+    #[test]
+    fn test_params_no_jobstats() {
+        assert_debug_snapshot!(params_no_jobstats());
+    }
+
+    #[test]
+    fn test_params_jobstats_only() {
+        assert_debug_snapshot!(params_jobstats_only());
     }
 
     #[test]

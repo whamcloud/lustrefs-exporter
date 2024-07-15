@@ -4,7 +4,7 @@
 
 use crate::types::{JobStatMdt, JobStatsMdt};
 use combine::{
-    attempt,
+    attempt, eof,
     error::{ParseError, StreamError},
     optional,
     parser::{
@@ -22,9 +22,10 @@ where
 {
     (
         optional(newline()), // If Jobstats are present, the whole yaml blob will be on a newline
-        take_until(attempt((newline(), alpha_num()))),
+        take_until(attempt((newline(), alpha_num()).map(drop).or(eof()))),
     )
-        .skip(newline())
+        .skip(optional(newline()))
+        .skip(optional(eof()))
         .and_then(|(_, x): (_, String)| {
             serde_yaml::from_str(&x)
                 .map(|x: JobStatsMdt| x.job_stats)
