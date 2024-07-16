@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 use crate::types::{JobStatMdt, JobStatsMdt};
+
 use combine::{
     attempt,
     error::{ParseError, StreamError},
@@ -14,6 +15,8 @@ use combine::{
     stream::{Stream, StreamErrorFor},
     Parser,
 };
+use yaml_rust2::YamlLoader;
+
 
 pub(crate) fn parse<I>() -> impl Parser<I, Output = Option<Vec<JobStatMdt>>>
 where
@@ -26,9 +29,10 @@ where
     )
         .skip(newline())
         .and_then(|(_, x): (_, String)| {
-            serde_yaml::from_str(&x)
-                .map(|x: JobStatsMdt| x.job_stats)
-                .map_err(StreamErrorFor::<I>::other)
+            let yaml = YamlLoader::load_from_str(&x).map_err( StreamErrorFor::<I>::other)?;
+            let first = yaml.get(0).ok_or_else(|| StreamErrorFor::<I>::unexpected_static_message("No yaml found"))?;
+            let job_stats = JobStatsMdt::try_from(first).map_err(|_|StreamErrorFor::<I>::unexpected_static_message("No yaml found"))?;
+            Ok::<std::option::Option<Vec<JobStatMdt>>, StreamErrorFor::<I>>(job_stats.job_stats)
         })
 }
 
@@ -201,11 +205,17 @@ mod tests {
                     max: 0,
                     sum: 0,
                 },
+                //TODO Fixme
                 parallel_rename_dir: None,
                 parallel_rename_file: None,
             }]),
         };
 
-        assert_eq!(serde_yaml::from_str::<JobStatsMdt>(x).unwrap(), expected)
+
+        let yaml = YamlLoader::load_from_str(x).unwrap();
+        let first = &yaml[0];
+        let job_stats: JobStatsMdt = JobStatsMdt::try_from(first).unwrap();
+
+        assert_eq!(job_stats, expected)
     }
 }

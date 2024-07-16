@@ -4,6 +4,7 @@
 
 use crate::LustreCollectorError;
 use std::{fmt, ops::Deref, time::Duration};
+use yaml_rust2::Yaml;
 
 #[derive(Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 /// The hostname cooresponding to these stats.
@@ -191,6 +192,62 @@ pub struct JobStatMdt {
     pub punch: BytesStat,
     pub parallel_rename_dir: Option<BytesStat>,
     pub parallel_rename_file: Option<BytesStat>,
+}
+
+impl TryFrom<&Yaml> for JobStatsMdt {
+    fn try_from(value: &Yaml) -> Result<JobStatsMdt, Self::Error> {
+        let job_stats = &value["job_stats"];
+        Ok(JobStatsMdt {
+            job_stats: Some(job_stats.as_vec().unwrap().iter().map(|x| x.try_into().unwrap()).collect()),
+        })
+    }
+    type Error = ();
+}
+
+impl TryFrom<&Yaml> for JobStatMdt {
+    fn try_from(value: &Yaml) -> Result<JobStatMdt, Self::Error> {
+        Ok(JobStatMdt {
+            job_id: value["job_id"].as_str().unwrap().to_string(),
+            snapshot_time: UnsignedLustreTimestamp(value["snapshot_time"].as_i64().unwrap()),
+            start_time: value["start_time"].as_i64().map(|x| UnsignedLustreTimestamp(x)),
+            elapsed_time: value["elapsed_time"].as_str().map(|x| x.to_string()),
+            open: BytesStat::try_from(&value["open"])?,
+            close: BytesStat::try_from(&value["close"])?,
+            mknod: BytesStat::try_from(&value["mknod"])?,
+            link: BytesStat::try_from(&value["link"])?,
+            unlink: BytesStat::try_from(&value["unlink"])?,
+            mkdir: BytesStat::try_from(&value["mkdir"])?,
+            rmdir: BytesStat::try_from(&value["rmdir"])?,
+            rename: BytesStat::try_from(&value["rename"])?,
+            getattr: BytesStat::try_from(&value["getattr"])?,
+            setattr: BytesStat::try_from(&value["setattr"])?,
+            getxattr: BytesStat::try_from(&value["getxattr"])?,
+            setxattr: BytesStat::try_from(&value["setxattr"])?,
+            statfs: BytesStat::try_from(&value["statfs"])?,
+            sync: BytesStat::try_from(&value["sync"])?,
+            samedir_rename: BytesStat::try_from(&value["samedir_rename"])?,
+            crossdir_rename: BytesStat::try_from(&value["crossdir_rename"])?,
+            read_bytes: BytesStat::try_from(&value["read_bytes"])?,
+            write_bytes: BytesStat::try_from(&value["write_bytes"])?,
+            punch: BytesStat::try_from(&value["punch"])?,
+            parallel_rename_dir: None, // value["parallel_rename_dir"],
+            parallel_rename_file: None, // value["parallel_rename_file"],
+        })
+    }
+    type Error = ();
+}
+
+impl TryFrom<&Yaml> for BytesStat {
+    fn try_from(value: &Yaml) -> Result<BytesStat, Self::Error> {
+        Ok(BytesStat {
+            samples: value["samples"].as_i64().unwrap(),
+            unit: value["unit"].as_str().unwrap().to_string(),
+            min: value["min"].as_i64().unwrap(),
+            max: value["max"].as_i64().unwrap(),
+            sum: value["sum"].as_i64().unwrap(),
+        })
+    }
+    type Error = ();
 }
 
 pub mod lnet_exports {
