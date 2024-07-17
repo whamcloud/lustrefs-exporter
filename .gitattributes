@@ -1,8 +1,6 @@
 lustrefs-exporter/src/snapshots/lustrefs_exporter__tests__valid_fixture_lustre-2.14.0_ddn125__ds86.txt.snap filter=lfs diff=lfs merge=lfs -text
 lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn125/ds86.txt filter=lfs diff=lfs merge=lfs -text
 lustre-collector/src/snapshots/lustre_collector__parser__tests__valid_fixture_lustre-2.14.0_ddn125__ds86.txt.snap filter=lfs diff=lfs merge=lfs -text
-lustre-collector/src/snapshots/lustre_collector__parser__tests__params_jobstats_only.snap filter=lfs diff=lfs merge=lfs -text
-lustre-collector/src/snapshots/lustre_collector__parser__tests__params_no_jobstats.snap filter=lfs diff=lfs merge=lfs -text
 lustre-collector/src/snapshots/lustre_collector__parser__tests__valid_fixture_lustre-2.14.0_ddn125__jobstats_only.txt.snap filter=lfs diff=lfs merge=lfs -text
 lustrefs-exporter/src/snapshots/lustrefs_exporter__tests__valid_fixture_lustre-2.14.0_ddn125__jobstats_only.txt.snap filter=lfs diff=lfs merge=lfs -text
 lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn125/jobstats_only.txt filter=lfs diff=lfs merge=lfs -text

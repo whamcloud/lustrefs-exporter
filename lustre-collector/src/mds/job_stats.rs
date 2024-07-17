@@ -2,37 +2,37 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::types::{JobStatMdt, JobStatsMdt};
+use crate::{
+    oss::job_stats::take_jobstats,
+    types::{JobStatMdt, JobStatsMdt},
+};
 use combine::{
-    attempt, eof,
+    eof,
     error::{ParseError, StreamError},
     optional,
-    parser::{
-        char::{alpha_num, newline},
-        repeat::take_until,
-    },
-    stream::{Stream, StreamErrorFor},
-    Parser,
+    parser::char::newline,
+    stream::StreamErrorFor,
+    Parser, RangeStream,
 };
 
-pub(crate) fn parse<I>() -> impl Parser<I, Output = Option<Vec<JobStatMdt>>>
+pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Option<Vec<JobStatMdt>>> + 'a
 where
-    I: Stream<Token = char>,
+    I: RangeStream<Token = char, Range = &'a str> + 'a,
+    I::Range: AsRef<[u8]> + combine::stream::Range,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     (
         optional(newline()), // If Jobstats are present, the whole yaml blob will be on a newline
-        take_until(attempt((newline(), alpha_num()).map(drop).or(eof()))),
+        take_jobstats(),
     )
         .skip(optional(newline()))
         .skip(optional(eof()))
-        .and_then(|(_, x): (_, String)| {
-            serde_yaml::from_str(&x)
+        .and_then(|(_, x): (_, &str)| {
+            serde_yaml::from_str(x)
                 .map(|x: JobStatsMdt| x.job_stats)
                 .map_err(StreamErrorFor::<I>::other)
         })
 }
-
 #[cfg(test)]
 mod tests {
     use super::*;

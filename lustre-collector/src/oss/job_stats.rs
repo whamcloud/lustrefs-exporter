@@ -4,30 +4,70 @@
 
 use crate::types::{JobStatOst, JobStatsOst};
 use combine::{
-    attempt, eof,
+    eof,
     error::{ParseError, StreamError},
     optional,
     parser::{
-        char::{alpha_num, newline},
-        repeat::take_until,
+        char::newline,
+        range::{take_fn, TakeRange},
     },
-    stream::{Stream, StreamErrorFor},
-    Parser,
+    stream::StreamErrorFor,
+    Parser, RangeStream,
 };
 
-pub(crate) fn parse<I>() -> impl Parser<I, Output = Option<Vec<JobStatOst>>>
+// This function is a rough translation of the following "copy" parser implementation:
+// `take_until(attempt((newline(), alpha_num()).map(drop).or(eof())))`
+pub(crate) fn find_next_jobstats(haystack: &[u8]) -> Option<usize> {
+    // We are looking for newline followed by an alphanumeric char, this indicates a new jobstats entry (from a new OST/MDT)
+    // The trick is jobstats entry will always contains a space as it's YAML formatted like below (prefix spaces are replaced with `~`):
+    // ```
+    // job_stats:
+    // - job_id:          cp.0
+    // ~~snapshot_time:   1537070542
+    // ```
+    // So any newline followed by a space is still part of the YAML definition.
+    Some(
+        memchr::memchr_iter(b'\n', haystack)
+            .find(|&i| {
+                haystack[i + 1..]
+                    .first()
+                    .map(|x| x.is_ascii_alphanumeric())
+                    .unwrap_or(false)
+            })
+            // If the newline followed by a space sequence is not found, it indicates there is no more data after the YAML definition so we are at the EOF.
+            .unwrap_or(haystack.len()),
+    )
+}
+
+pub(crate) fn take_jobstats<'a, I>() -> impl Parser<I, Output = &'a str> + 'a
 where
-    I: Stream<Token = char>,
+    I: RangeStream<Token = char, Range = &'a str> + 'a,
+    I::Range: AsRef<[u8]> + combine::stream::Range,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    take_fn(move |haystack: I::Range| {
+        let haystack = haystack.as_ref();
+        match find_next_jobstats(haystack) {
+            Some(i) => TakeRange::Found(i),
+            None => TakeRange::NotFound(haystack.len()),
+        }
+    })
+}
+
+pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Option<Vec<JobStatOst>>> + 'a
+where
+    I: RangeStream<Token = char, Range = &'a str> + 'a,
+    I::Range: AsRef<[u8]> + combine::stream::Range,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     (
         optional(newline()), // If Jobstats are present, the whole yaml blob will be on a newline
-        take_until(attempt((newline(), alpha_num()).map(drop).or(eof()))),
+        take_jobstats(),
     )
         .skip(optional(newline()))
         .skip(optional(eof()))
-        .and_then(|(_, x): (_, String)| {
-            serde_yaml::from_str(&x)
+        .and_then(|(_, x): (_, &str)| {
+            serde_yaml::from_str(x)
                 .map(|x: JobStatsOst| x.job_stats)
                 .map_err(StreamErrorFor::<I>::other)
         })

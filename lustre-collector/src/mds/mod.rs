@@ -8,7 +8,7 @@ pub(crate) mod mds_parser;
 pub(crate) mod mdt_parser;
 
 use crate::types::Record;
-use combine::{attempt, error::ParseError, Parser, Stream};
+use combine::{attempt, error::ParseError, Parser, RangeStream};
 
 pub(crate) fn params() -> Vec<String> {
     mds_parser::params()
@@ -28,9 +28,9 @@ pub(crate) fn params_jobstats_only() -> Vec<String> {
     mdt_parser::params_jobstats_only()
 }
 
-pub(crate) fn parse<I>() -> impl Parser<I, Output = Record>
+pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Record> + 'a
 where
-    I: Stream<Token = char>,
+    I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     attempt(mds_parser::parse()).or(attempt(mdt_parser::parse()))
