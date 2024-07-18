@@ -2,14 +2,14 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::types::{JobStatOst, JobStatsOst};
+use crate::{types::JobStatOst, BytesStat, ReqsStat, UnsignedLustreTimestamp};
 use combine::{
     eof,
     error::{ParseError, StreamError},
-    optional,
+    many, optional,
     parser::{
         char::newline,
-        range::{take_fn, TakeRange},
+        range::{range, take_fn, take_until_range, take_while, TakeRange},
     },
     stream::StreamErrorFor,
     Parser, RangeStream,
@@ -54,6 +54,181 @@ where
     })
 }
 
+pub(crate) fn take_and_skip<'a, I>(input: &'a str) -> impl Parser<I, Output = &'a str> + 'a
+where
+    I: RangeStream<Token = char, Range = &'a str> + 'a,
+    I::Range: AsRef<[u8]> + combine::stream::Range,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    take_until_range(input)
+        .skip(range(input))
+        .skip(take_while(|c: char| c.is_whitespace()))
+}
+
+pub(crate) fn take_bytes_stats<'a, I>() -> impl Parser<I, Output = BytesStat> + 'a
+where
+    I: RangeStream<Token = char, Range = &'a str> + 'a,
+    I::Range: AsRef<[u8]> + combine::stream::Range,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    (
+        take_and_skip("{ samples:"),
+        take_and_skip(","), // read_bytes_sample
+        take_and_skip("unit:"),
+        take_until_range(","), // unit
+        take_and_skip("min:"),
+        take_until_range(","), // min
+        take_and_skip("max:"),
+        take_until_range(","), // max
+        take_and_skip("sum:"),
+        take_while(|c: char| c.is_numeric()), // sum
+        take_until_range("}"),
+    )
+        .map(
+            |(_, sample, _, unit, _, min, _, max, _, sum, _): (
+                _,
+                &str,
+                _,
+                &str,
+                _,
+                &str,
+                _,
+                &str,
+                _,
+                &str,
+                _,
+            )| {
+                BytesStat {
+                    samples: sample.parse().unwrap(),
+                    unit: unit.to_string(),
+                    min: min.parse().unwrap(),
+                    max: max.parse().unwrap(),
+                    sum: sum.parse().unwrap(),
+                }
+            },
+        )
+}
+
+pub(crate) fn take_reqs_stats<'a, I>() -> impl Parser<I, Output = ReqsStat> + 'a
+where
+    I: RangeStream<Token = char, Range = &'a str> + 'a,
+    I::Range: AsRef<[u8]> + combine::stream::Range,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    (
+        take_and_skip("{ samples:"),
+        take_until_range(","), // sample
+        take_and_skip("unit:"),
+        take_while(|c: char| c != '}' && c != ','), // unit
+    )
+        .map(|(_, sample, _, unit): (_, &str, _, &str)| ReqsStat {
+            samples: sample.parse().unwrap(),
+            unit: unit.trim().to_string(),
+        })
+}
+
+#[allow(clippy::type_complexity)]
+pub(crate) fn take_jobstats_yaml<'a, I>() -> impl Parser<I, Output = Option<Vec<JobStatOst>>> + 'a
+where
+    I: RangeStream<Token = char, Range = &'a str> + 'a,
+    I::Range: AsRef<[u8]> + combine::stream::Range,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    many((
+        take_and_skip("- job_id:").with(take_until_range("\n")),
+        take_and_skip("snapshot_time:").with(take_until_range("\n")),
+        optional(take_and_skip("start_time:").with(take_until_range("\n"))),
+        optional(take_and_skip("elapsed_time:").with(take_until_range("\n"))),
+        take_and_skip("read_bytes:").with(take_bytes_stats()),
+        take_until_range("write_bytes:").with(take_bytes_stats()),
+        take_until_range("getattr:").with(take_reqs_stats()),
+        take_until_range("setattr:").with(take_reqs_stats()),
+        take_until_range("punch:").with(take_reqs_stats()),
+        take_until_range("sync:").with(take_reqs_stats()),
+        take_until_range("destroy:").with(take_reqs_stats()),
+        take_until_range("create:").with(take_reqs_stats()),
+        take_until_range("statfs:").with(take_reqs_stats()),
+        take_until_range("get_info:").with(take_reqs_stats()),
+        take_until_range("set_info:").with(take_reqs_stats()),
+        take_until_range("quotactl:").with(take_reqs_stats()),
+        optional(take_until_range("prealloc:").with(take_reqs_stats())),
+        optional(take_until_range("}").skip(range("}"))),
+    ))
+    .map(|x: Vec<_>| {
+        let jobstats: Vec<JobStatOst> = x
+            .into_iter()
+            .map(
+                |(
+                    job_id,
+                    snapshot_time,
+                    start_time,
+                    elapsed_time,
+                    read_bytes,
+                    write_bytes,
+                    getattr,
+                    setattr,
+                    punch,
+                    sync,
+                    destroy,
+                    create,
+                    statfs,
+                    get_info,
+                    set_info,
+                    quotactl,
+                    _,
+                    _,
+                ): (
+                    &str,
+                    &str,
+                    Option<&str>,
+                    Option<&str>,
+                    BytesStat,
+                    BytesStat,
+                    ReqsStat,
+                    ReqsStat,
+                    ReqsStat,
+                    ReqsStat,
+                    ReqsStat,
+                    ReqsStat,
+                    ReqsStat,
+                    ReqsStat,
+                    ReqsStat,
+                    ReqsStat,
+                    _,
+                    _,
+                )| {
+                    JobStatOst {
+                        job_id: job_id.to_string().replace('"', ""),
+                        snapshot_time: UnsignedLustreTimestamp::try_from(snapshot_time.to_string())
+                            .unwrap(),
+                        start_time: start_time
+                            .map(|x| UnsignedLustreTimestamp::try_from(x.to_string()).unwrap()),
+                        elapsed_time: elapsed_time.map(|x| x.to_string()),
+                        read_bytes,
+                        write_bytes,
+                        getattr,
+                        setattr,
+                        punch,
+                        sync,
+                        destroy,
+                        create,
+                        statfs,
+                        get_info,
+                        set_info,
+                        quotactl,
+                    }
+                },
+            )
+            .collect();
+
+        if jobstats.is_empty() {
+            None
+        } else {
+            Some(jobstats)
+        }
+    })
+}
+
 pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Option<Vec<JobStatOst>>> + 'a
 where
     I: RangeStream<Token = char, Range = &'a str> + 'a,
@@ -66,9 +241,13 @@ where
     )
         .skip(optional(newline()))
         .skip(optional(eof()))
-        .and_then(|(_, x): (_, &str)| {
-            serde_yaml::from_str(x)
-                .map(|x: JobStatsOst| x.job_stats)
+        .and_then(|(_, yaml_blob): (_, &str)| {
+            if yaml_blob.trim().is_empty() {
+                return Ok(None);
+            }
+            take_jobstats_yaml()
+                .parse(yaml_blob)
+                .map(|(x, _)| x)
                 .map_err(StreamErrorFor::<I>::other)
         })
 }
@@ -78,7 +257,7 @@ mod tests {
     use super::*;
     use crate::{
         types::{BytesStat, ReqsStat},
-        UnsignedLustreTimestamp,
+        JobStatsOst, UnsignedLustreTimestamp,
     };
 
     #[test]
@@ -189,5 +368,52 @@ mod tests {
   prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }"#;
 
         insta::assert_debug_snapshot!(serde_yaml::from_str::<JobStatsOst>(x).unwrap());
+    }
+
+    #[test]
+    fn test_yaml_combine() {
+        let x = r#"- job_id:          "SLURM_JOB_machine176_2453:0:mac"
+  snapshot_time:   1721048514.718714674 secs.nsecs
+  start_time:      1720764336.685487209 secs.nsecs
+  elapsed_time:    284178.033227465 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:       12999, unit: bytes, min:     4096, max:  1048576, sum:       3918708736, sumsq:   1989431670079488, hist: { 4K: 35, 8K: 49, 16K: 96, 32K: 276, 64K: 837, 128K: 2390, 256K: 3891, 512K: 3380, 1M: 2045 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:       12999, unit: usecs, min:        8, max:  1586470, sum:        748382254, sumsq:    144307310384400 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:         121, unit: usecs, min:       52, max:    13739, sum:            30462, sumsq:          234586860 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }"#;
+
+        let res = take_jobstats_yaml().parse(x);
+        insta::assert_debug_snapshot!(res);
+    }
+
+    #[test]
+    fn test_old_yaml_combine() {
+        let x = r#"- job_id:          cp.0
+  snapshot_time:   1537070542
+  read_bytes:      { samples:         256, unit: bytes, min: 4194304, max: 4194304, sum:      1073741824 }
+  write_bytes:     { samples:           0, unit: bytes, min:       0, max:       0, sum:               0 }
+  getattr:         { samples:           0, unit:  reqs }
+  setattr:         { samples:           0, unit:  reqs }
+  punch:           { samples:           0, unit:  reqs }
+  sync:            { samples:           0, unit:  reqs }
+  destroy:         { samples:           0, unit:  reqs }
+  create:          { samples:           0, unit:  reqs }
+  statfs:          { samples:           0, unit:  reqs }
+  get_info:        { samples:           0, unit:  reqs }
+  set_info:        { samples:           0, unit:  reqs }
+  quotactl:        { samples:           0, unit:  reqs }"#;
+
+        let res = take_jobstats_yaml().parse(x);
+        insta::assert_debug_snapshot!(res);
     }
 }

@@ -35,6 +35,7 @@ fn check_output(records: Vec<Record>, state: &str) -> Result<Vec<Record>, Lustre
     let params = crate::parser::params().join(" ");
 
     if !state.is_empty() {
+        println!("Left: {:#?}", state);
         return Err(io::Error::new(
             io::ErrorKind::InvalidInput,
             format!("Content left in input buffer. Please run and supply to support: `lctl get_param {params}`"),

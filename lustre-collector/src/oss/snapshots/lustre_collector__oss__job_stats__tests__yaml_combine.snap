@@ -1,0 +1,81 @@
+---
+source: lustre-collector/src/oss/job_stats.rs
+expression: res
+---
+Ok(
+    (
+        Some(
+            [
+                JobStatOst {
+                    job_id: "SLURM_JOB_machine176_2453:0:mac",
+                    snapshot_time: UnsignedLustreTimestamp(
+                        1721048514718,
+                    ),
+                    start_time: Some(
+                        UnsignedLustreTimestamp(
+                            1720764336685,
+                        ),
+                    ),
+                    elapsed_time: Some(
+                        "284178.033227465 secs.nsecs",
+                    ),
+                    read_bytes: BytesStat {
+                        samples: 0,
+                        unit: "bytes",
+                        min: 0,
+                        max: 0,
+                        sum: 0,
+                    },
+                    write_bytes: BytesStat {
+                        samples: 12999,
+                        unit: "bytes",
+                        min: 4096,
+                        max: 1048576,
+                        sum: 3918708736,
+                    },
+                    getattr: ReqsStat {
+                        samples: 0,
+                        unit: "usecs",
+                    },
+                    setattr: ReqsStat {
+                        samples: 0,
+                        unit: "usecs",
+                    },
+                    punch: ReqsStat {
+                        samples: 121,
+                        unit: "usecs",
+                    },
+                    sync: ReqsStat {
+                        samples: 0,
+                        unit: "usecs",
+                    },
+                    destroy: ReqsStat {
+                        samples: 0,
+                        unit: "usecs",
+                    },
+                    create: ReqsStat {
+                        samples: 0,
+                        unit: "usecs",
+                    },
+                    statfs: ReqsStat {
+                        samples: 0,
+                        unit: "usecs",
+                    },
+                    get_info: ReqsStat {
+                        samples: 0,
+                        unit: "usecs",
+                    },
+                    set_info: ReqsStat {
+                        samples: 0,
+                        unit: "usecs",
+                    },
+                    quotactl: ReqsStat {
+                        samples: 0,
+                        unit: "usecs",
+                    },
+                },
+            ],
+        ),
+        "",
+    ),
+)
