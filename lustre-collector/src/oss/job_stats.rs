@@ -15,6 +15,13 @@ use combine::{
     Parser, RangeStream,
 };
 
+pub(crate) struct JobstatsHeader<'a> {
+    pub job_id: &'a str,
+    pub snapshot_time: UnsignedLustreTimestamp,
+    pub start_time: Option<UnsignedLustreTimestamp>,
+    pub elapsed_time: Option<&'a str>,
+}
+
 // This function is a rough translation of the following "copy" parser implementation:
 // `take_until(attempt((newline(), alpha_num()).map(drop).or(eof())))`
 pub(crate) fn find_next_jobstats(haystack: &[u8]) -> Option<usize> {
@@ -84,7 +91,7 @@ where
         take_while(|c: char| c.is_numeric()), // sum
         take_until_range("}"),
     )
-        .map(
+        .and_then(
             |(_, sample, _, unit, _, min, _, max, _, sum, _): (
                 _,
                 &str,
@@ -98,13 +105,18 @@ where
                 &str,
                 _,
             )| {
-                BytesStat {
-                    samples: sample.parse().unwrap(),
+                let samples = sample.parse().map_err(StreamErrorFor::<I>::other)?;
+                let min = min.parse().map_err(StreamErrorFor::<I>::other)?;
+                let max = max.parse().map_err(StreamErrorFor::<I>::other)?;
+                let sum = sum.parse().map_err(StreamErrorFor::<I>::other)?;
+
+                Ok::<BytesStat, StreamErrorFor<I>>(BytesStat {
+                    samples,
                     unit: unit.to_string(),
-                    min: min.parse().unwrap(),
-                    max: max.parse().unwrap(),
-                    sum: sum.parse().unwrap(),
-                }
+                    min,
+                    max,
+                    sum,
+                })
             },
         )
 }
@@ -121,10 +133,55 @@ where
         take_and_skip("unit:"),
         take_while(|c: char| c != '}' && c != ','), // unit
     )
-        .map(|(_, sample, _, unit): (_, &str, _, &str)| ReqsStat {
-            samples: sample.parse().unwrap(),
-            unit: unit.trim().to_string(),
+        .and_then(|(_, sample, _, unit): (_, &str, _, &str)| {
+            let samples = sample.parse().map_err(StreamErrorFor::<I>::other)?;
+            Ok::<ReqsStat, StreamErrorFor<I>>(ReqsStat {
+                samples,
+                unit: unit.trim().to_string(),
+            })
         })
+}
+
+pub(crate) fn take_jobstats_header<'a, I>() -> impl Parser<I, Output = JobstatsHeader<'a>> + 'a
+where
+    I: RangeStream<Token = char, Range = &'a str> + 'a,
+    I::Range: AsRef<[u8]> + combine::stream::Range,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    (
+        take_and_skip("- job_id:").with(take_until_range("\n")),
+        take_and_skip("snapshot_time:").with(take_until_range("\n")),
+        optional(take_and_skip("start_time:").with(take_until_range("\n"))),
+        optional(take_and_skip("elapsed_time:").with(take_until_range("\n"))),
+    )
+        .and_then(
+            |(job_id, snapshot_time, start_time, elapsed_time): (
+                &str,
+                &str,
+                Option<&str>,
+                Option<&str>,
+            )| {
+                // Convert snapshot_time
+                let snapshot_time = UnsignedLustreTimestamp::try_from(snapshot_time.to_string())
+                    .map_err(StreamErrorFor::<I>::other)?;
+
+                // Convert start_time if it exists
+                let start_time = match start_time {
+                    Some(time_str) => Some(
+                        UnsignedLustreTimestamp::try_from(time_str.to_string())
+                            .map_err(StreamErrorFor::<I>::other)?,
+                    ),
+                    None => None,
+                };
+
+                Ok::<JobstatsHeader, StreamErrorFor<I>>(JobstatsHeader {
+                    job_id,
+                    snapshot_time,
+                    start_time,
+                    elapsed_time,
+                })
+            },
+        )
 }
 
 #[allow(clippy::type_complexity)]
@@ -135,10 +192,7 @@ where
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     many((
-        take_and_skip("- job_id:").with(take_until_range("\n")),
-        take_and_skip("snapshot_time:").with(take_until_range("\n")),
-        optional(take_and_skip("start_time:").with(take_until_range("\n"))),
-        optional(take_and_skip("elapsed_time:").with(take_until_range("\n"))),
+        take_jobstats_header(),
         take_and_skip("read_bytes:").with(take_bytes_stats()),
         take_until_range("write_bytes:").with(take_bytes_stats()),
         take_until_range("getattr:").with(take_reqs_stats()),
@@ -159,10 +213,7 @@ where
             .into_iter()
             .map(
                 |(
-                    job_id,
-                    snapshot_time,
-                    start_time,
-                    elapsed_time,
+                    jobstats_header,
                     read_bytes,
                     write_bytes,
                     getattr,
@@ -178,10 +229,7 @@ where
                     _,
                     _,
                 ): (
-                    &str,
-                    &str,
-                    Option<&str>,
-                    Option<&str>,
+                    JobstatsHeader,
                     BytesStat,
                     BytesStat,
                     ReqsStat,
@@ -198,12 +246,11 @@ where
                     _,
                 )| {
                     JobStatOst {
-                        job_id: job_id.to_string().replace('"', ""),
-                        snapshot_time: UnsignedLustreTimestamp::try_from(snapshot_time.to_string())
-                            .unwrap(),
-                        start_time: start_time
-                            .map(|x| UnsignedLustreTimestamp::try_from(x.to_string()).unwrap()),
-                        elapsed_time: elapsed_time.map(|x| x.to_string()),
+                        job_id: jobstats_header.job_id.to_string().replace('"', ""),
+                        snapshot_time: jobstats_header.snapshot_time,
+                        start_time: jobstats_header
+                            .start_time,
+                        elapsed_time: jobstats_header.elapsed_time.map(|x| x.to_string()),
                         read_bytes,
                         write_bytes,
                         getattr,

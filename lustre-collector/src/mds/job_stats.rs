@@ -3,9 +3,11 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    oss::job_stats::{take_and_skip, take_bytes_stats, take_jobstats},
+    oss::job_stats::{
+        take_and_skip, take_bytes_stats, take_jobstats, take_jobstats_header, JobstatsHeader,
+    },
     types::JobStatMdt,
-    BytesStat, UnsignedLustreTimestamp,
+    BytesStat,
 };
 use combine::{
     eof,
@@ -50,20 +52,15 @@ where
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     many((
-        (
-            take_and_skip("- job_id:").with(take_until_range("\n")),
-            take_and_skip("snapshot_time:").with(take_until_range("\n")),
-        ),
-        (
-            optional(take_and_skip("start_time:").with(take_until_range("\n"))),
-            optional(take_and_skip("elapsed_time:").with(take_until_range("\n"))),
-        ),
+        take_jobstats_header(),
         (
             take_and_skip("open:").with(take_bytes_stats()),
             take_until_range("close:").with(take_bytes_stats()),
             take_until_range("mknod:").with(take_bytes_stats()),
             take_until_range("link:").with(take_bytes_stats()),
             take_until_range("unlink:").with(take_bytes_stats()),
+        ),
+        (
             take_until_range("mkdir:").with(take_bytes_stats()),
             take_until_range("rmdir:").with(take_bytes_stats()),
             take_until_range("rename:").with(take_bytes_stats()),
@@ -97,14 +94,9 @@ where
             .into_iter()
             .map(
                 |(
-                    (job_id, snapshot_time),
-                    (start_time, elapsed_time),
+                    jobstats_header,
+                    (open, close, mknod, link, unlink),
                     (
-                        open,
-                        close,
-                        mknod,
-                        link,
-                        unlink,
                         mkdir,
                         rmdir,
                         rename,
@@ -123,14 +115,9 @@ where
                     _migrate,
                     _,
                 ): (
-                    (&str, &str),
-                    (Option<&str>, Option<&str>),
+                    JobstatsHeader,
+                    (BytesStat, BytesStat, BytesStat, BytesStat, BytesStat),
                     (
-                        BytesStat,
-                        BytesStat,
-                        BytesStat,
-                        BytesStat,
-                        BytesStat,
                         BytesStat,
                         BytesStat,
                         BytesStat,
@@ -150,12 +137,10 @@ where
                     _,
                 )| {
                     JobStatMdt {
-                        job_id: job_id.to_string().replace('"', ""),
-                        snapshot_time: UnsignedLustreTimestamp::try_from(snapshot_time.to_string())
-                            .unwrap(),
-                        start_time: start_time
-                            .map(|x| UnsignedLustreTimestamp::try_from(x.to_string()).unwrap()),
-                        elapsed_time: elapsed_time.map(|x| x.to_string()),
+                        job_id: jobstats_header.job_id.to_string().replace('"', ""),
+                        snapshot_time: jobstats_header.snapshot_time,
+                        start_time: jobstats_header.start_time,
+                        elapsed_time: jobstats_header.elapsed_time.map(|x| x.to_string()),
                         open,
                         close,
                         mknod,
