@@ -7,14 +7,15 @@ use std::{sync::Arc, time::Duration};
 use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
 use lustrefs_exporter::build_lustre_stats;
+use moka::future::Cache;
 use prometheus_exporter_base::prelude::*;
 use tokio::{
     process::Command,
-    sync::Mutex,
     time::{interval, MissedTickBehavior},
 };
 
 const LUSTREFS_EXPORTER_PORT: &str = "32221";
+const JOBSTAT_ENTRY: &str = "JOBSTATS";
 
 #[derive(Debug)]
 struct Options;
@@ -41,51 +42,55 @@ async fn main() {
         authorization: Authorization::None,
     };
 
-    let mtx_record = Arc::new(Mutex::new(None));
-    let mtx_record2 = Arc::clone(&mtx_record);
+    // Create a cache that can store up to 2 entries.
+    let cache = Cache::new(2);
+    let cloned_cache = cache.clone();
 
     let mut ticker = interval(Duration::from_secs(10));
     ticker.set_missed_tick_behavior(MissedTickBehavior::Skip);
 
-    tokio::spawn(async move {
-        loop {
-            ticker.tick().await;
+    if !disable_jobstats {
+        tokio::spawn(async move {
+            loop {
+                ticker.tick().await;
 
-            let lctl = match Command::new("lctl")
-                .arg("get_param")
-                .args(parser::params_jobstats_only())
-                .kill_on_drop(true)
-                .output()
-                .await
-            {
-                Ok(r) => r,
-                Err(e) => {
-                    tracing::debug!("Failed to retrieve jobstats parameters. {e}");
-                    continue;
-                }
-            };
+                let lctl = match Command::new("lctl")
+                    .arg("get_param")
+                    .args(parser::params_jobstats_only())
+                    .kill_on_drop(true)
+                    .output()
+                    .await
+                {
+                    Ok(r) => r,
+                    Err(e) => {
+                        tracing::debug!("Failed to retrieve jobstats parameters. {e}");
+                        continue;
+                    }
+                };
 
-            // Offload CPU-intensive parsing to a blocking task
-            let parsed_result =
-                tokio::task::spawn_blocking(move || parse_lctl_output(&lctl.stdout)).await;
+                // Offload CPU-intensive parsing to a blocking task
+                let parsed_result =
+                    tokio::task::spawn_blocking(move || parse_lctl_output(&lctl.stdout)).await;
 
-            match parsed_result {
-                Ok(Ok(r)) => {
-                    let stat = build_lustre_stats(r);
-                    let mut lock = mtx_record.lock().await;
-                    *lock = Some(stat);
-                }
-                Ok(Err(e)) => {
-                    tracing::debug!("Failed to parse jobstats information. {e}");
-                    continue;
-                }
-                Err(e) => {
-                    tracing::debug!("Failed to execute parse_lctl_output in blocking task. {e}");
-                    continue;
+                match parsed_result {
+                    Ok(Ok(r)) => {
+                        let stat = build_lustre_stats(r);
+                        cloned_cache.insert(JOBSTAT_ENTRY, Arc::new(stat)).await;
+                    }
+                    Ok(Err(e)) => {
+                        tracing::debug!("Failed to parse jobstats information. {e}");
+                        continue;
+                    }
+                    Err(e) => {
+                        tracing::debug!(
+                            "Failed to execute parse_lctl_output in blocking task. {e}"
+                        );
+                        continue;
+                    }
                 }
             }
-        }
-    });
+        });
+    }
 
     render_prometheus(server_opts, Options, move |request, options| async move {
         tracing::debug!(?request, ?options);
@@ -94,11 +99,7 @@ async fn main() {
 
         let lctl = Command::new("lctl")
             .arg("get_param")
-            .args(if disable_jobstats {
-                parser::params_no_jobstats()
-            } else {
-                parser::params()
-            })
+            .args(parser::params_no_jobstats())
             .kill_on_drop(true)
             .output()
             .await?;
@@ -131,10 +132,10 @@ async fn main() {
 
         let lustre_stats = build_lustre_stats(output);
 
-        let jobstats = { mtx_record2.lock().await.clone() };
+        let jobstats = cache.get(JOBSTAT_ENTRY).await;
 
         match jobstats {
-            Some(jobstats) => Ok([lustre_stats, jobstats].join("\n")),
+            Some(jobstats) => Ok([lustre_stats.as_str(), jobstats.as_str()].join("\n")),
             None => Ok(lustre_stats),
         }
     })
