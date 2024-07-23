@@ -248,8 +248,7 @@ where
                     JobStatOst {
                         job_id: jobstats_header.job_id.to_string().replace('"', ""),
                         snapshot_time: jobstats_header.snapshot_time,
-                        start_time: jobstats_header
-                            .start_time,
+                        start_time: jobstats_header.start_time,
                         elapsed_time: jobstats_header.elapsed_time.map(|x| x.to_string()),
                         read_bytes,
                         write_bytes,
