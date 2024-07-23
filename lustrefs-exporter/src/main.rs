@@ -8,7 +8,6 @@ use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
 use lustrefs_exporter::build_lustre_stats;
 use prometheus_exporter_base::prelude::*;
-
 use tokio::{
     process::Command,
     sync::Mutex,
@@ -25,12 +24,17 @@ pub struct CommandOpts {
     /// Port that exporter will listen to
     #[clap(short, long, env = "LUSTREFS_EXPORTER_PORT", default_value = LUSTREFS_EXPORTER_PORT)]
     pub port: u16,
+    /// Disable jobstats processing
+    #[clap(short, long, env = "LUSTREFS_EXPORTER_JOBSTATS")]
+    pub disable_jobstats: bool,
 }
 
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt::init();
     let opts = CommandOpts::parse();
+
+    let disable_jobstats = opts.disable_jobstats;
 
     let server_opts = ServerOptions {
         addr: ([0, 0, 0, 0], opts.port).into(),
@@ -83,14 +87,18 @@ async fn main() {
         }
     });
 
-    render_prometheus(server_opts, Options, |request, options| async move {
+    render_prometheus(server_opts, Options, move |request, options| async move {
         tracing::debug!(?request, ?options);
 
         let mut output = vec![];
 
         let lctl = Command::new("lctl")
             .arg("get_param")
-            .args(parser::params_no_jobstats())
+            .args(if disable_jobstats {
+                parser::params_no_jobstats()
+            } else {
+                parser::params()
+            })
             .kill_on_drop(true)
             .output()
             .await?;
