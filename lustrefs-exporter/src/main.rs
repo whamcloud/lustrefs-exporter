@@ -4,16 +4,32 @@
 
 use std::{sync::Arc, time::Duration};
 
+use axum::extract::State;
+use axum::routing::get;
+use axum::response::IntoResponse;
+use axum_streams::*;
+
 use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
 use lustrefs_exporter::build_lustre_stats;
-use prometheus_exporter_base::prelude::*;
 
+use prometheus_client::encoding::{EncodeLabelSet, EncodeLabelValue, EncodeMetric, MetricEncoder};
+use prometheus_client::encoding::text::encode;
+use prometheus_client::metrics::counter::{Atomic, Counter};
+use prometheus_client::metrics::family::Family;
+use prometheus_client::metrics::MetricType;
+use prometheus_client::registry::{self, Registry};
+
+use tokio::net::TcpListener;
 use tokio::{
     process::Command,
     sync::Mutex,
     time::{interval, MissedTickBehavior},
 };
+
+use tokio_stream::{Stream, StreamExt};
+
+use futures::prelude::*;
 
 const LUSTREFS_EXPORTER_PORT: &str = "32221";
 
@@ -27,110 +43,72 @@ pub struct CommandOpts {
     pub port: u16,
 }
 
+#[derive(Clone)]
+pub struct AppState {
+    pub registry: Arc<Mutex<Registry>>,
+}
+
+async fn handler(axum::extract::State(state): State<AppState>) -> impl IntoResponse {
+
+    use std::time::Instant;
+
+    let now = Instant::now();
+
+    
+    let file = std::fs::read_to_string("./lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn125/ds86.txt").unwrap();
+
+    let elapsed = now.elapsed();
+    println!("'read_to_string' took: {:.2?}", elapsed);
+
+
+    let lctl_record = parse_lctl_output(file.as_bytes()).unwrap();
+    /* 
+
+    let output = include_str!("../fixtures/jobstats.json");
+
+    let lctl_record = serde_json::from_str(output).unwrap();
+
+
+    let elapsed = now.elapsed();
+    println!("'parse_lctl_output' took: {:.2?}", elapsed);
+
+    */
+
+    let now = Instant::now();
+
+    let stream = build_lustre_stats(lctl_record);
+
+    let elapsed = now.elapsed();
+    println!("'build_lustre_stats' took: {:.2?}", elapsed);
+
+    let concatenated_stream = futures::stream::iter(stream.await).flatten();
+
+    StreamBodyAsOptions::new()
+        .content_type(HttpHeaderValue::from_static("text/plain; charset=utf-8")).text(concatenated_stream)
+
+}
+
+
+
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), std::io::Error> {
     tracing_subscriber::fmt::init();
     let opts = CommandOpts::parse();
 
-    let server_opts = ServerOptions {
-        addr: ([0, 0, 0, 0], opts.port).into(),
-        authorization: Authorization::None,
-    };
+    let registry = Arc::new(Mutex::new(<Registry>::default()));
 
-    let mtx_record = Arc::new(Mutex::new(None));
-    let mtx_record2 = Arc::clone(&mtx_record);
+    let state = AppState { registry: registry.clone() };
 
-    let mut ticker = interval(Duration::from_secs(10));
-    ticker.set_missed_tick_behavior(MissedTickBehavior::Skip);
+    let app = axum::Router::new()
+        .route("/metrics", get(handler)).with_state(state);
 
-    tokio::spawn(async move {
-        loop {
-            ticker.tick().await;
+    let listener = TcpListener::bind(("0.0.0.0", opts.port)).await?;
 
-            let lctl = match Command::new("lctl")
-                .arg("get_param")
-                .args(parser::params_jobstats_only())
-                .kill_on_drop(true)
-                .output()
-                .await
-            {
-                Ok(r) => r,
-                Err(e) => {
-                    tracing::debug!("Failed to retrieve jobstats parameters. {e}");
-                    continue;
-                }
-            };
+    axum::serve(listener, app).await.unwrap();
 
-            // Offload CPU-intensive parsing to a blocking task
-            let parsed_result =
-                tokio::task::spawn_blocking(move || parse_lctl_output(&lctl.stdout)).await;
+    Ok(())
 
-            match parsed_result {
-                Ok(Ok(r)) => {
-                    let stat = build_lustre_stats(r);
-                    let mut lock = mtx_record.lock().await;
-                    *lock = Some(stat);
-                }
-                Ok(Err(e)) => {
-                    tracing::debug!("Failed to parse jobstats information. {e}");
-                    continue;
-                }
-                Err(e) => {
-                    tracing::debug!("Failed to execute parse_lctl_output in blocking task. {e}");
-                    continue;
-                }
-            }
-        }
-    });
-
-    render_prometheus(server_opts, Options, |request, options| async move {
-        tracing::debug!(?request, ?options);
-
-        let mut output = vec![];
-
-        let lctl = Command::new("lctl")
-            .arg("get_param")
-            .args(parser::params_no_jobstats())
-            .kill_on_drop(true)
-            .output()
-            .await?;
-
-        let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
-
-        output.append(&mut lctl_output);
-
-        let lnetctl = Command::new("lnetctl")
-            .args(["net", "show", "-v", "4"])
-            .kill_on_drop(true)
-            .output()
-            .await?;
-
-        let lnetctl_stats = std::str::from_utf8(&lnetctl.stdout)?;
-        let mut lnetctl_output = parse_lnetctl_output(lnetctl_stats)?;
-
-        output.append(&mut lnetctl_output);
-
-        let lnetctl_stats_output = Command::new("lnetctl")
-            .args(["stats", "show"])
-            .kill_on_drop(true)
-            .output()
-            .await?;
-
-        let mut lnetctl_stats_record =
-            parse_lnetctl_stats(std::str::from_utf8(&lnetctl_stats_output.stdout)?)?;
-
-        output.append(&mut lnetctl_stats_record);
-
-        let lustre_stats = build_lustre_stats(output);
-
-        let jobstats = { mtx_record2.lock().await.clone() };
-
-        match jobstats {
-            Some(jobstats) => Ok([lustre_stats, jobstats].join("\n")),
-            None => Ok(lustre_stats),
-        }
-    })
-    .await;
+    
 }
 
 #[cfg(test)]

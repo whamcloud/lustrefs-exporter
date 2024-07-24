@@ -12,6 +12,7 @@ pub mod service;
 pub mod stats;
 
 use brw_stats::build_target_stats;
+use futures::future::Flatten;
 use host::build_host_stats;
 use lnet::build_lnet_stats;
 use lustre_collector::{HostStat, LNetStat, LNetStatGlobal, Record, TargetStat, TargetVariant};
@@ -19,6 +20,8 @@ use num_traits::Num;
 use prometheus_exporter_base::{prelude::*, Yes};
 use service::build_service_stats;
 use std::{collections::BTreeMap, fmt, ops::Deref};
+
+use tokio_stream::Stream;
 
 #[derive(Debug, Clone, Copy)]
 struct Metric {
@@ -125,10 +128,9 @@ impl StatsMapExt for BTreeMap<&'static str, PrometheusMetric<'static>> {
     }
 }
 
-pub fn build_lustre_stats(output: Vec<Record>) -> String {
+pub async fn build_lustre_stat_chunk(chunk: Vec<Record>) -> impl Stream<Item = String> {
     let mut stats_map = BTreeMap::new();
-
-    for x in output {
+    for x in chunk {
         match x {
             lustre_collector::Record::Host(x) => {
                 build_host_stats(x, &mut stats_map);
@@ -145,10 +147,29 @@ pub fn build_lustre_stats(output: Vec<Record>) -> String {
             }
         }
     }
-
-    stats_map
+    let chunk_string = stats_map
         .values()
-        .map(|x| x.render())
-        .collect::<Vec<_>>()
-        .join("\n")
+        .map(|x| x.render());
+
+
+    futures::stream::iter(chunk_string )
+
+}
+
+pub async fn build_lustre_stats(mut output: Vec<Record>) ->  Vec< impl Stream<Item = String>> {
+
+    let mut streams = Vec::new();
+    let num_records = output.len();
+    let chunk_size = 1_000;
+    let chunk_size = if chunk_size < num_records { chunk_size } else { num_records };
+    let chunks = num_records / chunk_size;
+    let chunks = if chunks == 0 { 1 } else { chunks };
+
+    for _ in 0..chunks {
+        let chunk = output.drain(0..chunk_size).collect();
+        let chunk_stream = build_lustre_stat_chunk(chunk).await;
+        streams.push(chunk_stream);
+    }
+    streams
+
 }
