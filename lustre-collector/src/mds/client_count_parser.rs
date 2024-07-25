@@ -24,7 +24,7 @@ pub(crate) fn params() -> Vec<String> {
     vec![format!("mdt.*.{}.*.uuid", EXPORTS)]
 }
 
-pub(crate) fn parse<I>() -> impl Parser<I, Output = Vec<Record>>
+pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Vec<Record<'a>>>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,

@@ -21,7 +21,7 @@ use combine::{
     Parser, RangeStream,
 };
 
-pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Option<Vec<JobStatMdt>>> + 'a
+pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Option<Vec<JobStatMdt<'a>>>> + 'a
 where
     I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Range: AsRef<[u8]> + combine::stream::Range,
@@ -45,7 +45,8 @@ where
 }
 
 #[allow(clippy::type_complexity)]
-pub(crate) fn take_jobstats_yaml<'a, I>() -> impl Parser<I, Output = Option<Vec<JobStatMdt>>> + 'a
+pub(crate) fn take_jobstats_yaml<'a, I>(
+) -> impl Parser<I, Output = Option<Vec<JobStatMdt<'a>>>> + 'a
 where
     I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Range: AsRef<[u8]> + combine::stream::Range,
@@ -137,10 +138,10 @@ where
                     _,
                 )| {
                     JobStatMdt {
-                        job_id: jobstats_header.job_id.to_string().replace('"', ""),
+                        job_id: jobstats_header.job_id,
                         snapshot_time: jobstats_header.snapshot_time,
                         start_time: jobstats_header.start_time,
-                        elapsed_time: jobstats_header.elapsed_time.map(|x| x.to_string()),
+                        elapsed_time: jobstats_header.elapsed_time,
                         open,
                         close,
                         mknod,
@@ -209,139 +210,139 @@ mod tests {
 
         let expected = JobStatsMdt {
             job_stats: Some(vec![JobStatMdt {
-                job_id: "touch.0".to_string(),
+                job_id: "touch.0",
                 snapshot_time: UnsignedLustreTimestamp(1_614_767_417),
                 start_time: None,
                 elapsed_time: None,
                 open: BytesStat {
                     samples: 1,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 315,
                     max: 315,
                     sum: 315,
                 },
                 close: BytesStat {
                     samples: 1,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 19,
                     max: 19,
                     sum: 19,
                 },
                 mknod: BytesStat {
                     samples: 1,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 296,
                     max: 296,
                     sum: 296,
                 },
                 link: BytesStat {
                     samples: 0,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 0,
                     max: 0,
                     sum: 0,
                 },
                 unlink: BytesStat {
                     samples: 0,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 0,
                     max: 0,
                     sum: 0,
                 },
                 mkdir: BytesStat {
                     samples: 0,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 0,
                     max: 0,
                     sum: 0,
                 },
                 rmdir: BytesStat {
                     samples: 0,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 0,
                     max: 0,
                     sum: 0,
                 },
                 rename: BytesStat {
                     samples: 0,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 0,
                     max: 0,
                     sum: 0,
                 },
                 getattr: BytesStat {
                     samples: 0,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 0,
                     max: 0,
                     sum: 0,
                 },
                 setattr: BytesStat {
                     samples: 1,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 27,
                     max: 27,
                     sum: 27,
                 },
                 getxattr: BytesStat {
                     samples: 0,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 0,
                     max: 0,
                     sum: 0,
                 },
                 setxattr: BytesStat {
                     samples: 0,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 0,
                     max: 0,
                     sum: 0,
                 },
                 statfs: BytesStat {
                     samples: 0,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 0,
                     max: 0,
                     sum: 0,
                 },
                 sync: BytesStat {
                     samples: 0,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 0,
                     max: 0,
                     sum: 0,
                 },
                 samedir_rename: BytesStat {
                     samples: 0,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 0,
                     max: 0,
                     sum: 0,
                 },
                 crossdir_rename: BytesStat {
                     samples: 0,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 0,
                     max: 0,
                     sum: 0,
                 },
                 read_bytes: BytesStat {
                     samples: 0,
-                    unit: "bytes".to_string(),
+                    unit: "bytes",
                     min: 0,
                     max: 0,
                     sum: 0,
                 },
                 write_bytes: BytesStat {
                     samples: 0,
-                    unit: "bytes".to_string(),
+                    unit: "bytes",
                     min: 0,
                     max: 0,
                     sum: 0,
                 },
                 punch: BytesStat {
                     samples: 0,
-                    unit: "usecs".to_string(),
+                    unit: "usecs",
                     min: 0,
                     max: 0,
                     sum: 0,

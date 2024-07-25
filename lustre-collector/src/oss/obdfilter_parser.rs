@@ -85,8 +85,8 @@ where
 }
 
 #[derive(Debug)]
-enum ObdfilterStat {
-    JobStats(Option<Vec<JobStatOst>>),
+enum ObdfilterStat<'a> {
+    JobStats(Option<Vec<JobStatOst<'a>>>),
     Stats(Vec<Stat>),
     ExportStats(Vec<ExportStats>),
     NumExports(u64),
@@ -95,7 +95,7 @@ enum ObdfilterStat {
     TotPending(u64),
 }
 
-fn obdfilter_stat<'a, I>() -> impl Parser<I, Output = (Param, ObdfilterStat)> + 'a
+fn obdfilter_stat<'a, I>() -> impl Parser<I, Output = (Param, ObdfilterStat<'a>)> + 'a
 where
     I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -130,7 +130,7 @@ where
     .message("while parsing obdfilter")
 }
 
-pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Record> + 'a
+pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Record<'a>> + 'a
 where
     I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Error: ParseError<I::Token, I::Range, I::Position>,

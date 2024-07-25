@@ -42,23 +42,24 @@ impl Deref for Param {
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
-pub struct ReqsStat {
-    pub samples: i64,
-    pub unit: String,
+pub struct ReqsStat<'a> {
+    pub samples: &'a str,
+    pub unit: &'a str,
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
-pub struct BytesStat {
-    pub samples: i64,
-    pub unit: String,
-    pub min: i64,
-    pub max: i64,
-    pub sum: i64,
+pub struct BytesStat<'a> {
+    pub samples: &'a str,
+    pub unit: &'a str,
+    pub min: &'a str,
+    pub max: &'a str,
+    pub sum: &'a str,
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
-pub struct JobStatsOst {
-    pub job_stats: Option<Vec<JobStatOst>>,
+pub struct JobStatsOst<'a> {
+    #[serde(borrow = "'a")]
+    pub job_stats: Option<Vec<JobStatOst<'a>>>,
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
@@ -140,57 +141,58 @@ impl fmt::Display for UnsignedLustreTimestamp {
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
-pub struct JobStatOst {
-    pub job_id: String,
-    pub snapshot_time: UnsignedLustreTimestamp,
-    pub start_time: Option<UnsignedLustreTimestamp>,
-    pub elapsed_time: Option<String>,
-    pub read_bytes: BytesStat,
-    pub write_bytes: BytesStat,
-    pub getattr: ReqsStat,
-    pub setattr: ReqsStat,
-    pub punch: ReqsStat,
-    pub sync: ReqsStat,
-    pub destroy: ReqsStat,
-    pub create: ReqsStat,
-    pub statfs: ReqsStat,
-    pub get_info: ReqsStat,
-    pub set_info: ReqsStat,
-    pub quotactl: ReqsStat,
+pub struct JobStatOst<'a> {
+    pub job_id: &'a str,
+    pub snapshot_time: &'a str,
+    pub start_time: Option<&'a str>,
+    pub elapsed_time: Option<&'a str>,
+    pub read_bytes: BytesStat<'a>,
+    pub write_bytes: BytesStat<'a>,
+    pub getattr: ReqsStat<'a>,
+    pub setattr: ReqsStat<'a>,
+    pub punch: ReqsStat<'a>,
+    pub sync: ReqsStat<'a>,
+    pub destroy: ReqsStat<'a>,
+    pub create: ReqsStat<'a>,
+    pub statfs: ReqsStat<'a>,
+    pub get_info: ReqsStat<'a>,
+    pub set_info: ReqsStat<'a>,
+    pub quotactl: ReqsStat<'a>,
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
-pub struct JobStatsMdt {
-    pub job_stats: Option<Vec<JobStatMdt>>,
+pub struct JobStatsMdt<'a> {
+    #[serde(borrow = "'a")]
+    pub job_stats: Option<Vec<JobStatMdt<'a>>>,
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
-pub struct JobStatMdt {
-    pub job_id: String,
-    pub snapshot_time: UnsignedLustreTimestamp,
-    pub start_time: Option<UnsignedLustreTimestamp>,
-    pub elapsed_time: Option<String>,
-    pub open: BytesStat,
-    pub close: BytesStat,
-    pub mknod: BytesStat,
-    pub link: BytesStat,
-    pub unlink: BytesStat,
-    pub mkdir: BytesStat,
-    pub rmdir: BytesStat,
-    pub rename: BytesStat,
-    pub getattr: BytesStat,
-    pub setattr: BytesStat,
-    pub getxattr: BytesStat,
-    pub setxattr: BytesStat,
-    pub statfs: BytesStat,
-    pub sync: BytesStat,
-    pub samedir_rename: BytesStat,
-    pub crossdir_rename: BytesStat,
-    pub read_bytes: BytesStat,
-    pub write_bytes: BytesStat,
-    pub punch: BytesStat,
-    pub parallel_rename_dir: Option<BytesStat>,
-    pub parallel_rename_file: Option<BytesStat>,
+pub struct JobStatMdt<'a> {
+    pub job_id: &'a str,
+    pub snapshot_time: &'a str,
+    pub start_time: Option<&'a str>,
+    pub elapsed_time: Option<&'a str>,
+    pub open: BytesStat<'a>,
+    pub close: BytesStat<'a>,
+    pub mknod: BytesStat<'a>,
+    pub link: BytesStat<'a>,
+    pub unlink: BytesStat<'a>,
+    pub mkdir: BytesStat<'a>,
+    pub rmdir: BytesStat<'a>,
+    pub rename: BytesStat<'a>,
+    pub getattr: BytesStat<'a>,
+    pub setattr: BytesStat<'a>,
+    pub getxattr: BytesStat<'a>,
+    pub setxattr: BytesStat<'a>,
+    pub statfs: BytesStat<'a>,
+    pub sync: BytesStat<'a>,
+    pub samedir_rename: BytesStat<'a>,
+    pub crossdir_rename: BytesStat<'a>,
+    pub read_bytes: BytesStat<'a>,
+    pub write_bytes: BytesStat<'a>,
+    pub punch: BytesStat<'a>,
+    pub parallel_rename_dir: Option<BytesStat<'a>>,
+    pub parallel_rename_file: Option<BytesStat<'a>>,
 }
 
 pub mod lnet_exports {
@@ -538,12 +540,13 @@ pub struct FsName(pub String);
 
 /// The target stats currently collected
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
-pub enum TargetStats {
+pub enum TargetStats<'a> {
     /// Operations per OST. Read and write data is particularly interesting
-    JobStatsOst(TargetStat<Option<Vec<JobStatOst>>>),
+    #[serde(borrow = "'a")]
+    JobStatsOst(TargetStat<Option<Vec<JobStatOst<'a>>>>),
     Stats(TargetStat<Vec<Stat>>),
     BrwStats(TargetStat<Vec<BrwStats>>),
-    JobStatsMdt(TargetStat<Option<Vec<JobStatMdt>>>),
+    JobStatsMdt(TargetStat<Option<Vec<JobStatMdt<'a>>>>),
     /// Available inodes
     FilesFree(TargetStat<u64>),
     /// Total inodes
@@ -607,12 +610,13 @@ pub enum LustreServiceStats {
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
-pub enum Record {
+pub enum Record<'a> {
     Host(HostStats),
     LNetStat(LNetStats),
     LustreService(LustreServiceStats),
     Node(NodeStats),
-    Target(TargetStats),
+    #[serde(borrow = "'a")]
+    Target(TargetStats<'a>),
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]

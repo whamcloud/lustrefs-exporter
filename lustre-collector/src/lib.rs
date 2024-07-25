@@ -31,7 +31,10 @@ pub use node_stats_parsers::{parse_cpustats_output, parse_meminfo_output};
 use std::{io, str};
 pub use types::*;
 
-fn check_output(records: Vec<Record>, state: &str) -> Result<Vec<Record>, LustreCollectorError> {
+fn check_output<'a>(
+    records: Vec<Record<'a>>,
+    state: &str,
+) -> Result<Vec<Record<'a>>, LustreCollectorError> {
     let params = crate::parser::params().join(" ");
 
     if !state.is_empty() {
@@ -47,7 +50,9 @@ fn check_output(records: Vec<Record>, state: &str) -> Result<Vec<Record>, Lustre
 }
 
 /// Must be called with output of `lctl get_params` for all params returned from `parser::parse()`
-pub fn parse_lctl_output(lctl_output: &[u8]) -> Result<Vec<Record>, LustreCollectorError> {
+pub fn parse_lctl_output(
+    lctl_output: &[u8],
+) -> Result<Vec<Record>, LustreCollectorError> {
     let lctl_stats = str::from_utf8(lctl_output)?;
 
     let (lctl_record, state) = parser::parse()

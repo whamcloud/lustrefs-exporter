@@ -41,7 +41,7 @@ pub fn parse_cpustats_output(output: &[u8]) -> Result<Vec<Record>, LustreCollect
     Ok(stats)
 }
 
-fn parse_cpustats<I>() -> impl Parser<I, Output = Vec<Record>>
+fn parse_cpustats<'a, I>() -> impl Parser<I, Output = Vec<Record<'a>>>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -95,7 +95,7 @@ pub fn parse_meminfo_output(output: &[u8]) -> Result<Vec<Record>, LustreCollecto
     Ok(mem_stats)
 }
 
-fn parse_meminfo<I>() -> impl Parser<I, Output = Vec<Record>>
+fn parse_meminfo<'a, I>() -> impl Parser<I, Output = Vec<Record<'a>>>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -115,7 +115,7 @@ where
     .map(|xs: Vec<_>| xs.into_iter().flatten().collect())
 }
 
-fn parse_meminfo_line<I>() -> impl Parser<I, Output = Record>
+fn parse_meminfo_line<'a, I>() -> impl Parser<I, Output = Record<'a>>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,

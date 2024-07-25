@@ -48,7 +48,7 @@ pub fn params_jobstats_only() -> Vec<String> {
         .collect()
 }
 
-pub fn parse<'a, I>() -> impl Parser<I, Output = Vec<Record>> + 'a
+pub fn parse<'a, I>() -> impl Parser<I, Output = Vec<Record<'a>>> + 'a
 where
     I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Error: ParseError<I::Token, I::Range, I::Position>,

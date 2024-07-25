@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::{types::JobStatOst, BytesStat, ReqsStat, UnsignedLustreTimestamp};
+use crate::{types::JobStatOst, BytesStat, ReqsStat};
 use combine::{
     eof,
     error::{ParseError, StreamError},
@@ -17,8 +17,8 @@ use combine::{
 
 pub(crate) struct JobstatsHeader<'a> {
     pub job_id: &'a str,
-    pub snapshot_time: UnsignedLustreTimestamp,
-    pub start_time: Option<UnsignedLustreTimestamp>,
+    pub snapshot_time: &'a str,
+    pub start_time: Option<&'a str>,
     pub elapsed_time: Option<&'a str>,
 }
 
@@ -72,7 +72,7 @@ where
         .skip(take_while(|c: char| c.is_whitespace()))
 }
 
-pub(crate) fn take_bytes_stats<'a, I>() -> impl Parser<I, Output = BytesStat> + 'a
+pub(crate) fn take_bytes_stats<'a, I>() -> impl Parser<I, Output = BytesStat<'a>> + 'a
 where
     I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Range: AsRef<[u8]> + combine::stream::Range,
@@ -92,7 +92,7 @@ where
         take_until_range("}"),
     )
         .and_then(
-            |(_, sample, _, unit, _, min, _, max, _, sum, _): (
+            |(_, samples, _, unit, _, min, _, max, _, sum, _): (
                 _,
                 &str,
                 _,
@@ -105,14 +105,9 @@ where
                 &str,
                 _,
             )| {
-                let samples = sample.parse().map_err(StreamErrorFor::<I>::other)?;
-                let min = min.parse().map_err(StreamErrorFor::<I>::other)?;
-                let max = max.parse().map_err(StreamErrorFor::<I>::other)?;
-                let sum = sum.parse().map_err(StreamErrorFor::<I>::other)?;
-
                 Ok::<BytesStat, StreamErrorFor<I>>(BytesStat {
                     samples,
-                    unit: unit.to_string(),
+                    unit,
                     min,
                     max,
                     sum,
@@ -121,7 +116,7 @@ where
         )
 }
 
-pub(crate) fn take_reqs_stats<'a, I>() -> impl Parser<I, Output = ReqsStat> + 'a
+pub(crate) fn take_reqs_stats<'a, I>() -> impl Parser<I, Output = ReqsStat<'a>> + 'a
 where
     I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Range: AsRef<[u8]> + combine::stream::Range,
@@ -133,11 +128,10 @@ where
         take_and_skip("unit:"),
         take_while(|c: char| c != '}' && c != ','), // unit
     )
-        .and_then(|(_, sample, _, unit): (_, &str, _, &str)| {
-            let samples = sample.parse().map_err(StreamErrorFor::<I>::other)?;
+        .and_then(|(_, samples, _, unit): (_, &str, _, &str)| {
             Ok::<ReqsStat, StreamErrorFor<I>>(ReqsStat {
                 samples,
-                unit: unit.trim().to_string(),
+                unit: unit.trim(),
             })
         })
 }
@@ -161,19 +155,6 @@ where
                 Option<&str>,
                 Option<&str>,
             )| {
-                // Convert snapshot_time
-                let snapshot_time = UnsignedLustreTimestamp::try_from(snapshot_time.to_string())
-                    .map_err(StreamErrorFor::<I>::other)?;
-
-                // Convert start_time if it exists
-                let start_time = match start_time {
-                    Some(time_str) => Some(
-                        UnsignedLustreTimestamp::try_from(time_str.to_string())
-                            .map_err(StreamErrorFor::<I>::other)?,
-                    ),
-                    None => None,
-                };
-
                 Ok::<JobstatsHeader, StreamErrorFor<I>>(JobstatsHeader {
                     job_id,
                     snapshot_time,
@@ -185,7 +166,8 @@ where
 }
 
 #[allow(clippy::type_complexity)]
-pub(crate) fn take_jobstats_yaml<'a, I>() -> impl Parser<I, Output = Option<Vec<JobStatOst>>> + 'a
+pub(crate) fn take_jobstats_yaml<'a, I>(
+) -> impl Parser<I, Output = Option<Vec<JobStatOst<'a>>>> + 'a
 where
     I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Range: AsRef<[u8]> + combine::stream::Range,
@@ -246,10 +228,10 @@ where
                     _,
                 )| {
                     JobStatOst {
-                        job_id: jobstats_header.job_id.to_string().replace('"', ""),
+                        job_id: jobstats_header.job_id,
                         snapshot_time: jobstats_header.snapshot_time,
                         start_time: jobstats_header.start_time,
-                        elapsed_time: jobstats_header.elapsed_time.map(|x| x.to_string()),
+                        elapsed_time: jobstats_header.elapsed_time,
                         read_bytes,
                         write_bytes,
                         getattr,
@@ -275,7 +257,7 @@ where
     })
 }
 
-pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Option<Vec<JobStatOst>>> + 'a
+pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Option<Vec<JobStatOst<'a>>>> + 'a
 where
     I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Range: AsRef<[u8]> + combine::stream::Range,
@@ -326,63 +308,63 @@ mod tests {
 
         let expected = JobStatsOst {
             job_stats: Some(vec![JobStatOst {
-                job_id: "cp.0".to_string(),
+                job_id: "cp.0",
                 snapshot_time: UnsignedLustreTimestamp(1_537_070_542),
                 start_time: None,
                 elapsed_time: None,
                 read_bytes: BytesStat {
                     samples: 256,
-                    unit: "bytes".to_string(),
+                    unit: "bytes",
                     min: 4_194_304,
                     max: 4_194_304,
                     sum: 1_073_741_824,
                 },
                 write_bytes: BytesStat {
                     samples: 0,
-                    unit: "bytes".to_string(),
+                    unit: "bytes",
                     min: 0,
                     max: 0,
                     sum: 0,
                 },
                 getattr: ReqsStat {
                     samples: 0,
-                    unit: "reqs".to_string(),
+                    unit: "reqs",
                 },
                 setattr: ReqsStat {
                     samples: 0,
-                    unit: "reqs".to_string(),
+                    unit: "reqs",
                 },
                 punch: ReqsStat {
                     samples: 0,
-                    unit: "reqs".to_string(),
+                    unit: "reqs",
                 },
                 sync: ReqsStat {
                     samples: 0,
-                    unit: "reqs".to_string(),
+                    unit: "reqs",
                 },
                 destroy: ReqsStat {
                     samples: 0,
-                    unit: "reqs".to_string(),
+                    unit: "reqs",
                 },
                 create: ReqsStat {
                     samples: 0,
-                    unit: "reqs".to_string(),
+                    unit: "reqs",
                 },
                 statfs: ReqsStat {
                     samples: 0,
-                    unit: "reqs".to_string(),
+                    unit: "reqs",
                 },
                 get_info: ReqsStat {
                     samples: 0,
-                    unit: "reqs".to_string(),
+                    unit: "reqs",
                 },
                 set_info: ReqsStat {
                     samples: 0,
-                    unit: "reqs".to_string(),
+                    unit: "reqs",
                 },
                 quotactl: ReqsStat {
                     samples: 0,
-                    unit: "reqs".to_string(),
+                    unit: "reqs",
                 },
             }]),
         };

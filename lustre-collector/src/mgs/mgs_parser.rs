@@ -90,7 +90,7 @@ where
     .message("while parsing mgs stats")
 }
 
-pub fn parse<I>() -> impl Parser<I, Output = Record>
+pub fn parse<'a, I>() -> impl Parser<I, Output = Record<'a>>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,

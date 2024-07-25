@@ -27,7 +27,7 @@ pub(crate) fn params_jobstats_only() -> Vec<String> {
     obdfilter_parser::obd_params_jobstats_only()
 }
 
-pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Record> + 'a
+pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Record<'a>> + 'a
 where
     I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Error: ParseError<I::Token, I::Range, I::Position>,

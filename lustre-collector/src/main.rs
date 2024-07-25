@@ -6,13 +6,12 @@ use clap::{value_parser, Arg, ValueEnum};
 use lustre_collector::{
     error::LustreCollectorError, mgs::mgs_fs_parser, parse_lctl_output, parse_lnetctl_output,
     parse_lnetctl_stats, parse_mgs_fs_output, parse_recovery_status_output, parser,
-    recovery_status_parser, types::Record,
+    recovery_status_parser,
 };
 use std::{
-    fmt, panic,
+    fmt,
     process::{Command, ExitCode},
     str::{self, FromStr},
-    thread,
 };
 use tracing::debug;
 
@@ -113,36 +112,17 @@ fn run() -> Result<(), LustreCollectorError> {
         .get_one::<Format>("format")
         .expect("Required argument `format` missing");
 
-    let handle = thread::spawn(move || -> Result<Vec<Record>, LustreCollectorError> {
-        let lctl_output = get_lctl_output()?;
+    let lctl_output = get_lctl_output()?;
+    let mut lctl_record = parse_lctl_output(&lctl_output)?;
 
-        let lctl_record = parse_lctl_output(&lctl_output)?;
+    let lctl_mgs_output = get_lctl_mgs_fs_output()?;
+    let mut lctl_mgs_record = parse_mgs_fs_output(&lctl_mgs_output)?;
 
-        Ok(lctl_record)
-    });
+    let lnetctl_stats_output = get_lnetctl_stats_output()?;
+    let mut lnetctl_stats_record = parse_lnetctl_stats(str::from_utf8(&lnetctl_stats_output)?)?;
 
-    let mgs_fs_handle = thread::spawn(move || -> Result<Vec<Record>, LustreCollectorError> {
-        let lctl_output = get_lctl_mgs_fs_output()?;
-        let lctl_record = parse_mgs_fs_output(&lctl_output)?;
-
-        Ok(lctl_record)
-    });
-
-    let lnetctl_stats_handle =
-        thread::spawn(move || -> Result<Vec<Record>, LustreCollectorError> {
-            let lnetctl_stats_output = get_lnetctl_stats_output()?;
-            let lnetctl_stats_record = parse_lnetctl_stats(str::from_utf8(&lnetctl_stats_output)?)?;
-
-            Ok(lnetctl_stats_record)
-        });
-
-    let recovery_status_handle =
-        thread::spawn(move || -> Result<Vec<Record>, LustreCollectorError> {
-            let recovery_status_output = get_recovery_status_output()?;
-            let recovery_statuses = parse_recovery_status_output(&recovery_status_output)?;
-
-            Ok(recovery_statuses)
-        });
+    let recovery_status_output = get_recovery_status_output()?;
+    let mut recovery_statuses = parse_recovery_status_output(&recovery_status_output)?;
 
     let lnetctl_net_show_output = Command::new("lnetctl")
         .args(["net", "show", "-v", "4"])
@@ -155,29 +135,9 @@ fn run() -> Result<(), LustreCollectorError> {
     let mut lnet_record = parse_lnetctl_output(lnetctl_net_show_stats)
         .expect("while parsing 'lnetctl net show -v 4' stats");
 
-    let mut lctl_record = match handle.join() {
-        Ok(r) => r?,
-        Err(e) => panic::resume_unwind(e),
-    };
-
-    let mut mgs_fs_record = match mgs_fs_handle.join() {
-        Ok(r) => r.unwrap_or_default(),
-        Err(e) => panic::resume_unwind(e),
-    };
-
-    let mut recovery_status_records = match recovery_status_handle.join() {
-        Ok(r) => r.unwrap_or_default(),
-        Err(e) => panic::resume_unwind(e),
-    };
-
-    let mut lnetctl_stats_record = match lnetctl_stats_handle.join() {
-        Ok(r) => r.unwrap_or_default(),
-        Err(e) => panic::resume_unwind(e),
-    };
-
     lctl_record.append(&mut lnet_record);
-    lctl_record.append(&mut mgs_fs_record);
-    lctl_record.append(&mut recovery_status_records);
+    lctl_record.append(&mut lctl_mgs_record);
+    lctl_record.append(&mut recovery_statuses);
     lctl_record.append(&mut lnetctl_stats_record);
 
     let x = match format {

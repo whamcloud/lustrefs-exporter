@@ -23,14 +23,14 @@ pub(crate) const JOB_STATS: &str = "job_stats";
 pub(crate) const STATS: &str = "md_stats";
 pub(crate) const NUM_EXPORTS: &str = "num_exports";
 
-enum MdtStat {
-    JobStats(Option<Vec<JobStatMdt>>),
+enum MdtStat<'a> {
+    JobStats(Option<Vec<JobStatMdt<'a>>>),
     Stats(Vec<Stat>),
     NumExports(u64),
     ExportStats(Vec<ExportStats>),
 }
 
-fn mdt_stat<'a, I>() -> impl Parser<I, Output = (Param, MdtStat)> + 'a
+fn mdt_stat<'a, I>() -> impl Parser<I, Output = (Param, MdtStat<'a>)> + 'a
 where
     I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -88,7 +88,7 @@ where
         .message("while parsing target_name")
 }
 
-pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Record> + 'a
+pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Record<'a>> + 'a
 where
     I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
