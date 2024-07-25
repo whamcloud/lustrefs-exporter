@@ -10,7 +10,8 @@ lustre_collector.path = "../lustre-collector"
 moka = {version = "0.12.8", features = ["future"]}
 num-traits = "0.2.14"
 prometheus = "0.13.3"
-prometheus_exporter_base = {version = "1.4.0", features = ["hyper_server"]}
+# prometheus_exporter_base = {version = "1.4.0", features = ["hyper_server"]}
+prometheus_exporter_base = {git = "https://github.com/RDruon/prometheus_exporter_base", features = ["hyper_server"]}
 tokio = {version = "1.27", features = [
   "rt-multi-thread",
   "macros",

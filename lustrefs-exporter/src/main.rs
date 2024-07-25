@@ -69,13 +69,14 @@ async fn main() {
                 };
 
                 // Offload CPU-intensive parsing to a blocking task
-                let parsed_result =
-                    tokio::task::spawn_blocking(move || parse_lctl_output(&lctl.stdout)).await;
+                let parsed_result = tokio::task::spawn_blocking(move || {
+                    parse_lctl_output(&lctl.stdout).map(build_lustre_stats)
+                })
+                .await;
 
                 match parsed_result {
                     Ok(Ok(r)) => {
-                        let stat = build_lustre_stats(r);
-                        cloned_cache.insert(JOBSTAT_ENTRY, Arc::new(stat)).await;
+                        cloned_cache.insert(JOBSTAT_ENTRY, Arc::new(r)).await;
                     }
                     Ok(Err(e)) => {
                         tracing::debug!("Failed to parse jobstats information. {e}");
