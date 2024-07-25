@@ -15,7 +15,7 @@ use combine::{
     error::ParseError,
     parser::char::{newline, string},
     stream::Stream,
-    Parser,
+    Parser, RangeStream,
 };
 
 pub(crate) const JOBSTATS: &str = "job_stats";
@@ -60,8 +60,8 @@ where
 }
 
 #[derive(Debug)]
-enum ObdfilterStat {
-    JobStats(Option<Vec<JobStatOst>>),
+enum ObdfilterStat<'a> {
+    JobStats(Option<Vec<JobStatOst<'a>>>),
     Stats(Vec<Stat>),
     ExportStats(Vec<ExportStats>),
     NumExports(u64),
@@ -70,9 +70,9 @@ enum ObdfilterStat {
     TotPending(u64),
 }
 
-fn obdfilter_stat<I>() -> impl Parser<I, Output = (Param, ObdfilterStat)>
+fn obdfilter_stat<'a, I>() -> impl Parser<I, Output = (Param, ObdfilterStat<'a>)> + 'a
 where
-    I: Stream<Token = char>,
+    I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     choice((
@@ -105,9 +105,9 @@ where
     .message("while parsing obdfilter")
 }
 
-pub(crate) fn parse<I>() -> impl Parser<I, Output = Record>
+pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Record<'a>> + 'a
 where
-    I: Stream<Token = char>,
+    I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     (target_name(), obdfilter_stat())

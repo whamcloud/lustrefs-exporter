@@ -1,0 +1,8 @@
+---
+source: lustre-collector/src/parser.rs
+expression: params_jobstats_only()
+---
+[
+    "obdfilter.*OST*.job_stats",
+    "mdt.*.job_stats",
+]

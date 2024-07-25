@@ -64,7 +64,7 @@ where
         .map(|xs| (Param("fsnames".into()), MgsFsStat::MgsFsNames(xs)))
 }
 
-pub fn parse<I>() -> impl Parser<I, Output = Vec<Record>>
+pub fn parse<'a, I>() -> impl Parser<I, Output = Vec<Record<'a>>>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,

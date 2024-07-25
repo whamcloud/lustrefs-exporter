@@ -1,5 +1,5 @@
 ---
-source: src/oss/job_stats.rs
+source: lustre-collector/src/oss/job_stats.rs
 expression: "serde_yaml::from_str::<JobStatsOst>(x).unwrap()"
 ---
 JobStatsOst {
@@ -7,69 +7,65 @@ JobStatsOst {
         [
             JobStatOst {
                 job_id: "lfs.0.",
-                snapshot_time: UnsignedLustreTimestamp(
-                    1686153914643,
-                ),
+                snapshot_time: "1686153914.643122579 secs.nsecs",
                 start_time: Some(
-                    UnsignedLustreTimestamp(
-                        1686153914643,
-                    ),
+                    "1686153914.643119181 secs.nsecs",
                 ),
                 elapsed_time: Some(
                     "0.000003398 secs.nsecs",
                 ),
                 read_bytes: BytesStat {
-                    samples: 0,
+                    samples: "0",
                     unit: "bytes",
-                    min: 0,
-                    max: 0,
-                    sum: 0,
+                    min: "0",
+                    max: "0",
+                    sum: "0",
                 },
                 write_bytes: BytesStat {
-                    samples: 0,
+                    samples: "0",
                     unit: "bytes",
-                    min: 0,
-                    max: 0,
-                    sum: 0,
+                    min: "0",
+                    max: "0",
+                    sum: "0",
                 },
                 getattr: ReqsStat {
-                    samples: 0,
+                    samples: "0",
                     unit: "usecs",
                 },
                 setattr: ReqsStat {
-                    samples: 0,
+                    samples: "0",
                     unit: "usecs",
                 },
                 punch: ReqsStat {
-                    samples: 0,
+                    samples: "0",
                     unit: "usecs",
                 },
                 sync: ReqsStat {
-                    samples: 0,
+                    samples: "0",
                     unit: "usecs",
                 },
                 destroy: ReqsStat {
-                    samples: 0,
+                    samples: "0",
                     unit: "usecs",
                 },
                 create: ReqsStat {
-                    samples: 0,
+                    samples: "0",
                     unit: "usecs",
                 },
                 statfs: ReqsStat {
-                    samples: 1,
+                    samples: "1",
                     unit: "usecs",
                 },
                 get_info: ReqsStat {
-                    samples: 0,
+                    samples: "0",
                     unit: "usecs",
                 },
                 set_info: ReqsStat {
-                    samples: 0,
+                    samples: "0",
                     unit: "usecs",
                 },
                 quotactl: ReqsStat {
-                    samples: 0,
+                    samples: "0",
                     unit: "usecs",
                 },
             },

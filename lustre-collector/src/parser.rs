@@ -9,7 +9,7 @@ use crate::{
     osd_parser, oss, quota, top_level_parser,
     types::Record,
 };
-use combine::{choice, error::ParseError, many, Parser, Stream};
+use combine::{choice, error::ParseError, many, Parser, RangeStream};
 
 pub fn params() -> Vec<String> {
     top_level_parser::top_level_params()
@@ -26,9 +26,9 @@ pub fn params() -> Vec<String> {
         .collect()
 }
 
-pub fn parse<I>() -> impl Parser<I, Output = Vec<Record>>
+pub fn parse<'a, I>() -> impl Parser<I, Output = Vec<Record<'a>>> + 'a
 where
-    I: Stream<Token = char>,
+    I: RangeStream<Token = char, Range = &'a str> + 'a,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     many(choice((

@@ -1,0 +1,73 @@
+---
+source: lustre-collector/src/oss/job_stats.rs
+expression: res
+---
+Ok(
+    (
+        Some(
+            [
+                JobStatOst {
+                    job_id: "cp.0",
+                    snapshot_time: "1537070542",
+                    start_time: None,
+                    elapsed_time: None,
+                    read_bytes: BytesStat {
+                        samples: "256",
+                        unit: "bytes",
+                        min: "4194304",
+                        max: "4194304",
+                        sum: "1073741824",
+                    },
+                    write_bytes: BytesStat {
+                        samples: "0",
+                        unit: "bytes",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    getattr: ReqsStat {
+                        samples: "0",
+                        unit: "reqs",
+                    },
+                    setattr: ReqsStat {
+                        samples: "0",
+                        unit: "reqs",
+                    },
+                    punch: ReqsStat {
+                        samples: "0",
+                        unit: "reqs",
+                    },
+                    sync: ReqsStat {
+                        samples: "0",
+                        unit: "reqs",
+                    },
+                    destroy: ReqsStat {
+                        samples: "0",
+                        unit: "reqs",
+                    },
+                    create: ReqsStat {
+                        samples: "0",
+                        unit: "reqs",
+                    },
+                    statfs: ReqsStat {
+                        samples: "0",
+                        unit: "reqs",
+                    },
+                    get_info: ReqsStat {
+                        samples: "0",
+                        unit: "reqs",
+                    },
+                    set_info: ReqsStat {
+                        samples: "0",
+                        unit: "reqs",
+                    },
+                    quotactl: ReqsStat {
+                        samples: "0",
+                        unit: "reqs",
+                    },
+                },
+            ],
+        ),
+        "",
+    ),
+)

@@ -118,7 +118,7 @@ where
     )
         .map(|(_, param)| (param))
 }
-pub(crate) fn qmt_parse<I>() -> impl Parser<I, Output = Record>
+pub(crate) fn qmt_parse<'a, I>() -> impl Parser<I, Output = Record<'a>>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,

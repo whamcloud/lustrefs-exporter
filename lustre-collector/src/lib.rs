@@ -31,10 +31,14 @@ pub use node_stats_parsers::{parse_cpustats_output, parse_meminfo_output};
 use std::{io, str};
 pub use types::*;
 
-fn check_output(records: Vec<Record>, state: &str) -> Result<Vec<Record>, LustreCollectorError> {
+fn check_output<'a>(
+    records: Vec<Record<'a>>,
+    state: &str,
+) -> Result<Vec<Record<'a>>, LustreCollectorError> {
     let params = crate::parser::params().join(" ");
 
     if !state.is_empty() {
+        println!("Left: {:#?}", state);
         return Err(io::Error::new(
             io::ErrorKind::InvalidInput,
             format!("Content left in input buffer. Please run and supply to support: `lctl get_param {params}`"),

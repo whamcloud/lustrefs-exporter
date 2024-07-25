@@ -13,7 +13,7 @@ struct LnetNetStats {
     net: Option<Vec<Net>>,
 }
 
-pub(crate) fn build_lnet_stats(x: &Net) -> Vec<Record> {
+pub(crate) fn build_lnet_stats<'a>(x: &Net) -> Vec<Record<'a>> {
     x.local_nis
         .iter()
         .flat_map(|y| {
@@ -39,7 +39,7 @@ pub(crate) fn build_lnet_stats(x: &Net) -> Vec<Record> {
         .collect()
 }
 
-pub fn parse(x: &str) -> Result<Vec<Record>, LustreCollectorError> {
+pub fn parse<'a>(x: &str) -> Result<Vec<Record<'a>>, LustreCollectorError> {
     let x = x.trim();
 
     if x.is_empty() {
@@ -58,7 +58,7 @@ struct LnetStats {
     statistics: Option<LNetStatsStatistics>,
 }
 
-pub(crate) fn build_lnetctl_stats(x: &LNetStatsStatistics) -> Vec<Record> {
+pub(crate) fn build_lnetctl_stats<'a>(x: &LNetStatsStatistics) -> Vec<Record<'a>> {
     vec![
         Record::LNetStat(LNetStats::SendLength(LNetStatGlobal {
             param: Param("send_length".to_string()),
@@ -75,7 +75,7 @@ pub(crate) fn build_lnetctl_stats(x: &LNetStatsStatistics) -> Vec<Record> {
     ]
 }
 
-pub fn parse_lnetctl_stats(x: &str) -> Result<Vec<Record>, LustreCollectorError> {
+pub fn parse_lnetctl_stats<'a>(x: &str) -> Result<Vec<Record<'a>>, LustreCollectorError> {
     let x = x.trim();
 
     if x.is_empty() {
@@ -85,7 +85,8 @@ pub fn parse_lnetctl_stats(x: &str) -> Result<Vec<Record>, LustreCollectorError>
     let y: LnetStats = serde_yaml::from_str(x)?;
 
     Ok(y.statistics
-        .map(|x| build_lnetctl_stats(&x))
+        .as_ref()
+        .map(build_lnetctl_stats)
         .unwrap_or_default())
 }
 

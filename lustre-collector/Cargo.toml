@@ -9,6 +9,7 @@ version.workspace = true
 [dependencies]
 clap = {workspace = true, features = ["derive"]}
 combine.workspace = true
+memchr = "2.7.4"
 serde = {version = "1", features = ["derive"]}
 serde_json = "1"
 serde_yaml = "0.9"

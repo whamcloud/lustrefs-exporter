@@ -133,7 +133,7 @@ where
     .map(|xs: Vec<_>| xs.into_iter().flatten().collect())
 }
 
-fn target_status<I>() -> impl Parser<I, Output = Vec<TargetStats>>
+fn target_status<'a, I>() -> impl Parser<I, Output = Vec<TargetStats<'a>>>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -181,7 +181,7 @@ where
         })
 }
 
-pub fn parse<I>() -> impl Parser<I, Output = Vec<Record>>
+pub fn parse<'a, I>() -> impl Parser<I, Output = Vec<Record<'a>>>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,

@@ -85,7 +85,7 @@ where
         .message("while parsing `mds_stat`")
 }
 
-pub(crate) fn parse<I>() -> impl Parser<I, Output = Record>
+pub(crate) fn parse<'a, I>() -> impl Parser<I, Output = Record<'a>>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,

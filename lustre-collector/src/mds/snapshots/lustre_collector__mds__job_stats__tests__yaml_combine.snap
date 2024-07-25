@@ -1,0 +1,174 @@
+---
+source: lustre-collector/src/mds/job_stats.rs
+expression: res
+---
+Ok(
+    (
+        Some(
+            [
+                JobStatMdt {
+                    job_id: "\":988:ds88\"",
+                    snapshot_time: "1721048534.873002069 secs.nsecs",
+                    start_time: Some(
+                        "1720767442.368619499 secs.nsecs",
+                    ),
+                    elapsed_time: Some(
+                        "281092.504382570 secs.nsecs",
+                    ),
+                    open: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    close: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    mknod: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    link: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    unlink: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    mkdir: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    rmdir: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    rename: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    getattr: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    setattr: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    getxattr: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    setxattr: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    statfs: BytesStat {
+                        samples: "9372",
+                        unit: "usecs",
+                        min: "8",
+                        max: "53",
+                        sum: "148887",
+                    },
+                    sync: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    samedir_rename: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    crossdir_rename: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    read_bytes: BytesStat {
+                        samples: "0",
+                        unit: "bytes",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    write_bytes: BytesStat {
+                        samples: "0",
+                        unit: "bytes",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    punch: BytesStat {
+                        samples: "0",
+                        unit: "usecs",
+                        min: "0",
+                        max: "0",
+                        sum: "0",
+                    },
+                    parallel_rename_dir: Some(
+                        BytesStat {
+                            samples: "0",
+                            unit: "usecs",
+                            min: "0",
+                            max: "0",
+                            sum: "0",
+                        },
+                    ),
+                    parallel_rename_file: Some(
+                        BytesStat {
+                            samples: "0",
+                            unit: "usecs",
+                            min: "0",
+                            max: "0",
+                            sum: "0",
+                        },
+                    ),
+                },
+            ],
+        ),
+        "",
+    ),
+)
