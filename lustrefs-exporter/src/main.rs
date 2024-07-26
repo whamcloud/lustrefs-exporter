@@ -6,7 +6,7 @@ use std::{sync::Arc, time::Duration};
 
 use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
-use lustrefs_exporter::build_lustre_stats;
+use lustrefs_exporter::{build_lustre_stats, build_lustre_stats_new};
 use moka::future::Cache;
 use prometheus_exporter_base::prelude::*;
 use tokio::{
@@ -28,119 +28,25 @@ pub struct CommandOpts {
     /// Disable jobstats processing
     #[clap(short, long, env = "LUSTREFS_EXPORTER_JOBSTATS")]
     pub disable_jobstats: bool,
+    /// Disable jobstats processing
+    #[clap(short, long)]
+    pub disable_cache: bool,
 }
 
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt::init();
-    let opts = CommandOpts::parse();
 
-    let disable_jobstats = opts.disable_jobstats;
+    let file = std::fs::read_to_string(
+        "./lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn125/ds86.txt",
+    )
+    .unwrap();
 
-    let server_opts = ServerOptions {
-        addr: ([0, 0, 0, 0], opts.port).into(),
-        authorization: Authorization::None,
-    };
+    let lctl_record = parse_lctl_output(file.as_bytes()).unwrap();
 
-    // Create a cache that can store up to 2 entries.
-    let cache = Cache::new(2);
-    let cloned_cache = cache.clone();
+    let lustre_stats = build_lustre_stats_new(&lctl_record);
 
-    let mut ticker = interval(Duration::from_secs(10));
-    ticker.set_missed_tick_behavior(MissedTickBehavior::Skip);
-
-    if !disable_jobstats {
-        tokio::spawn(async move {
-            loop {
-                ticker.tick().await;
-
-                let lctl = match Command::new("lctl")
-                    .arg("get_param")
-                    .args(parser::params_jobstats_only())
-                    .kill_on_drop(true)
-                    .output()
-                    .await
-                {
-                    Ok(r) => r,
-                    Err(e) => {
-                        tracing::debug!("Failed to retrieve jobstats parameters. {e}");
-                        continue;
-                    }
-                };
-
-                // Offload CPU-intensive parsing to a blocking task
-                let parsed_result = tokio::task::spawn_blocking(move || {
-                    parse_lctl_output(&lctl.stdout).map(build_lustre_stats)
-                })
-                .await;
-
-                match parsed_result {
-                    Ok(Ok(r)) => {
-                        cloned_cache.insert(JOBSTAT_ENTRY, Arc::new(r)).await;
-                    }
-                    Ok(Err(e)) => {
-                        tracing::debug!("Failed to parse jobstats information. {e}");
-                        continue;
-                    }
-                    Err(e) => {
-                        tracing::debug!(
-                            "Failed to execute parse_lctl_output in blocking task. {e}"
-                        );
-                        continue;
-                    }
-                }
-            }
-        });
-    }
-
-    render_prometheus(server_opts, Options, move |request, options| async move {
-        tracing::debug!(?request, ?options);
-
-        let mut output = vec![];
-
-        let lctl = Command::new("lctl")
-            .arg("get_param")
-            .args(parser::params_no_jobstats())
-            .kill_on_drop(true)
-            .output()
-            .await?;
-
-        let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
-
-        output.append(&mut lctl_output);
-
-        let lnetctl = Command::new("lnetctl")
-            .args(["net", "show", "-v", "4"])
-            .kill_on_drop(true)
-            .output()
-            .await?;
-
-        let lnetctl_stats = std::str::from_utf8(&lnetctl.stdout)?;
-        let mut lnetctl_output = parse_lnetctl_output(lnetctl_stats)?;
-
-        output.append(&mut lnetctl_output);
-
-        let lnetctl_stats_output = Command::new("lnetctl")
-            .args(["stats", "show"])
-            .kill_on_drop(true)
-            .output()
-            .await?;
-
-        let mut lnetctl_stats_record =
-            parse_lnetctl_stats(std::str::from_utf8(&lnetctl_stats_output.stdout)?)?;
-
-        output.append(&mut lnetctl_stats_record);
-
-        let lustre_stats = build_lustre_stats(output);
-
-        let jobstats = cache.get(JOBSTAT_ENTRY).await;
-
-        match jobstats {
-            Some(jobstats) => Ok([lustre_stats.as_str(), jobstats.as_str()].join("\n")),
-            None => Ok(lustre_stats),
-        }
-    })
-    .await;
+    // println!("{lustre_stats}");
 }
 
 #[cfg(test)]

@@ -50,9 +50,7 @@ fn check_output<'a>(
 }
 
 /// Must be called with output of `lctl get_params` for all params returned from `parser::parse()`
-pub fn parse_lctl_output(
-    lctl_output: &[u8],
-) -> Result<Vec<Record>, LustreCollectorError> {
+pub fn parse_lctl_output(lctl_output: &[u8]) -> Result<Vec<Record>, LustreCollectorError> {
     let lctl_stats = str::from_utf8(lctl_output)?;
 
     let (lctl_record, state) = parser::parse()

@@ -19,6 +19,7 @@ tokio = {version = "1.27", features = [
 ]}
 tracing-subscriber = {workspace = true, features = ["env-filter"]}
 tracing.workspace = true
+prometheus-client = {git = "https://github.com/RDruon/client_rust"}
 
 [dev-dependencies]
 combine.workspace = true
