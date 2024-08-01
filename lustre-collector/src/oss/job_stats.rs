@@ -136,6 +136,22 @@ where
         })
 }
 
+pub(crate) fn take_jobid_quotes<'a, I>() -> impl Parser<I, Output = &'a str> + 'a
+where
+    I: RangeStream<Token = char, Range = &'a str> + 'a,
+    I::Range: AsRef<[u8]> + combine::stream::Range,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    (
+        optional(take_until_range(r#"""#).skip(range(r#"""#))),
+        take_while(|c: char| c != '"'),
+        optional(take_until_range(r#"""#).skip(range(r#"""#))),
+    )
+        .and_then(|(_, jobid, _, ): (_, &str, _)| { 
+            Ok::<&str, StreamErrorFor<I>>(jobid)
+        })
+}
+
 pub(crate) fn take_jobstats_header<'a, I>() -> impl Parser<I, Output = JobstatsHeader<'a>> + 'a
 where
     I: RangeStream<Token = char, Range = &'a str> + 'a,
@@ -155,6 +171,7 @@ where
                 Option<&str>,
                 Option<&str>,
             )| {
+                let (job_id, _) = take_jobid_quotes().parse(job_id).map_err(StreamErrorFor::<I>::other)?;
                 Ok::<JobstatsHeader, StreamErrorFor<I>>(JobstatsHeader {
                     job_id,
                     snapshot_time,

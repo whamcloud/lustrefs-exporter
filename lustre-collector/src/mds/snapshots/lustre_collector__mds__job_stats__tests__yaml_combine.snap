@@ -7,7 +7,7 @@ Ok(
         Some(
             [
                 JobStatMdt {
-                    job_id: "\":988:ds88\"",
+                    job_id: ":988:ds88",
                     snapshot_time: "1721048534.873002069 secs.nsecs",
                     start_time: Some(
                         "1720767442.368619499 secs.nsecs",

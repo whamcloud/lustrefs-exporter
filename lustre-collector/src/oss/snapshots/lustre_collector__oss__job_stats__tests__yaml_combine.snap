@@ -7,7 +7,7 @@ Ok(
         Some(
             [
                 JobStatOst {
-                    job_id: "\"SLURM_JOB_machine176_2453:0:mac\"",
+                    job_id: "SLURM_JOB_machine176_2453:0:mac",
                     snapshot_time: "1721048514.718714674 secs.nsecs",
                     start_time: Some(
                         "1720764336.685487209 secs.nsecs",
