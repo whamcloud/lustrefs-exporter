@@ -19,3 +19,12 @@ tracing.workspace = true
 [dev-dependencies]
 include_dir.workspace = true
 insta.workspace = true
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[[bench]]
+name = "jobstats_slow"
+harness = false
+
+[[bench]]
+name = "jobstats_fast"
+harness = false

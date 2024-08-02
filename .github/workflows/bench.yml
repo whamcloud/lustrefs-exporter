@@ -1,0 +1,12 @@
+name: benchmark pull requests
+on: [pull_request]
+jobs:
+  runBenchmark:
+    name: run benchmark
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: boa-dev/criterion-compare-action@v3
+        with:
+          cwd: "lustre-collector"
+          branchName: ${{ github.base_ref }}
