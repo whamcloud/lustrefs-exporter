@@ -21,6 +21,14 @@ include_dir.workspace = true
 insta.workspace = true
 criterion = { version = "0.5", features = ["html_reports"] }
 
+[lib]
+bench = false
+
+[[bin]]
+name = "lustre_collector"
+path = "src/main.rs"
+bench = false
+
 [[bench]]
 name = "jobstats_slow"
 harness = false
