@@ -1,8 +1,19 @@
-use std::{collections::BTreeMap, ops::Deref};
+use std::{
+    collections::BTreeMap,
+    io::{self, BufRead as _, BufReader},
+    ops::Deref,
+    sync::LazyLock,
+};
 
 use crate::{LabelProm, Metric, StatsMapExt};
-use lustre_collector::{JobStatMdt, JobStatOst, TargetStat};
-use prometheus_exporter_base::{prelude::*, Yes};
+use lustre_collector::{JobStatMdt, JobStatOst, TargetStat, TargetVariant};
+use prometheus_exporter_base::{prelude::*, RenderToPrometheus, Yes};
+use regex::Regex;
+use saphyr::{Yaml, YamlLoader};
+use tokio::{
+    sync::mpsc::{self, Receiver, Sender},
+    task::JoinHandle,
+};
 
 static READ_SAMPLES: Metric = Metric {
     name: "lustre_job_read_samples_total",
@@ -527,5 +538,156 @@ pub fn build_mdt_job_stats(
                 .get_mut_metric(MDT_JOBSTATS_SAMPLES)
                 .render_and_append_instance(&parallel_rename_file);
         }
+    }
+}
+
+#[derive(Debug)]
+enum Kind {
+    Mdt,
+    Ost,
+}
+
+#[derive(Debug)]
+enum State {
+    Empty,
+    Target(String),
+    TargetJob(String, String),
+    TargetJobStats(String, String, Vec<String>),
+}
+
+fn jobstats_stream(
+    f: BufReader<std::fs::File>,
+) -> (JoinHandle<Result<(), io::Error>>, Receiver<String>) {
+    let (tx, rx) = mpsc::channel(10);
+
+    let x = tokio::task::spawn_blocking(move || {
+        let mut state = State::Empty;
+
+        for line in f.lines() {
+            let mut line = line.unwrap();
+
+            match state {
+                _ if line == "job_stats:" => continue,
+                State::Empty if line.starts_with("obdfilter") || line.starts_with("mdt.") => {
+                    state = State::Target(line);
+                }
+                State::Target(x) if line.starts_with("- job_id:") => {
+                    state = State::TargetJob(x, line);
+                }
+                State::TargetJob(target, job) if line.starts_with("  ") => {
+                    let mut xs = Vec::with_capacity(10);
+
+                    xs.push(line);
+
+                    state = State::TargetJobStats(target, job, xs);
+                }
+                State::TargetJobStats(target, job, mut stats) if line.starts_with("  ") => {
+                    stats.push(line);
+
+                    state = State::TargetJobStats(target, job, stats);
+                }
+                State::TargetJobStats(target, job, stats) if line.starts_with("- job_id:") => {
+                    render_stat(tx.clone(), &target, job, stats);
+
+                    state = State::TargetJob(target, line);
+                }
+                State::TargetJobStats(target, job, stats)
+                    if line.starts_with("obdfilter") || line.starts_with("mdt.") =>
+                {
+                    render_stat(tx.clone(), &target, job, stats);
+
+                    state = State::Target(line);
+                }
+                x => {
+                    dbg!("Unexpected line {cnt}: {}, state: {:?}", line, x);
+
+                    panic!("BOOM!");
+
+                    // panic!("Unexpected line: {}, state: {:?}", line, x)
+                }
+            }
+        }
+
+        Ok::<_, std::io::Error>(())
+    });
+
+    (x, rx)
+}
+
+static TARGET: LazyLock<regex::Regex> = LazyLock::new(|| {
+    Regex::new(r#"^(obdfilter|mdt)\.([a-zA-Z0-9_-]+)\.job_stats=$"#).expect("A Well-formed regex")
+});
+
+fn render_stat(tx: Sender<String>, target: &str, job: String, stats: Vec<String>) {
+    let cap = TARGET.captures(target).unwrap();
+
+    let kind = cap.get(1).unwrap().as_str();
+
+    let kind = if kind == "obdfilter" {
+        TargetVariant::Ost
+    } else {
+        TargetVariant::Mdt
+    };
+
+    let target = cap.get(2).unwrap().as_str();
+
+    let mut inst = PrometheusInstance::new()
+        .with_label("component", kind.to_prom_label())
+        .with_label("target", target)
+        .with_label("jobid", job.as_str())
+        .with_value(0);
+
+    for stat in stats {
+        let s = inst.render();
+
+        _ = tx.blocking_send(s);
+    }
+}
+
+#[cfg(test)]
+pub mod tests {
+    use crate::jobstats::jobstats_stream;
+
+    // #[cfg(not(target_env = "msvc"))]
+    // #[global_allocator]
+    // static ALLOC: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
+
+    // #[allow(non_upper_case_globals)]
+    // #[export_name = "malloc_conf"]
+    // pub static malloc_conf: &[u8] = b"prof:true,prof_active:true,lg_prof_sample:19\0";
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn parse_large_yaml() {
+        use std::fs::File;
+        use std::io::BufReader;
+
+        // let mut prof_ctl = jemalloc_pprof::PROF_CTL.as_ref().unwrap().lock().await;
+        // assert!(prof_ctl.activated());
+
+        let f = File::open("fixtures/ds86.txt").unwrap();
+
+        let f = BufReader::with_capacity(64 * 1_024, f);
+
+        let (fut, mut rx) = jobstats_stream(f);
+
+        let mut cnt = 0;
+
+        while let Some(x) = rx.recv().await {
+            cnt += 1;
+
+            if cnt == 1 {
+                dbg!(x);
+
+                break;
+            }
+        }
+
+        // let pprof = prof_ctl.dump_pprof().unwrap();
+
+        // fs::write("pprof", pprof).unwrap();
+
+        dbg!(&cnt);
+
+        assert_eq!(cnt, 176_593);
     }
 }
