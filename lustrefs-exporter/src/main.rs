@@ -2,17 +2,42 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
+use axum::{
+    body::Body,
+    http::{self, StatusCode},
+    response::{IntoResponse, Response},
+    routing::get,
+    Router,
+};
 use clap::Parser;
-use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
+use lustre_collector::{
+    parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser, LustreCollectorError,
+};
 use lustrefs_exporter::build_lustre_stats;
-use prometheus_exporter_base::prelude::*;
-
+use std::net::SocketAddr;
 use tokio::process::Command;
 
 const LUSTREFS_EXPORTER_PORT: &str = "32221";
 
-#[derive(Debug)]
-struct Options;
+#[derive(Debug, thiserror::Error)]
+enum Error {
+    #[error(transparent)]
+    Http(#[from] http::Error),
+    #[error(transparent)]
+    Io(#[from] std::io::Error),
+    #[error(transparent)]
+    LustreCollector(#[from] LustreCollectorError),
+    #[error(transparent)]
+    Utf8(#[from] std::str::Utf8Error),
+}
+
+impl IntoResponse for Error {
+    fn into_response(self) -> Response {
+        tracing::warn!("{self}");
+
+        StatusCode::INTERNAL_SERVER_ERROR.into_response()
+    }
+}
 
 #[derive(Debug, Parser)]
 pub struct CommandOpts {
@@ -22,56 +47,71 @@ pub struct CommandOpts {
 }
 
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
+
     let opts = CommandOpts::parse();
 
-    let server_opts = ServerOptions {
-        addr: ([0, 0, 0, 0], opts.port).into(),
-        authorization: Authorization::None,
-    };
+    let addr = SocketAddr::from(([0, 0, 0, 0], opts.port));
 
-    render_prometheus(server_opts, Options, |request, options| async move {
-        tracing::debug!(?request, ?options);
+    tracing::info!("Listening on http://{addr}/metrics");
 
-        let mut output = vec![];
+    let listener = tokio::net::TcpListener::bind(("0.0.0.0", opts.port)).await?;
 
-        let lctl = Command::new("lctl")
-            .arg("get_param")
-            .args(parser::params())
-            .kill_on_drop(true)
-            .output()
-            .await?;
+    let app = Router::new().route("/metrics", get(scrape));
 
-        let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
+    axum::serve(listener, app).await?;
 
-        output.append(&mut lctl_output);
+    Ok(())
+}
 
-        let lnetctl = Command::new("lnetctl")
-            .args(["net", "show", "-v", "4"])
-            .kill_on_drop(true)
-            .output()
-            .await?;
+async fn scrape() -> Result<Response<Body>, Error> {
+    let mut output = vec![];
 
-        let lnetctl_stats = std::str::from_utf8(&lnetctl.stdout)?;
-        let mut lnetctl_output = parse_lnetctl_output(lnetctl_stats)?;
+    let lctl = Command::new("lctl")
+        .arg("get_param")
+        .args(parser::params())
+        .kill_on_drop(true)
+        .output()
+        .await?;
 
-        output.append(&mut lnetctl_output);
+    let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
 
-        let lnetctl_stats_output = Command::new("lnetctl")
-            .args(["stats", "show"])
-            .kill_on_drop(true)
-            .output()
-            .await?;
+    output.append(&mut lctl_output);
 
-        let mut lnetctl_stats_record =
-            parse_lnetctl_stats(std::str::from_utf8(&lnetctl_stats_output.stdout)?)?;
+    let lnetctl = Command::new("lnetctl")
+        .args(["net", "show", "-v", "4"])
+        .kill_on_drop(true)
+        .output()
+        .await?;
 
-        output.append(&mut lnetctl_stats_record);
+    let lnetctl_stats = std::str::from_utf8(&lnetctl.stdout)?;
+    let mut lnetctl_output = parse_lnetctl_output(lnetctl_stats)?;
 
-        Ok(build_lustre_stats(output))
-    })
-    .await;
+    output.append(&mut lnetctl_output);
+
+    let lnetctl_stats_output = Command::new("lnetctl")
+        .args(["stats", "show"])
+        .kill_on_drop(true)
+        .output()
+        .await?;
+
+    let mut lnetctl_stats_record =
+        parse_lnetctl_stats(std::str::from_utf8(&lnetctl_stats_output.stdout)?)?;
+
+    output.append(&mut lnetctl_stats_record);
+
+    let body = Body::from(build_lustre_stats(output));
+
+    let s = body.into_data_stream();
+
+    let s = Body::from_stream(s);
+
+    let response_builder = Response::builder().status(StatusCode::OK);
+
+    let resp = response_builder.body(s)?;
+
+    Ok(resp)
 }
 
 #[cfg(test)]
