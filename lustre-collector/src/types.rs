@@ -85,7 +85,7 @@ impl From<UnsignedLustreTimestamp> for String {
 /// The lustre timestamp can be in two formats:
 /// 1. An `i64` representing the number of milliseconds since the Unix epoch.
 /// 2. A string in the format "seconds.factional_seconds secs.[u|n]secs". For example,
-/// "1409777887.590578 secs.usecs".
+///    "1409777887.590578 secs.usecs".
 impl TryFrom<String> for UnsignedLustreTimestamp {
     type Error = LustreCollectorError;
 

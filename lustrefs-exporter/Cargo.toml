@@ -5,12 +5,14 @@ name = "lustrefs-exporter"
 version.workspace = true
 
 [dependencies]
+axum = {workspace = true, features = ["http2"]}
 clap = {workspace = true, features = ["derive", "env", "wrap_help", "string"]}
 lustre_collector.path = "../lustre-collector"
 num-traits = "0.2.14"
 prometheus = "0.13.3"
-prometheus_exporter_base = {version = "1.4.0", features = ["hyper_server"]}
-tokio = {version = "1.27", features = [
+prometheus_exporter_base = {version = "1.4.0"}
+thiserror = "1"
+tokio = {workspace = true, features = [
   "rt-multi-thread",
   "macros",
   "process",
