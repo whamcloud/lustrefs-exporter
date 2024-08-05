@@ -16,44 +16,6 @@ defaults:
     shell: bash -eux {0}
 
 jobs:
-  build_centos7_rpms:
-    name: Build Centos 7 RPMs
-    runs-on: ubuntu-latest
-    container:
-      image: centos:7
-    steps:
-      - name: Cancel Workflow Action
-        uses: styfle/cancel-workflow-action@0.6.0
-        with:
-          access_token: ${{ github.token }}
-
-      - name: Checkout sources
-        uses: actions/checkout@v3
-
-      - name: Install dependencies
-        run: yum install -y gcc make rpm-build
-
-      - name: Install latest rust toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          default: true
-          override: true
-
-      - name: Build
-        run: make rpm
-
-      - name: Summary
-        run: |
-          find lustrefs-exporter/_rpm -type f -name \*.rpm -print -exec rpm -qivlp {} \;
-
-      - name: Upload RPMs
-        uses: actions/upload-artifact@v2
-        with:
-          name: centos7_rpm
-          retention-days: 1
-          path: lustrefs-exporter/_rpm/RPMS/**/*.rpm
-
   build_rocky8_rpms:
     name: Build Rockylinux 8 RPMs
     runs-on: ubuntu-latest
@@ -176,14 +138,9 @@ jobs:
   release:
     if: github.event_name == 'workflow_dispatch'
     name: Release
-    needs: [build_centos7_rpms, build_rocky8_rpms, build_rocky9_rpms, build_ubuntu20_debs]
+    needs: [build_rocky8_rpms, build_rocky9_rpms, build_ubuntu20_debs]
     runs-on: ubuntu-latest
     steps:
-      - name: Download Centos 7 RPMs
-        uses: actions/download-artifact@v3
-        with:
-          name: centos7_rpm
-
       - name: Download Rockylinux 8 RPMs
         uses: actions/download-artifact@v3
         with:
