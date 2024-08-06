@@ -61,6 +61,16 @@ pub(crate) fn params() -> Vec<String> {
     .collect()
 }
 
+pub(crate) fn params_no_jobstats() -> Vec<String> {
+    [
+        format!("mdt.*.{STATS}"),
+        format!("mdt.*MDT*.{NUM_EXPORTS}"),
+        format!("mdt.*MDT*.{EXPORTS_PARAMS}"),
+    ]
+    .into_iter()
+    .collect()
+}
+
 fn target_name<I>() -> impl Parser<I, Output = Target>
 where
     I: Stream<Token = char>,

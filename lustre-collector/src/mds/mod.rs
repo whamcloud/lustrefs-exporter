@@ -17,6 +17,13 @@ pub(crate) fn params() -> Vec<String> {
         .collect()
 }
 
+pub(crate) fn params_no_jobstats() -> Vec<String> {
+    mds_parser::params()
+        .into_iter()
+        .chain(mdt_parser::params_no_jobstats())
+        .collect()
+}
+
 pub(crate) fn parse<I>() -> impl Parser<I, Output = Record>
 where
     I: Stream<Token = char>,

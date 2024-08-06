@@ -16,6 +16,13 @@ pub(crate) fn params() -> Vec<String> {
         .collect()
 }
 
+pub(crate) fn params_no_jobstats() -> Vec<String> {
+    obdfilter_parser::obd_params_no_jobstats()
+        .into_iter()
+        .chain(oss_parser::params())
+        .collect()
+}
+
 pub(crate) fn parse<I>() -> impl Parser<I, Output = Record>
 where
     I: Stream<Token = char>,

@@ -14,6 +14,7 @@ use lustre_collector::{
     parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser, LustreCollectorError,
 };
 use lustrefs_exporter::build_lustre_stats;
+use tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use std::net::SocketAddr;
 use tokio::process::Command;
 
@@ -70,7 +71,7 @@ async fn scrape() -> Result<Response<Body>, Error> {
 
     let lctl = Command::new("lctl")
         .arg("get_param")
-        .args(parser::params())
+        .args(parser::params_no_jobstats())
         .kill_on_drop(true)
         .output()
         .await?;
@@ -101,11 +102,24 @@ async fn scrape() -> Result<Response<Body>, Error> {
 
     output.append(&mut lnetctl_stats_record);
 
-    let body = Body::from(build_lustre_stats(output));
+    let mut lctl_jobstats = std::process::Command::new("lctl")
+        .arg("get_param")
+        .args(["obdfilter.*OST*.job_stats", "mdt.*.job_stats"])
+        .stdout(std::process::Stdio::piped())
+        .spawn()
+        .unwrap();
 
-    let s = body.into_data_stream();
+    let (_fut, rx) = lustrefs_exporter::jobstats::jobstats_stream(std::io::BufReader::with_capacity(128 * 1_024,
+        lctl_jobstats.stdout.take().unwrap(),
+    ));
 
-    let s = Body::from_stream(s);
+    let stream = ReceiverStream::new(rx).map(|x| Ok::<_, std::convert::Infallible>(axum::body::Bytes::copy_from_slice(x.as_bytes())));
+
+    let lustre_stats = Ok::<_, std::convert::Infallible>(build_lustre_stats(output).into());
+
+    let merged = tokio_stream::StreamExt::merge(tokio_stream::once(lustre_stats), stream);
+
+    let s = Body::from_stream(merged);
 
     let response_builder = Response::builder().status(StatusCode::OK);
 

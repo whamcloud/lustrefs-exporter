@@ -1,6 +1,6 @@
 use std::{
     collections::BTreeMap,
-    io::{self, BufRead as _, BufReader},
+    io::{self, BufRead},
     ops::Deref,
     sync::LazyLock,
 };
@@ -549,7 +549,7 @@ enum State {
     TargetJobStats(String, String, Vec<String>),
 }
 
-pub fn jobstats_stream<R: io::BufRead + std::marker::Send + 'static>(
+pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
     f: R,
 ) -> (JoinHandle<Result<(), io::Error>>, Receiver<CompactString>) {
     let (tx, rx) = mpsc::channel(200);
@@ -596,8 +596,6 @@ pub fn jobstats_stream<R: io::BufRead + std::marker::Send + 'static>(
                     dbg!("Unexpected line {cnt}: {}, state: {:?}", line, x);
 
                     panic!("BOOM!");
-
-                    // panic!("Unexpected line: {}, state: {:?}", line, x)
                 }
             }
         }
@@ -611,9 +609,6 @@ pub fn jobstats_stream<R: io::BufRead + std::marker::Send + 'static>(
 static TARGET: LazyLock<regex::Regex> = LazyLock::new(|| {
     Regex::new(r#"^(obdfilter|mdt)\.([a-zA-Z0-9_-]+)\.job_stats=$"#).expect("A Well-formed regex")
 });
-
-static JOB_ID: LazyLock<regex::Regex> =
-    LazyLock::new(|| Regex::new(r#"^- job_id:\s+\"([^\"]+)"#).expect("A Well-formed regex"));
 
 static JOB_STAT: LazyLock<regex::Regex> = LazyLock::new(|| {
     Regex::new(
@@ -661,9 +656,8 @@ fn render_stat(tx: Sender<CompactString>, target: &str, job: String, stats: Vec<
 
     let target = cap.get(2).unwrap().as_str();
 
-    let cap = JOB_ID.captures(&job).unwrap();
-
-    let job = cap.get(1).unwrap().as_str();
+    let job = job.replace("- job_id:", "").replace('"',"");
+    let jobid = job.trim();
 
     for stat in stats {
         let cap = JOB_STAT.captures(&stat).unwrap();
@@ -680,7 +674,7 @@ fn render_stat(tx: Sender<CompactString>, target: &str, job: String, stats: Vec<
                         (sum, READ_BYTES),
                     ] {
                         let s = compact_str::format_compact!(
-                                "{}{{operation=\"{}\",component=\"{}\",target=\"{target}\",jobid=\"{job}\"}} {value}",
+                                "{}{{operation=\"{}\",component=\"{}\",target=\"{target}\",jobid=\"{jobid}\"}} {value}",
                                 metric.name,
                                 stat_name,
                                 kind.to_prom_label()
@@ -697,7 +691,7 @@ fn render_stat(tx: Sender<CompactString>, target: &str, job: String, stats: Vec<
                         (sum, WRITE_BYTES),
                     ] {
                         let s = compact_str::format_compact!(
-                            "{}{{operation=\"{}\",component=\"{}\",target=\"{target}\",jobid=\"{job}\"}} {value}",
+                            "{}{{operation=\"{}\",component=\"{}\",target=\"{target}\",jobid=\"{jobid}\"}} {value}",
                             metric.name,
                             stat_name,
                             kind.to_prom_label()
@@ -708,7 +702,7 @@ fn render_stat(tx: Sender<CompactString>, target: &str, job: String, stats: Vec<
                 }
                 "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs"
                 | "get_info" | "set_info" | "quotactl" => {
-                    handle_sample(&tx, stat_name, target, job, &kind, samples);
+                    handle_sample(&tx, stat_name, target, jobid, &kind, samples);
                 }
                 _ => continue,
             };
@@ -738,7 +732,7 @@ fn render_stat(tx: Sender<CompactString>, target: &str, job: String, stats: Vec<
                 | "write_bytes"
                 | "punch"
                 | "migrate" => {
-                    handle_sample(&tx, stat_name, target, job, &kind, samples);
+                    handle_sample(&tx, stat_name, target, jobid, &kind, samples);
                 }
                 _ => continue,
             };
@@ -770,7 +764,7 @@ pub mod tests {
 
         let f = BufReader::with_capacity(128 * 1_024, f);
 
-        let (fut, mut rx) = jobstats_stream(f);
+        let (_fut, mut rx) = jobstats_stream(f);
 
         let mut cnt = 0;
 
@@ -782,12 +776,41 @@ pub mod tests {
             }
         }
 
-        fut.await.unwrap().unwrap();
+        // let pprof = prof_ctl.dump_pprof().unwrap();
+
+        // fs::write("pprof", pprof).unwrap();
+
+        assert_eq!(cnt, 3524622);
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn parse_large_yaml2() {
+        use std::fs::File;
+        use std::io::BufReader;
+
+        // let mut prof_ctl = jemalloc_pprof::PROF_CTL.as_ref().unwrap().lock().await;
+        // assert!(prof_ctl.activated());
+
+        let f = File::open("fixtures/co-vm03.txt").unwrap();
+
+        let f = BufReader::with_capacity(128 * 1_024, f);
+
+        let (_fut, mut rx) = jobstats_stream(f);
+
+        let mut cnt = 0;
+
+        while let Some(x) = rx.recv().await {
+            cnt += 1;
+
+            if cnt == 1 {
+                dbg!(x);
+            }
+        }
 
         // let pprof = prof_ctl.dump_pprof().unwrap();
 
         // fs::write("pprof", pprof).unwrap();
 
-        assert_eq!(cnt, 3167817);
+        assert_eq!(cnt, 884988);
     }
 }
