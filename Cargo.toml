@@ -25,7 +25,6 @@ clap = "4"
 combine = "=4.6.7"
 include_dir = {version = "0.7", features = ["glob"]}
 insta = "1"
-saphyr = "0.0.1"
 tokio = "1"
 tracing = "0.1"
 tracing-subscriber = {version = "0.3", features = ["env-filter"]}

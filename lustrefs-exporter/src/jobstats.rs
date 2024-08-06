@@ -6,10 +6,10 @@ use std::{
 };
 
 use crate::{LabelProm, Metric, StatsMapExt};
+use compact_str::CompactString;
 use lustre_collector::{JobStatMdt, JobStatOst, TargetStat, TargetVariant};
-use prometheus_exporter_base::{prelude::*, RenderToPrometheus, Yes};
+use prometheus_exporter_base::{prelude::*, Yes};
 use regex::Regex;
-use saphyr::{Yaml, YamlLoader};
 use tokio::{
     sync::mpsc::{self, Receiver, Sender},
     task::JoinHandle,
@@ -542,12 +542,6 @@ pub fn build_mdt_job_stats(
 }
 
 #[derive(Debug)]
-enum Kind {
-    Mdt,
-    Ost,
-}
-
-#[derive(Debug)]
 enum State {
     Empty,
     Target(String),
@@ -557,17 +551,17 @@ enum State {
 
 fn jobstats_stream(
     f: BufReader<std::fs::File>,
-) -> (JoinHandle<Result<(), io::Error>>, Receiver<String>) {
-    let (tx, rx) = mpsc::channel(10);
+) -> (JoinHandle<Result<(), io::Error>>, Receiver<CompactString>) {
+    let (tx, rx) = mpsc::channel(200);
 
     let x = tokio::task::spawn_blocking(move || {
         let mut state = State::Empty;
 
         for line in f.lines() {
-            let mut line = line.unwrap();
+            let line = line.unwrap();
 
             match state {
-                _ if line == "job_stats:" => continue,
+                _ if line == "job_stats:" || line.starts_with("  snapshot_time:") => continue,
                 State::Empty if line.starts_with("obdfilter") || line.starts_with("mdt.") => {
                     state = State::Target(line);
                 }
@@ -618,7 +612,25 @@ static TARGET: LazyLock<regex::Regex> = LazyLock::new(|| {
     Regex::new(r#"^(obdfilter|mdt)\.([a-zA-Z0-9_-]+)\.job_stats=$"#).expect("A Well-formed regex")
 });
 
-fn render_stat(tx: Sender<String>, target: &str, job: String, stats: Vec<String>) {
+static JOB_ID: LazyLock<regex::Regex> =
+    LazyLock::new(|| Regex::new(r#"^- job_id:\s+\"([^\"]+)"#).expect("A Well-formed regex"));
+
+static JOB_STAT: LazyLock<regex::Regex> = LazyLock::new(|| {
+    Regex::new(
+        r"(?x)
+        ^\ \ (?<stat>[a-z_]+):\ +\{         # 1. stat name
+        \ samples:\ +(?<sample>[0-9]+),     # 2. sample value
+        \ unit:\ +([a-z]+),                 # 3. unit value
+        \ min:\ +(?<min>[0-9]+),            # 4. min value
+        \ max:\ +(?<max>[0-9]+),            # 5. max value
+        \ sum:\ +(?<sum>[0-9]+),            # 6. sum value
+        \ sumsq:\ +(?<sumsq>[0-9]+)         # 7. sumsq value
+",
+    )
+    .expect("A Well-formed regex")
+});
+
+fn render_stat(tx: Sender<CompactString>, target: &str, job: String, stats: Vec<String>) {
     let cap = TARGET.captures(target).unwrap();
 
     let kind = cap.get(1).unwrap().as_str();
@@ -631,14 +643,67 @@ fn render_stat(tx: Sender<String>, target: &str, job: String, stats: Vec<String>
 
     let target = cap.get(2).unwrap().as_str();
 
-    let mut inst = PrometheusInstance::new()
-        .with_label("component", kind.to_prom_label())
-        .with_label("target", target)
-        .with_label("jobid", job.as_str())
-        .with_value(0);
+    let cap = JOB_ID.captures(&job).unwrap();
+
+    let job = cap.get(1).unwrap().as_str();
 
     for stat in stats {
-        let s = inst.render();
+        let cap = JOB_STAT.captures(&stat).unwrap();
+
+        let (full, [stat_name, samples, unit, min, max, sum, sumsq]) = cap.extract();
+
+        if kind == TargetVariant::Ost {
+            match stat_name {
+                "read_bytes" => {}
+                "write_bytes" => {}
+                "getattr" => {}
+                "setattr" => {}
+                "punch" => {}
+                "sync" => {}
+                "destroy" => {}
+                "create" => {}
+                "statfs" => {}
+                "get_info" => {}
+                "set_info" => {}
+                "quotactl" => {}
+                x => continue,
+            };
+        } else if kind == TargetVariant::Mdt {
+            match stat_name {
+                "open" => {}
+                "close" => {}
+                "mknod" => {}
+                "link" => {}
+                "unlink" => {}
+                "mkdir" => {}
+                "rmdir" => {}
+                "rename" => {}
+                "getattr" => {}
+                "setattr" => {}
+                "getxattr" => {}
+                "setxattr" => {}
+                "statfs" => {}
+                "sync" => {}
+                "samedir_rename" => {}
+                "parallel_rename_file" => {}
+                "parallel_rename_dir" => {}
+                "crossdir_rename" => {}
+                "read" => {}
+                "write" => {}
+                "read_bytes" => {}
+                "write_bytes" => {}
+                "punch" => {}
+                "migrate" => {}
+                x => continue,
+            };
+        }
+
+        let s = compact_str::format_compact!(
+            "{stat_name}{{component=\"{}\",target=\"{target}\",jobid=\"{job}\"}} 0",
+            kind.to_prom_label()
+        );
+
+        s.len();
 
         _ = tx.blocking_send(s);
     }
@@ -666,7 +731,7 @@ pub mod tests {
 
         let f = File::open("fixtures/ds86.txt").unwrap();
 
-        let f = BufReader::with_capacity(64 * 1_024, f);
+        let f = BufReader::with_capacity(128 * 1_024, f);
 
         let (fut, mut rx) = jobstats_stream(f);
 
@@ -677,17 +742,15 @@ pub mod tests {
 
             if cnt == 1 {
                 dbg!(x);
-
-                break;
             }
         }
+
+        fut.await.unwrap().unwrap();
 
         // let pprof = prof_ctl.dump_pprof().unwrap();
 
         // fs::write("pprof", pprof).unwrap();
 
-        dbg!(&cnt);
-
-        assert_eq!(cnt, 176_593);
+        assert_eq!(cnt, 3167817);
     }
 }
