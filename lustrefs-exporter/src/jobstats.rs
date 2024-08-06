@@ -549,8 +549,8 @@ enum State {
     TargetJobStats(String, String, Vec<String>),
 }
 
-fn jobstats_stream(
-    f: BufReader<std::fs::File>,
+pub fn jobstats_stream<R: io::BufRead + std::marker::Send + 'static>(
+    f: R,
 ) -> (JoinHandle<Result<(), io::Error>>, Receiver<CompactString>) {
     let (tx, rx) = mpsc::channel(200);
 
@@ -630,6 +630,24 @@ static JOB_STAT: LazyLock<regex::Regex> = LazyLock::new(|| {
     .expect("A Well-formed regex")
 });
 
+fn handle_sample(
+    tx: &Sender<CompactString>,
+    stat_name: &str,
+    target: &str,
+    job: &str,
+    kind: &TargetVariant,
+    value: &str,
+) {
+    let s = compact_str::format_compact!(
+        "{}{{operation=\"{}\",component=\"{}\",target=\"{target}\",jobid=\"{job}\"}} {value}",
+        MDT_JOBSTATS_SAMPLES.name,
+        stat_name,
+        kind.to_prom_label()
+    );
+
+    _ = tx.blocking_send(s);
+}
+
 fn render_stat(tx: Sender<CompactString>, target: &str, job: String, stats: Vec<String>) {
     let cap = TARGET.captures(target).unwrap();
 
@@ -650,62 +668,81 @@ fn render_stat(tx: Sender<CompactString>, target: &str, job: String, stats: Vec<
     for stat in stats {
         let cap = JOB_STAT.captures(&stat).unwrap();
 
-        let (full, [stat_name, samples, unit, min, max, sum, sumsq]) = cap.extract();
+        let (_full, [stat_name, samples, _unit, min, max, sum, _sumsq]) = cap.extract();
 
         if kind == TargetVariant::Ost {
             match stat_name {
-                "read_bytes" => {}
-                "write_bytes" => {}
-                "getattr" => {}
-                "setattr" => {}
-                "punch" => {}
-                "sync" => {}
-                "destroy" => {}
-                "create" => {}
-                "statfs" => {}
-                "get_info" => {}
-                "set_info" => {}
-                "quotactl" => {}
-                x => continue,
+                "read_bytes" => {
+                    for (value, metric) in [
+                        (samples, READ_SAMPLES),
+                        (min, READ_MIN_SIZE_BYTES),
+                        (max, READ_MAX_SIZE_BYTES),
+                        (sum, READ_BYTES),
+                    ] {
+                        let s = compact_str::format_compact!(
+                                "{}{{operation=\"{}\",component=\"{}\",target=\"{target}\",jobid=\"{job}\"}} {value}",
+                                metric.name,
+                                stat_name,
+                                kind.to_prom_label()
+                            );
+
+                        _ = tx.blocking_send(s);
+                    }
+                }
+                "write_bytes" => {
+                    for (value, metric) in [
+                        (samples, WRITE_SAMPLES),
+                        (min, WRITE_MIN_SIZE_BYTES),
+                        (max, WRITE_MAX_SIZE_BYTES),
+                        (sum, WRITE_BYTES),
+                    ] {
+                        let s = compact_str::format_compact!(
+                            "{}{{operation=\"{}\",component=\"{}\",target=\"{target}\",jobid=\"{job}\"}} {value}",
+                            metric.name,
+                            stat_name,
+                            kind.to_prom_label()
+                        );
+
+                        _ = tx.blocking_send(s);
+                    }
+                }
+                "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs"
+                | "get_info" | "set_info" | "quotactl" => {
+                    handle_sample(&tx, stat_name, target, job, &kind, samples);
+                }
+                _ => continue,
             };
         } else if kind == TargetVariant::Mdt {
             match stat_name {
-                "open" => {}
-                "close" => {}
-                "mknod" => {}
-                "link" => {}
-                "unlink" => {}
-                "mkdir" => {}
-                "rmdir" => {}
-                "rename" => {}
-                "getattr" => {}
-                "setattr" => {}
-                "getxattr" => {}
-                "setxattr" => {}
-                "statfs" => {}
-                "sync" => {}
-                "samedir_rename" => {}
-                "parallel_rename_file" => {}
-                "parallel_rename_dir" => {}
-                "crossdir_rename" => {}
-                "read" => {}
-                "write" => {}
-                "read_bytes" => {}
-                "write_bytes" => {}
-                "punch" => {}
-                "migrate" => {}
-                x => continue,
+                "open"
+                | "close"
+                | "mknod"
+                | "link"
+                | "unlink"
+                | "mkdir"
+                | "rmdir"
+                | "rename"
+                | "getattr"
+                | "setattr"
+                | "getxattr"
+                | "setxattr"
+                | "statfs"
+                | "sync"
+                | "samedir_rename"
+                | "parallel_rename_file"
+                | "parallel_rename_dir"
+                | "crossdir_rename"
+                | "read"
+                | "write"
+                | "read_bytes"
+                | "write_bytes"
+                | "punch"
+                | "migrate" => {
+                    handle_sample(&tx, stat_name, target, job, &kind, samples);
+                }
+                _ => continue,
             };
         }
-
-        let s = compact_str::format_compact!(
-            "{stat_name}{{component=\"{}\",target=\"{target}\",jobid=\"{job}\"}} 0",
-            kind.to_prom_label()
-        );
-
-        s.len();
-
-        _ = tx.blocking_send(s);
     }
 }
 
