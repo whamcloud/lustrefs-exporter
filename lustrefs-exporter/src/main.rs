@@ -3,42 +3,24 @@
 // license that can be found in the LICENSE file.
 
 use axum::{
-    body::Body,
-    http::{self, StatusCode},
-    response::{IntoResponse, Response},
+    body::{Body, Bytes},
+    http::StatusCode,
+    response::Response,
     routing::get,
     Router,
 };
 use clap::Parser;
-use lustre_collector::{
-    parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser, LustreCollectorError,
+use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
+use lustrefs_exporter::{build_lustre_stats, Error};
+use std::{
+    convert::Infallible,
+    io::{self, BufReader},
+    net::SocketAddr,
 };
-use lustrefs_exporter::build_lustre_stats;
-use tokio_stream::{wrappers::ReceiverStream, StreamExt};
-use std::net::SocketAddr;
 use tokio::process::Command;
+use tokio_stream::{wrappers::ReceiverStream, StreamExt};
 
 const LUSTREFS_EXPORTER_PORT: &str = "32221";
-
-#[derive(Debug, thiserror::Error)]
-enum Error {
-    #[error(transparent)]
-    Http(#[from] http::Error),
-    #[error(transparent)]
-    Io(#[from] std::io::Error),
-    #[error(transparent)]
-    LustreCollector(#[from] LustreCollectorError),
-    #[error(transparent)]
-    Utf8(#[from] std::str::Utf8Error),
-}
-
-impl IntoResponse for Error {
-    fn into_response(self) -> Response {
-        tracing::warn!("{self}");
-
-        StatusCode::INTERNAL_SERVER_ERROR.into_response()
-    }
-}
 
 #[derive(Debug, Parser)]
 pub struct CommandOpts {
@@ -102,20 +84,34 @@ async fn scrape() -> Result<Response<Body>, Error> {
 
     output.append(&mut lnetctl_stats_record);
 
-    let mut lctl_jobstats = std::process::Command::new("lctl")
-        .arg("get_param")
-        .args(["obdfilter.*OST*.job_stats", "mdt.*.job_stats"])
-        .stdout(std::process::Stdio::piped())
-        .spawn()
-        .unwrap();
+    let reader = tokio::task::spawn_blocking(move || {
+        let mut lctl_jobstats = std::process::Command::new("lctl")
+            .arg("get_param")
+            .args(["obdfilter.*OST*.job_stats", "mdt.*.job_stats"])
+            .stdout(std::process::Stdio::piped())
+            .spawn()?;
 
-    let (_fut, rx) = lustrefs_exporter::jobstats::jobstats_stream(std::io::BufReader::with_capacity(128 * 1_024,
-        lctl_jobstats.stdout.take().unwrap(),
-    ));
+        let reader = BufReader::with_capacity(
+            128 * 1_024,
+            lctl_jobstats.stdout.take().ok_or(io::Error::new(
+                io::ErrorKind::NotFound,
+                "stdout missing for lctl jobstats call.",
+            ))?,
+        );
 
-    let stream = ReceiverStream::new(rx).map(|x| Ok::<_, std::convert::Infallible>(axum::body::Bytes::copy_from_slice(x.as_bytes())));
+        Ok::<_, Error>(reader)
+    })
+    .await??;
 
-    let lustre_stats = Ok::<_, std::convert::Infallible>(build_lustre_stats(output).into());
+    let (fut, rx) = lustrefs_exporter::jobstats::jobstats_stream(reader);
+
+    let stream = ReceiverStream::new(rx)
+        .map(|x| Bytes::from_iter(x.into_bytes()))
+        .map(Ok);
+
+    fut.await??;
+
+    let lustre_stats = Ok::<_, Infallible>(build_lustre_stats(output).into());
 
     let merged = tokio_stream::StreamExt::merge(tokio_stream::once(lustre_stats), stream);
 

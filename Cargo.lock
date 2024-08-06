@@ -280,6 +280,7 @@ dependencies = [
  "itoa",
  "rustversion",
  "ryu",
+ "smallvec",
  "static_assertions",
 ]
 

@@ -11,14 +11,44 @@ pub mod quota;
 pub mod service;
 pub mod stats;
 
+use axum::{
+    http::{self, StatusCode},
+    response::{IntoResponse, Response},
+};
 use brw_stats::build_target_stats;
 use host::build_host_stats;
 use lnet::build_lnet_stats;
-use lustre_collector::{HostStat, LNetStat, LNetStatGlobal, Record, TargetStat, TargetVariant};
+use lustre_collector::{
+    HostStat, LNetStat, LNetStatGlobal, LustreCollectorError, Record, TargetStat, TargetVariant,
+};
 use num_traits::Num;
 use prometheus_exporter_base::{prelude::*, Yes};
 use service::build_service_stats;
 use std::{collections::BTreeMap, fmt, ops::Deref};
+
+#[derive(Debug, thiserror::Error)]
+pub enum Error {
+    #[error(transparent)]
+    Http(#[from] http::Error),
+    #[error(transparent)]
+    TaskJoin(#[from] tokio::task::JoinError),
+    #[error(transparent)]
+    Io(#[from] std::io::Error),
+    #[error(transparent)]
+    LustreCollector(#[from] LustreCollectorError),
+    #[error(transparent)]
+    Utf8(#[from] std::str::Utf8Error),
+    #[error("Could not find match for {0} in {1}")]
+    NoCap(&'static str, String),
+}
+
+impl IntoResponse for Error {
+    fn into_response(self) -> Response {
+        tracing::warn!("{self}");
+
+        StatusCode::INTERNAL_SERVER_ERROR.into_response()
+    }
+}
 
 #[derive(Debug, Clone, Copy)]
 struct Metric {

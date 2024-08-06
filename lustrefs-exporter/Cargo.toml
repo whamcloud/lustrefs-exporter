@@ -7,7 +7,7 @@ version.workspace = true
 [dependencies]
 axum = {workspace = true, features = ["http2"]}
 clap = {workspace = true, features = ["derive", "env", "wrap_help", "string"]}
-compact_str = "0.8"
+compact_str = {version = "0.8", features = ["smallvec"]}
 lustre_collector.path = "../lustre-collector"
 num-traits = "0.2"
 prometheus = "0.13"

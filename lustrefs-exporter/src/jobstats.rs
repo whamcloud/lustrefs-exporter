@@ -1,15 +1,9 @@
-use std::{
-    collections::BTreeMap,
-    io::{self, BufRead},
-    ops::Deref,
-    sync::LazyLock,
-};
-
-use crate::{LabelProm, Metric, StatsMapExt};
+use crate::{Error, LabelProm, Metric, StatsMapExt};
 use compact_str::CompactString;
 use lustre_collector::{JobStatMdt, JobStatOst, TargetStat, TargetVariant};
 use prometheus_exporter_base::{prelude::*, Yes};
 use regex::Regex;
+use std::{collections::BTreeMap, io::BufRead, ops::Deref, sync::LazyLock};
 use tokio::{
     sync::mpsc::{self, Receiver, Sender},
     task::JoinHandle,
@@ -551,14 +545,14 @@ enum State {
 
 pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
     f: R,
-) -> (JoinHandle<Result<(), io::Error>>, Receiver<CompactString>) {
+) -> (JoinHandle<Result<(), Error>>, Receiver<CompactString>) {
     let (tx, rx) = mpsc::channel(200);
 
     let x = tokio::task::spawn_blocking(move || {
         let mut state = State::Empty;
 
         for line in f.lines() {
-            let line = line.unwrap();
+            let line = line?;
 
             match state {
                 _ if line == "job_stats:" || line.starts_with("  snapshot_time:") => continue,
@@ -581,26 +575,26 @@ pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
                     state = State::TargetJobStats(target, job, stats);
                 }
                 State::TargetJobStats(target, job, stats) if line.starts_with("- job_id:") => {
-                    render_stat(tx.clone(), &target, job, stats);
+                    render_stat(tx.clone(), &target, job, stats)?;
 
                     state = State::TargetJob(target, line);
                 }
                 State::TargetJobStats(target, job, stats)
                     if line.starts_with("obdfilter") || line.starts_with("mdt.") =>
                 {
-                    render_stat(tx.clone(), &target, job, stats);
+                    render_stat(tx.clone(), &target, job, stats)?;
 
                     state = State::Target(line);
                 }
                 x => {
-                    dbg!("Unexpected line {cnt}: {}, state: {:?}", line, x);
+                    tracing::debug!("Unexpected line: {line}, state: {x:?}");
 
-                    panic!("BOOM!");
+                    break;
                 }
             }
         }
 
-        Ok::<_, std::io::Error>(())
+        Ok(())
     });
 
     (x, rx)
@@ -643,10 +637,16 @@ fn handle_sample(
     _ = tx.blocking_send(s);
 }
 
-fn render_stat(tx: Sender<CompactString>, target: &str, job: String, stats: Vec<String>) {
-    let cap = TARGET.captures(target).unwrap();
-
-    let kind = cap.get(1).unwrap().as_str();
+fn render_stat(
+    tx: Sender<CompactString>,
+    target: &str,
+    job: String,
+    stats: Vec<String>,
+) -> Result<(), Error> {
+    let (_, [kind, target]) = TARGET
+        .captures(target)
+        .ok_or_else(|| Error::NoCap("target", target.to_owned()))?
+        .extract();
 
     let kind = if kind == "obdfilter" {
         TargetVariant::Ost
@@ -654,15 +654,15 @@ fn render_stat(tx: Sender<CompactString>, target: &str, job: String, stats: Vec<
         TargetVariant::Mdt
     };
 
-    let target = cap.get(2).unwrap().as_str();
-
-    let job = job.replace("- job_id:", "").replace('"',"");
+    let job = job.replace("- job_id:", "").replace('"', "");
     let jobid = job.trim();
 
     for stat in stats {
-        let cap = JOB_STAT.captures(&stat).unwrap();
+        let cap = JOB_STAT
+            .captures(&stat)
+            .ok_or_else(|| Error::NoCap("job_stat", stat.to_owned()))?;
 
-        let (_full, [stat_name, samples, _unit, min, max, sum, _sumsq]) = cap.extract();
+        let (_, [stat_name, samples, _unit, min, max, sum, _sumsq]) = cap.extract();
 
         if kind == TargetVariant::Ost {
             match stat_name {
@@ -738,79 +738,50 @@ fn render_stat(tx: Sender<CompactString>, target: &str, job: String, stats: Vec<
             };
         }
     }
+
+    Ok(())
 }
 
 #[cfg(test)]
 pub mod tests {
     use crate::jobstats::jobstats_stream;
-
-    // #[cfg(not(target_env = "msvc"))]
-    // #[global_allocator]
-    // static ALLOC: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
-
-    // #[allow(non_upper_case_globals)]
-    // #[export_name = "malloc_conf"]
-    // pub static malloc_conf: &[u8] = b"prof:true,prof_active:true,lg_prof_sample:19\0";
+    use std::{fs::File, io::BufReader};
 
     #[tokio::test(flavor = "multi_thread")]
     async fn parse_large_yaml() {
-        use std::fs::File;
-        use std::io::BufReader;
-
-        // let mut prof_ctl = jemalloc_pprof::PROF_CTL.as_ref().unwrap().lock().await;
-        // assert!(prof_ctl.activated());
-
         let f = File::open("fixtures/ds86.txt").unwrap();
 
         let f = BufReader::with_capacity(128 * 1_024, f);
 
-        let (_fut, mut rx) = jobstats_stream(f);
+        let (fut, mut rx) = jobstats_stream(f);
 
         let mut cnt = 0;
 
-        while let Some(x) = rx.recv().await {
+        while rx.recv().await.is_some() {
             cnt += 1;
-
-            if cnt == 1 {
-                dbg!(x);
-            }
         }
 
-        // let pprof = prof_ctl.dump_pprof().unwrap();
+        fut.await.unwrap().unwrap();
 
-        // fs::write("pprof", pprof).unwrap();
-
-        assert_eq!(cnt, 3524622);
+        assert_eq!(cnt, 3_524_622);
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn parse_large_yaml2() {
-        use std::fs::File;
-        use std::io::BufReader;
-
-        // let mut prof_ctl = jemalloc_pprof::PROF_CTL.as_ref().unwrap().lock().await;
-        // assert!(prof_ctl.activated());
-
         let f = File::open("fixtures/co-vm03.txt").unwrap();
 
         let f = BufReader::with_capacity(128 * 1_024, f);
 
-        let (_fut, mut rx) = jobstats_stream(f);
+        let (fut, mut rx) = jobstats_stream(f);
 
         let mut cnt = 0;
 
-        while let Some(x) = rx.recv().await {
+        while rx.recv().await.is_some() {
             cnt += 1;
-
-            if cnt == 1 {
-                dbg!(x);
-            }
         }
 
-        // let pprof = prof_ctl.dump_pprof().unwrap();
+        fut.await.unwrap().unwrap();
 
-        // fs::write("pprof", pprof).unwrap();
-
-        assert_eq!(cnt, 884988);
+        assert_eq!(cnt, 884_988);
     }
 }
