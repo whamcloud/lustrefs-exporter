@@ -103,13 +103,11 @@ async fn scrape() -> Result<Response<Body>, Error> {
     })
     .await??;
 
-    let (fut, rx) = lustrefs_exporter::jobstats::jobstats_stream(reader);
+    let (_, rx) = lustrefs_exporter::jobstats::jobstats_stream(reader);
 
     let stream = ReceiverStream::new(rx)
         .map(|x| Bytes::from_iter(x.into_bytes()))
         .map(Ok);
-
-    fut.await??;
 
     let lustre_stats = Ok::<_, Infallible>(build_lustre_stats(output).into());
 

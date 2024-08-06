@@ -1,5 +1,5 @@
 use crate::{Error, LabelProm, Metric};
-use compact_str::CompactString;
+use compact_str::{format_compact, CompactString, ToCompactString};
 use lustre_collector::TargetVariant;
 use prometheus_exporter_base::MetricType;
 use regex::Regex;
@@ -141,22 +141,26 @@ static JOB_STAT: LazyLock<regex::Regex> = LazyLock::new(|| {
     .expect("A Well-formed regex")
 });
 
-fn handle_sample(
+fn send_stat(
     tx: &Sender<CompactString>,
+    name: &str,
     stat_name: &str,
     target: &str,
     job: &str,
     kind: &TargetVariant,
     value: &str,
 ) {
-    let s = compact_str::format_compact!(
-        "{}{{operation=\"{}\",component=\"{}\",target=\"{target}\",jobid=\"{job}\"}} {value}",
-        MDT_JOBSTATS_SAMPLES.name,
-        stat_name,
-        kind.to_prom_label()
-    );
+    _ = tx.blocking_send(name.to_compact_string());
 
-    _ = tx.blocking_send(s);
+    _ = tx.blocking_send("{operation=".to_compact_string());
+
+    _ = tx.blocking_send(format_compact!("\"{stat_name}\","));
+
+    _ = tx.blocking_send(format_compact!("component=\"{}\",", kind.to_prom_label()));
+
+    _ = tx.blocking_send(format_compact!("target=\"{target}\","));
+
+    _ = tx.blocking_send(format_compact!("jobid=\"{job}\"}} {value}\n"));
 }
 
 fn render_stat(
@@ -195,14 +199,7 @@ fn render_stat(
                         (max, READ_MAX_SIZE_BYTES),
                         (sum, READ_BYTES),
                     ] {
-                        let s = compact_str::format_compact!(
-                                "{}{{operation=\"{}\",component=\"{}\",target=\"{target}\",jobid=\"{jobid}\"}} {value}",
-                                metric.name,
-                                stat_name,
-                                kind.to_prom_label()
-                            );
-
-                        _ = tx.blocking_send(s);
+                        send_stat(&tx, metric.name, stat_name, target, jobid, &kind, value);
                     }
                 }
                 "write_bytes" => {
@@ -212,19 +209,20 @@ fn render_stat(
                         (max, WRITE_MAX_SIZE_BYTES),
                         (sum, WRITE_BYTES),
                     ] {
-                        let s = compact_str::format_compact!(
-                            "{}{{operation=\"{}\",component=\"{}\",target=\"{target}\",jobid=\"{jobid}\"}} {value}",
-                            metric.name,
-                            stat_name,
-                            kind.to_prom_label()
-                        );
-
-                        _ = tx.blocking_send(s);
+                        send_stat(&tx, metric.name, stat_name, target, jobid, &kind, value);
                     }
                 }
                 "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs"
                 | "get_info" | "set_info" | "quotactl" => {
-                    handle_sample(&tx, stat_name, target, jobid, &kind, samples);
+                    send_stat(
+                        &tx,
+                        MDT_JOBSTATS_SAMPLES.name,
+                        stat_name,
+                        target,
+                        jobid,
+                        &kind,
+                        samples,
+                    );
                 }
                 _ => continue,
             };
@@ -254,7 +252,15 @@ fn render_stat(
                 | "write_bytes"
                 | "punch"
                 | "migrate" => {
-                    handle_sample(&tx, stat_name, target, jobid, &kind, samples);
+                    send_stat(
+                        &tx,
+                        MDT_JOBSTATS_SAMPLES.name,
+                        stat_name,
+                        target,
+                        jobid,
+                        &kind,
+                        samples,
+                    );
                 }
                 _ => continue,
             };
@@ -270,7 +276,7 @@ pub mod tests {
     use std::{fs::File, io::BufReader};
 
     #[tokio::test(flavor = "multi_thread")]
-    async fn parse_large_yaml() {
+    async fn parse_larger_yaml() {
         let f = File::open("fixtures/ds86.txt").unwrap();
 
         let f = BufReader::with_capacity(128 * 1_024, f);
@@ -289,7 +295,7 @@ pub mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    async fn parse_large_yaml2() {
+    async fn parse_large_yaml() {
         let f = File::open("fixtures/co-vm03.txt").unwrap();
 
         let f = BufReader::with_capacity(128 * 1_024, f);
