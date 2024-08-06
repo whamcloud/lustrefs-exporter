@@ -10,7 +10,6 @@ use lustre_collector::{
 use prometheus_exporter_base::{prelude::*, Yes};
 
 use crate::{
-    jobstats::{build_mdt_job_stats, build_ost_job_stats},
     llite::build_llite_stats,
     quota::{build_ost_quota_stats, build_quota_stats},
     stats::{build_export_stats, build_mds_stats, build_stats},
@@ -350,18 +349,14 @@ pub fn build_target_stats(
     stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
 ) {
     match x {
-        TargetStats::JobStatsOst(x) => {
-            build_ost_job_stats(x, stats_map);
-        }
+        TargetStats::JobStatsOst(_) => {}
         TargetStats::Stats(x) => {
             build_stats(x, stats_map);
         }
         TargetStats::BrwStats(x) => {
             build_brw_stats(x, stats_map);
         }
-        TargetStats::JobStatsMdt(x) => {
-            build_mdt_job_stats(x, stats_map);
-        }
+        TargetStats::JobStatsMdt(_) => {}
         TargetStats::FilesFree(x) => {
             stats_map
                 .get_mut_metric(INODES_FREE)

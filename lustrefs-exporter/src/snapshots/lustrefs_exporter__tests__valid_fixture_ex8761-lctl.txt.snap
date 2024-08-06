@@ -89,51 +89,6 @@ lustre_inodes_maximum{component="ost",target="fs-OST0001"} 40960
 # HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes.
 # TYPE lustre_io_time_milliseconds_total counter
 
-# HELP lustre_job_stats_total Number of operations the filesystem has performed, recorded by jobstats.
-# TYPE lustre_job_stats_total counter
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="open"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="close"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="mknod"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="link"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="unlink"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="mkdir"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="rmdir"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="rename"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="getattr"} 1
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="setattr"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="getxattr"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="setxattr"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="statfs"} 2
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="sync"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="samedir_rename"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="crossdir_rename"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="punch"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="read_bytes"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="write_bytes"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="parallel_rename_dir"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="mount.lustre@0@co-es-pm-149.co-",operation="parallel_rename_file"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="open"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="close"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="mknod"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="link"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="unlink"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="mkdir"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="rmdir"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="rename"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="getattr"} 1
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="setattr"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="getxattr"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="setxattr"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="statfs"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="sync"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="samedir_rename"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="crossdir_rename"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="punch"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="read_bytes"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="write_bytes"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="parallel_rename_dir"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df@0@co-es-pm-149.co-es.datadir",operation="parallel_rename_file"} 0
-
 # HELP lustre_ldlm_canceld_stats Gives information about LDLM Canceld service.
 # TYPE lustre_ldlm_canceld_stats counter
 lustre_ldlm_canceld_stats{operation="req_waittime"} 24

@@ -28,7 +28,7 @@ jobs:
       - name: Install nextest
         uses: taiki-e/install-action@nextest
       - run: |
-          cargo nextest run
+          cargo nextest run --release
 
   fmt:
     name: Rustfmt
