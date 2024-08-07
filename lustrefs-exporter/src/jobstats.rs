@@ -67,60 +67,87 @@ enum State {
 
 pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
     f: R,
-) -> (JoinHandle<Result<(), Error>>, Receiver<CompactString>) {
+) -> (JoinHandle<()>, Receiver<CompactString>) {
     let (tx, rx) = mpsc::channel(200);
+
+    enum LoopInstruction {
+        Noop,
+        Return,
+    }
+
+    fn handle_line(
+        tx: &Sender<CompactString>,
+        maybe_line: Result<String, Error>,
+        mut state: State,
+    ) -> Result<(State, LoopInstruction), Error> {
+        let line = maybe_line?;
+
+        match state {
+            _ if line == "job_stats:" || line.starts_with("  snapshot_time:") => {
+                return Ok((state, LoopInstruction::Noop))
+            }
+            State::Empty if line.starts_with("obdfilter") || line.starts_with("mdt.") => {
+                state = State::Target(line);
+            }
+            State::Target(x) if line.starts_with("- job_id:") => {
+                state = State::TargetJob(x, line);
+            }
+            State::TargetJob(target, job) if line.starts_with("  ") => {
+                let mut xs = Vec::with_capacity(10);
+
+                xs.push(line);
+
+                state = State::TargetJobStats(target, job, xs);
+            }
+            State::TargetJobStats(target, job, mut stats) if line.starts_with("  ") => {
+                stats.push(line);
+
+                state = State::TargetJobStats(target, job, stats);
+            }
+            State::TargetJobStats(target, job, stats) if line.starts_with("- job_id:") => {
+                render_stat(tx, &target, job, stats)?;
+
+                state = State::TargetJob(target, line);
+            }
+            State::TargetJobStats(target, job, stats)
+                if line.starts_with("obdfilter") || line.starts_with("mdt.") =>
+            {
+                render_stat(tx, &target, job, stats)?;
+
+                state = State::Target(line);
+            }
+            x => {
+                tracing::debug!("Unexpected line: {line}, state: {x:?}");
+
+                return Ok((x, LoopInstruction::Return));
+            }
+        }
+
+        Ok((state, LoopInstruction::Noop))
+    }
 
     let x = tokio::task::spawn_blocking(move || {
         let mut state = State::Empty;
 
         for line in f.lines() {
-            let line = line?;
+            let r = handle_line(&tx, line.map_err(Error::Io), state);
 
-            match state {
-                _ if line == "job_stats:" || line.starts_with("  snapshot_time:") => continue,
-                State::Empty if line.starts_with("obdfilter") || line.starts_with("mdt.") => {
-                    state = State::Target(line);
-                }
-                State::Target(x) if line.starts_with("- job_id:") => {
-                    state = State::TargetJob(x, line);
-                }
-                State::TargetJob(target, job) if line.starts_with("  ") => {
-                    let mut xs = Vec::with_capacity(10);
+            match r {
+                Ok((new_state, LoopInstruction::Noop)) => state = new_state,
+                Ok((_, LoopInstruction::Return)) => return,
+                Err(e) => {
+                    tracing::debug!("Unexpected error processing jobstats lines: {e}");
 
-                    xs.push(line);
-
-                    state = State::TargetJobStats(target, job, xs);
-                }
-                State::TargetJobStats(target, job, mut stats) if line.starts_with("  ") => {
-                    stats.push(line);
-
-                    state = State::TargetJobStats(target, job, stats);
-                }
-                State::TargetJobStats(target, job, stats) if line.starts_with("- job_id:") => {
-                    render_stat(tx.clone(), &target, job, stats)?;
-
-                    state = State::TargetJob(target, line);
-                }
-                State::TargetJobStats(target, job, stats)
-                    if line.starts_with("obdfilter") || line.starts_with("mdt.") =>
-                {
-                    render_stat(tx.clone(), &target, job, stats)?;
-
-                    state = State::Target(line);
-                }
-                ref x => {
-                    tracing::debug!("Unexpected line: {line}, state: {x:?}");
-
-                    break;
+                    return;
                 }
             }
         }
 
         if let State::TargetJobStats(target, job, stats) = state {
-            render_stat(tx.clone(), &target, job, stats)?;
+            if let Err(e) = render_stat(&tx, &target, job, stats) {
+                tracing::debug!("Unexpected error processing jobstats lines: {e}");
+            };
         }
-
-        Ok(())
     });
 
     (x, rx)
@@ -168,7 +195,7 @@ fn send_stat(
 }
 
 fn render_stat(
-    tx: Sender<CompactString>,
+    tx: &Sender<CompactString>,
     target: &str,
     job: String,
     stats: Vec<String>,
@@ -203,7 +230,7 @@ fn render_stat(
                         (max, READ_MAX_SIZE_BYTES),
                         (sum, READ_BYTES),
                     ] {
-                        send_stat(&tx, metric.name, stat_name, target, jobid, &kind, value);
+                        send_stat(tx, metric.name, stat_name, target, jobid, &kind, value);
                     }
                 }
                 "write_bytes" => {
@@ -213,13 +240,13 @@ fn render_stat(
                         (max, WRITE_MAX_SIZE_BYTES),
                         (sum, WRITE_BYTES),
                     ] {
-                        send_stat(&tx, metric.name, stat_name, target, jobid, &kind, value);
+                        send_stat(tx, metric.name, stat_name, target, jobid, &kind, value);
                     }
                 }
                 "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs"
                 | "get_info" | "set_info" | "quotactl" => {
                     send_stat(
-                        &tx,
+                        tx,
                         MDT_JOBSTATS_SAMPLES.name,
                         stat_name,
                         target,
@@ -260,7 +287,7 @@ fn render_stat(
                 | "punch"
                 | "migrate" => {
                     send_stat(
-                        &tx,
+                        tx,
                         MDT_JOBSTATS_SAMPLES.name,
                         stat_name,
                         target,
@@ -301,7 +328,7 @@ pub mod tests {
             cnt += 1;
         }
 
-        fut.await.unwrap().unwrap();
+        fut.await.unwrap();
 
         assert_eq!(cnt, 21_147_876);
     }
@@ -320,7 +347,7 @@ pub mod tests {
             cnt += 1;
         }
 
-        fut.await.unwrap().unwrap();
+        fut.await.unwrap();
 
         assert_eq!(cnt, 5_310_036);
     }
@@ -362,7 +389,7 @@ job_stats:{}"#,
             output.push_str(x.as_str());
         }
 
-        fut.await.unwrap().unwrap();
+        fut.await.unwrap();
 
         assert_eq!(
             output.lines().count(),
