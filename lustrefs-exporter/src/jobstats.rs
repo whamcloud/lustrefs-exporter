@@ -228,7 +228,10 @@ fn render_stat(
                         samples,
                     );
                 }
-                _ => continue,
+                x => {
+                    tracing::debug!("Unhandled OST jobstats stats: {x}");
+                    continue
+                },
             };
         } else if kind == TargetVariant::Mdt {
             match stat_name {
@@ -266,7 +269,10 @@ fn render_stat(
                         samples,
                     );
                 }
-                _ => continue,
+                x => {
+                    tracing::debug!("Unhandled MDT jobstats stats: {x}");
+                    continue
+                },
             };
         }
     }
