@@ -108,12 +108,16 @@ pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
 
                     state = State::Target(line);
                 }
-                x => {
+                ref x => {
                     tracing::debug!("Unexpected line: {line}, state: {x:?}");
 
                     break;
                 }
             }
+        }
+
+        if let State::TargetJobStats(target, job, stats) = state {
+            render_stat(tx.clone(), &target, job, stats)?;
         }
 
         Ok(())
@@ -272,6 +276,8 @@ fn render_stat(
 
 #[cfg(test)]
 pub mod tests {
+    use const_format::{formatcp, str_repeat};
+
     use crate::jobstats::jobstats_stream;
     use std::{fs::File, io::BufReader};
 
@@ -311,5 +317,53 @@ pub mod tests {
         fut.await.unwrap().unwrap();
 
         assert_eq!(cnt, 884_988);
+    }
+
+    const JOBSTAT_JOB: &str = r#"
+- job_id:          "FAKE_JOB"
+  snapshot_time:   1720516680
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write_bytes:     { samples:          52, unit: bytes, min:     4096, max:   475136, sum:          5468160, sumsq:      1071040692224 }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:          52, unit: usecs, min:       12, max:    40081, sum:           692342, sumsq:        17432258604 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }"#;
+
+    const INPUT_10_JOBS: &str = formatcp!(
+        r#"obdfilter.ds002-OST0000.job_stats=
+job_stats:{}"#,
+        str_repeat!(JOBSTAT_JOB, 10)
+    );
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn parse_synthetic_yaml() {
+        let f = BufReader::with_capacity(128 * 1_024, INPUT_10_JOBS.as_bytes());
+
+        let (fut, mut rx) = jobstats_stream(f);
+
+        let mut output = String::with_capacity(10 * 2 * JOBSTAT_JOB.len());
+
+        while let Some(x) = rx.recv().await {
+            output.push_str(x.as_str());
+        }
+
+        fut.await.unwrap().unwrap();
+
+        assert_eq!(
+            output.lines().count(),
+            (4 + // 4 metrics per read_bytes
+             4 + // 4 metrics per write_bytes
+             10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
+             * 10
+        );
     }
 }

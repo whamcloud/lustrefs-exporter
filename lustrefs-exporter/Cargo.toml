@@ -24,6 +24,7 @@ tracing-subscriber = {workspace = true, features = ["env-filter"]}
 tracing.workspace = true
 
 [dev-dependencies]
+const_format = "0.2.32"
 combine.workspace = true
 include_dir.workspace = true
 insta.workspace = true
