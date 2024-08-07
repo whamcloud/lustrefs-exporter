@@ -1355,34 +1355,6 @@ expression: result
             ),
         ),
         Target(
-            JobStatsOst(
-                TargetStat {
-                    kind: Ost,
-                    param: Param(
-                        "job_stats",
-                    ),
-                    target: Target(
-                        "fs-OST0000",
-                    ),
-                    value: None,
-                },
-            ),
-        ),
-        Target(
-            JobStatsOst(
-                TargetStat {
-                    kind: Ost,
-                    param: Param(
-                        "job_stats",
-                    ),
-                    target: Target(
-                        "fs-OST0001",
-                    ),
-                    value: None,
-                },
-            ),
-        ),
-        Target(
             Stats(
                 TargetStat {
                     kind: Ost,
@@ -3219,20 +3191,6 @@ expression: result
                         "mdt_setattr",
                     ),
                     stats: [],
-                },
-            ),
-        ),
-        Target(
-            JobStatsMdt(
-                TargetStat {
-                    kind: Mdt,
-                    param: Param(
-                        "job_stats",
-                    ),
-                    target: Target(
-                        "fs-MDT0000",
-                    ),
-                    value: None,
                 },
             ),
         ),

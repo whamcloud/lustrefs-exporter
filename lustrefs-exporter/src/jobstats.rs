@@ -230,8 +230,8 @@ fn render_stat(
                 }
                 x => {
                     tracing::debug!("Unhandled OST jobstats stats: {x}");
-                    continue
-                },
+                    continue;
+                }
             };
         } else if kind == TargetVariant::Mdt {
             match stat_name {
@@ -271,8 +271,8 @@ fn render_stat(
                 }
                 x => {
                     tracing::debug!("Unhandled MDT jobstats stats: {x}");
-                    continue
-                },
+                    continue;
+                }
             };
         }
     }
@@ -289,7 +289,7 @@ pub mod tests {
 
     #[tokio::test(flavor = "multi_thread")]
     async fn parse_larger_yaml() {
-        let f = File::open("fixtures/ds86.txt").unwrap();
+        let f = File::open("fixtures/jobstats_only/ds86.txt").unwrap();
 
         let f = BufReader::with_capacity(128 * 1_024, f);
 
@@ -308,7 +308,7 @@ pub mod tests {
 
     #[tokio::test(flavor = "multi_thread")]
     async fn parse_large_yaml() {
-        let f = File::open("fixtures/co-vm03.txt").unwrap();
+        let f = File::open("fixtures/jobstats_only/co-vm03.txt").unwrap();
 
         let f = BufReader::with_capacity(128 * 1_024, f);
 

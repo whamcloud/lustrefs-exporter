@@ -3,7 +3,12 @@
 // license that can be found in the LICENSE file.
 
 use axum::{
-    body::{Body, Bytes}, error_handling::HandleErrorLayer, http::StatusCode, response::{IntoResponse, Response}, routing::get, BoxError, Router
+    body::{Body, Bytes},
+    error_handling::HandleErrorLayer,
+    http::StatusCode,
+    response::{IntoResponse, Response},
+    routing::get,
+    BoxError, Router,
 };
 use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
@@ -76,7 +81,7 @@ async fn scrape() -> Result<Response<Body>, Error> {
 
     let lctl = Command::new("lctl")
         .arg("get_param")
-        .args(parser::params_no_jobstats())
+        .args(parser::params())
         .kill_on_drop(true)
         .output()
         .await?;

@@ -136,8 +136,6 @@ ai400x2-MDT0003-mdtlov_UUID
 ai400x2-MDT0000-lwp-OST0007_UUID
 ai400x2-MDT0000-lwp-MDT0003_UUID
 ai400x2-MDT0000-lwp-OST0006_UUID
-obdfilter.ai400x2-OST0000.job_stats=job_stats:
-obdfilter.ai400x2-OST0001.job_stats=job_stats:
 obdfilter.ai400x2-OST0000.stats=
 snapshot_time             1709915907.131555726 secs.nsecs
 create                    4 samples [usecs] 419 36248 71884 2404689422
@@ -211,7 +209,6 @@ mds.MDS.mdt_readpage.stats=snapshot_time             1709915907.132721126 secs.n
 mds.MDS.mdt_seqm.stats=snapshot_time             1709915907.132804255 secs.nsecs
 mds.MDS.mdt_seqs.stats=snapshot_time             1709915907.132844937 secs.nsecs
 mds.MDS.mdt_setattr.stats=snapshot_time             1709915907.132887540 secs.nsecs
-mdt.ai400x2-MDT0000.job_stats=job_stats:
 mdt.ai400x2-MDT0000.md_stats=
 snapshot_time             1709915907.133029192 secs.nsecs
 statfs                    1691 samples [usecs] 0 92 15198 245368

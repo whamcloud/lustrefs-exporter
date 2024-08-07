@@ -349,14 +349,12 @@ pub fn build_target_stats(
     stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
 ) {
     match x {
-        TargetStats::JobStatsOst(_) => {}
         TargetStats::Stats(x) => {
             build_stats(x, stats_map);
         }
         TargetStats::BrwStats(x) => {
             build_brw_stats(x, stats_map);
         }
-        TargetStats::JobStatsMdt(_) => {}
         TargetStats::FilesFree(x) => {
             stats_map
                 .get_mut_metric(INODES_FREE)

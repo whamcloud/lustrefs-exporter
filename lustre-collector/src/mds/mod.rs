@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 pub(crate) mod client_count_parser;
-pub(crate) mod job_stats;
 pub(crate) mod mds_parser;
 pub(crate) mod mdt_parser;
 
@@ -14,13 +13,6 @@ pub(crate) fn params() -> Vec<String> {
     mds_parser::params()
         .into_iter()
         .chain(mdt_parser::params())
-        .collect()
-}
-
-pub(crate) fn params_no_jobstats() -> Vec<String> {
-    mds_parser::params()
-        .into_iter()
-        .chain(mdt_parser::params_no_jobstats())
         .collect()
 }
 

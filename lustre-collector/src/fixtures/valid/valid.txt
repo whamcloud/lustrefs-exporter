@@ -182,8 +182,6 @@ ai400-MDT0000-lwp-OST0006_UUID
 ai400-MDT0000-lwp-MDT0003_UUID
 ai400-MDT0000-lwp-OST0007_UUID
 ai400-MDT0003-mdtlov_UUID
-obdfilter.ai400-OST0000.job_stats=job_stats:
-obdfilter.ai400-OST0001.job_stats=job_stats:
 obdfilter.ai400-OST0000.stats=
 snapshot_time             1688603042.554414847 secs.nsecs
 start_time                1688526475.271489350 secs.nsecs
@@ -260,7 +258,6 @@ req_active                62 samples [reqs] 1 2 69 83
 req_timeout               62 samples [sec] 1 10 125 755
 reqbuf_avail              146 samples [bufs] 64 64 9344 598016
 seq_query                 62 samples [usec] 3 4561 28817 101266449
-mdt.ai400-MDT0000.job_stats=job_stats:
 mdt.ai400-MDT0000.md_stats=
 snapshot_time             1688603042.554807135 secs.nsecs
 start_time                1688526476.886354714 secs.nsecs

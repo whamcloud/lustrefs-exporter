@@ -1,5 +1,5 @@
 ---
-source: src/parser.rs
+source: lustre-collector/src/parser.rs
 expression: result
 ---
 (
@@ -690,34 +690,6 @@ expression: result
             ),
         ),
         Target(
-            JobStatsOst(
-                TargetStat {
-                    kind: Ost,
-                    param: Param(
-                        "job_stats",
-                    ),
-                    target: Target(
-                        "ai400-OST0000",
-                    ),
-                    value: None,
-                },
-            ),
-        ),
-        Target(
-            JobStatsOst(
-                TargetStat {
-                    kind: Ost,
-                    param: Param(
-                        "job_stats",
-                    ),
-                    target: Target(
-                        "ai400-OST0001",
-                    ),
-                    value: None,
-                },
-            ),
-        ),
-        Target(
             Stats(
                 TargetStat {
                     kind: Ost,
@@ -1367,20 +1339,6 @@ expression: result
                         "ost_seq",
                     ),
                     stats: [],
-                },
-            ),
-        ),
-        Target(
-            JobStatsMdt(
-                TargetStat {
-                    kind: Mdt,
-                    param: Param(
-                        "job_stats",
-                    ),
-                    target: Target(
-                        "ai400-MDT0000",
-                    ),
-                    value: None,
                 },
             ),
         ),
