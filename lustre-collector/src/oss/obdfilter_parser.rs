@@ -5,9 +5,8 @@
 use crate::{
     base_parsers::{digits, param, param_period, period, target},
     exports_parser::exports_stats,
-    oss::job_stats,
     stats_parser::stats,
-    types::{JobStatOst, Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
+    types::{Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
     ExportStats,
 };
 use combine::{
@@ -18,7 +17,6 @@ use combine::{
     Parser,
 };
 
-pub(crate) const JOBSTATS: &str = "job_stats";
 pub(crate) const STATS: &str = "stats";
 
 pub(crate) const NUM_EXPORTS: &str = "num_exports";
@@ -29,8 +27,7 @@ pub(crate) const TOT_PENDING: &str = "tot_pending";
 pub(crate) const EXPORTS: &str = "exports";
 pub(crate) const EXPORTS_PARAMS: &str = "exports.*.stats";
 
-pub(crate) const OBD_STATS: [&str; 7] = [
-    JOBSTATS,
+pub(crate) const OBD_STATS: [&str; 6] = [
     STATS,
     NUM_EXPORTS,
     TOT_DIRTY,
@@ -61,7 +58,6 @@ where
 
 #[derive(Debug)]
 enum ObdfilterStat {
-    JobStats(Option<Vec<JobStatOst>>),
     Stats(Vec<Stat>),
     ExportStats(Vec<ExportStats>),
     NumExports(u64),
@@ -76,10 +72,6 @@ where
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     choice((
-        (
-            param(JOBSTATS),
-            job_stats::parse().map(ObdfilterStat::JobStats),
-        ),
         (param(STATS), stats().map(ObdfilterStat::Stats)),
         (
             param(NUM_EXPORTS),
@@ -112,12 +104,6 @@ where
 {
     (target_name(), obdfilter_stat())
         .map(|(target, (param, value))| match value {
-            ObdfilterStat::JobStats(value) => TargetStats::JobStatsOst(TargetStat {
-                kind: TargetVariant::Ost,
-                target,
-                param,
-                value,
-            }),
             ObdfilterStat::Stats(value) => TargetStats::Stats(TargetStat {
                 kind: TargetVariant::Ost,
                 target,

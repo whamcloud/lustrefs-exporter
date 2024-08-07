@@ -9,7 +9,7 @@ resolver = "2"
 authors = ["EMF Team <emf@whamcloud.com>"]
 edition = "2021"
 license = "MIT"
-version = "0.8.2"
+version = "0.9.0"
 
 [workspace.lints.rust]
 unreachable_pub = "deny"
@@ -31,3 +31,7 @@ tracing-subscriber = {version = "0.3", features = ["env-filter"]}
 
 [profile.release]
 lto = true
+
+[profile.profiling]
+inherits = "release"
+debug = true

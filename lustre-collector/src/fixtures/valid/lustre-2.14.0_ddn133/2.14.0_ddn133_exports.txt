@@ -937,8 +937,6 @@ mgs.MGS.mgs.threads_max=32
 mgs.MGS.mgs.threads_min=3
 mgs.MGS.mgs.threads_started=4
 mgs.MGS.num_exports=20
-obdfilter.ai400x2-OST0000.job_stats=job_stats:
-obdfilter.ai400x2-OST0001.job_stats=job_stats:
 obdfilter.ai400x2-OST0000.stats=
 snapshot_time             1709305846.699318001 secs.nsecs
 read_bytes                71107883 samples [bytes] 4096 1048576 57978280017920 4944972323796025344
@@ -1373,7 +1371,6 @@ mds_statfs                62713 samples [usecs] 4 13772 1863542 247827210
 obd_ping                  4 samples [usecs] 9 12 40 406
 out_update                16 samples [usecs] 13 18295 23778 339079170
 ost.OSS.ost_seq.stats=snapshot_time             1709305846.702330603 secs.nsecs
-mdt.ai400x2-MDT0000.job_stats=job_stats:
 mdt.ai400x2-MDT0000.md_stats=
 snapshot_time             1709305846.702483772 secs.nsecs
 open                      512 samples [usecs] 64 39146 772784 11053232614

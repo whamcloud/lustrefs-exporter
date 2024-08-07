@@ -1601,26 +1601,6 @@
   },
   {
     "Target": {
-      "JobStatsOst": {
-        "kind": "Ost",
-        "param": "job_stats",
-        "target": "ai400x2-OST0000",
-        "value": null
-      }
-    }
-  },
-  {
-    "Target": {
-      "JobStatsOst": {
-        "kind": "Ost",
-        "param": "job_stats",
-        "target": "ai400x2-OST0001",
-        "value": null
-      }
-    }
-  },
-  {
-    "Target": {
       "Stats": {
         "kind": "Ost",
         "param": "stats",
@@ -2366,16 +2346,6 @@
             "sumsquare": 134979703
           }
         ]
-      }
-    }
-  },
-  {
-    "Target": {
-      "JobStatsMdt": {
-        "kind": "Mdt",
-        "param": "job_stats",
-        "target": "ai400x2-MDT0000",
-        "value": null
       }
     }
   },

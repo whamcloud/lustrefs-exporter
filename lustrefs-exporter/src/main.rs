@@ -3,47 +3,51 @@
 // license that can be found in the LICENSE file.
 
 use axum::{
-    body::Body,
-    http::{self, StatusCode},
+    body::{Body, Bytes},
+    error_handling::HandleErrorLayer,
+    http::StatusCode,
     response::{IntoResponse, Response},
     routing::get,
-    Router,
+    BoxError, Router,
 };
 use clap::Parser;
-use lustre_collector::{
-    parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser, LustreCollectorError,
+use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
+use lustrefs_exporter::{build_lustre_stats, Error};
+use std::{
+    borrow::Cow,
+    convert::Infallible,
+    io::{self, BufReader},
+    net::SocketAddr,
 };
-use lustrefs_exporter::build_lustre_stats;
-use std::net::SocketAddr;
 use tokio::process::Command;
+use tokio_stream::{wrappers::ReceiverStream, StreamExt};
+use tower::ServiceBuilder;
 
 const LUSTREFS_EXPORTER_PORT: &str = "32221";
-
-#[derive(Debug, thiserror::Error)]
-enum Error {
-    #[error(transparent)]
-    Http(#[from] http::Error),
-    #[error(transparent)]
-    Io(#[from] std::io::Error),
-    #[error(transparent)]
-    LustreCollector(#[from] LustreCollectorError),
-    #[error(transparent)]
-    Utf8(#[from] std::str::Utf8Error),
-}
-
-impl IntoResponse for Error {
-    fn into_response(self) -> Response {
-        tracing::warn!("{self}");
-
-        StatusCode::INTERNAL_SERVER_ERROR.into_response()
-    }
-}
 
 #[derive(Debug, Parser)]
 pub struct CommandOpts {
     /// Port that exporter will listen to
     #[clap(short, long, env = "LUSTREFS_EXPORTER_PORT", default_value = LUSTREFS_EXPORTER_PORT)]
     pub port: u16,
+}
+
+async fn handle_error(error: BoxError) -> impl IntoResponse {
+    if error.is::<tower::timeout::error::Elapsed>() {
+        return (StatusCode::REQUEST_TIMEOUT, Cow::from("request timed out"));
+    }
+
+    if error.is::<tower::load_shed::error::Overloaded>() {
+        return (
+            StatusCode::SERVICE_UNAVAILABLE,
+            Cow::from("service is overloaded, try again later"),
+        );
+    }
+
+    (
+        StatusCode::INTERNAL_SERVER_ERROR,
+        Cow::from(format!("Unhandled internal error: {error}")),
+    )
 }
 
 #[tokio::main]
@@ -58,7 +62,14 @@ async fn main() -> Result<(), Error> {
 
     let listener = tokio::net::TcpListener::bind(("0.0.0.0", opts.port)).await?;
 
-    let app = Router::new().route("/metrics", get(scrape));
+    let load_shedder = ServiceBuilder::new()
+        .layer(HandleErrorLayer::new(handle_error))
+        .load_shed()
+        .concurrency_limit(10); // Max 10 concurrent scrape
+
+    let app = Router::new()
+        .route("/metrics", get(scrape))
+        .layer(load_shedder);
 
     axum::serve(listener, app).await?;
 
@@ -101,11 +112,36 @@ async fn scrape() -> Result<Response<Body>, Error> {
 
     output.append(&mut lnetctl_stats_record);
 
-    let body = Body::from(build_lustre_stats(output));
+    let reader = tokio::task::spawn_blocking(move || {
+        let mut lctl_jobstats = std::process::Command::new("lctl")
+            .arg("get_param")
+            .args(["obdfilter.*OST*.job_stats", "mdt.*.job_stats"])
+            .stdout(std::process::Stdio::piped())
+            .spawn()?;
 
-    let s = body.into_data_stream();
+        let reader = BufReader::with_capacity(
+            128 * 1_024,
+            lctl_jobstats.stdout.take().ok_or(io::Error::new(
+                io::ErrorKind::NotFound,
+                "stdout missing for lctl jobstats call.",
+            ))?,
+        );
 
-    let s = Body::from_stream(s);
+        Ok::<_, Error>(reader)
+    })
+    .await??;
+
+    let (_, rx) = lustrefs_exporter::jobstats::jobstats_stream(reader);
+
+    let stream = ReceiverStream::new(rx)
+        .map(|x| Bytes::from_iter(x.into_bytes()))
+        .map(Ok);
+
+    let lustre_stats = Ok::<_, Infallible>(build_lustre_stats(output).into());
+
+    let merged = tokio_stream::StreamExt::merge(tokio_stream::once(lustre_stats), stream);
+
+    let s = Body::from_stream(merged);
 
     let response_builder = Response::builder().status(StatusCode::OK);
 
@@ -158,16 +194,7 @@ mod tests {
 
         insta::assert_snapshot!(x);
     }
-    #[test]
-    fn test_jobstats() {
-        let output = include_str!("../fixtures/jobstats.json");
 
-        let x = serde_json::from_str(output).unwrap();
-
-        let x = build_lustre_stats(x);
-
-        insta::assert_snapshot!(x);
-    }
     #[test]
     fn test_lnetctl_stats() {
         let output = include_str!("../fixtures/lnetctl_stats.json");

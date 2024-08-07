@@ -86,51 +86,6 @@ lustre_inodes_maximum{component="ost",target="fs-OST0001"} 40960
 # HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes.
 # TYPE lustre_io_time_milliseconds_total counter
 
-# HELP lustre_job_stats_total Number of operations the filesystem has performed, recorded by jobstats.
-# TYPE lustre_job_stats_total counter
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="open"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="close"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="mknod"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="link"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="unlink"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="mkdir"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="rmdir"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="rename"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="getattr"} 1
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="setattr"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="getxattr"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="setxattr"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="statfs"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="sync"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="samedir_rename"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="crossdir_rename"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="punch"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="read_bytes"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="write_bytes"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="parallel_rename_dir"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="df.0",operation="parallel_rename_file"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="open"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="close"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="mknod"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="link"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="unlink"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="mkdir"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="rmdir"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="rename"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="getattr"} 2
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="setattr"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="getxattr"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="setxattr"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="statfs"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="sync"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="samedir_rename"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="crossdir_rename"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="punch"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="read_bytes"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="write_bytes"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="parallel_rename_dir"} 0
-lustre_job_stats_total{component="mdt",target="fs-MDT0000",jobid="bash.0",operation="parallel_rename_file"} 0
-
 # HELP lustre_ldlm_canceld_stats Gives information about LDLM Canceld service.
 # TYPE lustre_ldlm_canceld_stats counter
 lustre_ldlm_canceld_stats{operation="req_waittime"} 978

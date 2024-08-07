@@ -317,8 +317,6 @@ mgs.MGS.mgs.threads_max=32
 mgs.MGS.mgs.threads_min=3
 mgs.MGS.mgs.threads_started=3
 mgs.MGS.num_exports=2
-obdfilter.fs-OST0000.job_stats=job_stats:
-obdfilter.fs-OST0001.job_stats=job_stats:
 obdfilter.fs-OST0000.stats=
 snapshot_time             1716295737.287969347 secs.nsecs
 start_time                1715712428.324534805 secs.nsecs
@@ -490,7 +488,6 @@ mds.MDS.mdt_setattr.stats=
 snapshot_time             1716295737.289177216 secs.nsecs
 start_time                1715712429.580198777 secs.nsecs
 elapsed_time              583307.708978439 secs.nsecs
-mdt.fs-MDT0000.job_stats=job_stats:
 mdt.fs-MDT0000.md_stats=
 snapshot_time             1716295737.289304635 secs.nsecs
 start_time                1715712429.906866119 secs.nsecs

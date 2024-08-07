@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 pub(crate) mod client_count_parser;
-pub(crate) mod job_stats;
 pub(crate) mod mds_parser;
 pub(crate) mod mdt_parser;
 

@@ -1,8 +1,13 @@
-use std::{collections::BTreeMap, ops::Deref};
-
-use crate::{LabelProm, Metric, StatsMapExt};
-use lustre_collector::{JobStatMdt, JobStatOst, TargetStat};
-use prometheus_exporter_base::{prelude::*, Yes};
+use crate::{Error, LabelProm, Metric};
+use compact_str::{format_compact, CompactString, ToCompactString};
+use lustre_collector::TargetVariant;
+use prometheus_exporter_base::MetricType;
+use regex::Regex;
+use std::{io::BufRead, sync::LazyLock};
+use tokio::{
+    sync::mpsc::{self, Receiver, Sender},
+    task::JoinHandle,
+};
 
 static READ_SAMPLES: Metric = Metric {
     name: "lustre_job_read_samples_total",
@@ -46,486 +51,352 @@ static WRITE_BYTES: Metric = Metric {
     r#type: MetricType::Counter,
 };
 
-type JobStatOstPromInst<'a> = (
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-);
-
-fn jobstatost_inst<'a>(
-    x: &'a JobStatOst,
-    kind: &'a str,
-    target: &'a str,
-) -> JobStatOstPromInst<'a> {
-    let rs = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_value(x.read_bytes.samples);
-    let rmin = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_value(x.read_bytes.min);
-    let rmax = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_value(x.read_bytes.max);
-    let rb = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_value(x.read_bytes.sum);
-    let ws = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_value(x.write_bytes.samples);
-    let wmin = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_value(x.write_bytes.min);
-    let wmax = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_value(x.write_bytes.max);
-    let wb = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_value(x.write_bytes.sum);
-
-    let create = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_label("operation", "create")
-        .with_value(x.create.samples);
-    let destroy = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_label("operation", "destroy")
-        .with_value(x.destroy.samples);
-    let get_info = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_label("operation", "get_info")
-        .with_value(x.get_info.samples);
-    let getattr = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_label("operation", "getattr")
-        .with_value(x.getattr.samples);
-    let punch = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_label("operation", "punch")
-        .with_value(x.punch.samples);
-    let quotactl = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_label("operation", "quotactl")
-        .with_value(x.quotactl.samples);
-    let set_info = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_label("operation", "set_info")
-        .with_value(x.set_info.samples);
-    let setattr = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_label("operation", "setattr")
-        .with_value(x.setattr.samples);
-    let statfs = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_label("operation", "statfs")
-        .with_value(x.statfs.samples);
-    let sync = PrometheusInstance::new()
-        .with_label("component", kind)
-        .with_label("target", target)
-        .with_label("jobid", x.job_id.deref())
-        .with_label("operation", "sync")
-        .with_value(x.sync.samples);
-
-    (
-        rs, rmin, rmax, rb, ws, wmin, wmax, wb, create, destroy, get_info, getattr, punch,
-        quotactl, set_info, setattr, statfs, sync,
-    )
-}
-
-pub fn build_ost_job_stats(
-    x: TargetStat<Option<Vec<JobStatOst>>>,
-    stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
-) {
-    let TargetStat {
-        kind,
-        target,
-        value,
-        ..
-    } = x;
-
-    let xs = match value {
-        Some(xs) => xs,
-        None => return,
-    };
-
-    for x in xs {
-        let (
-            rs,
-            rmin,
-            rmax,
-            rb,
-            ws,
-            wmin,
-            wmax,
-            wb,
-            create,
-            destroy,
-            get_info,
-            getattr,
-            punch,
-            quotactl,
-            set_info,
-            setattr,
-            statfs,
-            sync,
-        ) = jobstatost_inst(&x, kind.to_prom_label(), target.deref());
-
-        stats_map
-            .get_mut_metric(READ_SAMPLES)
-            .render_and_append_instance(&rs);
-        stats_map
-            .get_mut_metric(READ_MIN_SIZE_BYTES)
-            .render_and_append_instance(&rmin);
-        stats_map
-            .get_mut_metric(READ_MAX_SIZE_BYTES)
-            .render_and_append_instance(&rmax);
-        stats_map
-            .get_mut_metric(READ_BYTES)
-            .render_and_append_instance(&rb);
-        stats_map
-            .get_mut_metric(WRITE_SAMPLES)
-            .render_and_append_instance(&ws);
-        stats_map
-            .get_mut_metric(WRITE_MIN_SIZE_BYTES)
-            .render_and_append_instance(&wmin);
-        stats_map
-            .get_mut_metric(WRITE_MAX_SIZE_BYTES)
-            .render_and_append_instance(&wmax);
-        stats_map
-            .get_mut_metric(WRITE_BYTES)
-            .render_and_append_instance(&wb);
-
-        stats_map
-            .get_mut_metric(MDT_JOBSTATS_SAMPLES)
-            .render_and_append_instance(&create)
-            .render_and_append_instance(&destroy)
-            .render_and_append_instance(&get_info)
-            .render_and_append_instance(&getattr)
-            .render_and_append_instance(&punch)
-            .render_and_append_instance(&quotactl)
-            .render_and_append_instance(&set_info)
-            .render_and_append_instance(&setattr)
-            .render_and_append_instance(&statfs)
-            .render_and_append_instance(&sync);
-    }
-}
-
-type JobStatMdtPromInst<'a> = (
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    PrometheusInstance<'a, i64, Yes>,
-    Option<PrometheusInstance<'a, i64, Yes>>,
-    Option<PrometheusInstance<'a, i64, Yes>>,
-);
-
-fn jobstatmdt_inst<'a>(
-    x: &'a JobStatMdt,
-    kind: &'a str,
-    target: &'a str,
-) -> JobStatMdtPromInst<'a> {
-    let JobStatMdt {
-        job_id,
-        snapshot_time: _,
-        start_time: _,
-        elapsed_time: _,
-        open,
-        close,
-        mknod,
-        link,
-        unlink,
-        mkdir,
-        rmdir,
-        rename,
-        getattr,
-        setattr,
-        getxattr,
-        setxattr,
-        statfs,
-        sync,
-        samedir_rename,
-        crossdir_rename,
-        read_bytes,
-        write_bytes,
-        punch,
-        parallel_rename_dir,
-        parallel_rename_file,
-    } = x;
-
-    (
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "open")
-            .with_value(open.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "close")
-            .with_value(close.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "mknod")
-            .with_value(mknod.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "link")
-            .with_value(link.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "unlink")
-            .with_value(unlink.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "mkdir")
-            .with_value(mkdir.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "rmdir")
-            .with_value(rmdir.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "rename")
-            .with_value(rename.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "getattr")
-            .with_value(getattr.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "setattr")
-            .with_value(setattr.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "getxattr")
-            .with_value(getxattr.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "setxattr")
-            .with_value(setxattr.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "statfs")
-            .with_value(statfs.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "sync")
-            .with_value(sync.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "samedir_rename")
-            .with_value(samedir_rename.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "crossdir_rename")
-            .with_value(crossdir_rename.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "punch")
-            .with_value(punch.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "read_bytes")
-            .with_value(read_bytes.samples),
-        PrometheusInstance::new()
-            .with_label("component", kind)
-            .with_label("target", target)
-            .with_label("jobid", job_id.deref())
-            .with_label("operation", "write_bytes")
-            .with_value(write_bytes.samples),
-        parallel_rename_dir.as_ref().map(|parallel_rename_dir| {
-            PrometheusInstance::new()
-                .with_label("component", kind)
-                .with_label("target", target)
-                .with_label("jobid", job_id.deref())
-                .with_label("operation", "parallel_rename_dir")
-                .with_value(parallel_rename_dir.samples)
-        }),
-        parallel_rename_file.as_ref().map(|parallel_rename_file| {
-            PrometheusInstance::new()
-                .with_label("component", kind)
-                .with_label("target", target)
-                .with_label("jobid", job_id.deref())
-                .with_label("operation", "parallel_rename_file")
-                .with_value(parallel_rename_file.samples)
-        }),
-    )
-}
-
 static MDT_JOBSTATS_SAMPLES: Metric = Metric {
     name: "lustre_job_stats_total",
     help: "Number of operations the filesystem has performed, recorded by jobstats.",
     r#type: MetricType::Counter,
 };
 
-pub fn build_mdt_job_stats(
-    x: TargetStat<Option<Vec<JobStatMdt>>>,
-    stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
-) {
-    let TargetStat {
-        kind,
-        target,
-        value,
-        ..
-    } = x;
+#[derive(Debug)]
+enum State {
+    Empty,
+    Target(String),
+    TargetJob(String, String),
+    TargetJobStats(String, String, Vec<String>),
+}
 
-    let xs = match value {
-        Some(xs) => xs,
-        None => return,
+pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
+    f: R,
+) -> (JoinHandle<()>, Receiver<CompactString>) {
+    let (tx, rx) = mpsc::channel(200);
+
+    enum LoopInstruction {
+        Noop,
+        Return,
+    }
+
+    fn handle_line(
+        tx: &Sender<CompactString>,
+        maybe_line: Result<String, Error>,
+        mut state: State,
+    ) -> Result<(State, LoopInstruction), Error> {
+        let line = maybe_line?;
+
+        match state {
+            _ if line == "job_stats:" || line.starts_with("  snapshot_time:") => {
+                return Ok((state, LoopInstruction::Noop))
+            }
+            State::Empty if line.starts_with("obdfilter") || line.starts_with("mdt.") => {
+                state = State::Target(line);
+            }
+            State::Target(x) if line.starts_with("- job_id:") => {
+                state = State::TargetJob(x, line);
+            }
+            State::TargetJob(target, job) if line.starts_with("  ") => {
+                let mut xs = Vec::with_capacity(10);
+
+                xs.push(line);
+
+                state = State::TargetJobStats(target, job, xs);
+            }
+            State::TargetJobStats(target, job, mut stats) if line.starts_with("  ") => {
+                stats.push(line);
+
+                state = State::TargetJobStats(target, job, stats);
+            }
+            State::TargetJobStats(target, job, stats) if line.starts_with("- job_id:") => {
+                render_stat(tx, &target, job, stats)?;
+
+                state = State::TargetJob(target, line);
+            }
+            State::TargetJobStats(target, job, stats)
+                if line.starts_with("obdfilter") || line.starts_with("mdt.") =>
+            {
+                render_stat(tx, &target, job, stats)?;
+
+                state = State::Target(line);
+            }
+            x => {
+                tracing::debug!("Unexpected line: {line}, state: {x:?}");
+
+                return Ok((x, LoopInstruction::Return));
+            }
+        }
+
+        Ok((state, LoopInstruction::Noop))
+    }
+
+    let x = tokio::task::spawn_blocking(move || {
+        let mut state = State::Empty;
+
+        for line in f.lines() {
+            let r = handle_line(&tx, line.map_err(Error::Io), state);
+
+            match r {
+                Ok((new_state, LoopInstruction::Noop)) => state = new_state,
+                Ok((_, LoopInstruction::Return)) => return,
+                Err(e) => {
+                    tracing::debug!("Unexpected error processing jobstats lines: {e}");
+
+                    return;
+                }
+            }
+        }
+
+        if let State::TargetJobStats(target, job, stats) = state {
+            if let Err(e) = render_stat(&tx, &target, job, stats) {
+                tracing::debug!("Unexpected error processing jobstats lines: {e}");
+            };
+        }
+    });
+
+    (x, rx)
+}
+
+static TARGET: LazyLock<regex::Regex> = LazyLock::new(|| {
+    Regex::new(r#"^(obdfilter|mdt)\.([a-zA-Z0-9_-]+)\.job_stats=$"#).expect("A Well-formed regex")
+});
+
+static JOB_STAT: LazyLock<regex::Regex> = LazyLock::new(|| {
+    Regex::new(
+        r"(?x)
+        ^\ \ (?<stat>[a-z_]+):\ +\{         # 1. stat name
+        \ samples:\ +(?<sample>[0-9]+),     # 2. sample value
+        \ unit:\ +([a-z]+),                 # 3. unit value
+        \ min:\ +(?<min>[0-9]+),            # 4. min value
+        \ max:\ +(?<max>[0-9]+),            # 5. max value
+        \ sum:\ +(?<sum>[0-9]+),            # 6. sum value
+        \ sumsq:\ +(?<sumsq>[0-9]+)         # 7. sumsq value
+",
+    )
+    .expect("A Well-formed regex")
+});
+
+fn send_stat(
+    tx: &Sender<CompactString>,
+    name: &str,
+    stat_name: &str,
+    target: &str,
+    job: &str,
+    kind: &TargetVariant,
+    value: &str,
+) {
+    _ = tx.blocking_send(name.to_compact_string());
+
+    _ = tx.blocking_send("{operation=".to_compact_string());
+
+    _ = tx.blocking_send(format_compact!("\"{stat_name}\","));
+
+    _ = tx.blocking_send(format_compact!("component=\"{}\",", kind.to_prom_label()));
+
+    _ = tx.blocking_send(format_compact!("target=\"{target}\","));
+
+    _ = tx.blocking_send(format_compact!("jobid=\"{job}\"}} {value}\n"));
+}
+
+fn render_stat(
+    tx: &Sender<CompactString>,
+    target: &str,
+    job: String,
+    stats: Vec<String>,
+) -> Result<(), Error> {
+    let (_, [kind, target]) = TARGET
+        .captures(target)
+        .ok_or_else(|| Error::NoCap("target", target.to_owned()))?
+        .extract();
+
+    let kind = if kind == "obdfilter" {
+        TargetVariant::Ost
+    } else {
+        TargetVariant::Mdt
     };
 
-    for x in xs {
-        let (
-            open,
-            close,
-            mknod,
-            link,
-            unlink,
-            mkdir,
-            rmdir,
-            rename,
-            getattr,
-            setattr,
-            getxattr,
-            setxattr,
-            statfs,
-            sync,
-            samedir_rename,
-            crossdir_rename,
-            punch,
-            read_bytes,
-            write_bytes,
-            parallel_rename_dir,
-            parallel_rename_file,
-        ) = jobstatmdt_inst(&x, kind.to_prom_label(), target.deref());
+    let job = job.replace("- job_id:", "").replace('"', "");
+    let jobid = job.trim();
 
-        stats_map
-            .get_mut_metric(MDT_JOBSTATS_SAMPLES)
-            .render_and_append_instance(&open)
-            .render_and_append_instance(&close)
-            .render_and_append_instance(&mknod)
-            .render_and_append_instance(&link)
-            .render_and_append_instance(&unlink)
-            .render_and_append_instance(&mkdir)
-            .render_and_append_instance(&rmdir)
-            .render_and_append_instance(&rename)
-            .render_and_append_instance(&getattr)
-            .render_and_append_instance(&setattr)
-            .render_and_append_instance(&getxattr)
-            .render_and_append_instance(&setxattr)
-            .render_and_append_instance(&statfs)
-            .render_and_append_instance(&sync)
-            .render_and_append_instance(&samedir_rename)
-            .render_and_append_instance(&crossdir_rename)
-            .render_and_append_instance(&punch)
-            .render_and_append_instance(&read_bytes)
-            .render_and_append_instance(&write_bytes);
-        if let Some(parallel_rename_dir) = parallel_rename_dir {
-            stats_map
-                .get_mut_metric(MDT_JOBSTATS_SAMPLES)
-                .render_and_append_instance(&parallel_rename_dir);
+    for stat in stats {
+        let cap = JOB_STAT
+            .captures(&stat)
+            .ok_or_else(|| Error::NoCap("job_stat", stat.to_owned()))?;
+
+        let (_, [stat_name, samples, _unit, min, max, sum, _sumsq]) = cap.extract();
+
+        if kind == TargetVariant::Ost {
+            match stat_name {
+                "read_bytes" => {
+                    for (value, metric) in [
+                        (samples, READ_SAMPLES),
+                        (min, READ_MIN_SIZE_BYTES),
+                        (max, READ_MAX_SIZE_BYTES),
+                        (sum, READ_BYTES),
+                    ] {
+                        send_stat(tx, metric.name, stat_name, target, jobid, &kind, value);
+                    }
+                }
+                "write_bytes" => {
+                    for (value, metric) in [
+                        (samples, WRITE_SAMPLES),
+                        (min, WRITE_MIN_SIZE_BYTES),
+                        (max, WRITE_MAX_SIZE_BYTES),
+                        (sum, WRITE_BYTES),
+                    ] {
+                        send_stat(tx, metric.name, stat_name, target, jobid, &kind, value);
+                    }
+                }
+                "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs"
+                | "get_info" | "set_info" | "quotactl" => {
+                    send_stat(
+                        tx,
+                        MDT_JOBSTATS_SAMPLES.name,
+                        stat_name,
+                        target,
+                        jobid,
+                        &kind,
+                        samples,
+                    );
+                }
+                x => {
+                    tracing::debug!("Unhandled OST jobstats stats: {x}");
+                    continue;
+                }
+            };
+        } else if kind == TargetVariant::Mdt {
+            match stat_name {
+                "open"
+                | "close"
+                | "mknod"
+                | "link"
+                | "unlink"
+                | "mkdir"
+                | "rmdir"
+                | "rename"
+                | "getattr"
+                | "setattr"
+                | "getxattr"
+                | "setxattr"
+                | "statfs"
+                | "sync"
+                | "samedir_rename"
+                | "parallel_rename_file"
+                | "parallel_rename_dir"
+                | "crossdir_rename"
+                | "read"
+                | "write"
+                | "read_bytes"
+                | "write_bytes"
+                | "punch"
+                | "migrate" => {
+                    send_stat(
+                        tx,
+                        MDT_JOBSTATS_SAMPLES.name,
+                        stat_name,
+                        target,
+                        jobid,
+                        &kind,
+                        samples,
+                    );
+                }
+                x => {
+                    tracing::debug!("Unhandled MDT jobstats stats: {x}");
+                    continue;
+                }
+            };
         }
-        if let Some(parallel_rename_file) = parallel_rename_file {
-            stats_map
-                .get_mut_metric(MDT_JOBSTATS_SAMPLES)
-                .render_and_append_instance(&parallel_rename_file);
+    }
+
+    Ok(())
+}
+
+#[cfg(test)]
+pub mod tests {
+    use const_format::{formatcp, str_repeat};
+
+    use crate::jobstats::jobstats_stream;
+    use std::{fs::File, io::BufReader};
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn parse_larger_yaml() {
+        let f = File::open("fixtures/jobstats_only/ds86.txt").unwrap();
+
+        let f = BufReader::with_capacity(128 * 1_024, f);
+
+        let (fut, mut rx) = jobstats_stream(f);
+
+        let mut cnt = 0;
+
+        while rx.recv().await.is_some() {
+            cnt += 1;
         }
+
+        fut.await.unwrap();
+
+        assert_eq!(cnt, 21_147_876);
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn parse_large_yaml() {
+        let f = File::open("fixtures/jobstats_only/co-vm03.txt").unwrap();
+
+        let f = BufReader::with_capacity(128 * 1_024, f);
+
+        let (fut, mut rx) = jobstats_stream(f);
+
+        let mut cnt = 0;
+
+        while rx.recv().await.is_some() {
+            cnt += 1;
+        }
+
+        fut.await.unwrap();
+
+        assert_eq!(cnt, 5_310_036);
+    }
+
+    const JOBSTAT_JOB: &str = r#"
+- job_id:          "FAKE_JOB"
+  snapshot_time:   1720516680
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write_bytes:     { samples:          52, unit: bytes, min:     4096, max:   475136, sum:          5468160, sumsq:      1071040692224 }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:          52, unit: usecs, min:       12, max:    40081, sum:           692342, sumsq:        17432258604 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }"#;
+
+    const INPUT_10_JOBS: &str = formatcp!(
+        r#"obdfilter.ds002-OST0000.job_stats=
+job_stats:{}"#,
+        str_repeat!(JOBSTAT_JOB, 10)
+    );
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn parse_synthetic_yaml() {
+        let f = BufReader::with_capacity(128 * 1_024, INPUT_10_JOBS.as_bytes());
+
+        let (fut, mut rx) = jobstats_stream(f);
+
+        let mut output = String::with_capacity(10 * 2 * JOBSTAT_JOB.len());
+
+        while let Some(x) = rx.recv().await {
+            output.push_str(x.as_str());
+        }
+
+        fut.await.unwrap();
+
+        assert_eq!(
+            output.lines().count(),
+            (4 + // 4 metrics per read_bytes
+             4 + // 4 metrics per write_bytes
+             10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
+             * 10
+        );
     }
 }

@@ -5,10 +5,9 @@
 use crate::{
     base_parsers::{digits, param, param_period, period, target},
     exports_parser::exports_stats,
-    mds::job_stats,
     oss::obdfilter_parser::{EXPORTS, EXPORTS_PARAMS},
     stats_parser::stats,
-    types::{JobStatMdt, Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
+    types::{Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
     ExportStats,
 };
 use combine::{
@@ -19,12 +18,10 @@ use combine::{
     Parser,
 };
 
-pub(crate) const JOB_STATS: &str = "job_stats";
 pub(crate) const STATS: &str = "md_stats";
 pub(crate) const NUM_EXPORTS: &str = "num_exports";
 
 enum MdtStat {
-    JobStats(Option<Vec<JobStatMdt>>),
     Stats(Vec<Stat>),
     NumExports(u64),
     ExportStats(Vec<ExportStats>),
@@ -41,8 +38,6 @@ where
             digits().skip(newline()).map(MdtStat::NumExports),
         ),
         (param(STATS), stats().map(MdtStat::Stats)).message("while parsing mdt_stat"),
-        (param(JOB_STATS), job_stats::parse().map(MdtStat::JobStats))
-            .message("while parsing job_stats"),
         (
             param_period(EXPORTS),
             exports_stats().map(MdtStat::ExportStats),
@@ -52,7 +47,6 @@ where
 
 pub(crate) fn params() -> Vec<String> {
     [
-        format!("mdt.*.{JOB_STATS}"),
         format!("mdt.*.{STATS}"),
         format!("mdt.*MDT*.{NUM_EXPORTS}"),
         format!("mdt.*MDT*.{EXPORTS_PARAMS}"),
@@ -81,12 +75,6 @@ where
 {
     (target_name(), mdt_stat())
         .map(|(target, (param, value))| match value {
-            MdtStat::JobStats(value) => TargetStats::JobStatsMdt(TargetStat {
-                kind: TargetVariant::Mdt,
-                target,
-                param,
-                value,
-            }),
             MdtStat::Stats(value) => TargetStats::Stats(TargetStat {
                 kind: TargetVariant::Mdt,
                 target,

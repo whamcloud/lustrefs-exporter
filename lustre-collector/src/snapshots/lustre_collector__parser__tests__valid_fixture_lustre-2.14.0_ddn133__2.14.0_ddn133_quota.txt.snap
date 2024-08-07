@@ -4665,34 +4665,6 @@ expression: result
             ),
         ),
         Target(
-            JobStatsOst(
-                TargetStat {
-                    kind: Ost,
-                    param: Param(
-                        "job_stats",
-                    ),
-                    target: Target(
-                        "ai400x2-OST0000",
-                    ),
-                    value: None,
-                },
-            ),
-        ),
-        Target(
-            JobStatsOst(
-                TargetStat {
-                    kind: Ost,
-                    param: Param(
-                        "job_stats",
-                    ),
-                    target: Target(
-                        "ai400x2-OST0001",
-                    ),
-                    value: None,
-                },
-            ),
-        ),
-        Target(
             Stats(
                 TargetStat {
                     kind: Ost,
@@ -5854,20 +5826,6 @@ expression: result
                         "ost_seq",
                     ),
                     stats: [],
-                },
-            ),
-        ),
-        Target(
-            JobStatsMdt(
-                TargetStat {
-                    kind: Mdt,
-                    param: Param(
-                        "job_stats",
-                    ),
-                    target: Target(
-                        "ai400x2-MDT0000",
-                    ),
-                    value: None,
                 },
             ),
         ),

@@ -57,11 +57,6 @@ pub struct BytesStat {
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
-pub struct JobStatsOst {
-    pub job_stats: Option<Vec<JobStatOst>>,
-}
-
-#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
 pub struct ExportStats {
     pub nid: String,
     pub stats: Vec<Stat>,
@@ -137,60 +132,6 @@ impl fmt::Display for UnsignedLustreTimestamp {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.0)
     }
-}
-
-#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
-pub struct JobStatOst {
-    pub job_id: String,
-    pub snapshot_time: UnsignedLustreTimestamp,
-    pub start_time: Option<UnsignedLustreTimestamp>,
-    pub elapsed_time: Option<String>,
-    pub read_bytes: BytesStat,
-    pub write_bytes: BytesStat,
-    pub getattr: ReqsStat,
-    pub setattr: ReqsStat,
-    pub punch: ReqsStat,
-    pub sync: ReqsStat,
-    pub destroy: ReqsStat,
-    pub create: ReqsStat,
-    pub statfs: ReqsStat,
-    pub get_info: ReqsStat,
-    pub set_info: ReqsStat,
-    pub quotactl: ReqsStat,
-}
-
-#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
-pub struct JobStatsMdt {
-    pub job_stats: Option<Vec<JobStatMdt>>,
-}
-
-#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
-pub struct JobStatMdt {
-    pub job_id: String,
-    pub snapshot_time: UnsignedLustreTimestamp,
-    pub start_time: Option<UnsignedLustreTimestamp>,
-    pub elapsed_time: Option<String>,
-    pub open: BytesStat,
-    pub close: BytesStat,
-    pub mknod: BytesStat,
-    pub link: BytesStat,
-    pub unlink: BytesStat,
-    pub mkdir: BytesStat,
-    pub rmdir: BytesStat,
-    pub rename: BytesStat,
-    pub getattr: BytesStat,
-    pub setattr: BytesStat,
-    pub getxattr: BytesStat,
-    pub setxattr: BytesStat,
-    pub statfs: BytesStat,
-    pub sync: BytesStat,
-    pub samedir_rename: BytesStat,
-    pub crossdir_rename: BytesStat,
-    pub read_bytes: BytesStat,
-    pub write_bytes: BytesStat,
-    pub punch: BytesStat,
-    pub parallel_rename_dir: Option<BytesStat>,
-    pub parallel_rename_file: Option<BytesStat>,
 }
 
 pub mod lnet_exports {
@@ -540,10 +481,8 @@ pub struct FsName(pub String);
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
 pub enum TargetStats {
     /// Operations per OST. Read and write data is particularly interesting
-    JobStatsOst(TargetStat<Option<Vec<JobStatOst>>>),
     Stats(TargetStat<Vec<Stat>>),
     BrwStats(TargetStat<Vec<BrwStats>>),
-    JobStatsMdt(TargetStat<Option<Vec<JobStatMdt>>>),
     /// Available inodes
     FilesFree(TargetStat<u64>),
     /// Total inodes

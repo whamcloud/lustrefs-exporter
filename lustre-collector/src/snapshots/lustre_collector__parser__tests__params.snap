@@ -1,5 +1,5 @@
 ---
-source: src/parser.rs
+source: lustre-collector/src/parser.rs
 expression: params()
 ---
 [
@@ -23,7 +23,6 @@ expression: params()
     "mgs.*.mgs.threads_min",
     "mgs.*.mgs.threads_started",
     "mgs.*.num_exports",
-    "obdfilter.*OST*.job_stats",
     "obdfilter.*OST*.stats",
     "obdfilter.*OST*.num_exports",
     "obdfilter.*OST*.tot_dirty",
@@ -43,7 +42,6 @@ expression: params()
     "mds.MDS.mdt_seqm.stats",
     "mds.MDS.mdt_seqs.stats",
     "mds.MDS.mdt_setattr.stats",
-    "mdt.*.job_stats",
     "mdt.*.md_stats",
     "mdt.*MDT*.num_exports",
     "mdt.*MDT*.exports.*.stats",

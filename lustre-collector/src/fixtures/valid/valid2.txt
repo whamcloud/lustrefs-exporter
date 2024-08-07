@@ -189,8 +189,6 @@ mgs.MGS.mgs.threads_max=32
 mgs.MGS.mgs.threads_min=3
 mgs.MGS.mgs.threads_started=4
 mgs.MGS.num_exports=4
-obdfilter.testfs-OST0000.job_stats=job_stats:
-obdfilter.testfs-OST0001.job_stats=job_stats:
 obdfilter.testfs-OST0000.stats=
 snapshot_time             1701093031.365202411 secs.nsecs
 create                    8 samples [usecs] 1 1201 2230 1751346
@@ -249,56 +247,6 @@ req_active                26 samples [reqs] 1 2 30 38
 req_timeout               26 samples [secs] 1 10 71 521
 reqbuf_avail              65 samples [bufs] 64 64 4160 266240
 seq_query                 26 samples [usecs] 9 4057 16420 57794128
-mdt.testfs-MDT0000.job_stats=
-job_stats:
-- job_id:          dd.0
-  snapshot_time:   1701093009
-  open:            { samples:           1, unit: usecs, min:      185, max:      185, sum:
-  185, sumsq:              34225 }
-  close:           { samples:           1, unit: usecs, min:       51, max:       51, sum:
-   51, sumsq:               2601 }
-  mknod:           { samples:           1, unit: usecs, min:      170, max:      170, sum:
-  170, sumsq:              28900 }
-  link:            { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  unlink:          { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  mkdir:           { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  rmdir:           { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  rename:          { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  getxattr:        { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  setxattr:        { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  samedir_rename:  { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  parallel_rename_file: { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
-  parallel_rename_dir: { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
-  crossdir_rename: { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  write:           { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  write_bytes:     { samples:           0, unit: bytes, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  punch:           { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
-  migrate:         { samples:           0, unit: usecs, min:        0, max:        0, sum:
-    0, sumsq:                  0 }
 mdt.testfs-MDT0000.md_stats=
 snapshot_time             1701093031.365709921 secs.nsecs
 open                      4 samples [usecs] 62 392 794 215758
