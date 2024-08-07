@@ -3,22 +3,20 @@
 // license that can be found in the LICENSE file.
 
 use axum::{
-    body::{Body, Bytes},
-    http::StatusCode,
-    response::Response,
-    routing::get,
-    Router,
+    body::{Body, Bytes}, error_handling::HandleErrorLayer, http::StatusCode, response::{IntoResponse, Response}, routing::get, BoxError, Router
 };
 use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
 use lustrefs_exporter::{build_lustre_stats, Error};
 use std::{
+    borrow::Cow,
     convert::Infallible,
     io::{self, BufReader},
     net::SocketAddr,
 };
 use tokio::process::Command;
 use tokio_stream::{wrappers::ReceiverStream, StreamExt};
+use tower::ServiceBuilder;
 
 const LUSTREFS_EXPORTER_PORT: &str = "32221";
 
@@ -27,6 +25,24 @@ pub struct CommandOpts {
     /// Port that exporter will listen to
     #[clap(short, long, env = "LUSTREFS_EXPORTER_PORT", default_value = LUSTREFS_EXPORTER_PORT)]
     pub port: u16,
+}
+
+async fn handle_error(error: BoxError) -> impl IntoResponse {
+    if error.is::<tower::timeout::error::Elapsed>() {
+        return (StatusCode::REQUEST_TIMEOUT, Cow::from("request timed out"));
+    }
+
+    if error.is::<tower::load_shed::error::Overloaded>() {
+        return (
+            StatusCode::SERVICE_UNAVAILABLE,
+            Cow::from("service is overloaded, try again later"),
+        );
+    }
+
+    (
+        StatusCode::INTERNAL_SERVER_ERROR,
+        Cow::from(format!("Unhandled internal error: {error}")),
+    )
 }
 
 #[tokio::main]
@@ -41,7 +57,14 @@ async fn main() -> Result<(), Error> {
 
     let listener = tokio::net::TcpListener::bind(("0.0.0.0", opts.port)).await?;
 
-    let app = Router::new().route("/metrics", get(scrape));
+    let load_shedder = ServiceBuilder::new()
+        .layer(HandleErrorLayer::new(handle_error))
+        .load_shed()
+        .concurrency_limit(10); // Max 10 concurrent scrape
+
+    let app = Router::new()
+        .route("/metrics", get(scrape))
+        .layer(load_shedder);
 
     axum::serve(listener, app).await?;
 
