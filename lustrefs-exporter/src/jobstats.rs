@@ -297,7 +297,7 @@ pub mod tests {
 
         fut.await.unwrap().unwrap();
 
-        assert_eq!(cnt, 3_524_622);
+        assert_eq!(cnt, 21_147_876);
     }
 
     #[tokio::test(flavor = "multi_thread")]
@@ -316,7 +316,7 @@ pub mod tests {
 
         fut.await.unwrap().unwrap();
 
-        assert_eq!(cnt, 884_988);
+        assert_eq!(cnt, 5_310_036);
     }
 
     const JOBSTAT_JOB: &str = r#"
