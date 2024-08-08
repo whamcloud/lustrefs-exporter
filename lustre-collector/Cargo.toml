@@ -19,3 +19,11 @@ tracing.workspace = true
 [dev-dependencies]
 include_dir.workspace = true
 insta.workspace = true
+
+[lib]
+bench = false
+
+[[bin]]
+name = "lustre_collector"
+path = "src/main.rs"
+bench = false
