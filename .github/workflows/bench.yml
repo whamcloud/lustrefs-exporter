@@ -1,9 +1,6 @@
 name: benchmark pull requests
 on:
   pull_request:
-  push:
-    branches:
-      - main
 jobs:
   runBenchmark:
     name: run benchmark
