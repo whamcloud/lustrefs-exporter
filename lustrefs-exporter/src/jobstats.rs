@@ -90,7 +90,9 @@ pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
             {
                 return Ok((state, LoopInstruction::Noop))
             }
-            State::Empty if line.starts_with("obdfilter") || line.starts_with("mdt.") => {
+            State::Empty | State::Target(_)
+                if line.starts_with("obdfilter") || line.starts_with("mdt.") =>
+            {
                 state = State::Target(line);
             }
             State::Target(x) if line.starts_with("- job_id:") => {
@@ -420,5 +422,24 @@ job_stats:{}"#,
              10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
              * 10
         );
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn parse_some_empty() {
+        let f = File::open("fixtures/jobstats_only/some_empty.txt").unwrap();
+
+        let f = BufReader::with_capacity(128 * 1_024, f);
+
+        let (fut, mut rx) = jobstats_stream(f);
+
+        let mut cnt = 0;
+
+        while rx.recv().await.is_some() {
+            cnt += 1;
+        }
+
+        fut.await.unwrap();
+
+        assert_eq!(cnt, 108);
     }
 }
