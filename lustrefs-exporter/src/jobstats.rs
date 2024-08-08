@@ -82,8 +82,15 @@ pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
     ) -> Result<(State, LoopInstruction), Error> {
         let line = maybe_line?;
 
+        // println!("{:?}: {line}", state);
+
         match state {
-            _ if line == "job_stats:" || line.starts_with("  snapshot_time:") => {
+            _ if line == "job_stats:"
+                || line.starts_with("  snapshot_time:")
+                || line.starts_with("  start_time:")
+                || line.starts_with("  elapsed_time:")
+                || line.starts_with("  snapshot_time:") =>
+            {
                 return Ok((state, LoopInstruction::Noop))
             }
             State::Empty if line.starts_with("obdfilter") || line.starts_with("mdt.") => {
@@ -118,7 +125,6 @@ pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
             }
             x => {
                 tracing::debug!("Unexpected line: {line}, state: {x:?}");
-
                 return Ok((x, LoopInstruction::Return));
             }
         }
@@ -350,6 +356,25 @@ pub mod tests {
         fut.await.unwrap();
 
         assert_eq!(cnt, 5_310_036);
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn parse_new_yaml() {
+        let f = File::open("fixtures/jobstats_only/2.14.0_162.txt").unwrap();
+
+        let f = BufReader::with_capacity(128 * 1_024, f);
+
+        let (fut, mut rx) = jobstats_stream(f);
+
+        let mut cnt = 0;
+
+        while rx.recv().await.is_some() {
+            cnt += 1;
+        }
+
+        fut.await.unwrap();
+
+        assert_eq!(cnt, 1_728);
     }
 
     const JOBSTAT_JOB: &str = r#"
