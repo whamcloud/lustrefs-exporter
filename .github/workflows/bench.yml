@@ -12,5 +12,4 @@ jobs:
       - uses: actions/checkout@v4
       - uses: boa-dev/criterion-compare-action@v3
         with:
-          cwd: "lustre-collector"
           branchName: ${{ github.base_ref }}
