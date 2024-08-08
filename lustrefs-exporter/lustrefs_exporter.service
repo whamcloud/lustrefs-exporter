@@ -6,6 +6,8 @@ Documentation=https://github.com/whamcloud/lustrefs-exporter
 Environment=RUST_LOG=info
 Restart=on-failure
 ExecStart=/usr/bin/lustrefs_exporter
+MemoryHigh=1750M
+MemoryMax=2G
 
 [Install]
 WantedBy=multi-user.target
