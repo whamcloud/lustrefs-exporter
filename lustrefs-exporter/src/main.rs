@@ -14,7 +14,7 @@ use axum::{
 use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
 use lustrefs_exporter::{build_lustre_stats, Error};
-use serde::{Deserialize, Deserializer};
+use serde::Deserialize;
 use std::{
     borrow::Cow,
     convert::Infallible,
@@ -59,20 +59,8 @@ fn default_as_true() -> bool {
 #[derive(Debug, Deserialize)]
 struct Params {
     // Only disable jobstats if "jobstats=false"
-    #[serde(default = "default_as_true", deserialize_with = "empty_string_as_true")]
+    #[serde(default = "default_as_true")]
     jobstats: bool,
-}
-
-/// Serde deserialization decorator to map empty Strings to None,
-fn empty_string_as_true<'de, D>(de: D) -> Result<bool, D::Error>
-where
-    D: Deserializer<'de>,
-{
-    let opt = Option::<String>::deserialize(de)?;
-    match opt.as_deref() {
-        Some("false") => Ok(false),
-        _ => Ok(true),
-    }
 }
 
 #[tokio::main]
@@ -170,6 +158,7 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
         Body::from_stream(merged)
     } else {
         tracing::debug!("Jobstats is disabled");
+
         Body::from(build_lustre_stats(output))
     };
 
