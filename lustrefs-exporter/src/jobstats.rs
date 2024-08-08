@@ -82,8 +82,6 @@ pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
     ) -> Result<(State, LoopInstruction), Error> {
         let line = maybe_line?;
 
-        // println!("{:?}: {line}", state);
-
         match state {
             _ if line == "job_stats:"
                 || line.starts_with("  start_time:")
