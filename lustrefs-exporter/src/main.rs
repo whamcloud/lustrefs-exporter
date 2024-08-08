@@ -5,6 +5,7 @@
 use axum::{
     body::{Body, Bytes},
     error_handling::HandleErrorLayer,
+    extract::Query,
     http::StatusCode,
     response::{IntoResponse, Response},
     routing::get,
@@ -13,6 +14,7 @@ use axum::{
 use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
 use lustrefs_exporter::{build_lustre_stats, Error};
+use serde::Deserialize;
 use std::{
     borrow::Cow,
     convert::Infallible,
@@ -50,6 +52,17 @@ async fn handle_error(error: BoxError) -> impl IntoResponse {
     )
 }
 
+fn default_as_true() -> bool {
+    true
+}
+
+#[derive(Debug, Deserialize)]
+struct Params {
+    // Only disable jobstats if "jobstats=false"
+    #[serde(default = "default_as_true")]
+    jobstats: bool,
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
@@ -76,7 +89,7 @@ async fn main() -> Result<(), Error> {
     Ok(())
 }
 
-async fn scrape() -> Result<Response<Body>, Error> {
+async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
     let mut output = vec![];
 
     let lctl = Command::new("lctl")
@@ -112,36 +125,42 @@ async fn scrape() -> Result<Response<Body>, Error> {
 
     output.append(&mut lnetctl_stats_record);
 
-    let reader = tokio::task::spawn_blocking(move || {
-        let mut lctl_jobstats = std::process::Command::new("lctl")
-            .arg("get_param")
-            .args(["obdfilter.*OST*.job_stats", "mdt.*.job_stats"])
-            .stdout(std::process::Stdio::piped())
-            .spawn()?;
+    let s = if params.jobstats {
+        let reader = tokio::task::spawn_blocking(move || {
+            let mut lctl_jobstats = std::process::Command::new("lctl")
+                .arg("get_param")
+                .args(["obdfilter.*OST*.job_stats", "mdt.*.job_stats"])
+                .stdout(std::process::Stdio::piped())
+                .spawn()?;
 
-        let reader = BufReader::with_capacity(
-            128 * 1_024,
-            lctl_jobstats.stdout.take().ok_or(io::Error::new(
-                io::ErrorKind::NotFound,
-                "stdout missing for lctl jobstats call.",
-            ))?,
-        );
+            let reader = BufReader::with_capacity(
+                128 * 1_024,
+                lctl_jobstats.stdout.take().ok_or(io::Error::new(
+                    io::ErrorKind::NotFound,
+                    "stdout missing for lctl jobstats call.",
+                ))?,
+            );
 
-        Ok::<_, Error>(reader)
-    })
-    .await??;
+            Ok::<_, Error>(reader)
+        })
+        .await??;
 
-    let (_, rx) = lustrefs_exporter::jobstats::jobstats_stream(reader);
+        let (_, rx) = lustrefs_exporter::jobstats::jobstats_stream(reader);
 
-    let stream = ReceiverStream::new(rx)
-        .map(|x| Bytes::from_iter(x.into_bytes()))
-        .map(Ok);
+        let stream = ReceiverStream::new(rx)
+            .map(|x| Bytes::from_iter(x.into_bytes()))
+            .map(Ok);
 
-    let lustre_stats = Ok::<_, Infallible>(build_lustre_stats(output).into());
+        let lustre_stats = Ok::<_, Infallible>(build_lustre_stats(output).into());
 
-    let merged = tokio_stream::StreamExt::merge(tokio_stream::once(lustre_stats), stream);
+        let merged = tokio_stream::StreamExt::merge(tokio_stream::once(lustre_stats), stream);
 
-    let s = Body::from_stream(merged);
+        Body::from_stream(merged)
+    } else {
+        tracing::debug!("Jobstats is disabled");
+
+        Body::from(build_lustre_stats(output))
+    };
 
     let response_builder = Response::builder().status(StatusCode::OK);
 
