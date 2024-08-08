@@ -37,16 +37,12 @@ job_stats:{}"#,
     str_repeat!(JOBSTAT_JOB, 1000)
 );
 
-async fn parse_synthetic_yaml(input: &'static str, len: usize) {
+async fn parse_synthetic_yaml(input: &'static str) {
     let f = BufReader::with_capacity(128 * 1_024, input.as_bytes());
 
     let (fut, mut rx) = jobstats_stream(f);
 
-    let mut cnt = 0;
-
-    while rx.recv().await.is_some() {
-        cnt += 1;
-    }
+    while rx.recv().await.is_some() {}
 
     fut.await.unwrap();
 }
@@ -54,11 +50,11 @@ async fn parse_synthetic_yaml(input: &'static str, len: usize) {
 fn criterion_benchmark_fast(c: &mut Criterion) {
     c.bench_function("jobstats 100", |b| {
         b.to_async(tokio::runtime::Builder::new_multi_thread().build().unwrap())
-            .iter(|| black_box(parse_synthetic_yaml(INPUT_100_JOBS, 100)))
+            .iter(|| black_box(parse_synthetic_yaml(INPUT_100_JOBS)))
     });
     c.bench_function("jobstats 1000", |b| {
         b.to_async(tokio::runtime::Builder::new_multi_thread().build().unwrap())
-            .iter(|| black_box(parse_synthetic_yaml(INPUT_1000_JOBS, 1000)))
+            .iter(|| black_box(parse_synthetic_yaml(INPUT_1000_JOBS)))
     });
 }
 criterion_group! {
