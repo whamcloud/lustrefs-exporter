@@ -676,6 +676,7 @@ dependencies = [
  "prometheus",
  "prometheus_exporter_base",
  "regex",
+ "serde",
  "serde_json",
  "thiserror",
  "tokio",

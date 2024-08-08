@@ -13,6 +13,7 @@ num-traits = "0.2"
 prometheus = "0.13"
 prometheus_exporter_base = {version = "1.4.0"}
 regex = {version = "1", default-features = false, features = ["perf", "std", "perf-dfa-full"]}
+serde = { version = "1.0", features = ["derive"] }
 thiserror = "1"
 tokio = {workspace = true, features = [
   "rt-multi-thread",
