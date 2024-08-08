@@ -97,7 +97,7 @@ where
 }
 
 #[derive(Debug)]
-pub enum QMTStat {
+pub(crate) enum QMTStat {
     Usr(Vec<QuotaStat>),
     Prj(Vec<QuotaStat>),
     Grp(Vec<QuotaStat>),
