@@ -86,7 +86,6 @@ pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
 
         match state {
             _ if line == "job_stats:"
-                || line.starts_with("  snapshot_time:")
                 || line.starts_with("  start_time:")
                 || line.starts_with("  elapsed_time:")
                 || line.starts_with("  snapshot_time:") =>
