@@ -18,7 +18,7 @@ use serde::Deserialize;
 use std::{
     borrow::Cow,
     convert::Infallible,
-    io::{self, BufReader},
+    io::{self, BufRead, BufReader},
     net::SocketAddr,
 };
 use tokio::process::Command;
@@ -96,6 +96,7 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
                 .arg("get_param")
                 .args(["obdfilter.*OST*.job_stats", "mdt.*.job_stats"])
                 .stdout(std::process::Stdio::piped())
+                .stderr(std::process::Stdio::piped())
                 .spawn()?;
 
             Ok::<_, Error>(child)
@@ -111,6 +112,17 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
                         "stdout missing for lctl jobstats call.",
                     ))?,
                 );
+
+                let reader_stderr = BufReader::new(child.stderr.take().ok_or(io::Error::new(
+                    io::ErrorKind::NotFound,
+                    "stderr missing for lctl jobstats call.",
+                ))?);
+
+                tokio::task::spawn(async move {
+                    for line in reader_stderr.lines().map_while(Result::ok) {
+                        tracing::debug!("stderr: {}", line);
+                    }
+                });
 
                 let (_, rx) = lustrefs_exporter::jobstats::jobstats_stream(reader);
 
