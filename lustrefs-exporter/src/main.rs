@@ -124,7 +124,7 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
                     }
                 });
 
-                let (_, rx) = lustrefs_exporter::jobstats::jobstats_stream(reader);
+                let (_, rx) = lustrefs_exporter::jobstats::jobstats_stream(reader, Some(child));
 
                 let stream = ReceiverStream::new(rx)
                     .map(|x| Bytes::from_iter(x.into_bytes()))
