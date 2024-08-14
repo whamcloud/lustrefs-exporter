@@ -3,7 +3,7 @@ use compact_str::{format_compact, CompactString, ToCompactString};
 use lustre_collector::TargetVariant;
 use prometheus_exporter_base::MetricType;
 use regex::Regex;
-use std::{io::BufRead, process::Child, sync::LazyLock};
+use std::{io::BufRead, sync::LazyLock};
 use tokio::{
     sync::mpsc::{self, Receiver, Sender},
     task::JoinHandle,
@@ -67,7 +67,6 @@ enum State {
 
 pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
     f: R,
-    child: Option<Child>,
 ) -> (JoinHandle<()>, Receiver<CompactString>) {
     let (tx, rx) = mpsc::channel(200);
 
@@ -153,12 +152,6 @@ pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
             if let Err(e) = render_stat(&tx, &target, job, stats) {
                 tracing::debug!("Unexpected error processing jobstats lines: {e}");
             };
-        }
-
-        if let Some(mut child) = child {
-            if let Err(e) = child.wait() {
-                tracing::debug!("Unexpected error when waiting for child: {e}");
-            }
         }
     });
 
@@ -332,7 +325,7 @@ pub mod tests {
 
         let f = BufReader::with_capacity(128 * 1_024, f);
 
-        let (fut, mut rx) = jobstats_stream(f, None);
+        let (fut, mut rx) = jobstats_stream(f);
 
         let mut cnt = 0;
 
@@ -351,7 +344,7 @@ pub mod tests {
 
         let f = BufReader::with_capacity(128 * 1_024, f);
 
-        let (fut, mut rx) = jobstats_stream(f, None);
+        let (fut, mut rx) = jobstats_stream(f);
 
         let mut cnt = 0;
 
@@ -370,7 +363,7 @@ pub mod tests {
 
         let f = BufReader::with_capacity(128 * 1_024, f);
 
-        let (fut, mut rx) = jobstats_stream(f, None);
+        let (fut, mut rx) = jobstats_stream(f);
 
         let mut cnt = 0;
 
@@ -412,7 +405,7 @@ job_stats:{}"#,
     async fn parse_synthetic_yaml() {
         let f = BufReader::with_capacity(128 * 1_024, INPUT_10_JOBS.as_bytes());
 
-        let (fut, mut rx) = jobstats_stream(f, None);
+        let (fut, mut rx) = jobstats_stream(f);
 
         let mut output = String::with_capacity(10 * 2 * JOBSTAT_JOB.len());
 
@@ -437,7 +430,7 @@ job_stats:{}"#,
 
         let f = BufReader::with_capacity(128 * 1_024, f);
 
-        let (fut, mut rx) = jobstats_stream(f, None);
+        let (fut, mut rx) = jobstats_stream(f);
 
         let mut cnt = 0;
 

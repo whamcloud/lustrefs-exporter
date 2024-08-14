@@ -40,7 +40,7 @@ job_stats:{}"#,
 async fn parse_synthetic_yaml(input: &'static str) {
     let f = BufReader::with_capacity(128 * 1_024, input.as_bytes());
 
-    let (fut, mut rx) = jobstats_stream(f, None);
+    let (fut, mut rx) = jobstats_stream(f);
 
     while rx.recv().await.is_some() {}
 
