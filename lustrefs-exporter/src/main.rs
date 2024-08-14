@@ -126,6 +126,12 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
 
                 let (_, rx) = lustrefs_exporter::jobstats::jobstats_stream(reader);
 
+                tokio::task::spawn_blocking(move || {
+                    if let Err(e) = child.wait() {
+                        tracing::debug!("Unexpected error when waiting for child: {e}");
+                    }
+                });
+
                 let stream = ReceiverStream::new(rx)
                     .map(|x| Bytes::from_iter(x.into_bytes()))
                     .map(Ok::<_, Infallible>);
