@@ -446,4 +446,23 @@ job_stats:{}"#,
 
         assert_eq!(cnt, 108 + 1);
     }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn parse_2_14_0_164_jobstats() {
+        let f = File::open("fixtures/jobstats_only/2.14.0_164.txt").unwrap();
+
+        let f = BufReader::with_capacity(128 * 1_024, f);
+
+        let (fut, mut rx) = jobstats_stream(f);
+
+        let mut output = r#"previous_stat{foo="bar"} 0"#.to_string();
+
+        while let Some(x) = rx.recv().await {
+            output.push_str(x.as_str());
+        }
+
+        fut.await.unwrap();
+
+        insta::assert_snapshot!(output);
+    }
 }
