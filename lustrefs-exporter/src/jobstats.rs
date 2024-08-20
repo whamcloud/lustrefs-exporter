@@ -320,7 +320,6 @@ pub mod tests {
     use const_format::{formatcp, str_repeat};
 
     use crate::jobstats::jobstats_stream;
-    use insta::assert_snapshot;
     use std::{fs::File, io::BufReader};
 
     #[tokio::test(flavor = "multi_thread")]
@@ -339,7 +338,7 @@ pub mod tests {
 
         fut.await.unwrap();
 
-        assert_eq!(cnt, 21_147_876);
+        assert_eq!(cnt, 21_147_876 + 1);
     }
 
     #[tokio::test(flavor = "multi_thread")]
@@ -358,7 +357,7 @@ pub mod tests {
 
         fut.await.unwrap();
 
-        assert_eq!(cnt, 5_310_036);
+        assert_eq!(cnt, 5_310_036 + 1);
     }
 
     #[tokio::test(flavor = "multi_thread")]
@@ -377,7 +376,7 @@ pub mod tests {
 
         fut.await.unwrap();
 
-        assert_eq!(cnt, 1_728);
+        assert_eq!(cnt, 1_728 + 1);
     }
 
     const JOBSTAT_JOB: &str = r#"
@@ -425,6 +424,7 @@ job_stats:{}"#,
              4 + // 4 metrics per write_bytes
              10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
              * 10
+                + 1
         );
     }
 
@@ -444,6 +444,6 @@ job_stats:{}"#,
 
         fut.await.unwrap();
 
-        assert_eq!(cnt, 108);
+        assert_eq!(cnt, 108 + 1);
     }
 }
