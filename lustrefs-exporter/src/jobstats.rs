@@ -134,6 +134,9 @@ pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
     let x = tokio::task::spawn_blocking(move || {
         let mut state = State::Empty;
 
+        // Send a new line to avoid printing at the same level as the previous stats
+        _ = tx.blocking_send('\n'.to_compact_string());
+
         for line in f.lines() {
             let r = handle_line(&tx, line.map_err(Error::Io), state);
 
@@ -317,6 +320,7 @@ pub mod tests {
     use const_format::{formatcp, str_repeat};
 
     use crate::jobstats::jobstats_stream;
+    use insta::assert_snapshot;
     use std::{fs::File, io::BufReader};
 
     #[tokio::test(flavor = "multi_thread")]
