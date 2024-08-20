@@ -187,7 +187,7 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
 
     let body = if let Some(stream) = jobstats {
         let merged =
-            tokio_stream::StreamExt::merge(stream, tokio_stream::once(Ok(lustre_stats.into())));
+            tokio_stream::StreamExt::chain(tokio_stream::once(Ok(lustre_stats.into())), stream);
 
         Body::from_stream(merged)
     } else {
