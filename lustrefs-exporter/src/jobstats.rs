@@ -134,6 +134,9 @@ pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
     let x = tokio::task::spawn_blocking(move || {
         let mut state = State::Empty;
 
+        // Send a new line to make sure we are printing stats with a separating empty line
+        _ = tx.blocking_send("\n".to_compact_string());
+
         for line in f.lines() {
             let r = handle_line(&tx, line.map_err(Error::Io), state);
 
@@ -335,7 +338,7 @@ pub mod tests {
 
         fut.await.unwrap();
 
-        assert_eq!(cnt, 21_147_876);
+        assert_eq!(cnt, 21_147_876 + 1);
     }
 
     #[tokio::test(flavor = "multi_thread")]
@@ -354,7 +357,7 @@ pub mod tests {
 
         fut.await.unwrap();
 
-        assert_eq!(cnt, 5_310_036);
+        assert_eq!(cnt, 5_310_036 + 1);
     }
 
     #[tokio::test(flavor = "multi_thread")]
@@ -373,7 +376,7 @@ pub mod tests {
 
         fut.await.unwrap();
 
-        assert_eq!(cnt, 1_728);
+        assert_eq!(cnt, 1_728 + 1);
     }
 
     const JOBSTAT_JOB: &str = r#"
@@ -421,6 +424,7 @@ job_stats:{}"#,
              4 + // 4 metrics per write_bytes
              10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
              * 10
+                + 1
         );
     }
 
@@ -440,6 +444,25 @@ job_stats:{}"#,
 
         fut.await.unwrap();
 
-        assert_eq!(cnt, 108);
+        assert_eq!(cnt, 108 + 1);
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn parse_2_14_0_164_jobstats() {
+        let f = File::open("fixtures/jobstats_only/2.14.0_164.txt").unwrap();
+
+        let f = BufReader::with_capacity(128 * 1_024, f);
+
+        let (fut, mut rx) = jobstats_stream(f);
+
+        let mut output = r#"previous_stat{foo="bar"} 0"#.to_string();
+
+        while let Some(x) = rx.recv().await {
+            output.push_str(x.as_str());
+        }
+
+        fut.await.unwrap();
+
+        insta::assert_snapshot!(output);
     }
 }
