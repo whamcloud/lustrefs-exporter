@@ -20,12 +20,16 @@ use std::{
     convert::Infallible,
     io::{self, BufRead, BufReader},
     net::SocketAddr,
+    time::Duration,
 };
 use tokio::process::Command;
 use tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use tower::ServiceBuilder;
+use wait_timeout::ChildExt;
 
 const LUSTREFS_EXPORTER_PORT: &str = "32221";
+
+static TIMEOUT_DURATION: Duration = Duration::from_secs(120);
 
 #[derive(Debug, Parser)]
 pub struct CommandOpts {
@@ -81,12 +85,16 @@ async fn main() -> Result<(), Error> {
         .concurrency_limit(10); // Max 10 concurrent scrape
 
     let app = Router::new()
-        .route("/metrics", get(scrape))
+        .route("/metrics", get(outer_scrape))
         .layer(load_shedder);
 
     axum::serve(listener, app).await?;
 
     Ok(())
+}
+
+async fn outer_scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
+    tokio::time::timeout(TIMEOUT_DURATION, scrape(Query(params))).await?
 }
 
 async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
@@ -126,8 +134,17 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
 
                 let (_, rx) = lustrefs_exporter::jobstats::jobstats_stream(reader);
 
-                tokio::task::spawn_blocking(move || {
-                    if let Err(e) = child.wait() {
+                tokio::task::spawn_blocking(move || match child.wait_timeout(TIMEOUT_DURATION) {
+                    Ok(Some(status)) => {
+                        if !status.success() {
+                            tracing::debug!("lctl jobstats failed: {status}");
+                        }
+                    }
+                    Ok(None) => {
+                        tracing::debug!("lctl jobstats timed out");
+                        _ = child.kill();
+                    }
+                    Err(e) => {
                         tracing::debug!("Unexpected error when waiting for child: {e}");
                     }
                 });
