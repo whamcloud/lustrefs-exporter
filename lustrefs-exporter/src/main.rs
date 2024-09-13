@@ -52,14 +52,14 @@ async fn handle_error(error: BoxError) -> impl IntoResponse {
     )
 }
 
-fn default_as_true() -> bool {
-    true
+fn default_as_false() -> bool {
+    false
 }
 
 #[derive(Debug, Deserialize)]
 struct Params {
-    // Only disable jobstats if "jobstats=false"
-    #[serde(default = "default_as_true")]
+    // Only enable jobstats if "jobstats=true"
+    #[serde(default = "default_as_false")]
     jobstats: bool,
 }
 
