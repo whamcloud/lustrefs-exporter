@@ -51,7 +51,7 @@ jobs:
           find lustrefs-exporter/_rpm -type f -name \*.rpm -print -exec rpm -qivlp {} \;
 
       - name: Upload RPMs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: rocky8_rpm
           retention-days: 1
@@ -89,7 +89,7 @@ jobs:
           find lustrefs-exporter/_rpm -type f -name \*.rpm -print -exec rpm -qivlp {} \;
 
       - name: Upload RPMs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: rocky9_rpm
           retention-days: 1
@@ -132,7 +132,7 @@ jobs:
           find lustrefs-exporter/_deb -type f -name \*.deb -print -exec dpkg -I {} \; -exec dpkg -c {} \;
 
       - name: Upload DEBs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ubuntu20_debs
           retention-days: 1
