@@ -19,11 +19,13 @@ tokio = {workspace = true, features = [
   "rt-multi-thread",
   "macros",
   "process",
+  "time",
 ]}
 tokio-stream = "0.1.15"
 tower = {version = "0.4.13", features = ["timeout", "load-shed", "limit"]}
 tracing-subscriber = {workspace = true, features = ["env-filter"]}
 tracing.workspace = true
+wait-timeout = "0.2.0"
 
 [dev-dependencies]
 combine.workspace = true
