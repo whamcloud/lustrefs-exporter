@@ -145,17 +145,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Rockylinux 8 RPMs
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: rocky8_rpm
 
       - name: Download Rockylinux 9 RPMs
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: rocky9_rpm
 
       - name: Download Ubuntu 20.04 DEBs
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ubuntu20_debs
 
