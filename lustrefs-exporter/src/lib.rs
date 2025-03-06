@@ -40,6 +40,8 @@ pub enum Error {
     Utf8(#[from] std::str::Utf8Error),
     #[error("Could not find match for {0} in {1}")]
     NoCap(&'static str, String),
+    #[error(transparent)]
+    Timeout(#[from] tokio::time::error::Elapsed),
 }
 
 impl IntoResponse for Error {
