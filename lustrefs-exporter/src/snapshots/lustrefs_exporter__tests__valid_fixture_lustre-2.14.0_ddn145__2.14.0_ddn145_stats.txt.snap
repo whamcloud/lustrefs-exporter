@@ -49,19 +49,19 @@ lustre_client_stats{operation="getattr",target="fs-ffff97e895d31000"} 6
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="fs-MDT0000"} 1
 
-# HELP lustre_dio_frags Current disk IO fragmentation for the given size.
+# HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.
 # TYPE lustre_dio_frags gauge
 
-# HELP lustre_discontiguous_blocks_total 
+# HELP lustre_discontiguous_blocks_total 'size' label represents 'Discontiguous blocks', the number of discontinuities in the physical block allocation in the file system for a single RPC
 # TYPE lustre_discontiguous_blocks_total counter
 
-# HELP lustre_discontiguous_pages_total Total number of logical discontinuities per RPC.
+# HELP lustre_discontiguous_pages_total Total number of logical discontinuities per RPC. 'size' label represents 'Discontiguous pages', the number of discontinuities in the logical file offset of each page in a single RPC.
 # TYPE lustre_discontiguous_pages_total counter
 
-# HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot.
+# HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.
 # TYPE lustre_disk_io gauge
 
-# HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size.
+# HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation
 # TYPE lustre_disk_io_total counter
 
 # HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
@@ -111,7 +111,7 @@ lustre_inodes_maximum{component="mdt",target="fs-MDT0000"} 1885696
 lustre_inodes_maximum{component="ost",target="fs-OST0000"} 40960
 lustre_inodes_maximum{component="ost",target="fs-OST0001"} 40960
 
-# HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes.
+# HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes. 'size' label represents 'I/O time (1/1000s)', the amount of time for each I/O operation to complete.
 # TYPE lustre_io_time_milliseconds_total counter
 
 # HELP lustre_ldlm_canceld_stats Gives information about LDLM Canceld service.
@@ -243,7 +243,7 @@ lustre_oss_ost_stats{operation="ost_connect",units="usecs"} 6
 lustre_oss_ost_stats{operation="ost_disconnect",units="usecs"} 2
 lustre_oss_ost_stats{operation="obd_ping",units="usecs"} 1
 
-# HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC.
+# HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request
 # TYPE lustre_pages_per_bulk_rw_total counter
 
 # HELP lustre_quota_granted The granted quota for a given component.

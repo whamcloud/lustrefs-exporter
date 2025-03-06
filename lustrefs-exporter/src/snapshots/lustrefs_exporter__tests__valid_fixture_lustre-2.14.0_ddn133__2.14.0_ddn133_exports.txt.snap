@@ -494,7 +494,7 @@ lustre_client_export_stats{component="mdt",target="ai400x2-MDT0000",nid="192.168
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="ai400x2-MDT0000"} 16
 
-# HELP lustre_dio_frags Current disk IO fragmentation for the given size.
+# HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.
 # TYPE lustre_dio_frags gauge
 lustre_dio_frags{component="ost",operation="read",target="ai400x2-OST0000",size="1"} 63441712
 lustre_dio_frags{component="ost",operation="write",target="ai400x2-OST0000",size="1"} 48567510
@@ -745,7 +745,7 @@ lustre_dio_frags{component="ost",operation="write",target="ai400x2-OST0001",size
 lustre_dio_frags{component="ost",operation="read",target="ai400x2-OST0001",size="31"} 1536958
 lustre_dio_frags{component="ost",operation="write",target="ai400x2-OST0001",size="31"} 303886
 
-# HELP lustre_discontiguous_blocks_total 
+# HELP lustre_discontiguous_blocks_total 'size' label represents 'Discontiguous blocks', the number of discontinuities in the physical block allocation in the file system for a single RPC
 # TYPE lustre_discontiguous_blocks_total counter
 lustre_discontiguous_blocks_total{component="ost",operation="read",target="ai400x2-OST0000",size="0"} 63441712
 lustre_discontiguous_blocks_total{component="ost",operation="write",target="ai400x2-OST0000",size="0"} 48567507
@@ -1004,7 +1004,7 @@ lustre_discontiguous_blocks_total{component="ost",operation="write",target="ai40
 lustre_discontiguous_blocks_total{component="ost",operation="read",target="ai400x2-OST0001",size="31"} 1490339
 lustre_discontiguous_blocks_total{component="ost",operation="write",target="ai400x2-OST0001",size="31"} 298134
 
-# HELP lustre_discontiguous_pages_total Total number of logical discontinuities per RPC.
+# HELP lustre_discontiguous_pages_total Total number of logical discontinuities per RPC. 'size' label represents 'Discontiguous pages', the number of discontinuities in the logical file offset of each page in a single RPC.
 # TYPE lustre_discontiguous_pages_total counter
 lustre_discontiguous_pages_total{component="ost",operation="read",target="ai400x2-OST0000",size="0"} 63442628
 lustre_discontiguous_pages_total{component="ost",operation="write",target="ai400x2-OST0000",size="0"} 48568133
@@ -1263,7 +1263,7 @@ lustre_discontiguous_pages_total{component="ost",operation="write",target="ai400
 lustre_discontiguous_pages_total{component="ost",operation="read",target="ai400x2-OST0001",size="31"} 1490337
 lustre_discontiguous_pages_total{component="ost",operation="write",target="ai400x2-OST0001",size="31"} 298134
 
-# HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot.
+# HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.
 # TYPE lustre_disk_io gauge
 lustre_disk_io{component="ost",operation="read",target="ai400x2-OST0000",size="1"} 6220627
 lustre_disk_io{component="ost",operation="write",target="ai400x2-OST0000",size="1"} 4110113
@@ -1514,7 +1514,7 @@ lustre_disk_io{component="ost",operation="write",target="ai400x2-OST0001",size="
 lustre_disk_io{component="ost",operation="read",target="ai400x2-OST0001",size="31"} 165646071
 lustre_disk_io{component="ost",operation="write",target="ai400x2-OST0001",size="31"} 39015013
 
-# HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size.
+# HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation
 # TYPE lustre_disk_io_total counter
 lustre_disk_io_total{component="ost",operation="read",target="ai400x2-OST0000",size="4096"} 152547869
 lustre_disk_io_total{component="ost",operation="write",target="ai400x2-OST0000",size="4096"} 30342047
@@ -1636,7 +1636,7 @@ lustre_inodes_maximum{component="mdt",target="ai400x2-MDT0000"} 257722920
 lustre_inodes_maximum{component="ost",target="ai400x2-OST0000"} 276824064
 lustre_inodes_maximum{component="ost",target="ai400x2-OST0001"} 276824064
 
-# HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes.
+# HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes. 'size' label represents 'I/O time (1/1000s)', the amount of time for each I/O operation to complete.
 # TYPE lustre_io_time_milliseconds_total counter
 lustre_io_time_milliseconds_total{component="ost",operation="read",target="ai400x2-OST0000",size="1"} 52729869
 lustre_io_time_milliseconds_total{component="ost",operation="write",target="ai400x2-OST0000",size="1"} 31941783
@@ -1814,7 +1814,7 @@ lustre_oss_ost_stats{operation="ost_sync",units="usecs"} 1564
 lustre_oss_ost_stats{operation="ost_set_info",units="usecs"} 116
 lustre_oss_ost_stats{operation="obd_ping",units="usecs"} 8563
 
-# HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC.
+# HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request
 # TYPE lustre_pages_per_bulk_rw_total counter
 lustre_pages_per_bulk_rw_total{component="ost",operation="read",target="ai400x2-OST0000",size="1"} 8747797
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",target="ai400x2-OST0000",size="1"} 4054463

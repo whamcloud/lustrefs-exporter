@@ -18,43 +18,43 @@ use crate::{
 
 static DISK_IO_TOTAL: Metric = Metric {
     name: "lustre_disk_io_total",
-    help: "Total number of operations the filesystem has performed for the given size.",
+    help: "Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation",
     r#type: MetricType::Counter,
 };
 
 static DISK_IO_FRAGS: Metric = Metric {
     name: "lustre_dio_frags",
-    help: "Current disk IO fragmentation for the given size.",
+    help: "Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.",
     r#type: MetricType::Gauge,
 };
 
 static DISK_IO: Metric = Metric {
     name: "lustre_disk_io",
-    help: "Current number of I/O operations that are processing during the snapshot.",
+    help: "Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.",
     r#type: MetricType::Gauge,
 };
 
 static DISCONTIGUOUS_PAGES_TOTAL: Metric = Metric {
     name: "lustre_discontiguous_pages_total",
-    help: "Total number of logical discontinuities per RPC.",
+    help: "Total number of logical discontinuities per RPC. 'size' label represents 'Discontiguous pages', the number of discontinuities in the logical file offset of each page in a single RPC.",
     r#type: MetricType::Counter,
 };
 
 static DISCONTIGUOUS_BLOCKS_TOTAL: Metric = Metric {
     name: "lustre_discontiguous_blocks_total",
-    help: "",
+    help: "'size' label represents 'Discontiguous blocks', the number of discontinuities in the physical block allocation in the file system for a single RPC",
     r#type: MetricType::Counter,
 };
 
 static IO_TIME_MILLISECONDS_TOTAL: Metric = Metric {
     name: "lustre_io_time_milliseconds_total",
-    help: "Total time in milliseconds the filesystem has spent processing various object sizes.",
+    help: "Total time in milliseconds the filesystem has spent processing various object sizes. 'size' label represents 'I/O time (1/1000s)', the amount of time for each I/O operation to complete.",
     r#type: MetricType::Counter,
 };
 
 static PAGES_PER_BULK_RW_TOTAL: Metric = Metric {
     name: "lustre_pages_per_bulk_rw_total",
-    help: "Total number of pages per block RPC.",
+    help: "Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request",
     r#type: MetricType::Counter,
 };
 
