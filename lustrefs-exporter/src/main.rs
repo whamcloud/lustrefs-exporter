@@ -23,7 +23,7 @@ use std::{
 };
 use tokio::process::Command;
 use tokio_stream::{wrappers::ReceiverStream, StreamExt};
-use tower::ServiceBuilder;
+use tower::{limit::GlobalConcurrencyLimitLayer, load_shed::LoadShedLayer, ServiceBuilder};
 
 const LUSTREFS_EXPORTER_PORT: &str = "32221";
 
@@ -59,6 +59,17 @@ struct Params {
     jobstats: bool,
 }
 
+fn create_load_shedder_router() -> Router {
+    let load_shedder = ServiceBuilder::new()
+        .layer(HandleErrorLayer::new(handle_error))
+        .layer(LoadShedLayer::new())
+        .layer(GlobalConcurrencyLimitLayer::new(10));
+
+    Router::new()
+        .route("/metrics", get(scrape))
+        .layer(load_shedder)
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
@@ -71,20 +82,14 @@ async fn main() -> Result<(), Error> {
 
     let listener = tokio::net::TcpListener::bind(("0.0.0.0", opts.port)).await?;
 
-    let load_shedder = ServiceBuilder::new()
-        .layer(HandleErrorLayer::new(handle_error))
-        .load_shed()
-        .concurrency_limit(10); // Max 10 concurrent scrape
-
-    let app = Router::new()
-        .route("/metrics", get(scrape))
-        .layer(load_shedder);
+    let app = create_load_shedder_router();
 
     axum::serve(listener, app).await?;
 
     Ok(())
 }
 
+#[cfg(not(test))]
 async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
     let jobstats = if params.jobstats {
         let child = tokio::task::spawn_blocking(move || {
@@ -200,12 +205,30 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
 }
 
 #[cfg(test)]
+async fn scrape(Query(_params): Query<Params>) -> Result<Response<Body>, Error> {
+    // Test concurrency by sleeping the thread to simulate processing.
+    tokio::time::sleep(Duration::from_millis(5000)).await;
+    let response_builder = Response::builder().status(StatusCode::OK);
+
+    let resp = response_builder.body(Body::from("")).unwrap();
+    Ok(resp)
+}
+
+#[cfg(test)]
 mod tests {
-    use crate::build_lustre_stats;
+    use std::time::Duration;
+
+    use crate::{build_lustre_stats, create_load_shedder_router};
+    use axum::{
+        body::Body,
+        http::{Request, StatusCode},
+    };
     use combine::parser::EasyParser;
     use include_dir::{include_dir, Dir};
     use insta::assert_snapshot;
     use lustre_collector::parser::parse;
+    use tokio::time::sleep;
+    use tower::ServiceExt as _;
 
     static VALID_FIXTURES: Dir<'_> =
         include_dir!("$CARGO_MANIFEST_DIR/../lustre-collector/src/fixtures/valid/");
@@ -286,5 +309,63 @@ mod tests {
         let x = build_lustre_stats(x);
 
         insta::assert_snapshot!(x);
+    }
+
+    #[tokio::test]
+    async fn test_concurrency_limit_10() {
+        let app = create_load_shedder_router();
+
+        // Vector to hold all in-flight requests
+        let mut in_flight_requests = Vec::new();
+
+        // === Spawn 10 concurrent requests (equal to the concurrency limit) ===
+        for _ in 0..10 {
+            let cloned_app = app.clone();
+
+            let handle = tokio::spawn(async move {
+                cloned_app
+                    .oneshot(
+                        Request::builder()
+                            .uri("/metrics")
+                            .body(Body::empty())
+                            .unwrap(),
+                    )
+                    .await
+                    .unwrap()
+            });
+
+            in_flight_requests.push(handle);
+        }
+
+        // Give time for the first 10 requests to engage the concurrency limiter
+        sleep(Duration::from_millis(100)).await;
+
+        // === Send one more request that SHOULD be rejected (503) ===
+        let extra_app = app.clone();
+        let extra_response = extra_app
+            .oneshot(
+                Request::builder()
+                    .uri("/metrics")
+                    .body(Body::empty())
+                    .unwrap(),
+            )
+            .await
+            .unwrap();
+
+        assert_eq!(
+            extra_response.status(),
+            StatusCode::SERVICE_UNAVAILABLE,
+            "Expected 503 from load shedding"
+        );
+
+        // === Join all in-flight requests and assert their responses ===
+        for handle in in_flight_requests {
+            let response = handle.await.unwrap();
+            assert_eq!(
+                response.status(),
+                StatusCode::OK,
+                "Expected 200 OK from in-flight requests"
+            );
+        }
     }
 }

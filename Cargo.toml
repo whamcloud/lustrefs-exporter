@@ -20,7 +20,7 @@ cast_possible_wrap = "warn"
 unwrap_used = "warn"
 
 [workspace.dependencies]
-axum = "0.7"
+axum = "0.8"
 clap = "4"
 combine = "=4.6.7"
 include_dir = {version = "0.7", features = ["glob"]}
