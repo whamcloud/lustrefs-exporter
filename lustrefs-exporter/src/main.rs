@@ -23,9 +23,18 @@ use std::{
 };
 use tokio::process::Command;
 use tokio_stream::{wrappers::ReceiverStream, StreamExt};
-use tower::{limit::GlobalConcurrencyLimitLayer, load_shed::LoadShedLayer, ServiceBuilder};
+use tower::{
+    limit::GlobalConcurrencyLimitLayer, load_shed::LoadShedLayer, timeout::TimeoutLayer,
+    ServiceBuilder,
+};
 
 const LUSTREFS_EXPORTER_PORT: &str = "32221";
+
+#[cfg(not(test))]
+const TIMEOUT_DURATION_SECS: u64 = 120;
+
+#[cfg(test)]
+const TIMEOUT_DURATION_SECS: u64 = 5;
 
 #[derive(Debug, Parser)]
 pub struct CommandOpts {
@@ -63,6 +72,9 @@ fn create_load_shedder_router() -> Router {
     let load_shedder = ServiceBuilder::new()
         .layer(HandleErrorLayer::new(handle_error))
         .layer(LoadShedLayer::new())
+        .layer(TimeoutLayer::new(std::time::Duration::from_secs(
+            TIMEOUT_DURATION_SECS,
+        )))
         .layer(GlobalConcurrencyLimitLayer::new(10));
 
     Router::new()
@@ -205,9 +217,14 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
 }
 
 #[cfg(test)]
-async fn scrape(Query(_params): Query<Params>) -> Result<Response<Body>, Error> {
+async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
     // Test concurrency by sleeping the thread to simulate processing.
-    tokio::time::sleep(Duration::from_millis(5000)).await;
+    // Relies on "jobstats" set to true to enable timeout test
+    if params.jobstats {
+        tokio::time::sleep(std::time::Duration::from_secs(TIMEOUT_DURATION_SECS + 1)).await;
+    } else {
+        tokio::time::sleep(std::time::Duration::from_secs(TIMEOUT_DURATION_SECS - 1)).await;
+    }
     let response_builder = Response::builder().status(StatusCode::OK);
 
     let resp = response_builder.body(Body::from("")).unwrap();
@@ -326,7 +343,7 @@ mod tests {
                 cloned_app
                     .oneshot(
                         Request::builder()
-                            .uri("/metrics")
+                            .uri("/metrics?jobstats=false")
                             .body(Body::empty())
                             .unwrap(),
                     )
@@ -345,7 +362,7 @@ mod tests {
         let extra_response = extra_app
             .oneshot(
                 Request::builder()
-                    .uri("/metrics")
+                    .uri("/metrics?jobstats=false")
                     .body(Body::empty())
                     .unwrap(),
             )
@@ -367,5 +384,47 @@ mod tests {
                 "Expected 200 OK from in-flight requests"
             );
         }
+    }
+
+    #[tokio::test]
+    async fn test_timeout_layer_triggers() {
+        let app = create_load_shedder_router();
+
+        let response = app
+            .oneshot(
+                Request::builder()
+                    .uri("/metrics?jobstats=true")
+                    .body(Body::empty())
+                    .unwrap(),
+            )
+            .await
+            .unwrap();
+
+        assert_eq!(
+            response.status(),
+            StatusCode::REQUEST_TIMEOUT,
+            "Expected 408 REQUEST_TIMEOUT when handler exceeds timeout"
+        );
+    }
+
+    #[tokio::test]
+    async fn test_timeout_layer_success() {
+        let app = create_load_shedder_router();
+
+        let response = app
+            .oneshot(
+                Request::builder()
+                    .uri("/metrics?jobstats=false")
+                    .body(Body::empty())
+                    .unwrap(),
+            )
+            .await
+            .unwrap();
+
+        assert_eq!(
+            response.status(),
+            StatusCode::OK,
+            "Expected 200 OK when handler responds within timeout"
+        );
     }
 }
