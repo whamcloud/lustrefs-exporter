@@ -68,7 +68,10 @@ struct Params {
     jobstats: bool,
 }
 
-fn create_load_shedder_router() -> Router {
+fn create_load_shedder_router<S>(method_router: axum::routing::MethodRouter<S>) -> Router<S>
+where
+    S: Clone + Send + Sync + 'static,
+{
     let load_shedder = ServiceBuilder::new()
         .layer(HandleErrorLayer::new(handle_error))
         .layer(LoadShedLayer::new())
@@ -77,8 +80,8 @@ fn create_load_shedder_router() -> Router {
         )))
         .layer(GlobalConcurrencyLimitLayer::new(10));
 
-    Router::new()
-        .route("/metrics", get(scrape))
+    Router::<S>::new()
+        .route("/metrics", method_router)
         .layer(load_shedder)
 }
 
@@ -94,14 +97,13 @@ async fn main() -> Result<(), Error> {
 
     let listener = tokio::net::TcpListener::bind(("0.0.0.0", opts.port)).await?;
 
-    let app = create_load_shedder_router();
+    let app = create_load_shedder_router(get(scrape));
 
     axum::serve(listener, app).await?;
 
     Ok(())
 }
 
-#[cfg(not(test))]
 async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
     let jobstats = if params.jobstats {
         let child = tokio::task::spawn_blocking(move || {
@@ -217,38 +219,44 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
 }
 
 #[cfg(test)]
-async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
-    // Test concurrency by sleeping the thread to simulate processing.
-    // Relies on "jobstats" set to true to enable timeout test
-    if params.jobstats {
-        tokio::time::sleep(std::time::Duration::from_secs(TIMEOUT_DURATION_SECS + 1)).await;
-    } else {
-        tokio::time::sleep(std::time::Duration::from_secs(TIMEOUT_DURATION_SECS - 1)).await;
-    }
-    let response_builder = Response::builder().status(StatusCode::OK);
-
-    let resp = response_builder.body(Body::from("")).unwrap();
-    Ok(resp)
-}
-
-#[cfg(test)]
 mod tests {
     use std::time::Duration;
 
-    use crate::{build_lustre_stats, create_load_shedder_router};
+    use crate::{build_lustre_stats, create_load_shedder_router, Params, TIMEOUT_DURATION_SECS};
     use axum::{
         body::Body,
-        http::{Request, StatusCode},
+        extract::Query,
+        http::{Request, Response, StatusCode},
+        routing::get,
     };
     use combine::parser::EasyParser;
     use include_dir::{include_dir, Dir};
     use insta::assert_snapshot;
     use lustre_collector::parser::parse;
+    use lustrefs_exporter::Error;
     use tokio::time::sleep;
     use tower::ServiceExt as _;
 
     static VALID_FIXTURES: Dir<'_> =
         include_dir!("$CARGO_MANIFEST_DIR/../lustre-collector/src/fixtures/valid/");
+
+    // Sleep for 1 second more than the timeout duration. This should trigger timeout layer
+    async fn scrape_timeout(Query(_params): Query<Params>) -> Result<Response<Body>, Error> {
+        tokio::time::sleep(std::time::Duration::from_secs(TIMEOUT_DURATION_SECS + 1)).await;
+        let response_builder = Response::builder().status(StatusCode::OK);
+
+        let resp = response_builder.body(Body::from("")).unwrap();
+        Ok(resp)
+    }
+
+    // Sleep for 1 second less than the timeout duration
+    async fn scrape_no_timeout(Query(_params): Query<Params>) -> Result<Response<Body>, Error> {
+        tokio::time::sleep(std::time::Duration::from_secs(TIMEOUT_DURATION_SECS - 1)).await;
+        let response_builder = Response::builder().status(StatusCode::OK);
+
+        let resp = response_builder.body(Body::from("")).unwrap();
+        Ok(resp)
+    }
 
     #[test]
     fn test_valid_fixtures() {
@@ -330,7 +338,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_concurrency_limit_10() {
-        let app = create_load_shedder_router();
+        let app = create_load_shedder_router(get(scrape_no_timeout));
 
         // Vector to hold all in-flight requests
         let mut in_flight_requests = Vec::new();
@@ -388,12 +396,12 @@ mod tests {
 
     #[tokio::test]
     async fn test_timeout_layer_triggers() {
-        let app = create_load_shedder_router();
+        let app = create_load_shedder_router(get(scrape_timeout));
 
         let response = app
             .oneshot(
                 Request::builder()
-                    .uri("/metrics?jobstats=true")
+                    .uri("/metrics")
                     .body(Body::empty())
                     .unwrap(),
             )
@@ -409,12 +417,12 @@ mod tests {
 
     #[tokio::test]
     async fn test_timeout_layer_success() {
-        let app = create_load_shedder_router();
+        let app = create_load_shedder_router(get(scrape_no_timeout));
 
         let response = app
             .oneshot(
                 Request::builder()
-                    .uri("/metrics?jobstats=false")
+                    .uri("/metrics")
                     .body(Body::empty())
                     .unwrap(),
             )
