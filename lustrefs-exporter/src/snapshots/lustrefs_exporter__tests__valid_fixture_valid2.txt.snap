@@ -13,7 +13,7 @@ lustre_available_kilobytes{component="ost",target="testfs-OST0001"} 34398756288
 # TYPE lustre_block_maps_milliseconds_total counter
 
 # HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes
-# TYPE lustre_capacity_kilobytes gauge
+# TYPE lustre_capacity_kilobytes counter
 lustre_capacity_kilobytes{component="mgt",target="MGS"} 1980036
 lustre_capacity_kilobytes{component="mdt",target="testfs-MDT0000"} 366222772
 lustre_capacity_kilobytes{component="ost",target="testfs-OST0000"} 34750424936
@@ -25,7 +25,7 @@ lustre_connected_clients{component="mdt",target="testfs-MDT0000"} 1
 lustre_connected_clients{component="mdt",target="testfs-MDT0000"} 1
 
 # HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.
-# TYPE lustre_dio_frags gauge
+# TYPE lustre_dio_frags counter
 
 # HELP lustre_discontiguous_blocks_total 'size' label represents 'Discontiguous blocks', the number of discontinuities in the physical block allocation in the file system for a single RPC
 # TYPE lustre_discontiguous_blocks_total counter
@@ -34,28 +34,28 @@ lustre_connected_clients{component="mdt",target="testfs-MDT0000"} 1
 # TYPE lustre_discontiguous_pages_total counter
 
 # HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.
-# TYPE lustre_disk_io gauge
+# TYPE lustre_disk_io counter
 
 # HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation
 # TYPE lustre_disk_io_total counter
 
 # HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
-# TYPE lustre_exports_dirty_total counter
+# TYPE lustre_exports_dirty_total gauge
 lustre_exports_dirty_total{component="ost",target="testfs-OST0000"} 0
 lustre_exports_dirty_total{component="ost",target="testfs-OST0001"} 0
 
 # HELP lustre_exports_granted_total Total number of exports that have been marked granted
-# TYPE lustre_exports_granted_total counter
+# TYPE lustre_exports_granted_total gauge
 lustre_exports_granted_total{component="ost",target="testfs-OST0000"} 276416
 lustre_exports_granted_total{component="ost",target="testfs-OST0001"} 276416
 
 # HELP lustre_exports_pending_total Total number of exports that have been marked pending
-# TYPE lustre_exports_pending_total counter
+# TYPE lustre_exports_pending_total gauge
 lustre_exports_pending_total{component="ost",target="testfs-OST0000"} 0
 lustre_exports_pending_total{component="ost",target="testfs-OST0001"} 0
 
 # HELP lustre_exports_total Total number of times the pool has been exported
-# TYPE lustre_exports_total counter
+# TYPE lustre_exports_total gauge
 lustre_exports_total{component="mgt",target="MGS"} 4
 lustre_exports_total{component="ost",target="testfs-OST0000"} 4
 lustre_exports_total{component="ost",target="testfs-OST0001"} 4
@@ -80,7 +80,7 @@ lustre_inodes_free{component="ost",target="testfs-OST0000"} 274726412
 lustre_inodes_free{component="ost",target="testfs-OST0001"} 274726412
 
 # HELP lustre_inodes_maximum The maximum number of inodes (objects) the filesystem can hold
-# TYPE lustre_inodes_maximum gauge
+# TYPE lustre_inodes_maximum counter
 lustre_inodes_maximum{component="mgt",target="MGS"} 131072
 lustre_inodes_maximum{component="mdt",target="testfs-MDT0000"} 257722920
 lustre_inodes_maximum{component="ost",target="testfs-OST0000"} 274726912
@@ -124,7 +124,7 @@ lustre_lock_contention_seconds_total{component="ost",target="testfs-OST0000"} 2
 lustre_lock_contention_seconds_total{component="ost",target="testfs-OST0001"} 2
 
 # HELP lustre_lock_count_total Number of locks
-# TYPE lustre_lock_count_total counter
+# TYPE lustre_lock_count_total gauge
 lustre_lock_count_total{component="mdt",target="testfs-MDT0000"} 1
 lustre_lock_count_total{component="ost",target="testfs-OST0000"} 0
 lustre_lock_count_total{component="ost",target="testfs-OST0001"} 0

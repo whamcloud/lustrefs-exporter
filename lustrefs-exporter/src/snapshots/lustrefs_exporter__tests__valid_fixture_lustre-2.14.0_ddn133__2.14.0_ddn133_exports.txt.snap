@@ -73,7 +73,7 @@ lustre_block_maps_milliseconds_total{component="ost",operation="read",target="ai
 lustre_block_maps_milliseconds_total{component="ost",operation="write",target="ai400x2-OST0001",size="64"} 179
 
 # HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes
-# TYPE lustre_capacity_kilobytes gauge
+# TYPE lustre_capacity_kilobytes counter
 lustre_capacity_kilobytes{component="mgt",target="MGS"} 1980036
 lustre_capacity_kilobytes{component="mdt",target="ai400x2-MDT0000"} 366222772
 lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0000"} 35016088872
@@ -495,7 +495,7 @@ lustre_client_export_stats{component="mdt",target="ai400x2-MDT0000",nid="192.168
 lustre_connected_clients{component="mdt",target="ai400x2-MDT0000"} 16
 
 # HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.
-# TYPE lustre_dio_frags gauge
+# TYPE lustre_dio_frags counter
 lustre_dio_frags{component="ost",operation="read",target="ai400x2-OST0000",size="1"} 63441712
 lustre_dio_frags{component="ost",operation="write",target="ai400x2-OST0000",size="1"} 48567510
 lustre_dio_frags{component="ost",operation="read",target="ai400x2-OST0000",size="2"} 2335205
@@ -1264,7 +1264,7 @@ lustre_discontiguous_pages_total{component="ost",operation="read",target="ai400x
 lustre_discontiguous_pages_total{component="ost",operation="write",target="ai400x2-OST0001",size="31"} 298134
 
 # HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.
-# TYPE lustre_disk_io gauge
+# TYPE lustre_disk_io counter
 lustre_disk_io{component="ost",operation="read",target="ai400x2-OST0000",size="1"} 6220627
 lustre_disk_io{component="ost",operation="write",target="ai400x2-OST0000",size="1"} 4110113
 lustre_disk_io{component="ost",operation="read",target="ai400x2-OST0000",size="2"} 7966394
@@ -1590,22 +1590,22 @@ lustre_disk_io_total{component="ost",operation="read",target="ai400x2-OST0001",s
 lustre_disk_io_total{component="ost",operation="write",target="ai400x2-OST0001",size="1048576"} 51282226
 
 # HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
-# TYPE lustre_exports_dirty_total counter
+# TYPE lustre_exports_dirty_total gauge
 lustre_exports_dirty_total{component="ost",target="ai400x2-OST0000"} 2146304
 lustre_exports_dirty_total{component="ost",target="ai400x2-OST0001"} 0
 
 # HELP lustre_exports_granted_total Total number of exports that have been marked granted
-# TYPE lustre_exports_granted_total counter
+# TYPE lustre_exports_granted_total gauge
 lustre_exports_granted_total{component="ost",target="ai400x2-OST0000"} 4508662208
 lustre_exports_granted_total{component="ost",target="ai400x2-OST0001"} 4472707520
 
 # HELP lustre_exports_pending_total Total number of exports that have been marked pending
-# TYPE lustre_exports_pending_total counter
+# TYPE lustre_exports_pending_total gauge
 lustre_exports_pending_total{component="ost",target="ai400x2-OST0000"} 0
 lustre_exports_pending_total{component="ost",target="ai400x2-OST0001"} 0
 
 # HELP lustre_exports_total Total number of times the pool has been exported
-# TYPE lustre_exports_total counter
+# TYPE lustre_exports_total gauge
 lustre_exports_total{component="mgt",target="MGS"} 20
 lustre_exports_total{component="ost",target="ai400x2-OST0000"} 12
 lustre_exports_total{component="ost",target="ai400x2-OST0001"} 12
@@ -1630,7 +1630,7 @@ lustre_inodes_free{component="ost",target="ai400x2-OST0000"} 276820333
 lustre_inodes_free{component="ost",target="ai400x2-OST0001"} 276820336
 
 # HELP lustre_inodes_maximum The maximum number of inodes (objects) the filesystem can hold
-# TYPE lustre_inodes_maximum gauge
+# TYPE lustre_inodes_maximum counter
 lustre_inodes_maximum{component="mgt",target="MGS"} 131072
 lustre_inodes_maximum{component="mdt",target="ai400x2-MDT0000"} 257722920
 lustre_inodes_maximum{component="ost",target="ai400x2-OST0000"} 276824064
@@ -1758,7 +1758,7 @@ lustre_lock_contention_seconds_total{component="ost",target="ai400x2-OST0000"} 2
 lustre_lock_contention_seconds_total{component="ost",target="ai400x2-OST0001"} 2
 
 # HELP lustre_lock_count_total Number of locks
-# TYPE lustre_lock_count_total counter
+# TYPE lustre_lock_count_total gauge
 lustre_lock_count_total{component="mdt",target="ai400x2-MDT0000"} 524
 lustre_lock_count_total{component="ost",target="ai400x2-OST0000"} 415
 lustre_lock_count_total{component="ost",target="ai400x2-OST0001"} 476
@@ -1895,7 +1895,7 @@ lustre_read_bytes_total{component="ost",operation="read",target="ai400x2-OST0000
 lustre_read_bytes_total{component="ost",operation="read",target="ai400x2-OST0001"} 70989294964736
 
 # HELP lustre_read_maximum_size_bytes The maximum read size in bytes.
-# TYPE lustre_read_maximum_size_bytes gauge
+# TYPE lustre_read_maximum_size_bytes counter
 lustre_read_maximum_size_bytes{component="ost",operation="read",target="ai400x2-OST0000"} 1048576
 lustre_read_maximum_size_bytes{component="ost",operation="read",target="ai400x2-OST0001"} 1048576
 
@@ -1926,7 +1926,7 @@ lustre_write_bytes_total{component="ost",operation="write",target="ai400x2-OST00
 lustre_write_bytes_total{component="ost",operation="write",target="ai400x2-OST0001"} 53949180923904
 
 # HELP lustre_write_maximum_size_bytes The maximum write size in bytes.
-# TYPE lustre_write_maximum_size_bytes gauge
+# TYPE lustre_write_maximum_size_bytes counter
 lustre_write_maximum_size_bytes{component="ost",operation="write",target="ai400x2-OST0000"} 1048576
 lustre_write_maximum_size_bytes{component="ost",operation="write",target="ai400x2-OST0001"} 1048576
 

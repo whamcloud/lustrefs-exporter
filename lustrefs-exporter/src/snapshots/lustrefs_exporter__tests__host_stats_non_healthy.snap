@@ -10,7 +10,7 @@ lustre_available_kilobytes{component="ost",target="ai400x2-OST0000"} 34187914484
 lustre_available_kilobytes{component="ost",target="ai400x2-OST0001"} 34188706564
 
 # HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes
-# TYPE lustre_capacity_kilobytes gauge
+# TYPE lustre_capacity_kilobytes counter
 lustre_capacity_kilobytes{component="mgt",target="MGS"} 1980036
 lustre_capacity_kilobytes{component="mdt",target="ai400x2-MDT0000"} 427170984
 lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0000"} 34750424936
@@ -22,7 +22,7 @@ lustre_connected_clients{component="mdt",target="ai400x2-MDT0000"} 1
 lustre_connected_clients{component="mdt",target="ai400x2-MDT0000"} 1
 
 # HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.
-# TYPE lustre_dio_frags gauge
+# TYPE lustre_dio_frags counter
 lustre_dio_frags{component="ost",operation="read",target="ai400x2-OST0000",size="1"} 9292607
 lustre_dio_frags{component="ost",operation="write",target="ai400x2-OST0000",size="1"} 4076945
 lustre_dio_frags{component="ost",operation="read",target="ai400x2-OST0000",size="2"} 3669
@@ -157,7 +157,7 @@ lustre_discontiguous_pages_total{component="ost",operation="read",target="ai400x
 lustre_discontiguous_pages_total{component="ost",operation="write",target="ai400x2-OST0001",size="2"} 2
 
 # HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.
-# TYPE lustre_disk_io gauge
+# TYPE lustre_disk_io counter
 lustre_disk_io{component="ost",operation="read",target="ai400x2-OST0000",size="1"} 2499387
 lustre_disk_io{component="ost",operation="write",target="ai400x2-OST0000",size="1"} 1187036
 lustre_disk_io{component="ost",operation="read",target="ai400x2-OST0000",size="2"} 1883945
@@ -337,22 +337,22 @@ lustre_drop_count_total{nid="172.16.240.133@o2ib"} 0
 lustre_drop_count_total{nid="172.16.241.133@o2ib"} 0
 
 # HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
-# TYPE lustre_exports_dirty_total counter
+# TYPE lustre_exports_dirty_total gauge
 lustre_exports_dirty_total{component="ost",target="ai400x2-OST0000"} 0
 lustre_exports_dirty_total{component="ost",target="ai400x2-OST0001"} 0
 
 # HELP lustre_exports_granted_total Total number of exports that have been marked granted
-# TYPE lustre_exports_granted_total counter
+# TYPE lustre_exports_granted_total gauge
 lustre_exports_granted_total{component="ost",target="ai400x2-OST0000"} 143424
 lustre_exports_granted_total{component="ost",target="ai400x2-OST0001"} 143424
 
 # HELP lustre_exports_pending_total Total number of exports that have been marked pending
-# TYPE lustre_exports_pending_total counter
+# TYPE lustre_exports_pending_total gauge
 lustre_exports_pending_total{component="ost",target="ai400x2-OST0000"} 0
 lustre_exports_pending_total{component="ost",target="ai400x2-OST0001"} 0
 
 # HELP lustre_exports_total Total number of times the pool has been exported
-# TYPE lustre_exports_total counter
+# TYPE lustre_exports_total gauge
 lustre_exports_total{component="mgt",target="MGS"} 6
 lustre_exports_total{component="ost",target="ai400x2-OST0000"} 4
 lustre_exports_total{component="ost",target="ai400x2-OST0001"} 4
@@ -380,7 +380,7 @@ lustre_inodes_free{component="ost",target="ai400x2-OST0000"} 274725135
 lustre_inodes_free{component="ost",target="ai400x2-OST0001"} 274725134
 
 # HELP lustre_inodes_maximum The maximum number of inodes (objects) the filesystem can hold
-# TYPE lustre_inodes_maximum gauge
+# TYPE lustre_inodes_maximum counter
 lustre_inodes_maximum{component="mgt",target="MGS"} 131072
 lustre_inodes_maximum{component="mdt",target="ai400x2-MDT0000"} 289887952
 lustre_inodes_maximum{component="ost",target="ai400x2-OST0000"} 274726912
@@ -454,7 +454,7 @@ lustre_lock_contention_seconds_total{component="ost",target="ai400x2-OST0000"} 2
 lustre_lock_contention_seconds_total{component="ost",target="ai400x2-OST0001"} 2
 
 # HELP lustre_lock_count_total Number of locks
-# TYPE lustre_lock_count_total counter
+# TYPE lustre_lock_count_total gauge
 lustre_lock_count_total{component="mdt",target="ai400x2-MDT0000"} 2
 lustre_lock_count_total{component="ost",target="ai400x2-OST0000"} 0
 lustre_lock_count_total{component="ost",target="ai400x2-OST0001"} 0
@@ -572,7 +572,7 @@ lustre_read_bytes_total{component="ost",operation="read",target="ai400x2-OST0000
 lustre_read_bytes_total{component="ost",operation="read",target="ai400x2-OST0001"} 10599265554432
 
 # HELP lustre_read_maximum_size_bytes The maximum read size in bytes.
-# TYPE lustre_read_maximum_size_bytes gauge
+# TYPE lustre_read_maximum_size_bytes counter
 lustre_read_maximum_size_bytes{component="ost",operation="read",target="ai400x2-OST0000"} 16777216
 lustre_read_maximum_size_bytes{component="ost",operation="read",target="ai400x2-OST0001"} 16777216
 
@@ -626,7 +626,7 @@ lustre_write_bytes_total{component="ost",operation="write",target="ai400x2-OST00
 lustre_write_bytes_total{component="ost",operation="write",target="ai400x2-OST0001"} 4982409908141
 
 # HELP lustre_write_maximum_size_bytes The maximum write size in bytes.
-# TYPE lustre_write_maximum_size_bytes gauge
+# TYPE lustre_write_maximum_size_bytes counter
 lustre_write_maximum_size_bytes{component="ost",operation="write",target="ai400x2-OST0000"} 16777216
 lustre_write_maximum_size_bytes{component="ost",operation="write",target="ai400x2-OST0001"} 16777216
 
@@ -641,8 +641,7 @@ lustre_write_samples_total{component="ost",operation="write",target="ai400x2-OST
 lustre_write_samples_total{component="ost",operation="write",target="ai400x2-OST0001"} 4119187
 
 # HELP recovery_status Gives the recovery status off a target. 0=Complete 1=Inactive 2=Waiting 3=WaitingForClients 4=Recovering 5=Unknown
-    }
-# TYPE recovery_status summary
+# TYPE recovery_status gauge
 recovery_status{target="ai400x2-OST0000",kind="OST"} 1
 recovery_status{target="ai400x2-OST0001",kind="OST"} 1
 recovery_status{target="ai400x2-MDT0000",kind="MDT"} 1
