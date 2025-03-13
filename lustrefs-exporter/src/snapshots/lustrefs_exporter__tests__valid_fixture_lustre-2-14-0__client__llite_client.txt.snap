@@ -3,7 +3,7 @@ source: lustrefs-exporter/src/main.rs
 expression: x
 ---
 # HELP lustre_client_stats Lustre client interface stats.
-# TYPE lustre_client_stats gauge
+# TYPE lustre_client_stats counter
 lustre_client_stats{operation="ioctl",target="ai400x2-ff47bce9ca35d800"} 114
 lustre_client_stats{operation="open",target="ai400x2-ff47bce9ca35d800"} 35955554
 lustre_client_stats{operation="close",target="ai400x2-ff47bce9ca35d800"} 35955554

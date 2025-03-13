@@ -25,13 +25,13 @@ static DISK_IO_TOTAL: Metric = Metric {
 static DISK_IO_FRAGS: Metric = Metric {
     name: "lustre_dio_frags",
     help: "Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.",
-    r#type: MetricType::Gauge,
+    r#type: MetricType::Counter,
 };
 
 static DISK_IO: Metric = Metric {
     name: "lustre_disk_io",
     help: "Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.",
-    r#type: MetricType::Gauge,
+    r#type: MetricType::Counter,
 };
 
 static DISCONTIGUOUS_PAGES_TOTAL: Metric = Metric {
@@ -67,7 +67,7 @@ static INODES_FREE: Metric = Metric {
 static INODES_MAXIMUM: Metric = Metric {
     name: "lustre_inodes_maximum",
     help: "The maximum number of inodes (objects) the filesystem can hold",
-    r#type: MetricType::Gauge,
+    r#type: MetricType::Counter,
 };
 
 static AVAILABLE_KBYTES: Metric = Metric {
@@ -85,31 +85,31 @@ static FREE_KBYTES: Metric = Metric {
 static CAPACITY_KBYTES: Metric = Metric {
     name: "lustre_capacity_kilobytes",
     help: "Capacity of the pool in kilobytes",
-    r#type: MetricType::Gauge,
+    r#type: MetricType::Counter,
 };
 
 static EXPORTS_TOTAL: Metric = Metric {
     name: "lustre_exports_total",
     help: "Total number of times the pool has been exported",
-    r#type: MetricType::Counter,
+    r#type: MetricType::Gauge,
 };
 
 static EXPORTS_DIRTY_TOTAL: Metric = Metric {
     name: "lustre_exports_dirty_total",
     help: "Total number of exports that have been marked dirty",
-    r#type: MetricType::Counter,
+    r#type: MetricType::Gauge,
 };
 
 static EXPORTS_GRANTED_TOTAL: Metric = Metric {
     name: "lustre_exports_granted_total",
     help: "Total number of exports that have been marked granted",
-    r#type: MetricType::Counter,
+    r#type: MetricType::Gauge,
 };
 
 static EXPORTS_PENDING_TOTAL: Metric = Metric {
     name: "lustre_exports_pending_total",
     help: "Total number of exports that have been marked pending",
-    r#type: MetricType::Counter,
+    r#type: MetricType::Gauge,
 };
 
 static LOCK_CONTENDED_TOTAL: Metric = Metric {
@@ -133,7 +133,7 @@ static CONNECTED_CLIENTS: Metric = Metric {
 static LOCK_COUNT_TOTAL: Metric = Metric {
     name: "lustre_lock_count_total",
     help: "Number of locks",
-    r#type: MetricType::Counter,
+    r#type: MetricType::Gauge,
 };
 
 static LOCK_TIMEOUT_TOTAL: Metric = Metric {
@@ -150,9 +150,8 @@ static BLOCK_MAPS_MSEC_TOTAL: Metric = Metric {
 
 static RECOVERY_STATUS: Metric = Metric {
     name: "recovery_status",
-    help: "Gives the recovery status off a target. 0=Complete 1=Inactive 2=Waiting 3=WaitingForClients 4=Recovering 5=Unknown
-    }",
-    r#type: MetricType::Summary,
+    help: "Gives the recovery status off a target. 0=Complete 1=Inactive 2=Waiting 3=WaitingForClients 4=Recovering 5=Unknown",
+    r#type: MetricType::Gauge,
 };
 
 static RECOVERY_STATUS_COMPLETED_CLIENTS: Metric = Metric {

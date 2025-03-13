@@ -29,7 +29,7 @@ lustre_block_maps_milliseconds_total{component="ost",operation="read",target="fs
 lustre_block_maps_milliseconds_total{component="ost",operation="write",target="fs-OST0000",size="1"} 33
 
 # HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes
-# TYPE lustre_capacity_kilobytes gauge
+# TYPE lustre_capacity_kilobytes counter
 lustre_capacity_kilobytes{component="mgt",target="MGS"} 491092
 lustre_capacity_kilobytes{component="mdt",target="fs-MDT0000"} 2602832
 lustre_capacity_kilobytes{component="ost",target="fs-OST0000"} 4108388
@@ -65,7 +65,7 @@ lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="
 lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="punch",units="usecs"} 1
 
 # HELP lustre_client_stats Lustre client interface stats.
-# TYPE lustre_client_stats gauge
+# TYPE lustre_client_stats counter
 lustre_client_stats{operation="read_bytes",target="fs-ffff9f7daee63800"} 125
 lustre_client_stats{operation="write_bytes",target="fs-ffff9f7daee63800"} 200
 lustre_client_stats{operation="read",target="fs-ffff9f7daee63800"} 125
@@ -90,7 +90,7 @@ lustre_client_stats{operation="openclosetime",target="fs-ffff9f7daee63800"} 2
 lustre_connected_clients{component="mdt",target="fs-MDT0000"} 1
 
 # HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.
-# TYPE lustre_dio_frags gauge
+# TYPE lustre_dio_frags counter
 lustre_dio_frags{component="mdt",operation="read",target="fs-MDT0000",size="1"} 1
 lustre_dio_frags{component="mdt",operation="write",target="fs-MDT0000",size="1"} 0
 lustre_dio_frags{component="mdt",operation="read",target="fs-MDT0000",size="2"} 1
@@ -147,7 +147,7 @@ lustre_discontiguous_pages_total{component="ost",operation="read",target="fs-OST
 lustre_discontiguous_pages_total{component="ost",operation="write",target="fs-OST0000",size="1"} 7
 
 # HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.
-# TYPE lustre_disk_io gauge
+# TYPE lustre_disk_io counter
 lustre_disk_io{component="mdt",operation="read",target="fs-MDT0000",size="1"} 2
 lustre_disk_io{component="mdt",operation="write",target="fs-MDT0000",size="1"} 1
 lustre_disk_io{component="mdt",operation="read",target="fs-MDT0000",size="2"} 1
@@ -282,22 +282,22 @@ lustre_drop_count_total{nid="0@lo"} 2
 lustre_drop_count_total{nid="10.73.20.11@tcp"} 4
 
 # HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
-# TYPE lustre_exports_dirty_total counter
+# TYPE lustre_exports_dirty_total gauge
 lustre_exports_dirty_total{component="ost",target="fs-OST0000"} 0
 lustre_exports_dirty_total{component="ost",target="fs-OST0001"} 0
 
 # HELP lustre_exports_granted_total Total number of exports that have been marked granted
-# TYPE lustre_exports_granted_total counter
+# TYPE lustre_exports_granted_total gauge
 lustre_exports_granted_total{component="ost",target="fs-OST0000"} 279104
 lustre_exports_granted_total{component="ost",target="fs-OST0001"} 279104
 
 # HELP lustre_exports_pending_total Total number of exports that have been marked pending
-# TYPE lustre_exports_pending_total counter
+# TYPE lustre_exports_pending_total gauge
 lustre_exports_pending_total{component="ost",target="fs-OST0000"} 0
 lustre_exports_pending_total{component="ost",target="fs-OST0001"} 0
 
 # HELP lustre_exports_total Total number of times the pool has been exported
-# TYPE lustre_exports_total counter
+# TYPE lustre_exports_total gauge
 lustre_exports_total{component="mgt",target="MGS"} 4
 lustre_exports_total{component="ost",target="fs-OST0000"} 1
 lustre_exports_total{component="ost",target="fs-OST0001"} 1
@@ -322,7 +322,7 @@ lustre_inodes_free{component="ost",target="fs-OST0000"} 40658
 lustre_inodes_free{component="ost",target="fs-OST0001"} 40658
 
 # HELP lustre_inodes_maximum The maximum number of inodes (objects) the filesystem can hold
-# TYPE lustre_inodes_maximum gauge
+# TYPE lustre_inodes_maximum counter
 lustre_inodes_maximum{component="mgt",target="MGS"} 32768
 lustre_inodes_maximum{component="mdt",target="fs-MDT0000"} 1885696
 lustre_inodes_maximum{component="ost",target="fs-OST0000"} 40960
@@ -419,7 +419,7 @@ lustre_lock_contention_seconds_total{component="ost",target="fs-OST0000"} 2
 lustre_lock_contention_seconds_total{component="ost",target="fs-OST0001"} 2
 
 # HELP lustre_lock_count_total Number of locks
-# TYPE lustre_lock_count_total counter
+# TYPE lustre_lock_count_total gauge
 lustre_lock_count_total{component="mdt",target="fs-MDT0000"} 32
 lustre_lock_count_total{component="ost",target="fs-OST0000"} 0
 lustre_lock_count_total{component="ost",target="fs-OST0001"} 0
@@ -724,7 +724,7 @@ lustre_stats_total{component="mdt",operation="punch",target="fs-MDT0000"} 1
 lustre_write_bytes_total{component="ost",operation="write",target="fs-OST0000"} 104857600
 
 # HELP lustre_write_maximum_size_bytes The maximum write size in bytes.
-# TYPE lustre_write_maximum_size_bytes gauge
+# TYPE lustre_write_maximum_size_bytes counter
 lustre_write_maximum_size_bytes{component="ost",operation="write",target="fs-OST0000"} 4194304
 
 # HELP lustre_write_minimum_size_bytes The minimum write size in bytes.
@@ -736,8 +736,7 @@ lustre_write_minimum_size_bytes{component="ost",operation="write",target="fs-OST
 lustre_write_samples_total{component="ost",operation="write",target="fs-OST0000"} 26
 
 # HELP recovery_status Gives the recovery status off a target. 0=Complete 1=Inactive 2=Waiting 3=WaitingForClients 4=Recovering 5=Unknown
-    }
-# TYPE recovery_status summary
+# TYPE recovery_status gauge
 recovery_status{target="fs-OST0000",kind="OST"} 1
 recovery_status{target="fs-OST0001",kind="OST"} 1
 recovery_status{target="fs-MDT0000",kind="MDT"} 1

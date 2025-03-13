@@ -1,9 +1,9 @@
 ---
-source: src/main.rs
+source: lustrefs-exporter/src/main.rs
 expression: x
 ---
 # HELP lustre_client_stats Lustre client interface stats.
-# TYPE lustre_client_stats gauge
+# TYPE lustre_client_stats counter
 lustre_client_stats{operation="read_bytes",target="exafs-ffff9239aa0c4800"} 82152
 lustre_client_stats{operation="write_bytes",target="exafs-ffff9239aa0c4800"} 2726169
 lustre_client_stats{operation="read",target="exafs-ffff9239aa0c4800"} 82150

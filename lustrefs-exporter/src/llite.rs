@@ -12,7 +12,7 @@ use crate::{Metric, StatsMapExt};
 static LLITE_STATS_SAMPLES: Metric = Metric {
     name: "lustre_client_stats",
     help: "Lustre client interface stats.",
-    r#type: MetricType::Gauge,
+    r#type: MetricType::Counter,
 };
 
 pub fn build_llite_stats(
