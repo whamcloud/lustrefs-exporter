@@ -98,11 +98,7 @@ where
         .skip(optional(newline()))
         .skip(optional(eof()))
         .and_then(|(_, _, _, x): (_, _, _, String)| {
-            if x.trim() == "not supported" {
-                Ok(Vec::new())
-            } else {
-                serde_yaml::from_str::<Vec<QuotaStatOsd>>(&x).map_err(StreamErrorFor::<I>::other)
-            }
+            serde_yaml::from_str::<Vec<QuotaStatOsd>>(&x).map_err(StreamErrorFor::<I>::other)
         });
     not_supported_parser.or(yaml_parser)
 }
