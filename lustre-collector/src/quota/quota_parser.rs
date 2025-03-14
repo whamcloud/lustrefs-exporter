@@ -83,7 +83,13 @@ where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
-    (
+    let not_supported_parser = attempt(
+        string("not supported")
+            .skip(optional(newline()))
+            .map(|_| Vec::new()),
+    );
+
+    let yaml_parser = (
         optional(newline()), // If quota stats are present, the whole yaml blob will start on a newline
         take_until::<Vec<_>, _, _>(newline()), // But yaml header might not be indented, ignore it
         newline(),
@@ -93,7 +99,8 @@ where
         .skip(optional(eof()))
         .and_then(|(_, _, _, x): (_, _, _, String)| {
             serde_yaml::from_str::<Vec<QuotaStatOsd>>(&x).map_err(StreamErrorFor::<I>::other)
-        })
+        });
+    not_supported_parser.or(yaml_parser)
 }
 
 #[derive(Debug)]

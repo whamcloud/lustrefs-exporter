@@ -1,0 +1,641 @@
+memused=513086821
+memused_max=513923189
+lnet_memused=41608660
+health_check=healthy
+mdt.lustrem-MDT0000.exports.0@lo.uuid=lustrem-MDT0000-lwp-MDT0000_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.36@tcp.uuid=lustrem-MDT0000-lwp-OST0000_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.37@tcp.uuid=lustrem-MDT0000-lwp-OST0001_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.38@tcp.uuid=lustrem-MDT0000-lwp-OST0002_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.39@tcp.uuid=lustrem-MDT0000-lwp-OST0003_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.40@tcp.uuid=lustrem-MDT0000-lwp-OST0004_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.41@tcp.uuid=lustrem-MDT0000-lwp-OST0005_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.42@tcp.uuid=lustrem-MDT0000-lwp-OST0006_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.43@tcp.uuid=lustrem-MDT0000-lwp-OST0007_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.44@tcp.uuid=lustrem-MDT0000-lwp-OST0008_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.45@tcp.uuid=lustrem-MDT0000-lwp-OST0009_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.46@tcp.uuid=lustrem-MDT0000-lwp-OST000a_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.47@tcp.uuid=lustrem-MDT0000-lwp-OST000b_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.48@tcp.uuid=lustrem-MDT0000-lwp-OST000c_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.49@tcp.uuid=lustrem-MDT0000-lwp-OST000d_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.50@tcp.uuid=lustrem-MDT0000-lwp-OST000e_UUID
+mdt.lustrem-MDT0000.exports.10.74.29.51@tcp.uuid=lustrem-MDT0000-lwp-OST000f_UUID
+mdt.lustrem-MDT0000.exports.10.74.4.202@tcp.uuid=50bac16b-0244-481a-a3fa-0ef90dae6c61
+mdt.lustrem-MDT0000.exports.10.74.4.253@tcp.uuid=8b26a62d-154f-4cd8-a90d-604e3751680f
+mdt.lustrem-MDT0000.exports.10.74.5.151@tcp.uuid=d9c1ee66-f348-423a-c9f9-244f9e46ea43
+mdt.lustrem-MDT0000.exports.10.74.5.193@tcp.uuid=a2d45a0a-9c35-4e57-a3cc-5552703d08a7
+osd-ldiskfs.lustrem-MDT0000.filesfree=4260468465
+osd-ldiskfs.lustrem-MDT0000.filestotal=4293120000
+osd-ldiskfs.lustrem-MDT0000.fstype=ldiskfs
+osd-ldiskfs.lustrem-MDT0000.kbytesavail=24122348980
+osd-ldiskfs.lustrem-MDT0000.kbytesfree=25695229364
+osd-ldiskfs.lustrem-MDT0000.kbytestotal=26945486408
+osd-ldiskfs.lustrem-MDT0000.brw_stats=
+snapshot_time:            1741961878.780904171 secs.nsecs
+start_time:               3323677.089239130 secs.nsecs
+elapsed_time:             1738638201.691665041 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+osd-ldiskfs.lustrem-MDT0000.quota_slave.acct_group=
+grp_accounting:
+- id:      0
+  usage:   { inodes:        40994, kbytes:     20952876 }
+- id:      255
+  usage:   { inodes:         3217, kbytes:        86036 }
+- id:      41215
+  usage:   { inodes:           89, kbytes:         5748 }
+- id:      702
+  usage:   { inodes:     10363533, kbytes:    539380000 }
+- id:      2000
+  usage:   { inodes:      1211844, kbytes:     24524388 }
+- id:      2047
+  usage:   { inodes:            1, kbytes:            4 }
+- id:      3407
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      4600
+  usage:   { inodes:           39, kbytes:         2032 }
+- id:      9900
+  usage:   { inodes:        35590, kbytes:      1894932 }
+- id:      15550
+  usage:   { inodes:       834773, kbytes:     13148956 }
+- id:      20003
+  usage:   { inodes:         2198, kbytes:        70856 }
+- id:      20006
+  usage:   { inodes:       640153, kbytes:     31374092 }
+- id:      23102
+  usage:   { inodes:      1141738, kbytes:     96865740 }
+- id:      49237
+  usage:   { inodes:      7675197, kbytes:    285856140 }
+- id:      3504
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      61508
+  usage:   { inodes:        30230, kbytes:         9568 }
+- id:      48590
+  usage:   { inodes:           15, kbytes:           40 }
+- id:      120
+  usage:   { inodes:          118, kbytes:         4072 }
+- id:      49568
+  usage:   { inodes:          185, kbytes:         5352 }
+- id:      62414
+  usage:   { inodes:         1533, kbytes:         8376 }
+- id:      67066
+  usage:   { inodes:          269, kbytes:         7676 }
+- id:      23066
+  usage:   { inodes:          249, kbytes:         1432 }
+- id:      59255
+  usage:   { inodes:       576924, kbytes:     73856584 }
+- id:      1000
+  usage:   { inodes:         5770, kbytes:       115584 }
+- id:      53411
+  usage:   { inodes:            9, kbytes:          144 }
+- id:      313
+  usage:   { inodes:            1, kbytes:          128 }
+- id:      49275
+  usage:   { inodes:       669293, kbytes:     74223932 }
+- id:      55962
+  usage:   { inodes:            1, kbytes:            4 }
+- id:      56777
+  usage:   { inodes:       646710, kbytes:     81952232 }
+- id:      62863
+  usage:   { inodes:       103341, kbytes:        13300 }
+- id:      68913
+  usage:   { inodes:      8631695, kbytes:      5676696 }
+- id:      4590
+  usage:   { inodes:         3869, kbytes:        47520 }
+- id:      40597
+  usage:   { inodes:           48, kbytes:         4364 }
+- id:      59652
+  usage:   { inodes:          904, kbytes:        38740 }
+- id:      706
+  usage:   { inodes:          103, kbytes:         9972 }
+- id:      67890
+  usage:   { inodes:        26924, kbytes:         2040 }
+- id:      46384
+  usage:   { inodes:         3951, kbytes:       117248 }
+- id:      55788
+  usage:   { inodes:            2, kbytes:            8 }
+- id:      43684
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      23160
+  usage:   { inodes:           10, kbytes:           28 }
+osd-ldiskfs.lustrem-MDT0000.quota_slave.acct_user=
+usr_accounting:
+- id:      0
+  usage:   { inodes:          353, kbytes:     20142648 }
+- id:      1339
+  usage:   { inodes:          167, kbytes:        12164 }
+- id:      2617
+  usage:   { inodes:         2896, kbytes:       287696 }
+- id:      13774
+  usage:   { inodes:         1208, kbytes:        82816 }
+- id:      38735
+  usage:   { inodes:          124, kbytes:         3572 }
+- id:      14933
+  usage:   { inodes:         7278, kbytes:       261784 }
+- id:      14957
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      17267
+  usage:   { inodes:         1374, kbytes:        11900 }
+- id:      23952
+  usage:   { inodes:        19411, kbytes:      1428932 }
+- id:      26969
+  usage:   { inodes:            5, kbytes:           28 }
+- id:      27915
+  usage:   { inodes:         7136, kbytes:       412652 }
+- id:      30910
+  usage:   { inodes:            1, kbytes:           12 }
+- id:      35336
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      38308
+  usage:   { inodes:      1500149, kbytes:    161385308 }
+- id:      1177
+  usage:   { inodes:         1258, kbytes:        71864 }
+- id:      42541
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      70796
+  usage:   { inodes:            3, kbytes:           16 }
+- id:      42995
+  usage:   { inodes:        26924, kbytes:         2040 }
+- id:      24918
+  usage:   { inodes:         3664, kbytes:       129988 }
+- id:      52155
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      52154
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      52846
+  usage:   { inodes:         2297, kbytes:        85524 }
+- id:      51988
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      48230
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      42490
+  usage:   { inodes:         1205, kbytes:        40432 }
+- id:      58844
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      18221
+  usage:   { inodes:            1, kbytes:            4 }
+- id:      40863
+  usage:   { inodes:            1, kbytes:            0 }
+- id:      57209
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      51315
+  usage:   { inodes:         4583, kbytes:       259008 }
+- id:      51328
+  usage:   { inodes:         1988, kbytes:        86668 }
+- id:      67895
+  usage:   { inodes:        30045, kbytes:      2978088 }
+- id:      59875
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      8660
+  usage:   { inodes:           13, kbytes:           28 }
+- id:      44506
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      12693
+  usage:   { inodes:         5212, kbytes:       106372 }
+- id:      49027
+  usage:   { inodes:         5437, kbytes:       111700 }
+- id:      69299
+  usage:   { inodes:         5379, kbytes:       110352 }
+- id:      42766
+  usage:   { inodes:         1614, kbytes:       132476 }
+- id:      58426
+  usage:   { inodes:         6069, kbytes:       127948 }
+- id:      48531
+  usage:   { inodes:         5287, kbytes:       108720 }
+- id:      58226
+  usage:   { inodes:         5559, kbytes:       115000 }
+- id:      13751
+  usage:   { inodes:            1, kbytes:          128 }
+- id:      63412
+  usage:   { inodes:            3, kbytes:          384 }
+- id:      39498
+  usage:   { inodes:            1, kbytes:          132 }
+- id:      43230
+  usage:   { inodes:        18569, kbytes:      2149712 }
+- id:      42697
+  usage:   { inodes:            4, kbytes:           16 }
+- id:      51557
+  usage:   { inodes:       633951, kbytes:     72178592 }
+- id:      41412
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      14833
+  usage:   { inodes:            5, kbytes:           20 }
+- id:      54747
+  usage:   { inodes:      1972530, kbytes:    198463400 }
+- id:      54942
+  usage:   { inodes:          928, kbytes:        70024 }
+- id:      55346
+  usage:   { inodes:            2, kbytes:          256 }
+- id:      48128
+  usage:   { inodes:            1, kbytes:            4 }
+- id:      54937
+  usage:   { inodes:       265834, kbytes:     26630636 }
+- id:      41703
+  usage:   { inodes:            5, kbytes:            4 }
+- id:      46852
+  usage:   { inodes:            5, kbytes:          516 }
+- id:      38978
+  usage:   { inodes:            6, kbytes:           24 }
+- id:      55244
+  usage:   { inodes:            2, kbytes:            8 }
+- id:      67591
+  usage:   { inodes:           11, kbytes:         1160 }
+- id:      52980
+  usage:   { inodes:        14800, kbytes:       348228 }
+- id:      66101
+  usage:   { inodes:            2, kbytes:          132 }
+- id:      60824
+  usage:   { inodes:            8, kbytes:           16 }
+- id:      57481
+  usage:   { inodes:      2336153, kbytes:       213720 }
+- id:      60641
+  usage:   { inodes:      5037967, kbytes:      4943924 }
+- id:      53735
+  usage:   { inodes:         1533, kbytes:         8376 }
+- id:      20238
+  usage:   { inodes:        11479, kbytes:       577760 }
+- id:      43887
+  usage:   { inodes:       223294, kbytes:      2802980 }
+- id:      44585
+  usage:   { inodes:         5363, kbytes:       109968 }
+- id:      70251
+  usage:   { inodes:            3, kbytes:            4 }
+- id:      46526
+  usage:   { inodes:         1006, kbytes:       129708 }
+- id:      42162
+  usage:   { inodes:            1, kbytes:            4 }
+- id:      44264
+  usage:   { inodes:            2, kbytes:          136 }
+- id:      69796
+  usage:   { inodes:            8, kbytes:          776 }
+- id:      44099
+  usage:   { inodes:           37, kbytes:         3204 }
+- id:      70317
+  usage:   { inodes:       428543, kbytes:     26961584 }
+- id:      70327
+  usage:   { inodes:         2155, kbytes:        68884 }
+- id:      55051
+  usage:   { inodes:       287821, kbytes:     36869860 }
+- id:      53479
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      70194
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      55759
+  usage:   { inodes:          841, kbytes:        34028 }
+- id:      58585
+  usage:   { inodes:        41261, kbytes:      3551520 }
+- id:      38481
+  usage:   { inodes:          729, kbytes:        91252 }
+- id:      40299
+  usage:   { inodes:            1, kbytes:            4 }
+- id:      44304
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      22485
+  usage:   { inodes:          102, kbytes:        10348 }
+- id:      47519
+  usage:   { inodes:          349, kbytes:        14496 }
+- id:      42579
+  usage:   { inodes:            3, kbytes:            0 }
+- id:      42365
+  usage:   { inodes:         5825, kbytes:       380936 }
+- id:      59604
+  usage:   { inodes:         3951, kbytes:       117248 }
+- id:      43148
+  usage:   { inodes:         3051, kbytes:          144 }
+- id:      57328
+  usage:   { inodes:          414, kbytes:        17496 }
+- id:      23610
+  usage:   { inodes:       177876, kbytes:      3352140 }
+- id:      41588
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      62180
+  usage:   { inodes:       286344, kbytes:     18252160 }
+- id:      42513
+  usage:   { inodes:            2, kbytes:            8 }
+- id:      69963
+  usage:   { inodes:        66632, kbytes:      1089508 }
+- id:      41256
+  usage:   { inodes:         1549, kbytes:        47212 }
+- id:      53362
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      55243
+  usage:   { inodes:        61748, kbytes:      3982296 }
+- id:      39420
+  usage:   { inodes:           17, kbytes:           48 }
+- id:      39490
+  usage:   { inodes:            3, kbytes:           16 }
+- id:      40380
+  usage:   { inodes:            9, kbytes:           40 }
+- id:      40435
+  usage:   { inodes:       361262, kbytes:     23570844 }
+- id:      41335
+  usage:   { inodes:       232229, kbytes:     14913332 }
+- id:      41355
+  usage:   { inodes:      1457669, kbytes:     82264352 }
+- id:      41898
+  usage:   { inodes:            6, kbytes:           16 }
+- id:      41952
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      43178
+  usage:   { inodes:       283112, kbytes:     15866252 }
+- id:      43529
+  usage:   { inodes:        35342, kbytes:      2045340 }
+- id:      43995
+  usage:   { inodes:           23, kbytes:          112 }
+- id:      44145
+  usage:   { inodes:           78, kbytes:         9824 }
+- id:      44680
+  usage:   { inodes:        12281, kbytes:       929472 }
+- id:      45304
+  usage:   { inodes:          617, kbytes:          284 }
+- id:      44689
+  usage:   { inodes:          555, kbytes:        13204 }
+- id:      50789
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      41921
+  usage:   { inodes:         2186, kbytes:       103960 }
+- id:      60561
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      42422
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      58756
+  usage:   { inodes:           10, kbytes:          416 }
+- id:      42227
+  usage:   { inodes:            1, kbytes:          132 }
+- id:      44795
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      56638
+  usage:   { inodes:         5292, kbytes:       262808 }
+- id:      66850
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      70113
+  usage:   { inodes:            2, kbytes:           12 }
+- id:      54276
+  usage:   { inodes:        30230, kbytes:         9568 }
+- id:      49432
+  usage:   { inodes:        21085, kbytes:      1599796 }
+- id:      45197
+  usage:   { inodes:       802355, kbytes:     10062472 }
+- id:      46758
+  usage:   { inodes:          888, kbytes:        34552 }
+- id:      47554
+  usage:   { inodes:        90744, kbytes:      3083444 }
+- id:      48220
+  usage:   { inodes:       100290, kbytes:        13156 }
+- id:      48774
+  usage:   { inodes:           12, kbytes:          684 }
+- id:      49706
+  usage:   { inodes:      1092764, kbytes:     93778512 }
+- id:      50459
+  usage:   { inodes:        19117, kbytes:      1005788 }
+- id:      50864
+  usage:   { inodes:      4278177, kbytes:    100190016 }
+- id:      51218
+  usage:   { inodes:         1423, kbytes:        12680 }
+- id:      51238
+  usage:   { inodes:       645775, kbytes:     81881436 }
+- id:      52835
+  usage:   { inodes:            3, kbytes:          264 }
+- id:      53390
+  usage:   { inodes:         5753, kbytes:       260964 }
+- id:      53492
+  usage:   { inodes:         1455, kbytes:        17520 }
+- id:      53725
+  usage:   { inodes:           23, kbytes:         2664 }
+- id:      54415
+  usage:   { inodes:      5725939, kbytes:     97748964 }
+- id:      51810
+  usage:   { inodes:       491107, kbytes:     42488036 }
+- id:      57459
+  usage:   { inodes:       979006, kbytes:     62862352 }
+- id:      58497
+  usage:   { inodes:        38098, kbytes:      2217824 }
+- id:      59074
+  usage:   { inodes:        29381, kbytes:       205144 }
+- id:      61950
+  usage:   { inodes:            1, kbytes:            4 }
+- id:      62846
+  usage:   { inodes:            4, kbytes:          144 }
+- id:      65660
+  usage:   { inodes:          195, kbytes:        23356 }
+- id:      66732
+  usage:   { inodes:      1256952, kbytes:       518764 }
+- id:      68792
+  usage:   { inodes:      1066031, kbytes:     16098324 }
+- id:      68862
+  usage:   { inodes:         1785, kbytes:        73300 }
+- id:      69568
+  usage:   { inodes:        19358, kbytes:      2455688 }
+- id:      70226
+  usage:   { inodes:        23483, kbytes:      1659904 }
+osd-ldiskfs.lustrem-MDT0000.quota_slave.acct_project=not supported
+mds.MDS.mdt.stats=
+snapshot_time             1741961878.782233372 secs.nsecs
+start_time                1741961370.717618041 secs.nsecs
+elapsed_time              508.064615331 secs.nsecs
+req_waittime              683 samples [usecs] 12 132 21647 775865
+req_qdepth                683 samples [reqs] 0 0 0 0
+req_active                683 samples [reqs] 1 2 687 695
+req_timeout               683 samples [secs] 1 14 8420 116522
+reqbuf_avail              1429 samples [bufs] 64 64 91456 5853184
+ost_set_info              1 samples [usecs] 69 69 69 4761
+mds_connect               23 samples [usecs] 18 4677 10004 27823848
+obd_ping                  659 samples [usecs] 4 430 11977 458771
+mds.MDS.mdt_fld.stats=
+snapshot_time             1741961878.782300753 secs.nsecs
+start_time                1741961370.745213832 secs.nsecs
+elapsed_time              508.037086921 secs.nsecs
+mds.MDS.mdt_io.stats=
+snapshot_time             1741961878.782332054 secs.nsecs
+start_time                1741961370.756822524 secs.nsecs
+elapsed_time              508.025509530 secs.nsecs
+mds.MDS.mdt_out.stats=
+snapshot_time             1741961878.782357468 secs.nsecs
+start_time                1741961370.742898834 secs.nsecs
+elapsed_time              508.039458634 secs.nsecs
+mds.MDS.mdt_readpage.stats=
+snapshot_time             1741961878.782384048 secs.nsecs
+start_time                1741961370.719755085 secs.nsecs
+elapsed_time              508.062628963 secs.nsecs
+mds.MDS.mdt_seqm.stats=
+snapshot_time             1741961878.782409124 secs.nsecs
+start_time                1741961370.744988813 secs.nsecs
+elapsed_time              508.037420311 secs.nsecs
+mds.MDS.mdt_seqs.stats=
+snapshot_time             1741961878.782434882 secs.nsecs
+start_time                1741961370.744748824 secs.nsecs
+elapsed_time              508.037686058 secs.nsecs
+mds.MDS.mdt_setattr.stats=
+snapshot_time             1741961878.782461180 secs.nsecs
+start_time                1741961370.721260846 secs.nsecs
+elapsed_time              508.061200334 secs.nsecs
+mdt.lustrem-MDT0000.md_stats=
+snapshot_time             1741961878.782506163 secs.nsecs
+start_time                1741961377.010859806 secs.nsecs
+elapsed_time              501.771646357 secs.nsecs
+mdt.lustrem-MDT0000.num_exports=21
+mdt.lustrem-MDT0000.exports.0@lo.stats=
+snapshot_time             1741961878.782678027 secs.nsecs
+start_time                1741961382.143897764 secs.nsecs
+elapsed_time              496.638780263 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.36@tcp.stats=
+snapshot_time             1741961878.782689540 secs.nsecs
+start_time                1741961406.299401007 secs.nsecs
+elapsed_time              472.483288533 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.37@tcp.stats=
+snapshot_time             1741961878.782704308 secs.nsecs
+start_time                1741961432.408934298 secs.nsecs
+elapsed_time              446.373770010 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.38@tcp.stats=
+snapshot_time             1741961878.782713941 secs.nsecs
+start_time                1741961433.195425839 secs.nsecs
+elapsed_time              445.587288102 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.39@tcp.stats=
+snapshot_time             1741961878.782723465 secs.nsecs
+start_time                1741961433.977115663 secs.nsecs
+elapsed_time              444.805607802 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.40@tcp.stats=
+snapshot_time             1741961878.782733138 secs.nsecs
+start_time                1741961432.478308768 secs.nsecs
+elapsed_time              446.304424370 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.41@tcp.stats=
+snapshot_time             1741961878.782742549 secs.nsecs
+start_time                1741961432.847540313 secs.nsecs
+elapsed_time              445.935202236 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.42@tcp.stats=
+snapshot_time             1741961878.782752066 secs.nsecs
+start_time                1741961432.857970797 secs.nsecs
+elapsed_time              445.924781269 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.43@tcp.stats=
+snapshot_time             1741961878.782761621 secs.nsecs
+start_time                1741961432.986063725 secs.nsecs
+elapsed_time              445.796697896 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.44@tcp.stats=
+snapshot_time             1741961878.782771631 secs.nsecs
+start_time                1741961407.209465379 secs.nsecs
+elapsed_time              471.573306252 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.45@tcp.stats=
+snapshot_time             1741961878.782781083 secs.nsecs
+start_time                1741961433.773484622 secs.nsecs
+elapsed_time              445.009296461 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.46@tcp.stats=
+snapshot_time             1741961878.782790728 secs.nsecs
+start_time                1741961434.799053918 secs.nsecs
+elapsed_time              443.983736810 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.47@tcp.stats=
+snapshot_time             1741961878.782800468 secs.nsecs
+start_time                1741961435.125127513 secs.nsecs
+elapsed_time              443.657672955 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.48@tcp.stats=
+snapshot_time             1741961878.782809861 secs.nsecs
+start_time                1741961434.393495917 secs.nsecs
+elapsed_time              444.389313944 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.49@tcp.stats=
+snapshot_time             1741961878.782819198 secs.nsecs
+start_time                1741961432.877401693 secs.nsecs
+elapsed_time              445.905417505 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.50@tcp.stats=
+snapshot_time             1741961878.782828714 secs.nsecs
+start_time                1741961435.410120434 secs.nsecs
+elapsed_time              443.372708280 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.29.51@tcp.stats=
+snapshot_time             1741961878.782838190 secs.nsecs
+start_time                1741961434.315702182 secs.nsecs
+elapsed_time              444.467136008 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.4.202@tcp.stats=
+snapshot_time             1741961878.782847688 secs.nsecs
+start_time                1741961421.596911087 secs.nsecs
+elapsed_time              457.185936601 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.4.253@tcp.stats=
+snapshot_time             1741961878.782857401 secs.nsecs
+start_time                1741961453.162509585 secs.nsecs
+elapsed_time              425.620347816 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.5.151@tcp.stats=
+snapshot_time             1741961878.782866987 secs.nsecs
+start_time                1741961427.676324146 secs.nsecs
+elapsed_time              451.106542841 secs.nsecs
+mdt.lustrem-MDT0000.exports.10.74.5.193@tcp.stats=
+snapshot_time             1741961878.782877182 secs.nsecs
+start_time                1741961403.841741878 secs.nsecs
+elapsed_time              474.941135304 secs.nsecs
+ldlm.namespaces.mdt-lustrem-MDT0000_UUID.contended_locks=32
+ldlm.namespaces.mdt-lustrem-MDT0000_UUID.contention_seconds=2
+ldlm.namespaces.mdt-lustrem-MDT0000_UUID.ctime_age_limit=10
+ldlm.namespaces.mdt-lustrem-MDT0000_UUID.early_lock_cancel=0
+ldlm.namespaces.mdt-lustrem-MDT0000_UUID.lock_count=0
+ldlm.namespaces.mdt-lustrem-MDT0000_UUID.lock_timeouts=0
+ldlm.namespaces.mdt-lustrem-MDT0000_UUID.lock_unused_count=0
+ldlm.namespaces.mdt-lustrem-MDT0000_UUID.lru_max_age=3900000
+ldlm.namespaces.mdt-lustrem-MDT0000_UUID.lru_size=1600
+ldlm.namespaces.mdt-lustrem-MDT0000_UUID.max_nolock_bytes=0
+ldlm.namespaces.mdt-lustrem-MDT0000_UUID.max_parallel_ast=1024
+ldlm.namespaces.mdt-lustrem-MDT0000_UUID.resource_count=0
+ldlm.services.ldlm_canceld.stats=
+snapshot_time             1741961878.783939126 secs.nsecs
+start_time                1741961370.695066515 secs.nsecs
+elapsed_time              508.088872611 secs.nsecs
+req_waittime              1 samples [usecs] 44 44 44 1936
+req_qdepth                1 samples [reqs] 0 0 0 0
+req_active                1 samples [reqs] 1 1 1 1
+req_timeout               1 samples [secs] 10 10 10 100
+reqbuf_avail              3 samples [bufs] 64 64 192 12288
+ldlm_cancel               1 samples [usecs] 41 41 41 1681
+ldlm.services.ldlm_cbd.stats=
+snapshot_time             1741961878.783973474 secs.nsecs
+start_time                1741961370.693318658 secs.nsecs
+elapsed_time              508.090654816 secs.nsecs
+req_waittime              3 samples [usecs] 32 54 129 5789
+req_qdepth                3 samples [reqs] 0 0 0 0
+req_active                3 samples [reqs] 1 1 3 3
+req_timeout               3 samples [secs] 1 10 12 102
+reqbuf_avail              9 samples [bufs] 1 1 9 9
+ldlm_bl_callback          3 samples [usecs] 26 48 105 3941
+mdd.lustrem-MDT0000.changelog_users=
+current_index: 36778454916
+ID                            index (idle) mask
+cl1                      36778454916 (7893)
+qmt.lustrem-QMT0000.dt-0x0.glb-usr=
+global_pool0_dt_usr
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustrem-QMT0000.md-0x0.glb-usr=
+global_pool0_md_usr
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustrem-QMT0000.dt-0x0.glb-prj=
+global_pool0_dt_prj
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustrem-QMT0000.md-0x0.glb-prj=
+global_pool0_md_prj
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustrem-QMT0000.dt-0x0.glb-grp=
+global_pool0_dt_grp
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustrem-QMT0000.md-0x0.glb-grp=
+global_pool0_md_grp
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
