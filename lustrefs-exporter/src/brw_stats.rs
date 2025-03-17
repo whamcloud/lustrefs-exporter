@@ -67,7 +67,7 @@ static INODES_FREE: Metric = Metric {
 static INODES_MAXIMUM: Metric = Metric {
     name: "lustre_inodes_maximum",
     help: "The maximum number of inodes (objects) the filesystem can hold",
-    r#type: MetricType::Counter,
+    r#type: MetricType::Gauge,
 };
 
 static AVAILABLE_KBYTES: Metric = Metric {
@@ -85,7 +85,7 @@ static FREE_KBYTES: Metric = Metric {
 static CAPACITY_KBYTES: Metric = Metric {
     name: "lustre_capacity_kilobytes",
     help: "Capacity of the pool in kilobytes",
-    r#type: MetricType::Counter,
+    r#type: MetricType::Gauge,
 };
 
 static EXPORTS_TOTAL: Metric = Metric {
@@ -115,13 +115,13 @@ static EXPORTS_PENDING_TOTAL: Metric = Metric {
 static LOCK_CONTENDED_TOTAL: Metric = Metric {
     name: "lustre_lock_contended_total",
     help: "Number of contended locks",
-    r#type: MetricType::Counter,
+    r#type: MetricType::Gauge,
 };
 
 static LOCK_CONTENTION_SECONDS_TOTAL: Metric = Metric {
     name: "lustre_lock_contention_seconds_total",
     help: "Time in seconds during which locks were contended",
-    r#type: MetricType::Counter,
+    r#type: MetricType::Gauge,
 };
 
 static CONNECTED_CLIENTS: Metric = Metric {
