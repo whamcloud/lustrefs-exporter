@@ -87,6 +87,15 @@ async fn main() -> Result<(), Error> {
             .await?;
         println!("{}", std::str::from_utf8(&lctl.stdout)?);
 
+        println!("# Dumping lctl get_param jobstats output");
+        let lctl = Command::new("lctl")
+            .arg("get_param")
+            .args(["obdfilter.*OST*.job_stats", "mdt.*.job_stats"])
+            .kill_on_drop(true)
+            .output()
+            .await?;
+        println!("{}", std::str::from_utf8(&lctl.stdout)?);
+
         println!("# Dumping lnetctl net show output");
         let lnetctl = Command::new("lnetctl")
             .args(["net", "show", "-v", "4"])
