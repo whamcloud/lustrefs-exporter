@@ -83,7 +83,7 @@ lustre_lnet_mem_used 178729063
 lustre_mem_used 72132771
 
 # HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
-# TYPE lustre_mem_used_max gauge
+# TYPE lustre_mem_used_max counter
 lustre_mem_used_max 10924287079
 
 # HELP lustre_receive_bytes_total Total number of bytes that have been received

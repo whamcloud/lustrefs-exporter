@@ -10,7 +10,7 @@ lustre_available_kilobytes{component="ost",target="fs-OST0000"} 4037332
 lustre_available_kilobytes{component="ost",target="fs-OST0001"} 4037332
 
 # HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes
-# TYPE lustre_capacity_kilobytes counter
+# TYPE lustre_capacity_kilobytes gauge
 lustre_capacity_kilobytes{component="mgt",target="MGS"} 491092
 lustre_capacity_kilobytes{component="mdt",target="fs-MDT0000"} 2602832
 lustre_capacity_kilobytes{component="ost",target="fs-OST0000"} 4108388
@@ -77,7 +77,7 @@ lustre_inodes_free{component="ost",target="fs-OST0000"} 40134
 lustre_inodes_free{component="ost",target="fs-OST0001"} 40134
 
 # HELP lustre_inodes_maximum The maximum number of inodes (objects) the filesystem can hold
-# TYPE lustre_inodes_maximum counter
+# TYPE lustre_inodes_maximum gauge
 lustre_inodes_maximum{component="mgt",target="MGS"} 32768
 lustre_inodes_maximum{component="mdt",target="fs-MDT0000"} 1885696
 lustre_inodes_maximum{component="ost",target="fs-OST0000"} 40960
@@ -109,13 +109,13 @@ lustre_ldlm_cbd_stats{operation="ldlm_bl_callback"} 134
 lustre_lnet_mem_used 67130162
 
 # HELP lustre_lock_contended_total Number of contended locks
-# TYPE lustre_lock_contended_total counter
+# TYPE lustre_lock_contended_total gauge
 lustre_lock_contended_total{component="mdt",target="fs-MDT0000"} 32
 lustre_lock_contended_total{component="ost",target="fs-OST0000"} 32
 lustre_lock_contended_total{component="ost",target="fs-OST0001"} 32
 
 # HELP lustre_lock_contention_seconds_total Time in seconds during which locks were contended
-# TYPE lustre_lock_contention_seconds_total counter
+# TYPE lustre_lock_contention_seconds_total gauge
 lustre_lock_contention_seconds_total{component="mdt",target="fs-MDT0000"} 2
 lustre_lock_contention_seconds_total{component="ost",target="fs-OST0000"} 2
 lustre_lock_contention_seconds_total{component="ost",target="fs-OST0001"} 2
@@ -137,7 +137,7 @@ lustre_lock_timeout_total{component="ost",target="fs-OST0001"} 0
 lustre_mem_used 243927005
 
 # HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
-# TYPE lustre_mem_used_max gauge
+# TYPE lustre_mem_used_max counter
 lustre_mem_used_max 245019901
 
 # HELP lustre_oss_ost_create_stats OSS ost_create stats
