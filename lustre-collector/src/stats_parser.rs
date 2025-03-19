@@ -238,12 +238,12 @@ snapshot_time             1581546409.693472737 secs.nsecs
             Ok((
                 Stat {
                     name: "write".to_string(),
-                    units: "usec".to_string(),
+                    units: "usecs".to_string(),
                     samples: 186442470,
                     min: Some(36),
-                    max: Some(149845092510),
+                    max: Some(149_845_092_510),
                     sum: None,
-                    sumsquare: Some(2_156_132)
+                    sumsquare: Some(4_426_400_394_686_790_401)
                 },
                 ""
             ))
