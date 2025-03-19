@@ -1,0 +1,1881 @@
+---
+source: lustre-collector/src/parser.rs
+assertion_line: 88
+expression: result
+---
+(
+    [
+        Host(
+            Memused(
+                HostStat {
+                    param: Param(
+                        "memused",
+                    ),
+                    value: 5243093513,
+                },
+            ),
+        ),
+        Host(
+            MemusedMax(
+                HostStat {
+                    param: Param(
+                        "memused_max",
+                    ),
+                    value: 5253184993,
+                },
+            ),
+        ),
+        Host(
+            LNetMemUsed(
+                HostStat {
+                    param: Param(
+                        "lnet_memused",
+                    ),
+                    value: 375012180,
+                },
+            ),
+        ),
+        Host(
+            HealthCheck(
+                HostStat {
+                    param: Param(
+                        "health_check",
+                    ),
+                    value: HealthCheckStat {
+                        healthy: true,
+                        targets: [],
+                    },
+                },
+            ),
+        ),
+        Target(
+            ConnectedClients(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "connected_clients",
+                    ),
+                    target: Target(
+                        "ai400x3-MDT0000",
+                    ),
+                    value: 16,
+                },
+            ),
+        ),
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 130877,
+                },
+            ),
+        ),
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "ai400x3-MDT0000",
+                    ),
+                    value: 171801633,
+                },
+            ),
+        ),
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0000",
+                    ),
+                    value: 113243629,
+                },
+            ),
+        ),
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0001",
+                    ),
+                    value: 113243629,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 131072,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "ai400x3-MDT0000",
+                    ),
+                    value: 171802624,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0000",
+                    ),
+                    value: 113246208,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0001",
+                    ),
+                    value: 113246208,
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "ai400x3-MDT0000",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0000",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0001",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 1873968,
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "ai400x3-MDT0000",
+                    ),
+                    value: 234139256,
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0000",
+                    ),
+                    value: 13891968372,
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0001",
+                    ),
+                    value: 13900062092,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 1978824,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "ai400x3-MDT0000",
+                    ),
+                    value: 238434156,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0000",
+                    ),
+                    value: 14036939900,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0001",
+                    ),
+                    value: 14045033620,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 1980036,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "ai400x3-MDT0000",
+                    ),
+                    value: 238453256,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0000",
+                    ),
+                    value: 14324071936,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0001",
+                    ),
+                    value: 14324071936,
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "block_maps_msec",
+                            unit: "maps",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "ai400x3-MDT0000",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "block_maps_msec",
+                            unit: "maps",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0000",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1,
+                                    read: 1,
+                                    write: 1,
+                                },
+                                BrwStatsBucket {
+                                    name: 2,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 4,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 8,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 16,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 32,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 64,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 128,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 256,
+                                    read: 3469178,
+                                    write: 2278824,
+                                },
+                                BrwStatsBucket {
+                                    name: 512,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 1024,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 2048,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 4096,
+                                    read: 0,
+                                    write: 184163638,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 0,
+                                    read: 3469179,
+                                    write: 186442463,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 0,
+                                    read: 3469179,
+                                    write: 186442463,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1,
+                                    read: 3469178,
+                                    write: 2278825,
+                                },
+                                BrwStatsBucket {
+                                    name: 2,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 3,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 4,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 5,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 6,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 7,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 8,
+                                    read: 0,
+                                    write: 184163607,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1,
+                                    read: 11031,
+                                    write: 37640,
+                                },
+                                BrwStatsBucket {
+                                    name: 2,
+                                    read: 32724,
+                                    write: 37119,
+                                },
+                                BrwStatsBucket {
+                                    name: 3,
+                                    read: 59126,
+                                    write: 33799,
+                                },
+                                BrwStatsBucket {
+                                    name: 4,
+                                    read: 88509,
+                                    write: 32873,
+                                },
+                                BrwStatsBucket {
+                                    name: 5,
+                                    read: 118436,
+                                    write: 33234,
+                                },
+                                BrwStatsBucket {
+                                    name: 6,
+                                    read: 146398,
+                                    write: 33690,
+                                },
+                                BrwStatsBucket {
+                                    name: 7,
+                                    read: 169882,
+                                    write: 34209,
+                                },
+                                BrwStatsBucket {
+                                    name: 8,
+                                    read: 189048,
+                                    write: 34919,
+                                },
+                                BrwStatsBucket {
+                                    name: 9,
+                                    read: 202061,
+                                    write: 31131,
+                                },
+                                BrwStatsBucket {
+                                    name: 10,
+                                    read: 208966,
+                                    write: 30716,
+                                },
+                                BrwStatsBucket {
+                                    name: 11,
+                                    read: 209823,
+                                    write: 30576,
+                                },
+                                BrwStatsBucket {
+                                    name: 12,
+                                    read: 206145,
+                                    write: 32027,
+                                },
+                                BrwStatsBucket {
+                                    name: 13,
+                                    read: 198829,
+                                    write: 34036,
+                                },
+                                BrwStatsBucket {
+                                    name: 14,
+                                    read: 187830,
+                                    write: 35276,
+                                },
+                                BrwStatsBucket {
+                                    name: 15,
+                                    read: 174810,
+                                    write: 36630,
+                                },
+                                BrwStatsBucket {
+                                    name: 16,
+                                    read: 160457,
+                                    write: 38056,
+                                },
+                                BrwStatsBucket {
+                                    name: 17,
+                                    read: 145904,
+                                    write: 35268,
+                                },
+                                BrwStatsBucket {
+                                    name: 18,
+                                    read: 130831,
+                                    write: 33800,
+                                },
+                                BrwStatsBucket {
+                                    name: 19,
+                                    read: 116398,
+                                    write: 33157,
+                                },
+                                BrwStatsBucket {
+                                    name: 20,
+                                    read: 102238,
+                                    write: 34846,
+                                },
+                                BrwStatsBucket {
+                                    name: 21,
+                                    read: 89557,
+                                    write: 36630,
+                                },
+                                BrwStatsBucket {
+                                    name: 22,
+                                    read: 78054,
+                                    write: 37848,
+                                },
+                                BrwStatsBucket {
+                                    name: 23,
+                                    read: 66884,
+                                    write: 40316,
+                                },
+                                BrwStatsBucket {
+                                    name: 24,
+                                    read: 57465,
+                                    write: 41816,
+                                },
+                                BrwStatsBucket {
+                                    name: 25,
+                                    read: 49499,
+                                    write: 37885,
+                                },
+                                BrwStatsBucket {
+                                    name: 26,
+                                    read: 42115,
+                                    write: 34775,
+                                },
+                                BrwStatsBucket {
+                                    name: 27,
+                                    read: 35657,
+                                    write: 33256,
+                                },
+                                BrwStatsBucket {
+                                    name: 28,
+                                    read: 30284,
+                                    write: 35188,
+                                },
+                                BrwStatsBucket {
+                                    name: 29,
+                                    read: 25435,
+                                    write: 36974,
+                                },
+                                BrwStatsBucket {
+                                    name: 30,
+                                    read: 21164,
+                                    write: 39293,
+                                },
+                                BrwStatsBucket {
+                                    name: 31,
+                                    read: 113618,
+                                    write: 1474530942,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1,
+                                    read: 3468728,
+                                    write: 426596,
+                                },
+                                BrwStatsBucket {
+                                    name: 2,
+                                    read: 394,
+                                    write: 1211846,
+                                },
+                                BrwStatsBucket {
+                                    name: 4,
+                                    read: 56,
+                                    write: 1694657,
+                                },
+                                BrwStatsBucket {
+                                    name: 8,
+                                    read: 0,
+                                    write: 3947333,
+                                },
+                                BrwStatsBucket {
+                                    name: 16,
+                                    read: 0,
+                                    write: 84324306,
+                                },
+                                BrwStatsBucket {
+                                    name: 32,
+                                    read: 0,
+                                    write: 94811548,
+                                },
+                                BrwStatsBucket {
+                                    name: 64,
+                                    read: 0,
+                                    write: 21878,
+                                },
+                                BrwStatsBucket {
+                                    name: 128,
+                                    read: 0,
+                                    write: 2254,
+                                },
+                                BrwStatsBucket {
+                                    name: 256,
+                                    read: 0,
+                                    write: 1984,
+                                },
+                                BrwStatsBucket {
+                                    name: 512,
+                                    read: 0,
+                                    write: 30,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 4096,
+                                    read: 0,
+                                    write: 1,
+                                },
+                                BrwStatsBucket {
+                                    name: 8192,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 16384,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 32768,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 65536,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 131072,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 262144,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 524288,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 1048576,
+                                    read: 3469178,
+                                    write: 2278824,
+                                },
+                                BrwStatsBucket {
+                                    name: 2097152,
+                                    read: 0,
+                                    write: 1473309100,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "block_maps_msec",
+                            unit: "maps",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1,
+                                    read: 5587235,
+                                    write: 184196106,
+                                },
+                                BrwStatsBucket {
+                                    name: 2,
+                                    read: 0,
+                                    write: 37811,
+                                },
+                                BrwStatsBucket {
+                                    name: 4,
+                                    read: 0,
+                                    write: 57416,
+                                },
+                                BrwStatsBucket {
+                                    name: 8,
+                                    read: 0,
+                                    write: 26317,
+                                },
+                                BrwStatsBucket {
+                                    name: 16,
+                                    read: 0,
+                                    write: 6371,
+                                },
+                                BrwStatsBucket {
+                                    name: 32,
+                                    read: 0,
+                                    write: 386,
+                                },
+                                BrwStatsBucket {
+                                    name: 64,
+                                    read: 0,
+                                    write: 1,
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0001",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 256,
+                                    read: 3445342,
+                                    write: 2280559,
+                                },
+                                BrwStatsBucket {
+                                    name: 512,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 1024,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 2048,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 4096,
+                                    read: 0,
+                                    write: 184163464,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 0,
+                                    read: 3445342,
+                                    write: 186444023,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 0,
+                                    read: 3445342,
+                                    write: 186444023,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1,
+                                    read: 3445342,
+                                    write: 2280559,
+                                },
+                                BrwStatsBucket {
+                                    name: 2,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 3,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 4,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 5,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 6,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 7,
+                                    read: 0,
+                                    write: 0,
+                                },
+                                BrwStatsBucket {
+                                    name: 8,
+                                    read: 0,
+                                    write: 184163432,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1,
+                                    read: 10751,
+                                    write: 37172,
+                                },
+                                BrwStatsBucket {
+                                    name: 2,
+                                    read: 31984,
+                                    write: 37038,
+                                },
+                                BrwStatsBucket {
+                                    name: 3,
+                                    read: 57527,
+                                    write: 34367,
+                                },
+                                BrwStatsBucket {
+                                    name: 4,
+                                    read: 85327,
+                                    write: 33126,
+                                },
+                                BrwStatsBucket {
+                                    name: 5,
+                                    read: 113467,
+                                    write: 33520,
+                                },
+                                BrwStatsBucket {
+                                    name: 6,
+                                    read: 139664,
+                                    write: 33944,
+                                },
+                                BrwStatsBucket {
+                                    name: 7,
+                                    read: 162002,
+                                    write: 34396,
+                                },
+                                BrwStatsBucket {
+                                    name: 8,
+                                    read: 179216,
+                                    write: 35066,
+                                },
+                                BrwStatsBucket {
+                                    name: 9,
+                                    read: 191120,
+                                    write: 31772,
+                                },
+                                BrwStatsBucket {
+                                    name: 10,
+                                    read: 197679,
+                                    write: 31340,
+                                },
+                                BrwStatsBucket {
+                                    name: 11,
+                                    read: 199594,
+                                    write: 31292,
+                                },
+                                BrwStatsBucket {
+                                    name: 12,
+                                    read: 196790,
+                                    write: 32574,
+                                },
+                                BrwStatsBucket {
+                                    name: 13,
+                                    read: 189488,
+                                    write: 34171,
+                                },
+                                BrwStatsBucket {
+                                    name: 14,
+                                    read: 180124,
+                                    write: 35309,
+                                },
+                                BrwStatsBucket {
+                                    name: 15,
+                                    read: 168505,
+                                    write: 36784,
+                                },
+                                BrwStatsBucket {
+                                    name: 16,
+                                    read: 155702,
+                                    write: 37954,
+                                },
+                                BrwStatsBucket {
+                                    name: 17,
+                                    read: 142949,
+                                    write: 35100,
+                                },
+                                BrwStatsBucket {
+                                    name: 18,
+                                    read: 129366,
+                                    write: 33947,
+                                },
+                                BrwStatsBucket {
+                                    name: 19,
+                                    read: 116852,
+                                    write: 33528,
+                                },
+                                BrwStatsBucket {
+                                    name: 20,
+                                    read: 104460,
+                                    write: 34844,
+                                },
+                                BrwStatsBucket {
+                                    name: 21,
+                                    read: 92552,
+                                    write: 36372,
+                                },
+                                BrwStatsBucket {
+                                    name: 22,
+                                    read: 81714,
+                                    write: 37795,
+                                },
+                                BrwStatsBucket {
+                                    name: 23,
+                                    read: 71771,
+                                    write: 40284,
+                                },
+                                BrwStatsBucket {
+                                    name: 24,
+                                    read: 62714,
+                                    write: 41802,
+                                },
+                                BrwStatsBucket {
+                                    name: 25,
+                                    read: 54487,
+                                    write: 38453,
+                                },
+                                BrwStatsBucket {
+                                    name: 26,
+                                    read: 47146,
+                                    write: 35672,
+                                },
+                                BrwStatsBucket {
+                                    name: 27,
+                                    read: 41005,
+                                    write: 34429,
+                                },
+                                BrwStatsBucket {
+                                    name: 28,
+                                    read: 35503,
+                                    write: 35478,
+                                },
+                                BrwStatsBucket {
+                                    name: 29,
+                                    read: 30731,
+                                    write: 37009,
+                                },
+                                BrwStatsBucket {
+                                    name: 30,
+                                    read: 26432,
+                                    write: 39094,
+                                },
+                                BrwStatsBucket {
+                                    name: 31,
+                                    read: 148720,
+                                    write: 1474524636,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1,
+                                    read: 3444784,
+                                    write: 419002,
+                                },
+                                BrwStatsBucket {
+                                    name: 2,
+                                    read: 546,
+                                    write: 1176872,
+                                },
+                                BrwStatsBucket {
+                                    name: 4,
+                                    read: 12,
+                                    write: 1786299,
+                                },
+                                BrwStatsBucket {
+                                    name: 8,
+                                    read: 0,
+                                    write: 4058146,
+                                },
+                                BrwStatsBucket {
+                                    name: 16,
+                                    read: 0,
+                                    write: 84903828,
+                                },
+                                BrwStatsBucket {
+                                    name: 32,
+                                    read: 0,
+                                    write: 94071811,
+                                },
+                                BrwStatsBucket {
+                                    name: 64,
+                                    read: 0,
+                                    write: 24280,
+                                },
+                                BrwStatsBucket {
+                                    name: 128,
+                                    read: 0,
+                                    write: 1978,
+                                },
+                                BrwStatsBucket {
+                                    name: 256,
+                                    read: 0,
+                                    write: 1703,
+                                },
+                                BrwStatsBucket {
+                                    name: 512,
+                                    read: 0,
+                                    write: 72,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1048576,
+                                    read: 3445342,
+                                    write: 2280559,
+                                },
+                                BrwStatsBucket {
+                                    name: 2097152,
+                                    read: 0,
+                                    write: 1473307709,
+                                },
+                            ],
+                        },
+                        BrwStats {
+                            name: "block_maps_msec",
+                            unit: "maps",
+                            buckets: [
+                                BrwStatsBucket {
+                                    name: 1,
+                                    read: 5570253,
+                                    write: 184191672,
+                                },
+                                BrwStatsBucket {
+                                    name: 2,
+                                    read: 0,
+                                    write: 37686,
+                                },
+                                BrwStatsBucket {
+                                    name: 4,
+                                    read: 0,
+                                    write: 58888,
+                                },
+                                BrwStatsBucket {
+                                    name: 8,
+                                    read: 0,
+                                    write: 24624,
+                                },
+                                BrwStatsBucket {
+                                    name: 16,
+                                    read: 0,
+                                    write: 5989,
+                                },
+                                BrwStatsBucket {
+                                    name: 32,
+                                    read: 0,
+                                    write: 254,
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            QuotaStatsOsd(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "quota_slave.acct_group",
+                    ),
+                    target: Target(
+                        "ai400x3-MDT0000",
+                    ),
+                    value: QuotaStatsOsd {
+                        kind: Grp,
+                        stats: [
+                            QuotaStatOsd {
+                                id: 0,
+                                usage: QuotaStatUsage {
+                                    inodes: 981,
+                                    kbytes: 2208,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStatsOsd(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "quota_slave.acct_group",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0000",
+                    ),
+                    value: QuotaStatsOsd {
+                        kind: Grp,
+                        stats: [
+                            QuotaStatOsd {
+                                id: 0,
+                                usage: QuotaStatUsage {
+                                    inodes: 2569,
+                                    kbytes: 287181152,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStatsOsd(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "quota_slave.acct_group",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0001",
+                    ),
+                    value: QuotaStatsOsd {
+                        kind: Grp,
+                        stats: [
+                            QuotaStatOsd {
+                                id: 0,
+                                usage: QuotaStatUsage {
+                                    inodes: 2569,
+                                    kbytes: 279087432,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStatsOsd(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "quota_slave.acct_user",
+                    ),
+                    target: Target(
+                        "ai400x3-MDT0000",
+                    ),
+                    value: QuotaStatsOsd {
+                        kind: Usr,
+                        stats: [
+                            QuotaStatOsd {
+                                id: 0,
+                                usage: QuotaStatUsage {
+                                    inodes: 981,
+                                    kbytes: 2208,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStatsOsd(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "quota_slave.acct_user",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0000",
+                    ),
+                    value: QuotaStatsOsd {
+                        kind: Usr,
+                        stats: [
+                            QuotaStatOsd {
+                                id: 0,
+                                usage: QuotaStatUsage {
+                                    inodes: 2569,
+                                    kbytes: 287230304,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStatsOsd(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "quota_slave.acct_user",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0001",
+                    ),
+                    value: QuotaStatsOsd {
+                        kind: Usr,
+                        stats: [
+                            QuotaStatOsd {
+                                id: 0,
+                                usage: QuotaStatUsage {
+                                    inodes: 2569,
+                                    kbytes: 279087432,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStatsOsd(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "quota_slave.acct_project",
+                    ),
+                    target: Target(
+                        "ai400x3-MDT0000",
+                    ),
+                    value: QuotaStatsOsd {
+                        kind: Prj,
+                        stats: [
+                            QuotaStatOsd {
+                                id: 0,
+                                usage: QuotaStatUsage {
+                                    inodes: 981,
+                                    kbytes: 2208,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStatsOsd(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "quota_slave.acct_project",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0000",
+                    ),
+                    value: QuotaStatsOsd {
+                        kind: Prj,
+                        stats: [
+                            QuotaStatOsd {
+                                id: 0,
+                                usage: QuotaStatUsage {
+                                    inodes: 2569,
+                                    kbytes: 287230304,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStatsOsd(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "quota_slave.acct_project",
+                    ),
+                    target: Target(
+                        "ai400x3-OST0001",
+                    ),
+                    value: QuotaStatsOsd {
+                        kind: Prj,
+                        stats: [
+                            QuotaStatOsd {
+                                id: 0,
+                                usage: QuotaStatUsage {
+                                    inodes: 2569,
+                                    kbytes: 279103816,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            Stats(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "stats",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usecs",
+                            samples: 107783,
+                            min: Some(
+                                7,
+                            ),
+                            max: Some(
+                                9978,
+                            ),
+                            sum: Some(
+                                5068458,
+                            ),
+                            sumsquare: Some(
+                                537774428,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 107783,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                1,
+                            ),
+                            sumsquare: Some(
+                                1,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 107783,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                2,
+                            ),
+                            sum: Some(
+                                107900,
+                            ),
+                            sumsquare: Some(
+                                108134,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "secs",
+                            samples: 107783,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                15,
+                            ),
+                            sum: Some(
+                                1614710,
+                            ),
+                            sumsquare: Some(
+                                24218570,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 215009,
+                            min: Some(
+                                62,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                13545231,
+                            ),
+                            sumsquare: Some(
+                                853328989,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_plain_enqueue",
+                            units: "reqs",
+                            samples: 101,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                101,
+                            ),
+                            sumsquare: Some(
+                                101,
+                            ),
+                        },
+                        Stat {
+                            name: "mgs_connect",
+                            units: "usecs",
+                            samples: 18,
+                            min: Some(
+                                25,
+                            ),
+                            max: Some(
+                                76,
+                            ),
+                            sum: Some(
+                                670,
+                            ),
+                            sumsquare: Some(
+                                29908,
+                            ),
+                        },
+                        Stat {
+                            name: "mgs_target_reg",
+                            units: "usecs",
+                            samples: 12,
+                            min: Some(
+                                15,
+                            ),
+                            max: Some(
+                                1292,
+                            ),
+                            sum: Some(
+                                3922,
+                            ),
+                            sumsquare: Some(
+                                2794268,
+                            ),
+                        },
+                        Stat {
+                            name: "mgs_config_read",
+                            units: "usecs",
+                            samples: 22,
+                            min: Some(
+                                30,
+                            ),
+                            max: Some(
+                                179,
+                            ),
+                            sum: Some(
+                                1453,
+                            ),
+                            sumsquare: Some(
+                                115179,
+                            ),
+                        },
+                        Stat {
+                            name: "obd_ping",
+                            units: "usecs",
+                            samples: 107361,
+                            min: Some(
+                                5,
+                            ),
+                            max: Some(
+                                1128,
+                            ),
+                            sum: Some(
+                                3401066,
+                            ),
+                            sumsquare: Some(
+                                124129922,
+                            ),
+                        },
+                        Stat {
+                            name: "llog_origin_handle_open",
+                            units: "usecs",
+                            samples: 82,
+                            min: Some(
+                                8,
+                            ),
+                            max: Some(
+                                44,
+                            ),
+                            sum: Some(
+                                1164,
+                            ),
+                            sumsquare: Some(
+                                20648,
+                            ),
+                        },
+                        Stat {
+                            name: "llog_origin_handle_next_block",
+                            units: "usecs",
+                            samples: 129,
+                            min: Some(
+                                9,
+                            ),
+                            max: Some(
+                                143,
+                            ),
+                            sum: Some(
+                                2307,
+                            ),
+                            sumsquare: Some(
+                                103597,
+                            ),
+                        },
+                        Stat {
+                            name: "llog_origin_handle_read_header",
+                            units: "usecs",
+                            samples: 58,
+                            min: Some(
+                                9,
+                            ),
+                            max: Some(
+                                213,
+                            ),
+                            sum: Some(
+                                1747,
+                            ),
+                            sumsquare: Some(
+                                213951,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ThreadsMax(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "threads_max",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 32,
+                },
+            ),
+        ),
+        Target(
+            ThreadsMin(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "threads_min",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 3,
+                },
+            ),
+        ),
+        Target(
+            ThreadsStarted(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "threads_started",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 4,
+                },
+            ),
+        ),
+        Target(
+            NumExports(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "num_exports",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 18,
+                },
+            ),
+        ),
+    ],
+    "obdfilter.ai400x3-OST0000.stats=\nsnapshot_time             1742378286.332900343 secs.nsecs\nstart_time                1742228736.573307453 secs.nsecs\nelapsed_time              149549.759592890 secs.nsecs\nread_bytes                3469178 samples [bytes] 1048576 1048576 3637696790528 3814401549824688128\nwrite_bytes               186442470 samples [bytes] 1001 16777216 3092142771667945 4612433686335277585\nread                      3469178 samples [usecs] 623 16467 15904108552 85258323792650\nwrite                     186442470 samples [usecs] 36 149845092510 -823495890607571055 4426400394686790401\npunch                     562 samples [usecs] 10 48020 5760464 159896287662\nsync                      719 samples [usecs] 0 76522 930977 13284701619\ncreate                    11 samples [usecs] 2 30809 69396 1415757344\nstatfs                    58418 samples [usecs] 0 756 191916 2548952\nget_info                  2 samples [usecs] 294 2488 2782 6276580\nset_info                  48 samples [usecs] 5 15 562 6948\n",
+)

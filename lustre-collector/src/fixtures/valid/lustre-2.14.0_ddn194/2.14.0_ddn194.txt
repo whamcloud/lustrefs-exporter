@@ -1,0 +1,381 @@
+memused=5243093513
+memused_max=5253184993
+lnet_memused=375012180
+health_check=healthy
+mdt.ai400x3-MDT0000.exports.0@lo.uuid=
+ai400x3-MDT0000-lwp-OST0001_UUID
+ai400x3-MDT0000-lwp-OST0000_UUID
+ai400x3-MDT0000-lwp-MDT0000_UUID
+mdt.ai400x3-MDT0000.exports.172.16.130.31@o2ib.uuid=
+ai400x3-MDT0000-lwp-MDT0001_UUID
+ai400x3-MDT0000-lwp-OST0003_UUID
+ai400x3-MDT0000-lwp-OST0002_UUID
+ai400x3-MDT0001-mdtlov_UUID
+mdt.ai400x3-MDT0000.exports.172.16.252.11@o2ib.uuid=2b8e849b-ae70-44f3-9151-261732db2d7c
+mdt.ai400x3-MDT0000.exports.172.16.252.12@o2ib.uuid=3d90d747-3548-4bea-bf98-6b457c891e89
+mdt.ai400x3-MDT0000.exports.172.16.252.13@o2ib.uuid=69029009-bb5c-44b8-8365-602043157dc7
+mdt.ai400x3-MDT0000.exports.172.16.252.14@o2ib.uuid=12c50138-f459-4437-9f5b-934d03bb08e8
+mdt.ai400x3-MDT0000.exports.172.16.252.15@o2ib.uuid=216f36a8-89d8-4fbd-a349-c7e43d705998
+mdt.ai400x3-MDT0000.exports.172.16.252.16@o2ib.uuid=146b0d3c-b5a1-4b1f-a176-751cabd8aa78
+mdt.ai400x3-MDT0000.exports.172.16.252.17@o2ib.uuid=c859f228-9696-4d9b-902f-bcaf623665ad
+mdt.ai400x3-MDT0000.exports.172.16.252.18@o2ib.uuid=ba45844c-64b9-46ef-a227-1012dd455052
+mdt.ai400x3-MDT0000.exports.172.16.252.19@o2ib.uuid=d2a119cb-5e40-45ad-803c-cfc9ac0f87c6
+mdt.ai400x3-MDT0000.exports.172.16.252.20@o2ib.uuid=71396ec2-0940-4cea-8d2e-40da4240ae7a
+mdt.ai400x3-MDT0000.exports.172.16.252.21@o2ib.uuid=e09483b1-e25a-47b7-8295-74b1bd7b2068
+mdt.ai400x3-MDT0000.exports.172.16.252.22@o2ib.uuid=020d7888-fd38-4a4c-8e89-b4af669147cc
+mdt.ai400x3-MDT0000.exports.172.16.252.23@o2ib.uuid=18bb8b1f-0de8-4ce2-bf17-4cdf78eeb2bf
+mdt.ai400x3-MDT0000.exports.172.16.252.24@o2ib.uuid=40dd5baf-ce8f-48db-a4f8-3325a4abc092
+mdt.ai400x3-MDT0000.exports.172.16.252.25@o2ib.uuid=76af5769-8117-41bf-a97e-e0e06a5f3189
+mdt.ai400x3-MDT0000.exports.172.16.252.26@o2ib.uuid=b862e464-3a69-490a-8a2e-e489c67c6bf8
+osd-ldiskfs.MGS.filesfree=130877
+osd-ldiskfs.ai400x3-MDT0000.filesfree=171801633
+osd-ldiskfs.ai400x3-OST0000.filesfree=113243629
+osd-ldiskfs.ai400x3-OST0001.filesfree=113243629
+osd-ldiskfs.MGS.filestotal=131072
+osd-ldiskfs.ai400x3-MDT0000.filestotal=171802624
+osd-ldiskfs.ai400x3-OST0000.filestotal=113246208
+osd-ldiskfs.ai400x3-OST0001.filestotal=113246208
+osd-ldiskfs.MGS.fstype=ldiskfs
+osd-ldiskfs.ai400x3-MDT0000.fstype=ldiskfs
+osd-ldiskfs.ai400x3-OST0000.fstype=ldiskfs
+osd-ldiskfs.ai400x3-OST0001.fstype=ldiskfs
+osd-ldiskfs.MGS.kbytesavail=1873968
+osd-ldiskfs.ai400x3-MDT0000.kbytesavail=234139256
+osd-ldiskfs.ai400x3-OST0000.kbytesavail=13891968372
+osd-ldiskfs.ai400x3-OST0001.kbytesavail=13900062092
+osd-ldiskfs.MGS.kbytesfree=1978824
+osd-ldiskfs.ai400x3-MDT0000.kbytesfree=238434156
+osd-ldiskfs.ai400x3-OST0000.kbytesfree=14036939900
+osd-ldiskfs.ai400x3-OST0001.kbytesfree=14045033620
+osd-ldiskfs.MGS.kbytestotal=1980036
+osd-ldiskfs.ai400x3-MDT0000.kbytestotal=238453256
+osd-ldiskfs.ai400x3-OST0000.kbytestotal=14324071936
+osd-ldiskfs.ai400x3-OST0001.kbytestotal=14324071936
+osd-ldiskfs.MGS.brw_stats=
+snapshot_time:            1742378286.330946263 secs.nsecs
+start_time:               294.706849244 secs.nsecs
+elapsed_time:             1742377991.624097019 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+osd-ldiskfs.ai400x3-MDT0000.brw_stats=
+snapshot_time:            1742378286.330986134 secs.nsecs
+start_time:               296.941775270 secs.nsecs
+elapsed_time:             1742377989.389210864 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+osd-ldiskfs.ai400x3-OST0000.brw_stats=
+snapshot_time:            1742378286.331077094 secs.nsecs
+start_time:               294.926985080 secs.nsecs
+elapsed_time:             1742377991.404092014 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+1:                       1   0   0   |    1   0   0
+2:                       0   0   0   |    0   0   0
+4:                       0   0   0   |    0   0   0
+8:                       0   0   0   |    0   0   0
+16:                      0   0   0   |    0   0   0
+32:                      0   0   0   |    0   0   0
+64:                      0   0   0   |    0   0   0
+128:                     0   0   0   |    0   0   0
+256:               3469178  99 100   | 2278824   1   1
+512:                     0   0 100   |    0   0   1
+1K:                      0   0 100   |    0   0   1
+2K:                      0   0 100   |    0   0   1
+4K:                      0   0 100   | 184163638  98 100
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+0:                 3469179 100 100   | 186442463 100 100
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+0:                 3469179 100 100   | 186442463 100 100
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+1:                 3469178 100 100   | 2278825   1   1
+2:                       0   0 100   |    0   0   1
+3:                       0   0 100   |    0   0   1
+4:                       0   0 100   |    0   0   1
+5:                       0   0 100   |    0   0   1
+6:                       0   0 100   |    0   0   1
+7:                       0   0 100   |    0   0   1
+8:                       0   0 100   | 184163607  98 100
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+1:                   11031   0   0   | 37640   0   0
+2:                   32724   0   1   | 37119   0   0
+3:                   59126   1   2   | 33799   0   0
+4:                   88509   2   5   | 32873   0   0
+5:                  118436   3   8   | 33234   0   0
+6:                  146398   4  13   | 33690   0   0
+7:                  169882   4  18   | 34209   0   0
+8:                  189048   5  23   | 34919   0   0
+9:                  202061   5  29   | 31131   0   0
+10:                 208966   6  35   | 30716   0   0
+11:                 209823   6  41   | 30576   0   0
+12:                 206145   5  47   | 32027   0   0
+13:                 198829   5  53   | 34036   0   0
+14:                 187830   5  58   | 35276   0   0
+15:                 174810   5  63   | 36630   0   0
+16:                 160457   4  68   | 38056   0   0
+17:                 145904   4  72   | 35268   0   0
+18:                 130831   3  76   | 33800   0   0
+19:                 116398   3  79   | 33157   0   0
+20:                 102238   2  82   | 34846   0   0
+21:                  89557   2  85   | 36630   0   0
+22:                  78054   2  87   | 37848   0   0
+23:                  66884   1  89   | 40316   0   0
+24:                  57465   1  90   | 41816   0   0
+25:                  49499   1  92   | 37885   0   0
+26:                  42115   1  93   | 34775   0   0
+27:                  35657   1  94   | 33256   0   0
+28:                  30284   0  95   | 35188   0   0
+29:                  25435   0  96   | 36974   0   0
+30:                  21164   0  96   | 39293   0   0
+31:                 113618   3 100   | 1474530942  99 100
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+1:                 3468728  99  99   | 426596   0   0
+2:                     394   0  99   | 1211846   0   0
+4:                      56   0 100   | 1694657   0   1
+8:                       0   0 100   | 3947333   2   3
+16:                      0   0 100   | 84324306  45  49
+32:                      0   0 100   | 94811548  50  99
+64:                      0   0 100   | 21878   0  99
+128:                     0   0 100   | 2254   0  99
+256:                     0   0 100   | 1984   0  99
+512:                     0   0 100   |   30   0 100
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+4K:                      0   0   0   |    1   0   0
+8K:                      0   0   0   |    0   0   0
+16K:                     0   0   0   |    0   0   0
+32K:                     0   0   0   |    0   0   0
+64K:                     0   0   0   |    0   0   0
+128K:                    0   0   0   |    0   0   0
+256K:                    0   0   0   |    0   0   0
+512K:                    0   0   0   |    0   0   0
+1M:                3469178 100 100   | 2278824   0   0
+2M:                      0   0 100   | 1473309100  99 100
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+1:                 5587235 100 100   | 184196106  99  99
+2:                       0   0 100   | 37811   0  99
+4:                       0   0 100   | 57416   0  99
+8:                       0   0 100   | 26317   0  99
+16:                      0   0 100   | 6371   0  99
+32:                      0   0 100   |  386   0  99
+64:                      0   0 100   |    1   0 100
+osd-ldiskfs.ai400x3-OST0001.brw_stats=
+snapshot_time:            1742378286.331377474 secs.nsecs
+start_time:               294.929814230 secs.nsecs
+elapsed_time:             1742377991.401563244 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+256:               3445342 100 100   | 2280559   1   1
+512:                     0   0 100   |    0   0   1
+1K:                      0   0 100   |    0   0   1
+2K:                      0   0 100   |    0   0   1
+4K:                      0   0 100   | 184163464  98 100
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+0:                 3445342 100 100   | 186444023 100 100
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+0:                 3445342 100 100   | 186444023 100 100
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+1:                 3445342 100 100   | 2280559   1   1
+2:                       0   0 100   |    0   0   1
+3:                       0   0 100   |    0   0   1
+4:                       0   0 100   |    0   0   1
+5:                       0   0 100   |    0   0   1
+6:                       0   0 100   |    0   0   1
+7:                       0   0 100   |    0   0   1
+8:                       0   0 100   | 184163432  98 100
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+1:                   10751   0   0   | 37172   0   0
+2:                   31984   0   1   | 37038   0   0
+3:                   57527   1   2   | 34367   0   0
+4:                   85327   2   5   | 33126   0   0
+5:                  113467   3   8   | 33520   0   0
+6:                  139664   4  12   | 33944   0   0
+7:                  162002   4  17   | 34396   0   0
+8:                  179216   5  22   | 35066   0   0
+9:                  191120   5  28   | 31772   0   0
+10:                 197679   5  33   | 31340   0   0
+11:                 199594   5  39   | 31292   0   0
+12:                 196790   5  45   | 32574   0   0
+13:                 189488   5  50   | 34171   0   0
+14:                 180124   5  56   | 35309   0   0
+15:                 168505   4  61   | 36784   0   0
+16:                 155702   4  65   | 37954   0   0
+17:                 142949   4  69   | 35100   0   0
+18:                 129366   3  73   | 33947   0   0
+19:                 116852   3  76   | 33528   0   0
+20:                 104460   3  79   | 34844   0   0
+21:                  92552   2  82   | 36372   0   0
+22:                  81714   2  84   | 37795   0   0
+23:                  71771   2  87   | 40284   0   0
+24:                  62714   1  88   | 41802   0   0
+25:                  54487   1  90   | 38453   0   0
+26:                  47146   1  91   | 35672   0   0
+27:                  41005   1  92   | 34429   0   0
+28:                  35503   1  94   | 35478   0   0
+29:                  30731   0  94   | 37009   0   0
+30:                  26432   0  95   | 39094   0   0
+31:                 148720   4 100   | 1474524636  99 100
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+1:                 3444784  99  99   | 419002   0   0
+2:                     546   0  99   | 1176872   0   0
+4:                      12   0 100   | 1786299   0   1
+8:                       0   0 100   | 4058146   2   3
+16:                      0   0 100   | 84903828  45  49
+32:                      0   0 100   | 94071811  50  99
+64:                      0   0 100   | 24280   0  99
+128:                     0   0 100   | 1978   0  99
+256:                     0   0 100   | 1703   0  99
+512:                     0   0 100   |   72   0 100
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+1M:                3445342 100 100   | 2280559   0   0
+2M:                      0   0 100   | 1473307709  99 100
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+1:                 5570253 100 100   | 184191672  99  99
+2:                       0   0 100   | 37686   0  99
+4:                       0   0 100   | 58888   0  99
+8:                       0   0 100   | 24624   0  99
+16:                      0   0 100   | 5989   0  99
+32:                      0   0 100   |  254   0 100
+osd-ldiskfs.ai400x3-MDT0000.quota_slave.acct_group=
+grp_accounting:
+- id:      0
+  usage:   { inodes:          981, kbytes:         2208 }
+osd-ldiskfs.ai400x3-OST0000.quota_slave.acct_group=
+grp_accounting:
+- id:      0
+  usage:   { inodes:         2569, kbytes:    287181152 }
+osd-ldiskfs.ai400x3-OST0001.quota_slave.acct_group=
+grp_accounting:
+- id:      0
+  usage:   { inodes:         2569, kbytes:    279087432 }
+osd-ldiskfs.ai400x3-MDT0000.quota_slave.acct_user=
+usr_accounting:
+- id:      0
+  usage:   { inodes:          981, kbytes:         2208 }
+osd-ldiskfs.ai400x3-OST0000.quota_slave.acct_user=
+usr_accounting:
+- id:      0
+  usage:   { inodes:         2569, kbytes:    287230304 }
+osd-ldiskfs.ai400x3-OST0001.quota_slave.acct_user=
+usr_accounting:
+- id:      0
+  usage:   { inodes:         2569, kbytes:    279087432 }
+osd-ldiskfs.ai400x3-MDT0000.quota_slave.acct_project=
+prj_accounting:
+- id:      0
+  usage:   { inodes:          981, kbytes:         2208 }
+osd-ldiskfs.ai400x3-OST0000.quota_slave.acct_project=
+prj_accounting:
+- id:      0
+  usage:   { inodes:         2569, kbytes:    287230304 }
+osd-ldiskfs.ai400x3-OST0001.quota_slave.acct_project=
+prj_accounting:
+- id:      0
+  usage:   { inodes:         2569, kbytes:    279103816 }
+mgs.MGS.mgs.stats=
+snapshot_time             1742378286.332404314 secs.nsecs
+start_time                1742228735.971713946 secs.nsecs
+elapsed_time              149550.360690368 secs.nsecs
+req_waittime              107783 samples [usecs] 7 9978 5068458 537774428
+req_qdepth                107783 samples [reqs] 0 1 1 1
+req_active                107783 samples [reqs] 1 2 107900 108134
+req_timeout               107783 samples [secs] 1 15 1614710 24218570
+reqbuf_avail              215009 samples [bufs] 62 64 13545231 853328989
+ldlm_plain_enqueue        101 samples [reqs] 1 1 101 101
+mgs_connect               18 samples [usecs] 25 76 670 29908
+mgs_target_reg            12 samples [usecs] 15 1292 3922 2794268
+mgs_config_read           22 samples [usecs] 30 179 1453 115179
+obd_ping                  107361 samples [usecs] 5 1128 3401066 124129922
+llog_origin_handle_open   82 samples [usecs] 8 44 1164 20648
+llog_origin_handle_next_block 129 samples [usecs] 9 143 2307 103597
+llog_origin_handle_read_header 58 samples [usecs] 9 213 1747 213951
+mgs.MGS.mgs.threads_max=32
+mgs.MGS.mgs.threads_min=3
+mgs.MGS.mgs.threads_started=4
+mgs.MGS.num_exports=18
+obdfilter.ai400x3-OST0000.stats=
+snapshot_time             1742378286.332900343 secs.nsecs
+start_time                1742228736.573307453 secs.nsecs
+elapsed_time              149549.759592890 secs.nsecs
+read_bytes                3469178 samples [bytes] 1048576 1048576 3637696790528 3814401549824688128
+write_bytes               186442470 samples [bytes] 1001 16777216 3092142771667945 4612433686335277585
+read                      3469178 samples [usecs] 623 16467 15904108552 85258323792650
+write                     186442470 samples [usecs] 36 149845092510 -823495890607571055 4426400394686790401
+punch                     562 samples [usecs] 10 48020 5760464 159896287662
+sync                      719 samples [usecs] 0 76522 930977 13284701619
+create                    11 samples [usecs] 2 30809 69396 1415757344
+statfs                    58418 samples [usecs] 0 756 191916 2548952
+get_info                  2 samples [usecs] 294 2488 2782 6276580
+set_info                  48 samples [usecs] 5 15 562 6948

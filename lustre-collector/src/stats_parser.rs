@@ -225,4 +225,28 @@ snapshot_time             1581546409.693472737 secs.nsecs
 
         assert_debug_snapshot!(result);
     }
+
+    #[test]
+    fn test_negative_stat() {
+        let x = r#"write                     186442470 samples [usecs] 36 149845092510 -823495890607571055 4426400394686790401
+"#;
+
+        let result = stat().parse(x);
+
+        assert_eq!(
+            result,
+            Ok((
+                Stat {
+                    name: "write".to_string(),
+                    units: "usec".to_string(),
+                    samples: 186442470,
+                    min: Some(36),
+                    max: Some(149845092510),
+                    sum: None,
+                    sumsquare: Some(2_156_132)
+                },
+                ""
+            ))
+        );
+    }
 }
