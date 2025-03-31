@@ -65,7 +65,7 @@ where
 }
 
 /// Takes many consecutive digits and
-/// returns them as u64. 
+/// returns them as u64.
 /// Return None for negative numbers
 pub(crate) fn digits_positive<I>() -> impl Parser<I, Output = Option<u64>>
 where
