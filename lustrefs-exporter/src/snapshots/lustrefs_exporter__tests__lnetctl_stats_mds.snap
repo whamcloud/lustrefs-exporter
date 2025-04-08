@@ -39,6 +39,34 @@ lustre_capacity_kilobytes{component="ost",target="fs-OST0001"} 4108388
 # TYPE lustre_changelog_current_index gauge
 lustre_changelog_current_index{target="fs-MDT0000"} 0
 
+# HELP lustre_client_export_bytes_total Sum of bytes per operation the target has performed per export.
+# TYPE lustre_client_export_bytes_total counter
+lustre_client_export_bytes_total{component="ost",target="fs-OST0000",nid="0@lo",name="write_bytes",units="bytes"} 104857600
+lustre_client_export_bytes_total{component="mdt",target="fs-MDT0000",nid="0@lo",name="read_bytes",units="bytes"} 409600
+lustre_client_export_bytes_total{component="mdt",target="fs-MDT0000",nid="0@lo",name="write_bytes",units="bytes"} 409600
+
+# HELP lustre_client_export_milliseconds_total Sum of latency per operations the target has performed per export.
+# TYPE lustre_client_export_milliseconds_total counter
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0000",nid="0@lo",name="write",units="usecs"} 6834466
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0000",nid="0@lo",name="setattr",units="usecs"} 46
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0000",nid="0@lo",name="create",units="usecs"} 39346
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0000",nid="0@lo",name="statfs",units="usecs"} 16897
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0000",nid="0@lo",name="get_info",units="usecs"} 56470
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0000",nid="0@lo",name="set_info",units="usecs"} 73
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0001",nid="0@lo",name="create",units="usecs"} 12841
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0001",nid="0@lo",name="statfs",units="usecs"} 15778
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0001",nid="0@lo",name="get_info",units="usecs"} 21408
+lustre_client_export_milliseconds_total{component="mdt",target="fs-MDT0000",nid="0@lo",name="open",units="usecs"} 23055
+lustre_client_export_milliseconds_total{component="mdt",target="fs-MDT0000",nid="0@lo",name="close",units="usecs"} 352
+lustre_client_export_milliseconds_total{component="mdt",target="fs-MDT0000",nid="0@lo",name="mknod",units="usecs"} 5580
+lustre_client_export_milliseconds_total{component="mdt",target="fs-MDT0000",nid="0@lo",name="getattr",units="usecs"} 7053
+lustre_client_export_milliseconds_total{component="mdt",target="fs-MDT0000",nid="0@lo",name="setattr",units="usecs"} 605
+lustre_client_export_milliseconds_total{component="mdt",target="fs-MDT0000",nid="0@lo",name="getxattr",units="usecs"} 15
+lustre_client_export_milliseconds_total{component="mdt",target="fs-MDT0000",nid="0@lo",name="statfs",units="usecs"} 63
+lustre_client_export_milliseconds_total{component="mdt",target="fs-MDT0000",nid="0@lo",name="read",units="usecs"} 15414
+lustre_client_export_milliseconds_total{component="mdt",target="fs-MDT0000",nid="0@lo",name="write",units="usecs"} 363
+lustre_client_export_milliseconds_total{component="mdt",target="fs-MDT0000",nid="0@lo",name="punch",units="usecs"} 28
+
 # HELP lustre_client_export_stats Number of operations the target has performed per export.
 # TYPE lustre_client_export_stats counter
 lustre_client_export_stats{component="ost",target="fs-OST0000",nid="0@lo",name="write_bytes",units="bytes"} 26

@@ -280,6 +280,18 @@ static EXPORT_STATS: Metric = Metric {
     r#type: MetricType::Counter,
 };
 
+static EXPORT_STATS_LATENCY: Metric = Metric {
+    name: "lustre_client_export_milliseconds_total",
+    help: "Sum of latency per operations the target has performed per export.",
+    r#type: MetricType::Counter,
+};
+
+static EXPORT_STATS_THROUGHPUT: Metric = Metric {
+    name: "lustre_client_export_bytes_total",
+    help: "Sum of bytes per operation the target has performed per export.",
+    r#type: MetricType::Counter,
+};
+
 pub fn build_export_stats(
     x: TargetStat<Vec<ExportStats>>,
     stats_map: &mut BTreeMap<&'static str, PrometheusMetric<'static>>,
@@ -298,7 +310,10 @@ pub fn build_export_stats(
                 name,
                 units,
                 samples,
-                ..
+                min: _,
+                max: _,
+                sum,
+                sumsquare: _,
             } = s;
             let metric = match param.0.as_str() {
                 "exports" => stats_map.get_mut_metric(EXPORT_STATS),
@@ -314,6 +329,30 @@ pub fn build_export_stats(
                 .with_value(samples);
 
             metric.render_and_append_instance(&stat);
+
+            if let Some(sum) = sum {
+                if units == "bytes" {
+                    let metric_bytes = stats_map.get_mut_metric(EXPORT_STATS_THROUGHPUT);
+                    let throughput_stat = PrometheusInstance::new()
+                        .with_label("component", kind.to_prom_label())
+                        .with_label("target", target.deref())
+                        .with_label("nid", nid.as_str())
+                        .with_label("name", name.as_str())
+                        .with_label("units", units.as_str())
+                        .with_value(sum);
+                    metric_bytes.render_and_append_instance(&throughput_stat);
+                } else if units == "usecs" {
+                    let metric_usecs = stats_map.get_mut_metric(EXPORT_STATS_LATENCY);
+                    let latency_stat = PrometheusInstance::new()
+                        .with_label("component", kind.to_prom_label())
+                        .with_label("target", target.deref())
+                        .with_label("nid", nid.as_str())
+                        .with_label("name", name.as_str())
+                        .with_label("units", units.as_str())
+                        .with_value(sum);
+                    metric_usecs.render_and_append_instance(&latency_stat);
+                }
+            }
         }
     }
 }
