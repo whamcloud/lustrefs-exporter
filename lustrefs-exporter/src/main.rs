@@ -6,14 +6,24 @@ use axum::{
     body::{Body, Bytes},
     error_handling::HandleErrorLayer,
     extract::Query,
-    http::StatusCode,
+    http::{self, HeaderValue, StatusCode},
     response::{IntoResponse, Response},
     routing::get,
-    BoxError, Router,
+    BoxError, Extension, Router,
 };
 use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
-use lustrefs_exporter::{build_lustre_stats, Error};
+use lustrefs_exporter::{
+    build_lustre_stats,
+    openmetrics::{self, OpenTelemetryMetrics},
+    Error,
+};
+use opentelemetry::{
+    global,
+    metrics::{Meter, MeterProvider},
+};
+use opentelemetry_sdk::{metrics::SdkMeterProvider, Resource};
+use prometheus::{Encoder as _, Registry, TextEncoder};
 use serde::Deserialize;
 use std::{
     borrow::Cow,
@@ -59,11 +69,43 @@ struct Params {
     jobstats: bool,
 }
 
+pub fn init_opentelemetry() -> Result<
+    (opentelemetry_sdk::metrics::SdkMeterProvider, Registry),
+    opentelemetry_sdk::metrics::MetricError,
+> {
+    // Build the Prometheus exporter.
+    // The metrics will be exposed in the Prometheus format.
+    let registry = Registry::new();
+    let prometheus_exporter = opentelemetry_prometheus::exporter()
+        .with_registry(registry.clone())
+        .without_counter_suffixes()
+        .build()?;
+
+    let provider = SdkMeterProvider::builder()
+        .with_reader(prometheus_exporter)
+        .with_resource(
+            Resource::builder()
+                .with_service_name("lustrefs-exporter")
+                .build(),
+        )
+        .build();
+
+    Ok((provider, registry))
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
     let opts = CommandOpts::parse();
+
+    let (provider, registry) = init_opentelemetry()?;
+
+    // Set the global MeterProvider to the one created above.
+    // This will make all meters created with `global::meter()` use the above MeterProvider.
+    global::set_meter_provider(provider.clone());
+
+    let meter = provider.meter("lustre");
 
     let addr = SocketAddr::from(([0, 0, 0, 0], opts.port));
 
@@ -78,14 +120,20 @@ async fn main() -> Result<(), Error> {
 
     let app = Router::new()
         .route("/metrics", get(scrape))
-        .layer(load_shedder);
+        .layer(load_shedder)
+        .layer(Extension(registry.clone()))
+        .layer(Extension(meter.clone()));
 
     axum::serve(listener, app).await?;
 
     Ok(())
 }
 
-async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
+async fn scrape(
+    Query(params): Query<Params>,
+    Extension(registry): Extension<Registry>,
+    Extension(meter): Extension<Meter>,
+) -> Result<Response<Body>, Error> {
     let jobstats = if params.jobstats {
         let child = tokio::task::spawn_blocking(move || {
             let child = std::process::Command::new("lctl")
@@ -179,6 +227,16 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
 
     output.append(&mut lnetctl_stats_record);
 
+    let opentelemetry_metrics = OpenTelemetryMetrics::new(meter.clone());
+
+    let mut buffer = vec![];
+    let encoder = TextEncoder::new();
+    let metric_families = registry.gather();
+    let encoder_results = encoder.encode(&metric_families, &mut buffer);
+
+    // Build OTEL metrics
+    openmetrics::build_lustre_stats(&output, opentelemetry_metrics);
+
     let lustre_stats = build_lustre_stats(output);
 
     let body = if let Some(stream) = jobstats {
@@ -192,8 +250,14 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
         Body::from(lustre_stats)
     };
 
-    let response_builder = Response::builder().status(StatusCode::OK);
+    let mut response_builder = Response::builder().status(StatusCode::OK);
 
+    let headers = response_builder.headers_mut();
+    if let Ok(content_type) = encoder.format_type().parse::<HeaderValue>() {
+        if let Some(headers) = headers {
+            headers.insert(http::header::CONTENT_TYPE, content_type);
+        }
+    }
     let resp = response_builder.body(body)?;
 
     Ok(resp)
@@ -201,11 +265,14 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
 
 #[cfg(test)]
 mod tests {
-    use crate::build_lustre_stats;
+    use crate::{build_lustre_stats, init_opentelemetry};
     use combine::parser::EasyParser;
     use include_dir::{include_dir, Dir};
     use insta::assert_snapshot;
     use lustre_collector::parser::parse;
+    use lustrefs_exporter::openmetrics::OpenTelemetryMetrics;
+    use opentelemetry::metrics::MeterProvider;
+    use prometheus::{Encoder as _, TextEncoder};
 
     static VALID_FIXTURES: Dir<'_> =
         include_dir!("$CARGO_MANIFEST_DIR/../lustre-collector/src/fixtures/valid/");
@@ -228,6 +295,43 @@ mod tests {
                     let x = build_lustre_stats(result.0);
 
                     assert_snapshot!(format!("valid_fixture_{name}"), x);
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn test_valid_fixtures_otel() {
+        for dir in VALID_FIXTURES.find("*").unwrap() {
+            match dir {
+                include_dir::DirEntry::Dir(_) => {}
+                include_dir::DirEntry::File(file) => {
+                    let name = file.path().to_string_lossy();
+
+                    let contents = file.contents_utf8().unwrap();
+
+                    let result = parse()
+                        .easy_parse(contents)
+                        .map_err(|err| err.map_position(|p| p.translate_position(contents)))
+                        .unwrap();
+
+                    let (provider, registry) =
+                        init_opentelemetry().expect("Failed to initialize OpenTelemetry");
+
+                    let meter = provider.meter("lustre");
+
+                    let otel = OpenTelemetryMetrics::new(meter);
+
+                    crate::openmetrics::build_lustre_stats(&result.0, otel);
+
+                    let mut buffer = vec![];
+                    let encoder = TextEncoder::new();
+                    let metric_families = registry.gather();
+                    encoder.encode(&metric_families, &mut buffer).unwrap();
+
+                    let x = String::from_utf8_lossy(&buffer).to_string();
+
+                    assert_snapshot!(format!("valid_fixture_otel_{name}"), x);
                 }
             }
         }

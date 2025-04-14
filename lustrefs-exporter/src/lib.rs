@@ -7,6 +7,7 @@ pub mod host;
 pub mod jobstats;
 pub mod llite;
 pub mod lnet;
+pub mod openmetrics;
 pub mod quota;
 pub mod service;
 pub mod stats;
@@ -40,6 +41,8 @@ pub enum Error {
     Utf8(#[from] std::str::Utf8Error),
     #[error("Could not find match for {0} in {1}")]
     NoCap(&'static str, String),
+    #[error(transparent)]
+    Otel(#[from] opentelemetry_sdk::metrics::MetricError),
 }
 
 impl IntoResponse for Error {

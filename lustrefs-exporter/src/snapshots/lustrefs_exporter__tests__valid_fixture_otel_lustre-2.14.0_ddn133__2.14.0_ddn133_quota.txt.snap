@@ -1,0 +1,55 @@
+---
+source: lustrefs-exporter/src/main.rs
+expression: x
+---
+# HELP lustre_quota_granted The granted quota for a given component.
+# TYPE lustre_quota_granted gauge
+lustre_quota_granted{accounting="group",id="0",manager="dt",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="group",id="0",manager="md",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="project",id="0",manager="dt",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="project",id="0",manager="md",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="user",id="0",manager="dt",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="user",id="0",manager="md",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+# HELP lustre_quota_hard The hard quota for a given component.
+# TYPE lustre_quota_hard gauge
+lustre_quota_hard{accounting="group",id="0",manager="dt",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="group",id="0",manager="md",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="project",id="0",manager="dt",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="project",id="0",manager="md",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="user",id="0",manager="dt",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="user",id="0",manager="md",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+# HELP lustre_quota_soft The soft quota for a given component.
+# TYPE lustre_quota_soft gauge
+lustre_quota_soft{accounting="group",id="0",manager="dt",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="group",id="0",manager="md",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="project",id="0",manager="dt",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="project",id="0",manager="md",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="user",id="0",manager="dt",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="user",id="0",manager="md",pool="",target="ai400x2-QMT0000",otel_scope_name="lustre"} 0
+# HELP lustre_quota_used_inodes The amount of inodes used by quota.
+# TYPE lustre_quota_used_inodes gauge
+lustre_quota_used_inodes{accounting="group",component="MDT",id="0",target="ai400x2-MDT0000",otel_scope_name="lustre"} 2416855
+lustre_quota_used_inodes{accounting="group",component="OST",id="0",target="ai400x2-OST0000",otel_scope_name="lustre"} 3721
+lustre_quota_used_inodes{accounting="group",component="OST",id="0",target="ai400x2-OST0001",otel_scope_name="lustre"} 3718
+lustre_quota_used_inodes{accounting="project",component="MDT",id="0",target="ai400x2-MDT0000",otel_scope_name="lustre"} 2416855
+lustre_quota_used_inodes{accounting="project",component="OST",id="0",target="ai400x2-OST0000",otel_scope_name="lustre"} 3721
+lustre_quota_used_inodes{accounting="project",component="OST",id="0",target="ai400x2-OST0001",otel_scope_name="lustre"} 3718
+lustre_quota_used_inodes{accounting="user",component="MDT",id="0",target="ai400x2-MDT0000",otel_scope_name="lustre"} 2416855
+lustre_quota_used_inodes{accounting="user",component="MDT",id="23",target="ai400x2-MDT0000",otel_scope_name="lustre"} 241123355
+lustre_quota_used_inodes{accounting="user",component="OST",id="0",target="ai400x2-OST0000",otel_scope_name="lustre"} 3721
+lustre_quota_used_inodes{accounting="user",component="OST",id="0",target="ai400x2-OST0001",otel_scope_name="lustre"} 3718
+# HELP lustre_quota_used_kbytes The amount of kbytes used by quota.
+# TYPE lustre_quota_used_kbytes gauge
+lustre_quota_used_kbytes{accounting="group",component="MDT",id="0",target="ai400x2-MDT0000",otel_scope_name="lustre"} 10214128
+lustre_quota_used_kbytes{accounting="group",component="OST",id="0",target="ai400x2-OST0000",otel_scope_name="lustre"} 3184221836
+lustre_quota_used_kbytes{accounting="group",component="OST",id="0",target="ai400x2-OST0001",otel_scope_name="lustre"} 3255431104
+lustre_quota_used_kbytes{accounting="project",component="MDT",id="0",target="ai400x2-MDT0000",otel_scope_name="lustre"} 10214128
+lustre_quota_used_kbytes{accounting="project",component="OST",id="0",target="ai400x2-OST0000",otel_scope_name="lustre"} 3184221836
+lustre_quota_used_kbytes{accounting="project",component="OST",id="0",target="ai400x2-OST0001",otel_scope_name="lustre"} 3255431104
+lustre_quota_used_kbytes{accounting="user",component="MDT",id="0",target="ai400x2-MDT0000",otel_scope_name="lustre"} 10214128
+lustre_quota_used_kbytes{accounting="user",component="MDT",id="23",target="ai400x2-MDT0000",otel_scope_name="lustre"} 102141328
+lustre_quota_used_kbytes{accounting="user",component="OST",id="0",target="ai400x2-OST0000",otel_scope_name="lustre"} 3184221836
+lustre_quota_used_kbytes{accounting="user",component="OST",id="0",target="ai400x2-OST0001",otel_scope_name="lustre"} 3255431104
+# HELP target_info Target metadata
+# TYPE target_info gauge
+target_info{service_name="lustrefs-exporter",telemetry_sdk_language="rust",telemetry_sdk_name="opentelemetry",telemetry_sdk_version="0.29.0"} 1

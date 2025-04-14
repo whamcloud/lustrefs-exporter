@@ -494,3 +494,22 @@ pub fn build_target_stats(
         TargetStats::Mds(x) => build_mds_stats(x, stats_map),
     };
 }
+
+pub mod opentelemetry {
+    use lustre_collector::TargetStats;
+
+    use crate::openmetrics::OpenTelemetryMetrics;
+    use crate::quota::opentelemetry::{build_ost_quota_stats, build_quota_stats};
+
+    pub fn build_target_stats(x: &TargetStats, otel: &OpenTelemetryMetrics) {
+        match x {
+            TargetStats::QuotaStats(x) => {
+                build_quota_stats(x, &otel.quota);
+            }
+            TargetStats::QuotaStatsOsd(x) => {
+                build_ost_quota_stats(&x, &otel.quota);
+            }
+            _ => {}
+        };
+    }
+}
