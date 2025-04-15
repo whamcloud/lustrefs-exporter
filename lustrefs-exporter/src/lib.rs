@@ -25,7 +25,11 @@ use lustre_collector::{
 use num_traits::Num;
 use prometheus_exporter_base::{prelude::*, Yes};
 use service::build_service_stats;
-use std::{collections::BTreeMap, fmt, ops::Deref};
+use std::{
+    collections::{BTreeMap, HashSet},
+    fmt,
+    ops::Deref,
+};
 
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
@@ -161,6 +165,7 @@ impl StatsMapExt for BTreeMap<&'static str, PrometheusMetric<'static>> {
 pub fn build_lustre_stats(output: Vec<Record>) -> String {
     let mut stats_map = BTreeMap::new();
 
+    let mut set = HashSet::new();
     for x in output {
         match x {
             lustre_collector::Record::Host(x) => {
@@ -171,7 +176,7 @@ pub fn build_lustre_stats(output: Vec<Record>) -> String {
                 build_lnet_stats(x, &mut stats_map);
             }
             lustre_collector::Record::Target(x) => {
-                build_target_stats(x, &mut stats_map);
+                build_target_stats(x, &mut stats_map, &mut set);
             }
             lustre_collector::Record::LustreService(x) => {
                 build_service_stats(x, &mut stats_map);

@@ -36,3 +36,47 @@ pub fn build_llite_stats(
             );
     }
 }
+
+pub mod opentelemetry {
+    use std::ops::Deref;
+
+    use lustre_collector::LliteStat;
+    use opentelemetry::{
+        metrics::{Gauge, Meter},
+        KeyValue,
+    };
+
+    #[derive(Debug)]
+    pub struct OpenTelemetryMetricsLlite {
+        pub client_stats: Gauge<u64>,
+    }
+
+    impl OpenTelemetryMetricsLlite {
+        pub fn new(meter: &Meter) -> Self {
+            OpenTelemetryMetricsLlite {
+                client_stats: meter
+                    .u64_gauge("lustre_client_stats")
+                    .with_description("Lustre client interface stats.")
+                    .build(),
+            }
+        }
+    }
+
+    pub fn build_llite_stats(x: &LliteStat, otel_llite: &OpenTelemetryMetricsLlite) {
+        let LliteStat {
+            target,
+            param: _,
+            stats,
+        } = x;
+
+        for stat in stats {
+            otel_llite.client_stats.record(
+                stat.samples,
+                &[
+                    KeyValue::new("operation", stat.name.deref().to_string()),
+                    KeyValue::new("target", target.deref().to_string()),
+                ],
+            );
+        }
+    }
+}

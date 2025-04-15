@@ -16,6 +16,8 @@ pub mod opentelemetry {
         KeyValue,
     };
 
+    use crate::LabelProm as _;
+
     #[derive(Debug)]
     pub struct OpenTelemetryMetricsQuota {
         pub quota_hard: Gauge<u64>,
@@ -26,7 +28,7 @@ pub mod opentelemetry {
     }
 
     impl OpenTelemetryMetricsQuota {
-        pub fn new(meter: Meter) -> Self {
+        pub fn new(meter: &Meter) -> Self {
             OpenTelemetryMetricsQuota {
                 quota_hard: meter
                     .u64_gauge("lustre_quota_hard")
@@ -45,7 +47,7 @@ pub mod opentelemetry {
                     .build(),
                 quota_used_kbytes: meter
                     .u64_gauge("lustre_quota_used_kbytes")
-                    .with_description("The amount of kbytes used by quota.")
+                    .with_description("The hard quota for a given component.")
                     .with_unit("kbytes")
                     .build(),
                 quota_used_inodes: meter
@@ -133,7 +135,7 @@ pub mod opentelemetry {
             otel_quota.quota_used_inodes.record(
                 s.usage.inodes,
                 &[
-                    KeyValue::new("component", kind.to_string()),
+                    KeyValue::new("component", kind.to_prom_label().to_string()),
                     KeyValue::new("accounting", accounting),
                     KeyValue::new("target", target.to_string()),
                     KeyValue::new("id", s.id.to_string()),
@@ -142,7 +144,7 @@ pub mod opentelemetry {
             otel_quota.quota_used_kbytes.record(
                 s.usage.kbytes,
                 &[
-                    KeyValue::new("component", kind.to_string()),
+                    KeyValue::new("component", kind.to_prom_label().to_string()),
                     KeyValue::new("accounting", accounting),
                     KeyValue::new("target", target.to_string()),
                     KeyValue::new("id", s.id.to_string()),

@@ -8,9 +8,6 @@ lustre_available_kilobytes{component="mdt",target="ai400x2-MDT0000"} 405704300
 lustre_available_kilobytes{component="ost",target="ai400x2-OST0000"} 32526506848
 lustre_available_kilobytes{component="ost",target="ai400x2-OST0001"} 32532536272
 
-# HELP lustre_block_maps_milliseconds_total Number of block maps in milliseconds
-# TYPE lustre_block_maps_milliseconds_total counter
-
 # HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes
 # TYPE lustre_capacity_kilobytes gauge
 lustre_capacity_kilobytes{component="mdt",target="ai400x2-MDT0000"} 414229176
@@ -21,21 +18,6 @@ lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0001"} 34750424936
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="ai400x2-MDT0000"} 0
 lustre_connected_clients{component="mdt",target="ai400x2-MDT0000"} 0
-
-# HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.
-# TYPE lustre_dio_frags gauge
-
-# HELP lustre_discontiguous_blocks_total 'size' label represents 'Discontiguous blocks', the number of discontinuities in the physical block allocation in the file system for a single RPC
-# TYPE lustre_discontiguous_blocks_total counter
-
-# HELP lustre_discontiguous_pages_total Total number of logical discontinuities per RPC. 'size' label represents 'Discontiguous pages', the number of discontinuities in the logical file offset of each page in a single RPC.
-# TYPE lustre_discontiguous_pages_total counter
-
-# HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.
-# TYPE lustre_disk_io gauge
-
-# HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation
-# TYPE lustre_disk_io_total counter
 
 # HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
 # TYPE lustre_exports_dirty_total counter
@@ -79,9 +61,6 @@ lustre_inodes_free{component="ost",target="ai400x2-OST0001"} 274719491
 lustre_inodes_maximum{component="mdt",target="ai400x2-MDT0000"} 289887952
 lustre_inodes_maximum{component="ost",target="ai400x2-OST0000"} 274726912
 lustre_inodes_maximum{component="ost",target="ai400x2-OST0001"} 274726912
-
-# HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes. 'size' label represents 'I/O time (1/1000s)', the amount of time for each I/O operation to complete.
-# TYPE lustre_io_time_milliseconds_total counter
 
 # HELP lustre_ldlm_cbd_stats Gives information about LDLM Callback service.
 # TYPE lustre_ldlm_cbd_stats counter
@@ -167,9 +146,6 @@ lustre_oss_ost_stats{operation="ost_create",units="usecs"} 8
 lustre_oss_ost_stats{operation="ost_get_info",units="usecs"} 4
 lustre_oss_ost_stats{operation="ost_connect",units="usecs"} 28
 lustre_oss_ost_stats{operation="obd_ping",units="usecs"} 10
-
-# HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request
-# TYPE lustre_pages_per_bulk_rw_total counter
 
 # HELP lustre_stats_total Number of operations the filesystem has performed.
 # TYPE lustre_stats_total counter

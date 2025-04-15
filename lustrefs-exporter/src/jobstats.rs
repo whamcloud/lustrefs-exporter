@@ -315,6 +315,228 @@ fn render_stat(
     Ok(())
 }
 
+// pub mod opentelemetry {
+//     use compact_str::CompactString;
+//     use lustre_collector::TargetVariant;
+//     use opentelemetry::{
+//         metrics::{Counter, Gauge, Meter},
+//         KeyValue,
+//     };
+//     use std::io::BufRead;
+
+//     #[derive(Debug)]
+//     pub struct OpenTelemetryMetricsJobstats {
+//         pub read_samples_total: Counter<u64>,
+//         pub read_minimum_size_bytes: Gauge<u64>,
+//         pub read_maximum_size_bytes: Gauge<u64>,
+//         pub read_bytes_total: Counter<u64>,
+//         pub write_samples_total: Counter<u64>,
+//         pub write_minimum_size_bytes: Gauge<u64>,
+//         pub write_maximum_size_bytes: Gauge<u64>,
+//         pub write_bytes_total: Counter<u64>,
+//         pub stats_total: Counter<u64>,
+//     }
+
+//     impl OpenTelemetryMetricsJobstats {
+//         pub fn new(meter: &Meter) -> Self {
+//             OpenTelemetryMetricsJobstats {
+//                 read_samples_total: meter
+//                     .u64_counter("lustre_job_read_samples_total")
+//                     .with_description("Total number of reads that have been recorded.")
+//                     .build(),
+//                 read_minimum_size_bytes: meter
+//                     .u64_gauge("lustre_job_read_minimum_size_bytes")
+//                     .with_description("The minimum read size in bytes.")
+//                     .build(),
+//                 read_maximum_size_bytes: meter
+//                     .u64_gauge("lustre_job_read_maximum_size_bytes")
+//                     .with_description("The maximum read size in bytes.")
+//                     .build(),
+//                 read_bytes_total: meter
+//                     .u64_counter("lustre_job_read_bytes_total")
+//                     .with_description("The total number of bytes that have been read.")
+//                     .build(),
+//                 write_samples_total: meter
+//                     .u64_counter("lustre_job_write_samples_total")
+//                     .with_description("Total number of writes that have been recorded.")
+//                     .build(),
+//                 write_minimum_size_bytes: meter
+//                     .u64_gauge("lustre_job_write_minimum_size_bytes")
+//                     .with_description("The minimum write size in bytes.")
+//                     .build(),
+//                 write_maximum_size_bytes: meter
+//                     .u64_gauge("lustre_job_write_maximum_size_bytes")
+//                     .with_description("The maximum write size in bytes.")
+//                     .build(),
+//                 write_bytes_total: meter
+//                     .u64_counter("lustre_job_write_bytes_total")
+//                     .with_description("The total number of bytes that have been written.")
+//                     .build(),
+//                 stats_total: meter
+//                     .u64_counter("lustre_job_stats_total")
+//                     .with_description("Number of operations the filesystem has performed, recorded by jobstats.")
+//                     .build(),
+//             }
+//         }
+//     }
+// }
+
+//     pub fn record_jobstat(
+//         otel_jobstats: &OpenTelemetryMetricsJobstats,
+//         stat_name: &str,
+//         target: &str,
+//         jobid: &str,
+//         kind: &TargetVariant,
+//         samples: u64,
+//         min: u64,
+//         max: u64,
+//         sum: u64,
+//     ) {
+//         let base_labels = &[
+//             KeyValue::new("operation", stat_name.to_string()),
+//             KeyValue::new("component", kind.to_prom_label().to_string()),
+//             KeyValue::new("target", target.to_string()),
+//             KeyValue::new("jobid", jobid.to_string()),
+//         ];
+
+//         if kind == &TargetVariant::Ost {
+//             match stat_name {
+//                 "read_bytes" => {
+//                     otel_jobstats.read_samples_total.add(samples, base_labels);
+//                     otel_jobstats.read_minimum_size_bytes.record(min, base_labels);
+//                     otel_jobstats.read_maximum_size_bytes.record(max, base_labels);
+//                     otel_jobstats.read_bytes_total.add(sum, base_labels);
+//                 }
+//                 "write_bytes" => {
+//                     otel_jobstats.write_samples_total.add(samples, base_labels);
+//                     otel_jobstats.write_minimum_size_bytes.record(min, base_labels);
+//                     otel_jobstats.write_maximum_size_bytes.record(max, base_labels);
+//                     otel_jobstats.write_bytes_total.add(sum, base_labels);
+//                 }
+//                 "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs"
+//                 | "get_info" | "set_info" | "quotactl" => {
+//                     otel_jobstats.stats_total.add(samples, base_labels);
+//                 }
+//                 _ => {
+//                     // Unhandled OST jobstats stats
+//                 }
+//             }
+//         } else if kind == &TargetVariant::Mdt {
+//             match stat_name {
+//                 "open"
+//                 | "close"
+//                 | "mknod"
+//                 | "link"
+//                 | "unlink"
+//                 | "mkdir"
+//                 | "rmdir"
+//                 | "rename"
+//                 | "getattr"
+//                 | "setattr"
+//                 | "getxattr"
+//                 | "setxattr"
+//                 | "statfs"
+//                 | "sync"
+//                 | "samedir_rename"
+//                 | "parallel_rename_file"
+//                 | "parallel_rename_dir"
+//                 | "crossdir_rename"
+//                 | "read"
+//                 | "write"
+//                 | "read_bytes"
+//                 | "write_bytes"
+//                 | "punch"
+//                 | "migrate" => {
+//                     otel_jobstats.stats_total.add(samples, base_labels);
+//                 }
+//                 _ => {
+//                     // Unhandled MDT jobstats stats
+//                 }
+//             }
+//         }
+//     }
+
+//     pub fn process_jobstat_stream<R: BufRead + std::marker::Send + 'static>(
+//         stream: R,
+//         otel_jobstats: &OpenTelemetryMetricsJobstats,
+//     ) {
+//         use super::{jobstats_stream, JOB_STAT, TARGET};
+//         use tokio::sync::mpsc::error::TryRecvError;
+
+//         let (handle, mut rx) = jobstats_stream(stream);
+
+//         // Process stats from the channel
+//         tokio::task::spawn_blocking(move || {
+//             let mut target = String::new();
+//             let mut jobid = String::new();
+//             let mut kind = TargetVariant::Ost; // Default value
+
+//             loop {
+//                 match rx.try_recv() {
+//                     Ok(line) => {
+//                         let line_str = line.as_str();
+
+//                         // Process target line
+//                         if let Some(captures) = TARGET.captures(line_str) {
+//                             let (_, [kind_str, target_str]) = captures.extract();
+//                             target = target_str.to_string();
+//                             kind = if kind_str == "obdfilter" {
+//                                 TargetVariant::Ost
+//                             } else {
+//                                 TargetVariant::Mdt
+//                             };
+//                             continue;
+//                         }
+
+//                         // Process job id line
+//                         if line_str.starts_with("- job_id:") {
+//                             jobid = line_str.replace("- job_id:", "").replace('"', "").trim().to_string();
+//                             continue;
+//                         }
+
+//                         // Process stat line
+//                         if let Some(cap) = JOB_STAT.captures(line_str) {
+//                             let (_, [stat_name, samples_str, _, min_str, max_str, sum_str, _]) = cap.extract();
+
+//                             if let (Ok(samples), Ok(min), Ok(max), Ok(sum)) = (
+//                                 samples_str.parse::<u64>(),
+//                                 min_str.parse::<u64>(),
+//                                 max_str.parse::<u64>(),
+//                                 sum_str.parse::<u64>(),
+//                             ) {
+//                                 record_jobstat(
+//                                     otel_jobstats,
+//                                     stat_name,
+//                                     &target,
+//                                     &jobid,
+//                                     &kind,
+//                                     samples,
+//                                     min,
+//                                     max,
+//                                     sum,
+//                                 );
+//                             }
+//                         }
+//                     }
+//                     Err(TryRecvError::Empty) => {
+//                         // No data available, but channel is still open
+//                         std::thread::sleep(std::time::Duration::from_millis(10));
+//                     }
+//                     Err(TryRecvError::Disconnected) => {
+//                         // Channel closed, exit loop
+//                         break;
+//                     }
+//                 }
+//             }
+
+//             // Wait for the handle to complete
+//             if let Err(e) = handle.join() {
+//                 tracing::error!("Error joining jobstats stream handle: {:?}", e);
+//             }
+//         });
+//     }
+// }
+
 #[cfg(test)]
 pub mod tests {
     use const_format::{formatcp, str_repeat};
@@ -449,6 +671,25 @@ job_stats:{}"#,
 
     #[tokio::test(flavor = "multi_thread")]
     async fn parse_2_14_0_164_jobstats() {
+        let f = File::open("fixtures/jobstats_only/2.14.0_164.txt").unwrap();
+
+        let f = BufReader::with_capacity(128 * 1_024, f);
+
+        let (fut, mut rx) = jobstats_stream(f);
+
+        let mut output = r#"previous_stat{foo="bar"} 0"#.to_string();
+
+        while let Some(x) = rx.recv().await {
+            output.push_str(x.as_str());
+        }
+
+        fut.await.unwrap();
+
+        insta::assert_snapshot!(output);
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn parse_2_14_0_164_jobstats_otel() {
         let f = File::open("fixtures/jobstats_only/2.14.0_164.txt").unwrap();
 
         let f = BufReader::with_capacity(128 * 1_024, f);

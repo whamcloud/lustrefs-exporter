@@ -1,40 +1,66 @@
+use std::collections::HashSet;
+
 use lustre_collector::Record;
 use opentelemetry::metrics::Meter;
 
 use crate::{
-    brw_stats::opentelemetry::build_target_stats, host::build_host_stats, lnet::build_lnet_stats,
-    quota::opentelemetry::OpenTelemetryMetricsQuota, service::build_service_stats,
+    brw_stats::opentelemetry::{build_target_stats, OpenTelemetryMetricsBrw},
+    host::opentelemetry::{build_host_stats, OpenTelemetryMetricsHost},
+    llite::opentelemetry::OpenTelemetryMetricsLlite,
+    lnet::opentelemetry::{build_lnet_stats, OpenTelemetryMetricsLnet},
+    quota::opentelemetry::OpenTelemetryMetricsQuota,
+    service::opentelemetry::{build_service_stats, OpenTelemetryMetricsService},
+    stats::opentelemetry::OpenTelemetryMetricsStats,
 };
 
 #[derive(Debug)]
 pub struct OpenTelemetryMetrics {
     pub quota: OpenTelemetryMetricsQuota,
+    pub host: OpenTelemetryMetricsHost,
+    pub service: OpenTelemetryMetricsService,
+    pub brw: OpenTelemetryMetricsBrw,
+    pub llite: OpenTelemetryMetricsLlite,
+    pub lnet: OpenTelemetryMetricsLnet,
+    // pub jobstats: OpenTelemetryMetricsJobstats,
+    pub stats: OpenTelemetryMetricsStats,
+    pub export: OpenTelemetryMetricsStats,
+    pub mds: OpenTelemetryMetricsStats, // Reusing the Stats structure for MDS metrics
 }
 
 impl OpenTelemetryMetrics {
     pub fn new(meter: Meter) -> Self {
         OpenTelemetryMetrics {
-            quota: OpenTelemetryMetricsQuota::new(meter),
+            quota: OpenTelemetryMetricsQuota::new(&meter),
+            host: OpenTelemetryMetricsHost::new(&meter),
+            service: OpenTelemetryMetricsService::new(&meter),
+            brw: OpenTelemetryMetricsBrw::new(&meter),
+            llite: OpenTelemetryMetricsLlite::new(&meter),
+            lnet: OpenTelemetryMetricsLnet::new(&meter),
+            // jobstats: OpenTelemetryMetricsJobstats::new(&meter),
+            stats: OpenTelemetryMetricsStats::new(&meter),
+            export: OpenTelemetryMetricsStats::new(&meter),
+            mds: OpenTelemetryMetricsStats::new(&meter), // Reusing the Stats structure for MDS metrics
         }
     }
 }
 
 pub fn build_lustre_stats(output: &Vec<Record>, otel: OpenTelemetryMetrics) {
+    // This set is used to store the possible duplicate target stats
+    let mut set = HashSet::new();
     for x in output {
         match x {
-            // lustre_collector::Record::Host(x) => {
-            //     build_host_stats(x, &mut stats_map);
-            // }
-            // lustre_collector::Record::Node(_) => {}
-            // lustre_collector::Record::LNetStat(x) => {
-            //     build_lnet_stats(x, &mut stats_map);
-            // }
-            lustre_collector::Record::Target(x) => {
-                build_target_stats(x, &otel);
+            lustre_collector::Record::Host(x) => {
+                build_host_stats(x, &otel.host);
             }
-            // lustre_collector::Record::LustreService(x) => {
-            //     build_service_stats(x, &mut stats_map);
-            // }
+            lustre_collector::Record::LNetStat(x) => {
+                build_lnet_stats(x, &otel.lnet);
+            }
+            lustre_collector::Record::Target(x) => {
+                build_target_stats(x, &otel, &mut set);
+            }
+            lustre_collector::Record::LustreService(x) => {
+                build_service_stats(x, &otel.service);
+            }
             _ => {}
         }
     }

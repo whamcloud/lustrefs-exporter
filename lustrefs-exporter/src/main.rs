@@ -14,7 +14,6 @@ use axum::{
 use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
 use lustrefs_exporter::{
-    build_lustre_stats,
     openmetrics::{self, OpenTelemetryMetrics},
     Error,
 };
@@ -229,15 +228,15 @@ async fn scrape(
 
     let opentelemetry_metrics = OpenTelemetryMetrics::new(meter.clone());
 
-    let mut buffer = vec![];
+    let mut lustre_stats = vec![];
     let encoder = TextEncoder::new();
     let metric_families = registry.gather();
-    let encoder_results = encoder.encode(&metric_families, &mut buffer);
+    let _encoder_results = encoder.encode(&metric_families, &mut lustre_stats);
 
     // Build OTEL metrics
     openmetrics::build_lustre_stats(&output, opentelemetry_metrics);
 
-    let lustre_stats = build_lustre_stats(output);
+    // let lustre_stats = build_lustre_stats(output);
 
     let body = if let Some(stream) = jobstats {
         let merged =
@@ -265,14 +264,16 @@ async fn scrape(
 
 #[cfg(test)]
 mod tests {
-    use crate::{build_lustre_stats, init_opentelemetry};
+    use crate::init_opentelemetry;
     use combine::parser::EasyParser;
     use include_dir::{include_dir, Dir};
     use insta::assert_snapshot;
     use lustre_collector::parser::parse;
-    use lustrefs_exporter::openmetrics::OpenTelemetryMetrics;
+    use lustrefs_exporter::{build_lustre_stats, openmetrics::OpenTelemetryMetrics};
     use opentelemetry::metrics::MeterProvider;
     use prometheus::{Encoder as _, TextEncoder};
+    use prometheus_parse::{Sample, Scrape};
+    use std::{collections::HashSet, error::Error, fs};
 
     static VALID_FIXTURES: Dir<'_> =
         include_dir!("$CARGO_MANIFEST_DIR/../lustre-collector/src/fixtures/valid/");
@@ -300,7 +301,6 @@ mod tests {
         }
     }
 
-    #[test]
     fn test_valid_fixtures_otel() {
         for dir in VALID_FIXTURES.find("*").unwrap() {
             match dir {
@@ -390,5 +390,132 @@ mod tests {
         let x = build_lustre_stats(x);
 
         insta::assert_snapshot!(x);
+    }
+    use pretty_assertions::assert_eq;
+
+    // Make sure metrics from the OpenTelemetry implementation are the same as the previous implementation
+    #[tokio::test]
+    async fn test_legacy_metrics() -> Result<(), Box<dyn std::error::Error>> {
+        // Generate snapshots for the OpenTelemetry implementation
+        test_valid_fixtures_otel();
+
+        // Compare snapshots
+        for dir in VALID_FIXTURES.find("*").unwrap() {
+            match dir {
+                include_dir::DirEntry::Dir(_) => {}
+                include_dir::DirEntry::File(file) => {
+                    let name = file.path().to_string_lossy().to_string().replace("/", "__");
+                    println!("{}", format!("{}/src/snapshots/lustrefs_exporter__tests__valid_fixture_otel_{name}.snap", env!("CARGO_MANIFEST_DIR")));
+                    let opentelemetry = read_metrics_from_snapshot(format!("{}/src/snapshots/lustrefs_exporter__tests__valid_fixture_otel_{name}.snap", env!("CARGO_MANIFEST_DIR")).as_str());
+                    let previous_implementation = read_metrics_from_snapshot(
+                        format!(
+                            "{}/src/snapshots/lustrefs_exporter__tests__valid_fixture_{name}.snap",
+                            env!("CARGO_MANIFEST_DIR")
+                        )
+                        .as_str(),
+                    );
+                    compare_metrics(&opentelemetry.unwrap(), &previous_implementation.unwrap());
+                }
+            }
+        }
+        Ok(())
+    }
+
+    fn read_metrics_from_snapshot(path: &str) -> Result<Scrape, Box<dyn Error>> {
+        let content = fs::read_to_string(path)?;
+
+        // Skip insta header
+        let content = content
+            .lines()
+            .skip(4)
+            .map(|s| Ok(s.to_owned()))
+            .collect::<Vec<_>>();
+        let parsed = Scrape::parse(content.into_iter())?;
+        Ok(parsed)
+    }
+
+    fn normalize_sample(sample: &Sample) -> (String, Vec<(String, String)>, String) {
+        let mut sorted_labels: Vec<_> = sample
+            .labels
+            .iter()
+            .filter(|(k, _)| k != &&"otel_scope_name".to_string())
+            .map(|(k, v)| (k.clone(), v.clone()))
+            .collect();
+        sorted_labels.sort();
+
+        let value_str = match sample.value {
+            prometheus_parse::Value::Counter(f) => f.to_string(),
+            prometheus_parse::Value::Gauge(f) => f.to_string(),
+            _ => "0.0".to_string(),
+        };
+
+        (sample.metric.clone(), sorted_labels, value_str)
+    }
+
+    fn normalize_docs(docs: &std::collections::HashMap<String, String>) -> Vec<(String, String)> {
+        let mut sorted_docs: Vec<_> = docs
+            .iter()
+            .filter_map(|(k, v)| {
+                if k != "target_info" {
+                    Some((k.clone(), v.clone()))
+                } else {
+                    None
+                }
+            })
+            .collect();
+        sorted_docs.sort_by(|a, b| a.0.cmp(&b.0)); // Sort by key
+        sorted_docs
+    }
+
+    fn compare_metrics(metrics1: &Scrape, metrics2: &Scrape) {
+        // Skip OTEL specific metric
+        let set1: HashSet<_> = metrics1
+            .samples
+            .iter()
+            .filter(|s| s.metric != "target_info")
+            .map(normalize_sample)
+            .collect();
+        let set2: HashSet<_> = metrics2
+            .samples
+            .iter()
+            .filter(|s| s.metric != "target_info")
+            .map(normalize_sample)
+            .collect();
+
+        let only_in_first: Vec<_> = set1.difference(&set2).collect();
+        let only_in_second: Vec<_> = set2.difference(&set1).collect();
+
+        let metric_value_comparison = if only_in_first.is_empty() && only_in_second.is_empty() {
+            true
+        } else {
+            if !only_in_first.is_empty() {
+                println!("Metrics only in first file:");
+                for metric in only_in_first {
+                    println!("{:?}", metric);
+                }
+            }
+            if !only_in_second.is_empty() {
+                println!("Metrics only in second file:");
+                for metric in only_in_second {
+                    println!("{:?}", metric);
+                }
+            }
+            false
+        };
+
+        // Assert metrics values/labels are exactly the same
+        assert!(
+            metric_value_comparison,
+            "Metrics values/labels are not the same"
+        );
+
+        // Normalize and compare metrics help
+        let normalized_docs1 = normalize_docs(&metrics1.docs);
+        let normalized_docs2 = normalize_docs(&metrics2.docs);
+
+        assert_eq!(
+            normalized_docs1, normalized_docs2,
+            "Metrics help are not the same"
+        );
     }
 }
