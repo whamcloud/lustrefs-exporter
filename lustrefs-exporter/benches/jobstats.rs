@@ -1,8 +1,11 @@
-use std::io::BufReader;
+use std::{io::BufReader, sync::Arc};
 
 use const_format::{formatcp, str_repeat};
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
-use lustrefs_exporter::jobstats::jobstats_stream;
+use lustrefs_exporter::jobstats::{jobstats_stream, opentelemetry::OpenTelemetryMetricsJobstats};
+use opentelemetry_sdk::metrics::SdkMeterProvider;
+use prometheus::{Encoder as _, Registry, TextEncoder};
+use opentelemetry::metrics::MeterProvider;
 
 const JOBSTAT_JOB: &str = r#"
 - job_id:          "FAKE_JOB"
@@ -47,6 +50,33 @@ async fn parse_synthetic_yaml(input: &'static str) {
     fut.await.unwrap();
 }
 
+async fn parse_synthetic_yaml_otel(input: &'static str) {
+    // Set up OpenTelemetry metrics
+    let registry = Registry::new();
+    let exporter = opentelemetry_prometheus::exporter()
+        .with_registry(registry.clone())
+        .build()
+        .unwrap();
+
+    let provider = SdkMeterProvider::builder().with_reader(exporter).build();
+
+    let meter = provider.meter("test");
+
+    let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
+
+    let f = BufReader::with_capacity(128 * 1_024, input.as_bytes());
+
+    let handle = lustrefs_exporter::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
+
+    handle.await.unwrap();
+
+    // Encode metrics to string
+    let encoder = TextEncoder::new();
+    let metric_families = registry.gather();
+    let mut output = Vec::new();
+    encoder.encode(&metric_families, &mut output).unwrap();
+}
+
 fn criterion_benchmark_fast(c: &mut Criterion) {
     c.bench_function("jobstats 100", |b| {
         b.to_async(tokio::runtime::Builder::new_multi_thread().build().unwrap())
@@ -55,6 +85,14 @@ fn criterion_benchmark_fast(c: &mut Criterion) {
     c.bench_function("jobstats 1000", |b| {
         b.to_async(tokio::runtime::Builder::new_multi_thread().build().unwrap())
             .iter(|| black_box(parse_synthetic_yaml(INPUT_1000_JOBS)))
+    });
+    c.bench_function("jobstats otel 100", |b| {
+        b.to_async(tokio::runtime::Builder::new_multi_thread().build().unwrap())
+            .iter(|| black_box(parse_synthetic_yaml_otel(INPUT_100_JOBS)))
+    });
+    c.bench_function("jobstats otel 1000", |b| {
+        b.to_async(tokio::runtime::Builder::new_multi_thread().build().unwrap())
+            .iter(|| black_box(parse_synthetic_yaml_otel(INPUT_1000_JOBS)))
     });
 }
 criterion_group! {
