@@ -9,16 +9,18 @@ use axum::{
     http::{self, HeaderValue, StatusCode},
     response::{IntoResponse, Response},
     routing::get,
-    BoxError, Extension, Router,
+    BoxError, Router,
 };
 use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
 use lustrefs_exporter::{
-    jobstats::opentelemetry::OpenTelemetryMetricsJobstats, openmetrics::{self, OpenTelemetryMetrics}, Error
+    jobstats::opentelemetry::OpenTelemetryMetricsJobstats,
+    openmetrics::{self, OpenTelemetryMetrics},
+    Error,
 };
 use opentelemetry::{
     global,
-    metrics::{Meter, MeterProvider},
+    metrics::MeterProvider,
 };
 use opentelemetry_sdk::{metrics::SdkMeterProvider, Resource};
 use prometheus::{Encoder as _, Registry, TextEncoder};
@@ -27,10 +29,10 @@ use std::{
     borrow::Cow,
     convert::Infallible,
     io::{self, BufRead, BufReader},
-    net::SocketAddr, sync::Arc,
+    net::SocketAddr,
+    sync::Arc,
 };
 use tokio::process::Command;
-use tokio_stream::{wrappers::ReceiverStream, StreamExt};
 use tower::ServiceBuilder;
 
 const LUSTREFS_EXPORTER_PORT: &str = "32221";
@@ -88,6 +90,11 @@ pub fn init_opentelemetry() -> Result<
         )
         .build();
 
+    
+        // Set the global MeterProvider to the one created above.
+    // This will make all meters created with `global::meter()` use the above MeterProvider.
+    global::set_meter_provider(provider.clone());
+
     Ok((provider, registry))
 }
 
@@ -96,12 +103,6 @@ async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
     let opts = CommandOpts::parse();
-
-    let (provider, registry) = init_opentelemetry()?;
-
-    // Set the global MeterProvider to the one created above.
-    // This will make all meters created with `global::meter()` use the above MeterProvider.
-    global::set_meter_provider(provider.clone());
 
     let addr = SocketAddr::from(([0, 0, 0, 0], opts.port));
 
@@ -123,14 +124,8 @@ async fn main() -> Result<(), Error> {
     Ok(())
 }
 
-async fn scrape(
-    Query(params): Query<Params>,
-) -> Result<Response<Body>, Error> {
+async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
     let (provider, registry) = init_opentelemetry()?;
-
-    // Set the global MeterProvider to the one created above.
-    // This will make all meters created with `global::meter()` use the above MeterProvider.
-    global::set_meter_provider(provider.clone());
 
     let meter = provider.meter("lustre");
     let jobstats = if params.jobstats {
@@ -175,10 +170,13 @@ async fn scrape(
                     }
                 });
 
-                let handle = lustrefs_exporter::jobstats::opentelemetry::jobstats_stream(reader, otel_jobstats.clone());
+                let handle = lustrefs_exporter::jobstats::opentelemetry::jobstats_stream(
+                    reader,
+                    otel_jobstats.clone(),
+                );
 
                 handle.await.unwrap();
-            
+
                 // Encode metrics to string
                 let encoder = TextEncoder::new();
                 let metric_families = registry.gather();
@@ -251,8 +249,10 @@ async fn scrape(
     let lustre_stats = String::from_utf8_lossy(&buffer).to_string();
 
     let body = if let Some(stream) = jobstats {
-        let merged =
-            tokio_stream::StreamExt::chain(tokio_stream::once(Ok::<_, Infallible>(lustre_stats)), tokio_stream::once(Ok::<_, Infallible>(stream)));
+        let merged = tokio_stream::StreamExt::chain(
+            tokio_stream::once(Ok::<_, Infallible>(lustre_stats)),
+            tokio_stream::once(Ok::<_, Infallible>(stream)),
+        );
 
         Body::from_stream(merged)
     } else {
@@ -281,37 +281,14 @@ mod tests {
     use include_dir::{include_dir, Dir};
     use insta::assert_snapshot;
     use lustre_collector::parser::parse;
-    use lustrefs_exporter::{build_lustre_stats, openmetrics::OpenTelemetryMetrics};
+    use lustrefs_exporter::openmetrics::OpenTelemetryMetrics;
     use opentelemetry::metrics::MeterProvider;
-    use prometheus::{Encoder as _, TextEncoder};
+    use prometheus::{Encoder as _, Registry, TextEncoder};
     use prometheus_parse::{Sample, Scrape};
     use std::{collections::HashSet, error::Error, fs};
 
     static VALID_FIXTURES: Dir<'_> =
         include_dir!("$CARGO_MANIFEST_DIR/../lustre-collector/src/fixtures/valid/");
-
-    #[test]
-    fn test_valid_fixtures() {
-        for dir in VALID_FIXTURES.find("*").unwrap() {
-            match dir {
-                include_dir::DirEntry::Dir(_) => {}
-                include_dir::DirEntry::File(file) => {
-                    let name = file.path().to_string_lossy();
-
-                    let contents = file.contents_utf8().unwrap();
-
-                    let result = parse()
-                        .easy_parse(contents)
-                        .map_err(|err| err.map_position(|p| p.translate_position(contents)))
-                        .unwrap();
-
-                    let x = build_lustre_stats(result.0);
-
-                    assert_snapshot!(format!("valid_fixture_{name}"), x);
-                }
-            }
-        }
-    }
 
     fn test_valid_fixtures_otel() {
         for dir in VALID_FIXTURES.find("*").unwrap() {
@@ -355,9 +332,16 @@ mod tests {
 
         let x = serde_json::from_str(output).unwrap();
 
-        let x = build_lustre_stats(x);
+        let (provider, registry) =
+            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
 
-        insta::assert_snapshot!(x);
+        let meter = provider.meter("lustre");
+
+        let otel = OpenTelemetryMetrics::new(meter);
+
+        crate::openmetrics::build_lustre_stats(&x, otel);
+
+        insta::assert_snapshot!(get_output(&registry));
     }
 
     #[test]
@@ -366,9 +350,16 @@ mod tests {
 
         let x = serde_json::from_str(output).unwrap();
 
-        let x = build_lustre_stats(x);
+        let (provider, registry) =
+            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
 
-        insta::assert_snapshot!(x);
+        let meter = provider.meter("lustre");
+
+        let otel = OpenTelemetryMetrics::new(meter);
+
+        crate::openmetrics::build_lustre_stats(&x, otel);
+
+        insta::assert_snapshot!(get_output(&registry));
     }
 
     #[test]
@@ -377,9 +368,16 @@ mod tests {
 
         let x = serde_json::from_str(output).unwrap();
 
-        let x = build_lustre_stats(x);
+        let (provider, registry) =
+            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
 
-        insta::assert_snapshot!(x);
+        let meter = provider.meter("lustre");
+
+        let otel = OpenTelemetryMetrics::new(meter);
+
+        crate::openmetrics::build_lustre_stats(&x, otel);
+
+        insta::assert_snapshot!(get_output(&registry));
     }
 
     #[test]
@@ -388,9 +386,16 @@ mod tests {
 
         let x = serde_json::from_str(output).unwrap();
 
-        let x = build_lustre_stats(x);
+        let (provider, registry) =
+            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
 
-        insta::assert_snapshot!(x);
+        let meter = provider.meter("lustre");
+
+        let otel = OpenTelemetryMetrics::new(meter);
+
+        crate::openmetrics::build_lustre_stats(&x, otel);
+
+        insta::assert_snapshot!(get_output(&registry));
     }
 
     #[test]
@@ -399,9 +404,16 @@ mod tests {
 
         let x = serde_json::from_str(output).unwrap();
 
-        let x = build_lustre_stats(x);
+        let (provider, registry) =
+            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
 
-        insta::assert_snapshot!(x);
+        let meter = provider.meter("lustre");
+
+        let otel = OpenTelemetryMetrics::new(meter);
+
+        crate::openmetrics::build_lustre_stats(&x, otel);
+
+        insta::assert_snapshot!(get_output(&registry));
     }
     use pretty_assertions::assert_eq;
 
@@ -529,5 +541,12 @@ mod tests {
             normalized_docs1, normalized_docs2,
             "Metrics help are not the same"
         );
+    }
+
+    fn get_output(registry: &Registry) -> String {
+        let encoder = TextEncoder::new();
+        let mut output = Vec::new();
+        encoder.encode(&registry.gather(), &mut output).unwrap();
+        String::from_utf8(output).unwrap()
     }
 }
