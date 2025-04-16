@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 use axum::{
-    body::{Body, Bytes},
+    body::Body,
     error_handling::HandleErrorLayer,
     extract::Query,
     http::{self, HeaderValue, StatusCode},
@@ -14,8 +14,7 @@ use axum::{
 use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
 use lustrefs_exporter::{
-    openmetrics::{self, OpenTelemetryMetrics},
-    Error,
+    jobstats::opentelemetry::OpenTelemetryMetricsJobstats, openmetrics::{self, OpenTelemetryMetrics}, Error
 };
 use opentelemetry::{
     global,
@@ -28,7 +27,7 @@ use std::{
     borrow::Cow,
     convert::Infallible,
     io::{self, BufRead, BufReader},
-    net::SocketAddr,
+    net::SocketAddr, sync::Arc,
 };
 use tokio::process::Command;
 use tokio_stream::{wrappers::ReceiverStream, StreamExt};
@@ -104,8 +103,6 @@ async fn main() -> Result<(), Error> {
     // This will make all meters created with `global::meter()` use the above MeterProvider.
     global::set_meter_provider(provider.clone());
 
-    let meter = provider.meter("lustre");
-
     let addr = SocketAddr::from(([0, 0, 0, 0], opts.port));
 
     tracing::info!("Listening on http://{addr}/metrics");
@@ -119,9 +116,7 @@ async fn main() -> Result<(), Error> {
 
     let app = Router::new()
         .route("/metrics", get(scrape))
-        .layer(load_shedder)
-        .layer(Extension(registry.clone()))
-        .layer(Extension(meter.clone()));
+        .layer(load_shedder);
 
     axum::serve(listener, app).await?;
 
@@ -130,9 +125,14 @@ async fn main() -> Result<(), Error> {
 
 async fn scrape(
     Query(params): Query<Params>,
-    Extension(registry): Extension<Registry>,
-    Extension(meter): Extension<Meter>,
 ) -> Result<Response<Body>, Error> {
+    let (provider, registry) = init_opentelemetry()?;
+
+    // Set the global MeterProvider to the one created above.
+    // This will make all meters created with `global::meter()` use the above MeterProvider.
+    global::set_meter_provider(provider.clone());
+
+    let meter = provider.meter("lustre");
     let jobstats = if params.jobstats {
         let child = tokio::task::spawn_blocking(move || {
             let child = std::process::Command::new("lctl")
@@ -167,7 +167,7 @@ async fn scrape(
                     }
                 });
 
-                let (_, rx) = lustrefs_exporter::jobstats::jobstats_stream(reader);
+                let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
 
                 tokio::task::spawn_blocking(move || {
                     if let Err(e) = child.wait() {
@@ -175,11 +175,18 @@ async fn scrape(
                     }
                 });
 
-                let stream = ReceiverStream::new(rx)
-                    .map(|x| Bytes::from_iter(x.into_bytes()))
-                    .map(Ok::<_, Infallible>);
+                let handle = lustrefs_exporter::jobstats::opentelemetry::jobstats_stream(reader, otel_jobstats.clone());
 
-                Some(stream)
+                handle.await.unwrap();
+            
+                // Encode metrics to string
+                let encoder = TextEncoder::new();
+                let metric_families = registry.gather();
+                let mut output = Vec::new();
+                encoder.encode(&metric_families, &mut output).unwrap();
+
+                let output = String::from_utf8_lossy(&output).to_string();
+                Some(output)
             }
             Err(e) => {
                 tracing::debug!("Error while spawning lctl jobstats: {e}");
@@ -236,11 +243,16 @@ async fn scrape(
     // Build OTEL metrics
     openmetrics::build_lustre_stats(&output, opentelemetry_metrics);
 
-    // let lustre_stats = build_lustre_stats(output);
+    let mut buffer = vec![];
+    let encoder = TextEncoder::new();
+    let metric_families = registry.gather();
+    encoder.encode(&metric_families, &mut buffer).unwrap();
+
+    let lustre_stats = String::from_utf8_lossy(&buffer).to_string();
 
     let body = if let Some(stream) = jobstats {
         let merged =
-            tokio_stream::StreamExt::chain(tokio_stream::once(Ok(lustre_stats.into())), stream);
+            tokio_stream::StreamExt::chain(tokio_stream::once(Ok::<_, Infallible>(lustre_stats)), tokio_stream::once(Ok::<_, Infallible>(stream)));
 
         Body::from_stream(merged)
     } else {
