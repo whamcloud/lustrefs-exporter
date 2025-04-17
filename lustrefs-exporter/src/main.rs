@@ -14,13 +14,13 @@ use axum::{
 use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
 use lustrefs_exporter::{
+    init_opentelemetry,
     jobstats::opentelemetry::OpenTelemetryMetricsJobstats,
     openmetrics::{self, OpenTelemetryMetrics},
     Error,
 };
-use opentelemetry::{global, metrics::MeterProvider};
-use opentelemetry_sdk::{metrics::SdkMeterProvider, Resource};
-use prometheus::{Encoder as _, Registry, TextEncoder};
+use opentelemetry::metrics::MeterProvider;
+use prometheus::{Encoder as _, TextEncoder};
 use serde::Deserialize;
 use std::{
     borrow::Cow,
@@ -64,34 +64,6 @@ struct Params {
     // Only enable jobstats if "jobstats=true"
     #[serde(default)]
     jobstats: bool,
-}
-
-pub fn init_opentelemetry() -> Result<
-    (opentelemetry_sdk::metrics::SdkMeterProvider, Registry),
-    opentelemetry_sdk::metrics::MetricError,
-> {
-    // Build the Prometheus exporter.
-    // The metrics will be exposed in the Prometheus format.
-    let registry = Registry::new();
-    let prometheus_exporter = opentelemetry_prometheus::exporter()
-        .with_registry(registry.clone())
-        .without_counter_suffixes()
-        .build()?;
-
-    let provider = SdkMeterProvider::builder()
-        .with_reader(prometheus_exporter)
-        .with_resource(
-            Resource::builder()
-                .with_service_name("lustrefs-exporter")
-                .build(),
-        )
-        .build();
-
-    // Set the global MeterProvider to the one created above.
-    // This will make all meters created with `global::meter()` use the above MeterProvider.
-    global::set_meter_provider(provider.clone());
-
-    Ok((provider, registry))
 }
 
 #[tokio::main]

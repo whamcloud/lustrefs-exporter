@@ -17,6 +17,8 @@ use axum::{
     response::{IntoResponse, Response},
 };
 use lustre_collector::{LustreCollectorError, TargetVariant};
+use opentelemetry_sdk::{metrics::SdkMeterProvider, Resource};
+use prometheus::Registry;
 
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
@@ -56,4 +58,32 @@ impl LabelProm for TargetVariant {
             TargetVariant::Mdt => "mdt",
         }
     }
+}
+
+pub fn init_opentelemetry() -> Result<
+    (opentelemetry_sdk::metrics::SdkMeterProvider, Registry),
+    opentelemetry_sdk::metrics::MetricError,
+> {
+    // Build the Prometheus exporter.
+    // The metrics will be exposed in the Prometheus format.
+    let registry = Registry::new();
+    let prometheus_exporter = opentelemetry_prometheus::exporter()
+        .with_registry(registry.clone())
+        .without_counter_suffixes()
+        .build()?;
+
+    let provider = SdkMeterProvider::builder()
+        .with_reader(prometheus_exporter)
+        .with_resource(
+            Resource::builder()
+                .with_service_name("lustrefs-exporter")
+                .build(),
+        )
+        .build();
+
+    // Set the global MeterProvider to the one created above.
+    // This will make all meters created with `global::meter()` use the above MeterProvider.
+    opentelemetry::global::set_meter_provider(provider.clone());
+
+    Ok((provider, registry))
 }
