@@ -341,7 +341,10 @@ pub mod tests {
         let f = BufReader::with_capacity(128 * 1_024, f);
 
         // Set up OpenTelemetry metrics
-        let (otel_jobstats, registry) = init_opentelemetry();
+        let (provider, registry) = init_opentelemetry();
+
+        let meter = provider.meter("test");
+        let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
 
         let handle = crate::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
 
@@ -360,7 +363,9 @@ pub mod tests {
         let f = BufReader::with_capacity(128 * 1_024, f);
 
         // Set up OpenTelemetry metrics
-        let (otel_jobstats, registry) = init_opentelemetry();
+        let (provider, registry) = init_opentelemetry();
+        let meter = provider.meter("test");
+        let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
 
         let handle = crate::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
 
@@ -387,7 +392,9 @@ pub mod tests {
         let f = BufReader::with_capacity(128 * 1_024, f);
 
         // Set up OpenTelemetry metrics
-        let (otel_jobstats, registry) = init_opentelemetry();
+        let (provider, registry) = init_opentelemetry();
+        let meter = provider.meter("test");
+        let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
 
         let handle = crate::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
 
@@ -449,7 +456,9 @@ job_stats:
         let f = BufReader::with_capacity(128 * 1_024, std::io::Cursor::new(bytes));
 
         // Set up OpenTelemetry metrics
-        let (otel_jobstats, registry) = init_opentelemetry();
+        let (provider, registry) = init_opentelemetry();
+        let meter = provider.meter("test");
+        let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
 
         let handle = crate::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
 
@@ -474,7 +483,9 @@ job_stats:
         let f = BufReader::with_capacity(128 * 1_024, f);
 
         // Set up OpenTelemetry metrics
-        let (otel_jobstats, registry) = init_opentelemetry();
+        let (provider, registry) = init_opentelemetry();
+        let meter = provider.meter("test");
+        let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
 
         let handle = crate::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
 
@@ -501,7 +512,9 @@ job_stats:
         let f = BufReader::with_capacity(128 * 1_024, f);
 
         // Set up OpenTelemetry metrics
-        let (otel_jobstats, registry) = init_opentelemetry();
+        let (provider, registry) = init_opentelemetry();
+        let meter = provider.meter("test");
+        let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
 
         let handle = crate::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
 
@@ -511,7 +524,7 @@ job_stats:
         insta::assert_snapshot!(get_output(&registry));
     }
 
-    fn init_opentelemetry() -> (Arc<OpenTelemetryMetricsJobstats>, Registry) {
+    fn init_opentelemetry() -> (SdkMeterProvider, Registry) {
         // Set up OpenTelemetry metrics
         let registry = Registry::new();
         let exporter = opentelemetry_prometheus::exporter()
@@ -524,12 +537,7 @@ job_stats:
         // This will make all meters created with `global::meter()` use the above MeterProvider.
         global::set_meter_provider(provider.clone());
 
-        let meter = provider.meter("test");
-
-        (
-            Arc::new(OpenTelemetryMetricsJobstats::new(&meter)),
-            registry,
-        )
+        (provider, registry)
     }
 
     fn get_output(registry: &Registry) -> String {
