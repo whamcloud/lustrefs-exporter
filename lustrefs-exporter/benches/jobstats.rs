@@ -3,9 +3,9 @@ use std::{io::BufReader, sync::Arc};
 use const_format::{formatcp, str_repeat};
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use lustrefs_exporter::jobstats::opentelemetry::OpenTelemetryMetricsJobstats;
+use opentelemetry::metrics::MeterProvider;
 use opentelemetry_sdk::metrics::SdkMeterProvider;
 use prometheus::{Encoder as _, Registry, TextEncoder};
-use opentelemetry::metrics::MeterProvider;
 
 const JOBSTAT_JOB: &str = r#"
 - job_id:          "FAKE_JOB"
@@ -56,7 +56,8 @@ async fn parse_synthetic_yaml_otel(input: &'static str) {
 
     let f = BufReader::with_capacity(128 * 1_024, input.as_bytes());
 
-    let handle = lustrefs_exporter::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
+    let handle =
+        lustrefs_exporter::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
 
     handle.await.unwrap();
 

@@ -16,8 +16,7 @@ use axum::{
     http::{self, StatusCode},
     response::{IntoResponse, Response},
 };
-use lustre_collector::{LustreCollectorError, TargetVariant,
-};
+use lustre_collector::{LustreCollectorError, TargetVariant};
 
 #[derive(Debug, thiserror::Error)]
 pub enum Error {

@@ -18,10 +18,7 @@ use lustrefs_exporter::{
     openmetrics::{self, OpenTelemetryMetrics},
     Error,
 };
-use opentelemetry::{
-    global,
-    metrics::MeterProvider,
-};
+use opentelemetry::{global, metrics::MeterProvider};
 use opentelemetry_sdk::{metrics::SdkMeterProvider, Resource};
 use prometheus::{Encoder as _, Registry, TextEncoder};
 use serde::Deserialize;
@@ -90,8 +87,7 @@ pub fn init_opentelemetry() -> Result<
         )
         .build();
 
-    
-        // Set the global MeterProvider to the one created above.
+    // Set the global MeterProvider to the one created above.
     // This will make all meters created with `global::meter()` use the above MeterProvider.
     global::set_meter_provider(provider.clone());
 

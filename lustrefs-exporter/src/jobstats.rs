@@ -327,7 +327,6 @@ pub mod opentelemetry {
 
 #[cfg(test)]
 pub mod tests {
-    use const_format::{formatcp, str_repeat};
     use opentelemetry::{global, metrics::MeterProvider};
     use opentelemetry_sdk::metrics::SdkMeterProvider;
     use prometheus::{Encoder as _, Registry, TextEncoder};
@@ -351,10 +350,7 @@ pub mod tests {
 
         let cnt = get_output(&registry).lines().count();
 
-        assert_eq!(
-            cnt,
-            3524667
-        );
+        assert_eq!(cnt, 3524667);
     }
 
     #[tokio::test(flavor = "multi_thread")]
@@ -487,7 +483,15 @@ job_stats:
 
         let cnt = get_output(&registry).lines().count();
 
-        assert_eq!(cnt, 108 + 1);
+        assert_eq!(
+            cnt,
+            (4 + // 4 metrics per read_bytes
+            4 + // 4 metrics per write_bytes
+            10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
+            * 1 // 10 jobs
+               + 2 * 9 // HELP and TYPE lines
+               + 3 // target_info line + HELP and TYPE
+        );
     }
 
     #[tokio::test(flavor = "multi_thread")]
