@@ -36,6 +36,8 @@ pub enum Error {
     NoCap(&'static str, String),
     #[error(transparent)]
     Otel(#[from] opentelemetry_sdk::metrics::MetricError),
+    #[error(transparent)]
+    Prometheus(#[from] prometheus::Error),
 }
 
 impl IntoResponse for Error {

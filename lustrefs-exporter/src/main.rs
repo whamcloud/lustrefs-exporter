@@ -143,13 +143,13 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
                     otel_jobstats.clone(),
                 );
 
-                handle.await.unwrap();
+                handle.await?;
 
                 // Encode metrics to string
                 let encoder = TextEncoder::new();
                 let metric_families = registry.gather();
                 let mut output = Vec::new();
-                encoder.encode(&metric_families, &mut output).unwrap();
+                encoder.encode(&metric_families, &mut output)?;
 
                 let output = String::from_utf8_lossy(&output).to_string();
                 Some(output)
