@@ -79,7 +79,7 @@ lustre_capacity_kilobytes{component="mdt",target="ai400x2-MDT0000"} 366222772
 lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0000"} 35016088872
 lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0001"} 35016088872
 
-# HELP lustre_client_export_bytes_total Sum of bytes per operation the target has performed per export.
+# HELP lustre_client_export_bytes_total Accumulated bytes per operation the target has performed per export.
 # TYPE lustre_client_export_bytes_total counter
 lustre_client_export_bytes_total{component="ost",target="ai400x2-OST0000",nid="192.168.0.100@o2ib",name="read_bytes",units="bytes"} 1221937070080
 lustre_client_export_bytes_total{component="ost",target="ai400x2-OST0000",nid="192.168.0.100@o2ib",name="write_bytes",units="bytes"} 1010559877120
@@ -150,7 +150,7 @@ lustre_client_export_bytes_total{component="ost",target="ai400x2-OST0001",nid="1
 lustre_client_export_bytes_total{component="ost",target="ai400x2-OST0001",nid="192.168.2.87@o2ib",name="read_bytes",units="bytes"} 34646673166336
 lustre_client_export_bytes_total{component="ost",target="ai400x2-OST0001",nid="192.168.2.87@o2ib",name="write_bytes",units="bytes"} 25359790886912
 
-# HELP lustre_client_export_milliseconds_total Sum of latency per operations the target has performed per export.
+# HELP lustre_client_export_milliseconds_total Accumulated latency per operations the target has performed per export.
 # TYPE lustre_client_export_milliseconds_total counter
 lustre_client_export_milliseconds_total{component="ost",target="ai400x2-OST0000",nid="0@lo",name="create",units="usecs"} 444666
 lustre_client_export_milliseconds_total{component="ost",target="ai400x2-OST0000",nid="0@lo",name="statfs",units="usecs"} 230804

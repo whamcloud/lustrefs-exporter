@@ -23,7 +23,7 @@ lustre_capacity_kilobytes{component="ost",target="fs-OST0001"} 4108388
 # TYPE lustre_changelog_current_index gauge
 lustre_changelog_current_index{target="fs-MDT0000"} 0
 
-# HELP lustre_client_export_milliseconds_total Sum of latency per operations the target has performed per export.
+# HELP lustre_client_export_milliseconds_total Accumulated latency per operations the target has performed per export.
 # TYPE lustre_client_export_milliseconds_total counter
 lustre_client_export_milliseconds_total{component="ost",target="fs-OST0000",nid="0@lo",name="create",units="usecs"} 1136
 lustre_client_export_milliseconds_total{component="ost",target="fs-OST0000",nid="0@lo",name="statfs",units="usecs"} 485549
