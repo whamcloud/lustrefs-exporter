@@ -55,6 +55,8 @@ lustre_client_export_stats{component="ost",target="fs-OST0001",nid="0@lo",name="
 lustre_client_export_stats{component="ost",target="fs-OST0001",nid="10.73.20.12@tcp",name="create",units="usecs"} 2
 lustre_client_export_stats{component="ost",target="fs-OST0001",nid="10.73.20.12@tcp",name="statfs",units="usecs"} 113927
 lustre_client_export_stats{component="ost",target="fs-OST0001",nid="10.73.20.12@tcp",name="get_info",units="usecs"} 1
+lustre_client_export_stats{component="ost",target="fs-OST0001",nid="10.73.20.12@tcp",name="fake",units="fake"} 1
+lustre_client_export_stats{component="ost",target="fs-OST0001",nid="10.73.20.12@tcp",name="fake_nosum",units="fake"} 1
 lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="getattr",units="usecs"} 7
 lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="statfs",units="usecs"} 2
 lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="10.73.20.12@tcp",name="statfs",units="usecs"} 113927
