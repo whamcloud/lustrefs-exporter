@@ -22,7 +22,7 @@ static READ_MIN_SIZE_BYTES: Metric = Metric {
 static READ_MAX_SIZE_BYTES: Metric = Metric {
     name: "lustre_job_read_maximum_size_bytes",
     help: "The maximum read size in bytes.",
-    r#type: MetricType::Gauge,
+    r#type: MetricType::Counter,
 };
 static READ_BYTES: Metric = Metric {
     name: "lustre_job_read_bytes_total",
@@ -43,7 +43,7 @@ static WRITE_MIN_SIZE_BYTES: Metric = Metric {
 static WRITE_MAX_SIZE_BYTES: Metric = Metric {
     name: "lustre_job_write_maximum_size_bytes",
     help: "The maximum write size in bytes.",
-    r#type: MetricType::Gauge,
+    r#type: MetricType::Counter,
 };
 static WRITE_BYTES: Metric = Metric {
     name: "lustre_job_write_bytes_total",

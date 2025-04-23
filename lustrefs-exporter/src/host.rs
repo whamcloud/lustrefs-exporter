@@ -25,7 +25,7 @@ static MEM_USED_SAMPLES: Metric = Metric {
 static MEM_USED_MAX_SAMPLES: Metric = Metric {
     name: "lustre_mem_used_max",
     help: "Gives information about Lustre maximum memory usage.",
-    r#type: MetricType::Gauge,
+    r#type: MetricType::Counter,
 };
 
 pub fn build_host_stats(
