@@ -150,15 +150,15 @@ pub mod opentelemetry {
                     .build(),
                 recovery_status_completed_clients: meter
                     .u64_gauge("recovery_status_completed_clients")
-                    .with_description("Gives the count of clients that complete the recovery on a target")
+                    .with_description("Gives the count of clients that complete the recovery on a target.")
                     .build(),
                 recovery_status_connected_clients: meter
                     .u64_gauge("recovery_status_connected_clients")
-                    .with_description("Gives the count of clients connected to a target")
+                    .with_description("Gives the count of clients connected to a target.")
                     .build(),
                 recovery_status_evicted_clients: meter
                     .u64_gauge("recovery_status_evicted_clients")
-                    .with_description("Gives the count of clients evicted from a target")
+                    .with_description("Gives the count of clients evicted from a target.")
                     .build(),
                 ost_stats: meter
                     .u64_gauge("lustre_oss_ost_stats")

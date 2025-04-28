@@ -295,7 +295,7 @@ mod tests {
     }
 
     #[test]
-    fn test_stats() {
+    fn test_stats_otel() {
         let output = include_str!("../fixtures/stats.json");
 
         let x = serde_json::from_str(output).unwrap();
@@ -310,10 +310,20 @@ mod tests {
         crate::openmetrics::build_lustre_stats(&x, otel);
 
         insta::assert_snapshot!(get_output(&registry));
+
+        let opentelemetry = read_metrics_from_snapshot(format!("{}/src/snapshots/lustrefs_exporter__tests__stats_otel.snap", env!("CARGO_MANIFEST_DIR")).as_str());
+        let previous_implementation = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__stats.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
+        compare_metrics(&opentelemetry.unwrap(), &previous_implementation.unwrap());
     }
 
     #[test]
-    fn test_lnetctl_stats() {
+    fn test_lnetctl_stats_otel() {
         let output = include_str!("../fixtures/lnetctl_stats.json");
 
         let x = serde_json::from_str(output).unwrap();
@@ -328,10 +338,20 @@ mod tests {
         crate::openmetrics::build_lustre_stats(&x, otel);
 
         insta::assert_snapshot!(get_output(&registry));
+
+        let opentelemetry = read_metrics_from_snapshot(format!("{}/src/snapshots/lustrefs_exporter__tests__lnetctl_stats_otel.snap", env!("CARGO_MANIFEST_DIR")).as_str());
+        let previous_implementation = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__lnetctl_stats.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
+        compare_metrics(&opentelemetry.unwrap(), &previous_implementation.unwrap());
     }
 
     #[test]
-    fn test_lnetctl_stats_mds() {
+    fn test_lnetctl_stats_mds_otel() {
         let output = include_str!("../fixtures/stats_mds.json");
 
         let x = serde_json::from_str(output).unwrap();
@@ -346,10 +366,20 @@ mod tests {
         crate::openmetrics::build_lustre_stats(&x, otel);
 
         insta::assert_snapshot!(get_output(&registry));
+
+        let opentelemetry = read_metrics_from_snapshot(format!("{}/src/snapshots/lustrefs_exporter__tests__lnetctl_stats_mds_otel.snap", env!("CARGO_MANIFEST_DIR")).as_str());
+        let previous_implementation = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__lnetctl_stats_mds.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
+        compare_metrics(&opentelemetry.unwrap(), &previous_implementation.unwrap());
     }
 
     #[test]
-    fn test_host_stats_non_healthy() {
+    fn test_host_stats_non_healthy_otel() {
         let output = include_str!("../fixtures/host_stats_non_healthy.json");
 
         let x = serde_json::from_str(output).unwrap();
@@ -364,10 +394,20 @@ mod tests {
         crate::openmetrics::build_lustre_stats(&x, otel);
 
         insta::assert_snapshot!(get_output(&registry));
+
+        let opentelemetry = read_metrics_from_snapshot(format!("{}/src/snapshots/lustrefs_exporter__tests__host_stats_non_healthy_otel.snap", env!("CARGO_MANIFEST_DIR")).as_str());
+        let previous_implementation = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__host_stats_non_healthy.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
+        compare_metrics(&opentelemetry.unwrap(), &previous_implementation.unwrap());
     }
 
     #[test]
-    fn test_client_stats() {
+    fn test_client_stats_otel() {
         let output = include_str!("../fixtures/client.json");
 
         let x = serde_json::from_str(output).unwrap();
@@ -382,6 +422,16 @@ mod tests {
         crate::openmetrics::build_lustre_stats(&x, otel);
 
         insta::assert_snapshot!(get_output(&registry));
+
+        let opentelemetry = read_metrics_from_snapshot(format!("{}/src/snapshots/lustrefs_exporter__tests__client_stats_otel.snap", env!("CARGO_MANIFEST_DIR")).as_str());
+        let previous_implementation = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__client_stats.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
+        compare_metrics(&opentelemetry.unwrap(), &previous_implementation.unwrap());
     }
     use pretty_assertions::assert_eq;
 

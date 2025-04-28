@@ -1,0 +1,97 @@
+---
+source: lustrefs-exporter/src/main.rs
+expression: get_output(&registry)
+---
+# HELP lustre_client_stats Lustre client interface stats.
+# TYPE lustre_client_stats gauge
+lustre_client_stats{operation="close",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 82098
+lustre_client_stats{operation="close",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 200
+lustre_client_stats{operation="fallocate",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 196
+lustre_client_stats{operation="fallocate",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 100
+lustre_client_stats{operation="fsync",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 1734
+lustre_client_stats{operation="fsync",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 100
+lustre_client_stats{operation="getattr",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 632721
+lustre_client_stats{operation="getattr",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 445
+lustre_client_stats{operation="getxattr",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 499
+lustre_client_stats{operation="getxattr_hits",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 291
+lustre_client_stats{operation="inode_permission",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 8318567
+lustre_client_stats{operation="inode_permission",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 7212
+lustre_client_stats{operation="ioctl",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 50690
+lustre_client_stats{operation="ioctl",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 74
+lustre_client_stats{operation="link",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 6
+lustre_client_stats{operation="listxattr",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 12
+lustre_client_stats{operation="mkdir",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 7547
+lustre_client_stats{operation="mkdir",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 1
+lustre_client_stats{operation="mknod",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 38461
+lustre_client_stats{operation="mknod",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 100
+lustre_client_stats{operation="mmap",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 2763
+lustre_client_stats{operation="open",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 82098
+lustre_client_stats{operation="open",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 200
+lustre_client_stats{operation="openclosetime",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 38877
+lustre_client_stats{operation="openclosetime",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 100
+lustre_client_stats{operation="opencount",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 82130
+lustre_client_stats{operation="opencount",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 201
+lustre_client_stats{operation="page_fault",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 70393
+lustre_client_stats{operation="read",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 82150
+lustre_client_stats{operation="read_bytes",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 82152
+lustre_client_stats{operation="readdir",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 26398
+lustre_client_stats{operation="rename",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 16394
+lustre_client_stats{operation="rmdir",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 4348
+lustre_client_stats{operation="seek",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 80982
+lustre_client_stats{operation="setattr",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 1100
+lustre_client_stats{operation="statfs",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 40793
+lustre_client_stats{operation="statfs",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 41036
+lustre_client_stats{operation="symlink",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 18
+lustre_client_stats{operation="truncate",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 202
+lustre_client_stats{operation="truncate",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 100
+lustre_client_stats{operation="unlink",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 22512
+lustre_client_stats{operation="write",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 2726169
+lustre_client_stats{operation="write",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 204800
+lustre_client_stats{operation="write_bytes",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 2726169
+lustre_client_stats{operation="write_bytes",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 204800
+# HELP lustre_drop_bytes_total Total number of bytes that have been dropped
+# TYPE lustre_drop_bytes_total counter
+lustre_drop_bytes_total{otel_scope_name="lustre"} 0
+# HELP lustre_drop_count_total Total number of messages that have been dropped
+# TYPE lustre_drop_count_total counter
+lustre_drop_count_total{nid="0@lo",otel_scope_name="lustre"} 0
+lustre_drop_count_total{nid="172.18.2.101@o2ib",otel_scope_name="lustre"} 0
+# HELP lustre_health_healthy Indicates whether the Lustre target is healthy or not. 1 is healthy, 0 is unhealthy.
+# TYPE lustre_health_healthy gauge
+lustre_health_healthy{otel_scope_name="lustre"} 1
+# HELP lustre_ldlm_cbd_stats Gives information about LDLM Callback service.
+# TYPE lustre_ldlm_cbd_stats counter
+lustre_ldlm_cbd_stats{operation="ldlm_bl_callback",otel_scope_name="lustre"} 238503
+lustre_ldlm_cbd_stats{operation="ldlm_cp_callback",otel_scope_name="lustre"} 36972
+lustre_ldlm_cbd_stats{operation="ldlm_gl_callback",otel_scope_name="lustre"} 55
+lustre_ldlm_cbd_stats{operation="req_active",otel_scope_name="lustre"} 275530
+lustre_ldlm_cbd_stats{operation="req_qdepth",otel_scope_name="lustre"} 275530
+lustre_ldlm_cbd_stats{operation="req_timeout",otel_scope_name="lustre"} 275530
+lustre_ldlm_cbd_stats{operation="req_waittime",otel_scope_name="lustre"} 275530
+lustre_ldlm_cbd_stats{operation="reqbuf_avail",otel_scope_name="lustre"} 556804
+# HELP lustre_lnet_mem_used Gives information about Lustre LNet memory usage.
+# TYPE lustre_lnet_mem_used gauge
+lustre_lnet_mem_used{otel_scope_name="lustre"} 178729063
+# HELP lustre_mem_used Gives information about Lustre memory usage.
+# TYPE lustre_mem_used gauge
+lustre_mem_used{otel_scope_name="lustre"} 72132771
+# HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
+# TYPE lustre_mem_used_max gauge
+lustre_mem_used_max{otel_scope_name="lustre"} 10924287079
+# HELP lustre_receive_bytes_total Total number of bytes that have been received
+# TYPE lustre_receive_bytes_total counter
+lustre_receive_bytes_total{otel_scope_name="lustre"} 3943753915256
+# HELP lustre_receive_count_total Total number of messages that have been received
+# TYPE lustre_receive_count_total counter
+lustre_receive_count_total{nid="0@lo",otel_scope_name="lustre"} 0
+lustre_receive_count_total{nid="172.18.2.101@o2ib",otel_scope_name="lustre"} 39769486
+# HELP lustre_send_bytes_total Total number of bytes that have been sent
+# TYPE lustre_send_bytes_total counter
+lustre_send_bytes_total{otel_scope_name="lustre"} 6673532934057
+# HELP lustre_send_count_total Total number of messages that have been sent
+# TYPE lustre_send_count_total counter
+lustre_send_count_total{nid="0@lo",otel_scope_name="lustre"} 0
+lustre_send_count_total{nid="172.18.2.101@o2ib",otel_scope_name="lustre"} 33503282
+# HELP target_info Target metadata
+# TYPE target_info gauge
+target_info{service_name="lustrefs-exporter",telemetry_sdk_language="rust",telemetry_sdk_name="opentelemetry",telemetry_sdk_version="0.29.0"} 1
