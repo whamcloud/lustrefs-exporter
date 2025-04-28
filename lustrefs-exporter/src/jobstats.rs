@@ -238,9 +238,7 @@ pub mod opentelemetry {
                                 .record(min, base_labels);
                         }
                         if let Ok(max) = max {
-                            otel_jobstats
-                                .read_maximum_size_bytes
-                                .add(max, base_labels);
+                            otel_jobstats.read_maximum_size_bytes.add(max, base_labels);
                         }
                         if let Ok(sum) = sum {
                             otel_jobstats.read_bytes_total.add(sum, base_labels);
@@ -256,9 +254,7 @@ pub mod opentelemetry {
                                 .record(min, base_labels);
                         }
                         if let Ok(max) = max {
-                            otel_jobstats
-                                .write_maximum_size_bytes
-                                .add(max, base_labels);
+                            otel_jobstats.write_maximum_size_bytes.add(max, base_labels);
                         }
                         if let Ok(sum) = sum {
                             otel_jobstats.write_bytes_total.add(sum, base_labels);

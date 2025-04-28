@@ -164,9 +164,7 @@ pub mod opentelemetry {
                             .record(min, write_labels);
                     }
                     if let Some(max) = s.max {
-                        otel_stats
-                            .write_maximum_size_bytes
-                            .add(max, write_labels);
+                        otel_stats.write_maximum_size_bytes.add(max, write_labels);
                     }
                     if let Some(sum) = s.sum {
                         otel_stats.write_bytes_total.add(sum, write_labels);

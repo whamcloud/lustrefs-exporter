@@ -311,7 +311,13 @@ mod tests {
 
         insta::assert_snapshot!(get_output(&registry));
 
-        let opentelemetry = read_metrics_from_snapshot(format!("{}/src/snapshots/lustrefs_exporter__tests__stats_otel.snap", env!("CARGO_MANIFEST_DIR")).as_str());
+        let opentelemetry = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__stats_otel.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
         let previous_implementation = read_metrics_from_snapshot(
             format!(
                 "{}/src/snapshots/lustrefs_exporter__tests__stats.snap",
@@ -339,7 +345,13 @@ mod tests {
 
         insta::assert_snapshot!(get_output(&registry));
 
-        let opentelemetry = read_metrics_from_snapshot(format!("{}/src/snapshots/lustrefs_exporter__tests__lnetctl_stats_otel.snap", env!("CARGO_MANIFEST_DIR")).as_str());
+        let opentelemetry = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__lnetctl_stats_otel.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
         let previous_implementation = read_metrics_from_snapshot(
             format!(
                 "{}/src/snapshots/lustrefs_exporter__tests__lnetctl_stats.snap",
@@ -367,7 +379,13 @@ mod tests {
 
         insta::assert_snapshot!(get_output(&registry));
 
-        let opentelemetry = read_metrics_from_snapshot(format!("{}/src/snapshots/lustrefs_exporter__tests__lnetctl_stats_mds_otel.snap", env!("CARGO_MANIFEST_DIR")).as_str());
+        let opentelemetry = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__lnetctl_stats_mds_otel.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
         let previous_implementation = read_metrics_from_snapshot(
             format!(
                 "{}/src/snapshots/lustrefs_exporter__tests__lnetctl_stats_mds.snap",
@@ -395,7 +413,13 @@ mod tests {
 
         insta::assert_snapshot!(get_output(&registry));
 
-        let opentelemetry = read_metrics_from_snapshot(format!("{}/src/snapshots/lustrefs_exporter__tests__host_stats_non_healthy_otel.snap", env!("CARGO_MANIFEST_DIR")).as_str());
+        let opentelemetry = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__host_stats_non_healthy_otel.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
         let previous_implementation = read_metrics_from_snapshot(
             format!(
                 "{}/src/snapshots/lustrefs_exporter__tests__host_stats_non_healthy.snap",
@@ -423,7 +447,13 @@ mod tests {
 
         insta::assert_snapshot!(get_output(&registry));
 
-        let opentelemetry = read_metrics_from_snapshot(format!("{}/src/snapshots/lustrefs_exporter__tests__client_stats_otel.snap", env!("CARGO_MANIFEST_DIR")).as_str());
+        let opentelemetry = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__client_stats_otel.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
         let previous_implementation = read_metrics_from_snapshot(
             format!(
                 "{}/src/snapshots/lustrefs_exporter__tests__client_stats.snap",
