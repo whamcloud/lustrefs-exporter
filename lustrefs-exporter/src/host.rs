@@ -1,7 +1,7 @@
 pub mod opentelemetry {
     use lustre_collector::HostStats;
     use opentelemetry::{
-        metrics::{Gauge, Meter},
+        metrics::{Counter, Gauge, Meter},
         KeyValue,
     };
     use std::ops::Deref;
@@ -11,7 +11,7 @@ pub mod opentelemetry {
         pub lustre_targets_healthy: Gauge<u64>,
         pub lnet_mem_used: Gauge<u64>,
         pub mem_used: Gauge<u64>,
-        pub mem_used_max: Gauge<u64>,
+        pub mem_used_max: Counter<u64>,
     }
 
     impl OpenTelemetryMetricsHost {
@@ -30,7 +30,7 @@ pub mod opentelemetry {
                     .with_description("Gives information about Lustre memory usage.")
                     .build(),
                 mem_used_max: meter
-                    .u64_gauge("lustre_mem_used_max")
+                    .u64_counter("lustre_mem_used_max")
                     .with_description("Gives information about Lustre maximum memory usage.")
                     .build(),
             }
@@ -59,7 +59,7 @@ pub mod opentelemetry {
                 otel_host.mem_used.record(x.value, &[]);
             }
             HostStats::MemusedMax(x) => {
-                otel_host.mem_used_max.record(x.value, &[]);
+                otel_host.mem_used_max.add(x.value, &[]);
             }
         }
     }

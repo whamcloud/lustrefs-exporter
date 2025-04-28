@@ -3,7 +3,7 @@ source: lustrefs-exporter/src/main.rs
 expression: x
 ---
 # HELP lustre_client_stats Lustre client interface stats.
-# TYPE lustre_client_stats gauge
+# TYPE lustre_client_stats counter
 lustre_client_stats{operation="ioctl",target="ai400x2-ff47bce9ca35d800"} 114
 lustre_client_stats{operation="open",target="ai400x2-ff47bce9ca35d800"} 35955554
 lustre_client_stats{operation="close",target="ai400x2-ff47bce9ca35d800"} 35955554
@@ -41,5 +41,5 @@ lustre_lnet_mem_used 22228358
 lustre_mem_used 35721854085
 
 # HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
-# TYPE lustre_mem_used_max gauge
+# TYPE lustre_mem_used_max counter
 lustre_mem_used_max 41220347397

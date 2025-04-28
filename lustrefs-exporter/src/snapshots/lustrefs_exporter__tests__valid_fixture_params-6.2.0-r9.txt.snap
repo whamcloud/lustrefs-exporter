@@ -22,22 +22,22 @@ lustre_connected_clients{component="mdt",target="fs-MDT0000"} 1
 lustre_connected_clients{component="mdt",target="fs-MDT0000"} 1
 
 # HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
-# TYPE lustre_exports_dirty_total counter
+# TYPE lustre_exports_dirty_total gauge
 lustre_exports_dirty_total{component="ost",target="fs-OST0000"} 0
 lustre_exports_dirty_total{component="ost",target="fs-OST0001"} 0
 
 # HELP lustre_exports_granted_total Total number of exports that have been marked granted
-# TYPE lustre_exports_granted_total counter
+# TYPE lustre_exports_granted_total gauge
 lustre_exports_granted_total{component="ost",target="fs-OST0000"} 272832
 lustre_exports_granted_total{component="ost",target="fs-OST0001"} 272832
 
 # HELP lustre_exports_pending_total Total number of exports that have been marked pending
-# TYPE lustre_exports_pending_total counter
+# TYPE lustre_exports_pending_total gauge
 lustre_exports_pending_total{component="ost",target="fs-OST0000"} 0
 lustre_exports_pending_total{component="ost",target="fs-OST0001"} 0
 
 # HELP lustre_exports_total Total number of times the pool has been exported
-# TYPE lustre_exports_total counter
+# TYPE lustre_exports_total gauge
 lustre_exports_total{component="mgt",target="MGS"} 9
 lustre_exports_total{component="ost",target="fs-OST0000"} 8
 lustre_exports_total{component="ost",target="fs-OST0001"} 8
@@ -91,19 +91,19 @@ lustre_ldlm_cbd_stats{operation="ldlm_bl_callback"} 134
 lustre_lnet_mem_used 67130162
 
 # HELP lustre_lock_contended_total Number of contended locks
-# TYPE lustre_lock_contended_total counter
+# TYPE lustre_lock_contended_total gauge
 lustre_lock_contended_total{component="mdt",target="fs-MDT0000"} 32
 lustre_lock_contended_total{component="ost",target="fs-OST0000"} 32
 lustre_lock_contended_total{component="ost",target="fs-OST0001"} 32
 
 # HELP lustre_lock_contention_seconds_total Time in seconds during which locks were contended
-# TYPE lustre_lock_contention_seconds_total counter
+# TYPE lustre_lock_contention_seconds_total gauge
 lustre_lock_contention_seconds_total{component="mdt",target="fs-MDT0000"} 2
 lustre_lock_contention_seconds_total{component="ost",target="fs-OST0000"} 2
 lustre_lock_contention_seconds_total{component="ost",target="fs-OST0001"} 2
 
 # HELP lustre_lock_count_total Number of locks
-# TYPE lustre_lock_count_total counter
+# TYPE lustre_lock_count_total gauge
 lustre_lock_count_total{component="mdt",target="fs-MDT0000"} 99
 lustre_lock_count_total{component="ost",target="fs-OST0000"} 0
 lustre_lock_count_total{component="ost",target="fs-OST0001"} 0
@@ -119,7 +119,7 @@ lustre_lock_timeout_total{component="ost",target="fs-OST0001"} 0
 lustre_mem_used 243927005
 
 # HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
-# TYPE lustre_mem_used_max gauge
+# TYPE lustre_mem_used_max counter
 lustre_mem_used_max 245019901
 
 # HELP lustre_oss_ost_create_stats OSS ost_create stats

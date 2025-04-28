@@ -6,20 +6,20 @@ pub mod opentelemetry {
 
     use lustre_collector::LliteStat;
     use opentelemetry::{
-        metrics::{Gauge, Meter},
+        metrics::{Counter, Meter},
         KeyValue,
     };
 
     #[derive(Debug)]
     pub struct OpenTelemetryMetricsLlite {
-        pub client_stats: Gauge<u64>,
+        pub client_stats: Counter<u64>,
     }
 
     impl OpenTelemetryMetricsLlite {
         pub fn new(meter: &Meter) -> Self {
             OpenTelemetryMetricsLlite {
                 client_stats: meter
-                    .u64_gauge("lustre_client_stats")
+                    .u64_counter("lustre_client_stats")
                     .with_description("Lustre client interface stats.")
                     .build(),
             }
@@ -34,7 +34,7 @@ pub mod opentelemetry {
         } = x;
 
         for stat in stats {
-            otel_llite.client_stats.record(
+            otel_llite.client_stats.add(
                 stat.samples,
                 &[
                     KeyValue::new("operation", stat.name.deref().to_string()),

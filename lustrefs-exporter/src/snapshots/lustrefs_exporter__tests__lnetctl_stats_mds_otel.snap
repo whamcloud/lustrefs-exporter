@@ -52,7 +52,7 @@ lustre_client_export_stats{component="ost",name="statfs",nid="0@lo",target="fs-O
 lustre_client_export_stats{component="ost",name="write",nid="0@lo",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 26
 lustre_client_export_stats{component="ost",name="write_bytes",nid="0@lo",target="fs-OST0000",units="bytes",otel_scope_name="lustre"} 26
 # HELP lustre_client_stats Lustre client interface stats.
-# TYPE lustre_client_stats gauge
+# TYPE lustre_client_stats counter
 lustre_client_stats{operation="close",target="fs-ffff9f7daee63800",otel_scope_name="lustre"} 5
 lustre_client_stats{operation="getattr",target="fs-ffff9f7daee63800",otel_scope_name="lustre"} 50
 lustre_client_stats{operation="getxattr",target="fs-ffff9f7daee63800",otel_scope_name="lustre"} 1
@@ -75,7 +75,7 @@ lustre_client_stats{operation="write_bytes",target="fs-ffff9f7daee63800",otel_sc
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 1
 # HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.
-# TYPE lustre_dio_frags gauge
+# TYPE lustre_dio_frags counter
 lustre_dio_frags{component="mdt",operation="read",size="1",target="fs-MDT0000",otel_scope_name="lustre"} 1
 lustre_dio_frags{component="mdt",operation="read",size="2",target="fs-MDT0000",otel_scope_name="lustre"} 1
 lustre_dio_frags{component="mdt",operation="write",size="1",target="fs-MDT0000",otel_scope_name="lustre"} 0
@@ -105,7 +105,7 @@ lustre_discontiguous_pages_total{component="ost",operation="read",size="1",targe
 lustre_discontiguous_pages_total{component="ost",operation="write",size="0",target="fs-OST0000",otel_scope_name="lustre"} 19
 lustre_discontiguous_pages_total{component="ost",operation="write",size="1",target="fs-OST0000",otel_scope_name="lustre"} 7
 # HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.
-# TYPE lustre_disk_io gauge
+# TYPE lustre_disk_io counter
 lustre_disk_io{component="mdt",operation="read",size="1",target="fs-MDT0000",otel_scope_name="lustre"} 2
 lustre_disk_io{component="mdt",operation="read",size="2",target="fs-MDT0000",otel_scope_name="lustre"} 1
 lustre_disk_io{component="mdt",operation="write",size="1",target="fs-MDT0000",otel_scope_name="lustre"} 1
@@ -176,19 +176,19 @@ lustre_drop_bytes_total{otel_scope_name="lustre"} 3120
 lustre_drop_count_total{nid="0@lo",otel_scope_name="lustre"} 2
 lustre_drop_count_total{nid="10.73.20.11@tcp",otel_scope_name="lustre"} 4
 # HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
-# TYPE lustre_exports_dirty_total counter
+# TYPE lustre_exports_dirty_total gauge
 lustre_exports_dirty_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 0
 lustre_exports_dirty_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 0
 # HELP lustre_exports_granted_total Total number of exports that have been marked granted
-# TYPE lustre_exports_granted_total counter
+# TYPE lustre_exports_granted_total gauge
 lustre_exports_granted_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 279104
 lustre_exports_granted_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 279104
 # HELP lustre_exports_pending_total Total number of exports that have been marked pending
-# TYPE lustre_exports_pending_total counter
+# TYPE lustre_exports_pending_total gauge
 lustre_exports_pending_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 0
 lustre_exports_pending_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 0
 # HELP lustre_exports_total Total number of times the pool has been exported
-# TYPE lustre_exports_total counter
+# TYPE lustre_exports_total gauge
 lustre_exports_total{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 10
 lustre_exports_total{component="mgt",target="MGS",otel_scope_name="lustre"} 4
 lustre_exports_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 1
@@ -263,17 +263,17 @@ lustre_ldlm_cbd_stats{operation="reqbuf_avail",otel_scope_name="lustre"} 83
 # TYPE lustre_lnet_mem_used gauge
 lustre_lnet_mem_used{otel_scope_name="lustre"} 49809308
 # HELP lustre_lock_contended_total Number of contended locks
-# TYPE lustre_lock_contended_total counter
+# TYPE lustre_lock_contended_total gauge
 lustre_lock_contended_total{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 32
 lustre_lock_contended_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 32
 lustre_lock_contended_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 32
 # HELP lustre_lock_contention_seconds_total Time in seconds during which locks were contended
-# TYPE lustre_lock_contention_seconds_total counter
+# TYPE lustre_lock_contention_seconds_total gauge
 lustre_lock_contention_seconds_total{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 2
 lustre_lock_contention_seconds_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 2
 lustre_lock_contention_seconds_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 2
 # HELP lustre_lock_count_total Number of locks
-# TYPE lustre_lock_count_total counter
+# TYPE lustre_lock_count_total gauge
 lustre_lock_count_total{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 32
 lustre_lock_count_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 0
 lustre_lock_count_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 0
@@ -368,7 +368,7 @@ lustre_mds_mdt_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lust
 # TYPE lustre_mem_used gauge
 lustre_mem_used{otel_scope_name="lustre"} 1009903509
 # HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
-# TYPE lustre_mem_used_max gauge
+# TYPE lustre_mem_used_max counter
 lustre_mem_used_max{otel_scope_name="lustre"} 1019668997
 # HELP lustre_oss_ost_create_stats OSS ost_create stats
 # TYPE lustre_oss_ost_create_stats gauge
@@ -525,7 +525,7 @@ lustre_stats_total{component="mdt",operation="write_bytes",target="fs-MDT0000",o
 # TYPE lustre_write_bytes_total counter
 lustre_write_bytes_total{component="ost",operation="write",target="fs-OST0000",otel_scope_name="lustre"} 104857600
 # HELP lustre_write_maximum_size_bytes The maximum write size in bytes.
-# TYPE lustre_write_maximum_size_bytes gauge
+# TYPE lustre_write_maximum_size_bytes counter
 lustre_write_maximum_size_bytes{component="ost",operation="write",target="fs-OST0000",otel_scope_name="lustre"} 4194304
 # HELP lustre_write_minimum_size_bytes The minimum write size in bytes.
 # TYPE lustre_write_minimum_size_bytes gauge

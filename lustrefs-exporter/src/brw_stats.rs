@@ -20,8 +20,8 @@ pub mod opentelemetry {
     #[derive(Debug)]
     pub struct OpenTelemetryMetricsBrw {
         pub disk_io_total: Counter<u64>,
-        pub disk_io_frags: Gauge<u64>,
-        pub disk_io: Gauge<u64>,
+        pub disk_io_frags: Counter<u64>,
+        pub disk_io: Counter<u64>,
         pub discontiguous_pages_total: Counter<u64>,
         pub discontiguous_blocks_total: Counter<u64>,
         pub io_time_milliseconds_total: Counter<u64>,
@@ -31,14 +31,14 @@ pub mod opentelemetry {
         pub available_kbytes: Gauge<u64>,
         pub free_kbytes: Gauge<u64>,
         pub capacity_kbytes: Gauge<u64>,
-        pub exports_total: Counter<u64>,
-        pub exports_dirty_total: Counter<u64>,
-        pub exports_granted_total: Counter<u64>,
-        pub exports_pending_total: Counter<u64>,
-        pub lock_contended_total: Counter<u64>,
-        pub lock_contention_seconds_total: Counter<u64>,
+        pub exports_total: Gauge<u64>,
+        pub exports_dirty_total: Gauge<u64>,
+        pub exports_granted_total: Gauge<u64>,
+        pub exports_pending_total: Gauge<u64>,
+        pub lock_contended_total: Gauge<u64>,
+        pub lock_contention_seconds_total: Gauge<u64>,
         pub connected_clients: Gauge<u64>,
-        pub lock_count_total: Counter<u64>,
+        pub lock_count_total: Gauge<u64>,
         pub lock_timeout_total: Counter<u64>,
         pub block_maps_msec_total: Counter<u64>,
         pub recovery_status: Gauge<u64>,
@@ -61,11 +61,11 @@ pub mod opentelemetry {
                     .with_description("Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation")
                     .build(),
                 disk_io_frags: meter
-                    .u64_gauge("lustre_dio_frags")
+                    .u64_counter("lustre_dio_frags")
                     .with_description("Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.")
                     .build(),
                 disk_io: meter
-                    .u64_gauge("lustre_disk_io")
+                    .u64_counter("lustre_disk_io")
                     .with_description("Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.")
                     .build(),
                 discontiguous_pages_total: meter
@@ -105,27 +105,27 @@ pub mod opentelemetry {
                     .with_description("Capacity of the pool in kilobytes")
                     .build(),
                 exports_total: meter
-                    .u64_counter("lustre_exports_total")
+                    .u64_gauge("lustre_exports_total")
                     .with_description("Total number of times the pool has been exported")
                     .build(),
                 exports_dirty_total: meter
-                    .u64_counter("lustre_exports_dirty_total")
+                    .u64_gauge("lustre_exports_dirty_total")
                     .with_description("Total number of exports that have been marked dirty")
                     .build(),
                 exports_granted_total: meter
-                    .u64_counter("lustre_exports_granted_total")
+                    .u64_gauge("lustre_exports_granted_total")
                     .with_description("Total number of exports that have been marked granted")
                     .build(),
                 exports_pending_total: meter
-                    .u64_counter("lustre_exports_pending_total")
+                    .u64_gauge("lustre_exports_pending_total")
                     .with_description("Total number of exports that have been marked pending")
                     .build(),
                 lock_contended_total: meter
-                    .u64_counter("lustre_lock_contended_total")
+                    .u64_gauge("lustre_lock_contended_total")
                     .with_description("Number of contended locks")
                     .build(),
                 lock_contention_seconds_total: meter
-                    .u64_counter("lustre_lock_contention_seconds_total")
+                    .u64_gauge("lustre_lock_contention_seconds_total")
                     .with_description("Time in seconds during which locks were contended")
                     .build(),
                 connected_clients: meter
@@ -133,7 +133,7 @@ pub mod opentelemetry {
                     .with_description("Number of connected clients")
                     .build(),
                 lock_count_total: meter
-                    .u64_counter("lustre_lock_count_total")
+                    .u64_gauge("lustre_lock_count_total")
                     .with_description("Number of locks")
                     .build(),
                 lock_timeout_total: meter
@@ -230,8 +230,8 @@ pub mod opentelemetry {
                             otel_brw.disk_io_total.add(b.write, write_labels);
                         }
                         "rpc_hist" => {
-                            otel_brw.disk_io.record(b.read, labels);
-                            otel_brw.disk_io.record(b.write, write_labels);
+                            otel_brw.disk_io.add(b.read, labels);
+                            otel_brw.disk_io.add(b.write, write_labels);
                         }
                         "pages" => {
                             otel_brw.pages_per_bulk_rw_total.add(b.read, labels);
@@ -244,8 +244,8 @@ pub mod opentelemetry {
                                 .add(b.write, write_labels);
                         }
                         "dio_frags" => {
-                            otel_brw.disk_io_frags.record(b.read, labels);
-                            otel_brw.disk_io_frags.record(b.write, write_labels);
+                            otel_brw.disk_io_frags.add(b.read, labels);
+                            otel_brw.disk_io_frags.add(b.write, write_labels);
                         }
                         "discont_blocks" => {
                             otel_brw.discontiguous_blocks_total.add(b.read, labels);
@@ -387,7 +387,7 @@ pub mod opentelemetry {
                 );
             }
             TargetStats::NumExports(x) => {
-                otel.brw.exports_total.add(
+                otel.brw.exports_total.record(
                     x.value,
                     &[
                         KeyValue::new("component", x.kind.to_prom_label().to_string()),
@@ -396,7 +396,7 @@ pub mod opentelemetry {
                 );
             }
             TargetStats::TotDirty(x) => {
-                otel.brw.exports_dirty_total.add(
+                otel.brw.exports_dirty_total.record(
                     x.value,
                     &[
                         KeyValue::new("component", x.kind.to_prom_label().to_string()),
@@ -405,7 +405,7 @@ pub mod opentelemetry {
                 );
             }
             TargetStats::TotGranted(x) => {
-                otel.brw.exports_granted_total.add(
+                otel.brw.exports_granted_total.record(
                     x.value,
                     &[
                         KeyValue::new("component", x.kind.to_prom_label().to_string()),
@@ -414,7 +414,7 @@ pub mod opentelemetry {
                 );
             }
             TargetStats::TotPending(x) => {
-                otel.brw.exports_pending_total.add(
+                otel.brw.exports_pending_total.record(
                     x.value,
                     &[
                         KeyValue::new("component", x.kind.to_prom_label().to_string()),
@@ -423,7 +423,7 @@ pub mod opentelemetry {
                 );
             }
             TargetStats::ContendedLocks(x) => {
-                otel.brw.lock_contended_total.add(
+                otel.brw.lock_contended_total.record(
                     x.value,
                     &[
                         KeyValue::new("component", x.kind.to_prom_label().to_string()),
@@ -432,7 +432,7 @@ pub mod opentelemetry {
                 );
             }
             TargetStats::ContentionSeconds(x) => {
-                otel.brw.lock_contention_seconds_total.add(
+                otel.brw.lock_contention_seconds_total.record(
                     x.value,
                     &[
                         KeyValue::new("component", x.kind.to_prom_label().to_string()),
@@ -450,7 +450,7 @@ pub mod opentelemetry {
                 );
             }
             TargetStats::LockCount(x) => {
-                otel.brw.lock_count_total.add(
+                otel.brw.lock_count_total.record(
                     x.value,
                     &[
                         KeyValue::new("component", x.kind.to_prom_label().to_string()),

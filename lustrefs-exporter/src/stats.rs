@@ -14,11 +14,11 @@ pub mod opentelemetry {
         // OST metrics
         pub read_samples_total: Counter<u64>,
         pub read_minimum_size_bytes: Gauge<u64>,
-        pub read_maximum_size_bytes: Gauge<u64>,
+        pub read_maximum_size_bytes: Counter<u64>,
         pub read_bytes_total: Counter<u64>,
         pub write_samples_total: Counter<u64>,
         pub write_minimum_size_bytes: Gauge<u64>,
-        pub write_maximum_size_bytes: Gauge<u64>,
+        pub write_maximum_size_bytes: Counter<u64>,
         pub write_bytes_total: Counter<u64>,
 
         // MDT metrics
@@ -51,7 +51,7 @@ pub mod opentelemetry {
                     .with_description("The minimum read size in bytes.")
                     .build(),
                 read_maximum_size_bytes: meter
-                    .u64_gauge("lustre_read_maximum_size_bytes")
+                    .u64_counter("lustre_read_maximum_size_bytes")
                     .with_description("The maximum read size in bytes.")
                     .build(),
                 read_bytes_total: meter
@@ -67,7 +67,7 @@ pub mod opentelemetry {
                     .with_description("The minimum write size in bytes.")
                     .build(),
                 write_maximum_size_bytes: meter
-                    .u64_gauge("lustre_write_maximum_size_bytes")
+                    .u64_counter("lustre_write_maximum_size_bytes")
                     .with_description("The maximum write size in bytes.")
                     .build(),
                 write_bytes_total: meter
@@ -144,7 +144,7 @@ pub mod opentelemetry {
                         otel_stats.read_minimum_size_bytes.record(min, read_labels);
                     }
                     if let Some(max) = s.max {
-                        otel_stats.read_maximum_size_bytes.record(max, read_labels);
+                        otel_stats.read_maximum_size_bytes.add(max, read_labels);
                     }
                     if let Some(sum) = s.sum {
                         otel_stats.read_bytes_total.add(sum, read_labels);
@@ -166,7 +166,7 @@ pub mod opentelemetry {
                     if let Some(max) = s.max {
                         otel_stats
                             .write_maximum_size_bytes
-                            .record(max, write_labels);
+                            .add(max, write_labels);
                     }
                     if let Some(sum) = s.sum {
                         otel_stats.write_bytes_total.add(sum, write_labels);

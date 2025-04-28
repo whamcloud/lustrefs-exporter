@@ -35,25 +35,25 @@ lustre_client_export_stats{component="ost",name="statfs",nid="0@lo",target="fs-O
 lustre_client_export_stats{component="ost",name="statfs",nid="10.73.20.12@tcp",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 113927
 lustre_client_export_stats{component="ost",name="statfs",nid="10.73.20.12@tcp",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 113927
 # HELP lustre_client_stats Lustre client interface stats.
-# TYPE lustre_client_stats gauge
+# TYPE lustre_client_stats counter
 lustre_client_stats{operation="getattr",target="fs-ffff97e895d31000",otel_scope_name="lustre"} 6
 # HELP lustre_connected_clients Number of connected clients
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 1
 # HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
-# TYPE lustre_exports_dirty_total counter
+# TYPE lustre_exports_dirty_total gauge
 lustre_exports_dirty_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 0
 lustre_exports_dirty_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 0
 # HELP lustre_exports_granted_total Total number of exports that have been marked granted
-# TYPE lustre_exports_granted_total counter
+# TYPE lustre_exports_granted_total gauge
 lustre_exports_granted_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 278208
 lustre_exports_granted_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 278208
 # HELP lustre_exports_pending_total Total number of exports that have been marked pending
-# TYPE lustre_exports_pending_total counter
+# TYPE lustre_exports_pending_total gauge
 lustre_exports_pending_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 0
 lustre_exports_pending_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 0
 # HELP lustre_exports_total Total number of times the pool has been exported
-# TYPE lustre_exports_total counter
+# TYPE lustre_exports_total gauge
 lustre_exports_total{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 8
 lustre_exports_total{component="mgt",target="MGS",otel_scope_name="lustre"} 2
 lustre_exports_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 2
@@ -99,17 +99,17 @@ lustre_ldlm_cbd_stats{operation="reqbuf_avail",otel_scope_name="lustre"} 70
 # TYPE lustre_lnet_mem_used gauge
 lustre_lnet_mem_used{otel_scope_name="lustre"} 53243084
 # HELP lustre_lock_contended_total Number of contended locks
-# TYPE lustre_lock_contended_total counter
+# TYPE lustre_lock_contended_total gauge
 lustre_lock_contended_total{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 32
 lustre_lock_contended_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 32
 lustre_lock_contended_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 32
 # HELP lustre_lock_contention_seconds_total Time in seconds during which locks were contended
-# TYPE lustre_lock_contention_seconds_total counter
+# TYPE lustre_lock_contention_seconds_total gauge
 lustre_lock_contention_seconds_total{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 2
 lustre_lock_contention_seconds_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 2
 lustre_lock_contention_seconds_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 2
 # HELP lustre_lock_count_total Number of locks
-# TYPE lustre_lock_count_total counter
+# TYPE lustre_lock_count_total gauge
 lustre_lock_count_total{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 24
 lustre_lock_count_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 0
 lustre_lock_count_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 0
@@ -170,7 +170,7 @@ lustre_mds_mdt_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lust
 # TYPE lustre_mem_used gauge
 lustre_mem_used{otel_scope_name="lustre"} 978549115
 # HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
-# TYPE lustre_mem_used_max gauge
+# TYPE lustre_mem_used_max counter
 lustre_mem_used_max{otel_scope_name="lustre"} 981936083
 # HELP lustre_oss_ost_create_stats OSS ost_create stats
 # TYPE lustre_oss_ost_create_stats gauge

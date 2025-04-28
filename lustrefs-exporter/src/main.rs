@@ -486,8 +486,8 @@ mod tests {
         sorted_labels.sort();
 
         let value_str = match sample.value {
-            prometheus_parse::Value::Counter(f) => f.to_string(),
-            prometheus_parse::Value::Gauge(f) => f.to_string(),
+            prometheus_parse::Value::Counter(f) => format!("Counter({})", f),
+            prometheus_parse::Value::Gauge(f) => format!("Gauge({})", f),
             _ => "0.0".to_string(),
         };
 
