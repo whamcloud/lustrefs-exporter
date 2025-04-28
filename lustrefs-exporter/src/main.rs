@@ -477,7 +477,8 @@ mod tests {
                 include_dir::DirEntry::Dir(_) => {}
                 include_dir::DirEntry::File(file) => {
                     let name = file.path().to_string_lossy().to_string().replace("/", "__");
-                    println!("{}", format!("{}/src/snapshots/lustrefs_exporter__tests__valid_fixture_otel_{name}.snap", env!("CARGO_MANIFEST_DIR")));
+                    // Useful when debugging
+                    // println!("{}", format!("{}/src/snapshots/lustrefs_exporter__tests__valid_fixture_otel_{name}.snap", env!("CARGO_MANIFEST_DIR")));
                     let opentelemetry = read_metrics_from_snapshot(format!("{}/src/snapshots/lustrefs_exporter__tests__valid_fixture_otel_{name}.snap", env!("CARGO_MANIFEST_DIR")).as_str());
                     let previous_implementation = read_metrics_from_snapshot(
                         format!(
