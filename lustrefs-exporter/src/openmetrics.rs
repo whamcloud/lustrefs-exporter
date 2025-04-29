@@ -1,3 +1,7 @@
+// Copyright (c) 2025 DDN. All rights reserved.
+// Use of this source code is governed by a MIT-style
+// license that can be found in the LICENSE file.
+
 use crate::{
     brw_stats::opentelemetry::{build_target_stats, OpenTelemetryMetricsBrw},
     host::opentelemetry::{build_host_stats, OpenTelemetryMetricsHost},
@@ -19,7 +23,6 @@ pub struct OpenTelemetryMetrics {
     pub brw: OpenTelemetryMetricsBrw,
     pub llite: OpenTelemetryMetricsLlite,
     pub lnet: OpenTelemetryMetricsLnet,
-    // pub jobstats: OpenTelemetryMetricsJobstats,
     pub stats: OpenTelemetryMetricsStats,
     pub export: OpenTelemetryMetricsStats,
     pub mds: OpenTelemetryMetricsStats, // Reusing the Stats structure for MDS metrics
@@ -34,7 +37,6 @@ impl OpenTelemetryMetrics {
             brw: OpenTelemetryMetricsBrw::new(&meter),
             llite: OpenTelemetryMetricsLlite::new(&meter),
             lnet: OpenTelemetryMetricsLnet::new(&meter),
-            // jobstats: OpenTelemetryMetricsJobstats::new(&meter),
             stats: OpenTelemetryMetricsStats::new(&meter),
             export: OpenTelemetryMetricsStats::new(&meter),
             mds: OpenTelemetryMetricsStats::new(&meter), // Reusing the Stats structure for MDS metrics
