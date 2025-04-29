@@ -1,8 +1,3 @@
-use std::collections::HashSet;
-
-use lustre_collector::Record;
-use opentelemetry::metrics::Meter;
-
 use crate::{
     brw_stats::opentelemetry::{build_target_stats, OpenTelemetryMetricsBrw},
     host::opentelemetry::{build_host_stats, OpenTelemetryMetricsHost},
@@ -12,6 +7,9 @@ use crate::{
     service::opentelemetry::{build_service_stats, OpenTelemetryMetricsService},
     stats::opentelemetry::OpenTelemetryMetricsStats,
 };
+use lustre_collector::Record;
+use opentelemetry::metrics::Meter;
+use std::collections::HashSet;
 
 #[derive(Debug)]
 pub struct OpenTelemetryMetrics {

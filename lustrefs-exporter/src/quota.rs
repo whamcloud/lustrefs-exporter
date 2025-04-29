@@ -2,15 +2,13 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 pub mod opentelemetry {
-    use std::ops::Deref as _;
-
+    use crate::LabelProm as _;
     use lustre_collector::{QuotaStats, QuotaStatsOsd, TargetQuotaStat, TargetStat};
     use opentelemetry::{
         metrics::{Gauge, Meter},
         KeyValue,
     };
-
-    use crate::LabelProm as _;
+    use std::ops::Deref as _;
 
     #[derive(Debug)]
     pub struct OpenTelemetryMetricsQuota {

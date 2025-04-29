@@ -30,6 +30,7 @@ use std::{
     sync::Arc,
 };
 use tokio::process::Command;
+use tokio_stream::StreamExt as _;
 use tower::ServiceBuilder;
 
 const LUSTREFS_EXPORTER_PORT: &str = "32221";
@@ -217,10 +218,8 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
     let lustre_stats = String::from_utf8_lossy(&buffer).to_string();
 
     let body = if let Some(stream) = jobstats {
-        let merged = tokio_stream::StreamExt::chain(
-            tokio_stream::once(Ok::<_, Infallible>(lustre_stats)),
-            tokio_stream::once(Ok::<_, Infallible>(stream)),
-        );
+        let merged = tokio_stream::once(Ok::<_, Infallible>(lustre_stats))
+            .chain(tokio_stream::once(Ok(stream)));
 
         Body::from_stream(merged)
     } else {
