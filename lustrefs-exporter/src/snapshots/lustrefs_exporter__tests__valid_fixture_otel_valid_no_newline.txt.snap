@@ -1,0 +1,239 @@
+---
+source: lustrefs-exporter/src/main.rs
+expression: x
+---
+# HELP lustre_available_kilobytes Number of kilobytes readily available in the pool
+# TYPE lustre_available_kilobytes gauge
+lustre_available_kilobytes{component="mdt",target="ai400-MDT0000",otel_scope_name="lustre"} 108469468
+lustre_available_kilobytes{component="ost",target="ai400-OST0000",otel_scope_name="lustre"} 3835411664
+lustre_available_kilobytes{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 3937811756
+# HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes
+# TYPE lustre_capacity_kilobytes gauge
+lustre_capacity_kilobytes{component="mdt",target="ai400-MDT0000",otel_scope_name="lustre"} 110635320
+lustre_capacity_kilobytes{component="ost",target="ai400-OST0000",otel_scope_name="lustre"} 3978095168
+lustre_capacity_kilobytes{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 3978095168
+# HELP lustre_connected_clients Number of connected clients
+# TYPE lustre_connected_clients gauge
+lustre_connected_clients{component="mdt",target="ai400-MDT0000",otel_scope_name="lustre"} 4
+# HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.
+# TYPE lustre_dio_frags counter
+lustre_dio_frags{component="ost",operation="read",size="1",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_dio_frags{component="ost",operation="read",size="2",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_dio_frags{component="ost",operation="read",size="3",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_dio_frags{component="ost",operation="write",size="1",target="ai400-OST0000",otel_scope_name="lustre"} 1
+lustre_dio_frags{component="ost",operation="write",size="2",target="ai400-OST0000",otel_scope_name="lustre"} 24997
+lustre_dio_frags{component="ost",operation="write",size="3",target="ai400-OST0000",otel_scope_name="lustre"} 3
+# HELP lustre_discontiguous_blocks_total 'size' label represents 'Discontiguous blocks', the number of discontinuities in the physical block allocation in the file system for a single RPC
+# TYPE lustre_discontiguous_blocks_total counter
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="0",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="1",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="0",target="ai400-OST0000",otel_scope_name="lustre"} 24998
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="1",target="ai400-OST0000",otel_scope_name="lustre"} 3
+# HELP lustre_discontiguous_pages_total Total number of logical discontinuities per RPC. 'size' label represents 'Discontiguous pages', the number of discontinuities in the logical file offset of each page in a single RPC.
+# TYPE lustre_discontiguous_pages_total counter
+lustre_discontiguous_pages_total{component="ost",operation="read",size="0",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_discontiguous_pages_total{component="ost",operation="read",size="1",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_discontiguous_pages_total{component="ost",operation="write",size="0",target="ai400-OST0000",otel_scope_name="lustre"} 24998
+lustre_discontiguous_pages_total{component="ost",operation="write",size="1",target="ai400-OST0000",otel_scope_name="lustre"} 3
+# HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.
+# TYPE lustre_disk_io counter
+lustre_disk_io{component="ost",operation="read",size="1",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="read",size="10",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="read",size="11",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="read",size="12",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="read",size="13",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="read",size="14",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="read",size="15",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="read",size="16",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="read",size="2",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="read",size="3",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="read",size="4",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="read",size="5",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="read",size="6",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="read",size="7",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="read",size="8",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="read",size="9",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io{component="ost",operation="write",size="1",target="ai400-OST0000",otel_scope_name="lustre"} 17751
+lustre_disk_io{component="ost",operation="write",size="10",target="ai400-OST0000",otel_scope_name="lustre"} 31
+lustre_disk_io{component="ost",operation="write",size="11",target="ai400-OST0000",otel_scope_name="lustre"} 12
+lustre_disk_io{component="ost",operation="write",size="12",target="ai400-OST0000",otel_scope_name="lustre"} 11
+lustre_disk_io{component="ost",operation="write",size="13",target="ai400-OST0000",otel_scope_name="lustre"} 7
+lustre_disk_io{component="ost",operation="write",size="14",target="ai400-OST0000",otel_scope_name="lustre"} 7
+lustre_disk_io{component="ost",operation="write",size="15",target="ai400-OST0000",otel_scope_name="lustre"} 1
+lustre_disk_io{component="ost",operation="write",size="16",target="ai400-OST0000",otel_scope_name="lustre"} 1
+lustre_disk_io{component="ost",operation="write",size="2",target="ai400-OST0000",otel_scope_name="lustre"} 17886
+lustre_disk_io{component="ost",operation="write",size="3",target="ai400-OST0000",otel_scope_name="lustre"} 5335
+lustre_disk_io{component="ost",operation="write",size="4",target="ai400-OST0000",otel_scope_name="lustre"} 5296
+lustre_disk_io{component="ost",operation="write",size="5",target="ai400-OST0000",otel_scope_name="lustre"} 1722
+lustre_disk_io{component="ost",operation="write",size="6",target="ai400-OST0000",otel_scope_name="lustre"} 1665
+lustre_disk_io{component="ost",operation="write",size="7",target="ai400-OST0000",otel_scope_name="lustre"} 128
+lustre_disk_io{component="ost",operation="write",size="8",target="ai400-OST0000",otel_scope_name="lustre"} 121
+lustre_disk_io{component="ost",operation="write",size="9",target="ai400-OST0000",otel_scope_name="lustre"} 30
+# HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation
+# TYPE lustre_disk_io_total counter
+lustre_disk_io_total{component="ost",operation="read",size="1048576",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io_total{component="ost",operation="read",size="131072",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io_total{component="ost",operation="read",size="2097152",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io_total{component="ost",operation="read",size="262144",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io_total{component="ost",operation="read",size="32768",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io_total{component="ost",operation="read",size="524288",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io_total{component="ost",operation="read",size="65536",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io_total{component="ost",operation="write",size="1048576",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io_total{component="ost",operation="write",size="131072",target="ai400-OST0000",otel_scope_name="lustre"} 2
+lustre_disk_io_total{component="ost",operation="write",size="2097152",target="ai400-OST0000",otel_scope_name="lustre"} 50000
+lustre_disk_io_total{component="ost",operation="write",size="262144",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io_total{component="ost",operation="write",size="32768",target="ai400-OST0000",otel_scope_name="lustre"} 1
+lustre_disk_io_total{component="ost",operation="write",size="524288",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_disk_io_total{component="ost",operation="write",size="65536",target="ai400-OST0000",otel_scope_name="lustre"} 1
+# HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
+# TYPE lustre_exports_dirty_total gauge
+lustre_exports_dirty_total{component="ost",target="ai400-OST0000",otel_scope_name="lustre"} 25313280
+lustre_exports_dirty_total{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 0
+# HELP lustre_exports_granted_total Total number of exports that have been marked granted
+# TYPE lustre_exports_granted_total gauge
+lustre_exports_granted_total{component="ost",target="ai400-OST0000",otel_scope_name="lustre"} 1887764159
+lustre_exports_granted_total{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 278208
+# HELP lustre_exports_pending_total Total number of exports that have been marked pending
+# TYPE lustre_exports_pending_total gauge
+lustre_exports_pending_total{component="ost",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_exports_pending_total{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 0
+# HELP lustre_exports_total Total number of times the pool has been exported
+# TYPE lustre_exports_total gauge
+lustre_exports_total{component="mdt",target="ai400-MDT0000",otel_scope_name="lustre"} 19
+lustre_exports_total{component="ost",target="ai400-OST0000",otel_scope_name="lustre"} 5
+lustre_exports_total{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 4
+# HELP lustre_free_kilobytes Number of kilobytes allocated to the pool
+# TYPE lustre_free_kilobytes gauge
+lustre_free_kilobytes{component="mdt",target="ai400-MDT0000",otel_scope_name="lustre"} 110616588
+lustre_free_kilobytes{component="ost",target="ai400-OST0000",otel_scope_name="lustre"} 3875693364
+lustre_free_kilobytes{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 3978093456
+# HELP lustre_health_healthy Indicates whether the Lustre target is healthy or not. 1 is healthy, 0 is unhealthy.
+# TYPE lustre_health_healthy gauge
+lustre_health_healthy{otel_scope_name="lustre"} 1
+# HELP lustre_inodes_free The number of inodes (objects) available
+# TYPE lustre_inodes_free gauge
+lustre_inodes_free{component="mdt",target="ai400-MDT0000",otel_scope_name="lustre"} 85908200
+lustre_inodes_free{component="ost",target="ai400-OST0000",otel_scope_name="lustre"} 31456558
+lustre_inodes_free{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 31456558
+# HELP lustre_inodes_maximum The maximum number of inodes (objects) the filesystem can hold
+# TYPE lustre_inodes_maximum gauge
+lustre_inodes_maximum{component="mdt",target="ai400-MDT0000",otel_scope_name="lustre"} 85908496
+lustre_inodes_maximum{component="ost",target="ai400-OST0000",otel_scope_name="lustre"} 31457280
+lustre_inodes_maximum{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 31457280
+# HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes. 'size' label represents 'I/O time (1/1000s)', the amount of time for each I/O operation to complete.
+# TYPE lustre_io_time_milliseconds_total counter
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="1",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="16",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="2",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="4",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="8",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="1",target="ai400-OST0000",otel_scope_name="lustre"} 24902
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="16",target="ai400-OST0000",otel_scope_name="lustre"} 2
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="2",target="ai400-OST0000",otel_scope_name="lustre"} 50
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="4",target="ai400-OST0000",otel_scope_name="lustre"} 35
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="8",target="ai400-OST0000",otel_scope_name="lustre"} 12
+# HELP lustre_ldlm_canceld_stats Gives information about LDLM Canceld service.
+# TYPE lustre_ldlm_canceld_stats counter
+lustre_ldlm_canceld_stats{operation="ldlm_cancel",otel_scope_name="lustre"} 10
+lustre_ldlm_canceld_stats{operation="req_active",otel_scope_name="lustre"} 10
+lustre_ldlm_canceld_stats{operation="req_qdepth",otel_scope_name="lustre"} 10
+lustre_ldlm_canceld_stats{operation="req_timeout",otel_scope_name="lustre"} 10
+lustre_ldlm_canceld_stats{operation="req_waittime",otel_scope_name="lustre"} 10
+lustre_ldlm_canceld_stats{operation="reqbuf_avail",otel_scope_name="lustre"} 31
+# HELP lustre_ldlm_cbd_stats Gives information about LDLM Callback service.
+# TYPE lustre_ldlm_cbd_stats counter
+lustre_ldlm_cbd_stats{operation="ldlm_bl_callback",otel_scope_name="lustre"} 1
+lustre_ldlm_cbd_stats{operation="req_active",otel_scope_name="lustre"} 1
+lustre_ldlm_cbd_stats{operation="req_qdepth",otel_scope_name="lustre"} 1
+lustre_ldlm_cbd_stats{operation="req_timeout",otel_scope_name="lustre"} 1
+lustre_ldlm_cbd_stats{operation="req_waittime",otel_scope_name="lustre"} 1
+lustre_ldlm_cbd_stats{operation="reqbuf_avail",otel_scope_name="lustre"} 3
+# HELP lustre_lnet_mem_used Gives information about Lustre LNet memory usage.
+# TYPE lustre_lnet_mem_used gauge
+lustre_lnet_mem_used{otel_scope_name="lustre"} 159290577
+# HELP lustre_lock_contended_total Number of contended locks
+# TYPE lustre_lock_contended_total gauge
+lustre_lock_contended_total{component="mdt",target="ai400-MDT0000",otel_scope_name="lustre"} 32
+lustre_lock_contended_total{component="ost",target="ai400-OST0000",otel_scope_name="lustre"} 32
+lustre_lock_contended_total{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 32
+# HELP lustre_lock_contention_seconds_total Time in seconds during which locks were contended
+# TYPE lustre_lock_contention_seconds_total gauge
+lustre_lock_contention_seconds_total{component="mdt",target="ai400-MDT0000",otel_scope_name="lustre"} 2
+lustre_lock_contention_seconds_total{component="ost",target="ai400-OST0000",otel_scope_name="lustre"} 2
+lustre_lock_contention_seconds_total{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 2
+# HELP lustre_lock_count_total Number of locks
+# TYPE lustre_lock_count_total gauge
+lustre_lock_count_total{component="mdt",target="ai400-MDT0000",otel_scope_name="lustre"} 9
+lustre_lock_count_total{component="ost",target="ai400-OST0000",otel_scope_name="lustre"} 1
+lustre_lock_count_total{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 0
+# HELP lustre_lock_timeout_total Number of lock timeouts
+# TYPE lustre_lock_timeout_total counter
+lustre_lock_timeout_total{component="mdt",target="ai400-MDT0000",otel_scope_name="lustre"} 0
+lustre_lock_timeout_total{component="ost",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_lock_timeout_total{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 0
+# HELP lustre_mem_used Gives information about Lustre memory usage.
+# TYPE lustre_mem_used gauge
+lustre_mem_used{otel_scope_name="lustre"} 5969573401
+# HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
+# TYPE lustre_mem_used_max counter
+lustre_mem_used_max{otel_scope_name="lustre"} 7511503233
+# HELP lustre_oss_ost_create_stats OSS ost_create stats
+# TYPE lustre_oss_ost_create_stats gauge
+lustre_oss_ost_create_stats{operation="ost_statfs",units="usec",otel_scope_name="lustre"} 239924
+lustre_oss_ost_create_stats{operation="req_active",units="reqs",otel_scope_name="lustre"} 239924
+lustre_oss_ost_create_stats{operation="req_qdepth",units="reqs",otel_scope_name="lustre"} 239924
+lustre_oss_ost_create_stats{operation="req_timeout",units="sec",otel_scope_name="lustre"} 239924
+lustre_oss_ost_create_stats{operation="req_waittime",units="usec",otel_scope_name="lustre"} 239924
+lustre_oss_ost_create_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 500525
+# HELP lustre_oss_ost_stats OSS ost stats
+# TYPE lustre_oss_ost_stats gauge
+lustre_oss_ost_stats{operation="ldlm_extent_enqueue",units="reqs",otel_scope_name="lustre"} 16
+lustre_oss_ost_stats{operation="ldlm_glimpse_enqueue",units="reqs",otel_scope_name="lustre"} 66
+lustre_oss_ost_stats{operation="obd_ping",units="usec",otel_scope_name="lustre"} 13
+lustre_oss_ost_stats{operation="ost_connect",units="usec",otel_scope_name="lustre"} 58
+lustre_oss_ost_stats{operation="ost_create",units="usec",otel_scope_name="lustre"} 32
+lustre_oss_ost_stats{operation="ost_disconnect",units="usec",otel_scope_name="lustre"} 2
+lustre_oss_ost_stats{operation="ost_get_info",units="usec",otel_scope_name="lustre"} 16
+lustre_oss_ost_stats{operation="ost_sync",units="usec",otel_scope_name="lustre"} 16
+lustre_oss_ost_stats{operation="req_active",units="reqs",otel_scope_name="lustre"} 219
+lustre_oss_ost_stats{operation="req_qdepth",units="reqs",otel_scope_name="lustre"} 219
+lustre_oss_ost_stats{operation="req_timeout",units="sec",otel_scope_name="lustre"} 219
+lustre_oss_ost_stats{operation="req_waittime",units="usec",otel_scope_name="lustre"} 219
+lustre_oss_ost_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 501
+# HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request
+# TYPE lustre_pages_per_bulk_rw_total counter
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="1024",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="128",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="256",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="32",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="512",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="64",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="1024",target="ai400-OST0000",otel_scope_name="lustre"} 25000
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="128",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="256",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="32",target="ai400-OST0000",otel_scope_name="lustre"} 1
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="512",target="ai400-OST0000",otel_scope_name="lustre"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="64",target="ai400-OST0000",otel_scope_name="lustre"} 0
+# HELP lustre_stats_total Number of operations the filesystem has performed.
+# TYPE lustre_stats_total counter
+lustre_stats_total{component="mdt",operation="close",target="ai400-MDT0000",otel_scope_name="lustre"} 3
+lustre_stats_total{component="mdt",operation="getattr",target="ai400-MDT0000",otel_scope_name="lustre"} 23
+lustre_stats_total{component="mdt",operation="getxattr",target="ai400-MDT0000",otel_scope_name="lustre"} 2
+lustre_stats_total{component="mdt",operation="mknod",target="ai400-MDT0000",otel_scope_name="lustre"} 3
+lustre_stats_total{component="mdt",operation="open",target="ai400-MDT0000",otel_scope_name="lustre"} 3
+lustre_stats_total{component="mdt",operation="statfs",target="ai400-MDT0000",otel_scope_name="lustre"} 44863
+# HELP lustre_write_bytes_total The total number of bytes that have been written.
+# TYPE lustre_write_bytes_total counter
+lustre_write_bytes_total{component="ost",operation="write",target="ai400-OST0000",otel_scope_name="lustre"} 104857600000
+# HELP lustre_write_maximum_size_bytes The maximum write size in bytes.
+# TYPE lustre_write_maximum_size_bytes counter
+lustre_write_maximum_size_bytes{component="ost",operation="write",target="ai400-OST0000",otel_scope_name="lustre"} 4194304
+# HELP lustre_write_minimum_size_bytes The minimum write size in bytes.
+# TYPE lustre_write_minimum_size_bytes gauge
+lustre_write_minimum_size_bytes{component="ost",operation="write",target="ai400-OST0000",otel_scope_name="lustre"} 98304
+# HELP lustre_write_samples_total Total number of writes that have been recorded.
+# TYPE lustre_write_samples_total counter
+lustre_write_samples_total{component="ost",operation="write",target="ai400-OST0000",otel_scope_name="lustre"} 25001
+# HELP target_info Target metadata
+# TYPE target_info gauge
+target_info{service_name="lustrefs-exporter",telemetry_sdk_language="rust",telemetry_sdk_name="opentelemetry",telemetry_sdk_version="0.29.0"} 1

@@ -1,61 +1,6 @@
-use crate::{Error, LabelProm, Metric};
-use compact_str::{format_compact, CompactString, ToCompactString};
-use lustre_collector::TargetVariant;
-use prometheus_exporter_base::MetricType;
-use regex::Regex;
-use std::{io::BufRead, sync::LazyLock};
-use tokio::{
-    sync::mpsc::{self, Receiver, Sender},
-    task::JoinHandle,
-};
-
-static READ_SAMPLES: Metric = Metric {
-    name: "lustre_job_read_samples_total",
-    help: "Total number of reads that have been recorded.",
-    r#type: MetricType::Counter,
-};
-static READ_MIN_SIZE_BYTES: Metric = Metric {
-    name: "lustre_job_read_minimum_size_bytes",
-    help: "The minimum read size in bytes.",
-    r#type: MetricType::Gauge,
-};
-static READ_MAX_SIZE_BYTES: Metric = Metric {
-    name: "lustre_job_read_maximum_size_bytes",
-    help: "The maximum read size in bytes.",
-    r#type: MetricType::Counter,
-};
-static READ_BYTES: Metric = Metric {
-    name: "lustre_job_read_bytes_total",
-    help: "The total number of bytes that have been read.",
-    r#type: MetricType::Counter,
-};
-
-static WRITE_SAMPLES: Metric = Metric {
-    name: "lustre_job_write_samples_total",
-    help: "Total number of writes that have been recorded.",
-    r#type: MetricType::Counter,
-};
-static WRITE_MIN_SIZE_BYTES: Metric = Metric {
-    name: "lustre_job_write_minimum_size_bytes",
-    help: "The minimum write size in bytes.",
-    r#type: MetricType::Gauge,
-};
-static WRITE_MAX_SIZE_BYTES: Metric = Metric {
-    name: "lustre_job_write_maximum_size_bytes",
-    help: "The maximum write size in bytes.",
-    r#type: MetricType::Counter,
-};
-static WRITE_BYTES: Metric = Metric {
-    name: "lustre_job_write_bytes_total",
-    help: "The total number of bytes that have been written.",
-    r#type: MetricType::Counter,
-};
-
-static MDT_JOBSTATS_SAMPLES: Metric = Metric {
-    name: "lustre_job_stats_total",
-    help: "Number of operations the filesystem has performed, recorded by jobstats.",
-    r#type: MetricType::Counter,
-};
+// Copyright (c) 2025 DDN. All rights reserved.
+// Use of this source code is governed by a MIT-style
+// license that can be found in the LICENSE file.
 
 #[derive(Debug)]
 enum State {
@@ -65,262 +10,328 @@ enum State {
     TargetJobStats(String, String, Vec<String>),
 }
 
-pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
-    f: R,
-) -> (JoinHandle<()>, Receiver<CompactString>) {
-    let (tx, rx) = mpsc::channel(200);
+pub mod opentelemetry {
+    use crate::{jobstats::State, Error, LabelProm};
 
-    enum LoopInstruction {
-        Noop,
-        Return,
+    use lustre_collector::TargetVariant;
+    use opentelemetry::{
+        metrics::{Counter, Gauge, Meter},
+        KeyValue,
+    };
+    use regex::Regex;
+    use std::io::BufRead;
+    use std::sync::Arc;
+    use std::sync::LazyLock;
+    use tokio::task::JoinHandle;
+
+    #[derive(Debug)]
+    pub struct OpenTelemetryMetricsJobstats {
+        pub read_samples_total: Counter<u64>,
+        pub read_minimum_size_bytes: Gauge<u64>,
+        pub read_maximum_size_bytes: Counter<u64>,
+        pub read_bytes_total: Counter<u64>,
+        pub write_samples_total: Counter<u64>,
+        pub write_minimum_size_bytes: Gauge<u64>,
+        pub write_maximum_size_bytes: Counter<u64>,
+        pub write_bytes_total: Counter<u64>,
+        pub stats_total: Counter<u64>,
     }
 
-    fn handle_line(
-        tx: &Sender<CompactString>,
-        maybe_line: Result<String, Error>,
-        mut state: State,
-    ) -> Result<(State, LoopInstruction), Error> {
-        let line = maybe_line?;
-
-        match state {
-            _ if line == "job_stats:"
-                || line.starts_with("  start_time:")
-                || line.starts_with("  elapsed_time:")
-                || line.starts_with("  snapshot_time:") =>
-            {
-                return Ok((state, LoopInstruction::Noop))
-            }
-            State::Empty | State::Target(_)
-                if line.starts_with("obdfilter") || line.starts_with("mdt.") =>
-            {
-                state = State::Target(line);
-            }
-            State::Target(x) if line.starts_with("- job_id:") => {
-                state = State::TargetJob(x, line);
-            }
-            State::TargetJob(target, job) if line.starts_with("  ") => {
-                let mut xs = Vec::with_capacity(10);
-
-                xs.push(line);
-
-                state = State::TargetJobStats(target, job, xs);
-            }
-            State::TargetJobStats(target, job, mut stats) if line.starts_with("  ") => {
-                stats.push(line);
-
-                state = State::TargetJobStats(target, job, stats);
-            }
-            State::TargetJobStats(target, job, stats) if line.starts_with("- job_id:") => {
-                render_stat(tx, &target, job, stats)?;
-
-                state = State::TargetJob(target, line);
-            }
-            State::TargetJobStats(target, job, stats)
-                if line.starts_with("obdfilter") || line.starts_with("mdt.") =>
-            {
-                render_stat(tx, &target, job, stats)?;
-
-                state = State::Target(line);
-            }
-            x => {
-                tracing::debug!("Unexpected line: {line}, state: {x:?}");
-                return Ok((x, LoopInstruction::Return));
+    impl OpenTelemetryMetricsJobstats {
+        pub fn new(meter: &Meter) -> Self {
+            OpenTelemetryMetricsJobstats {
+                read_samples_total: meter
+                    .u64_counter("lustre_job_read_samples_total")
+                    .with_description("Total number of reads that have been recorded.")
+                    .build(),
+                read_minimum_size_bytes: meter
+                    .u64_gauge("lustre_job_read_minimum_size_bytes")
+                    .with_description("The minimum read size in bytes.")
+                    .build(),
+                read_maximum_size_bytes: meter
+                    .u64_counter("lustre_job_read_maximum_size_bytes")
+                    .with_description("The maximum read size in bytes.")
+                    .build(),
+                read_bytes_total: meter
+                    .u64_counter("lustre_job_read_bytes_total")
+                    .with_description("The total number of bytes that have been read.")
+                    .build(),
+                write_samples_total: meter
+                    .u64_counter("lustre_job_write_samples_total")
+                    .with_description("Total number of writes that have been recorded.")
+                    .build(),
+                write_minimum_size_bytes: meter
+                    .u64_gauge("lustre_job_write_minimum_size_bytes")
+                    .with_description("The minimum write size in bytes.")
+                    .build(),
+                write_maximum_size_bytes: meter
+                    .u64_counter("lustre_job_write_maximum_size_bytes")
+                    .with_description("The maximum write size in bytes.")
+                    .build(),
+                write_bytes_total: meter
+                    .u64_counter("lustre_job_write_bytes_total")
+                    .with_description("The total number of bytes that have been written.")
+                    .build(),
+                stats_total: meter
+                    .u64_counter("lustre_job_stats_total")
+                    .with_description(
+                        "Number of operations the filesystem has performed, recorded by jobstats.",
+                    )
+                    .build(),
             }
         }
-
-        Ok((state, LoopInstruction::Noop))
     }
 
-    let x = tokio::task::spawn_blocking(move || {
-        let mut state = State::Empty;
+    pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
+        f: R,
+        otel_jobstats: Arc<OpenTelemetryMetricsJobstats>,
+    ) -> JoinHandle<()> {
+        enum LoopInstruction {
+            Noop,
+            Return,
+        }
 
-        // Send a new line to make sure we are printing stats with a separating empty line
-        _ = tx.blocking_send("\n".to_compact_string());
+        fn handle_line(
+            otel_jobstats: &OpenTelemetryMetricsJobstats,
+            maybe_line: Result<String, Error>,
+            mut state: State,
+        ) -> Result<(State, LoopInstruction), Error> {
+            let line = maybe_line?;
 
-        for line in f.lines() {
-            let r = handle_line(&tx, line.map_err(Error::Io), state);
+            match state {
+                _ if line == "job_stats:"
+                    || line.starts_with("  start_time:")
+                    || line.starts_with("  elapsed_time:")
+                    || line.starts_with("  snapshot_time:") =>
+                {
+                    return Ok((state, LoopInstruction::Noop))
+                }
+                State::Empty | State::Target(_)
+                    if line.starts_with("obdfilter") || line.starts_with("mdt.") =>
+                {
+                    state = State::Target(line);
+                }
+                State::Target(x) if line.starts_with("- job_id:") => {
+                    state = State::TargetJob(x, line);
+                }
+                State::TargetJob(target, job) if line.starts_with("  ") => {
+                    let mut xs = Vec::with_capacity(10);
 
-            match r {
-                Ok((new_state, LoopInstruction::Noop)) => state = new_state,
-                Ok((_, LoopInstruction::Return)) => return,
-                Err(e) => {
-                    tracing::debug!("Unexpected error processing jobstats lines: {e}");
+                    xs.push(line);
 
-                    return;
+                    state = State::TargetJobStats(target, job, xs);
+                }
+                State::TargetJobStats(target, job, mut stats) if line.starts_with("  ") => {
+                    stats.push(line);
+
+                    state = State::TargetJobStats(target, job, stats);
+                }
+                State::TargetJobStats(target, job, stats) if line.starts_with("- job_id:") => {
+                    render_stat(otel_jobstats, &target, job, stats)?;
+
+                    state = State::TargetJob(target, line);
+                }
+                State::TargetJobStats(target, job, stats)
+                    if line.starts_with("obdfilter") || line.starts_with("mdt.") =>
+                {
+                    render_stat(otel_jobstats, &target, job, stats)?;
+
+                    state = State::Target(line);
+                }
+                x => {
+                    tracing::debug!("Unexpected line: {line}, state: {x:?}");
+                    return Ok((x, LoopInstruction::Return));
                 }
             }
+
+            Ok((state, LoopInstruction::Noop))
         }
 
-        if let State::TargetJobStats(target, job, stats) = state {
-            if let Err(e) = render_stat(&tx, &target, job, stats) {
-                tracing::debug!("Unexpected error processing jobstats lines: {e}");
-            };
-        }
+        tokio::task::spawn_blocking(move || {
+            let mut state = State::Empty;
+
+            for line in f.lines() {
+                let r = handle_line(&otel_jobstats, line.map_err(Error::Io), state);
+
+                match r {
+                    Ok((new_state, LoopInstruction::Noop)) => state = new_state,
+                    Ok((_, LoopInstruction::Return)) => return,
+                    Err(e) => {
+                        tracing::debug!("Unexpected error processing jobstats lines: {e}");
+                        return;
+                    }
+                }
+            }
+
+            if let State::TargetJobStats(target, job, stats) = state {
+                if let Err(e) = render_stat(&otel_jobstats, &target, job, stats) {
+                    tracing::debug!("Unexpected error processing jobstats lines: {e}");
+                };
+            }
+        })
+    }
+
+    static TARGET: LazyLock<regex::Regex> = LazyLock::new(|| {
+        Regex::new(r#"^(obdfilter|mdt)\.([a-zA-Z0-9_-]+)\.job_stats=$"#)
+            .expect("A Well-formed regex")
     });
 
-    (x, rx)
-}
+    static JOB_STAT: LazyLock<regex::Regex> = LazyLock::new(|| {
+        Regex::new(
+            r"(?x)
+            ^\ \ (?<stat>[a-z_]+):\ +\{         # 1. stat name
+            \ samples:\ +(?<sample>[0-9]+),     # 2. sample value
+            \ unit:\ +([a-z]+),                 # 3. unit value
+            \ min:\ +(?<min>[0-9]+),            # 4. min value
+            \ max:\ +(?<max>[0-9]+),            # 5. max value
+            \ sum:\ +(?<sum>[0-9]+),            # 6. sum value
+            \ sumsq:\ +(?<sumsq>[0-9]+)         # 7. sumsq value
+    ",
+        )
+        .expect("A Well-formed regex")
+    });
 
-static TARGET: LazyLock<regex::Regex> = LazyLock::new(|| {
-    Regex::new(r#"^(obdfilter|mdt)\.([a-zA-Z0-9_-]+)\.job_stats=$"#).expect("A Well-formed regex")
-});
+    fn render_stat(
+        otel_jobstats: &OpenTelemetryMetricsJobstats,
+        target: &str,
+        job: String,
+        stats: Vec<String>,
+    ) -> Result<(), Error> {
+        let (_, [kind, target]) = TARGET
+            .captures(target)
+            .ok_or_else(|| Error::NoCap("target", target.to_owned()))?
+            .extract();
 
-static JOB_STAT: LazyLock<regex::Regex> = LazyLock::new(|| {
-    Regex::new(
-        r"(?x)
-        ^\ \ (?<stat>[a-z_]+):\ +\{         # 1. stat name
-        \ samples:\ +(?<sample>[0-9]+),     # 2. sample value
-        \ unit:\ +([a-z]+),                 # 3. unit value
-        \ min:\ +(?<min>[0-9]+),            # 4. min value
-        \ max:\ +(?<max>[0-9]+),            # 5. max value
-        \ sum:\ +(?<sum>[0-9]+),            # 6. sum value
-        \ sumsq:\ +(?<sumsq>[0-9]+)         # 7. sumsq value
-",
-    )
-    .expect("A Well-formed regex")
-});
+        let kind = if kind == "obdfilter" {
+            TargetVariant::Ost
+        } else {
+            TargetVariant::Mdt
+        };
 
-fn send_stat(
-    tx: &Sender<CompactString>,
-    name: &str,
-    stat_name: &str,
-    target: &str,
-    job: &str,
-    kind: &TargetVariant,
-    value: &str,
-) {
-    _ = tx.blocking_send(name.to_compact_string());
+        let job = job.replace("- job_id:", "").replace('"', "");
+        let jobid = job.trim();
 
-    _ = tx.blocking_send("{operation=".to_compact_string());
+        for stat in stats {
+            let cap = JOB_STAT
+                .captures(&stat)
+                .ok_or_else(|| Error::NoCap("job_stat", stat.to_owned()))?;
 
-    _ = tx.blocking_send(format_compact!("\"{stat_name}\","));
+            let (_, [stat_name, samples, _unit, min, max, sum, _sumsq]) = cap.extract();
 
-    _ = tx.blocking_send(format_compact!("component=\"{}\",", kind.to_prom_label()));
+            let min = min.parse();
+            let max = max.parse();
+            let sum = sum.parse();
+            let samples = samples.parse();
 
-    _ = tx.blocking_send(format_compact!("target=\"{target}\","));
+            let base_labels = &[
+                KeyValue::new("operation", stat_name.to_string()),
+                KeyValue::new("component", kind.to_prom_label().to_string()),
+                KeyValue::new("target", target.to_string()),
+                KeyValue::new("jobid", jobid.to_string()),
+            ];
 
-    _ = tx.blocking_send(format_compact!("jobid=\"{job}\"}} {value}\n"));
-}
-
-fn render_stat(
-    tx: &Sender<CompactString>,
-    target: &str,
-    job: String,
-    stats: Vec<String>,
-) -> Result<(), Error> {
-    let (_, [kind, target]) = TARGET
-        .captures(target)
-        .ok_or_else(|| Error::NoCap("target", target.to_owned()))?
-        .extract();
-
-    let kind = if kind == "obdfilter" {
-        TargetVariant::Ost
-    } else {
-        TargetVariant::Mdt
-    };
-
-    let job = job.replace("- job_id:", "").replace('"', "");
-    let jobid = job.trim();
-
-    for stat in stats {
-        let cap = JOB_STAT
-            .captures(&stat)
-            .ok_or_else(|| Error::NoCap("job_stat", stat.to_owned()))?;
-
-        let (_, [stat_name, samples, _unit, min, max, sum, _sumsq]) = cap.extract();
-
-        if kind == TargetVariant::Ost {
-            match stat_name {
-                "read_bytes" => {
-                    for (value, metric) in [
-                        (samples, READ_SAMPLES),
-                        (min, READ_MIN_SIZE_BYTES),
-                        (max, READ_MAX_SIZE_BYTES),
-                        (sum, READ_BYTES),
-                    ] {
-                        send_stat(tx, metric.name, stat_name, target, jobid, &kind, value);
+            if kind == TargetVariant::Ost {
+                match stat_name {
+                    "read_bytes" => {
+                        if let Ok(samples) = samples {
+                            otel_jobstats.read_samples_total.add(samples, base_labels);
+                        }
+                        if let Ok(min) = min {
+                            otel_jobstats
+                                .read_minimum_size_bytes
+                                .record(min, base_labels);
+                        }
+                        if let Ok(max) = max {
+                            otel_jobstats.read_maximum_size_bytes.add(max, base_labels);
+                        }
+                        if let Ok(sum) = sum {
+                            otel_jobstats.read_bytes_total.add(sum, base_labels);
+                        }
+                    }
+                    "write_bytes" => {
+                        if let Ok(samples) = samples {
+                            otel_jobstats.write_samples_total.add(samples, base_labels);
+                        }
+                        if let Ok(min) = min {
+                            otel_jobstats
+                                .write_minimum_size_bytes
+                                .record(min, base_labels);
+                        }
+                        if let Ok(max) = max {
+                            otel_jobstats.write_maximum_size_bytes.add(max, base_labels);
+                        }
+                        if let Ok(sum) = sum {
+                            otel_jobstats.write_bytes_total.add(sum, base_labels);
+                        }
+                    }
+                    "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs"
+                    | "get_info" | "set_info" | "quotactl" => {
+                        if let Ok(samples) = samples {
+                            otel_jobstats.stats_total.add(samples, base_labels);
+                        }
+                    }
+                    _ => {
+                        // Unhandled OST jobstats stats
+                        tracing::debug!("Unhandled OST jobstats stats: {stat_name}");
                     }
                 }
-                "write_bytes" => {
-                    for (value, metric) in [
-                        (samples, WRITE_SAMPLES),
-                        (min, WRITE_MIN_SIZE_BYTES),
-                        (max, WRITE_MAX_SIZE_BYTES),
-                        (sum, WRITE_BYTES),
-                    ] {
-                        send_stat(tx, metric.name, stat_name, target, jobid, &kind, value);
+            } else if kind == TargetVariant::Mdt {
+                match stat_name {
+                    "open"
+                    | "close"
+                    | "mknod"
+                    | "link"
+                    | "unlink"
+                    | "mkdir"
+                    | "rmdir"
+                    | "rename"
+                    | "getattr"
+                    | "setattr"
+                    | "getxattr"
+                    | "setxattr"
+                    | "statfs"
+                    | "sync"
+                    | "samedir_rename"
+                    | "parallel_rename_file"
+                    | "parallel_rename_dir"
+                    | "crossdir_rename"
+                    | "read"
+                    | "write"
+                    | "read_bytes"
+                    | "write_bytes"
+                    | "punch"
+                    | "migrate" => {
+                        if let Ok(samples) = samples {
+                            otel_jobstats.stats_total.add(samples, base_labels);
+                        }
+                    }
+                    _ => {
+                        // Unhandled MDT jobstats stats
+                        tracing::debug!("Unhandled MDT jobstats stats: {stat_name}");
                     }
                 }
-                "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs"
-                | "get_info" | "set_info" | "quotactl" => {
-                    send_stat(
-                        tx,
-                        MDT_JOBSTATS_SAMPLES.name,
-                        stat_name,
-                        target,
-                        jobid,
-                        &kind,
-                        samples,
-                    );
-                }
-                x => {
-                    tracing::debug!("Unhandled OST jobstats stats: {x}");
-                    continue;
-                }
-            };
-        } else if kind == TargetVariant::Mdt {
-            match stat_name {
-                "open"
-                | "close"
-                | "mknod"
-                | "link"
-                | "unlink"
-                | "mkdir"
-                | "rmdir"
-                | "rename"
-                | "getattr"
-                | "setattr"
-                | "getxattr"
-                | "setxattr"
-                | "statfs"
-                | "sync"
-                | "samedir_rename"
-                | "parallel_rename_file"
-                | "parallel_rename_dir"
-                | "crossdir_rename"
-                | "read"
-                | "write"
-                | "read_bytes"
-                | "write_bytes"
-                | "punch"
-                | "migrate" => {
-                    send_stat(
-                        tx,
-                        MDT_JOBSTATS_SAMPLES.name,
-                        stat_name,
-                        target,
-                        jobid,
-                        &kind,
-                        samples,
-                    );
-                }
-                x => {
-                    tracing::debug!("Unhandled MDT jobstats stats: {x}");
-                    continue;
-                }
-            };
+            }
         }
+
+        Ok(())
     }
 
-    Ok(())
+    // Function to process a jobstats file directly to OpenTelemetry metrics
+    pub fn process_jobstats_file<R: BufRead + std::marker::Send + 'static>(
+        stream: R,
+        otel_jobstats: Arc<OpenTelemetryMetricsJobstats>,
+    ) -> JoinHandle<()> {
+        jobstats_stream(stream, otel_jobstats)
+    }
 }
 
 #[cfg(test)]
 pub mod tests {
-    use const_format::{formatcp, str_repeat};
+    use opentelemetry::metrics::MeterProvider;
+    use prometheus::{Encoder as _, Registry, TextEncoder};
 
-    use crate::jobstats::jobstats_stream;
-    use std::{fs::File, io::BufReader};
+    use crate::{init_opentelemetry, jobstats::opentelemetry::OpenTelemetryMetricsJobstats};
+    use std::{fs::File, io::BufReader, sync::Arc};
 
     #[tokio::test(flavor = "multi_thread")]
     async fn parse_larger_yaml() {
@@ -328,17 +339,20 @@ pub mod tests {
 
         let f = BufReader::with_capacity(128 * 1_024, f);
 
-        let (fut, mut rx) = jobstats_stream(f);
+        // Set up OpenTelemetry metrics
+        let (provider, registry) = init_opentelemetry().unwrap();
 
-        let mut cnt = 0;
+        let meter = provider.meter("test");
+        let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
 
-        while rx.recv().await.is_some() {
-            cnt += 1;
-        }
+        let handle = crate::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
 
-        fut.await.unwrap();
+        // Allow time for processing
+        handle.await.unwrap();
 
-        assert_eq!(cnt, 21_147_876 + 1);
+        let cnt = get_output(&registry).lines().count();
+
+        assert_eq!(cnt, 3524667);
     }
 
     #[tokio::test(flavor = "multi_thread")]
@@ -347,17 +361,27 @@ pub mod tests {
 
         let f = BufReader::with_capacity(128 * 1_024, f);
 
-        let (fut, mut rx) = jobstats_stream(f);
+        // Set up OpenTelemetry metrics
+        let (provider, registry) = init_opentelemetry().unwrap();
+        let meter = provider.meter("test");
+        let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
 
-        let mut cnt = 0;
+        let handle = crate::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
 
-        while rx.recv().await.is_some() {
-            cnt += 1;
-        }
+        // Allow time for processing
+        handle.await.unwrap();
 
-        fut.await.unwrap();
+        let cnt = get_output(&registry).lines().count();
 
-        assert_eq!(cnt, 5_310_036 + 1);
+        assert_eq!(
+            cnt,
+            (4 + // 4 metrics per read_bytes
+            4 + // 4 metrics per write_bytes
+            10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
+            * 49167 // 49167 jobs
+               + 2 * 9 // HELP and TYPE lines
+               + 3 // target_info line + HELP and TYPE
+        );
     }
 
     #[tokio::test(flavor = "multi_thread")]
@@ -366,65 +390,88 @@ pub mod tests {
 
         let f = BufReader::with_capacity(128 * 1_024, f);
 
-        let (fut, mut rx) = jobstats_stream(f);
+        // Set up OpenTelemetry metrics
+        let (provider, registry) = init_opentelemetry().unwrap();
+        let meter = provider.meter("test");
+        let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
 
-        let mut cnt = 0;
+        let handle = crate::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
 
-        while rx.recv().await.is_some() {
-            cnt += 1;
-        }
+        // Allow time for processing
+        handle.await.unwrap();
 
-        fut.await.unwrap();
+        let cnt = get_output(&registry).lines().count();
 
-        assert_eq!(cnt, 1_728 + 1);
+        assert_eq!(
+            cnt,
+            (4 + // 4 metrics per read_bytes
+            4 + // 4 metrics per write_bytes
+            10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
+            * 16 // 16 jobs
+               + 2 * 9 // HELP and TYPE lines
+               + 3 // target_info line + HELP and TYPE
+        );
     }
 
-    const JOBSTAT_JOB: &str = r#"
-- job_id:          "FAKE_JOB"
+    fn create_job_template(job_id: &str) -> String {
+        format!(
+            r#"- job_id:          "{}"
   snapshot_time:   1720516680
-  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0 }
-  write_bytes:     { samples:          52, unit: bytes, min:     4096, max:   475136, sum:          5468160, sumsq:      1071040692224 }
-  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
-  write:           { samples:          52, unit: usecs, min:       12, max:    40081, sum:           692342, sumsq:        17432258604 }
-  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
-  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
-  punch:           { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
-  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
-  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
-  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
-  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
-  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
-  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
-  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
-  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }"#;
-
-    const INPUT_10_JOBS: &str = formatcp!(
-        r#"obdfilter.ds002-OST0000.job_stats=
-job_stats:{}"#,
-        str_repeat!(JOBSTAT_JOB, 10)
-    );
+  read_bytes:      {{ samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0 }}
+  write_bytes:     {{ samples:          52, unit: bytes, min:     4096, max:   475136, sum:          5468160, sumsq:      1071040692224 }}
+  read:            {{ samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }}
+  write:           {{ samples:          52, unit: usecs, min:       12, max:    40081, sum:           692342, sumsq:        17432258604 }}
+  getattr:         {{ samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }}
+  setattr:         {{ samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }}
+  punch:           {{ samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }}
+  sync:            {{ samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }}
+  destroy:         {{ samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }}
+  create:          {{ samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }}
+  statfs:          {{ samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }}
+  get_info:        {{ samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }}
+  set_info:        {{ samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }}
+  quotactl:        {{ samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }}
+  prealloc:        {{ samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }}"#,
+            job_id
+        )
+    }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn parse_synthetic_yaml() {
-        let f = BufReader::with_capacity(128 * 1_024, INPUT_10_JOBS.as_bytes());
+        // Make the string static so it lives through the entire test
+        let input_10_jobs = format!(
+            r#"obdfilter.ds002-OST0000.job_stats=
+job_stats:
+{}"#,
+            (0..10)
+                .map(|i| create_job_template(&i.to_string()))
+                .collect::<Vec<_>>()
+                .join("\n")
+        );
+        println!("{input_10_jobs}");
 
-        let (fut, mut rx) = jobstats_stream(f);
+        // Convert to bytes and then to cursor to avoid borrowing issues
+        let bytes = input_10_jobs.into_bytes();
+        let f = BufReader::with_capacity(128 * 1_024, std::io::Cursor::new(bytes));
 
-        let mut output = String::with_capacity(10 * 2 * JOBSTAT_JOB.len());
+        // Set up OpenTelemetry metrics
+        let (provider, registry) = init_opentelemetry().unwrap();
+        let meter = provider.meter("test");
+        let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
 
-        while let Some(x) = rx.recv().await {
-            output.push_str(x.as_str());
-        }
+        let handle = crate::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
 
-        fut.await.unwrap();
+        // Allow time for processing
+        handle.await.unwrap();
 
         assert_eq!(
-            output.lines().count(),
+            get_output(&registry).lines().count(),
             (4 + // 4 metrics per read_bytes
              4 + // 4 metrics per write_bytes
              10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
-             * 10
-                + 1
+             * 10 // 10 jobs
+                + 2 * 9 // HELP and TYPE lines
+                + 3 // target_info line + HELP and TYPE
         );
     }
 
@@ -434,35 +481,52 @@ job_stats:{}"#,
 
         let f = BufReader::with_capacity(128 * 1_024, f);
 
-        let (fut, mut rx) = jobstats_stream(f);
+        // Set up OpenTelemetry metrics
+        let (provider, registry) = init_opentelemetry().unwrap();
+        let meter = provider.meter("test");
+        let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
 
-        let mut cnt = 0;
+        let handle = crate::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
 
-        while rx.recv().await.is_some() {
-            cnt += 1;
-        }
+        // Allow time for processing
+        handle.await.unwrap();
 
-        fut.await.unwrap();
+        let cnt = get_output(&registry).lines().count();
 
-        assert_eq!(cnt, 108 + 1);
+        assert_eq!(
+            cnt,
+            (4 + // 4 metrics per read_bytes
+            4 + // 4 metrics per write_bytes
+            10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
+            * 1 // 10 jobs
+               + 2 * 9 // HELP and TYPE lines
+               + 3 // target_info line + HELP and TYPE
+        );
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    async fn parse_2_14_0_164_jobstats() {
+    async fn parse_2_14_0_164_jobstats_otel() {
         let f = File::open("fixtures/jobstats_only/2.14.0_164.txt").unwrap();
 
         let f = BufReader::with_capacity(128 * 1_024, f);
 
-        let (fut, mut rx) = jobstats_stream(f);
+        // Set up OpenTelemetry metrics
+        let (provider, registry) = init_opentelemetry().unwrap();
+        let meter = provider.meter("test");
+        let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
 
-        let mut output = r#"previous_stat{foo="bar"} 0"#.to_string();
+        let handle = crate::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
 
-        while let Some(x) = rx.recv().await {
-            output.push_str(x.as_str());
-        }
+        // Allow time for processing
+        handle.await.unwrap();
 
-        fut.await.unwrap();
+        insta::assert_snapshot!(get_output(&registry));
+    }
 
-        insta::assert_snapshot!(output);
+    fn get_output(registry: &Registry) -> String {
+        let encoder = TextEncoder::new();
+        let mut output = Vec::new();
+        encoder.encode(&registry.gather(), &mut output).unwrap();
+        String::from_utf8(output).unwrap()
     }
 }
