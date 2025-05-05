@@ -525,10 +525,11 @@ mod tests {
     }
 
     fn normalize_docs(docs: &std::collections::HashMap<String, String>) -> Vec<(String, String)> {
+        // Ignore updated metrics since OTEL move.
         let mut sorted_docs: Vec<_> = docs
             .iter()
             .filter_map(|(k, v)| {
-                if k != "target_info" {
+                if k != "target_info" && k != "lustre_health_healthy" {
                     Some((k.clone(), v.clone()))
                 } else {
                     None
@@ -540,7 +541,7 @@ mod tests {
     }
 
     fn compare_metrics(metrics1: &Scrape, metrics2: &Scrape) {
-        // Skip OTEL specific metric
+        // Skip OTEL specific metric and updated metrics.
         let set1: HashSet<_> = metrics1
             .samples
             .iter()
