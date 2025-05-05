@@ -56,7 +56,7 @@ lustre_drop_bytes_total{otel_scope_name="lustre"} 0
 # TYPE lustre_drop_count_total counter
 lustre_drop_count_total{nid="0@lo",otel_scope_name="lustre"} 0
 lustre_drop_count_total{nid="172.18.2.101@o2ib",otel_scope_name="lustre"} 0
-# HELP lustre_health_healthy Indicates whether the Lustre target is healthy or not. 1 is healthy, 0 is unhealthy.
+# HELP lustre_health_healthy Indicates whether the Lustre server is healthy or not. 1 is healthy, 0 is unhealthy.
 # TYPE lustre_health_healthy gauge
 lustre_health_healthy{otel_scope_name="lustre"} 1
 # HELP lustre_ldlm_cbd_stats Gives information about LDLM Callback service.

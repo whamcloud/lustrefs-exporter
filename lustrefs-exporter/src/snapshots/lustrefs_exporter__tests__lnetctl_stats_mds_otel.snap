@@ -199,7 +199,7 @@ lustre_free_kilobytes{component="mdt",target="fs-MDT0000",otel_scope_name="lustr
 lustre_free_kilobytes{component="mgt",target="MGS",otel_scope_name="lustre"} 489888
 lustre_free_kilobytes{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 4004584
 lustre_free_kilobytes{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 4106984
-# HELP lustre_health_healthy Indicates whether the Lustre target is healthy or not. 1 is healthy, 0 is unhealthy.
+# HELP lustre_health_healthy Indicates whether the Lustre server is healthy or not. 1 is healthy, 0 is unhealthy.
 # TYPE lustre_health_healthy gauge
 lustre_health_healthy{otel_scope_name="lustre"} 1
 # HELP lustre_inodes_free The number of inodes (objects) available
