@@ -21,38 +21,23 @@ lustre_capacity_kilobytes{component="ost",target="fs-OST0001"} 4108388
 lustre_connected_clients{component="mdt",target="fs-MDT0000"} 1
 lustre_connected_clients{component="mdt",target="fs-MDT0000"} 1
 
-# HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.
-# TYPE lustre_dio_frags gauge
-
-# HELP lustre_discontiguous_blocks_total 'size' label represents 'Discontiguous blocks', the number of discontinuities in the physical block allocation in the file system for a single RPC
-# TYPE lustre_discontiguous_blocks_total counter
-
-# HELP lustre_discontiguous_pages_total Total number of logical discontinuities per RPC. 'size' label represents 'Discontiguous pages', the number of discontinuities in the logical file offset of each page in a single RPC.
-# TYPE lustre_discontiguous_pages_total counter
-
-# HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.
-# TYPE lustre_disk_io gauge
-
-# HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation
-# TYPE lustre_disk_io_total counter
-
 # HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
-# TYPE lustre_exports_dirty_total counter
+# TYPE lustre_exports_dirty_total gauge
 lustre_exports_dirty_total{component="ost",target="fs-OST0000"} 0
 lustre_exports_dirty_total{component="ost",target="fs-OST0001"} 0
 
 # HELP lustre_exports_granted_total Total number of exports that have been marked granted
-# TYPE lustre_exports_granted_total counter
+# TYPE lustre_exports_granted_total gauge
 lustre_exports_granted_total{component="ost",target="fs-OST0000"} 272832
 lustre_exports_granted_total{component="ost",target="fs-OST0001"} 272832
 
 # HELP lustre_exports_pending_total Total number of exports that have been marked pending
-# TYPE lustre_exports_pending_total counter
+# TYPE lustre_exports_pending_total gauge
 lustre_exports_pending_total{component="ost",target="fs-OST0000"} 0
 lustre_exports_pending_total{component="ost",target="fs-OST0001"} 0
 
 # HELP lustre_exports_total Total number of times the pool has been exported
-# TYPE lustre_exports_total counter
+# TYPE lustre_exports_total gauge
 lustre_exports_total{component="mgt",target="MGS"} 9
 lustre_exports_total{component="ost",target="fs-OST0000"} 8
 lustre_exports_total{component="ost",target="fs-OST0001"} 8
@@ -83,9 +68,6 @@ lustre_inodes_maximum{component="mdt",target="fs-MDT0000"} 1885696
 lustre_inodes_maximum{component="ost",target="fs-OST0000"} 40960
 lustre_inodes_maximum{component="ost",target="fs-OST0001"} 40960
 
-# HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes. 'size' label represents 'I/O time (1/1000s)', the amount of time for each I/O operation to complete.
-# TYPE lustre_io_time_milliseconds_total counter
-
 # HELP lustre_ldlm_canceld_stats Gives information about LDLM Canceld service.
 # TYPE lustre_ldlm_canceld_stats counter
 lustre_ldlm_canceld_stats{operation="req_waittime"} 978
@@ -109,19 +91,19 @@ lustre_ldlm_cbd_stats{operation="ldlm_bl_callback"} 134
 lustre_lnet_mem_used 67130162
 
 # HELP lustre_lock_contended_total Number of contended locks
-# TYPE lustre_lock_contended_total counter
+# TYPE lustre_lock_contended_total gauge
 lustre_lock_contended_total{component="mdt",target="fs-MDT0000"} 32
 lustre_lock_contended_total{component="ost",target="fs-OST0000"} 32
 lustre_lock_contended_total{component="ost",target="fs-OST0001"} 32
 
 # HELP lustre_lock_contention_seconds_total Time in seconds during which locks were contended
-# TYPE lustre_lock_contention_seconds_total counter
+# TYPE lustre_lock_contention_seconds_total gauge
 lustre_lock_contention_seconds_total{component="mdt",target="fs-MDT0000"} 2
 lustre_lock_contention_seconds_total{component="ost",target="fs-OST0000"} 2
 lustre_lock_contention_seconds_total{component="ost",target="fs-OST0001"} 2
 
 # HELP lustre_lock_count_total Number of locks
-# TYPE lustre_lock_count_total counter
+# TYPE lustre_lock_count_total gauge
 lustre_lock_count_total{component="mdt",target="fs-MDT0000"} 99
 lustre_lock_count_total{component="ost",target="fs-OST0000"} 0
 lustre_lock_count_total{component="ost",target="fs-OST0001"} 0
@@ -137,7 +119,7 @@ lustre_lock_timeout_total{component="ost",target="fs-OST0001"} 0
 lustre_mem_used 243927005
 
 # HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
-# TYPE lustre_mem_used_max gauge
+# TYPE lustre_mem_used_max counter
 lustre_mem_used_max 245019901
 
 # HELP lustre_oss_ost_create_stats OSS ost_create stats
@@ -161,9 +143,6 @@ lustre_oss_ost_stats{operation="ost_get_info",units="usec"} 16
 lustre_oss_ost_stats{operation="ost_connect",units="usec"} 60
 lustre_oss_ost_stats{operation="ost_disconnect",units="usec"} 2
 lustre_oss_ost_stats{operation="obd_ping",units="usec"} 8
-
-# HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request
-# TYPE lustre_pages_per_bulk_rw_total counter
 
 # HELP lustre_stats_total Number of operations the filesystem has performed.
 # TYPE lustre_stats_total counter

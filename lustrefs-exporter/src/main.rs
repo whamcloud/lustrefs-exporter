@@ -1,28 +1,36 @@
-// Copyright (c) 2024 DDN. All rights reserved.
+// Copyright (c) 2025 DDN. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
 use axum::{
-    body::{Body, Bytes},
+    body::Body,
     error_handling::HandleErrorLayer,
     extract::Query,
-    http::StatusCode,
+    http::{self, HeaderValue, StatusCode},
     response::{IntoResponse, Response},
     routing::get,
     BoxError, Router,
 };
 use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
-use lustrefs_exporter::{build_lustre_stats, Error};
+use lustrefs_exporter::{
+    init_opentelemetry,
+    jobstats::opentelemetry::OpenTelemetryMetricsJobstats,
+    openmetrics::{self, OpenTelemetryMetrics},
+    Error,
+};
+use opentelemetry::metrics::MeterProvider;
+use prometheus::{Encoder as _, TextEncoder};
 use serde::Deserialize;
 use std::{
     borrow::Cow,
     convert::Infallible,
     io::{self, BufRead, BufReader},
     net::SocketAddr,
+    sync::Arc,
 };
 use tokio::process::Command;
-use tokio_stream::{wrappers::ReceiverStream, StreamExt};
+use tokio_stream::StreamExt as _;
 use tower::ServiceBuilder;
 
 const LUSTREFS_EXPORTER_PORT: &str = "32221";
@@ -86,6 +94,9 @@ async fn main() -> Result<(), Error> {
 }
 
 async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
+    let (provider, registry) = init_opentelemetry()?;
+
+    let meter = provider.meter("lustre");
     let jobstats = if params.jobstats {
         let child = tokio::task::spawn_blocking(move || {
             let child = std::process::Command::new("lctl")
@@ -120,7 +131,7 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
                     }
                 });
 
-                let (_, rx) = lustrefs_exporter::jobstats::jobstats_stream(reader);
+                let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
 
                 tokio::task::spawn_blocking(move || {
                     if let Err(e) = child.wait() {
@@ -128,11 +139,21 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
                     }
                 });
 
-                let stream = ReceiverStream::new(rx)
-                    .map(|x| Bytes::from_iter(x.into_bytes()))
-                    .map(Ok::<_, Infallible>);
+                let handle = lustrefs_exporter::jobstats::opentelemetry::jobstats_stream(
+                    reader,
+                    otel_jobstats.clone(),
+                );
 
-                Some(stream)
+                handle.await?;
+
+                // Encode metrics to string
+                let encoder = TextEncoder::new();
+                let metric_families = registry.gather();
+                let mut output = Vec::new();
+                encoder.encode(&metric_families, &mut output)?;
+
+                let output = String::from_utf8_lossy(&output).to_string();
+                Some(output)
             }
             Err(e) => {
                 tracing::debug!("Error while spawning lctl jobstats: {e}");
@@ -179,11 +200,26 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
 
     output.append(&mut lnetctl_stats_record);
 
-    let lustre_stats = build_lustre_stats(output);
+    let opentelemetry_metrics = OpenTelemetryMetrics::new(meter.clone());
+
+    let mut lustre_stats = vec![];
+    let encoder = TextEncoder::new();
+    let metric_families = registry.gather();
+    let _encoder_results = encoder.encode(&metric_families, &mut lustre_stats);
+
+    // Build OTEL metrics
+    openmetrics::build_lustre_stats(&output, opentelemetry_metrics);
+
+    let mut buffer = vec![];
+    let encoder = TextEncoder::new();
+    let metric_families = registry.gather();
+    encoder.encode(&metric_families, &mut buffer).unwrap();
+
+    let lustre_stats = String::from_utf8_lossy(&buffer).to_string();
 
     let body = if let Some(stream) = jobstats {
-        let merged =
-            tokio_stream::StreamExt::chain(tokio_stream::once(Ok(lustre_stats.into())), stream);
+        let merged = tokio_stream::once(Ok::<_, Infallible>(lustre_stats))
+            .chain(tokio_stream::once(Ok(stream)));
 
         Body::from_stream(merged)
     } else {
@@ -192,8 +228,14 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
         Body::from(lustre_stats)
     };
 
-    let response_builder = Response::builder().status(StatusCode::OK);
+    let mut response_builder = Response::builder().status(StatusCode::OK);
 
+    let headers = response_builder.headers_mut();
+    if let Ok(content_type) = encoder.format_type().parse::<HeaderValue>() {
+        if let Some(headers) = headers {
+            headers.insert(http::header::CONTENT_TYPE, content_type);
+        }
+    }
     let resp = response_builder.body(body)?;
 
     Ok(resp)
@@ -201,17 +243,21 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
 
 #[cfg(test)]
 mod tests {
-    use crate::build_lustre_stats;
+    use crate::init_opentelemetry;
     use combine::parser::EasyParser;
     use include_dir::{include_dir, Dir};
     use insta::assert_snapshot;
     use lustre_collector::parser::parse;
+    use lustrefs_exporter::openmetrics::OpenTelemetryMetrics;
+    use opentelemetry::metrics::MeterProvider;
+    use prometheus::{Encoder as _, Registry, TextEncoder};
+    use prometheus_parse::{Sample, Scrape};
+    use std::{collections::HashSet, error::Error, fs};
 
     static VALID_FIXTURES: Dir<'_> =
         include_dir!("$CARGO_MANIFEST_DIR/../lustre-collector/src/fixtures/valid/");
 
-    #[test]
-    fn test_valid_fixtures() {
+    fn test_valid_fixtures_otel() {
         for dir in VALID_FIXTURES.find("*").unwrap() {
             match dir {
                 include_dir::DirEntry::Dir(_) => {}
@@ -225,66 +271,330 @@ mod tests {
                         .map_err(|err| err.map_position(|p| p.translate_position(contents)))
                         .unwrap();
 
-                    let x = build_lustre_stats(result.0);
+                    let (provider, registry) =
+                        init_opentelemetry().expect("Failed to initialize OpenTelemetry");
 
-                    assert_snapshot!(format!("valid_fixture_{name}"), x);
+                    let meter = provider.meter("lustre");
+
+                    let otel = OpenTelemetryMetrics::new(meter);
+
+                    crate::openmetrics::build_lustre_stats(&result.0, otel);
+
+                    let mut buffer = vec![];
+                    let encoder = TextEncoder::new();
+                    let metric_families = registry.gather();
+                    encoder.encode(&metric_families, &mut buffer).unwrap();
+
+                    let x = String::from_utf8_lossy(&buffer).to_string();
+
+                    assert_snapshot!(format!("valid_fixture_otel_{name}"), x);
                 }
             }
         }
     }
 
     #[test]
-    fn test_stats() {
+    fn test_stats_otel() {
         let output = include_str!("../fixtures/stats.json");
 
         let x = serde_json::from_str(output).unwrap();
 
-        let x = build_lustre_stats(x);
+        let (provider, registry) =
+            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
 
-        insta::assert_snapshot!(x);
+        let meter = provider.meter("lustre");
+
+        let otel = OpenTelemetryMetrics::new(meter);
+
+        crate::openmetrics::build_lustre_stats(&x, otel);
+
+        insta::assert_snapshot!(get_output(&registry));
+
+        let opentelemetry = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__stats_otel.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
+        let previous_implementation = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__stats.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
+        compare_metrics(&opentelemetry.unwrap(), &previous_implementation.unwrap());
     }
 
     #[test]
-    fn test_lnetctl_stats() {
+    fn test_lnetctl_stats_otel() {
         let output = include_str!("../fixtures/lnetctl_stats.json");
 
         let x = serde_json::from_str(output).unwrap();
 
-        let x = build_lustre_stats(x);
+        let (provider, registry) =
+            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
 
-        insta::assert_snapshot!(x);
+        let meter = provider.meter("lustre");
+
+        let otel = OpenTelemetryMetrics::new(meter);
+
+        crate::openmetrics::build_lustre_stats(&x, otel);
+
+        insta::assert_snapshot!(get_output(&registry));
+
+        let opentelemetry = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__lnetctl_stats_otel.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
+        let previous_implementation = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__lnetctl_stats.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
+        compare_metrics(&opentelemetry.unwrap(), &previous_implementation.unwrap());
     }
 
     #[test]
-    fn test_lnetctl_stats_mds() {
+    fn test_lnetctl_stats_mds_otel() {
         let output = include_str!("../fixtures/stats_mds.json");
 
         let x = serde_json::from_str(output).unwrap();
 
-        let x = build_lustre_stats(x);
+        let (provider, registry) =
+            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
 
-        insta::assert_snapshot!(x);
+        let meter = provider.meter("lustre");
+
+        let otel = OpenTelemetryMetrics::new(meter);
+
+        crate::openmetrics::build_lustre_stats(&x, otel);
+
+        insta::assert_snapshot!(get_output(&registry));
+
+        let opentelemetry = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__lnetctl_stats_mds_otel.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
+        let previous_implementation = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__lnetctl_stats_mds.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
+        compare_metrics(&opentelemetry.unwrap(), &previous_implementation.unwrap());
     }
 
     #[test]
-    fn test_host_stats_non_healthy() {
+    fn test_host_stats_non_healthy_otel() {
         let output = include_str!("../fixtures/host_stats_non_healthy.json");
 
         let x = serde_json::from_str(output).unwrap();
 
-        let x = build_lustre_stats(x);
+        let (provider, registry) =
+            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
 
-        insta::assert_snapshot!(x);
+        let meter = provider.meter("lustre");
+
+        let otel = OpenTelemetryMetrics::new(meter);
+
+        crate::openmetrics::build_lustre_stats(&x, otel);
+
+        insta::assert_snapshot!(get_output(&registry));
+
+        let opentelemetry = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__host_stats_non_healthy_otel.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
+        let previous_implementation = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__host_stats_non_healthy.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
+        compare_metrics(&opentelemetry.unwrap(), &previous_implementation.unwrap());
     }
 
     #[test]
-    fn test_client_stats() {
+    fn test_client_stats_otel() {
         let output = include_str!("../fixtures/client.json");
 
         let x = serde_json::from_str(output).unwrap();
 
-        let x = build_lustre_stats(x);
+        let (provider, registry) =
+            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
 
-        insta::assert_snapshot!(x);
+        let meter = provider.meter("lustre");
+
+        let otel = OpenTelemetryMetrics::new(meter);
+
+        crate::openmetrics::build_lustre_stats(&x, otel);
+
+        insta::assert_snapshot!(get_output(&registry));
+
+        let opentelemetry = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__client_stats_otel.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
+        let previous_implementation = read_metrics_from_snapshot(
+            format!(
+                "{}/src/snapshots/lustrefs_exporter__tests__client_stats.snap",
+                env!("CARGO_MANIFEST_DIR")
+            )
+            .as_str(),
+        );
+        compare_metrics(&opentelemetry.unwrap(), &previous_implementation.unwrap());
+    }
+    use pretty_assertions::assert_eq;
+
+    // Make sure metrics from the OpenTelemetry implementation are the same as the previous implementation
+    #[tokio::test]
+    async fn test_legacy_metrics() -> Result<(), Box<dyn std::error::Error>> {
+        // Generate snapshots for the OpenTelemetry implementation
+        test_valid_fixtures_otel();
+
+        // Compare snapshots
+        for dir in VALID_FIXTURES.find("*").unwrap() {
+            match dir {
+                include_dir::DirEntry::Dir(_) => {}
+                include_dir::DirEntry::File(file) => {
+                    let name = file.path().to_string_lossy().to_string().replace("/", "__");
+                    // Useful when debugging
+                    // println!("{}", format!("{}/src/snapshots/lustrefs_exporter__tests__valid_fixture_otel_{name}.snap", env!("CARGO_MANIFEST_DIR")));
+                    let opentelemetry = read_metrics_from_snapshot(format!("{}/src/snapshots/lustrefs_exporter__tests__valid_fixture_otel_{name}.snap", env!("CARGO_MANIFEST_DIR")).as_str());
+                    let previous_implementation = read_metrics_from_snapshot(
+                        format!(
+                            "{}/src/snapshots/lustrefs_exporter__tests__valid_fixture_{name}.snap",
+                            env!("CARGO_MANIFEST_DIR")
+                        )
+                        .as_str(),
+                    );
+                    compare_metrics(&opentelemetry.unwrap(), &previous_implementation.unwrap());
+                }
+            }
+        }
+        Ok(())
+    }
+
+    fn read_metrics_from_snapshot(path: &str) -> Result<Scrape, Box<dyn Error>> {
+        let content = fs::read_to_string(path)?;
+
+        // Skip insta header
+        let content = content
+            .lines()
+            .skip(4)
+            .map(|s| Ok(s.to_owned()))
+            .collect::<Vec<_>>();
+        let parsed = Scrape::parse(content.into_iter())?;
+        Ok(parsed)
+    }
+
+    fn normalize_sample(sample: &Sample) -> (String, Vec<(String, String)>, String) {
+        let mut sorted_labels: Vec<_> = sample
+            .labels
+            .iter()
+            .filter(|(k, _)| k != &&"otel_scope_name".to_string())
+            .map(|(k, v)| (k.clone(), v.clone()))
+            .collect();
+        sorted_labels.sort();
+
+        let value_str = match sample.value {
+            prometheus_parse::Value::Counter(f) => format!("Counter({})", f),
+            prometheus_parse::Value::Gauge(f) => format!("Gauge({})", f),
+            _ => "0.0".to_string(),
+        };
+
+        (sample.metric.clone(), sorted_labels, value_str)
+    }
+
+    fn normalize_docs(docs: &std::collections::HashMap<String, String>) -> Vec<(String, String)> {
+        let mut sorted_docs: Vec<_> = docs
+            .iter()
+            .filter_map(|(k, v)| {
+                if k != "target_info" {
+                    Some((k.clone(), v.clone()))
+                } else {
+                    None
+                }
+            })
+            .collect();
+        sorted_docs.sort_by(|a, b| a.0.cmp(&b.0)); // Sort by key
+        sorted_docs
+    }
+
+    fn compare_metrics(metrics1: &Scrape, metrics2: &Scrape) {
+        // Skip OTEL specific metric
+        let set1: HashSet<_> = metrics1
+            .samples
+            .iter()
+            .filter(|s| s.metric != "target_info")
+            .map(normalize_sample)
+            .collect();
+        let set2: HashSet<_> = metrics2
+            .samples
+            .iter()
+            .filter(|s| s.metric != "target_info")
+            .map(normalize_sample)
+            .collect();
+
+        let only_in_first: Vec<_> = set1.difference(&set2).collect();
+        let only_in_second: Vec<_> = set2.difference(&set1).collect();
+
+        let metric_value_comparison = if only_in_first.is_empty() && only_in_second.is_empty() {
+            true
+        } else {
+            if !only_in_first.is_empty() {
+                println!("Metrics only in first file:");
+                for metric in only_in_first {
+                    println!("{:?}", metric);
+                }
+            }
+            if !only_in_second.is_empty() {
+                println!("Metrics only in second file:");
+                for metric in only_in_second {
+                    println!("{:?}", metric);
+                }
+            }
+            false
+        };
+
+        // Assert metrics values/labels are exactly the same
+        assert!(
+            metric_value_comparison,
+            "Metrics values/labels are not the same"
+        );
+
+        // Normalize and compare metrics help
+        let normalized_docs1 = normalize_docs(&metrics1.docs);
+        let normalized_docs2 = normalize_docs(&metrics2.docs);
+
+        assert_eq!(
+            normalized_docs1, normalized_docs2,
+            "Metrics help are not the same"
+        );
+    }
+
+    fn get_output(registry: &Registry) -> String {
+        let encoder = TextEncoder::new();
+        let mut output = Vec::new();
+        encoder.encode(&registry.gather(), &mut output).unwrap();
+        String::from_utf8(output).unwrap()
     }
 }

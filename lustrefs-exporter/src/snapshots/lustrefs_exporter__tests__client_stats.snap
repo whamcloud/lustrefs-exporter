@@ -1,9 +1,9 @@
 ---
-source: src/main.rs
+source: lustrefs-exporter/src/main.rs
 expression: x
 ---
 # HELP lustre_client_stats Lustre client interface stats.
-# TYPE lustre_client_stats gauge
+# TYPE lustre_client_stats counter
 lustre_client_stats{operation="read_bytes",target="exafs-ffff9239aa0c4800"} 82152
 lustre_client_stats{operation="write_bytes",target="exafs-ffff9239aa0c4800"} 2726169
 lustre_client_stats{operation="read",target="exafs-ffff9239aa0c4800"} 82150
@@ -83,7 +83,7 @@ lustre_lnet_mem_used 178729063
 lustre_mem_used 72132771
 
 # HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
-# TYPE lustre_mem_used_max gauge
+# TYPE lustre_mem_used_max counter
 lustre_mem_used_max 10924287079
 
 # HELP lustre_receive_bytes_total Total number of bytes that have been received
