@@ -85,6 +85,8 @@ mod tests {
 
     test_fixtures!(test_lustre_2_14_0_ddn133_fixtures, "*ddn133*");
 
+    test_fixtures!(test_lustre_2_14_0_ddn184_fixtures, "*ddn184*");
+
     #[test]
     fn test_params() {
         assert_debug_snapshot!(params());
