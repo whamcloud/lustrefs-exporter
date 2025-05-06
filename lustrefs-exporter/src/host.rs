@@ -23,7 +23,7 @@ pub mod opentelemetry {
             OpenTelemetryMetricsHost {
                 lustre_targets_healthy: meter
                     .u64_gauge("lustre_health_healthy")
-                    .with_description("Indicates whether the Lustre target is healthy or not. 1 is healthy, 0 is unhealthy.")
+                    .with_description("Indicates whether the Lustre server is healthy or not. 1 is healthy, 0 is unhealthy.")
                     .build(),
                 lnet_mem_used: meter
                     .u64_gauge("lustre_lnet_mem_used")
