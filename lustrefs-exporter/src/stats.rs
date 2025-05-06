@@ -40,6 +40,8 @@ pub mod opentelemetry {
 
         // Export metrics
         pub client_export_stats: Counter<u64>,
+        pub client_export_milliseconds: Counter<u64>,
+        pub client_export_bytes: Counter<u64>,
     }
 
     impl OpenTelemetryMetricsStats {
@@ -123,6 +125,18 @@ pub mod opentelemetry {
                 client_export_stats: meter
                     .u64_counter("lustre_client_export_stats")
                     .with_description("Number of operations the target has performed per export.")
+                    .build(),
+                client_export_milliseconds: meter
+                    .u64_counter("lustre_client_export_milliseconds_total")
+                    .with_description(
+                        "Accumulated latency per operations the target has performed per export.",
+                    )
+                    .build(),
+                client_export_bytes: meter
+                    .u64_counter("lustre_client_export_bytes_total")
+                    .with_description(
+                        "Accumulated bytes per operation the target has performed per export.",
+                    )
                     .build(),
             }
         }
@@ -265,6 +279,18 @@ pub mod opentelemetry {
                     KeyValue::new("name", s.name.as_str().to_string()),
                     KeyValue::new("units", s.units.as_str().to_string()),
                 ];
+
+                if let Some(sum) = s.sum {
+                    match s.units.as_str() {
+                        "bytes" => {
+                            otel_stats.client_export_bytes.add(sum, labels);
+                        }
+                        "usecs" => {
+                            otel_stats.client_export_milliseconds.add(sum, labels);
+                        }
+                        _ => {}
+                    }
+                }
 
                 otel_stats.client_export_stats.add(s.samples, labels);
             }

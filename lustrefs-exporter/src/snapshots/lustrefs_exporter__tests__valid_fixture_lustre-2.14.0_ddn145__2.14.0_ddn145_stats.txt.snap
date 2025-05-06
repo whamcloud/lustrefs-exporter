@@ -20,6 +20,24 @@ lustre_capacity_kilobytes{component="ost",target="fs-OST0001"} 4108388
 # TYPE lustre_changelog_current_index gauge
 lustre_changelog_current_index{target="fs-MDT0000"} 0
 
+# HELP lustre_client_export_milliseconds_total Accumulated latency per operations the target has performed per export.
+# TYPE lustre_client_export_milliseconds_total counter
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0000",nid="0@lo",name="create",units="usecs"} 1136
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0000",nid="0@lo",name="statfs",units="usecs"} 485549
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0000",nid="0@lo",name="get_info",units="usecs"} 1217
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0000",nid="10.73.20.12@tcp",name="create",units="usecs"} 323
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0000",nid="10.73.20.12@tcp",name="statfs",units="usecs"} 741434
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0000",nid="10.73.20.12@tcp",name="get_info",units="usecs"} 13065
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0001",nid="0@lo",name="create",units="usecs"} 1120
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0001",nid="0@lo",name="statfs",units="usecs"} 550545
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0001",nid="0@lo",name="get_info",units="usecs"} 213514
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0001",nid="10.73.20.12@tcp",name="create",units="usecs"} 308
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0001",nid="10.73.20.12@tcp",name="statfs",units="usecs"} 116511
+lustre_client_export_milliseconds_total{component="ost",target="fs-OST0001",nid="10.73.20.12@tcp",name="get_info",units="usecs"} 788
+lustre_client_export_milliseconds_total{component="mdt",target="fs-MDT0000",nid="0@lo",name="getattr",units="usecs"} 338
+lustre_client_export_milliseconds_total{component="mdt",target="fs-MDT0000",nid="0@lo",name="statfs",units="usecs"} 8
+lustre_client_export_milliseconds_total{component="mdt",target="fs-MDT0000",nid="10.73.20.12@tcp",name="statfs",units="usecs"} 798427
+
 # HELP lustre_client_export_stats Number of operations the target has performed per export.
 # TYPE lustre_client_export_stats counter
 lustre_client_export_stats{component="ost",target="fs-OST0000",nid="0@lo",name="create",units="usecs"} 2
@@ -34,6 +52,8 @@ lustre_client_export_stats{component="ost",target="fs-OST0001",nid="0@lo",name="
 lustre_client_export_stats{component="ost",target="fs-OST0001",nid="10.73.20.12@tcp",name="create",units="usecs"} 2
 lustre_client_export_stats{component="ost",target="fs-OST0001",nid="10.73.20.12@tcp",name="statfs",units="usecs"} 113927
 lustre_client_export_stats{component="ost",target="fs-OST0001",nid="10.73.20.12@tcp",name="get_info",units="usecs"} 1
+lustre_client_export_stats{component="ost",target="fs-OST0001",nid="10.73.20.12@tcp",name="fake",units="fake"} 1
+lustre_client_export_stats{component="ost",target="fs-OST0001",nid="10.73.20.12@tcp",name="fake_nosum",units="fake"} 1
 lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="getattr",units="usecs"} 7
 lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="statfs",units="usecs"} 2
 lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="10.73.20.12@tcp",name="statfs",units="usecs"} 113927

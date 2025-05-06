@@ -17,6 +17,23 @@ lustre_capacity_kilobytes{component="ost",target="fs-OST0001",otel_scope_name="l
 # HELP lustre_changelog_current_index current changelog index.
 # TYPE lustre_changelog_current_index gauge
 lustre_changelog_current_index{target="fs-MDT0000",otel_scope_name="lustre"} 0
+# HELP lustre_client_export_milliseconds_total Accumulated latency per operations the target has performed per export.
+# TYPE lustre_client_export_milliseconds_total counter
+lustre_client_export_milliseconds_total{component="mdt",name="getattr",nid="0@lo",target="fs-MDT0000",units="usecs",otel_scope_name="lustre"} 338
+lustre_client_export_milliseconds_total{component="mdt",name="statfs",nid="0@lo",target="fs-MDT0000",units="usecs",otel_scope_name="lustre"} 8
+lustre_client_export_milliseconds_total{component="mdt",name="statfs",nid="10.73.20.12@tcp",target="fs-MDT0000",units="usecs",otel_scope_name="lustre"} 798427
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="0@lo",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 1136
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="0@lo",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 1120
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="10.73.20.12@tcp",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 323
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="10.73.20.12@tcp",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 308
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="0@lo",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 1217
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="0@lo",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 213514
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="10.73.20.12@tcp",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 13065
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="10.73.20.12@tcp",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 788
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="0@lo",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 485549
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="0@lo",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 550545
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="10.73.20.12@tcp",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 741434
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="10.73.20.12@tcp",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 116511
 # HELP lustre_client_export_stats Number of operations the target has performed per export.
 # TYPE lustre_client_export_stats counter
 lustre_client_export_stats{component="mdt",name="getattr",nid="0@lo",target="fs-MDT0000",units="usecs",otel_scope_name="lustre"} 7
@@ -26,6 +43,8 @@ lustre_client_export_stats{component="ost",name="create",nid="0@lo",target="fs-O
 lustre_client_export_stats{component="ost",name="create",nid="0@lo",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 2
 lustre_client_export_stats{component="ost",name="create",nid="10.73.20.12@tcp",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 2
 lustre_client_export_stats{component="ost",name="create",nid="10.73.20.12@tcp",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 2
+lustre_client_export_stats{component="ost",name="fake",nid="10.73.20.12@tcp",target="fs-OST0001",units="fake",otel_scope_name="lustre"} 1
+lustre_client_export_stats{component="ost",name="fake_nosum",nid="10.73.20.12@tcp",target="fs-OST0001",units="fake",otel_scope_name="lustre"} 1
 lustre_client_export_stats{component="ost",name="get_info",nid="0@lo",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 1
 lustre_client_export_stats{component="ost",name="get_info",nid="0@lo",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 1
 lustre_client_export_stats{component="ost",name="get_info",nid="10.73.20.12@tcp",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 1
