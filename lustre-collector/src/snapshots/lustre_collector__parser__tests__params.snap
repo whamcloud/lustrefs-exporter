@@ -9,6 +9,7 @@ expression: params()
     "health_check",
     "mdt.*.exports.*.uuid",
     "obdfilter.*.exports.*.uuid",
+    "mgs.*.exports.*.uuid",
     "osd-*.*.filesfree",
     "osd-*.*.filestotal",
     "osd-*.*.fstype",

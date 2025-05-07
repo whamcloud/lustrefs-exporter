@@ -1,0 +1,23 @@
+---
+source: lustre-collector/src/mgs/client_count_parser.rs
+expression: result
+---
+(
+    [
+        Target(
+            ConnectedClients(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "connected_clients",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 9,
+                },
+            ),
+        ),
+    ],
+    "",
+)

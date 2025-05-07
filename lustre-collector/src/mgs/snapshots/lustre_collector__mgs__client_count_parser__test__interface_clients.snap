@@ -1,0 +1,11 @@
+---
+source: lustre-collector/src/mgs/client_count_parser.rs
+expression: result
+---
+(
+    (
+        "MGS",
+        1,
+    ),
+    "",
+)
