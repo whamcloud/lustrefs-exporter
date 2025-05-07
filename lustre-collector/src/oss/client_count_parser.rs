@@ -3,7 +3,9 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    base_parsers::period, mds::client_count_parser::{exports, is_client}, types::{Param, Record, Target, TargetStat, TargetStats, TargetVariant}
+    base_parsers::period,
+    mds::client_count_parser::{exports, is_client},
+    types::{Param, Record, Target, TargetStat, TargetStats, TargetVariant},
 };
 use combine::{
     attempt, choice,
@@ -19,9 +21,7 @@ use std::{collections::BTreeMap, ops::Add};
 pub(crate) const EXPORTS: &str = "exports";
 
 pub(crate) fn params() -> Vec<String> {
-    vec![
-        format!("obdfilter.*.{}.*.uuid", EXPORTS),
-    ]
+    vec![format!("obdfilter.*.{}.*.uuid", EXPORTS)]
 }
 
 pub(crate) fn parse<I>() -> impl Parser<I, Output = Vec<Record>>
@@ -97,11 +97,9 @@ mod test {
 
     #[test]
     fn test_is_not_client() {
-        let result = is_client()
-            .parse("fs-MDT0001-mdtlov_UUID\n")
-            .unwrap();
+        let result = is_client().parse("fs-MDT0001-mdtlov_UUID\n").unwrap();
 
-            assert!(result.0 == 0)
+        assert!(result.0 == 0)
     }
 
     #[test]
@@ -116,7 +114,9 @@ mod test {
     #[test]
     fn test_no_interface_clients() {
         let result = interface_clients()
-            .easy_parse("obdfilter.fs-OST0000.exports.10.73.20.12@tcp.uuid=fs-MDT0001-mdtlov_UUID\n")
+            .easy_parse(
+                "obdfilter.fs-OST0000.exports.10.73.20.12@tcp.uuid=fs-MDT0001-mdtlov_UUID\n",
+            )
             .unwrap();
 
         assert_debug_snapshot!(result)

@@ -21,9 +21,7 @@ use std::{collections::BTreeMap, ops::Add};
 pub(crate) const EXPORTS: &str = "exports";
 
 pub(crate) fn params() -> Vec<String> {
-    vec![
-        format!("mdt.*.{}.*.uuid", EXPORTS),
-    ]
+    vec![format!("mdt.*.{}.*.uuid", EXPORTS)]
 }
 
 pub(crate) fn parse<I>() -> impl Parser<I, Output = Vec<Record>>
