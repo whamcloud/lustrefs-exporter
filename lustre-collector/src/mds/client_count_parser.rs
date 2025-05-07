@@ -21,7 +21,9 @@ use std::{collections::BTreeMap, ops::Add};
 pub(crate) const EXPORTS: &str = "exports";
 
 pub(crate) fn params() -> Vec<String> {
-    vec![format!("mdt.*.{}.*.uuid", EXPORTS)]
+    vec![
+        format!("mdt.*.{}.*.uuid", EXPORTS),
+    ]
 }
 
 pub(crate) fn parse<I>() -> impl Parser<I, Output = Vec<Record>>
@@ -67,7 +69,7 @@ where
     )
 }
 
-fn is_client<I>() -> impl Parser<I, Output = u64>
+pub(crate) fn is_client<I>() -> impl Parser<I, Output = u64>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,

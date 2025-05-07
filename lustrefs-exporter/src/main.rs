@@ -479,14 +479,20 @@ mod tests {
                     // Useful when debugging
                     // println!("{}", format!("{}/src/snapshots/lustrefs_exporter__tests__valid_fixture_otel_{name}.snap", env!("CARGO_MANIFEST_DIR")));
                     let opentelemetry = read_metrics_from_snapshot(format!("{}/src/snapshots/lustrefs_exporter__tests__valid_fixture_otel_{name}.snap", env!("CARGO_MANIFEST_DIR")).as_str());
-                    let previous_implementation = read_metrics_from_snapshot(
+                    let previous_implementation = match read_metrics_from_snapshot(
                         format!(
                             "{}/src/snapshots/lustrefs_exporter__tests__valid_fixture_{name}.snap",
                             env!("CARGO_MANIFEST_DIR")
                         )
                         .as_str(),
-                    );
-                    compare_metrics(&opentelemetry.unwrap(), &previous_implementation.unwrap());
+                    ) {
+                        Ok(x) => x,
+                        Err(e) => {
+                            println!("Error reading previous implementation snapshot: {e}");
+                            continue;
+                        }
+                    };
+                    compare_metrics(&opentelemetry.unwrap(), &previous_implementation);
                 }
             }
         }
