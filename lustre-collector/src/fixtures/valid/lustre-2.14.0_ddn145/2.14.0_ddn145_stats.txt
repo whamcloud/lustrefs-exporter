@@ -367,6 +367,8 @@ elapsed_time              583307.948795272 secs.nsecs
 create                    2 samples [usecs] 3 305 308 93034
 statfs                    113927 samples [usecs] 0 125 116511 241693
 get_info                  1 samples [usecs] 788 788 788 620944
+fake                      1 samples [fake] 788 788 788 620944
+fake_nosum                1 samples [fake]
 ost.OSS.ost.stats=
 snapshot_time             1716295737.288537562 secs.nsecs
 start_time                1715712428.013543251 secs.nsecs

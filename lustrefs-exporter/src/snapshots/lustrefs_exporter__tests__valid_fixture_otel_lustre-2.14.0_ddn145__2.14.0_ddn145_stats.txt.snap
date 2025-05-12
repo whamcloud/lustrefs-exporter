@@ -1,0 +1,284 @@
+---
+source: lustrefs-exporter/src/main.rs
+expression: x
+---
+# HELP lustre_available_kilobytes Number of kilobytes readily available in the pool
+# TYPE lustre_available_kilobytes gauge
+lustre_available_kilobytes{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 2366504
+lustre_available_kilobytes{component="mgt",target="MGS",otel_scope_name="lustre"} 463708
+lustre_available_kilobytes{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 4038040
+lustre_available_kilobytes{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 4038040
+# HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes
+# TYPE lustre_capacity_kilobytes gauge
+lustre_capacity_kilobytes{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 2602832
+lustre_capacity_kilobytes{component="mgt",target="MGS",otel_scope_name="lustre"} 491092
+lustre_capacity_kilobytes{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 4108388
+lustre_capacity_kilobytes{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 4108388
+# HELP lustre_changelog_current_index current changelog index.
+# TYPE lustre_changelog_current_index gauge
+lustre_changelog_current_index{target="fs-MDT0000",otel_scope_name="lustre"} 0
+# HELP lustre_client_export_milliseconds_total Accumulated latency per operations the target has performed per export.
+# TYPE lustre_client_export_milliseconds_total counter
+lustre_client_export_milliseconds_total{component="mdt",name="getattr",nid="0@lo",target="fs-MDT0000",units="usecs",otel_scope_name="lustre"} 338
+lustre_client_export_milliseconds_total{component="mdt",name="statfs",nid="0@lo",target="fs-MDT0000",units="usecs",otel_scope_name="lustre"} 8
+lustre_client_export_milliseconds_total{component="mdt",name="statfs",nid="10.73.20.12@tcp",target="fs-MDT0000",units="usecs",otel_scope_name="lustre"} 798427
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="0@lo",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 1136
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="0@lo",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 1120
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="10.73.20.12@tcp",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 323
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="10.73.20.12@tcp",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 308
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="0@lo",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 1217
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="0@lo",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 213514
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="10.73.20.12@tcp",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 13065
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="10.73.20.12@tcp",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 788
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="0@lo",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 485549
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="0@lo",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 550545
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="10.73.20.12@tcp",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 741434
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="10.73.20.12@tcp",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 116511
+# HELP lustre_client_export_stats Number of operations the target has performed per export.
+# TYPE lustre_client_export_stats counter
+lustre_client_export_stats{component="mdt",name="getattr",nid="0@lo",target="fs-MDT0000",units="usecs",otel_scope_name="lustre"} 7
+lustre_client_export_stats{component="mdt",name="statfs",nid="0@lo",target="fs-MDT0000",units="usecs",otel_scope_name="lustre"} 2
+lustre_client_export_stats{component="mdt",name="statfs",nid="10.73.20.12@tcp",target="fs-MDT0000",units="usecs",otel_scope_name="lustre"} 113927
+lustre_client_export_stats{component="ost",name="create",nid="0@lo",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 2
+lustre_client_export_stats{component="ost",name="create",nid="0@lo",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 2
+lustre_client_export_stats{component="ost",name="create",nid="10.73.20.12@tcp",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 2
+lustre_client_export_stats{component="ost",name="create",nid="10.73.20.12@tcp",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 2
+lustre_client_export_stats{component="ost",name="fake",nid="10.73.20.12@tcp",target="fs-OST0001",units="fake",otel_scope_name="lustre"} 1
+lustre_client_export_stats{component="ost",name="fake_nosum",nid="10.73.20.12@tcp",target="fs-OST0001",units="fake",otel_scope_name="lustre"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="0@lo",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="0@lo",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="10.73.20.12@tcp",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="10.73.20.12@tcp",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 1
+lustre_client_export_stats{component="ost",name="statfs",nid="0@lo",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 113928
+lustre_client_export_stats{component="ost",name="statfs",nid="0@lo",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 113928
+lustre_client_export_stats{component="ost",name="statfs",nid="10.73.20.12@tcp",target="fs-OST0000",units="usecs",otel_scope_name="lustre"} 113927
+lustre_client_export_stats{component="ost",name="statfs",nid="10.73.20.12@tcp",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 113927
+# HELP lustre_client_stats Lustre client interface stats.
+# TYPE lustre_client_stats counter
+lustre_client_stats{operation="getattr",target="fs-ffff97e895d31000",otel_scope_name="lustre"} 6
+# HELP lustre_connected_clients Number of connected clients
+# TYPE lustre_connected_clients gauge
+lustre_connected_clients{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 1
+# HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
+# TYPE lustre_exports_dirty_total gauge
+lustre_exports_dirty_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 0
+lustre_exports_dirty_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 0
+# HELP lustre_exports_granted_total Total number of exports that have been marked granted
+# TYPE lustre_exports_granted_total gauge
+lustre_exports_granted_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 278208
+lustre_exports_granted_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 278208
+# HELP lustre_exports_pending_total Total number of exports that have been marked pending
+# TYPE lustre_exports_pending_total gauge
+lustre_exports_pending_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 0
+lustre_exports_pending_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 0
+# HELP lustre_exports_total Total number of times the pool has been exported
+# TYPE lustre_exports_total gauge
+lustre_exports_total{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 8
+lustre_exports_total{component="mgt",target="MGS",otel_scope_name="lustre"} 2
+lustre_exports_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 2
+lustre_exports_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 2
+# HELP lustre_free_kilobytes Number of kilobytes allocated to the pool
+# TYPE lustre_free_kilobytes gauge
+lustre_free_kilobytes{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 2600612
+lustre_free_kilobytes{component="mgt",target="MGS",otel_scope_name="lustre"} 489920
+lustre_free_kilobytes{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 4106852
+lustre_free_kilobytes{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 4106852
+# HELP lustre_health_healthy Indicates whether the Lustre server is healthy or not. 1 is healthy, 0 is unhealthy.
+# TYPE lustre_health_healthy gauge
+lustre_health_healthy{otel_scope_name="lustre"} 1
+# HELP lustre_inodes_free The number of inodes (objects) available
+# TYPE lustre_inodes_free gauge
+lustre_inodes_free{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 1885355
+lustre_inodes_free{component="mgt",target="MGS",otel_scope_name="lustre"} 32573
+lustre_inodes_free{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 40592
+lustre_inodes_free{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 40592
+# HELP lustre_inodes_maximum The maximum number of inodes (objects) the filesystem can hold
+# TYPE lustre_inodes_maximum gauge
+lustre_inodes_maximum{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 1885696
+lustre_inodes_maximum{component="mgt",target="MGS",otel_scope_name="lustre"} 32768
+lustre_inodes_maximum{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 40960
+lustre_inodes_maximum{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 40960
+# HELP lustre_ldlm_canceld_stats Gives information about LDLM Canceld service.
+# TYPE lustre_ldlm_canceld_stats counter
+lustre_ldlm_canceld_stats{operation="ldlm_cancel",otel_scope_name="lustre"} 70
+lustre_ldlm_canceld_stats{operation="req_active",otel_scope_name="lustre"} 70
+lustre_ldlm_canceld_stats{operation="req_qdepth",otel_scope_name="lustre"} 70
+lustre_ldlm_canceld_stats{operation="req_timeout",otel_scope_name="lustre"} 70
+lustre_ldlm_canceld_stats{operation="req_waittime",otel_scope_name="lustre"} 70
+lustre_ldlm_canceld_stats{operation="reqbuf_avail",otel_scope_name="lustre"} 157
+# HELP lustre_ldlm_cbd_stats Gives information about LDLM Callback service.
+# TYPE lustre_ldlm_cbd_stats counter
+lustre_ldlm_cbd_stats{operation="ldlm_bl_callback",otel_scope_name="lustre"} 32
+lustre_ldlm_cbd_stats{operation="req_active",otel_scope_name="lustre"} 32
+lustre_ldlm_cbd_stats{operation="req_qdepth",otel_scope_name="lustre"} 32
+lustre_ldlm_cbd_stats{operation="req_timeout",otel_scope_name="lustre"} 32
+lustre_ldlm_cbd_stats{operation="req_waittime",otel_scope_name="lustre"} 32
+lustre_ldlm_cbd_stats{operation="reqbuf_avail",otel_scope_name="lustre"} 70
+# HELP lustre_lnet_mem_used Gives information about Lustre LNet memory usage.
+# TYPE lustre_lnet_mem_used gauge
+lustre_lnet_mem_used{otel_scope_name="lustre"} 53243084
+# HELP lustre_lock_contended_total Number of contended locks
+# TYPE lustre_lock_contended_total gauge
+lustre_lock_contended_total{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 32
+lustre_lock_contended_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 32
+lustre_lock_contended_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 32
+# HELP lustre_lock_contention_seconds_total Time in seconds during which locks were contended
+# TYPE lustre_lock_contention_seconds_total gauge
+lustre_lock_contention_seconds_total{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 2
+lustre_lock_contention_seconds_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 2
+lustre_lock_contention_seconds_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 2
+# HELP lustre_lock_count_total Number of locks
+# TYPE lustre_lock_count_total gauge
+lustre_lock_count_total{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 24
+lustre_lock_count_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 0
+lustre_lock_count_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 0
+# HELP lustre_lock_timeout_total Number of lock timeouts
+# TYPE lustre_lock_timeout_total counter
+lustre_lock_timeout_total{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 0
+lustre_lock_timeout_total{component="ost",target="fs-OST0000",otel_scope_name="lustre"} 0
+lustre_lock_timeout_total{component="ost",target="fs-OST0001",otel_scope_name="lustre"} 0
+# HELP lustre_mds_mdt_fld_stats MDS mdt_fld stats
+# TYPE lustre_mds_mdt_fld_stats gauge
+lustre_mds_mdt_fld_stats{operation="fld_query",units="usecs",otel_scope_name="lustre"} 2
+lustre_mds_mdt_fld_stats{operation="fld_read",units="usecs",otel_scope_name="lustre"} 2
+lustre_mds_mdt_fld_stats{operation="req_active",units="reqs",otel_scope_name="lustre"} 4
+lustre_mds_mdt_fld_stats{operation="req_qdepth",units="reqs",otel_scope_name="lustre"} 4
+lustre_mds_mdt_fld_stats{operation="req_timeout",units="secs",otel_scope_name="lustre"} 4
+lustre_mds_mdt_fld_stats{operation="req_waittime",units="usecs",otel_scope_name="lustre"} 4
+lustre_mds_mdt_fld_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 11
+# HELP lustre_mds_mdt_out_stats MDS mdt_out stats
+# TYPE lustre_mds_mdt_out_stats gauge
+lustre_mds_mdt_out_stats{operation="mds_statfs",units="usecs",otel_scope_name="lustre"} 54272
+lustre_mds_mdt_out_stats{operation="req_active",units="reqs",otel_scope_name="lustre"} 54272
+lustre_mds_mdt_out_stats{operation="req_qdepth",units="reqs",otel_scope_name="lustre"} 54272
+lustre_mds_mdt_out_stats{operation="req_timeout",units="secs",otel_scope_name="lustre"} 54272
+lustre_mds_mdt_out_stats{operation="req_waittime",units="usecs",otel_scope_name="lustre"} 54272
+lustre_mds_mdt_out_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 109422
+# HELP lustre_mds_mdt_readpage_stats MDS mdt_readpage stats
+# TYPE lustre_mds_mdt_readpage_stats gauge
+lustre_mds_mdt_readpage_stats{operation="dt_index_read",units="usecs",otel_scope_name="lustre"} 24
+lustre_mds_mdt_readpage_stats{operation="ldlm_ibits_enqueue",units="reqs",otel_scope_name="lustre"} 24
+lustre_mds_mdt_readpage_stats{operation="mds_getattr",units="usecs",otel_scope_name="lustre"} 1
+lustre_mds_mdt_readpage_stats{operation="req_active",units="reqs",otel_scope_name="lustre"} 49
+lustre_mds_mdt_readpage_stats{operation="req_qdepth",units="reqs",otel_scope_name="lustre"} 49
+lustre_mds_mdt_readpage_stats{operation="req_timeout",units="secs",otel_scope_name="lustre"} 49
+lustre_mds_mdt_readpage_stats{operation="req_waittime",units="usecs",otel_scope_name="lustre"} 49
+lustre_mds_mdt_readpage_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 103
+# HELP lustre_mds_mdt_seqs_stats MDS mdt_seqs stats
+# TYPE lustre_mds_mdt_seqs_stats gauge
+lustre_mds_mdt_seqs_stats{operation="req_active",units="reqs",otel_scope_name="lustre"} 4
+lustre_mds_mdt_seqs_stats{operation="req_qdepth",units="reqs",otel_scope_name="lustre"} 4
+lustre_mds_mdt_seqs_stats{operation="req_timeout",units="secs",otel_scope_name="lustre"} 4
+lustre_mds_mdt_seqs_stats{operation="req_waittime",units="usecs",otel_scope_name="lustre"} 4
+lustre_mds_mdt_seqs_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 9
+lustre_mds_mdt_seqs_stats{operation="seq_query",units="usecs",otel_scope_name="lustre"} 4
+# HELP lustre_mds_mdt_stats MDS mdt stats
+# TYPE lustre_mds_mdt_stats gauge
+lustre_mds_mdt_stats{operation="ldlm_ibits_enqueue",units="reqs",otel_scope_name="lustre"} 6
+lustre_mds_mdt_stats{operation="mds_connect",units="usecs",otel_scope_name="lustre"} 11
+lustre_mds_mdt_stats{operation="mds_get_root",units="usecs",otel_scope_name="lustre"} 1
+lustre_mds_mdt_stats{operation="mds_statfs",units="usecs",otel_scope_name="lustre"} 2
+lustre_mds_mdt_stats{operation="obd_ping",units="usecs",otel_scope_name="lustre"} 171443
+lustre_mds_mdt_stats{operation="ost_set_info",units="usecs",otel_scope_name="lustre"} 435
+lustre_mds_mdt_stats{operation="req_active",units="reqs",otel_scope_name="lustre"} 171898
+lustre_mds_mdt_stats{operation="req_qdepth",units="reqs",otel_scope_name="lustre"} 171898
+lustre_mds_mdt_stats{operation="req_timeout",units="secs",otel_scope_name="lustre"} 171898
+lustre_mds_mdt_stats{operation="req_waittime",units="usecs",otel_scope_name="lustre"} 171898
+lustre_mds_mdt_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 388042
+# HELP lustre_mem_used Gives information about Lustre memory usage.
+# TYPE lustre_mem_used gauge
+lustre_mem_used{otel_scope_name="lustre"} 978549115
+# HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
+# TYPE lustre_mem_used_max counter
+lustre_mem_used_max{otel_scope_name="lustre"} 981936083
+# HELP lustre_oss_ost_create_stats OSS ost_create stats
+# TYPE lustre_oss_ost_create_stats gauge
+lustre_oss_ost_create_stats{operation="ost_statfs",units="usecs",otel_scope_name="lustre"} 455710
+lustre_oss_ost_create_stats{operation="req_active",units="reqs",otel_scope_name="lustre"} 455710
+lustre_oss_ost_create_stats{operation="req_qdepth",units="reqs",otel_scope_name="lustre"} 455710
+lustre_oss_ost_create_stats{operation="req_timeout",units="secs",otel_scope_name="lustre"} 455710
+lustre_oss_ost_create_stats{operation="req_waittime",units="usecs",otel_scope_name="lustre"} 455710
+lustre_oss_ost_create_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 919034
+# HELP lustre_oss_ost_stats OSS ost stats
+# TYPE lustre_oss_ost_stats gauge
+lustre_oss_ost_stats{operation="obd_ping",units="usecs",otel_scope_name="lustre"} 1
+lustre_oss_ost_stats{operation="ost_connect",units="usecs",otel_scope_name="lustre"} 6
+lustre_oss_ost_stats{operation="ost_create",units="usecs",otel_scope_name="lustre"} 8
+lustre_oss_ost_stats{operation="ost_disconnect",units="usecs",otel_scope_name="lustre"} 2
+lustre_oss_ost_stats{operation="ost_get_info",units="usecs",otel_scope_name="lustre"} 4
+lustre_oss_ost_stats{operation="req_active",units="reqs",otel_scope_name="lustre"} 21
+lustre_oss_ost_stats{operation="req_qdepth",units="reqs",otel_scope_name="lustre"} 21
+lustre_oss_ost_stats{operation="req_timeout",units="secs",otel_scope_name="lustre"} 21
+lustre_oss_ost_stats{operation="req_waittime",units="usecs",otel_scope_name="lustre"} 21
+lustre_oss_ost_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 48
+# HELP lustre_quota_granted The granted quota for a given component.
+# TYPE lustre_quota_granted gauge
+lustre_quota_granted{accounting="group",id="0",manager="dt",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="group",id="0",manager="dt",pool="ddn_hdd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="group",id="0",manager="dt",pool="ddn_ssd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="group",id="0",manager="md",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="project",id="0",manager="dt",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="project",id="0",manager="dt",pool="ddn_hdd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="project",id="0",manager="dt",pool="ddn_ssd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="project",id="0",manager="md",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="user",id="0",manager="dt",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="user",id="0",manager="dt",pool="ddn_hdd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="user",id="0",manager="dt",pool="ddn_ssd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_granted{accounting="user",id="0",manager="md",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+# HELP lustre_quota_hard The hard quota for a given component.
+# TYPE lustre_quota_hard gauge
+lustre_quota_hard{accounting="group",id="0",manager="dt",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="group",id="0",manager="dt",pool="ddn_hdd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="group",id="0",manager="dt",pool="ddn_ssd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="group",id="0",manager="md",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="project",id="0",manager="dt",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="project",id="0",manager="dt",pool="ddn_hdd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="project",id="0",manager="dt",pool="ddn_ssd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="project",id="0",manager="md",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="user",id="0",manager="dt",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="user",id="0",manager="dt",pool="ddn_hdd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="user",id="0",manager="dt",pool="ddn_ssd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_hard{accounting="user",id="0",manager="md",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+# HELP lustre_quota_soft The soft quota for a given component.
+# TYPE lustre_quota_soft gauge
+lustre_quota_soft{accounting="group",id="0",manager="dt",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="group",id="0",manager="dt",pool="ddn_hdd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="group",id="0",manager="dt",pool="ddn_ssd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="group",id="0",manager="md",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="project",id="0",manager="dt",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="project",id="0",manager="dt",pool="ddn_hdd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="project",id="0",manager="dt",pool="ddn_ssd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="project",id="0",manager="md",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="user",id="0",manager="dt",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="user",id="0",manager="dt",pool="ddn_hdd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="user",id="0",manager="dt",pool="ddn_ssd",target="fs-QMT0000",otel_scope_name="lustre"} 0
+lustre_quota_soft{accounting="user",id="0",manager="md",pool="",target="fs-QMT0000",otel_scope_name="lustre"} 0
+# HELP lustre_quota_used_inodes The amount of inodes used by quota.
+# TYPE lustre_quota_used_inodes gauge
+lustre_quota_used_inodes{accounting="group",component="mdt",id="0",target="fs-MDT0000",otel_scope_name="lustre"} 331
+lustre_quota_used_inodes{accounting="group",component="ost",id="0",target="fs-OST0000",otel_scope_name="lustre"} 358
+lustre_quota_used_inodes{accounting="group",component="ost",id="0",target="fs-OST0001",otel_scope_name="lustre"} 358
+lustre_quota_used_inodes{accounting="project",component="mdt",id="0",target="fs-MDT0000",otel_scope_name="lustre"} 331
+lustre_quota_used_inodes{accounting="project",component="ost",id="0",target="fs-OST0000",otel_scope_name="lustre"} 358
+lustre_quota_used_inodes{accounting="project",component="ost",id="0",target="fs-OST0001",otel_scope_name="lustre"} 358
+lustre_quota_used_inodes{accounting="user",component="mdt",id="0",target="fs-MDT0000",otel_scope_name="lustre"} 331
+lustre_quota_used_inodes{accounting="user",component="ost",id="0",target="fs-OST0000",otel_scope_name="lustre"} 358
+lustre_quota_used_inodes{accounting="user",component="ost",id="0",target="fs-OST0001",otel_scope_name="lustre"} 358
+# HELP lustre_quota_used_kbytes The hard quota for a given component.
+# TYPE lustre_quota_used_kbytes gauge
+lustre_quota_used_kbytes{accounting="group",component="mdt",id="0",target="fs-MDT0000",otel_scope_name="lustre"} 2000
+lustre_quota_used_kbytes{accounting="group",component="ost",id="0",target="fs-OST0000",otel_scope_name="lustre"} 1500
+lustre_quota_used_kbytes{accounting="group",component="ost",id="0",target="fs-OST0001",otel_scope_name="lustre"} 1500
+lustre_quota_used_kbytes{accounting="project",component="mdt",id="0",target="fs-MDT0000",otel_scope_name="lustre"} 2000
+lustre_quota_used_kbytes{accounting="project",component="ost",id="0",target="fs-OST0000",otel_scope_name="lustre"} 1500
+lustre_quota_used_kbytes{accounting="project",component="ost",id="0",target="fs-OST0001",otel_scope_name="lustre"} 1500
+lustre_quota_used_kbytes{accounting="user",component="mdt",id="0",target="fs-MDT0000",otel_scope_name="lustre"} 2000
+lustre_quota_used_kbytes{accounting="user",component="ost",id="0",target="fs-OST0000",otel_scope_name="lustre"} 1500
+lustre_quota_used_kbytes{accounting="user",component="ost",id="0",target="fs-OST0001",otel_scope_name="lustre"} 1500
+# HELP lustre_stats_total Number of operations the filesystem has performed.
+# TYPE lustre_stats_total counter
+lustre_stats_total{component="mdt",operation="getattr",target="fs-MDT0000",otel_scope_name="lustre"} 7
+lustre_stats_total{component="mdt",operation="statfs",target="fs-MDT0000",otel_scope_name="lustre"} 113929
+# HELP target_info Target metadata
+# TYPE target_info gauge
+target_info{service_name="lustrefs-exporter",telemetry_sdk_language="rust",telemetry_sdk_name="opentelemetry",telemetry_sdk_version="0.29.0"} 1

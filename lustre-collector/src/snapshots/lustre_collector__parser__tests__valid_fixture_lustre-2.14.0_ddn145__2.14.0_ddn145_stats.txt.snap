@@ -1876,6 +1876,32 @@ expression: result
                                         620944,
                                     ),
                                 },
+                                Stat {
+                                    name: "fake",
+                                    units: "fake",
+                                    samples: 1,
+                                    min: Some(
+                                        788,
+                                    ),
+                                    max: Some(
+                                        788,
+                                    ),
+                                    sum: Some(
+                                        788,
+                                    ),
+                                    sumsquare: Some(
+                                        620944,
+                                    ),
+                                },
+                                Stat {
+                                    name: "fake_nosum",
+                                    units: "fake",
+                                    samples: 1,
+                                    min: None,
+                                    max: None,
+                                    sum: None,
+                                    sumsquare: None,
+                                },
                             ],
                         },
                     ],
