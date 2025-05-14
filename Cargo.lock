@@ -934,7 +934,7 @@ checksum = "13dc2df351e3202783a1fe0d44375f7295ffb4049267b0f3018346dc122a1d94"
 
 [[package]]
 name = "lustre_collector"
-version = "0.10.1"
+version = "0.10.2"
 dependencies = [
  "clap",
  "combine",
@@ -950,7 +950,7 @@ dependencies = [
 
 [[package]]
 name = "lustrefs-exporter"
-version = "0.10.1"
+version = "0.10.2"
 dependencies = [
  "axum",
  "clap",
