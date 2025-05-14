@@ -67,7 +67,7 @@ where
     )
 }
 
-fn is_client<I>() -> impl Parser<I, Output = u64>
+pub(crate) fn is_client<I>() -> impl Parser<I, Output = u64>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,

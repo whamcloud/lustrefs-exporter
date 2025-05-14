@@ -1,0 +1,65 @@
+---
+source: lustre-collector/src/oss/client_count_parser.rs
+expression: result
+---
+(
+    [
+        Target(
+            ConnectedClients(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "connected_clients",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: 1,
+                },
+            ),
+        ),
+        Target(
+            ConnectedClients(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "connected_clients",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: 1,
+                },
+            ),
+        ),
+        Target(
+            ConnectedClients(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "connected_clients",
+                    ),
+                    target: Target(
+                        "fs2-OST0000",
+                    ),
+                    value: 1,
+                },
+            ),
+        ),
+        Target(
+            ConnectedClients(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "connected_clients",
+                    ),
+                    target: Target(
+                        "fs2-OST0001",
+                    ),
+                    value: 1,
+                },
+            ),
+        ),
+    ],
+    "",
+)

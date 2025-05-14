@@ -5,7 +5,7 @@
 use crate::{
     ldlm, llite, mdd_parser,
     mds::{self, client_count_parser},
-    mgs::mgs_parser,
+    mgs::{self, mgs_parser},
     osd_parser, oss, quota, top_level_parser,
     types::Record,
 };
@@ -15,6 +15,8 @@ pub fn params() -> Vec<String> {
     top_level_parser::top_level_params()
         .into_iter()
         .chain(client_count_parser::params())
+        .chain(oss::client_count_parser::params())
+        .chain(mgs::client_count_parser::params())
         .chain(osd_parser::params())
         .chain(mgs_parser::params())
         .chain(oss::params())
@@ -34,6 +36,8 @@ where
     many(choice((
         top_level_parser::parse().map(|x| vec![x]),
         client_count_parser::parse(),
+        oss::client_count_parser::parse(),
+        mgs::client_count_parser::parse(),
         osd_parser::parse().map(|x| vec![x]),
         mgs_parser::parse().map(|x| vec![x]),
         oss::parse().map(|x| vec![x]),
@@ -66,6 +70,7 @@ mod tests {
                             let name = file.path().to_string_lossy();
 
                             let contents = file.contents_utf8().unwrap();
+                            println!("{:?}", name);
 
                             let result = parse()
                                 .easy_parse(contents)
