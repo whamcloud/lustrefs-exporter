@@ -83,9 +83,5 @@ pub fn init_opentelemetry() -> Result<
         )
         .build();
 
-    // Set the global MeterProvider to the one created above.
-    // This will make all meters created with `global::meter()` use the above MeterProvider.
-    opentelemetry::global::set_meter_provider(provider.clone());
-
     Ok((provider, registry))
 }
