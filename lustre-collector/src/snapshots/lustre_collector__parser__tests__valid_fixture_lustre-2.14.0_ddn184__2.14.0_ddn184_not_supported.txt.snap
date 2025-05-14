@@ -1,0 +1,2835 @@
+---
+source: lustre-collector/src/parser.rs
+expression: result
+---
+(
+    [
+        Host(
+            Memused(
+                HostStat {
+                    param: Param(
+                        "memused",
+                    ),
+                    value: 513086821,
+                },
+            ),
+        ),
+        Host(
+            MemusedMax(
+                HostStat {
+                    param: Param(
+                        "memused_max",
+                    ),
+                    value: 513923189,
+                },
+            ),
+        ),
+        Host(
+            LNetMemUsed(
+                HostStat {
+                    param: Param(
+                        "lnet_memused",
+                    ),
+                    value: 41608660,
+                },
+            ),
+        ),
+        Host(
+            HealthCheck(
+                HostStat {
+                    param: Param(
+                        "health_check",
+                    ),
+                    value: HealthCheckStat {
+                        healthy: true,
+                        targets: [],
+                    },
+                },
+            ),
+        ),
+        Target(
+            ConnectedClients(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "connected_clients",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 4,
+                },
+            ),
+        ),
+        Target(
+            FilesFree(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "filesfree",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 4260468465,
+                },
+            ),
+        ),
+        Target(
+            FilesTotal(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "filestotal",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 4293120000,
+                },
+            ),
+        ),
+        Target(
+            FsType(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "fstype",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: "ldiskfs",
+                },
+            ),
+        ),
+        Target(
+            KBytesAvail(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "kbytesavail",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 24122348980,
+                },
+            ),
+        ),
+        Target(
+            KBytesFree(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "kbytesfree",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 25695229364,
+                },
+            ),
+        ),
+        Target(
+            KBytesTotal(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "kbytestotal",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 26945486408,
+                },
+            ),
+        ),
+        Target(
+            BrwStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "brw_stats",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        BrwStats {
+                            name: "pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_pages",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "discont_blocks",
+                            unit: "rpcs",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "dio_frags",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "rpc_hist",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "io_time",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "disk_iosize",
+                            unit: "ios",
+                            buckets: [],
+                        },
+                        BrwStats {
+                            name: "block_maps_msec",
+                            unit: "maps",
+                            buckets: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            QuotaStatsOsd(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "quota_slave.acct_group",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: QuotaStatsOsd {
+                        kind: Grp,
+                        stats: [
+                            QuotaStatOsd {
+                                id: 0,
+                                usage: QuotaStatUsage {
+                                    inodes: 40994,
+                                    kbytes: 20952876,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 255,
+                                usage: QuotaStatUsage {
+                                    inodes: 3217,
+                                    kbytes: 86036,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 41215,
+                                usage: QuotaStatUsage {
+                                    inodes: 89,
+                                    kbytes: 5748,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 702,
+                                usage: QuotaStatUsage {
+                                    inodes: 10363533,
+                                    kbytes: 539380000,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 2000,
+                                usage: QuotaStatUsage {
+                                    inodes: 1211844,
+                                    kbytes: 24524388,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 2047,
+                                usage: QuotaStatUsage {
+                                    inodes: 1,
+                                    kbytes: 4,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 3407,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 4600,
+                                usage: QuotaStatUsage {
+                                    inodes: 39,
+                                    kbytes: 2032,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 9900,
+                                usage: QuotaStatUsage {
+                                    inodes: 35590,
+                                    kbytes: 1894932,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 15550,
+                                usage: QuotaStatUsage {
+                                    inodes: 834773,
+                                    kbytes: 13148956,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 20003,
+                                usage: QuotaStatUsage {
+                                    inodes: 2198,
+                                    kbytes: 70856,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 20006,
+                                usage: QuotaStatUsage {
+                                    inodes: 640153,
+                                    kbytes: 31374092,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 23102,
+                                usage: QuotaStatUsage {
+                                    inodes: 1141738,
+                                    kbytes: 96865740,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 49237,
+                                usage: QuotaStatUsage {
+                                    inodes: 7675197,
+                                    kbytes: 285856140,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 3504,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 61508,
+                                usage: QuotaStatUsage {
+                                    inodes: 30230,
+                                    kbytes: 9568,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 48590,
+                                usage: QuotaStatUsage {
+                                    inodes: 15,
+                                    kbytes: 40,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 120,
+                                usage: QuotaStatUsage {
+                                    inodes: 118,
+                                    kbytes: 4072,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 49568,
+                                usage: QuotaStatUsage {
+                                    inodes: 185,
+                                    kbytes: 5352,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 62414,
+                                usage: QuotaStatUsage {
+                                    inodes: 1533,
+                                    kbytes: 8376,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 67066,
+                                usage: QuotaStatUsage {
+                                    inodes: 269,
+                                    kbytes: 7676,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 23066,
+                                usage: QuotaStatUsage {
+                                    inodes: 249,
+                                    kbytes: 1432,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 59255,
+                                usage: QuotaStatUsage {
+                                    inodes: 576924,
+                                    kbytes: 73856584,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 1000,
+                                usage: QuotaStatUsage {
+                                    inodes: 5770,
+                                    kbytes: 115584,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 53411,
+                                usage: QuotaStatUsage {
+                                    inodes: 9,
+                                    kbytes: 144,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 313,
+                                usage: QuotaStatUsage {
+                                    inodes: 1,
+                                    kbytes: 128,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 49275,
+                                usage: QuotaStatUsage {
+                                    inodes: 669293,
+                                    kbytes: 74223932,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 55962,
+                                usage: QuotaStatUsage {
+                                    inodes: 1,
+                                    kbytes: 4,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 56777,
+                                usage: QuotaStatUsage {
+                                    inodes: 646710,
+                                    kbytes: 81952232,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 62863,
+                                usage: QuotaStatUsage {
+                                    inodes: 103341,
+                                    kbytes: 13300,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 68913,
+                                usage: QuotaStatUsage {
+                                    inodes: 8631695,
+                                    kbytes: 5676696,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 4590,
+                                usage: QuotaStatUsage {
+                                    inodes: 3869,
+                                    kbytes: 47520,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 40597,
+                                usage: QuotaStatUsage {
+                                    inodes: 48,
+                                    kbytes: 4364,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 59652,
+                                usage: QuotaStatUsage {
+                                    inodes: 904,
+                                    kbytes: 38740,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 706,
+                                usage: QuotaStatUsage {
+                                    inodes: 103,
+                                    kbytes: 9972,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 67890,
+                                usage: QuotaStatUsage {
+                                    inodes: 26924,
+                                    kbytes: 2040,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 46384,
+                                usage: QuotaStatUsage {
+                                    inodes: 3951,
+                                    kbytes: 117248,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 55788,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 8,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 43684,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 23160,
+                                usage: QuotaStatUsage {
+                                    inodes: 10,
+                                    kbytes: 28,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStatsOsd(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "quota_slave.acct_user",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: QuotaStatsOsd {
+                        kind: Usr,
+                        stats: [
+                            QuotaStatOsd {
+                                id: 0,
+                                usage: QuotaStatUsage {
+                                    inodes: 353,
+                                    kbytes: 20142648,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 1339,
+                                usage: QuotaStatUsage {
+                                    inodes: 167,
+                                    kbytes: 12164,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 2617,
+                                usage: QuotaStatUsage {
+                                    inodes: 2896,
+                                    kbytes: 287696,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 13774,
+                                usage: QuotaStatUsage {
+                                    inodes: 1208,
+                                    kbytes: 82816,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 38735,
+                                usage: QuotaStatUsage {
+                                    inodes: 124,
+                                    kbytes: 3572,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 14933,
+                                usage: QuotaStatUsage {
+                                    inodes: 7278,
+                                    kbytes: 261784,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 14957,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 17267,
+                                usage: QuotaStatUsage {
+                                    inodes: 1374,
+                                    kbytes: 11900,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 23952,
+                                usage: QuotaStatUsage {
+                                    inodes: 19411,
+                                    kbytes: 1428932,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 26969,
+                                usage: QuotaStatUsage {
+                                    inodes: 5,
+                                    kbytes: 28,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 27915,
+                                usage: QuotaStatUsage {
+                                    inodes: 7136,
+                                    kbytes: 412652,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 30910,
+                                usage: QuotaStatUsage {
+                                    inodes: 1,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 35336,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 38308,
+                                usage: QuotaStatUsage {
+                                    inodes: 1500149,
+                                    kbytes: 161385308,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 1177,
+                                usage: QuotaStatUsage {
+                                    inodes: 1258,
+                                    kbytes: 71864,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 42541,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 70796,
+                                usage: QuotaStatUsage {
+                                    inodes: 3,
+                                    kbytes: 16,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 42995,
+                                usage: QuotaStatUsage {
+                                    inodes: 26924,
+                                    kbytes: 2040,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 24918,
+                                usage: QuotaStatUsage {
+                                    inodes: 3664,
+                                    kbytes: 129988,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 52155,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 52154,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 52846,
+                                usage: QuotaStatUsage {
+                                    inodes: 2297,
+                                    kbytes: 85524,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 51988,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 48230,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 42490,
+                                usage: QuotaStatUsage {
+                                    inodes: 1205,
+                                    kbytes: 40432,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 58844,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 18221,
+                                usage: QuotaStatUsage {
+                                    inodes: 1,
+                                    kbytes: 4,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 40863,
+                                usage: QuotaStatUsage {
+                                    inodes: 1,
+                                    kbytes: 0,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 57209,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 51315,
+                                usage: QuotaStatUsage {
+                                    inodes: 4583,
+                                    kbytes: 259008,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 51328,
+                                usage: QuotaStatUsage {
+                                    inodes: 1988,
+                                    kbytes: 86668,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 67895,
+                                usage: QuotaStatUsage {
+                                    inodes: 30045,
+                                    kbytes: 2978088,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 59875,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 8660,
+                                usage: QuotaStatUsage {
+                                    inodes: 13,
+                                    kbytes: 28,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 44506,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 12693,
+                                usage: QuotaStatUsage {
+                                    inodes: 5212,
+                                    kbytes: 106372,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 49027,
+                                usage: QuotaStatUsage {
+                                    inodes: 5437,
+                                    kbytes: 111700,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 69299,
+                                usage: QuotaStatUsage {
+                                    inodes: 5379,
+                                    kbytes: 110352,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 42766,
+                                usage: QuotaStatUsage {
+                                    inodes: 1614,
+                                    kbytes: 132476,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 58426,
+                                usage: QuotaStatUsage {
+                                    inodes: 6069,
+                                    kbytes: 127948,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 48531,
+                                usage: QuotaStatUsage {
+                                    inodes: 5287,
+                                    kbytes: 108720,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 58226,
+                                usage: QuotaStatUsage {
+                                    inodes: 5559,
+                                    kbytes: 115000,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 13751,
+                                usage: QuotaStatUsage {
+                                    inodes: 1,
+                                    kbytes: 128,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 63412,
+                                usage: QuotaStatUsage {
+                                    inodes: 3,
+                                    kbytes: 384,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 39498,
+                                usage: QuotaStatUsage {
+                                    inodes: 1,
+                                    kbytes: 132,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 43230,
+                                usage: QuotaStatUsage {
+                                    inodes: 18569,
+                                    kbytes: 2149712,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 42697,
+                                usage: QuotaStatUsage {
+                                    inodes: 4,
+                                    kbytes: 16,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 51557,
+                                usage: QuotaStatUsage {
+                                    inodes: 633951,
+                                    kbytes: 72178592,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 41412,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 14833,
+                                usage: QuotaStatUsage {
+                                    inodes: 5,
+                                    kbytes: 20,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 54747,
+                                usage: QuotaStatUsage {
+                                    inodes: 1972530,
+                                    kbytes: 198463400,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 54942,
+                                usage: QuotaStatUsage {
+                                    inodes: 928,
+                                    kbytes: 70024,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 55346,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 256,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 48128,
+                                usage: QuotaStatUsage {
+                                    inodes: 1,
+                                    kbytes: 4,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 54937,
+                                usage: QuotaStatUsage {
+                                    inodes: 265834,
+                                    kbytes: 26630636,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 41703,
+                                usage: QuotaStatUsage {
+                                    inodes: 5,
+                                    kbytes: 4,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 46852,
+                                usage: QuotaStatUsage {
+                                    inodes: 5,
+                                    kbytes: 516,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 38978,
+                                usage: QuotaStatUsage {
+                                    inodes: 6,
+                                    kbytes: 24,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 55244,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 8,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 67591,
+                                usage: QuotaStatUsage {
+                                    inodes: 11,
+                                    kbytes: 1160,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 52980,
+                                usage: QuotaStatUsage {
+                                    inodes: 14800,
+                                    kbytes: 348228,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 66101,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 132,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 60824,
+                                usage: QuotaStatUsage {
+                                    inodes: 8,
+                                    kbytes: 16,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 57481,
+                                usage: QuotaStatUsage {
+                                    inodes: 2336153,
+                                    kbytes: 213720,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 60641,
+                                usage: QuotaStatUsage {
+                                    inodes: 5037967,
+                                    kbytes: 4943924,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 53735,
+                                usage: QuotaStatUsage {
+                                    inodes: 1533,
+                                    kbytes: 8376,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 20238,
+                                usage: QuotaStatUsage {
+                                    inodes: 11479,
+                                    kbytes: 577760,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 43887,
+                                usage: QuotaStatUsage {
+                                    inodes: 223294,
+                                    kbytes: 2802980,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 44585,
+                                usage: QuotaStatUsage {
+                                    inodes: 5363,
+                                    kbytes: 109968,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 70251,
+                                usage: QuotaStatUsage {
+                                    inodes: 3,
+                                    kbytes: 4,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 46526,
+                                usage: QuotaStatUsage {
+                                    inodes: 1006,
+                                    kbytes: 129708,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 42162,
+                                usage: QuotaStatUsage {
+                                    inodes: 1,
+                                    kbytes: 4,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 44264,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 136,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 69796,
+                                usage: QuotaStatUsage {
+                                    inodes: 8,
+                                    kbytes: 776,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 44099,
+                                usage: QuotaStatUsage {
+                                    inodes: 37,
+                                    kbytes: 3204,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 70317,
+                                usage: QuotaStatUsage {
+                                    inodes: 428543,
+                                    kbytes: 26961584,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 70327,
+                                usage: QuotaStatUsage {
+                                    inodes: 2155,
+                                    kbytes: 68884,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 55051,
+                                usage: QuotaStatUsage {
+                                    inodes: 287821,
+                                    kbytes: 36869860,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 53479,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 70194,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 55759,
+                                usage: QuotaStatUsage {
+                                    inodes: 841,
+                                    kbytes: 34028,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 58585,
+                                usage: QuotaStatUsage {
+                                    inodes: 41261,
+                                    kbytes: 3551520,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 38481,
+                                usage: QuotaStatUsage {
+                                    inodes: 729,
+                                    kbytes: 91252,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 40299,
+                                usage: QuotaStatUsage {
+                                    inodes: 1,
+                                    kbytes: 4,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 44304,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 22485,
+                                usage: QuotaStatUsage {
+                                    inodes: 102,
+                                    kbytes: 10348,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 47519,
+                                usage: QuotaStatUsage {
+                                    inodes: 349,
+                                    kbytes: 14496,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 42579,
+                                usage: QuotaStatUsage {
+                                    inodes: 3,
+                                    kbytes: 0,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 42365,
+                                usage: QuotaStatUsage {
+                                    inodes: 5825,
+                                    kbytes: 380936,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 59604,
+                                usage: QuotaStatUsage {
+                                    inodes: 3951,
+                                    kbytes: 117248,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 43148,
+                                usage: QuotaStatUsage {
+                                    inodes: 3051,
+                                    kbytes: 144,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 57328,
+                                usage: QuotaStatUsage {
+                                    inodes: 414,
+                                    kbytes: 17496,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 23610,
+                                usage: QuotaStatUsage {
+                                    inodes: 177876,
+                                    kbytes: 3352140,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 41588,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 62180,
+                                usage: QuotaStatUsage {
+                                    inodes: 286344,
+                                    kbytes: 18252160,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 42513,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 8,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 69963,
+                                usage: QuotaStatUsage {
+                                    inodes: 66632,
+                                    kbytes: 1089508,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 41256,
+                                usage: QuotaStatUsage {
+                                    inodes: 1549,
+                                    kbytes: 47212,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 53362,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 55243,
+                                usage: QuotaStatUsage {
+                                    inodes: 61748,
+                                    kbytes: 3982296,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 39420,
+                                usage: QuotaStatUsage {
+                                    inodes: 17,
+                                    kbytes: 48,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 39490,
+                                usage: QuotaStatUsage {
+                                    inodes: 3,
+                                    kbytes: 16,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 40380,
+                                usage: QuotaStatUsage {
+                                    inodes: 9,
+                                    kbytes: 40,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 40435,
+                                usage: QuotaStatUsage {
+                                    inodes: 361262,
+                                    kbytes: 23570844,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 41335,
+                                usage: QuotaStatUsage {
+                                    inodes: 232229,
+                                    kbytes: 14913332,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 41355,
+                                usage: QuotaStatUsage {
+                                    inodes: 1457669,
+                                    kbytes: 82264352,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 41898,
+                                usage: QuotaStatUsage {
+                                    inodes: 6,
+                                    kbytes: 16,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 41952,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 43178,
+                                usage: QuotaStatUsage {
+                                    inodes: 283112,
+                                    kbytes: 15866252,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 43529,
+                                usage: QuotaStatUsage {
+                                    inodes: 35342,
+                                    kbytes: 2045340,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 43995,
+                                usage: QuotaStatUsage {
+                                    inodes: 23,
+                                    kbytes: 112,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 44145,
+                                usage: QuotaStatUsage {
+                                    inodes: 78,
+                                    kbytes: 9824,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 44680,
+                                usage: QuotaStatUsage {
+                                    inodes: 12281,
+                                    kbytes: 929472,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 45304,
+                                usage: QuotaStatUsage {
+                                    inodes: 617,
+                                    kbytes: 284,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 44689,
+                                usage: QuotaStatUsage {
+                                    inodes: 555,
+                                    kbytes: 13204,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 50789,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 41921,
+                                usage: QuotaStatUsage {
+                                    inodes: 2186,
+                                    kbytes: 103960,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 60561,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 42422,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 58756,
+                                usage: QuotaStatUsage {
+                                    inodes: 10,
+                                    kbytes: 416,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 42227,
+                                usage: QuotaStatUsage {
+                                    inodes: 1,
+                                    kbytes: 132,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 44795,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 56638,
+                                usage: QuotaStatUsage {
+                                    inodes: 5292,
+                                    kbytes: 262808,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 66850,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 70113,
+                                usage: QuotaStatUsage {
+                                    inodes: 2,
+                                    kbytes: 12,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 54276,
+                                usage: QuotaStatUsage {
+                                    inodes: 30230,
+                                    kbytes: 9568,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 49432,
+                                usage: QuotaStatUsage {
+                                    inodes: 21085,
+                                    kbytes: 1599796,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 45197,
+                                usage: QuotaStatUsage {
+                                    inodes: 802355,
+                                    kbytes: 10062472,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 46758,
+                                usage: QuotaStatUsage {
+                                    inodes: 888,
+                                    kbytes: 34552,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 47554,
+                                usage: QuotaStatUsage {
+                                    inodes: 90744,
+                                    kbytes: 3083444,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 48220,
+                                usage: QuotaStatUsage {
+                                    inodes: 100290,
+                                    kbytes: 13156,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 48774,
+                                usage: QuotaStatUsage {
+                                    inodes: 12,
+                                    kbytes: 684,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 49706,
+                                usage: QuotaStatUsage {
+                                    inodes: 1092764,
+                                    kbytes: 93778512,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 50459,
+                                usage: QuotaStatUsage {
+                                    inodes: 19117,
+                                    kbytes: 1005788,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 50864,
+                                usage: QuotaStatUsage {
+                                    inodes: 4278177,
+                                    kbytes: 100190016,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 51218,
+                                usage: QuotaStatUsage {
+                                    inodes: 1423,
+                                    kbytes: 12680,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 51238,
+                                usage: QuotaStatUsage {
+                                    inodes: 645775,
+                                    kbytes: 81881436,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 52835,
+                                usage: QuotaStatUsage {
+                                    inodes: 3,
+                                    kbytes: 264,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 53390,
+                                usage: QuotaStatUsage {
+                                    inodes: 5753,
+                                    kbytes: 260964,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 53492,
+                                usage: QuotaStatUsage {
+                                    inodes: 1455,
+                                    kbytes: 17520,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 53725,
+                                usage: QuotaStatUsage {
+                                    inodes: 23,
+                                    kbytes: 2664,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 54415,
+                                usage: QuotaStatUsage {
+                                    inodes: 5725939,
+                                    kbytes: 97748964,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 51810,
+                                usage: QuotaStatUsage {
+                                    inodes: 491107,
+                                    kbytes: 42488036,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 57459,
+                                usage: QuotaStatUsage {
+                                    inodes: 979006,
+                                    kbytes: 62862352,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 58497,
+                                usage: QuotaStatUsage {
+                                    inodes: 38098,
+                                    kbytes: 2217824,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 59074,
+                                usage: QuotaStatUsage {
+                                    inodes: 29381,
+                                    kbytes: 205144,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 61950,
+                                usage: QuotaStatUsage {
+                                    inodes: 1,
+                                    kbytes: 4,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 62846,
+                                usage: QuotaStatUsage {
+                                    inodes: 4,
+                                    kbytes: 144,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 65660,
+                                usage: QuotaStatUsage {
+                                    inodes: 195,
+                                    kbytes: 23356,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 66732,
+                                usage: QuotaStatUsage {
+                                    inodes: 1256952,
+                                    kbytes: 518764,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 68792,
+                                usage: QuotaStatUsage {
+                                    inodes: 1066031,
+                                    kbytes: 16098324,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 68862,
+                                usage: QuotaStatUsage {
+                                    inodes: 1785,
+                                    kbytes: 73300,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 69568,
+                                usage: QuotaStatUsage {
+                                    inodes: 19358,
+                                    kbytes: 2455688,
+                                },
+                            },
+                            QuotaStatOsd {
+                                id: 70226,
+                                usage: QuotaStatUsage {
+                                    inodes: 23483,
+                                    kbytes: 1659904,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStatsOsd(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "quota_slave.acct_project",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: QuotaStatsOsd {
+                        kind: Prj,
+                        stats: [],
+                    },
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usecs",
+                            samples: 683,
+                            min: Some(
+                                12,
+                            ),
+                            max: Some(
+                                132,
+                            ),
+                            sum: Some(
+                                21647,
+                            ),
+                            sumsquare: Some(
+                                775865,
+                            ),
+                        },
+                        Stat {
+                            name: "req_qdepth",
+                            units: "reqs",
+                            samples: 683,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                0,
+                            ),
+                            sum: Some(
+                                0,
+                            ),
+                            sumsquare: Some(
+                                0,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 683,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                2,
+                            ),
+                            sum: Some(
+                                687,
+                            ),
+                            sumsquare: Some(
+                                695,
+                            ),
+                        },
+                        Stat {
+                            name: "req_timeout",
+                            units: "secs",
+                            samples: 683,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                14,
+                            ),
+                            sum: Some(
+                                8420,
+                            ),
+                            sumsquare: Some(
+                                116522,
+                            ),
+                        },
+                        Stat {
+                            name: "reqbuf_avail",
+                            units: "bufs",
+                            samples: 1429,
+                            min: Some(
+                                64,
+                            ),
+                            max: Some(
+                                64,
+                            ),
+                            sum: Some(
+                                91456,
+                            ),
+                            sumsquare: Some(
+                                5853184,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_set_info",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                69,
+                            ),
+                            max: Some(
+                                69,
+                            ),
+                            sum: Some(
+                                69,
+                            ),
+                            sumsquare: Some(
+                                4761,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_connect",
+                            units: "usecs",
+                            samples: 23,
+                            min: Some(
+                                18,
+                            ),
+                            max: Some(
+                                4677,
+                            ),
+                            sum: Some(
+                                10004,
+                            ),
+                            sumsquare: Some(
+                                27823848,
+                            ),
+                        },
+                        Stat {
+                            name: "obd_ping",
+                            units: "usecs",
+                            samples: 659,
+                            min: Some(
+                                4,
+                            ),
+                            max: Some(
+                                430,
+                            ),
+                            sum: Some(
+                                11977,
+                            ),
+                            sumsquare: Some(
+                                458771,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_fld",
+                    ),
+                    stats: [],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_io",
+                    ),
+                    stats: [],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_out",
+                    ),
+                    stats: [],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_readpage",
+                    ),
+                    stats: [],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_seqm",
+                    ),
+                    stats: [],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_seqs",
+                    ),
+                    stats: [],
+                },
+            ),
+        ),
+        Target(
+            Mds(
+                MdsStat {
+                    param: Param(
+                        "mdt_setattr",
+                    ),
+                    stats: [],
+                },
+            ),
+        ),
+        Target(
+            Stats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "md_stats",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [],
+                },
+            ),
+        ),
+        Target(
+            NumExports(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "num_exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 21,
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "0@lo",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.36@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.37@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.38@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.39@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.40@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.41@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.42@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.43@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.44@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.45@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.46@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.47@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.48@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.49@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.50@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.29.51@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.4.202@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.4.253@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.5.151@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ExportStats(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "exports",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: [
+                        ExportStats {
+                            nid: "10.74.5.193@tcp",
+                            stats: [],
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            ContendedLocks(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "contended_locks",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 32,
+                },
+            ),
+        ),
+        Target(
+            ContentionSeconds(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "contention_seconds",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 2,
+                },
+            ),
+        ),
+        Target(
+            CtimeAgeLimit(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "ctime_age_limit",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 10,
+                },
+            ),
+        ),
+        Target(
+            EarlyLockCancel(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "early_lock_cancel",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            LockCount(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "lock_count",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            LockTimeouts(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "lock_timeouts",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            LockUnusedCount(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "lock_unused_count",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            LruMaxAge(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "lru_max_age",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 3900000,
+                },
+            ),
+        ),
+        Target(
+            LruSize(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "lru_size",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 1600,
+                },
+            ),
+        ),
+        Target(
+            MaxNolockBytes(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "max_nolock_bytes",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            MaxParallelAst(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "max_parallel_ast",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 1024,
+                },
+            ),
+        ),
+        Target(
+            ResourceCount(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "resource_count",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        LustreService(
+            LdlmCanceld(
+                [
+                    Stat {
+                        name: "req_waittime",
+                        units: "usecs",
+                        samples: 1,
+                        min: Some(
+                            44,
+                        ),
+                        max: Some(
+                            44,
+                        ),
+                        sum: Some(
+                            44,
+                        ),
+                        sumsquare: Some(
+                            1936,
+                        ),
+                    },
+                    Stat {
+                        name: "req_qdepth",
+                        units: "reqs",
+                        samples: 1,
+                        min: Some(
+                            0,
+                        ),
+                        max: Some(
+                            0,
+                        ),
+                        sum: Some(
+                            0,
+                        ),
+                        sumsquare: Some(
+                            0,
+                        ),
+                    },
+                    Stat {
+                        name: "req_active",
+                        units: "reqs",
+                        samples: 1,
+                        min: Some(
+                            1,
+                        ),
+                        max: Some(
+                            1,
+                        ),
+                        sum: Some(
+                            1,
+                        ),
+                        sumsquare: Some(
+                            1,
+                        ),
+                    },
+                    Stat {
+                        name: "req_timeout",
+                        units: "secs",
+                        samples: 1,
+                        min: Some(
+                            10,
+                        ),
+                        max: Some(
+                            10,
+                        ),
+                        sum: Some(
+                            10,
+                        ),
+                        sumsquare: Some(
+                            100,
+                        ),
+                    },
+                    Stat {
+                        name: "reqbuf_avail",
+                        units: "bufs",
+                        samples: 3,
+                        min: Some(
+                            64,
+                        ),
+                        max: Some(
+                            64,
+                        ),
+                        sum: Some(
+                            192,
+                        ),
+                        sumsquare: Some(
+                            12288,
+                        ),
+                    },
+                    Stat {
+                        name: "ldlm_cancel",
+                        units: "usecs",
+                        samples: 1,
+                        min: Some(
+                            41,
+                        ),
+                        max: Some(
+                            41,
+                        ),
+                        sum: Some(
+                            41,
+                        ),
+                        sumsquare: Some(
+                            1681,
+                        ),
+                    },
+                ],
+            ),
+        ),
+        LustreService(
+            LdlmCbd(
+                [
+                    Stat {
+                        name: "req_waittime",
+                        units: "usecs",
+                        samples: 3,
+                        min: Some(
+                            32,
+                        ),
+                        max: Some(
+                            54,
+                        ),
+                        sum: Some(
+                            129,
+                        ),
+                        sumsquare: Some(
+                            5789,
+                        ),
+                    },
+                    Stat {
+                        name: "req_qdepth",
+                        units: "reqs",
+                        samples: 3,
+                        min: Some(
+                            0,
+                        ),
+                        max: Some(
+                            0,
+                        ),
+                        sum: Some(
+                            0,
+                        ),
+                        sumsquare: Some(
+                            0,
+                        ),
+                    },
+                    Stat {
+                        name: "req_active",
+                        units: "reqs",
+                        samples: 3,
+                        min: Some(
+                            1,
+                        ),
+                        max: Some(
+                            1,
+                        ),
+                        sum: Some(
+                            3,
+                        ),
+                        sumsquare: Some(
+                            3,
+                        ),
+                    },
+                    Stat {
+                        name: "req_timeout",
+                        units: "secs",
+                        samples: 3,
+                        min: Some(
+                            1,
+                        ),
+                        max: Some(
+                            10,
+                        ),
+                        sum: Some(
+                            12,
+                        ),
+                        sumsquare: Some(
+                            102,
+                        ),
+                    },
+                    Stat {
+                        name: "reqbuf_avail",
+                        units: "bufs",
+                        samples: 9,
+                        min: Some(
+                            1,
+                        ),
+                        max: Some(
+                            1,
+                        ),
+                        sum: Some(
+                            9,
+                        ),
+                        sumsquare: Some(
+                            9,
+                        ),
+                    },
+                    Stat {
+                        name: "ldlm_bl_callback",
+                        units: "usecs",
+                        samples: 3,
+                        min: Some(
+                            26,
+                        ),
+                        max: Some(
+                            48,
+                        ),
+                        sum: Some(
+                            105,
+                        ),
+                        sumsquare: Some(
+                            3941,
+                        ),
+                    },
+                ],
+            ),
+        ),
+        Target(
+            Changelog(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "changelog_users",
+                    ),
+                    target: Target(
+                        "lustrem-MDT0000",
+                    ),
+                    value: ChangelogStat {
+                        current_index: 36778454916,
+                        users: [
+                            ChangeLogUser {
+                                user: "cl1",
+                                index: 36778454916,
+                                idle_secs: 7893,
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "0x0",
+                    manager: "dt",
+                    param: Param(
+                        "usr",
+                    ),
+                    target: Target(
+                        "lustrem-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Usr,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "0x0",
+                    manager: "md",
+                    param: Param(
+                        "usr",
+                    ),
+                    target: Target(
+                        "lustrem-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Usr,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "0x0",
+                    manager: "dt",
+                    param: Param(
+                        "prj",
+                    ),
+                    target: Target(
+                        "lustrem-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Prj,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "0x0",
+                    manager: "md",
+                    param: Param(
+                        "prj",
+                    ),
+                    target: Target(
+                        "lustrem-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Prj,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "0x0",
+                    manager: "dt",
+                    param: Param(
+                        "grp",
+                    ),
+                    target: Target(
+                        "lustrem-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Grp,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "0x0",
+                    manager: "md",
+                    param: Param(
+                        "grp",
+                    ),
+                    target: Target(
+                        "lustrem-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Grp,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+    ],
+    "",
+)
