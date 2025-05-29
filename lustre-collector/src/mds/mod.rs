@@ -7,7 +7,7 @@ pub(crate) mod mds_parser;
 pub(crate) mod mdt_parser;
 
 use crate::types::Record;
-use combine::{attempt, error::ParseError, Parser, Stream};
+use combine::{Parser, Stream, attempt, error::ParseError};
 
 pub(crate) fn params() -> Vec<String> {
     mds_parser::params()

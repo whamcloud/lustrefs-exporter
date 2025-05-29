@@ -2,8 +2,8 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::{base_parsers::period, Record};
-use combine::{attempt, parser::char::string, ParseError, Parser, Stream};
+use crate::{Record, base_parsers::period};
+use combine::{ParseError, Parser, Stream, attempt, parser::char::string};
 
 mod ldlm_namespace_parser;
 mod ldlm_service_parser;

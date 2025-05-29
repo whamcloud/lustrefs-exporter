@@ -9,7 +9,7 @@ use crate::{
     osd_parser, oss, quota, top_level_parser,
     types::Record,
 };
-use combine::{choice, error::ParseError, many, Parser, Stream};
+use combine::{Parser, Stream, choice, error::ParseError, many};
 
 pub fn params() -> Vec<String> {
     top_level_parser::top_level_params()
@@ -50,7 +50,7 @@ where
 mod tests {
     use super::*;
     use combine::parser::EasyParser;
-    use include_dir::{include_dir, Dir};
+    use include_dir::{Dir, include_dir};
     use insta::assert_debug_snapshot;
 
     static VALID_FIXTURES: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/src/fixtures/valid/");

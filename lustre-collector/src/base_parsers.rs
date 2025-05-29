@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 use combine::{
-    attempt,
+    Parser, attempt,
     error::{Format, ParseError},
     many1, one_of,
     parser::{
@@ -11,7 +11,7 @@ use combine::{
         repeat::take_until,
     },
     stream::Stream,
-    token, unexpected, unexpected_any, value, Parser,
+    token, unexpected, unexpected_any, value,
 };
 
 use crate::types::{Param, Target};

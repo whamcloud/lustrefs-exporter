@@ -8,11 +8,10 @@ use crate::{
     types::{Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
 };
 use combine::{
-    attempt, choice,
+    Parser, attempt, choice,
     error::ParseError,
     parser::char::{newline, string},
     stream::Stream,
-    Parser,
 };
 
 pub const STATS: &str = "stats";

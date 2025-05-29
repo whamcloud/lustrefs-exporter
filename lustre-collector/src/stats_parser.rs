@@ -14,7 +14,7 @@ use crate::{
     types::Stat,
 };
 use combine::{
-    between,
+    Parser, between,
     error::ParseError,
     many, optional,
     parser::{
@@ -22,7 +22,7 @@ use combine::{
         choice::or,
     },
     stream::Stream,
-    token, Parser,
+    token,
 };
 
 fn name_count_units<I>() -> impl Parser<I, Output = (String, u64, String)>

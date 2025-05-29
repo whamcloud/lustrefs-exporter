@@ -3,11 +3,11 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
+    Param, Record, Stat, Target, TargetStats,
     base_parsers::{param, period, target},
     stats_parser::stats,
-    Param, Record, Stat, Target, TargetStats,
 };
-use combine::{parser::char::string, ParseError, Parser, Stream};
+use combine::{ParseError, Parser, Stream, parser::char::string};
 
 pub(crate) const LLITE: &str = "llite";
 pub(crate) const STATS: &str = "stats";

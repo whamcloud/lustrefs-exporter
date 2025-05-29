@@ -3,18 +3,17 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
+    QuotaKind, QuotaStatsOsd,
     base_parsers::{digits, param, period, target, till_newline, till_period},
     brw_stats_parser::brw_stats,
     quota::quota_parser::quota_stats_osd,
     types::{BrwStats, Param, Record, Target, TargetStat, TargetStats, TargetVariant},
-    QuotaKind, QuotaStatsOsd,
 };
 use combine::{
-    attempt, choice,
+    Parser, attempt, choice,
     error::{ParseError, StreamError},
     parser::char::{newline, string},
     stream::{Stream, StreamErrorFor},
-    Parser,
 };
 
 pub(crate) const FILES_FREE: &str = "filesfree";
@@ -209,7 +208,7 @@ where
 
 #[cfg(test)]
 mod tests {
-    use combine::{many, EasyParser};
+    use combine::{EasyParser, many};
     use insta::assert_debug_snapshot;
 
     use super::*;

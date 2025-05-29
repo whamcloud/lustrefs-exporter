@@ -7,13 +7,13 @@ use crate::{
     types::{Param, Record, RecoveryStatus, Target, TargetStat, TargetStats, TargetVariant},
 };
 use combine::{
-    attempt, choice, eof, many, many1, one_of, optional,
+    ParseError, Parser, attempt, choice, eof, many, many1, one_of, optional,
     parser::{
         char::{alpha_num, newline, spaces, string},
         repeat::{skip_until, take_until},
     },
     stream::Stream,
-    token, ParseError, Parser,
+    token,
 };
 
 pub const RECOVERY_STATUS: &str = "recovery_status";
@@ -199,7 +199,7 @@ where
 #[cfg(test)]
 mod tests {
     use crate::recovery_status_parser::{clients_line, parse, target_recovery_stats};
-    use combine::{parser::EasyParser, stream::position, Parser};
+    use combine::{Parser, parser::EasyParser, stream::position};
 
     #[test]
     fn test_multiple() {

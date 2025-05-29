@@ -81,7 +81,7 @@ pub fn parse_recovery_status_output(
 
 #[cfg(test)]
 mod tests {
-    use super::{parse_lctl_output, Record};
+    use super::{Record, parse_lctl_output};
 
     #[test]
     fn ex8761_job_stats() {

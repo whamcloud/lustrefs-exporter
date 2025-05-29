@@ -3,12 +3,12 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
+    MdsStat,
     base_parsers::{equals, period, target},
     stats_parser::stats,
     types::{Param, Record, Stat, Target, TargetStats},
-    MdsStat,
 };
-use combine::{attempt, choice, error::ParseError, parser::char::string, stream::Stream, Parser};
+use combine::{Parser, attempt, choice, error::ParseError, parser::char::string, stream::Stream};
 
 const STATS: &str = "stats";
 const MDS_UPPER: &str = "MDS";

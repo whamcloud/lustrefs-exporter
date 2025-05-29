@@ -6,7 +6,7 @@ pub(crate) mod obdfilter_parser;
 pub(crate) mod oss_parser;
 
 use crate::types::Record;
-use combine::{attempt, error::ParseError, Parser, Stream};
+use combine::{Parser, Stream, attempt, error::ParseError};
 
 pub(crate) fn params() -> Vec<String> {
     obdfilter_parser::obd_params()

@@ -8,12 +8,12 @@ use crate::{
     types::{BrwStats, BrwStatsBucket},
 };
 use combine::{
-    attempt, choice,
+    Parser, attempt, choice,
     error::ParseError,
     many, many1, one_of, optional,
     parser::char::{newline, spaces, string},
     stream::Stream,
-    token, Parser,
+    token,
 };
 
 fn human_to_bytes((x, y): (u64, Option<char>)) -> u64 {

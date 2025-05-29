@@ -7,12 +7,11 @@ use crate::{
     types::{FsName, Param, Record, Target, TargetStat, TargetStats, TargetVariant},
 };
 use combine::{
-    attempt,
+    Parser, attempt,
     error::ParseError,
     many1,
     parser::char::{newline, string},
     stream::Stream,
-    Parser,
 };
 use std::collections::HashMap;
 

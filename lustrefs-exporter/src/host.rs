@@ -5,8 +5,8 @@
 pub mod opentelemetry {
     use lustre_collector::HostStats;
     use opentelemetry::{
-        metrics::{Counter, Gauge, Meter},
         KeyValue,
+        metrics::{Counter, Gauge, Meter},
     };
     use std::ops::Deref;
 

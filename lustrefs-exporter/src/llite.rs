@@ -7,8 +7,8 @@ pub mod opentelemetry {
 
     use lustre_collector::LliteStat;
     use opentelemetry::{
-        metrics::{Counter, Meter},
         KeyValue,
+        metrics::{Counter, Meter},
     };
 
     #[derive(Debug)]

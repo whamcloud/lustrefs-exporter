@@ -3,12 +3,12 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    brw_stats::opentelemetry::{build_target_stats, OpenTelemetryMetricsBrw},
-    host::opentelemetry::{build_host_stats, OpenTelemetryMetricsHost},
+    brw_stats::opentelemetry::{OpenTelemetryMetricsBrw, build_target_stats},
+    host::opentelemetry::{OpenTelemetryMetricsHost, build_host_stats},
     llite::opentelemetry::OpenTelemetryMetricsLlite,
-    lnet::opentelemetry::{build_lnet_stats, OpenTelemetryMetricsLnet},
+    lnet::opentelemetry::{OpenTelemetryMetricsLnet, build_lnet_stats},
     quota::opentelemetry::OpenTelemetryMetricsQuota,
-    service::opentelemetry::{build_service_stats, OpenTelemetryMetricsService},
+    service::opentelemetry::{OpenTelemetryMetricsService, build_service_stats},
     stats::opentelemetry::OpenTelemetryMetricsStats,
 };
 use lustre_collector::Record;

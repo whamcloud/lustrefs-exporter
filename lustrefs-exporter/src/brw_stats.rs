@@ -9,14 +9,14 @@ pub mod opentelemetry {
         BrwStats, ChangeLogUser, ChangelogStat, OssStat, Stat, TargetStat, TargetStats,
     };
     use opentelemetry::{
-        metrics::{Counter, Gauge, Meter},
         KeyValue,
+        metrics::{Counter, Gauge, Meter},
     };
 
     use crate::llite::opentelemetry::build_llite_stats;
     use crate::quota::opentelemetry::{build_ost_quota_stats, build_quota_stats};
     use crate::stats::opentelemetry::{build_export_stats, build_mds_stats, build_stats};
-    use crate::{openmetrics::OpenTelemetryMetrics, LabelProm as _};
+    use crate::{LabelProm as _, openmetrics::OpenTelemetryMetrics};
 
     #[derive(Debug)]
     pub struct OpenTelemetryMetricsBrw {

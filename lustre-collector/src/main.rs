@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use clap::{value_parser, Arg, ValueEnum};
+use clap::{Arg, ValueEnum, value_parser};
 use lustre_collector::{
     error::LustreCollectorError, mgs::mgs_fs_parser, parse_lctl_output, parse_lnetctl_output,
     parse_lnetctl_stats, parse_mgs_fs_output, parse_recovery_status_output, parser,

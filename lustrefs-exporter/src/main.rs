@@ -3,21 +3,20 @@
 // license that can be found in the LICENSE file.
 
 use axum::{
+    BoxError, Router,
     body::Body,
     error_handling::HandleErrorLayer,
     extract::Query,
     http::{self, HeaderValue, StatusCode},
     response::{IntoResponse, Response},
     routing::get,
-    BoxError, Router,
 };
 use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
 use lustrefs_exporter::{
-    init_opentelemetry,
+    Error, init_opentelemetry,
     jobstats::opentelemetry::OpenTelemetryMetricsJobstats,
     openmetrics::{self, OpenTelemetryMetrics},
-    Error,
 };
 use opentelemetry::metrics::MeterProvider;
 use prometheus::{Encoder as _, TextEncoder};
@@ -286,7 +285,7 @@ async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
 mod tests {
     use crate::init_opentelemetry;
     use combine::parser::EasyParser;
-    use include_dir::{include_dir, Dir};
+    use include_dir::{Dir, include_dir};
     use insta::assert_snapshot;
     use lustre_collector::parser::parse;
     use lustrefs_exporter::openmetrics::OpenTelemetryMetrics;
