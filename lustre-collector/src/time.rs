@@ -4,12 +4,12 @@
 
 use crate::base_parsers::{digits, till_newline};
 use combine::stream::Stream;
+use combine::{Parser, optional, token};
 use combine::{
     attempt,
     parser::char::{spaces, string},
 };
 use combine::{error::ParseError, parser::char::newline};
-use combine::{optional, token, Parser};
 
 fn time<I>(name: &'static str) -> impl Parser<I, Output = String>
 where

@@ -3,19 +3,18 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
+    ExportStats,
     base_parsers::{digits, param, param_period, period, target},
     exports_parser::exports_stats,
     oss::obdfilter_parser::{EXPORTS, EXPORTS_PARAMS},
     stats_parser::stats,
     types::{Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
-    ExportStats,
 };
 use combine::{
-    attempt, choice,
+    Parser, attempt, choice,
     error::ParseError,
     parser::char::{newline, string},
     stream::Stream,
-    Parser,
 };
 
 pub(crate) const STATS: &str = "md_stats";

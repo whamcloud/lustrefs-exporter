@@ -3,17 +3,17 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
+    ExportStats,
     base_parsers::{equals, period},
     stats_parser::stats,
-    ExportStats,
 };
 use combine::{
-    attempt,
+    Parser, attempt,
     error::ParseError,
     many, many1,
     parser::char::{alpha_num, string},
     stream::Stream,
-    token, Parser,
+    token,
 };
 
 /// Parses a single nid

@@ -11,12 +11,12 @@ enum State {
 }
 
 pub mod opentelemetry {
-    use crate::{jobstats::State, Error, LabelProm};
+    use crate::{Error, LabelProm, jobstats::State};
 
     use lustre_collector::TargetVariant;
     use opentelemetry::{
-        metrics::{Counter, Gauge, Meter},
         KeyValue,
+        metrics::{Counter, Gauge, Meter},
     };
     use regex::Regex;
     use std::io::BufRead;
@@ -104,7 +104,7 @@ pub mod opentelemetry {
                     || line.starts_with("  elapsed_time:")
                     || line.starts_with("  snapshot_time:") =>
                 {
-                    return Ok((state, LoopInstruction::Noop))
+                    return Ok((state, LoopInstruction::Noop));
                 }
                 State::Empty | State::Target(_)
                     if line.starts_with("obdfilter") || line.starts_with("mdt.") =>

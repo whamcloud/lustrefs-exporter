@@ -3,12 +3,12 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
+    LustreCollectorError, NodeStats,
     base_parsers::{digits, string_to, till_newline},
     types::{NodeStat, Param, Record},
-    LustreCollectorError, NodeStats,
 };
 use combine::{
-    attempt, choice,
+    Parser, attempt, choice,
     error::ParseError,
     parser::EasyParser,
     parser::{
@@ -17,7 +17,7 @@ use combine::{
     },
     sep_end_by,
     stream::Stream,
-    token, Parser,
+    token,
 };
 use std::io;
 

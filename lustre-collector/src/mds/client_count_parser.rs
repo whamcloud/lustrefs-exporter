@@ -8,13 +8,13 @@ use crate::{
     types::{Param, Record, Target, TargetStat, TargetStats, TargetVariant},
 };
 use combine::{
-    attempt, choice,
+    Parser, attempt, choice,
     error::ParseError,
     look_ahead, many1, one_of,
     parser::char::{alpha_num, newline, string},
     sep_by1, sep_end_by,
     stream::Stream,
-    token, Parser,
+    token,
 };
 use std::{collections::BTreeMap, ops::Add};
 

@@ -3,12 +3,12 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
+    LustreServiceStats, Record,
     base_parsers::{param, period},
     ldlm::LDLM,
     stats_parser::stats,
-    LustreServiceStats, Record,
 };
-use combine::{attempt, choice, parser::char::string, ParseError, Parser, Stream};
+use combine::{ParseError, Parser, Stream, attempt, choice, parser::char::string};
 
 pub(crate) const LDLM_CANCELD: &str = "ldlm_canceld";
 pub(crate) const LDLM_CBD: &str = "ldlm_cbd";

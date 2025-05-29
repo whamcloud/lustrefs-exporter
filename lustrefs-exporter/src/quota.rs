@@ -6,8 +6,8 @@ pub mod opentelemetry {
     use crate::LabelProm as _;
     use lustre_collector::{QuotaStats, QuotaStatsOsd, TargetQuotaStat, TargetStat};
     use opentelemetry::{
-        metrics::{Gauge, Meter},
         KeyValue,
+        metrics::{Gauge, Meter},
     };
     use std::ops::Deref as _;
 

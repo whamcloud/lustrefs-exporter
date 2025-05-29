@@ -1,11 +1,10 @@
-use std::{io::BufReader, sync::Arc};
-
 use const_format::{formatcp, str_repeat};
-use criterion::{black_box, criterion_group, criterion_main, Criterion};
+use criterion::{Criterion, criterion_group, criterion_main};
 use lustrefs_exporter::jobstats::opentelemetry::OpenTelemetryMetricsJobstats;
 use opentelemetry::metrics::MeterProvider;
 use opentelemetry_sdk::metrics::SdkMeterProvider;
 use prometheus::{Encoder as _, Registry, TextEncoder};
+use std::{hint, io::BufReader, sync::Arc};
 
 const JOBSTAT_JOB: &str = r#"
 - job_id:          "FAKE_JOB"
@@ -71,11 +70,11 @@ async fn parse_synthetic_yaml_otel(input: &'static str) {
 fn criterion_benchmark_fast(c: &mut Criterion) {
     c.bench_function("jobstats otel 100", |b| {
         b.to_async(tokio::runtime::Builder::new_multi_thread().build().unwrap())
-            .iter(|| black_box(parse_synthetic_yaml_otel(INPUT_100_JOBS)))
+            .iter(|| hint::black_box(parse_synthetic_yaml_otel(INPUT_100_JOBS)))
     });
     c.bench_function("jobstats otel 1000", |b| {
         b.to_async(tokio::runtime::Builder::new_multi_thread().build().unwrap())
-            .iter(|| black_box(parse_synthetic_yaml_otel(INPUT_1000_JOBS)))
+            .iter(|| hint::black_box(parse_synthetic_yaml_otel(INPUT_1000_JOBS)))
     });
 }
 criterion_group! {

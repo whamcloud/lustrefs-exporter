@@ -3,17 +3,17 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
+    HealthCheckStat, Target,
     base_parsers::{digits, param, target},
     types::{HostStat, HostStats, Param, Record},
-    HealthCheckStat, Target,
 };
 use combine::{
-    choice,
+    Parser, choice,
     error::ParseError,
     many1, optional,
     parser::char::{newline, space, string},
     stream::Stream,
-    token, Parser,
+    token,
 };
 
 pub(crate) const MEMUSED_MAX: &str = "memused_max";

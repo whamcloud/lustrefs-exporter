@@ -5,8 +5,8 @@
 pub mod opentelemetry {
     use lustre_collector::{LNetStat, LNetStatGlobal, LNetStats};
     use opentelemetry::{
-        metrics::{Counter, Meter},
         KeyValue,
+        metrics::{Counter, Meter},
     };
 
     #[derive(Debug)]

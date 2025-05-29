@@ -8,11 +8,10 @@ use crate::{
     types::{Param, Record, Target, TargetStat, TargetStats, TargetVariant},
 };
 use combine::{
-    attempt, choice,
+    Parser, attempt, choice,
     error::{ParseError, StreamError},
     parser::char::{newline, string},
     stream::{Stream, StreamErrorFor},
-    Parser,
 };
 
 pub(crate) const CONTENDED_LOCKS: &str = "contended_locks";

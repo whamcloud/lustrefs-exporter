@@ -2,8 +2,8 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::{base_parsers::period, Record};
-use combine::{parser::char::string, ParseError, Parser, Stream};
+use crate::{Record, base_parsers::period};
+use combine::{ParseError, Parser, Stream, parser::char::string};
 
 pub(crate) mod quota_parser;
 

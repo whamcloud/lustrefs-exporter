@@ -17,7 +17,7 @@ use axum::{
     response::{IntoResponse, Response},
 };
 use lustre_collector::{LustreCollectorError, TargetVariant};
-use opentelemetry_sdk::{metrics::SdkMeterProvider, Resource};
+use opentelemetry_sdk::{Resource, metrics::SdkMeterProvider};
 use prometheus::Registry;
 
 #[derive(Debug, thiserror::Error)]

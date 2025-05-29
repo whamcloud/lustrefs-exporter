@@ -3,13 +3,13 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
+    QuotaKind, QuotaStat, QuotaStatOsd, QuotaStats, TargetQuotaStat,
     base_parsers::{param, period, target},
     quota::QMT,
     types::{Param, Record, Target, TargetStats},
-    QuotaKind, QuotaStat, QuotaStatOsd, QuotaStats, TargetQuotaStat,
 };
 use combine::{
-    attempt, choice, eof,
+    Parser, attempt, choice, eof,
     error::{ParseError, StreamError},
     optional,
     parser::{
@@ -17,7 +17,7 @@ use combine::{
         repeat::take_until,
     },
     stream::{Stream, StreamErrorFor},
-    token, Parser,
+    token,
 };
 
 pub(crate) const USR_QUOTAS: &str = "usr";

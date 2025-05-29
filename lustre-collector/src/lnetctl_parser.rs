@@ -3,9 +3,9 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    lnet_exports::LNetStatsStatistics,
-    types::{lnet_exports::Net, LNetStat, LNetStats, Param, Record},
     LNetStatGlobal, LustreCollectorError,
+    lnet_exports::LNetStatsStatistics,
+    types::{LNetStat, LNetStats, Param, Record, lnet_exports::Net},
 };
 
 #[derive(serde::Serialize, serde::Deserialize)]

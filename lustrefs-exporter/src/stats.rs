@@ -7,8 +7,8 @@ pub mod opentelemetry {
 
     use lustre_collector::{ExportStats, MdsStat, Stat, Target, TargetStat, TargetVariant};
     use opentelemetry::{
-        metrics::{Counter, Gauge, Meter},
         KeyValue,
+        metrics::{Counter, Gauge, Meter},
     };
 
     use crate::LabelProm as _;

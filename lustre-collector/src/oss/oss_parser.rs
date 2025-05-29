@@ -3,12 +3,12 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
+    OssStat,
     base_parsers::{equals, period},
     stats_parser::stats,
     types::{Param, Record, Stat, TargetStats},
-    OssStat,
 };
-use combine::{attempt, choice, error::ParseError, parser::char::string, stream::Stream, Parser};
+use combine::{Parser, attempt, choice, error::ParseError, parser::char::string, stream::Stream};
 
 const OSS: &str = "OSS";
 const STATS: &str = "stats";
