@@ -88,7 +88,7 @@ where
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     choice((
-        (param(BRW_STATS), brw_stats().map(OsdStat::BrwStats)),
+        (param(BRW_STATS), brw_stats().map(OsdStat::BrwStats)).message("while parsing brw_stats"),
         (
             param(FILES_FREE),
             digits().skip(newline()).map(OsdStat::FilesFree),
@@ -107,15 +107,18 @@ where
         (
             param(KBYTES_AVAIL),
             digits().skip(newline()).map(OsdStat::KBytesAvail),
-        ),
+        )
+            .message("while parsing kbytesavail"),
         (
             param(KBYTES_FREE),
             digits().skip(newline()).map(OsdStat::KBytesFree),
-        ),
+        )
+            .message("while parsing kbytesfree"),
         (
             param(KBYTES_TOTAL),
             digits().skip(newline()).map(OsdStat::KBytesTotal),
-        ),
+        )
+            .message("while parsing kbytestotal"),
         (
             param(QUOTA_ACCT_GRP),
             quota_stats_osd().map(|stats| {
@@ -124,7 +127,8 @@ where
                     stats,
                 })
             }),
-        ),
+        )
+            .message("while parsing quota_slave.acct_group"),
         (
             param(QUOTA_ACCT_PRJ),
             quota_stats_osd().map(|stats| {
@@ -133,7 +137,8 @@ where
                     stats,
                 })
             }),
-        ),
+        )
+            .message("while parsing quota_slave.acct_project"),
         (
             param(QUOTA_ACCT_USR),
             quota_stats_osd().map(|stats| {
@@ -142,7 +147,8 @@ where
                     stats,
                 })
             }),
-        ),
+        )
+            .message("while parsing quota_slave.acct_user"),
     ))
 }
 

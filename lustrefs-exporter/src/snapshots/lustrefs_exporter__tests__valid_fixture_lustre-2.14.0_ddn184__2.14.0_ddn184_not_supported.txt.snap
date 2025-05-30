@@ -1,0 +1,549 @@
+---
+source: lustrefs-exporter/src/main.rs
+expression: x
+---
+# HELP lustre_available_kilobytes Number of kilobytes readily available in the pool
+# TYPE lustre_available_kilobytes gauge
+lustre_available_kilobytes{component="mdt",target="lustrem-MDT0000"} 24122348980
+
+# HELP lustre_block_maps_milliseconds_total Number of block maps in milliseconds
+# TYPE lustre_block_maps_milliseconds_total counter
+
+# HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes
+# TYPE lustre_capacity_kilobytes gauge
+lustre_capacity_kilobytes{component="mdt",target="lustrem-MDT0000"} 26945486408
+
+# HELP lustre_changelog_current_index current changelog index.
+# TYPE lustre_changelog_current_index gauge
+lustre_changelog_current_index{target="lustrem-MDT0000"} 36778454916
+
+# HELP lustre_changelog_user_idle_sec current changelog user idle seconds.
+# TYPE lustre_changelog_user_idle_sec gauge
+lustre_changelog_user_idle_sec{user="cl1"} 7893
+
+# HELP lustre_changelog_user_index current, maximum changelog index per registered changelog user.
+# TYPE lustre_changelog_user_index gauge
+lustre_changelog_user_index{user="cl1",target="lustrem-MDT0000"} 36778454916
+
+# HELP lustre_connected_clients Number of connected clients
+# TYPE lustre_connected_clients gauge
+lustre_connected_clients{component="mdt",target="lustrem-MDT0000"} 4
+
+# HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.
+# TYPE lustre_dio_frags gauge
+
+# HELP lustre_discontiguous_blocks_total 'size' label represents 'Discontiguous blocks', the number of discontinuities in the physical block allocation in the file system for a single RPC
+# TYPE lustre_discontiguous_blocks_total counter
+
+# HELP lustre_discontiguous_pages_total Total number of logical discontinuities per RPC. 'size' label represents 'Discontiguous pages', the number of discontinuities in the logical file offset of each page in a single RPC.
+# TYPE lustre_discontiguous_pages_total counter
+
+# HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.
+# TYPE lustre_disk_io gauge
+
+# HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation
+# TYPE lustre_disk_io_total counter
+
+# HELP lustre_exports_total Total number of times the pool has been exported
+# TYPE lustre_exports_total counter
+lustre_exports_total{component="mdt",target="lustrem-MDT0000"} 21
+
+# HELP lustre_free_kilobytes Number of kilobytes allocated to the pool
+# TYPE lustre_free_kilobytes gauge
+lustre_free_kilobytes{component="mdt",target="lustrem-MDT0000"} 25695229364
+
+# HELP lustre_health_healthy Indicates whether the Lustre target is healthy or not. 1 is healthy, 0 is unhealthy.
+# TYPE lustre_health_healthy gauge
+lustre_health_healthy 1
+
+# HELP lustre_inodes_free The number of inodes (objects) available
+# TYPE lustre_inodes_free gauge
+lustre_inodes_free{component="mdt",target="lustrem-MDT0000"} 4260468465
+
+# HELP lustre_inodes_maximum The maximum number of inodes (objects) the filesystem can hold
+# TYPE lustre_inodes_maximum gauge
+lustre_inodes_maximum{component="mdt",target="lustrem-MDT0000"} 4293120000
+
+# HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes. 'size' label represents 'I/O time (1/1000s)', the amount of time for each I/O operation to complete.
+# TYPE lustre_io_time_milliseconds_total counter
+
+# HELP lustre_ldlm_canceld_stats Gives information about LDLM Canceld service.
+# TYPE lustre_ldlm_canceld_stats counter
+lustre_ldlm_canceld_stats{operation="req_waittime"} 1
+lustre_ldlm_canceld_stats{operation="req_qdepth"} 1
+lustre_ldlm_canceld_stats{operation="req_active"} 1
+lustre_ldlm_canceld_stats{operation="req_timeout"} 1
+lustre_ldlm_canceld_stats{operation="reqbuf_avail"} 3
+lustre_ldlm_canceld_stats{operation="ldlm_cancel"} 1
+
+# HELP lustre_ldlm_cbd_stats Gives information about LDLM Callback service.
+# TYPE lustre_ldlm_cbd_stats counter
+lustre_ldlm_cbd_stats{operation="req_waittime"} 3
+lustre_ldlm_cbd_stats{operation="req_qdepth"} 3
+lustre_ldlm_cbd_stats{operation="req_active"} 3
+lustre_ldlm_cbd_stats{operation="req_timeout"} 3
+lustre_ldlm_cbd_stats{operation="reqbuf_avail"} 9
+lustre_ldlm_cbd_stats{operation="ldlm_bl_callback"} 3
+
+# HELP lustre_lnet_mem_used Gives information about Lustre LNet memory usage.
+# TYPE lustre_lnet_mem_used gauge
+lustre_lnet_mem_used 41608660
+
+# HELP lustre_lock_contended_total Number of contended locks
+# TYPE lustre_lock_contended_total counter
+lustre_lock_contended_total{component="mdt",target="lustrem-MDT0000"} 32
+
+# HELP lustre_lock_contention_seconds_total Time in seconds during which locks were contended
+# TYPE lustre_lock_contention_seconds_total counter
+lustre_lock_contention_seconds_total{component="mdt",target="lustrem-MDT0000"} 2
+
+# HELP lustre_lock_count_total Number of locks
+# TYPE lustre_lock_count_total counter
+lustre_lock_count_total{component="mdt",target="lustrem-MDT0000"} 0
+
+# HELP lustre_lock_timeout_total Number of lock timeouts
+# TYPE lustre_lock_timeout_total counter
+lustre_lock_timeout_total{component="mdt",target="lustrem-MDT0000"} 0
+
+# HELP lustre_mds_mdt_stats MDS mdt stats
+# TYPE lustre_mds_mdt_stats gauge
+lustre_mds_mdt_stats{operation="req_waittime",units="usecs"} 683
+lustre_mds_mdt_stats{operation="req_qdepth",units="reqs"} 683
+lustre_mds_mdt_stats{operation="req_active",units="reqs"} 683
+lustre_mds_mdt_stats{operation="req_timeout",units="secs"} 683
+lustre_mds_mdt_stats{operation="reqbuf_avail",units="bufs"} 1429
+lustre_mds_mdt_stats{operation="ost_set_info",units="usecs"} 1
+lustre_mds_mdt_stats{operation="mds_connect",units="usecs"} 23
+lustre_mds_mdt_stats{operation="obd_ping",units="usecs"} 659
+
+# HELP lustre_mem_used Gives information about Lustre memory usage.
+# TYPE lustre_mem_used gauge
+lustre_mem_used 513086821
+
+# HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
+# TYPE lustre_mem_used_max gauge
+lustre_mem_used_max 513923189
+
+# HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request
+# TYPE lustre_pages_per_bulk_rw_total counter
+
+# HELP lustre_quota_granted The granted quota for a given component.
+# TYPE lustre_quota_granted gauge
+lustre_quota_granted{target="lustrem-QMT0000",pool="",accounting="user",manager="dt",id="0"} 0
+lustre_quota_granted{target="lustrem-QMT0000",pool="",accounting="user",manager="md",id="0"} 0
+lustre_quota_granted{target="lustrem-QMT0000",pool="",accounting="project",manager="dt",id="0"} 0
+lustre_quota_granted{target="lustrem-QMT0000",pool="",accounting="project",manager="md",id="0"} 0
+lustre_quota_granted{target="lustrem-QMT0000",pool="",accounting="group",manager="dt",id="0"} 0
+lustre_quota_granted{target="lustrem-QMT0000",pool="",accounting="group",manager="md",id="0"} 0
+
+# HELP lustre_quota_hard The hard quota for a given component.
+# TYPE lustre_quota_hard gauge
+lustre_quota_hard{target="lustrem-QMT0000",pool="",accounting="user",manager="dt",id="0"} 0
+lustre_quota_hard{target="lustrem-QMT0000",pool="",accounting="user",manager="md",id="0"} 0
+lustre_quota_hard{target="lustrem-QMT0000",pool="",accounting="project",manager="dt",id="0"} 0
+lustre_quota_hard{target="lustrem-QMT0000",pool="",accounting="project",manager="md",id="0"} 0
+lustre_quota_hard{target="lustrem-QMT0000",pool="",accounting="group",manager="dt",id="0"} 0
+lustre_quota_hard{target="lustrem-QMT0000",pool="",accounting="group",manager="md",id="0"} 0
+
+# HELP lustre_quota_soft The soft quota for a given component.
+# TYPE lustre_quota_soft gauge
+lustre_quota_soft{target="lustrem-QMT0000",pool="",accounting="user",manager="dt",id="0"} 0
+lustre_quota_soft{target="lustrem-QMT0000",pool="",accounting="user",manager="md",id="0"} 0
+lustre_quota_soft{target="lustrem-QMT0000",pool="",accounting="project",manager="dt",id="0"} 0
+lustre_quota_soft{target="lustrem-QMT0000",pool="",accounting="project",manager="md",id="0"} 0
+lustre_quota_soft{target="lustrem-QMT0000",pool="",accounting="group",manager="dt",id="0"} 0
+lustre_quota_soft{target="lustrem-QMT0000",pool="",accounting="group",manager="md",id="0"} 0
+
+# HELP lustre_quota_used_inodes The amount of inodes used by quota.
+# TYPE lustre_quota_used_inodes gauge
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="0"} 40994
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="255"} 3217
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="41215"} 89
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="702"} 10363533
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="2000"} 1211844
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="2047"} 1
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="3407"} 2
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="4600"} 39
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="9900"} 35590
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="15550"} 834773
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="20003"} 2198
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="20006"} 640153
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="23102"} 1141738
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="49237"} 7675197
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="3504"} 2
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="61508"} 30230
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="48590"} 15
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="120"} 118
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="49568"} 185
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="62414"} 1533
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="67066"} 269
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="23066"} 249
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="59255"} 576924
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="1000"} 5770
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="53411"} 9
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="313"} 1
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="49275"} 669293
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="55962"} 1
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="56777"} 646710
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="62863"} 103341
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="68913"} 8631695
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="4590"} 3869
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="40597"} 48
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="59652"} 904
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="706"} 103
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="67890"} 26924
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="46384"} 3951
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="55788"} 2
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="43684"} 2
+lustre_quota_used_inodes{component="mdt",accounting="group",target="lustrem-MDT0000",id="23160"} 10
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="0"} 353
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="1339"} 167
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="2617"} 2896
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="13774"} 1208
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="38735"} 124
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="14933"} 7278
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="14957"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="17267"} 1374
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="23952"} 19411
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="26969"} 5
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="27915"} 7136
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="30910"} 1
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="35336"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="38308"} 1500149
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="1177"} 1258
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42541"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="70796"} 3
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42995"} 26924
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="24918"} 3664
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="52155"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="52154"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="52846"} 2297
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="51988"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="48230"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42490"} 1205
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="58844"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="18221"} 1
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="40863"} 1
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="57209"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="51315"} 4583
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="51328"} 1988
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="67895"} 30045
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="59875"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="8660"} 13
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44506"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="12693"} 5212
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="49027"} 5437
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="69299"} 5379
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42766"} 1614
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="58426"} 6069
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="48531"} 5287
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="58226"} 5559
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="13751"} 1
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="63412"} 3
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="39498"} 1
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="43230"} 18569
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42697"} 4
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="51557"} 633951
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41412"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="14833"} 5
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="54747"} 1972530
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="54942"} 928
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="55346"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="48128"} 1
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="54937"} 265834
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41703"} 5
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="46852"} 5
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="38978"} 6
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="55244"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="67591"} 11
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="52980"} 14800
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="66101"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="60824"} 8
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="57481"} 2336153
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="60641"} 5037967
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="53735"} 1533
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="20238"} 11479
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="43887"} 223294
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44585"} 5363
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="70251"} 3
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="46526"} 1006
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42162"} 1
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44264"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="69796"} 8
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44099"} 37
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="70317"} 428543
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="70327"} 2155
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="55051"} 287821
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="53479"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="70194"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="55759"} 841
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="58585"} 41261
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="38481"} 729
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="40299"} 1
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44304"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="22485"} 102
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="47519"} 349
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42579"} 3
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42365"} 5825
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="59604"} 3951
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="43148"} 3051
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="57328"} 414
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="23610"} 177876
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41588"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="62180"} 286344
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42513"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="69963"} 66632
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41256"} 1549
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="53362"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="55243"} 61748
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="39420"} 17
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="39490"} 3
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="40380"} 9
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="40435"} 361262
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41335"} 232229
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41355"} 1457669
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41898"} 6
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41952"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="43178"} 283112
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="43529"} 35342
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="43995"} 23
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44145"} 78
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44680"} 12281
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="45304"} 617
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44689"} 555
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="50789"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41921"} 2186
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="60561"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42422"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="58756"} 10
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42227"} 1
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44795"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="56638"} 5292
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="66850"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="70113"} 2
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="54276"} 30230
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="49432"} 21085
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="45197"} 802355
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="46758"} 888
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="47554"} 90744
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="48220"} 100290
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="48774"} 12
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="49706"} 1092764
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="50459"} 19117
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="50864"} 4278177
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="51218"} 1423
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="51238"} 645775
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="52835"} 3
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="53390"} 5753
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="53492"} 1455
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="53725"} 23
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="54415"} 5725939
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="51810"} 491107
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="57459"} 979006
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="58497"} 38098
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="59074"} 29381
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="61950"} 1
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="62846"} 4
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="65660"} 195
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="66732"} 1256952
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="68792"} 1066031
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="68862"} 1785
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="69568"} 19358
+lustre_quota_used_inodes{component="mdt",accounting="user",target="lustrem-MDT0000",id="70226"} 23483
+
+# HELP lustre_quota_used_kbytes The hard quota for a given component.
+# TYPE lustre_quota_used_kbytes gauge
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="0"} 20952876
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="255"} 86036
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="41215"} 5748
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="702"} 539380000
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="2000"} 24524388
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="2047"} 4
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="3407"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="4600"} 2032
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="9900"} 1894932
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="15550"} 13148956
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="20003"} 70856
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="20006"} 31374092
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="23102"} 96865740
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="49237"} 285856140
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="3504"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="61508"} 9568
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="48590"} 40
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="120"} 4072
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="49568"} 5352
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="62414"} 8376
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="67066"} 7676
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="23066"} 1432
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="59255"} 73856584
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="1000"} 115584
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="53411"} 144
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="313"} 128
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="49275"} 74223932
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="55962"} 4
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="56777"} 81952232
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="62863"} 13300
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="68913"} 5676696
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="4590"} 47520
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="40597"} 4364
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="59652"} 38740
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="706"} 9972
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="67890"} 2040
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="46384"} 117248
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="55788"} 8
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="43684"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="group",target="lustrem-MDT0000",id="23160"} 28
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="0"} 20142648
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="1339"} 12164
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="2617"} 287696
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="13774"} 82816
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="38735"} 3572
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="14933"} 261784
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="14957"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="17267"} 11900
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="23952"} 1428932
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="26969"} 28
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="27915"} 412652
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="30910"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="35336"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="38308"} 161385308
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="1177"} 71864
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42541"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="70796"} 16
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42995"} 2040
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="24918"} 129988
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="52155"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="52154"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="52846"} 85524
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="51988"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="48230"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42490"} 40432
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="58844"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="18221"} 4
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="40863"} 0
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="57209"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="51315"} 259008
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="51328"} 86668
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="67895"} 2978088
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="59875"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="8660"} 28
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44506"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="12693"} 106372
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="49027"} 111700
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="69299"} 110352
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42766"} 132476
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="58426"} 127948
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="48531"} 108720
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="58226"} 115000
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="13751"} 128
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="63412"} 384
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="39498"} 132
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="43230"} 2149712
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42697"} 16
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="51557"} 72178592
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41412"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="14833"} 20
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="54747"} 198463400
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="54942"} 70024
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="55346"} 256
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="48128"} 4
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="54937"} 26630636
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41703"} 4
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="46852"} 516
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="38978"} 24
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="55244"} 8
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="67591"} 1160
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="52980"} 348228
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="66101"} 132
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="60824"} 16
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="57481"} 213720
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="60641"} 4943924
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="53735"} 8376
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="20238"} 577760
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="43887"} 2802980
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44585"} 109968
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="70251"} 4
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="46526"} 129708
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42162"} 4
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44264"} 136
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="69796"} 776
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44099"} 3204
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="70317"} 26961584
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="70327"} 68884
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="55051"} 36869860
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="53479"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="70194"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="55759"} 34028
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="58585"} 3551520
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="38481"} 91252
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="40299"} 4
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44304"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="22485"} 10348
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="47519"} 14496
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42579"} 0
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42365"} 380936
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="59604"} 117248
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="43148"} 144
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="57328"} 17496
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="23610"} 3352140
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41588"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="62180"} 18252160
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42513"} 8
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="69963"} 1089508
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41256"} 47212
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="53362"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="55243"} 3982296
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="39420"} 48
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="39490"} 16
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="40380"} 40
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="40435"} 23570844
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41335"} 14913332
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41355"} 82264352
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41898"} 16
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41952"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="43178"} 15866252
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="43529"} 2045340
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="43995"} 112
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44145"} 9824
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44680"} 929472
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="45304"} 284
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44689"} 13204
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="50789"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="41921"} 103960
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="60561"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42422"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="58756"} 416
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="42227"} 132
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="44795"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="56638"} 262808
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="66850"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="70113"} 12
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="54276"} 9568
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="49432"} 1599796
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="45197"} 10062472
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="46758"} 34552
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="47554"} 3083444
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="48220"} 13156
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="48774"} 684
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="49706"} 93778512
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="50459"} 1005788
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="50864"} 100190016
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="51218"} 12680
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="51238"} 81881436
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="52835"} 264
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="53390"} 260964
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="53492"} 17520
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="53725"} 2664
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="54415"} 97748964
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="51810"} 42488036
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="57459"} 62862352
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="58497"} 2217824
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="59074"} 205144
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="61950"} 4
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="62846"} 144
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="65660"} 23356
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="66732"} 518764
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="68792"} 16098324
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="68862"} 73300
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="69568"} 2455688
+lustre_quota_used_kbytes{component="mdt",accounting="user",target="lustrem-MDT0000",id="70226"} 1659904
