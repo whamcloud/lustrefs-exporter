@@ -1,0 +1,11 @@
+---
+source: lustre-collector/src/oss/client_count_parser.rs
+expression: result
+---
+(
+    (
+        "fs-OST0000",
+        1,
+    ),
+    "",
+)
