@@ -24,6 +24,11 @@ pub mod opentelemetry {
         pub write_minimum_size_bytes: Gauge<u64>,
         pub write_maximum_size_bytes: Counter<u64>,
         pub write_bytes_total: Counter<u64>,
+        pub get_page_total: Counter<u64>,
+        pub cache_access_total: Counter<u64>,
+        pub cache_hit_total: Counter<u64>,
+        pub cache_miss_total: Counter<u64>,
+        pub many_credits_total: Counter<u64>,
 
         // MDT metrics
         pub stats_total: Counter<u64>,
@@ -79,6 +84,26 @@ pub mod opentelemetry {
                 write_bytes_total: meter
                     .u64_counter("lustre_write_bytes_total")
                     .with_description("The total number of bytes that have been written.")
+                    .build(),
+                get_page_total: meter
+                    .u64_counter("lustre_get_page_total")
+                    .with_description("The total number of times the linux page cache was used.")
+                    .build(),
+                cache_access_total: meter
+                    .u64_counter("lustre_cache_access_total")
+                    .with_description("The total number cache accesses.")
+                    .build(),
+                cache_hit_total: meter
+                    .u64_counter("lustre_cache_hit_total")
+                    .with_description("The total of cache hits.")
+                    .build(),
+                cache_miss_total: meter
+                    .u64_counter("lustre_cache_miss_total")
+                    .with_description("The total number cache misses.")
+                    .build(),
+                many_credits_total: meter
+                    .u64_counter("lustre_many_credits_total")
+                    .with_description("The total number of times lustre hit too many credits.")
                     .build(),
 
                 // MDT metrics
@@ -187,6 +212,57 @@ pub mod opentelemetry {
                     if let Some(sum) = s.sum {
                         otel_stats.write_bytes_total.add(sum, write_labels);
                     }
+                }
+                "get_page" => {
+                    let get_page_labels = &[
+                        KeyValue::new("component", kind.to_prom_label().to_string()),
+                        KeyValue::new("operation", "get_page"),
+                        KeyValue::new("target", target.deref().to_string()),
+                    ];
+
+                    otel_stats.get_page_total.add(s.samples, get_page_labels);
+                }
+                "cache_access" => {
+                    let cache_access_labels = &[
+                        KeyValue::new("component", kind.to_prom_label().to_string()),
+                        KeyValue::new("operation", "cache_access"),
+                        KeyValue::new("target", target.deref().to_string()),
+                    ];
+
+                    otel_stats
+                        .cache_access_total
+                        .add(s.samples, cache_access_labels);
+                }
+                "cache_hit" => {
+                    let cache_hit_labels = &[
+                        KeyValue::new("component", kind.to_prom_label().to_string()),
+                        KeyValue::new("operation", "cache_hit"),
+                        KeyValue::new("target", target.deref().to_string()),
+                    ];
+
+                    otel_stats.cache_hit_total.add(s.samples, cache_hit_labels);
+                }
+                "cache_miss" => {
+                    let cache_miss_labels = &[
+                        KeyValue::new("component", kind.to_prom_label().to_string()),
+                        KeyValue::new("operation", "cache_miss"),
+                        KeyValue::new("target", target.deref().to_string()),
+                    ];
+
+                    otel_stats
+                        .cache_miss_total
+                        .add(s.samples, cache_miss_labels);
+                }
+                "many_credits" => {
+                    let many_credits_labels = &[
+                        KeyValue::new("component", kind.to_prom_label().to_string()),
+                        KeyValue::new("operation", "many_credits"),
+                        KeyValue::new("target", target.deref().to_string()),
+                    ];
+
+                    otel_stats
+                        .many_credits_total
+                        .add(s.samples, many_credits_labels);
                 }
                 _ => {
                     // Ignore other stats

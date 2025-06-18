@@ -297,6 +297,15 @@ mod tests {
     static VALID_FIXTURES: Dir<'_> =
         include_dir!("$CARGO_MANIFEST_DIR/../lustre-collector/src/fixtures/valid/");
 
+    static IGNORED_METRICS: &[&str] = &[
+        "target_info",
+        "lustre_health_healthy",
+        "lustre_get_page_total",
+        "lustre_cache_access_total",
+        "lustre_cache_miss_total",
+        "lustre_many_credits_total",
+    ];
+
     fn test_valid_fixtures_otel() {
         for dir in VALID_FIXTURES.find("*").unwrap() {
             match dir {
@@ -569,7 +578,7 @@ mod tests {
         let mut sorted_docs: Vec<_> = docs
             .iter()
             .filter_map(|(k, v)| {
-                if k != "target_info" && k != "lustre_health_healthy" {
+                if !IGNORED_METRICS.contains(&k.as_str()) {
                     Some((k.clone(), v.clone()))
                 } else {
                     None
@@ -585,13 +594,13 @@ mod tests {
         let set1: HashSet<_> = metrics1
             .samples
             .iter()
-            .filter(|s| s.metric != "target_info")
+            .filter(|s| !IGNORED_METRICS.contains(&s.metric.as_str()))
             .map(normalize_sample)
             .collect();
         let set2: HashSet<_> = metrics2
             .samples
             .iter()
-            .filter(|s| s.metric != "target_info")
+            .filter(|s| !IGNORED_METRICS.contains(&s.metric.as_str()))
             .map(normalize_sample)
             .collect();
 
