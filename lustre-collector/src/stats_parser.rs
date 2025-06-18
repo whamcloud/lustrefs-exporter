@@ -8,6 +8,7 @@ use crate::{
     llite::LLITE,
     mdd_parser::MDD,
     mds::mds_parser::MDS,
+    osd_parser::OSD,
     oss::oss_parser::OST,
     quota::QMT,
     time::time_triple,
@@ -31,7 +32,19 @@ where
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     (
-        not_words(&["obdfilter", "mgs", "mdt", LDLM, OST, LLITE, MDS, MDD, QMT]).skip(spaces()),
+        not_words(&[
+            "obdfilter",
+            "mgs",
+            "mdt",
+            LDLM,
+            OST,
+            LLITE,
+            MDS,
+            MDD,
+            QMT,
+            OSD,
+        ])
+        .skip(spaces()),
         digits(),
         spaces().with(string("samples")),
         spaces().with(between(token('['), token(']'), word())),
@@ -127,9 +140,20 @@ mod tests {
 
         let result = name_count_units().parse(x);
 
-        assert_eq!(
+        assert_debug_snapshot!(
             result,
-            Ok((("create".to_string(), 726, "reqs".to_string()), "\n"))
+            @r#"
+        Ok(
+            (
+                (
+                    "create",
+                    726,
+                    "reqs",
+                ),
+                "\n",
+            ),
+        )
+        "#
         );
     }
 
@@ -140,20 +164,29 @@ mod tests {
 
         let result = stat().parse(x);
 
-        assert_eq!(
-            result,
-            Ok((
+        assert_debug_snapshot!(
+            result, @r#"
+        Ok(
+            (
                 Stat {
-                    name: "cache_miss".to_string(),
+                    name: "cache_miss",
+                    units: "pages",
                     samples: 21108,
-                    units: "pages".to_string(),
-                    min: Some(1),
-                    max: Some(1),
-                    sum: Some(21108),
-                    sumsquare: None
+                    min: Some(
+                        1,
+                    ),
+                    max: Some(
+                        1,
+                    ),
+                    sum: Some(
+                        21108,
+                    ),
+                    sumsquare: None,
                 },
-                ""
-            ))
+                "",
+            ),
+        )
+        "#
         );
     }
 
@@ -164,20 +197,33 @@ mod tests {
 
         let result = stat().parse(x);
 
-        assert_eq!(
+        assert_debug_snapshot!(
             result,
-            Ok((
+            @r#"
+        Ok(
+            (
                 Stat {
-                    name: "obd_ping".to_string(),
-                    units: "usec".to_string(),
+                    name: "obd_ping",
+                    units: "usec",
                     samples: 1108,
-                    min: Some(15),
-                    max: Some(72),
-                    sum: Some(47014),
-                    sumsquare: Some(2_156_132)
+                    min: Some(
+                        15,
+                    ),
+                    max: Some(
+                        72,
+                    ),
+                    sum: Some(
+                        47014,
+                    ),
+                    sumsquare: Some(
+                        2156132,
+                    ),
                 },
-                ""
-            ))
+                "",
+            ),
+        )
+        "#
+
         );
     }
 
@@ -196,6 +242,10 @@ statfs                    18 samples [reqs]
 preprw                    9 samples [reqs]
 commitrw                  9 samples [reqs]
 ping                      1075 samples [reqs]
+get_page                  13 samples [usecs] 0 3 6 18
+cache_access              4 samples [pages] 1 25 52
+cache_hit                 4 samples [pages] 1 25 52
+many_credits              1 samples [reqs] 1 1 1
 "#;
 
         let result = stats().parse(x).unwrap();
