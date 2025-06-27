@@ -297,6 +297,7 @@ mod tests {
     static VALID_FIXTURES: Dir<'_> =
         include_dir!("$CARGO_MANIFEST_DIR/../lustre-collector/src/fixtures/valid/");
 
+    // This is used to ignore metrics that are only part of OTEL implementation and are not part of legacy implementation
     static IGNORED_METRICS: &[&str] = &[
         "target_info",
         "lustre_health_healthy",
