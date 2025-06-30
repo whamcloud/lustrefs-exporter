@@ -595,6 +595,7 @@ mod tests {
     fn normalize_docs(docs: &HashMap<String, String>) -> Vec<(String, String)> {
         // Ignore updated metrics since OTEL move.
         let mut sorted_docs: Vec<_> = docs.valid_metrics();
+
         sorted_docs.sort_by(|a, b| a.0.cmp(&b.0)); // Sort by key
         sorted_docs
     }
