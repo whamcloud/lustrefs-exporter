@@ -17,7 +17,10 @@ use axum::{
     response::{IntoResponse, Response},
 };
 use lustre_collector::{LustreCollectorError, TargetVariant};
-use opentelemetry_sdk::{Resource, metrics::SdkMeterProvider};
+use opentelemetry_sdk::{
+    Resource,
+    metrics::{MetricError, SdkMeterProvider},
+};
 use prometheus::Registry;
 
 #[derive(Debug, thiserror::Error)]
@@ -62,10 +65,7 @@ impl LabelProm for TargetVariant {
     }
 }
 
-pub fn init_opentelemetry() -> Result<
-    (opentelemetry_sdk::metrics::SdkMeterProvider, Registry),
-    opentelemetry_sdk::metrics::MetricError,
-> {
+pub fn init_opentelemetry() -> Result<(SdkMeterProvider, Registry), MetricError> {
     // Build the Prometheus exporter.
     // The metrics will be exposed in the Prometheus format.
     let registry = Registry::new();
