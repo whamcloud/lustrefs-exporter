@@ -1,7 +1,29 @@
 ---
-source: lustrefs-exporter/src/main.rs
-expression: get_output(&registry)
+source: lustrefs-exporter/src/lib.rs
+expression: stats
 ---
+# HELP lustre_health_healthy Indicates whether the Lustre server is healthy or not. 1 is healthy, 0 is unhealthy.
+# TYPE lustre_health_healthy gauge
+lustre_health_healthy{otel_scope_name="lustre"} 1
+# HELP lustre_lnet_mem_used Gives information about Lustre LNet memory usage.
+# TYPE lustre_lnet_mem_used gauge
+lustre_lnet_mem_used{otel_scope_name="lustre"} 178729063
+# HELP lustre_mem_used Gives information about Lustre memory usage.
+# TYPE lustre_mem_used gauge
+lustre_mem_used{otel_scope_name="lustre"} 72132771
+# HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
+# TYPE lustre_mem_used_max counter
+lustre_mem_used_max{otel_scope_name="lustre"} 10924287079
+# HELP lustre_ldlm_cbd_stats Gives information about LDLM Callback service.
+# TYPE lustre_ldlm_cbd_stats counter
+lustre_ldlm_cbd_stats{operation="ldlm_bl_callback",otel_scope_name="lustre"} 238503
+lustre_ldlm_cbd_stats{operation="ldlm_cp_callback",otel_scope_name="lustre"} 36972
+lustre_ldlm_cbd_stats{operation="ldlm_gl_callback",otel_scope_name="lustre"} 55
+lustre_ldlm_cbd_stats{operation="req_active",otel_scope_name="lustre"} 275530
+lustre_ldlm_cbd_stats{operation="req_qdepth",otel_scope_name="lustre"} 275530
+lustre_ldlm_cbd_stats{operation="req_timeout",otel_scope_name="lustre"} 275530
+lustre_ldlm_cbd_stats{operation="req_waittime",otel_scope_name="lustre"} 275530
+lustre_ldlm_cbd_stats{operation="reqbuf_avail",otel_scope_name="lustre"} 556804
 # HELP lustre_client_stats Lustre client interface stats.
 # TYPE lustre_client_stats counter
 lustre_client_stats{operation="close",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 82098
@@ -49,49 +71,28 @@ lustre_client_stats{operation="write",target="exafs-ffff9239aa0c4800",otel_scope
 lustre_client_stats{operation="write",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 204800
 lustre_client_stats{operation="write_bytes",target="exafs-ffff9239aa0c4800",otel_scope_name="lustre"} 2726169
 lustre_client_stats{operation="write_bytes",target="exatest-ffff923a1497d800",otel_scope_name="lustre"} 204800
-# HELP lustre_drop_bytes_total Total number of bytes that have been dropped
-# TYPE lustre_drop_bytes_total counter
-lustre_drop_bytes_total{otel_scope_name="lustre"} 0
-# HELP lustre_drop_count_total Total number of messages that have been dropped
-# TYPE lustre_drop_count_total counter
-lustre_drop_count_total{nid="0@lo",otel_scope_name="lustre"} 0
-lustre_drop_count_total{nid="172.18.2.101@o2ib",otel_scope_name="lustre"} 0
-# HELP lustre_health_healthy Indicates whether the Lustre server is healthy or not. 1 is healthy, 0 is unhealthy.
-# TYPE lustre_health_healthy gauge
-lustre_health_healthy{otel_scope_name="lustre"} 1
-# HELP lustre_ldlm_cbd_stats Gives information about LDLM Callback service.
-# TYPE lustre_ldlm_cbd_stats counter
-lustre_ldlm_cbd_stats{operation="ldlm_bl_callback",otel_scope_name="lustre"} 238503
-lustre_ldlm_cbd_stats{operation="ldlm_cp_callback",otel_scope_name="lustre"} 36972
-lustre_ldlm_cbd_stats{operation="ldlm_gl_callback",otel_scope_name="lustre"} 55
-lustre_ldlm_cbd_stats{operation="req_active",otel_scope_name="lustre"} 275530
-lustre_ldlm_cbd_stats{operation="req_qdepth",otel_scope_name="lustre"} 275530
-lustre_ldlm_cbd_stats{operation="req_timeout",otel_scope_name="lustre"} 275530
-lustre_ldlm_cbd_stats{operation="req_waittime",otel_scope_name="lustre"} 275530
-lustre_ldlm_cbd_stats{operation="reqbuf_avail",otel_scope_name="lustre"} 556804
-# HELP lustre_lnet_mem_used Gives information about Lustre LNet memory usage.
-# TYPE lustre_lnet_mem_used gauge
-lustre_lnet_mem_used{otel_scope_name="lustre"} 178729063
-# HELP lustre_mem_used Gives information about Lustre memory usage.
-# TYPE lustre_mem_used gauge
-lustre_mem_used{otel_scope_name="lustre"} 72132771
-# HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
-# TYPE lustre_mem_used_max counter
-lustre_mem_used_max{otel_scope_name="lustre"} 10924287079
-# HELP lustre_receive_bytes_total Total number of bytes that have been received
-# TYPE lustre_receive_bytes_total counter
-lustre_receive_bytes_total{otel_scope_name="lustre"} 3943753915256
-# HELP lustre_receive_count_total Total number of messages that have been received
-# TYPE lustre_receive_count_total counter
-lustre_receive_count_total{nid="0@lo",otel_scope_name="lustre"} 0
-lustre_receive_count_total{nid="172.18.2.101@o2ib",otel_scope_name="lustre"} 39769486
-# HELP lustre_send_bytes_total Total number of bytes that have been sent
-# TYPE lustre_send_bytes_total counter
-lustre_send_bytes_total{otel_scope_name="lustre"} 6673532934057
-# HELP lustre_send_count_total Total number of messages that have been sent
+# HELP lustre_send_count_total Total number of messages that have been sent.
 # TYPE lustre_send_count_total counter
 lustre_send_count_total{nid="0@lo",otel_scope_name="lustre"} 0
 lustre_send_count_total{nid="172.18.2.101@o2ib",otel_scope_name="lustre"} 33503282
-# HELP target_info Target metadata
+# HELP lustre_receive_count_total Total number of messages that have been received.
+# TYPE lustre_receive_count_total counter
+lustre_receive_count_total{nid="0@lo",otel_scope_name="lustre"} 0
+lustre_receive_count_total{nid="172.18.2.101@o2ib",otel_scope_name="lustre"} 39769486
+# HELP lustre_drop_count_total Total number of messages that have been dropped.
+# TYPE lustre_drop_count_total counter
+lustre_drop_count_total{nid="0@lo",otel_scope_name="lustre"} 0
+lustre_drop_count_total{nid="172.18.2.101@o2ib",otel_scope_name="lustre"} 0
+# HELP lustre_send_bytes_total Total number of bytes that have been sent.
+# TYPE lustre_send_bytes_total counter
+lustre_send_bytes_total{otel_scope_name="lustre"} 6673532934057
+# HELP lustre_receive_bytes_total Total number of bytes that have been received.
+# TYPE lustre_receive_bytes_total counter
+lustre_receive_bytes_total{otel_scope_name="lustre"} 3943753915256
+# HELP lustre_drop_bytes_total Total number of bytes that have been dropped.
+# TYPE lustre_drop_bytes_total counter
+lustre_drop_bytes_total{otel_scope_name="lustre"} 0
+# HELP target_info Target metadata.
 # TYPE target_info gauge
 target_info{service_name="lustrefs-exporter",telemetry_sdk_language="rust",telemetry_sdk_name="opentelemetry",telemetry_sdk_version="0.29.0"} 1
+# EOF

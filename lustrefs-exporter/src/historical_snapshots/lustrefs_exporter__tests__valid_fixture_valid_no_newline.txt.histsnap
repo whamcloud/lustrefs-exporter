@@ -2,19 +2,19 @@
 source: lustrefs-exporter/src/main.rs
 expression: x
 ---
-# HELP lustre_available_kilobytes Number of kilobytes readily available in the pool
+# HELP lustre_available_kilobytes Number of kilobytes readily available in the pool.
 # TYPE lustre_available_kilobytes gauge
 lustre_available_kilobytes{component="mdt",target="ai400-MDT0000"} 108469468
 lustre_available_kilobytes{component="ost",target="ai400-OST0000"} 3835411664
 lustre_available_kilobytes{component="ost",target="ai400-OST0001"} 3937811756
 
-# HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes
+# HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes.
 # TYPE lustre_capacity_kilobytes gauge
 lustre_capacity_kilobytes{component="mdt",target="ai400-MDT0000"} 110635320
 lustre_capacity_kilobytes{component="ost",target="ai400-OST0000"} 3978095168
 lustre_capacity_kilobytes{component="ost",target="ai400-OST0001"} 3978095168
 
-# HELP lustre_connected_clients Number of connected clients
+# HELP lustre_connected_clients Number of connected clients.
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="ai400-MDT0000"} 4
 lustre_connected_clients{component="mdt",target="ai400-MDT0000"} 4
@@ -28,7 +28,7 @@ lustre_dio_frags{component="ost",operation="write",target="ai400-OST0000",size="
 lustre_dio_frags{component="ost",operation="read",target="ai400-OST0000",size="3"} 0
 lustre_dio_frags{component="ost",operation="write",target="ai400-OST0000",size="3"} 3
 
-# HELP lustre_discontiguous_blocks_total 'size' label represents 'Discontiguous blocks', the number of discontinuities in the physical block allocation in the file system for a single RPC
+# HELP lustre_discontiguous_blocks_total 'size' label represents 'Discontiguous blocks', the number of discontinuities in the physical block allocation in the file system for a single RPC.
 # TYPE lustre_discontiguous_blocks_total counter
 lustre_discontiguous_blocks_total{component="ost",operation="read",target="ai400-OST0000",size="0"} 0
 lustre_discontiguous_blocks_total{component="ost",operation="write",target="ai400-OST0000",size="0"} 24998
@@ -77,7 +77,7 @@ lustre_disk_io{component="ost",operation="write",target="ai400-OST0000",size="15
 lustre_disk_io{component="ost",operation="read",target="ai400-OST0000",size="16"} 0
 lustre_disk_io{component="ost",operation="write",target="ai400-OST0000",size="16"} 1
 
-# HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation
+# HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation.
 # TYPE lustre_disk_io_total counter
 lustre_disk_io_total{component="ost",operation="read",target="ai400-OST0000",size="32768"} 0
 lustre_disk_io_total{component="ost",operation="write",target="ai400-OST0000",size="32768"} 1
@@ -94,28 +94,28 @@ lustre_disk_io_total{component="ost",operation="write",target="ai400-OST0000",si
 lustre_disk_io_total{component="ost",operation="read",target="ai400-OST0000",size="2097152"} 0
 lustre_disk_io_total{component="ost",operation="write",target="ai400-OST0000",size="2097152"} 50000
 
-# HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
+# HELP lustre_exports_dirty_total Total number of exports that have been marked dirty.
 # TYPE lustre_exports_dirty_total gauge
 lustre_exports_dirty_total{component="ost",target="ai400-OST0000"} 25313280
 lustre_exports_dirty_total{component="ost",target="ai400-OST0001"} 0
 
-# HELP lustre_exports_granted_total Total number of exports that have been marked granted
+# HELP lustre_exports_granted_total Total number of exports that have been marked granted.
 # TYPE lustre_exports_granted_total gauge
 lustre_exports_granted_total{component="ost",target="ai400-OST0000"} 1887764159
 lustre_exports_granted_total{component="ost",target="ai400-OST0001"} 278208
 
-# HELP lustre_exports_pending_total Total number of exports that have been marked pending
+# HELP lustre_exports_pending_total Total number of exports that have been marked pending.
 # TYPE lustre_exports_pending_total gauge
 lustre_exports_pending_total{component="ost",target="ai400-OST0000"} 0
 lustre_exports_pending_total{component="ost",target="ai400-OST0001"} 0
 
-# HELP lustre_exports_total Total number of times the pool has been exported
+# HELP lustre_exports_total Total number of times the pool has been exported.
 # TYPE lustre_exports_total gauge
 lustre_exports_total{component="ost",target="ai400-OST0000"} 5
 lustre_exports_total{component="ost",target="ai400-OST0001"} 4
 lustre_exports_total{component="mdt",target="ai400-MDT0000"} 19
 
-# HELP lustre_free_kilobytes Number of kilobytes allocated to the pool
+# HELP lustre_free_kilobytes Number of kilobytes allocated to the pool.
 # TYPE lustre_free_kilobytes gauge
 lustre_free_kilobytes{component="mdt",target="ai400-MDT0000"} 110616588
 lustre_free_kilobytes{component="ost",target="ai400-OST0000"} 3875693364
@@ -125,13 +125,13 @@ lustre_free_kilobytes{component="ost",target="ai400-OST0001"} 3978093456
 # TYPE lustre_health_healthy gauge
 lustre_health_healthy 1
 
-# HELP lustre_inodes_free The number of inodes (objects) available
+# HELP lustre_inodes_free The number of inodes (objects) available.
 # TYPE lustre_inodes_free gauge
 lustre_inodes_free{component="mdt",target="ai400-MDT0000"} 85908200
 lustre_inodes_free{component="ost",target="ai400-OST0000"} 31456558
 lustre_inodes_free{component="ost",target="ai400-OST0001"} 31456558
 
-# HELP lustre_inodes_maximum The maximum number of inodes (objects) the filesystem can hold
+# HELP lustre_inodes_maximum The maximum number of inodes (objects) the filesystem can hold.
 # TYPE lustre_inodes_maximum gauge
 lustre_inodes_maximum{component="mdt",target="ai400-MDT0000"} 85908496
 lustre_inodes_maximum{component="ost",target="ai400-OST0000"} 31457280
@@ -172,25 +172,25 @@ lustre_ldlm_cbd_stats{operation="ldlm_bl_callback"} 1
 # TYPE lustre_lnet_mem_used gauge
 lustre_lnet_mem_used 159290577
 
-# HELP lustre_lock_contended_total Number of contended locks
+# HELP lustre_lock_contended_total Number of contended locks.
 # TYPE lustre_lock_contended_total gauge
 lustre_lock_contended_total{component="mdt",target="ai400-MDT0000"} 32
 lustre_lock_contended_total{component="ost",target="ai400-OST0000"} 32
 lustre_lock_contended_total{component="ost",target="ai400-OST0001"} 32
 
-# HELP lustre_lock_contention_seconds_total Time in seconds during which locks were contended
+# HELP lustre_lock_contention_seconds_total Time in seconds during which locks were contended.
 # TYPE lustre_lock_contention_seconds_total gauge
 lustre_lock_contention_seconds_total{component="mdt",target="ai400-MDT0000"} 2
 lustre_lock_contention_seconds_total{component="ost",target="ai400-OST0000"} 2
 lustre_lock_contention_seconds_total{component="ost",target="ai400-OST0001"} 2
 
-# HELP lustre_lock_count_total Number of locks
+# HELP lustre_lock_count_total Number of locks.
 # TYPE lustre_lock_count_total gauge
 lustre_lock_count_total{component="mdt",target="ai400-MDT0000"} 9
 lustre_lock_count_total{component="ost",target="ai400-OST0000"} 1
 lustre_lock_count_total{component="ost",target="ai400-OST0001"} 0
 
-# HELP lustre_lock_timeout_total Number of lock timeouts
+# HELP lustre_lock_timeout_total Number of lock timeouts.
 # TYPE lustre_lock_timeout_total counter
 lustre_lock_timeout_total{component="mdt",target="ai400-MDT0000"} 0
 lustre_lock_timeout_total{component="ost",target="ai400-OST0000"} 0
@@ -204,7 +204,7 @@ lustre_mem_used 5969573401
 # TYPE lustre_mem_used_max counter
 lustre_mem_used_max 7511503233
 
-# HELP lustre_oss_ost_create_stats OSS ost_create stats
+# HELP lustre_oss_ost_create_stats OSS ost_create stats.
 # TYPE lustre_oss_ost_create_stats gauge
 lustre_oss_ost_create_stats{operation="req_waittime",units="usec"} 239924
 lustre_oss_ost_create_stats{operation="req_qdepth",units="reqs"} 239924
@@ -213,7 +213,7 @@ lustre_oss_ost_create_stats{operation="req_timeout",units="sec"} 239924
 lustre_oss_ost_create_stats{operation="reqbuf_avail",units="bufs"} 500525
 lustre_oss_ost_create_stats{operation="ost_statfs",units="usec"} 239924
 
-# HELP lustre_oss_ost_stats OSS ost stats
+# HELP lustre_oss_ost_stats OSS ost stats.
 # TYPE lustre_oss_ost_stats gauge
 lustre_oss_ost_stats{operation="req_waittime",units="usec"} 219
 lustre_oss_ost_stats{operation="req_qdepth",units="reqs"} 219
@@ -229,7 +229,7 @@ lustre_oss_ost_stats{operation="ost_disconnect",units="usec"} 2
 lustre_oss_ost_stats{operation="ost_sync",units="usec"} 16
 lustre_oss_ost_stats{operation="obd_ping",units="usec"} 13
 
-# HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request
+# HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request.
 # TYPE lustre_pages_per_bulk_rw_total counter
 lustre_pages_per_bulk_rw_total{component="ost",operation="read",target="ai400-OST0000",size="32"} 0
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",target="ai400-OST0000",size="32"} 1

@@ -18,27 +18,67 @@ use axum::{
     response::{IntoResponse, Response},
 };
 use lustre_collector::{LustreCollectorError, TargetVariant};
-use opentelemetry_sdk::{Resource, metrics::SdkMeterProvider};
-use prometheus::Registry;
+use prometheus_client::metrics::family::Family as PrometheusFamily;
+
+pub type LabelContainer = Vec<(&'static str, String)>;
+pub type Family<T> = PrometheusFamily<LabelContainer, T>;
+
+/// Creates a label container by combining provided labels with the default OpenTelemetry scope label.
+///
+/// This function takes a slice of label tuples and appends a default `otel_scope_name` label
+/// with the value "lustre" to create a complete set of labels for Prometheus metrics.
+///
+/// # Arguments
+///
+/// * `labels` - A slice of tuples containing label key-value pairs where keys are static strings
+///   and values are owned strings
+///
+/// # Returns
+///
+/// A `LabelContainer` (vector of label tuples) containing the input labels plus the default
+/// OpenTelemetry scope label
+///
+/// # Examples
+///
+/// ```
+/// use lustrefs_exporter::create_labels;
+///
+/// let labels = create_labels(&[
+///     ("component", "mdt".to_string()),
+///     ("target", "fs-MDT0000".to_string()),
+/// ]);
+/// // Results in: [("component", "mdt"), ("target", "fs-MDT0000"), ("otel_scope_name", "lustre")]
+/// ```
+pub fn create_labels(labels: &[(&'static str, String)]) -> LabelContainer {
+    let mut result = Vec::with_capacity(labels.len() + 1);
+
+    result.extend_from_slice(labels);
+
+    result.push(("otel_scope_name", "lustre".to_string()));
+
+    result
+}
 
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
     #[error(transparent)]
-    Http(#[from] http::Error),
+    Fmt(#[from] std::fmt::Error),
     #[error(transparent)]
-    TaskJoin(#[from] tokio::task::JoinError),
+    Http(#[from] http::Error),
     #[error(transparent)]
     Io(#[from] std::io::Error),
     #[error(transparent)]
     LustreCollector(#[from] LustreCollectorError),
-    #[error(transparent)]
-    Utf8(#[from] std::str::Utf8Error),
     #[error("Could not find match for {0} in {1}")]
     NoCap(&'static str, String),
     #[error(transparent)]
-    Otel(#[from] opentelemetry_sdk::metrics::MetricError),
+    OneshotReceive(#[from] tokio::sync::oneshot::error::RecvError),
+    #[error("{0}")]
+    Prometheus(std::fmt::Error),
     #[error(transparent)]
-    Prometheus(#[from] prometheus::Error),
+    TaskJoin(#[from] tokio::task::JoinError),
+    #[error(transparent)]
+    Utf8(#[from] std::str::Utf8Error),
 }
 
 impl IntoResponse for Error {
@@ -63,188 +103,155 @@ impl LabelProm for TargetVariant {
     }
 }
 
-pub fn init_opentelemetry() -> Result<
-    (opentelemetry_sdk::metrics::SdkMeterProvider, Registry),
-    opentelemetry_sdk::metrics::MetricError,
-> {
-    // Build the Prometheus exporter.
-    // The metrics will be exposed in the Prometheus format.
-    let registry = Registry::new();
-    let prometheus_exporter = opentelemetry_prometheus::exporter()
-        .with_registry(registry.clone())
-        .without_counter_suffixes()
-        .build()?;
-
-    let provider = SdkMeterProvider::builder()
-        .with_reader(prometheus_exporter)
-        .with_resource(
-            Resource::builder()
-                .with_service_name("lustrefs-exporter")
-                .build(),
-        )
-        .build();
-
-    Ok((provider, registry))
-}
-
 #[cfg(test)]
 pub mod tests {
     use crate::{
-        init_opentelemetry,
-        openmetrics::{self, OpenTelemetryMetrics},
+        Error, LabelProm as _, create_labels,
+        openmetrics::{self, Metrics},
     };
+    use axum::{http::StatusCode, response::IntoResponse as _};
     use combine::EasyParser as _;
-    use lustre_collector::parser::parse;
-    use opentelemetry::metrics::MeterProvider as _;
-    use prometheus::{Encoder as _, Registry, TextEncoder};
+    use lustre_collector::{Record, TargetVariant, parser::parse};
+    use prometheus_client::{encoding::text::encode, registry::Registry};
     use prometheus_parse::{Sample, Scrape};
     use std::{
         collections::HashSet,
-        error::Error,
         path::{Path, PathBuf},
     };
 
     #[test]
-    fn test_stats_otel() {
+    fn test_create_labels_empty() {
+        let result = create_labels(&[]);
+        assert_eq!(result, vec![("otel_scope_name", "lustre".to_string())]);
+    }
+
+    #[test]
+    fn test_create_labels_single() {
+        let result = create_labels(&[("component", "mdt".to_string())]);
+        assert_eq!(
+            result,
+            vec![
+                ("component", "mdt".to_string()),
+                ("otel_scope_name", "lustre".to_string())
+            ]
+        );
+    }
+
+    #[test]
+    fn test_create_labels_multiple() {
+        let result = create_labels(&[
+            ("component", "mdt".to_string()),
+            ("target", "fs-MDT0000".to_string()),
+            ("operation", "read".to_string()),
+        ]);
+        assert_eq!(
+            result,
+            vec![
+                ("component", "mdt".to_string()),
+                ("target", "fs-MDT0000".to_string()),
+                ("operation", "read".to_string()),
+                ("otel_scope_name", "lustre".to_string())
+            ]
+        );
+    }
+
+    #[test]
+    fn test_error_into_response() {
+        let error = Error::NoCap("test_param", "test_content".to_string());
+        let response = error.into_response();
+
+        assert_eq!(response.status(), StatusCode::INTERNAL_SERVER_ERROR);
+    }
+
+    #[test]
+    fn test_target_variant_to_prom_label() {
+        assert_eq!(TargetVariant::Ost.to_prom_label(), "ost");
+        assert_eq!(TargetVariant::Mgt.to_prom_label(), "mgt");
+        assert_eq!(TargetVariant::Mdt.to_prom_label(), "mdt");
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    #[cfg(test)]
+    async fn test_stats_otel() {
         let output = include_str!("../fixtures/stats.json");
 
-        let x = serde_json::from_str(output).unwrap();
-
-        let (provider, registry) =
-            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
-
-        let meter = provider.meter("lustre");
-
-        let otel = OpenTelemetryMetrics::new(meter);
-
-        openmetrics::build_lustre_stats(&x, otel);
-
-        let stats = get_output(&registry);
+        let stats = encode_lustre_stats_from_fixture(output);
 
         insta::assert_snapshot!(stats);
 
-        let current = get_scrape(stats).unwrap();
+        let current = get_scrape(stats);
 
         let previous = read_metrics_from_snapshot(&historical_snapshot_path(
             "lustrefs_exporter__tests__stats.histsnap",
-        ))
-        .unwrap();
+        ));
 
         compare_metrics(&current, &previous);
     }
 
-    #[test]
-    fn test_lnetctl_stats_otel() {
+    #[tokio::test(flavor = "multi_thread")]
+    async fn test_lnetctl_stats_otel() {
         let output = include_str!("../fixtures/lnetctl_stats.json");
 
-        let x = serde_json::from_str(output).unwrap();
-
-        let (provider, registry) =
-            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
-
-        let meter = provider.meter("lustre");
-
-        let otel = OpenTelemetryMetrics::new(meter);
-
-        openmetrics::build_lustre_stats(&x, otel);
-
-        let stats = get_output(&registry);
+        let stats = encode_lustre_stats_from_fixture(output);
 
         insta::assert_snapshot!(stats);
 
-        let current = get_scrape(stats).unwrap();
+        let current = get_scrape(stats);
 
         let previous = read_metrics_from_snapshot(&historical_snapshot_path(
             "lustrefs_exporter__tests__lnetctl_stats.histsnap",
-        ))
-        .unwrap();
+        ));
 
         compare_metrics(&current, &previous);
     }
 
-    #[test]
-    fn test_lnetctl_stats_mds_otel() {
+    #[tokio::test(flavor = "multi_thread")]
+    async fn test_lnetctl_stats_mds_otel() {
         let output = include_str!("../fixtures/stats_mds.json");
 
-        let x = serde_json::from_str(output).unwrap();
-
-        let (provider, registry) =
-            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
-
-        let meter = provider.meter("lustre");
-
-        let otel = OpenTelemetryMetrics::new(meter);
-
-        openmetrics::build_lustre_stats(&x, otel);
-
-        let stats = get_output(&registry);
+        let stats = encode_lustre_stats_from_fixture(output);
 
         insta::assert_snapshot!(stats);
 
-        let current = get_scrape(stats).unwrap();
+        let current = get_scrape(stats);
 
         let previous = read_metrics_from_snapshot(&historical_snapshot_path(
             "lustrefs_exporter__tests__lnetctl_stats_mds.histsnap",
-        ))
-        .unwrap();
+        ));
 
         compare_metrics(&current, &previous);
     }
 
-    #[test]
-    fn test_host_stats_non_healthy_otel() {
+    #[tokio::test(flavor = "multi_thread")]
+    async fn test_host_stats_non_healthy_otel() {
         let output = include_str!("../fixtures/host_stats_non_healthy.json");
 
-        let x = serde_json::from_str(output).unwrap();
-
-        let (provider, registry) =
-            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
-
-        let meter = provider.meter("lustre");
-
-        let otel = OpenTelemetryMetrics::new(meter);
-
-        openmetrics::build_lustre_stats(&x, otel);
-
-        let stats = get_output(&registry);
+        let stats = encode_lustre_stats_from_fixture(output);
 
         insta::assert_snapshot!(stats);
 
-        let current = get_scrape(stats).unwrap();
+        let current = get_scrape(stats);
 
         let previous = read_metrics_from_snapshot(&historical_snapshot_path(
             "lustrefs_exporter__tests__host_stats_non_healthy.histsnap",
-        ))
-        .unwrap();
+        ));
 
         compare_metrics(&current, &previous);
     }
 
-    #[test]
-    fn test_client_stats_otel() {
+    #[tokio::test(flavor = "multi_thread")]
+    async fn test_client_stats_otel() {
         let output = include_str!("../fixtures/client.json");
 
-        let x = serde_json::from_str(output).unwrap();
-
-        let (provider, registry) =
-            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
-
-        let meter = provider.meter("lustre");
-
-        let otel = OpenTelemetryMetrics::new(meter);
-
-        openmetrics::build_lustre_stats(&x, otel);
-
-        let stats = get_output(&registry);
+        let stats = encode_lustre_stats_from_fixture(output);
 
         insta::assert_snapshot!(stats);
 
-        let current = get_scrape(stats).unwrap();
+        let current = get_scrape(stats);
 
         let previous = read_metrics_from_snapshot(&historical_snapshot_path(
             "lustrefs_exporter__tests__client_stats.histsnap",
-        ))
-        .unwrap();
+        ));
 
         compare_metrics(&current, &previous);
     }
@@ -281,7 +288,7 @@ pub mod tests {
                     &name,
                 ]);
 
-                let previous = read_metrics_from_snapshot(&historical_snap).unwrap();
+                let previous = read_metrics_from_snapshot(&historical_snap);
 
                 compare_metrics(&current, &previous);
             }
@@ -358,47 +365,50 @@ pub mod tests {
         ])
     }
 
-    pub(super) fn get_scrape(x: String) -> Result<Scrape, Box<dyn Error>> {
+    pub fn get_scrape(x: String) -> Scrape {
         let x = x.lines().map(|x| Ok(x.to_owned()));
 
-        let x = Scrape::parse(x)?;
-
-        Ok(x)
+        Scrape::parse(x).unwrap()
     }
 
-    pub(super) fn read_metrics_from_snapshot(path: &Path) -> Result<Scrape, Box<dyn Error>> {
+    pub(super) fn read_metrics_from_snapshot(path: &Path) -> Scrape {
         let x = insta::Snapshot::from_file(path).unwrap();
 
         let insta::internals::SnapshotContents::Text(x) = x.contents() else {
             panic!("Snapshot is not text");
         };
 
-        let parsed = get_scrape(x.to_string())?;
-
-        Ok(parsed)
+        get_scrape(x.to_string())
     }
 
     fn parse_lustre_metrics(contents: &str) -> String {
-        let result = parse()
+        let (records, _) = parse()
             .easy_parse(contents)
             .map_err(|err| err.map_position(|p| p.translate_position(contents)))
             .unwrap();
 
-        let (provider, registry) =
-            init_opentelemetry().expect("Failed to initialize OpenTelemetry");
+        build_lustre_stats(&records)
+    }
 
-        let meter = provider.meter("lustre");
+    fn encode_lustre_stats_from_fixture(content: &str) -> String {
+        let records = serde_json::from_str(content).unwrap();
 
-        let otel = OpenTelemetryMetrics::new(meter);
+        build_lustre_stats(&records)
+    }
 
-        openmetrics::build_lustre_stats(&result.0, otel);
+    fn build_lustre_stats(x: &Vec<Record>) -> String {
+        let mut registry = Registry::default();
+        let mut metrics = Metrics::default();
 
-        let mut buffer = vec![];
-        let encoder = TextEncoder::new();
-        let metric_families = registry.gather();
-        encoder.encode(&metric_families, &mut buffer).unwrap();
+        openmetrics::build_lustre_stats(x, &mut metrics);
 
-        String::from_utf8_lossy(&buffer).to_string()
+        metrics.register_metric(&mut registry);
+
+        let mut stats = String::new();
+
+        encode(&mut stats, &registry).unwrap();
+
+        stats
     }
 
     fn normalize_sample(sample: &Sample) -> (String, Vec<(String, String)>, String) {
@@ -436,12 +446,5 @@ pub mod tests {
         sorted_docs.sort_by(|a, b| a.0.cmp(&b.0)); // Sort by key
 
         sorted_docs
-    }
-
-    fn get_output(registry: &Registry) -> String {
-        let encoder = TextEncoder::new();
-        let mut output = Vec::new();
-        encoder.encode(&registry.gather(), &mut output).unwrap();
-        String::from_utf8(output).unwrap()
     }
 }

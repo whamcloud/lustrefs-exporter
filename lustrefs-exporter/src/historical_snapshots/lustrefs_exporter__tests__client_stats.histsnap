@@ -50,11 +50,11 @@ lustre_client_stats{operation="fallocate",target="exatest-ffff923a1497d800"} 100
 lustre_client_stats{operation="opencount",target="exatest-ffff923a1497d800"} 201
 lustre_client_stats{operation="openclosetime",target="exatest-ffff923a1497d800"} 100
 
-# HELP lustre_drop_bytes_total Total number of bytes that have been dropped
+# HELP lustre_drop_bytes_total Total number of bytes that have been dropped.
 # TYPE lustre_drop_bytes_total counter
 lustre_drop_bytes_total 0
 
-# HELP lustre_drop_count_total Total number of messages that have been dropped
+# HELP lustre_drop_count_total Total number of messages that have been dropped.
 # TYPE lustre_drop_count_total counter
 lustre_drop_count_total{nid="0@lo"} 0
 lustre_drop_count_total{nid="172.18.2.101@o2ib"} 0
@@ -86,20 +86,20 @@ lustre_mem_used 72132771
 # TYPE lustre_mem_used_max counter
 lustre_mem_used_max 10924287079
 
-# HELP lustre_receive_bytes_total Total number of bytes that have been received
+# HELP lustre_receive_bytes_total Total number of bytes that have been received.
 # TYPE lustre_receive_bytes_total counter
 lustre_receive_bytes_total 3943753915256
 
-# HELP lustre_receive_count_total Total number of messages that have been received
+# HELP lustre_receive_count_total Total number of messages that have been received.
 # TYPE lustre_receive_count_total counter
 lustre_receive_count_total{nid="0@lo"} 0
 lustre_receive_count_total{nid="172.18.2.101@o2ib"} 39769486
 
-# HELP lustre_send_bytes_total Total number of bytes that have been sent
+# HELP lustre_send_bytes_total Total number of bytes that have been sent.
 # TYPE lustre_send_bytes_total counter
 lustre_send_bytes_total 6673532934057
 
-# HELP lustre_send_count_total Total number of messages that have been sent
+# HELP lustre_send_count_total Total number of messages that have been sent.
 # TYPE lustre_send_count_total counter
 lustre_send_count_total{nid="0@lo"} 0
 lustre_send_count_total{nid="172.18.2.101@o2ib"} 33503282

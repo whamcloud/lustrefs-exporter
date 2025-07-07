@@ -3,65 +3,79 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    brw_stats::opentelemetry::{OpenTelemetryMetricsBrw, build_target_stats},
-    host::opentelemetry::{OpenTelemetryMetricsHost, build_host_stats},
-    llite::opentelemetry::OpenTelemetryMetricsLlite,
-    lnet::opentelemetry::{OpenTelemetryMetricsLnet, build_lnet_stats},
-    quota::opentelemetry::OpenTelemetryMetricsQuota,
-    service::opentelemetry::{OpenTelemetryMetricsService, build_service_stats},
-    stats::opentelemetry::OpenTelemetryMetricsStats,
+    Family,
+    brw_stats::{BrwStatsMetrics, build_target_stats},
+    host::{HostMetrics, build_host_stats},
+    llite::LliteMetrics,
+    lnet::{LNetMetrics, build_lnet_stats},
+    quota::QuotaMetrics,
+    service::{ServiceMetrics, build_service_stats},
+    stats::StatsMetrics,
 };
 use lustre_collector::Record;
-use opentelemetry::metrics::Meter;
-use std::collections::HashSet;
+use prometheus_client::{metrics::gauge::Gauge, registry::Registry};
+use std::{collections::HashSet, sync::atomic::AtomicU64};
 
-#[derive(Debug)]
-pub struct OpenTelemetryMetrics {
-    pub quota: OpenTelemetryMetricsQuota,
-    pub host: OpenTelemetryMetricsHost,
-    pub service: OpenTelemetryMetricsService,
-    pub brw: OpenTelemetryMetricsBrw,
-    pub llite: OpenTelemetryMetricsLlite,
-    pub lnet: OpenTelemetryMetricsLnet,
-    pub stats: OpenTelemetryMetricsStats,
-    pub export: OpenTelemetryMetricsStats,
-    pub mds: OpenTelemetryMetricsStats, // Reusing the Stats structure for MDS metrics
+#[derive(Debug, Default)]
+pub struct Metrics {
+    pub host: HostMetrics,
+    pub quota: QuotaMetrics,
+    pub service: ServiceMetrics,
+    pub brw: BrwStatsMetrics,
+    pub llite: LliteMetrics,
+    pub lnet: LNetMetrics,
+    pub stats: StatsMetrics,
+    pub export: StatsMetrics,
+    pub mds: StatsMetrics, // Reusing the Stats structure for MDS metrics
+    target_info: Family<Gauge<u64, AtomicU64>>,
 }
 
-impl OpenTelemetryMetrics {
-    pub fn new(meter: Meter) -> Self {
-        OpenTelemetryMetrics {
-            quota: OpenTelemetryMetricsQuota::new(&meter),
-            host: OpenTelemetryMetricsHost::new(&meter),
-            service: OpenTelemetryMetricsService::new(&meter),
-            brw: OpenTelemetryMetricsBrw::new(&meter),
-            llite: OpenTelemetryMetricsLlite::new(&meter),
-            lnet: OpenTelemetryMetricsLnet::new(&meter),
-            stats: OpenTelemetryMetricsStats::new(&meter),
-            export: OpenTelemetryMetricsStats::new(&meter),
-            mds: OpenTelemetryMetricsStats::new(&meter), // Reusing the Stats structure for MDS metrics
-        }
+impl Metrics {
+    pub fn register_metric(&self, registry: &mut Registry) {
+        self.host.register_metric(registry);
+        self.quota.register_metric(registry);
+        self.service.register_metric(registry);
+        self.brw.register_metric(registry);
+        self.llite.register_metric(registry);
+        self.lnet.register_metric(registry);
+        self.stats.register_metric(registry);
+        self.export.register_metric(registry);
+        self.mds.register_metric(registry);
+
+        // prometheus_client does not automatically include the `target_info` metric.
+        // Add it manually.
+        registry.register("target_info", "Target metadata", self.target_info.clone());
     }
 }
 
-pub fn build_lustre_stats(output: &Vec<Record>, otel: OpenTelemetryMetrics) {
+pub fn build_lustre_stats(output: &Vec<Record>, otel: &mut Metrics) {
     // This set is used to store the possible duplicate target stats
     let mut set = HashSet::new();
+
     for x in output {
         match x {
             lustre_collector::Record::Host(x) => {
-                build_host_stats(x, &otel.host);
+                build_host_stats(x, &mut otel.host);
             }
             lustre_collector::Record::LNetStat(x) => {
-                build_lnet_stats(x, &otel.lnet);
+                build_lnet_stats(x, &mut otel.lnet);
             }
             lustre_collector::Record::Target(x) => {
-                build_target_stats(x, &otel, &mut set);
+                build_target_stats(x, otel, &mut set);
             }
             lustre_collector::Record::LustreService(x) => {
-                build_service_stats(x, &otel.service);
+                build_service_stats(x, &mut otel.service);
             }
             _ => {}
         }
     }
+
+    otel.target_info
+        .get_or_create(&vec![
+            ("service_name", "lustrefs-exporter".to_string()),
+            ("telemetry_sdk_language", "rust".to_string()),
+            ("telemetry_sdk_name", "opentelemetry".to_string()),
+            ("telemetry_sdk_version", "0.29.0".to_string()),
+        ])
+        .set(1);
 }
