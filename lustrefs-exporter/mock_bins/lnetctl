@@ -5,9 +5,9 @@
 # license that can be found in the LICENSE file.
 
 if [[ "$*" == 'net show -v 4' ]]; then
-    cat $(dirname "$0")/../fixtures/lnetctl_net_show.txt
+    cat "$(dirname "$0")/$NET_SHOW_RESPONSE_FILE"
 elif [[ "$*" == 'stats show' ]]; then
-    cat $(dirname "$0")/../fixtures/lnetctl_stats.txt
+    cat "$(dirname "$0")/$NET_STATS_SHOW_RESPONSE_FILE"
 else
     echo "lnetctl params not covered: $*"
 fi

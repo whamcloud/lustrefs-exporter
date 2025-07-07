@@ -2,52 +2,49 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-pub mod opentelemetry {
-    use lustre_collector::LustreServiceStats;
-    use opentelemetry::{
-        KeyValue,
-        metrics::{Counter, Meter},
-    };
-    use std::ops::Deref;
+use crate::{Family, create_labels};
+use lustre_collector::LustreServiceStats;
+use prometheus_client::{metrics::counter::Counter, registry::Registry};
+use std::ops::Deref;
 
-    #[derive(Debug)]
-    pub struct OpenTelemetryMetricsService {
-        pub ldlm_canceld_stats: Counter<u64>,
-        pub ldlm_cbd_stats: Counter<u64>,
+#[derive(Debug, Default)]
+pub struct ServiceMetrics {
+    ldlm_canceld_stats: Family<Counter<u64>>,
+    ldlm_cbd_stats: Family<Counter<u64>>,
+}
+
+impl ServiceMetrics {
+    pub fn register_metric(&self, registry: &mut Registry) {
+        registry.register_without_auto_suffix(
+            "lustre_ldlm_canceld_stats",
+            "Gives information about LDLM Canceld service",
+            self.ldlm_canceld_stats.clone(),
+        );
+
+        registry.register_without_auto_suffix(
+            "lustre_ldlm_cbd_stats",
+            "Gives information about LDLM Callback service",
+            self.ldlm_cbd_stats.clone(),
+        );
     }
+}
 
-    impl OpenTelemetryMetricsService {
-        pub fn new(meter: &Meter) -> Self {
-            OpenTelemetryMetricsService {
-                ldlm_canceld_stats: meter
-                    .u64_counter("lustre_ldlm_canceld_stats")
-                    .with_description("Gives information about LDLM Canceld service.")
-                    .build(),
-                ldlm_cbd_stats: meter
-                    .u64_counter("lustre_ldlm_cbd_stats")
-                    .with_description("Gives information about LDLM Callback service.")
-                    .build(),
+pub fn build_service_stats(x: &LustreServiceStats, service: &mut ServiceMetrics) {
+    match x {
+        LustreServiceStats::LdlmCanceld(xs) => {
+            for s in xs {
+                service
+                    .ldlm_canceld_stats
+                    .get_or_create(&create_labels(&[("operation", s.name.deref().to_string())]))
+                    .inc_by(s.samples);
             }
         }
-    }
-
-    pub fn build_service_stats(x: &LustreServiceStats, otel_service: &OpenTelemetryMetricsService) {
-        match x {
-            LustreServiceStats::LdlmCanceld(xs) => {
-                for s in xs {
-                    otel_service.ldlm_canceld_stats.add(
-                        s.samples,
-                        &[KeyValue::new("operation", s.name.deref().to_string())],
-                    );
-                }
-            }
-            LustreServiceStats::LdlmCbd(xs) => {
-                for s in xs {
-                    otel_service.ldlm_cbd_stats.add(
-                        s.samples,
-                        &[KeyValue::new("operation", s.name.deref().to_string())],
-                    );
-                }
+        LustreServiceStats::LdlmCbd(xs) => {
+            for s in xs {
+                service
+                    .ldlm_cbd_stats
+                    .get_or_create(&create_labels(&[("operation", s.name.deref().to_string())]))
+                    .inc_by(s.samples);
             }
         }
     }

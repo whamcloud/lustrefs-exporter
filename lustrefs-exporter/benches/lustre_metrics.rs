@@ -7,9 +7,8 @@ use iai_callgrind::{
     OutputFormat, library_benchmark, library_benchmark_group, main,
 };
 use lustre_collector::{Record, parse_lnetctl_output, parse_lnetctl_stats};
-use lustrefs_exporter::openmetrics::{self, OpenTelemetryMetrics};
-use opentelemetry::metrics::MeterProvider;
-use prometheus::{Encoder as _, TextEncoder};
+use lustrefs_exporter::openmetrics::{Metrics, build_lustre_stats};
+use prometheus_client::{encoding::text::encode, registry::Registry};
 use std::hint::black_box;
 
 fn generate_records() -> Vec<Record> {
@@ -34,26 +33,16 @@ fn generate_records() -> Vec<Record> {
 }
 
 fn encode_metrics(records: Vec<Record>) {
-    let (provider, registry) = lustrefs_exporter::init_opentelemetry().unwrap();
-
-    let meter = provider.meter("test");
-
-    let opentelemetry_metrics = OpenTelemetryMetrics::new(meter.clone());
-
-    let mut lustre_stats = vec![];
-    let encoder = TextEncoder::new();
-    let metric_families = registry.gather();
-    let _encoder_results = encoder.encode(&metric_families, &mut lustre_stats);
+    let mut registry = Registry::default();
+    let mut metrics = Metrics::default();
 
     // Build OTEL metrics
-    openmetrics::build_lustre_stats(&records, opentelemetry_metrics);
+    build_lustre_stats(&records, &mut metrics);
 
-    let mut buffer = vec![];
-    let encoder = TextEncoder::new();
-    let metric_families = registry.gather();
-    encoder.encode(&metric_families, &mut buffer).unwrap();
+    metrics.register_metric(&mut registry);
 
-    String::from_utf8_lossy(&buffer).to_string();
+    let mut output = String::new();
+    let _ = encode(&mut output, &registry);
 }
 
 #[library_benchmark]

@@ -49,7 +49,14 @@ pub fn parse(x: &str) -> Result<Vec<Record>, LustreCollectorError> {
     let y: LnetNetStats = serde_yaml::from_str(x)?;
 
     Ok(y.net
-        .map(|x| x.iter().flat_map(build_lnet_stats).collect())
+        .map(|xs| {
+            let capacity = xs.iter().map(|x| x.local_nis.len() * 3).sum();
+            let mut records = Vec::with_capacity(capacity);
+
+            records.extend(xs.iter().flat_map(build_lnet_stats));
+
+            records
+        })
         .unwrap_or_default())
 }
 
@@ -85,7 +92,13 @@ pub fn parse_lnetctl_stats(x: &str) -> Result<Vec<Record>, LustreCollectorError>
     let y: LnetStats = serde_yaml::from_str(x)?;
 
     Ok(y.statistics
-        .map(|x| build_lnetctl_stats(&x))
+        .map(|x| {
+            let mut records = Vec::with_capacity(3);
+
+            records.extend(build_lnetctl_stats(&x));
+
+            records
+        })
         .unwrap_or_default())
 }
 

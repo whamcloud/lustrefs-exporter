@@ -1,0 +1,29 @@
+---
+source: lustrefs-exporter/src/routes.rs
+expression: "String::from_utf8(output.stdout)?"
+---
+statistics:
+    msgs_alloc: 0
+    msgs_max: 39
+    rst_alloc: 15
+    errors: 0
+    send_count: 1110532
+    resend_count: 0
+    response_timeout_count: 0
+    local_interrupt_count: 0
+    local_dropped_count: 0
+    local_aborted_count: 0
+    local_no_route_count: 0
+    local_timeout_count: 0
+    local_error_count: 0
+    remote_dropped_count: 0
+    remote_error_count: 0
+    remote_timeout_count: 0
+    network_timeout_count: 0
+    recv_count: 1110512
+    route_count: 0
+    drop_count: 11
+    send_length: 261865376
+    recv_length: 254091008
+    route_length: 0
+    drop_length: 4832

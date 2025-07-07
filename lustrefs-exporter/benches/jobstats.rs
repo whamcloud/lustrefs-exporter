@@ -4,11 +4,9 @@
 
 use const_format::{formatcp, str_repeat};
 use criterion::{Criterion, criterion_group, criterion_main};
-use lustrefs_exporter::jobstats::opentelemetry::OpenTelemetryMetricsJobstats;
-use opentelemetry::metrics::MeterProvider;
-use opentelemetry_sdk::metrics::SdkMeterProvider;
-use prometheus::{Encoder as _, Registry, TextEncoder};
-use std::{hint, io::BufReader, sync::Arc};
+use lustrefs_exporter::jobstats::JobstatMetrics;
+use prometheus_client::{encoding::text::encode, registry::Registry};
+use std::{hint, io::BufReader};
 
 const JOBSTAT_JOB: &str = r#"
 - job_id:          "FAKE_JOB"
@@ -45,30 +43,17 @@ job_stats:{}"#,
 
 async fn parse_synthetic_yaml_otel(input: &'static str) {
     // Set up OpenTelemetry metrics
-    let registry = Registry::new();
-    let exporter = opentelemetry_prometheus::exporter()
-        .with_registry(registry.clone())
-        .build()
-        .unwrap();
-
-    let provider = SdkMeterProvider::builder().with_reader(exporter).build();
-
-    let meter = provider.meter("test");
-
-    let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
+    let registry = Registry::default();
+    let otel_jobstats = JobstatMetrics::default();
 
     let f = BufReader::with_capacity(128 * 1_024, input.as_bytes());
 
-    let handle =
-        lustrefs_exporter::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
+    lustrefs_exporter::jobstats::jobstats_stream(f, otel_jobstats)
+        .await
+        .unwrap();
 
-    handle.await.unwrap();
-
-    // Encode metrics to string
-    let encoder = TextEncoder::new();
-    let metric_families = registry.gather();
-    let mut output = Vec::new();
-    encoder.encode(&metric_families, &mut output).unwrap();
+    let mut buffer = String::new();
+    encode(&mut buffer, &registry).unwrap();
 }
 
 fn criterion_benchmark_fast(c: &mut Criterion) {

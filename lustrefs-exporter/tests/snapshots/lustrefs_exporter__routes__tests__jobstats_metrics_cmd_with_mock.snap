@@ -1,0 +1,310 @@
+---
+source: lustrefs-exporter/src/routes.rs
+expression: buff
+---
+obdfilter.es01a-OST0001.job_stats=
+job_stats:
+- job_id:          "SLURM_JOB10:0:es18kxe-co-client"
+  snapshot_time:   1723114647.887515895 secs.nsecs
+  start_time:      1723102025.057286226 secs.nsecs
+  elapsed_time:    12622.830229669 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:         861, unit: bytes, min:    24576, max: 16777216, sum:      11025514496, sumsq: 166242808078794752, hist: { 32K: 1, 64K: 1, 128K: 4, 256K: 11, 512K: 8, 1M: 13, 2M: 21, 4M: 38, 8M: 98, 16M: 666 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:         861, unit: usecs, min:       65, max:    34699, sum:          7304967, sumsq:        80724646151 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:          85, unit: usecs, min:       96, max:      354, sum:            16840, sumsq:            3813568 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+- job_id:          "SLURM_JOB20:0:es18kxe-co-client"
+  snapshot_time:   1723114648.250904107 secs.nsecs
+  start_time:      1723102025.059272610 secs.nsecs
+  elapsed_time:    12623.191631497 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:         864, unit: bytes, min:     4096, max: 16777216, sum:      11027513344, sumsq: 166064207635152896, hist: { 4K: 1, 64K: 1, 128K: 4, 256K: 8, 512K: 22, 1M: 8, 2M: 12, 4M: 38, 8M: 105, 16M: 665 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:         864, unit: usecs, min:       18, max:    53191, sum:          7019021, sumsq:        79023235123 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:          85, unit: usecs, min:       29, max:      354, sum:             5259, sumsq:             437859 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+- job_id:          "SLURM_JOB29:0:es18kxe-co-client"
+  snapshot_time:   1723114648.489622392 secs.nsecs
+  start_time:      1723102025.071142394 secs.nsecs
+  elapsed_time:    12623.418479998 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:         852, unit: bytes, min:    65536, max: 16777216, sum:      11014340608, sumsq: 166990510211203072, hist: { 64K: 2, 128K: 4, 256K: 9, 512K: 10, 1M: 17, 2M: 16, 4M: 48, 8M: 77, 16M: 669 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:         852, unit: usecs, min:      151, max:    41316, sum:          6918628, sumsq:        76114013254 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:          85, unit: usecs, min:       27, max:      348, sum:             4518, sumsq:             345178 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+- job_id:          "SLURM_JOB35:0:es18kxe-co-client"
+  snapshot_time:   1723114648.718073711 secs.nsecs
+  start_time:      1723102025.167390038 secs.nsecs
+  elapsed_time:    12623.550683673 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:         857, unit: bytes, min:    40960, max: 16777216, sum:      11016437760, sumsq: 166538697099968512, hist: { 64K: 3, 128K: 2, 256K: 10, 512K: 15, 1M: 9, 2M: 20, 4M: 54, 8M: 70, 16M: 674 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:         857, unit: usecs, min:       76, max:   148392, sum:          7156035, sumsq:        97687771841 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:          85, unit: usecs, min:       22, max:      350, sum:             4269, sumsq:             328559 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+- job_id:          "SLURM_JOB51:0:es18kxe-co-client"
+  snapshot_time:   1723114648.887281543 secs.nsecs
+  start_time:      1723102025.461163512 secs.nsecs
+  elapsed_time:    12623.426118031 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:         823, unit: bytes, min:   131072, max: 16777216, sum:      11017355264, sumsq: 167229817333219328, hist: { 128K: 1, 256K: 13, 512K: 10, 1M: 10, 2M: 10, 4M: 18, 8M: 78, 16M: 683 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:         823, unit: usecs, min:      176, max:    45564, sum:          6785982, sumsq:        73245121948 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:          85, unit: usecs, min:       39, max:      131, sum:             6058, sumsq:             464234 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+- job_id:          "SLURM_JOB59:0:es18kxe-co-client"
+  snapshot_time:   1723114649.394206683 secs.nsecs
+  start_time:      1723102025.679194669 secs.nsecs
+  elapsed_time:    12623.715012014 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:         824, unit: bytes, min:    16384, max: 16777216, sum:      11015880704, sumsq: 167656692488601600, hist: { 16K: 1, 32K: 3, 64K: 3, 128K: 2, 256K: 12, 512K: 8, 1M: 11, 2M: 10, 4M: 19, 8M: 70, 16M: 685 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:         824, unit: usecs, min:       21, max:    38129, sum:          7197263, sumsq:        80790372157 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:          85, unit: usecs, min:       34, max:      120, sum:             5725, sumsq:             424199 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+- job_id:          "SLURM_JOB79:0:es18kxe-co-client"
+  snapshot_time:   1723114650.024856517 secs.nsecs
+  start_time:      1723102025.810841787 secs.nsecs
+  elapsed_time:    12624.214014730 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:         821, unit: bytes, min:    32768, max: 16777216, sum:      11022073856, sumsq: 167715962097762304, hist: { 32K: 1, 128K: 2, 256K: 9, 512K: 13, 1M: 11, 2M: 13, 4M: 21, 8M: 54, 16M: 697 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:         821, unit: usecs, min:      205, max:    62258, sum:          7050278, sumsq:        79099294286 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:          85, unit: usecs, min:       39, max:      148, sum:             6600, sumsq:             542716 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+- job_id:          "SLURM_JOB97:0:es18kxe-co-client"
+  snapshot_time:   1723114650.589664704 secs.nsecs
+  start_time:      1723102025.894316712 secs.nsecs
+  elapsed_time:    12624.695347992 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:         809, unit: bytes, min:    65536, max: 16777216, sum:      11024826368, sumsq: 167619227052670976, hist: { 64K: 1, 128K: 3, 256K: 9, 512K: 12, 1M: 3, 2M: 9, 4M: 16, 8M: 65, 16M: 691 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:         809, unit: usecs, min:      332, max:    36981, sum:          7023941, sumsq:        77597838781 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:          85, unit: usecs, min:       37, max:      118, sum:             6334, sumsq:             495976 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+- job_id:          SLURM_JOB10
+  snapshot_time:   1723114484.787905609 secs.nsecs
+  start_time:      1723114285.893531999 secs.nsecs
+  elapsed_time:    198.894373610 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:          17, unit: bytes, min:   622592, max: 16777216, sum:        204800000, sumsq:   2966525321412608, hist: { 1M: 1, 8M: 3, 16M: 13 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:          17, unit: usecs, min:     2773, max:    19609, sum:           191967, sumsq:         2665442303 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:           2, unit: usecs, min:      252, max:      273, sum:              525, sumsq:             138033 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+- job_id:          SLURM_JOB20
+  snapshot_time:   1723114484.791215017 secs.nsecs
+  start_time:      1723114286.257618586 secs.nsecs
+  elapsed_time:    198.533596431 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:          15, unit: bytes, min:   360448, max: 16777216, sum:        203063296, sumsq:   3219074767126528, hist: { 512K: 1, 4M: 1, 8M: 1, 16M: 12 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:          15, unit: usecs, min:     1609, max:    20528, sum:           158311, sumsq:         2099052727 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:           2, unit: usecs, min:       43, max:       72, sum:              115, sumsq:               7033 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+- job_id:          SLURM_JOB29
+  snapshot_time:   1723114484.795259864 secs.nsecs
+  start_time:      1723114286.476248961 secs.nsecs
+  elapsed_time:    198.319010903 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:          17, unit: bytes, min:  1409024, max: 16777216, sum:        204177408, sumsq:   2952969330884608, hist: { 2M: 1, 4M: 1, 8M: 4, 16M: 11 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:          17, unit: usecs, min:     2642, max:    15211, sum:           135422, sumsq:         1328409394 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:           2, unit: usecs, min:       46, max:       49, sum:               95, sumsq:               4517 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+- job_id:          SLURM_JOB35
+  snapshot_time:   1723114484.797832593 secs.nsecs
+  start_time:      1723114286.643958168 secs.nsecs
+  elapsed_time:    198.153874425 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:          17, unit: bytes, min:   229376, max: 16777216, sum:        203620352, sumsq:   2995945847390208, hist: { 256K: 1, 4M: 1, 8M: 3, 16M: 12 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:          17, unit: usecs, min:      170, max:    14154, sum:           120283, sumsq:         1124629609 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:           2, unit: usecs, min:       33, max:       42, sum:               75, sumsq:               2853 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+- job_id:          SLURM_JOB51
+  snapshot_time:   1723114484.867799277 secs.nsecs
+  start_time:      1723114287.115989239 secs.nsecs
+  elapsed_time:    197.751810038 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:          14, unit: bytes, min:  6553600, max: 16777216, sum:        202342400, sumsq:   3077201259921408, hist: { 8M: 1, 16M: 13 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:          14, unit: usecs, min:     2777, max:     9710, sum:            89402, sumsq:          639205270 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:           2, unit: usecs, min:       54, max:       69, sum:              123, sumsq:               7677 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+- job_id:          SLURM_JOB59
+  snapshot_time:   1723114484.938745437 secs.nsecs
+  start_time:      1723114287.292890434 secs.nsecs
+  elapsed_time:    197.645855003 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:          15, unit: bytes, min:  1245184, max: 16777216, sum:        201883648, sumsq:   3042858701422592, hist: { 2M: 1, 8M: 2, 16M: 12 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:          15, unit: usecs, min:     2554, max:    15090, sum:           121298, sumsq:         1233491628 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:           2, unit: usecs, min:       41, max:       56, sum:               97, sumsq:               4817 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+- job_id:          SLURM_JOB79
+  snapshot_time:   1723114485.201816110 secs.nsecs
+  start_time:      1723114288.082753994 secs.nsecs
+  elapsed_time:    197.119062116 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:          15, unit: bytes, min:  1572864, max: 16777216, sum:        201392128, sumsq:   3011852258770944, hist: { 2M: 1, 8M: 1, 16M: 13 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:          15, unit: usecs, min:     2879, max:    20105, sum:           152410, sumsq:         1923806386 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:           2, unit: usecs, min:       68, max:       82, sum:              150, sumsq:              11348 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+- job_id:          SLURM_JOB97
+  snapshot_time:   1723114485.382793784 secs.nsecs
+  start_time:      1723114288.513266437 secs.nsecs
+  elapsed_time:    196.869527347 secs.nsecs
+  read_bytes:      { samples:           0, unit: bytes, min:        0, max:        0, sum:                0, sumsq:                  0, hist: {  } }
+  write_bytes:     { samples:          14, unit: bytes, min:  9043968, max: 16777216, sum:        201359360, sumsq:   3014277841551360, hist: { 16M: 14 } }
+  read:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  write:           { samples:          14, unit: usecs, min:     3342, max:    17743, sum:           136251, sumsq:         1562461671 }
+  getattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  setattr:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  punch:           { samples:           2, unit: usecs, min:       83, max:       85, sum:              168, sumsq:              14114 }
+  sync:            { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  destroy:         { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  create:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  statfs:          { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  get_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  set_info:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  quotactl:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }
+  prealloc:        { samples:           0, unit: usecs, min:        0, max:        0, sum:                0, sumsq:                  0 }

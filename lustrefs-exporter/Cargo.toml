@@ -5,24 +5,25 @@ name = "lustrefs-exporter"
 version.workspace = true
 
 [dependencies]
+async-trait = "0.1"
 axum = { workspace = true, features = ["http2"] }
 clap = { workspace = true, features = ["derive", "env", "wrap_help", "string"] }
 lustre_collector.path = "../lustre-collector"
-opentelemetry = { workspace = true, features = ["metrics"] }
-opentelemetry-prometheus.workspace = true
-opentelemetry_sdk = { workspace = true, features = ["metrics", "rt-tokio"] }
-prometheus.workspace = true
+mimalloc.workspace = true
+prometheus-client.workspace = true
 regex = { version = "1", default-features = false, features = [
   "perf",
   "std",
   "perf-dfa-full",
 ] }
 serde = { version = "1", features = ["derive"] }
+sysinfo.workspace = true
 thiserror.workspace = true
 tokio = { workspace = true, features = [
-  "rt-multi-thread",
   "macros",
   "process",
+  "rt-multi-thread",
+  "signal"
 ] }
 tokio-stream.workspace = true
 tower = { workspace = true, features = ["timeout", "load-shed", "limit"] }

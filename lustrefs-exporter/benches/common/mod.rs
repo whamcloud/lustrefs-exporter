@@ -7,15 +7,20 @@ use axum::{
     body::{Body, to_bytes},
     http::Request,
 };
-use lustrefs_exporter::routes;
-use std::{env, path::PathBuf, time::Duration};
+use lustrefs_exporter::{TestEnv, routes};
+use std::time::Duration;
 use tokio::{task::JoinSet, time::Instant};
 use tower::ServiceExt as _;
 
 /// Create a new Axum app with the provided state and a Request
 /// to scrape the metrics endpoint.
 fn get_app() -> (Request<Body>, Router) {
-    let app = routes::app();
+    let test_env = TestEnv::default();
+    let app_state = routes::AppState {
+        env_vars: test_env.vars(),
+    };
+
+    let app = routes::app(app_state);
 
     let request = Request::builder()
         .uri("/metrics?jobstats=true")
@@ -24,21 +29,6 @@ fn get_app() -> (Request<Body>, Router) {
         .unwrap();
 
     (request, app)
-}
-
-// Prepare the test environment. This includes:
-// 1. Putting the mock lctl binary in the PATH environment variable
-// 2. Putting the mock lnetctl binary in the PATH environment variable
-pub fn setup_env() {
-    let mock_bin = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("mock_bins");
-
-    let current_path = env::var("PATH").unwrap_or_default();
-
-    let new_path = format!("{current_path}:{}", mock_bin.display());
-
-    unsafe {
-        env::set_var("PATH", new_path);
-    }
 }
 
 // Create a single request using `oneshot`. This is equivalent to hitting the

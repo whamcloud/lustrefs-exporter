@@ -3,31 +3,28 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    Error, init_opentelemetry,
-    jobstats::opentelemetry::OpenTelemetryMetricsJobstats,
-    openmetrics::{self, OpenTelemetryMetrics},
+    Error,
+    jobstats::{JobstatMetrics, jobstats_stream},
+    openmetrics::{self, Metrics},
 };
 use axum::{
     BoxError, Router,
     body::Body,
     error_handling::HandleErrorLayer,
-    extract::Query,
-    http::{self, HeaderValue, StatusCode},
+    extract::{Query, State},
+    http::{StatusCode, header::CONTENT_TYPE},
     response::{IntoResponse, Response},
     routing::get,
 };
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
-use opentelemetry::metrics::MeterProvider;
-use prometheus::{Encoder as _, TextEncoder};
+use prometheus_client::{encoding::text::encode, registry::Registry};
 use serde::Deserialize;
 use std::{
     borrow::Cow,
-    convert::Infallible,
-    io::{self, BufRead, BufReader},
-    sync::Arc,
+    collections::HashMap,
+    io::{self, BufRead as _, BufReader},
 };
 use tokio::process::Command;
-use tokio_stream::StreamExt as _;
 use tower::ServiceBuilder;
 
 #[derive(Debug, Deserialize)]
@@ -37,7 +34,12 @@ pub struct Params {
     jobstats: bool,
 }
 
-pub fn app() -> Router {
+#[derive(Clone)]
+pub struct AppState {
+    pub env_vars: HashMap<&'static str, String>,
+}
+
+pub fn app(app_state: AppState) -> Router {
     let load_shedder = ServiceBuilder::new()
         .layer(HandleErrorLayer::new(handle_error))
         .load_shed()
@@ -45,6 +47,7 @@ pub fn app() -> Router {
 
     Router::new()
         .route("/metrics", get(scrape))
+        .with_state(app_state)
         .layer(load_shedder)
 }
 
@@ -66,8 +69,10 @@ pub async fn handle_error(error: BoxError) -> impl IntoResponse {
     )
 }
 
-pub fn jobstats_metrics_cmd() -> std::process::Command {
+pub fn jobstats_metrics_cmd(env_vars: &HashMap<&'static str, String>) -> std::process::Command {
     let mut cmd = std::process::Command::new("lctl");
+
+    cmd.envs(env_vars);
 
     cmd.arg("get_param")
         .args(["obdfilter.*OST*.job_stats", "mdt.*.job_stats"])
@@ -77,8 +82,11 @@ pub fn jobstats_metrics_cmd() -> std::process::Command {
     cmd
 }
 
-pub fn lustre_metrics_output() -> Command {
+pub fn lustre_metrics_output(env_vars: &HashMap<&'static str, String>) -> Command {
     let mut cmd = Command::new("lctl");
+
+    cmd.envs(env_vars);
+
     cmd.arg("get_param")
         .args(parser::params())
         .kill_on_drop(true);
@@ -86,27 +94,76 @@ pub fn lustre_metrics_output() -> Command {
     cmd
 }
 
-pub fn net_show_output() -> Command {
+pub fn net_show_output(env_vars: &HashMap<&'static str, String>) -> Command {
     let mut cmd = Command::new("lnetctl");
+
+    cmd.envs(env_vars);
+
     cmd.args(["net", "show", "-v", "4"]).kill_on_drop(true);
 
     cmd
 }
 
-pub fn lnet_stats_output() -> Command {
+pub fn lnet_stats_output(env_vars: &HashMap<&'static str, String>) -> Command {
     let mut cmd = Command::new("lnetctl");
+
+    cmd.envs(env_vars);
+
     cmd.args(["stats", "show"]).kill_on_drop(true);
 
     cmd
 }
 
-pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
-    let (provider, registry) = init_opentelemetry()?;
+/// Main metrics scraping endpoint handler for the Prometheus exporter.
+///
+/// This function serves as the primary HTTP handler for the `/metrics` endpoint,
+/// collecting and formatting Lustre filesystem metrics in Prometheus format.
+/// It orchestrates the collection of both standard Lustre statistics and optional
+/// jobstats data based on query parameters.
+///
+/// # Arguments
+///
+/// * `Query(params)` - Query parameters extracted from the HTTP request
+/// * `State(state)` - Shared application state containing the command handler
+///
+/// # Query Parameters
+///
+/// * `jobstats` - Optional boolean parameter to enable jobstats collection
+///   (e.g., `/metrics?jobstats=true`)
+///
+/// # Returns
+///
+/// * `Ok(Response<Body>)` - HTTP response with Prometheus-formatted metrics
+/// * `Err(Error)` - Error if metric collection or formatting fails
+///
+/// # Processing Flow
+///
+/// 1. **Initialize**: Creates a new Prometheus registry and default metrics structures
+/// 2. **Conditional Jobstats**: If `jobstats=true`, collects and registers jobstats metrics
+/// 3. **Standard Metrics**: Always collects standard Lustre and LNet statistics
+/// 4. **Registration**: Registers all populated metrics with the registry
+/// 5. **Encoding**: Encodes metrics in Prometheus text format
+/// 6. **Response**: Returns HTTP 200 response with metrics as body
+///
+/// # Performance Considerations
+///
+/// - Jobstats collection can be resource-intensive and is optional but will
+///   be run within a spawned task.
+/// - Standard metrics collection runs commands concurrently for efficiency
+/// - Only metrics with actual data are registered to keep output clean
+pub async fn scrape(
+    Query(params): Query<Params>,
+    State(app_state): State<AppState>,
+) -> Result<Response<Body>, Error> {
+    let mut registry = Registry::default();
 
-    let meter = provider.meter("lustre");
-    let jobstats = if params.jobstats {
+    // Build the lustre stats
+    let mut opentelemetry_metrics = Metrics::default();
+
+    if params.jobstats {
+        let env_vars = app_state.env_vars.clone();
         let child = tokio::task::spawn_blocking(move || {
-            let child = jobstats_metrics_cmd().spawn()?;
+            let child = jobstats_metrics_cmd(&env_vars).spawn()?;
 
             Ok::<_, Error>(child)
         })
@@ -133,48 +190,33 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
                     }
                 });
 
-                let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
-
                 tokio::task::spawn_blocking(move || {
                     if let Err(e) = child.wait() {
                         tracing::debug!("Unexpected error when waiting for child: {e}");
                     }
                 });
 
-                let handle =
-                    crate::jobstats::opentelemetry::jobstats_stream(reader, otel_jobstats.clone());
+                let handle = jobstats_stream(reader, JobstatMetrics::default());
 
-                handle.await?;
+                let metrics = handle.await?;
 
-                // Encode metrics to string
-                let encoder = TextEncoder::new();
-                let metric_families = registry.gather();
-                let mut output = Vec::new();
-                encoder.encode(&metric_families, &mut output)?;
-
-                let output = String::from_utf8_lossy(&output).to_string();
-
-                Some(output)
+                metrics.register_metric(&mut registry);
             }
             Err(e) => {
                 tracing::debug!("Error while spawning lctl jobstats: {e}");
-
-                None
             }
         }
-    } else {
-        None
-    };
+    }
 
     let mut output = vec![];
 
-    let lctl = lustre_metrics_output().output().await?;
+    let lctl = lustre_metrics_output(&app_state.env_vars).output().await?;
 
     let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
 
     output.append(&mut lctl_output);
 
-    let lnetctl = net_show_output().output().await?;
+    let lnetctl = net_show_output(&app_state.env_vars).output().await?;
 
     let lnetctl_stats = std::str::from_utf8(&lnetctl.stdout)?;
 
@@ -182,58 +224,39 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 
     output.append(&mut lnetctl_output);
 
-    let lnetctl_stats_output = lnet_stats_output().output().await?;
+    let lnetctl_stats_output = lnet_stats_output(&app_state.env_vars).output().await?;
 
     let mut lnetctl_stats_record =
         parse_lnetctl_stats(std::str::from_utf8(&lnetctl_stats_output.stdout)?)?;
 
     output.append(&mut lnetctl_stats_record);
 
-    let opentelemetry_metrics = OpenTelemetryMetrics::new(meter.clone());
+    // Build and register Lustre metrics
+    openmetrics::build_lustre_stats(&output, &mut opentelemetry_metrics);
+    opentelemetry_metrics.register_metric(&mut registry);
 
-    let mut lustre_stats = vec![];
-    let encoder = TextEncoder::new();
-    let metric_families = registry.gather();
-    let _encoder_results = encoder.encode(&metric_families, &mut lustre_stats);
+    let mut buffer = String::new();
+    encode(&mut buffer, &registry)?;
 
-    // Build OTEL metrics
-    openmetrics::build_lustre_stats(&output, opentelemetry_metrics);
-
-    let mut buffer = vec![];
-    let encoder = TextEncoder::new();
-    let metric_families = registry.gather();
-    encoder.encode(&metric_families, &mut buffer).unwrap();
-
-    let lustre_stats = String::from_utf8_lossy(&buffer).to_string();
-
-    let body = if let Some(stream) = jobstats {
-        let merged = tokio_stream::once(Ok::<_, Infallible>(lustre_stats))
-            .chain(tokio_stream::once(Ok(stream)));
-
-        Body::from_stream(merged)
-    } else {
-        tracing::debug!("Jobstats collection disabled");
-
-        Body::from(lustre_stats)
-    };
-
-    let mut response_builder = Response::builder().status(StatusCode::OK);
-
-    let headers = response_builder.headers_mut();
-    if let Ok(content_type) = encoder.format_type().parse::<HeaderValue>() {
-        if let Some(headers) = headers {
-            headers.insert(http::header::CONTENT_TYPE, content_type);
-        }
-    }
-    let resp = response_builder.body(body)?;
+    let resp = Response::builder()
+        .status(StatusCode::OK)
+        .header(
+            CONTENT_TYPE,
+            "application/openmetrics-text; version=1.0.0; charset=utf-8",
+        )
+        .body(Body::from(buffer))?;
 
     Ok(resp)
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::routes::{
-        jobstats_metrics_cmd, lnet_stats_output, lustre_metrics_output, net_show_output,
+    use crate::{
+        TestEnv,
+        routes::{
+            AppState, jobstats_metrics_cmd, lnet_stats_output, lustre_metrics_output,
+            net_show_output,
+        },
     };
     use axum::{
         Router,
@@ -243,30 +266,14 @@ mod tests {
     use std::{
         env,
         io::{self, BufReader, Read},
-        path::PathBuf,
     };
     use tokio::task::JoinSet;
     use tower::ServiceExt as _;
 
-    // Prepare the test environment. This includes:
-    // 1. Putting the mock lctl binary in the PATH environment variable
-    // 2. Putting the mock lnetctl binary in the PATH environment variable
-    pub fn setup_env() {
-        let mock_bin = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("mock_bins");
-
-        let current_path = env::var("PATH").unwrap_or_default();
-
-        let new_path = format!("{current_path}:{}", mock_bin.display());
-
-        unsafe {
-            env::set_var("PATH", new_path);
-        }
-    }
-
     /// Create a new Axum app with the provided state and a Request
     /// to scrape the metrics endpoint.
-    fn get_app() -> (Request<Body>, Router) {
-        let app = crate::routes::app();
+    fn get_app(app_state: AppState) -> (Request<Body>, Router) {
+        let app = crate::routes::app(app_state);
 
         let request = Request::builder()
             .uri("/metrics?jobstats=true")
@@ -279,16 +286,24 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread")]
     async fn test_metrics_endpoint_is_idempotent() -> Result<(), Box<dyn std::error::Error>> {
-        setup_env();
+        let mut test_env = TestEnv::default();
+        test_env.set_var(
+            "JOBSTATS_RESPONSE_FILE",
+            "../fixtures/jobstats_only/2.14.0_162.txt",
+        );
 
-        let (request, app) = get_app();
+        let app_state = AppState {
+            env_vars: test_env.vars(),
+        };
+
+        let (request, app) = get_app(app_state.clone());
 
         let resp = app.oneshot(request).await?;
 
         let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
         let original_body_str = std::str::from_utf8(&body).unwrap();
 
-        let (request, app) = get_app();
+        let (request, app) = get_app(app_state);
 
         let resp = app.oneshot(request).await.unwrap();
 
@@ -305,22 +320,28 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread")]
+    #[tokio::test]
     async fn test_app_function() {
-        setup_env();
+        let test_env = TestEnv::default();
+        let app_state = AppState {
+            env_vars: test_env.vars(),
+        };
 
-        let (request, app) = get_app();
+        let (request, app) = get_app(app_state);
 
         let response = app.oneshot(request).await.unwrap();
 
-        assert!(response.status().is_success())
+        assert!(response.status().is_success());
     }
 
-    #[tokio::test(flavor = "multi_thread")]
+    #[tokio::test]
     async fn test_app_routes() {
-        setup_env();
+        let test_env = TestEnv::default();
+        let app_state = AppState {
+            env_vars: test_env.vars(),
+        };
 
-        let app = crate::routes::app();
+        let app = crate::routes::app(app_state.clone());
 
         // Test that the /metrics route exists
         let request = Request::builder()
@@ -341,18 +362,21 @@ mod tests {
             .body(Body::empty())
             .unwrap();
 
-        let app = crate::routes::app();
+        let app = crate::routes::app(app_state);
 
         let response = app.oneshot(request).await.unwrap();
 
         assert_eq!(response.status(), axum::http::StatusCode::NOT_FOUND);
     }
 
-    #[tokio::test(flavor = "multi_thread")]
+    #[tokio::test]
     async fn test_concurrent_requests() {
-        setup_env();
+        let test_env = TestEnv::default();
+        let app_state = AppState {
+            env_vars: test_env.vars(),
+        };
 
-        let app = crate::routes::app();
+        let app = crate::routes::app(app_state);
 
         // Test that concurrency limiting works by sending multiple requests
         // This test verifies the load_shed layer is applied
@@ -429,9 +453,13 @@ mod tests {
 
     #[test]
     fn test_jobstats_metrics_cmd_with_mock() {
-        setup_env();
+        let mut test_env = TestEnv::default();
+        test_env.set_var(
+            "JOBSTATS_RESPONSE_FILE",
+            "../fixtures/jobstats_only/2.14.0_162.txt",
+        );
 
-        let mut child = jobstats_metrics_cmd().spawn().unwrap();
+        let mut child = jobstats_metrics_cmd(&test_env.vars()).spawn().unwrap();
 
         let mut reader = BufReader::with_capacity(
             128 * 1_024,
@@ -453,27 +481,30 @@ mod tests {
 
     #[tokio::test]
     async fn test_lustre_metrics_output_with_mock() {
-        setup_env();
+        let test_env = TestEnv::default();
 
-        let output = lustre_metrics_output().output().await.unwrap();
+        let output = lustre_metrics_output(&test_env.vars())
+            .output()
+            .await
+            .unwrap();
 
         insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }
 
     #[tokio::test]
     async fn test_net_show_output_with_mock() {
-        setup_env();
+        let test_env = TestEnv::default();
 
-        let output = net_show_output().output().await.unwrap();
+        let output = net_show_output(&test_env.vars()).output().await.unwrap();
 
         insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }
 
     #[tokio::test]
     async fn test_lnet_stats_output_with_mock() {
-        setup_env();
+        let test_env = TestEnv::default();
 
-        let output = lnet_stats_output().output().await.unwrap();
+        let output = lnet_stats_output(&test_env.vars()).output().await.unwrap();
 
         insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }
