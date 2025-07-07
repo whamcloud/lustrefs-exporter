@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
+    Error,
     brw_stats::opentelemetry::{OpenTelemetryMetricsBrw, build_target_stats},
     host::opentelemetry::{OpenTelemetryMetricsHost, build_host_stats},
     llite::opentelemetry::OpenTelemetryMetricsLlite,
@@ -13,7 +14,44 @@ use crate::{
 };
 use lustre_collector::Record;
 use opentelemetry::metrics::Meter;
+use opentelemetry_sdk::{Resource, metrics::SdkMeterProvider};
+use prometheus::Registry;
 use std::collections::HashSet;
+use std::sync::OnceLock;
+
+static PROVIDER: OnceLock<(SdkMeterProvider, Registry)> = OnceLock::new();
+
+pub fn init_opentelemetry() -> Result<(SdkMeterProvider, Registry), Error> {
+    match PROVIDER.get() {
+        Some(provider) => Ok(provider.clone()),
+        None => {
+            // Build the Prometheus exporter.
+            // The metrics will be exposed in the Prometheus format.
+            let registry = Registry::new();
+            let prometheus_exporter = opentelemetry_prometheus::exporter()
+                .with_registry(registry.clone())
+                .without_counter_suffixes()
+                .build()?;
+
+            let provider = SdkMeterProvider::builder()
+                .with_reader(prometheus_exporter)
+                .with_resource(
+                    Resource::builder()
+                        .with_service_name("lustrefs-exporter")
+                        .build(),
+                )
+                .build();
+
+            PROVIDER.set((provider, registry)).map_err(|_| {
+                Error::Otel(opentelemetry_sdk::metrics::MetricError::Other(
+                    "Failed to set OpenTelemetry provider".into(),
+                ))
+            })?;
+
+            Ok(PROVIDER.get().ok_or(Error::OtelInit)?.clone())
+        }
+    }
+}
 
 #[derive(Debug)]
 pub struct OpenTelemetryMetrics {

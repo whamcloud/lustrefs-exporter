@@ -1,5 +1,6 @@
 use lustrefs_exporter::{
-    init_opentelemetry, jobstats, jobstats::opentelemetry::OpenTelemetryMetricsJobstats,
+    jobstats, jobstats::opentelemetry::OpenTelemetryMetricsJobstats,
+    openmetrics::init_opentelemetry,
 };
 use opentelemetry::metrics::MeterProvider;
 use prometheus::{Encoder as _, Registry, TextEncoder};

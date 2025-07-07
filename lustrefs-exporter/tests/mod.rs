@@ -2,10 +2,7 @@ use combine::parser::EasyParser;
 use include_dir::{Dir, include_dir};
 use insta::assert_snapshot;
 use lustre_collector::parser::parse;
-use lustrefs_exporter::{
-    init_opentelemetry,
-    openmetrics::{self, OpenTelemetryMetrics},
-};
+use lustrefs_exporter::openmetrics::{self, OpenTelemetryMetrics, init_opentelemetry};
 use opentelemetry::metrics::MeterProvider;
 use prometheus::{Encoder as _, Registry, TextEncoder};
 use prometheus_parse::{Sample, Scrape};

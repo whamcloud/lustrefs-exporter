@@ -14,9 +14,9 @@ use axum::{
 use clap::Parser;
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
 use lustrefs_exporter::{
-    Error, init_opentelemetry,
+    Error,
     jobstats::opentelemetry::OpenTelemetryMetricsJobstats,
-    openmetrics::{self, OpenTelemetryMetrics},
+    openmetrics::{self, OpenTelemetryMetrics, init_opentelemetry},
 };
 use opentelemetry::metrics::MeterProvider;
 use prometheus::{Encoder as _, TextEncoder};

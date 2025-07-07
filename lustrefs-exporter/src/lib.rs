@@ -20,11 +20,7 @@ use axum::{
     response::{IntoResponse, Response},
 };
 use lustre_collector::{LustreCollectorError, TargetVariant};
-use opentelemetry_sdk::{
-    Resource,
-    metrics::{MetricError, SdkMeterProvider},
-};
-use prometheus::Registry;
+use opentelemetry_sdk::metrics::MetricError;
 
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
@@ -41,9 +37,11 @@ pub enum Error {
     #[error("Could not find match for {0} in {1}")]
     NoCap(&'static str, String),
     #[error(transparent)]
-    Otel(#[from] opentelemetry_sdk::metrics::MetricError),
+    Otel(#[from] MetricError),
     #[error(transparent)]
     Prometheus(#[from] prometheus::Error),
+    #[error("Failed to initialize OpenTelemetry")]
+    OtelInit,
 }
 
 impl IntoResponse for Error {
@@ -66,25 +64,4 @@ impl LabelProm for TargetVariant {
             TargetVariant::Mdt => "mdt",
         }
     }
-}
-
-pub fn init_opentelemetry() -> Result<(SdkMeterProvider, Registry), MetricError> {
-    // Build the Prometheus exporter.
-    // The metrics will be exposed in the Prometheus format.
-    let registry = Registry::new();
-    let prometheus_exporter = opentelemetry_prometheus::exporter()
-        .with_registry(registry.clone())
-        .without_counter_suffixes()
-        .build()?;
-
-    let provider = SdkMeterProvider::builder()
-        .with_reader(prometheus_exporter)
-        .with_resource(
-            Resource::builder()
-                .with_service_name("lustrefs-exporter")
-                .build(),
-        )
-        .build();
-
-    Ok((provider, registry))
 }
