@@ -123,9 +123,17 @@ async fn main() -> Result<(), Error> {
             .load_shed()
             .concurrency_limit(10); // Max 10 concurrent scrape
 
-        let app = Router::new()
+        let mut app = Router::new()
             .route("/metrics", get(scrape))
             .layer(load_shedder);
+
+        #[cfg(target_arch = "x86_64")]
+        {
+            use lustrefs_exporter::profiling;
+
+            // Enable heap profiling for x86_64
+            app = app.route("/heap", get(profiling::handle_get_heap));
+        }
 
         axum::serve(listener, app).await?;
     }

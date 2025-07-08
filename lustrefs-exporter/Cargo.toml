@@ -28,6 +28,8 @@ tokio-stream.workspace = true
 tower = { workspace = true, features = ["timeout", "load-shed", "limit"] }
 tracing.workspace = true
 tracing-subscriber = { workspace = true, features = ["env-filter"] }
+jemalloc_pprof = { version = "0.7.0", features = ["flamegraph"] }
+tikv-jemallocator = { version = "0.6.0", features = ["profiling", "unprefixed_malloc_on_supported_platforms"] }
 
 [dev-dependencies]
 combine.workspace = true

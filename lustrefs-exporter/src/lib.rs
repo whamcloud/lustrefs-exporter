@@ -12,6 +12,9 @@ pub mod quota;
 pub mod service;
 pub mod stats;
 
+#[cfg(target_arch = "x86_64")]
+pub mod profiling;
+
 use axum::{
     http::{self, StatusCode},
     response::{IntoResponse, Response},
