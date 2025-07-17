@@ -18,7 +18,6 @@ use combine::{
 };
 
 pub(crate) const OSD: &str = "osd";
-
 pub(crate) const FILES_FREE: &str = "filesfree";
 pub(crate) const FILES_TOTAL: &str = "filestotal";
 pub(crate) const KBYTES_AVAIL: &str = "kbytesavail";
