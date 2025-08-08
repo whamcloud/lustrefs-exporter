@@ -13,6 +13,7 @@ mod mdd_parser;
 mod mds;
 pub mod mgs;
 mod node_stats_parsers;
+mod nodemap;
 mod osd_parser;
 mod oss;
 pub mod parser;
