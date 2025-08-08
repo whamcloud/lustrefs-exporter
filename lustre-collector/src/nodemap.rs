@@ -8,7 +8,7 @@ use crate::{
     stats_parser::stats,
     types::{Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
 };
-use combine::{choice, error::ParseError, parser::char::string, stream::Stream, Parser};
+use combine::{Parser, choice, error::ParseError, parser::char::string, stream::Stream};
 
 const DT_STATS: &str = "dt_stats";
 pub(crate) const NODEMAP: &str = "nodemap";

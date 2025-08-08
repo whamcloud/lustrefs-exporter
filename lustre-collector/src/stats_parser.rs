@@ -32,7 +32,19 @@ where
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     (
-        not_words(&["obdfilter", "mgs", "mdt", LDLM, OST, LLITE, MDS, MDD, NODEMAP, QMT]).skip(spaces()),
+        not_words(&[
+            "obdfilter",
+            "mgs",
+            "mdt",
+            LDLM,
+            OST,
+            LLITE,
+            MDS,
+            MDD,
+            NODEMAP,
+            QMT,
+        ])
+        .skip(spaces()),
         digits(),
         spaces().with(string("samples")),
         spaces().with(between(token('['), token(']'), word())),
