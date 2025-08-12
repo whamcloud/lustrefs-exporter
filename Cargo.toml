@@ -17,11 +17,9 @@ cast_possible_wrap = "warn"
 unwrap_used = "warn"
 
 [workspace.dependencies]
-async-trait = "0.1"
 axum = "0.8"
 clap = "4"
 combine = "=4.6.7"
-dashmap = "6.1"
 iai-callgrind = "0.16"
 include_dir = { version = "0.7", features = ["glob"] }
 injectorpp = { git = "https://github.com/microsoft/injectorppforrust.git", branch = "main" }
