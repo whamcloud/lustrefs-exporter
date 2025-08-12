@@ -10,7 +10,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: bencherdev/bencher@main
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Valgrind
+        run: sudo apt-get update && sudo apt-get install -y valgrind
+
+      - name: Cache dependencies
+        uses: Swatinem/rust-cache@v2
+
+      # Callgrind runner version must match iai-callgrind version specified in Cargo.toml
+      - name: Install iai-callgrind-runner
+        run: |
+          version=$(cargo metadata --format-version=1 |\
+            jq '.packages[] | select(.name == "iai-callgrind").version' |\
+            tr -d '"'
+          )
+          cargo install iai-callgrind-runner --version $version
+
       - name: Track main branch benchmarks with Bencher
         run: |
           bencher run \
