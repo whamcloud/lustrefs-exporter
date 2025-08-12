@@ -9,6 +9,8 @@ pub mod llite;
 pub mod lnet;
 pub mod openmetrics;
 pub mod quota;
+pub mod remote_cmd;
+pub mod routes;
 pub mod service;
 pub mod stats;
 

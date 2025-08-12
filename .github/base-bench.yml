@@ -1,0 +1,32 @@
+on:
+  push:
+    branches: main
+
+jobs:
+  benchmark_base_branch:
+    name: Continuous Benchmarking with Bencher
+    permissions:
+      checks: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bencherdev/bencher@main
+      - name: Track main branch benchmarks with Bencher
+        run: |
+          bencher run \
+          --project 7001c364-3f15-4566-b800-e3cb3d6de621 \
+          --token '${{ secrets.BENCHER_API_TOKEN }}' \
+          --branch main \
+          --testbed ubuntu-latest \
+          --adapter rust_iai_callgrind \
+          --threshold-measure instructions \
+          --threshold-test t_test \
+          --threshold-max-sample-size 64 \
+          --threshold-window 32 \
+          --threshold-lower-boundary 0.95 \
+          --threshold-upper-boundary 1.05 \
+          --thresholds-reset \
+          --err \
+          --adapter rust_iai_callgrind \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          "cargo bench --bench memory_scrape"
