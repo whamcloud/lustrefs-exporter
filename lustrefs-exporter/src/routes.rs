@@ -6,13 +6,12 @@ use crate::{
     Error, init_opentelemetry,
     jobstats::opentelemetry::OpenTelemetryMetricsJobstats,
     openmetrics::{self, OpenTelemetryMetrics},
-    remote_cmd::{RemoteCmd, RemoteCmdAsync},
 };
 use axum::{
     BoxError, Router,
     body::Body,
     error_handling::HandleErrorLayer,
-    extract::{Query, State},
+    extract::Query,
     http::{self, HeaderValue, StatusCode},
     response::{IntoResponse, Response},
     routing::get,
@@ -38,14 +37,7 @@ pub struct Params {
     jobstats: bool,
 }
 
-pub trait RemoteCmdRunner: RemoteCmd + RemoteCmdAsync + Send + Sync {}
-impl<T: RemoteCmd + RemoteCmdAsync + Send + Sync> RemoteCmdRunner for T {}
-
-pub struct AppState {
-    pub cmd_hdl: Arc<dyn RemoteCmdRunner>,
-}
-
-pub fn app(app_state: Arc<AppState>) -> Router {
+pub fn app() -> Router {
     let load_shedder = ServiceBuilder::new()
         .layer(HandleErrorLayer::new(handle_error))
         .load_shed()
@@ -53,7 +45,6 @@ pub fn app(app_state: Arc<AppState>) -> Router {
 
     Router::new()
         .route("/metrics", get(scrape))
-        .with_state(app_state)
         .layer(load_shedder)
 }
 
@@ -75,27 +66,57 @@ pub async fn handle_error(error: BoxError) -> impl IntoResponse {
     )
 }
 
-pub async fn scrape(
-    Query(params): Query<Params>,
-    State(state): State<Arc<AppState>>,
-) -> Result<Response<Body>, Error> {
+pub fn jobstats_metrics_cmd() -> Result<std::process::Child, std::io::Error> {
+    let child = std::process::Command::new("lctl")
+        .arg("get_param")
+        .args(["obdfilter.*OST*.job_stats", "mdt.*.job_stats"])
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped())
+        .spawn()?;
+
+    Ok(child)
+}
+
+pub async fn lustre_metrics_output() -> Result<std::process::Output, std::io::Error> {
+    let output = Command::new("lctl")
+        .arg("get_param")
+        .args(parser::params())
+        .kill_on_drop(true)
+        .output()
+        .await?;
+
+    Ok(output)
+}
+
+pub async fn net_show_output() -> Result<std::process::Output, std::io::Error> {
+    let lnetctl = Command::new("lnetctl")
+        .args(["net", "show", "-v", "4"])
+        .kill_on_drop(true)
+        .output()
+        .await?;
+
+    Ok(lnetctl)
+}
+
+pub async fn lnet_stats_output() -> Result<std::process::Output, std::io::Error> {
+    let lnetctl = Command::new("lnetctl")
+        .args(["stats", "show"])
+        .kill_on_drop(true)
+        .output()
+        .await?;
+
+    Ok(lnetctl)
+}
+
+pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
     let (provider, registry) = init_opentelemetry()?;
 
     let meter = provider.meter("lustre");
     let jobstats = if params.jobstats {
-        let state2 = state.clone();
         let child = tokio::task::spawn_blocking(move || {
-            let mut child = std::process::Command::new("lctl");
+            let child = jobstats_metrics_cmd()?;
 
-            child
-                .arg("get_param")
-                .args(["obdfilter.*OST*.job_stats", "mdt.*.job_stats"])
-                .stdout(std::process::Stdio::piped())
-                .stderr(std::process::Stdio::piped());
-
-            let c = RemoteCmd::spawn(&*state2.cmd_hdl, &mut child)?;
-
-            Ok::<_, Error>(c)
+            Ok::<_, Error>(child)
         })
         .await?;
 
@@ -103,13 +124,13 @@ pub async fn scrape(
             Ok(mut child) => {
                 let reader = BufReader::with_capacity(
                     128 * 1_024,
-                    child.stdout().ok_or(io::Error::new(
+                    child.stdout.take().ok_or(io::Error::new(
                         io::ErrorKind::NotFound,
                         "stdout missing for lctl jobstats call.",
                     ))?,
                 );
 
-                let reader_stderr = BufReader::new(child.stderr().ok_or(io::Error::new(
+                let reader_stderr = BufReader::new(child.stderr.take().ok_or(io::Error::new(
                     io::ErrorKind::NotFound,
                     "stderr missing for lctl jobstats call.",
                 ))?);
@@ -140,6 +161,7 @@ pub async fn scrape(
                 encoder.encode(&metric_families, &mut output)?;
 
                 let output = String::from_utf8_lossy(&output).to_string();
+
                 Some(output)
             }
             Err(e) => {
@@ -154,37 +176,21 @@ pub async fn scrape(
 
     let mut output = vec![];
 
-    let mut lctl = Command::new("lctl");
-
-    lctl.arg("get_param")
-        .args(parser::params())
-        .kill_on_drop(true);
-
-    let lctl = RemoteCmdAsync::output(&*state.cmd_hdl, &mut lctl).await?;
+    let lctl = lustre_metrics_output().await?;
 
     let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
 
     output.append(&mut lctl_output);
 
-    let mut lnetctl = Command::new("lnetctl");
-
-    lnetctl.args(["net", "show", "-v", "4"]).kill_on_drop(true);
-
-    let lnetctl = RemoteCmdAsync::output(&*state.cmd_hdl, &mut lnetctl).await?;
+    let lnetctl = net_show_output().await?;
 
     let lnetctl_stats = std::str::from_utf8(&lnetctl.stdout)?;
+
     let mut lnetctl_output = parse_lnetctl_output(lnetctl_stats)?;
 
     output.append(&mut lnetctl_output);
 
-    let mut lnetctl_stats_output = Command::new("lnetctl");
-
-    lnetctl_stats_output
-        .args(["stats", "show"])
-        .kill_on_drop(true);
-
-    let lnetctl_stats_output =
-        RemoteCmdAsync::output(&*state.cmd_hdl, &mut lnetctl_stats_output).await?;
+    let lnetctl_stats_output = lnet_stats_output().await?;
 
     let mut lnetctl_stats_record =
         parse_lnetctl_stats(std::str::from_utf8(&lnetctl_stats_output.stdout)?)?;
@@ -230,4 +236,116 @@ pub async fn scrape(
     let resp = response_builder.body(body)?;
 
     Ok(resp)
+}
+
+#[cfg(test)]
+mod tests {
+    use std::{
+        os::unix::process::ExitStatusExt as _,
+        process::{ExitStatus, Output},
+    };
+
+    use crate::routes::{
+        jobstats_metrics_cmd, lnet_stats_output, lustre_metrics_output, net_show_output,
+    };
+    use axum::{
+        Router,
+        body::{Body, to_bytes},
+        extract::Request,
+    };
+    use injectorpp::interface::injector::*;
+    use tower::ServiceExt as _;
+
+    /// Create a new Axum app with the provided state and a Request
+    /// to scrape the metrics endpoint.
+    fn get_app() -> (Request<Body>, Router) {
+        let app = crate::routes::app();
+
+        let request = Request::builder()
+            .uri("/metrics?jobstats=true")
+            .method("GET")
+            .body(Body::empty())
+            .unwrap();
+
+        (request, app)
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn test_metrics_endpoint() -> Result<(), Box<dyn std::error::Error>> {
+        let mut injector = InjectorPP::new();
+        injector
+            .when_called(injectorpp::func!(
+                fn (jobstats_metrics_cmd)() -> Result<std::process::Child, std::io::Error>
+            ))
+            .will_execute(injectorpp::fake!(
+                func_type: fn() -> Result<std::process::Child, std::io::Error>,
+                returns: std::process::Command::new("cat")
+                    .arg("fixtures/jobstats_only/2.14.0_162.txt")
+                    .stdout(std::process::Stdio::piped())
+                    .stderr(std::process::Stdio::piped())
+                    .spawn()
+            ));
+
+        injector
+            .when_called_async(injectorpp::async_func!(
+                lustre_metrics_output(), Result<std::process::Output, std::io::Error>
+            ))
+            .will_return_async(injectorpp::async_return!(
+                Ok(Output {
+                    status: ExitStatus::from_raw(0),
+                    stdout: include_str!("../../lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn133/2.14.0_ddn133_quota.txt").as_bytes().to_vec(),
+                    stderr: b"".to_vec(),
+                }),
+                Result<std::process::Output, std::io::Error>
+            ));
+
+        injector
+            .when_called_async(injectorpp::async_func!(
+                net_show_output(), Result<std::process::Output, std::io::Error>
+            ))
+            .will_return_async(injectorpp::async_return!(
+                Ok(Output {
+                    status: ExitStatus::from_raw(0),
+                    stdout: include_str!("../fixtures/lnetctl_net_show.txt").as_bytes().to_vec(),
+                    stderr: b"".to_vec(),
+                }),
+                Result<std::process::Output, std::io::Error>
+            ));
+
+        injector
+            .when_called_async(injectorpp::async_func!(
+                lnet_stats_output(), Result<std::process::Output, std::io::Error>
+            ))
+            .will_return_async(injectorpp::async_return!(
+                Ok(Output {
+                    status: ExitStatus::from_raw(0),
+                    stdout: include_str!("../fixtures/lnetctl_stats.txt").as_bytes().to_vec(),
+                    stderr: b"".to_vec(),
+                }),
+                Result<std::process::Output, std::io::Error>
+            ));
+
+        let (request, app) = get_app();
+
+        let resp = app.oneshot(request).await?;
+
+        let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
+        let original_body_str = std::str::from_utf8(&body).unwrap();
+
+        let (request, app) = get_app();
+
+        let resp = app.oneshot(request).await.unwrap();
+
+        let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
+        let body_str = std::str::from_utf8(&body).unwrap();
+
+        assert_eq!(
+            original_body_str, body_str,
+            "Stats not the same after second scrape"
+        );
+
+        insta::assert_snapshot!(original_body_str);
+
+        Ok(())
+    }
 }

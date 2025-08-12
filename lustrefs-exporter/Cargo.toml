@@ -38,6 +38,7 @@ combine.workspace = true
 const_format.workspace = true
 criterion = { workspace = true, features = ["html_reports", "async_tokio"] }
 include_dir.workspace = true
+injectorpp.workspace = true
 insta.workspace = true
 pretty_assertions.workspace = true
 prometheus-parse.workspace = true

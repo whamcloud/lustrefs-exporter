@@ -7,10 +7,9 @@ use clap::Parser;
 use lustre_collector::parser;
 use lustrefs_exporter::{
     Error,
-    remote_cmd::LocalCmd,
-    routes::{AppState, handle_error, scrape},
+    routes::{handle_error, scrape},
 };
-use std::{net::SocketAddr, sync::Arc};
+use std::net::SocketAddr;
 use tokio::process::Command;
 use tower::ServiceBuilder;
 
@@ -69,10 +68,6 @@ async fn main() -> Result<(), Error> {
             .await?;
         println!("{}", std::str::from_utf8(&lnetctl_stats_output.stdout)?);
     } else {
-        let state = Arc::new(AppState {
-            cmd_hdl: Arc::new(LocalCmd),
-        });
-
         let addr = SocketAddr::from(([0, 0, 0, 0], opts.port));
 
         tracing::info!("Listening on http://{addr}/metrics");
@@ -86,7 +81,6 @@ async fn main() -> Result<(), Error> {
 
         let app = Router::new()
             .route("/metrics", get(scrape))
-            .with_state(state)
             .layer(load_shedder);
 
         axum::serve(listener, app).await?;
