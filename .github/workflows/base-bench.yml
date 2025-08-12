@@ -2,6 +2,8 @@ on:
   push:
     branches: main
 
+  pull_request:
+
 jobs:
   benchmark_base_branch:
     name: Continuous Benchmarking with Bencher
@@ -38,7 +40,6 @@ jobs:
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch main \
           --testbed ubuntu-latest \
-          --adapter rust_iai_callgrind \
           --threshold-measure instructions \
           --threshold-test t_test \
           --threshold-max-sample-size 64 \
