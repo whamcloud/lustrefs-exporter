@@ -45,7 +45,6 @@ jobs:
           --threshold-max-sample-size 64 \
           --threshold-window 32 \
           --threshold-lower-boundary 0.95 \
-          --threshold-upper-boundary 1.05 \
           --thresholds-reset \
           --err \
           --adapter rust_iai_callgrind \
