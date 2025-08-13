@@ -10,7 +10,7 @@ use iai_callgrind::{
     Callgrind, CallgrindMetrics, FlamegraphConfig, FlamegraphKind, LibraryBenchmarkConfig,
     OutputFormat, library_benchmark, library_benchmark_group, main,
 };
-use lustre_collector::{parse_lnetctl_output, parse_lnetctl_stats, Record};
+use lustre_collector::{Record, parse_lnetctl_output, parse_lnetctl_stats};
 use lustrefs_exporter::openmetrics::{self, OpenTelemetryMetrics};
 use opentelemetry::metrics::MeterProvider;
 use prometheus::{Encoder as _, TextEncoder};
@@ -18,8 +18,11 @@ use prometheus::{Encoder as _, TextEncoder};
 fn generate_records() -> Vec<Record> {
     let mut records = Vec::new();
 
-    let lustre_metrics = include_str!("../../lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn133/2.14.0_ddn133_quota.txt");
-    let mut lustre_metrics_records = lustre_collector::parse_lctl_output(lustre_metrics.as_bytes()).unwrap();
+    let lustre_metrics = include_str!(
+        "../../lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn133/2.14.0_ddn133_quota.txt"
+    );
+    let mut lustre_metrics_records =
+        lustre_collector::parse_lctl_output(lustre_metrics.as_bytes()).unwrap();
     records.append(&mut lustre_metrics_records);
 
     let net_show = include_str!("../fixtures/lnetctl_net_show.txt");

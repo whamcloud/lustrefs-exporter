@@ -49,4 +49,4 @@ jobs:
           --err \
           --adapter rust_iai_callgrind \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
-          "cargo bench --bench memory_scrape"
+          "cargo bench --bench lustre_metrics"

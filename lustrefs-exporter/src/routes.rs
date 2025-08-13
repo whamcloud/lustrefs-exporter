@@ -239,6 +239,7 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 }
 
 #[cfg(test)]
+#[cfg(debug_assertions)]
 mod tests {
     use std::{
         os::unix::process::ExitStatusExt as _,
