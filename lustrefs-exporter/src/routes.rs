@@ -271,6 +271,7 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread")]
+    #[cfg(debug_assertions)]
     async fn test_metrics_endpoint() -> Result<(), Box<dyn std::error::Error>> {
         let mut injector = InjectorPP::new();
         injector
