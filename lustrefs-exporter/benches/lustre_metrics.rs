@@ -2,8 +2,6 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-mod common;
-
 use std::hint::black_box;
 
 use iai_callgrind::{
