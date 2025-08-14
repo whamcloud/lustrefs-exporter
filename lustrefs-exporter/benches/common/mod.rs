@@ -55,10 +55,14 @@ async fn make_single_request() -> Result<String, Box<dyn std::error::Error + Sen
     let body = to_bytes(resp.into_body(), usize::MAX).await?;
     let body_str = std::str::from_utf8(&body)?;
 
-    Ok(body_str.to_string())
+    let body_str = body_str.to_string();
+
+    println!("body_str: {body_str}");
+
+    Ok(body_str)
 }
 
-// Use a JoinSet to make `concurrency` requests at a time, waiting for each batch to complete before
+// Use a JoinSet to make `concurrent` requests at a time, waiting for each batch to complete before
 // starting the next batch.
 pub async fn load_test_concurrent(concurrency: usize, total_requests: usize) -> Duration {
     let start = Instant::now();
