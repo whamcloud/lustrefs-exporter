@@ -5,8 +5,8 @@ on:
   pull_request:
 
 jobs:
-  benchmark_base_branch:
-    name: Continuous Benchmarking with Bencher
+  benchmark_lustre_metrics:
+    name: Benchmark Lustre Metrics
     permissions:
       pull-requests: write
     runs-on: ubuntu-latest
@@ -36,7 +36,7 @@ jobs:
       - name: Track main branch benchmarks with Bencher
         run: |
           bencher run \
-          --project 7001c364-3f15-4566-b800-e3cb3d6de621 \
+          --project '${{ secrets.BENCHER_PROJECT_ID }}' \
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch main \
           --testbed ubuntu-latest \
@@ -50,3 +50,49 @@ jobs:
           --adapter rust_iai_callgrind \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
           "cargo bench --bench lustre_metrics"
+
+  benchmark_scrape_operation:
+    name: Benchmark Scrape Operation
+    permissions:
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: bencherdev/bencher@main
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Valgrind
+        run: sudo apt-get update && sudo apt-get install -y valgrind
+
+      - name: Cache dependencies
+        uses: Swatinem/rust-cache@v2
+
+      # Callgrind runner version must match iai-callgrind version specified in Cargo.toml
+      - name: Install iai-callgrind-runner
+        run: |
+          version=$(cargo metadata --format-version=1 |\
+            jq '.packages[] | select(.name == "iai-callgrind").version' |\
+            tr -d '"'
+          )
+          cargo install iai-callgrind-runner --version $version
+
+      - name: Track main branch benchmarks with Bencher
+        run: |
+          bencher run \
+          --project '${{ secrets.BENCHER_PROJECT_ID }}' \
+          --token '${{ secrets.BENCHER_API_TOKEN }}' \
+          --branch main \
+          --testbed ubuntu-latest \
+          --threshold-measure instructions \
+          --threshold-test t_test \
+          --threshold-max-sample-size 64 \
+          --threshold-window 32 \
+          --threshold-lower-boundary 0.95 \
+          --thresholds-reset \
+          --err \
+          --adapter rust_iai_callgrind \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          "cargo bench --bench scrape"

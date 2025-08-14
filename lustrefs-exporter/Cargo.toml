@@ -57,3 +57,7 @@ name = "jobstats"
 [[bench]]
 harness = false
 name = "lustre_metrics"
+
+[[bench]]
+harness = false
+name = "scrape"
