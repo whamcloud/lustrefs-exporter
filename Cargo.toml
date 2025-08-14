@@ -20,6 +20,7 @@ unwrap_used = "warn"
 axum = "0.8"
 clap = "4"
 combine = "=4.6.7"
+const_format = "0.2"
 iai-callgrind = "0.16"
 include_dir = { version = "0.7", features = ["glob"] }
 injectorpp = { git = "https://github.com/microsoft/injectorppforrust.git", branch = "main" }
@@ -45,7 +46,7 @@ tracing = "0.1"
 pretty_assertions = "1.4.1"
 criterion = "0.6"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
-const_format = "0.2"
+sysinfo = "0.29"
 
 [profile.release]
 lto = true

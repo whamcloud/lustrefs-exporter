@@ -41,6 +41,7 @@ insta.workspace = true
 pretty_assertions.workspace = true
 prometheus-parse.workspace = true
 serde_json.workspace = true
+sysinfo.workspace = true
 
 [lib]
 bench = false
@@ -60,4 +61,4 @@ name = "lustre_metrics"
 
 [[bench]]
 harness = false
-name = "scrape"
+name = "scrape_allocations"

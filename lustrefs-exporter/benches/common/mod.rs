@@ -55,11 +55,7 @@ async fn make_single_request() -> Result<String, Box<dyn std::error::Error + Sen
     let body = to_bytes(resp.into_body(), usize::MAX).await?;
     let body_str = std::str::from_utf8(&body)?;
 
-    let body_str = body_str.to_string();
-
-    println!("body_str: {body_str}");
-
-    Ok(body_str)
+    Ok(body_str.to_string())
 }
 
 // Use a JoinSet to make `concurrent` requests at a time, waiting for each batch to complete before
