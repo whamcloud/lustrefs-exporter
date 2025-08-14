@@ -9,7 +9,9 @@ use axum::{
 };
 use lustrefs_exporter::routes;
 use std::{
-    env, os::unix::process::ExitStatusExt as _, path::PathBuf, process::{ExitStatus, Output}, sync::Arc, time::Duration
+    env,
+    path::PathBuf,
+    time::Duration,
 };
 use tokio::{task::JoinSet, time::Instant};
 use tower::ServiceExt as _;
@@ -36,7 +38,7 @@ pub fn setup_env() {
         .join("benches")
         .join("mock_bins");
 
-    let current_path = env::var("PATH").expect("PATH environment variable not set.");
+    let current_path = env::var("PATH").unwrap_or_default();
 
     let new_path = format!("{current_path}:{}", mock_bin.display());
 
