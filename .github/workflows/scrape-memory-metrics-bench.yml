@@ -40,7 +40,7 @@ jobs:
           --threshold-max-sample-size 64 \
           --threshold-lower-boundary 0.95 \
           --threshold-upper-boundary 0.95 \
-          --ci-only-thresholds \
+          --quiet \
           --err \
           --adapter json \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
@@ -58,7 +58,7 @@ jobs:
           --ci-id '${{ github.sha }}' \
           --ci-number '${{ github.event.number }}' \
           --start-point-clone-thresholds \
-          --ci-only-thresholds \
+          --quiet \
           --err \
           --adapter json \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
