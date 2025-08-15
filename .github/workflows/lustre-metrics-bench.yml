@@ -3,6 +3,7 @@ on:
     branches: main
 
   pull_request:
+    types: [opened, reopened, edited, synchronize]
 
 jobs:
   benchmark_lustre_metrics:
@@ -33,57 +34,35 @@ jobs:
           )
           cargo install iai-callgrind-runner --version $version
 
-      - name: Track main branch benchmarks with Bencher
+      - name: Track Lustre Metrics Benchmarks on main branch
+        if: github.ref == 'refs/head/main' && github.event_name == 'push'
         run: |
           bencher run \
           --project '${{ secrets.BENCHER_PROJECT_ID }}' \
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch main \
+          --testbed ubuntu-latest \
+          --err \
+          --adapter rust_iai_callgrind \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          "cargo bench --bench lustre_metrics"
+
+      - name: Compare Lustre Metrics Benchmarks with main branch
+        if: github.event_name == 'pull_request'
+        run: |
+          bencher run \
+          --project '${{ secrets.BENCHER_PROJECT_ID }}' \
+          --token '${{ secrets.BENCHER_API_TOKEN }}' \
+          --branch '${{ github.head_ref }}' \
+          --branch-start-point main \
+          --branch-start-point-hash '${{ github.base_ref }}' \
           --testbed ubuntu-latest \
           --threshold-measure instructions \
           --threshold-test t_test \
           --threshold-max-sample-size 64 \
           --threshold-window 32 \
           --threshold-lower-boundary 0.95 \
-          --thresholds-reset \
           --err \
           --adapter rust_iai_callgrind \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
           "cargo bench --bench lustre_metrics"
-
-  benchmark_scrape_operation:
-    name: Benchmark Scrape Operation
-    permissions:
-      pull-requests: write
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: bencherdev/bencher@main
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Cache dependencies
-        uses: Swatinem/rust-cache@v2
-
-      - name: Track main branch benchmarks with Bencher
-        run: |
-          # Run the benchmark first (suppress Criterion output)
-          cargo bench --bench scrape_allocations 2>&1 > /dev/null
-
-          bencher run \
-          --project '${{ secrets.BENCHER_PROJECT_ID }}' \
-          --token '${{ secrets.BENCHER_API_TOKEN }}' \
-          --branch main \
-          --testbed ubuntu-latest \
-          --threshold-measure peak_rss \
-          --threshold-test t_test \
-          --threshold-max-sample-size 64 \
-          --threshold-window 32 \
-          --threshold-lower-boundary 0.95 \
-          --thresholds-reset \
-          --err \
-          --adapter json \
-          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
-          --file lustrefs-exporter/scrape_allocations_results.json

@@ -1,0 +1,62 @@
+on:
+  push:
+    branches: main
+
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+
+jobs:
+  benchmark_scrape_operation:
+    name: Benchmark Scrape Operation
+    permissions:
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: bencherdev/bencher@main
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache dependencies
+        uses: Swatinem/rust-cache@v2
+
+      - name: Run Scrape Memory Metrics Benchmark
+        run: |
+          # Run the benchmark first (suppress Criterion output)
+          cargo bench --bench scrape_memory_metrics 2>&1 > /dev/null
+
+      - name: Track scrape memory metrics benchmark on main branch
+        if: github.ref == 'refs/head/main' && github.event_name == 'push'
+        run: |
+          bencher run \
+          --project '${{ secrets.BENCHER_PROJECT_ID }}' \
+          --token '${{ secrets.BENCHER_API_TOKEN }}' \
+          --branch main \
+          --testbed ubuntu-latest \
+          --err \
+          --adapter json \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          --file lustrefs-exporter/scrape_allocations_results.json
+
+      - name: Compare scrape memory metrics with main branch
+        if: github.event_name == 'pull_request'
+        run: |
+          bencher run \
+          --project '${{ secrets.BENCHER_PROJECT_ID }}' \
+          --token '${{ secrets.BENCHER_API_TOKEN }}' \
+          --branch '${{ github.head_ref }}' \
+          --branch-start-point main \
+          --branch-start-point-hash '${{ github.base_ref }}' \
+          --testbed ubuntu-latest \
+          --ci-id '${{ github.sha }}' \
+          --ci-number '${{ github.event.number }}' \
+          --threshold-measure peak_rss \
+          --threshold-test t_test \
+          --threshold-max-sample-size 64 \
+          --threshold-lower-boundary 0.95 \
+          --err \
+          --adapter json \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          --file lustrefs-exporter/scrape_allocations_results.json

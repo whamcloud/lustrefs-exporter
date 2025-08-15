@@ -61,4 +61,4 @@ name = "lustre_metrics"
 
 [[bench]]
 harness = false
-name = "scrape_allocations"
+name = "scrape_memory_metrics"
