@@ -239,7 +239,6 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 }
 
 #[cfg(test)]
-#[cfg(debug_assertions)]
 mod tests {
     use crate::routes::{
         jobstats_metrics_cmd, lnet_stats_output, lustre_metrics_output, net_show_output,
@@ -249,13 +248,10 @@ mod tests {
         body::{Body, to_bytes},
         extract::Request,
     };
-    use injectorpp::interface::injector::*;
     use std::{
         env,
         io::{self, BufReader, Read},
-        os::unix::process::ExitStatusExt as _,
         path::PathBuf,
-        process::{ExitStatus, Output},
     };
     use tokio::task::JoinSet;
     use tower::ServiceExt as _;
@@ -275,60 +271,6 @@ mod tests {
         }
     }
 
-    fn mock_command_calls(injector: &mut InjectorPP) {
-        injector
-            .when_called(injectorpp::func!(
-                fn (jobstats_metrics_cmd)() -> Result<std::process::Child, std::io::Error>
-            ))
-            .will_execute(injectorpp::fake!(
-                func_type: fn() -> Result<std::process::Child, std::io::Error>,
-                returns: std::process::Command::new("cat")
-                    .arg("fixtures/jobstats_only/2.14.0_162.txt")
-                    .stdout(std::process::Stdio::piped())
-                    .stderr(std::process::Stdio::piped())
-                    .spawn()
-            ));
-
-        injector
-            .when_called_async(injectorpp::async_func!(
-                lustre_metrics_output(), Result<std::process::Output, std::io::Error>
-            ))
-            .will_return_async(injectorpp::async_return!(
-                Ok(Output {
-                    status: ExitStatus::from_raw(0),
-                    stdout: include_str!("../../lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn133/2.14.0_ddn133_quota.txt").as_bytes().to_vec(),
-                    stderr: b"".to_vec(),
-                }),
-                Result<std::process::Output, std::io::Error>
-            ));
-
-        injector
-            .when_called_async(injectorpp::async_func!(
-                net_show_output(), Result<std::process::Output, std::io::Error>
-            ))
-            .will_return_async(injectorpp::async_return!(
-                Ok(Output {
-                    status: ExitStatus::from_raw(0),
-                    stdout: include_str!("../fixtures/lnetctl_net_show.txt").as_bytes().to_vec(),
-                    stderr: b"".to_vec(),
-                }),
-                Result<std::process::Output, std::io::Error>
-            ));
-
-        injector
-            .when_called_async(injectorpp::async_func!(
-                lnet_stats_output(), Result<std::process::Output, std::io::Error>
-            ))
-            .will_return_async(injectorpp::async_return!(
-                Ok(Output {
-                    status: ExitStatus::from_raw(0),
-                    stdout: include_str!("../fixtures/lnetctl_stats.txt").as_bytes().to_vec(),
-                    stderr: b"".to_vec(),
-                }),
-                Result<std::process::Output, std::io::Error>
-            ));
-    }
-
     /// Create a new Axum app with the provided state and a Request
     /// to scrape the metrics endpoint.
     fn get_app() -> (Request<Body>, Router) {
@@ -344,11 +286,8 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    #[cfg(debug_assertions)]
     async fn test_metrics_endpoint_is_idempotent() -> Result<(), Box<dyn std::error::Error>> {
-        let mut injector = InjectorPP::new();
-
-        mock_command_calls(&mut injector);
+        setup_env();
 
         let (request, app) = get_app();
 
@@ -375,11 +314,8 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    #[cfg(debug_assertions)]
     async fn test_app_function() {
-        let mut injector = InjectorPP::new();
-
-        mock_command_calls(&mut injector);
+        setup_env();
 
         let (request, app) = get_app();
 
@@ -389,11 +325,8 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    #[cfg(debug_assertions)]
     async fn test_app_routes() {
-        let mut injector = InjectorPP::new();
-
-        mock_command_calls(&mut injector);
+        setup_env();
 
         let app = crate::routes::app();
 
@@ -424,11 +357,8 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    #[cfg(debug_assertions)]
     async fn test_concurrent_requests() {
-        let mut injector = InjectorPP::new();
-
-        mock_command_calls(&mut injector);
+        setup_env();
 
         let app = crate::routes::app();
 
@@ -509,7 +439,7 @@ mod tests {
     fn test_jobstats_metrics_cmd_with_mock() -> Result<(), Box<dyn std::error::Error>> {
         setup_env();
 
-        let mut child = crate::routes::jobstats_metrics_cmd()?;
+        let mut child = jobstats_metrics_cmd()?;
 
         let mut reader = BufReader::with_capacity(
             128 * 1_024,
@@ -531,7 +461,7 @@ mod tests {
     async fn test_lustre_metrics_output_with_mock() -> Result<(), Box<dyn std::error::Error>> {
         setup_env();
 
-        let output = crate::routes::lustre_metrics_output().await?;
+        let output = lustre_metrics_output().await?;
 
         insta::assert_snapshot!(String::from_utf8(output.stdout)?);
 
@@ -542,7 +472,7 @@ mod tests {
     async fn test_net_show_output_with_mock() -> Result<(), Box<dyn std::error::Error>> {
         setup_env();
 
-        let output = crate::routes::net_show_output().await?;
+        let output = net_show_output().await?;
 
         insta::assert_snapshot!(String::from_utf8(output.stdout)?);
 
@@ -553,7 +483,7 @@ mod tests {
     async fn test_lnet_stats_output_with_mock() -> Result<(), Box<dyn std::error::Error>> {
         setup_env();
 
-        let output = crate::routes::lnet_stats_output().await?;
+        let output = lnet_stats_output().await?;
 
         insta::assert_snapshot!(String::from_utf8(output.stdout)?);
 

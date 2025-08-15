@@ -23,7 +23,6 @@ combine = "=4.6.7"
 const_format = "0.2"
 iai-callgrind = "0.16"
 include_dir = { version = "0.7", features = ["glob"] }
-injectorpp = { git = "https://github.com/microsoft/injectorppforrust.git", branch = "main" }
 insta = "1"
 opentelemetry = "0.29.1"
 opentelemetry-otlp = "0.29"

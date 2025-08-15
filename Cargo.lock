@@ -796,15 +796,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "injectorpp"
-version = "0.4.0"
-source = "git+https://github.com/microsoft/injectorppforrust.git?branch=main#aa3c7f464c9f6e6f9fa1e6d4d9337c4bd9d53b89"
-dependencies = [
- "libc",
- "mach2",
-]
-
-[[package]]
 name = "insta"
 version = "1.43.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -925,7 +916,6 @@ dependencies = [
  "criterion",
  "iai-callgrind",
  "include_dir",
- "injectorpp",
  "insta",
  "lustre_collector",
  "opentelemetry",
@@ -945,15 +935,6 @@ dependencies = [
  "tower",
  "tracing",
  "tracing-subscriber",
-]
-
-[[package]]
-name = "mach2"
-version = "0.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6a1b95cd5421ec55b445b5ae102f5ea0e768de1f82bd3001e11f426c269c3aea"
-dependencies = [
- "libc",
 ]
 
 [[package]]
