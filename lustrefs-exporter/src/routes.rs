@@ -436,57 +436,49 @@ mod tests {
     }
 
     #[test]
-    fn test_jobstats_metrics_cmd_with_mock() -> Result<(), Box<dyn std::error::Error>> {
+    fn test_jobstats_metrics_cmd_with_mock() {
         setup_env();
 
-        let mut child = jobstats_metrics_cmd()?;
+        let mut child = jobstats_metrics_cmd().unwrap();
 
         let mut reader = BufReader::with_capacity(
             128 * 1_024,
             child.stdout.take().ok_or(io::Error::new(
                 io::ErrorKind::NotFound,
                 "stdout missing for lctl jobstats call.",
-            ))?,
+            )).unwrap(),
         );
 
         let mut buff = String::new();
-        reader.read_to_string(&mut buff)?;
+        reader.read_to_string(&mut buff).unwrap();
 
         insta::assert_snapshot!(buff);
-
-        Ok(())
     }
 
     #[tokio::test]
-    async fn test_lustre_metrics_output_with_mock() -> Result<(), Box<dyn std::error::Error>> {
+    async fn test_lustre_metrics_output_with_mock() {
         setup_env();
 
-        let output = lustre_metrics_output().await?;
+        let output = lustre_metrics_output().await.unwrap();
 
-        insta::assert_snapshot!(String::from_utf8(output.stdout)?);
-
-        Ok(())
+        insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }
 
     #[tokio::test]
-    async fn test_net_show_output_with_mock() -> Result<(), Box<dyn std::error::Error>> {
+    async fn test_net_show_output_with_mock() {
         setup_env();
 
-        let output = net_show_output().await?;
+        let output = net_show_output().await.unwrap();
 
-        insta::assert_snapshot!(String::from_utf8(output.stdout)?);
-
-        Ok(())
+        insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }
 
     #[tokio::test]
-    async fn test_lnet_stats_output_with_mock() -> Result<(), Box<dyn std::error::Error>> {
+    async fn test_lnet_stats_output_with_mock() {
         setup_env();
 
-        let output = lnet_stats_output().await?;
+        let output = lnet_stats_output().await.unwrap();
 
-        insta::assert_snapshot!(String::from_utf8(output.stdout)?);
-
-        Ok(())
+        insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }
 }
