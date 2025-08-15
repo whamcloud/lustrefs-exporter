@@ -53,9 +53,7 @@ fn encode_metrics(records: Vec<Record>) {
     let metric_families = registry.gather();
     encoder.encode(&metric_families, &mut buffer).unwrap();
 
-    let lustre_stats = String::from_utf8_lossy(&buffer).to_string();
-
-    println!("{}", lustre_stats);
+    String::from_utf8_lossy(&buffer).to_string();
 }
 
 #[library_benchmark]

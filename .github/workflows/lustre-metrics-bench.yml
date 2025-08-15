@@ -17,13 +17,10 @@ jobs:
       - uses: bencherdev/bencher@main
 
       - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
+        uses: actions-rust-lang/setup-rust-toolchain@v1
 
       - name: Install Valgrind
         run: sudo apt-get update && sudo apt-get install -y valgrind
-
-      - name: Cache dependencies
-        uses: Swatinem/rust-cache@v2
 
       # Callgrind runner version must match iai-callgrind version specified in Cargo.toml
       - name: Install iai-callgrind-runner

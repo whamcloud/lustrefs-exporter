@@ -66,46 +66,38 @@ pub async fn handle_error(error: BoxError) -> impl IntoResponse {
     )
 }
 
-pub fn jobstats_metrics_cmd() -> Result<std::process::Child, std::io::Error> {
-    let child = std::process::Command::new("lctl")
-        .arg("get_param")
+pub fn jobstats_metrics_cmd() -> std::process::Command {
+    let mut cmd = std::process::Command::new("lctl");
+
+    cmd.arg("get_param")
         .args(["obdfilter.*OST*.job_stats", "mdt.*.job_stats"])
         .stdout(std::process::Stdio::piped())
-        .stderr(std::process::Stdio::piped())
-        .spawn()?;
+        .stderr(std::process::Stdio::piped());
 
-    Ok(child)
+    cmd
 }
 
-pub async fn lustre_metrics_output() -> Result<std::process::Output, std::io::Error> {
-    let output = Command::new("lctl")
-        .arg("get_param")
+pub fn lustre_metrics_output() -> Command {
+    let mut cmd = Command::new("lctl");
+    cmd.arg("get_param")
         .args(parser::params())
-        .kill_on_drop(true)
-        .output()
-        .await?;
+        .kill_on_drop(true);
 
-    Ok(output)
+    cmd
 }
 
-pub async fn net_show_output() -> Result<std::process::Output, std::io::Error> {
-    let lnetctl = Command::new("lnetctl")
-        .args(["net", "show", "-v", "4"])
-        .kill_on_drop(true)
-        .output()
-        .await?;
+pub fn net_show_output() -> Command {
+    let mut cmd = Command::new("lnetctl");
+    cmd.args(["net", "show", "-v", "4"]).kill_on_drop(true);
 
-    Ok(lnetctl)
+    cmd
 }
 
-pub async fn lnet_stats_output() -> Result<std::process::Output, std::io::Error> {
-    let lnetctl = Command::new("lnetctl")
-        .args(["stats", "show"])
-        .kill_on_drop(true)
-        .output()
-        .await?;
+pub fn lnet_stats_output() -> Command {
+    let mut cmd = Command::new("lnetctl");
+    cmd.args(["stats", "show"]).kill_on_drop(true);
 
-    Ok(lnetctl)
+    cmd
 }
 
 pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
@@ -114,7 +106,7 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
     let meter = provider.meter("lustre");
     let jobstats = if params.jobstats {
         let child = tokio::task::spawn_blocking(move || {
-            let child = jobstats_metrics_cmd()?;
+            let child = jobstats_metrics_cmd().spawn()?;
 
             Ok::<_, Error>(child)
         })
@@ -176,13 +168,13 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 
     let mut output = vec![];
 
-    let lctl = lustre_metrics_output().await?;
+    let lctl = lustre_metrics_output().output().await?;
 
     let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
 
     output.append(&mut lctl_output);
 
-    let lnetctl = net_show_output().await?;
+    let lnetctl = net_show_output().output().await?;
 
     let lnetctl_stats = std::str::from_utf8(&lnetctl.stdout)?;
 
@@ -190,7 +182,7 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 
     output.append(&mut lnetctl_output);
 
-    let lnetctl_stats_output = lnet_stats_output().await?;
+    let lnetctl_stats_output = lnet_stats_output().output().await?;
 
     let mut lnetctl_stats_record =
         parse_lnetctl_stats(std::str::from_utf8(&lnetctl_stats_output.stdout)?)?;
@@ -439,7 +431,7 @@ mod tests {
     fn test_jobstats_metrics_cmd_with_mock() {
         setup_env();
 
-        let mut child = jobstats_metrics_cmd().unwrap();
+        let mut child = jobstats_metrics_cmd().spawn().unwrap();
 
         let mut reader = BufReader::with_capacity(
             128 * 1_024,
@@ -463,7 +455,7 @@ mod tests {
     async fn test_lustre_metrics_output_with_mock() {
         setup_env();
 
-        let output = lustre_metrics_output().await.unwrap();
+        let output = lustre_metrics_output().output().await.unwrap();
 
         insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }
@@ -472,7 +464,7 @@ mod tests {
     async fn test_net_show_output_with_mock() {
         setup_env();
 
-        let output = net_show_output().await.unwrap();
+        let output = net_show_output().output().await.unwrap();
 
         insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }
@@ -481,7 +473,7 @@ mod tests {
     async fn test_lnet_stats_output_with_mock() {
         setup_env();
 
-        let output = lnet_stats_output().await.unwrap();
+        let output = lnet_stats_output().output().await.unwrap();
 
         insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }
