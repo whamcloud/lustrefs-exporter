@@ -443,10 +443,14 @@ mod tests {
 
         let mut reader = BufReader::with_capacity(
             128 * 1_024,
-            child.stdout.take().ok_or(io::Error::new(
-                io::ErrorKind::NotFound,
-                "stdout missing for lctl jobstats call.",
-            )).unwrap(),
+            child
+                .stdout
+                .take()
+                .ok_or(io::Error::new(
+                    io::ErrorKind::NotFound,
+                    "stdout missing for lctl jobstats call.",
+                ))
+                .unwrap(),
         );
 
         let mut buff = String::new();
