@@ -28,13 +28,18 @@ jobs:
           cargo bench --bench scrape_memory_metrics 2>&1 > /dev/null
 
       - name: Track scrape memory metrics benchmark on main branch
-        if: github.ref == 'refs/head/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           bencher run \
           --project '${{ secrets.BENCHER_PROJECT_ID }}' \
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch main \
-          --testbed ubuntu-latest \
+          --testbed ci-runner \
+          --threshold-measure peak_rss_mib \
+          --threshold-test t_test \
+          --threshold-max-sample-size 64 \
+          --threshold-lower-boundary 0.95 \
+          --threshold-upper-boundary 0.95 \
           --err \
           --adapter json \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
@@ -47,14 +52,11 @@ jobs:
           --project '${{ secrets.BENCHER_PROJECT_ID }}' \
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch '${{ github.head_ref }}' \
-          --branch-start-point main \
-          --testbed ubuntu-latest \
+          --start-point main \
+          --testbed ci-runner \
           --ci-id '${{ github.sha }}' \
           --ci-number '${{ github.event.number }}' \
-          --threshold-measure peak_rss_mib \
-          --threshold-test t_test \
-          --threshold-max-sample-size 64 \
-          --threshold-lower-boundary 0.95 \
+          --start-point-clone-thresholds \
           --err \
           --adapter json \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \

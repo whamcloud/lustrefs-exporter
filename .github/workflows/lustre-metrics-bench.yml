@@ -35,13 +35,18 @@ jobs:
           cargo install iai-callgrind-runner --version $version
 
       - name: Track Lustre Metrics Benchmarks on main branch
-        if: github.ref == 'refs/head/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           bencher run \
           --project '${{ secrets.BENCHER_PROJECT_ID }}' \
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch main \
-          --testbed ubuntu-latest \
+          --testbed ci-runner \
+          --threshold-measure instructions \
+          --threshold-test t_test \
+          --threshold-max-sample-size 64 \
+          --threshold-lower-boundary 0.95 \
+          --threshold-upper-boundary 0.95 \
           --err \
           --adapter rust_iai_callgrind \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
@@ -54,14 +59,12 @@ jobs:
           --project '${{ secrets.BENCHER_PROJECT_ID }}' \
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch '${{ github.head_ref }}' \
-          --branch-start-point main \
-          --testbed ubuntu-latest \
-          --threshold-measure instructions \
-          --threshold-test t_test \
-          --threshold-max-sample-size 64 \
-          --threshold-window 32 \
-          --threshold-lower-boundary 0.95 \
+          --start-point main \
+          --testbed ci-runner \
+          --start-point-clone-thresholds \
           --err \
+          --ci-id '${{ github.sha }}' \
+          --ci-number '${{ github.event.number }}' \
           --adapter rust_iai_callgrind \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
           "cargo bench --bench lustre_metrics"
