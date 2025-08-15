@@ -4,17 +4,16 @@
 
 mod common;
 
+use crate::common::setup_env;
 use common::load_test_concurrent;
-use criterion::{Criterion, criterion_group, criterion_main};
 use core::f64;
+use criterion::{Criterion, criterion_group, criterion_main};
 use std::time::Duration;
 use sysinfo::{Pid, ProcessExt, System, SystemExt};
 
-use crate::common::setup_env;
-
 #[derive(serde::Serialize)]
 struct BencherOutput {
-    scrape_allocations: BencherMetrics
+    scrape_allocations: BencherMetrics,
 }
 
 #[derive(serde::Serialize)]
@@ -39,7 +38,7 @@ struct MetricEntry {
     #[serde(skip_serializing_if = "Option::is_none")]
     lower_value: Option<f64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    upper_value: Option<f64>
+    upper_value: Option<f64>,
 }
 
 #[derive(Clone, Debug, serde::Serialize)]
@@ -124,8 +123,7 @@ impl From<MemoryUsage> for BencherOutput {
                     lower_value: Some(x.min_virtual),
                     upper_value: Some(x.max_virtual),
                 },
-
-            }
+            },
         }
     }
 }
@@ -174,7 +172,14 @@ async fn load_test_with_memory_tracking(
             peak_virtual = peak_virtual.max(current_virtual);
         }
 
-        (rss_values, min_rss, peak_rss, virtual_values, min_virtual, peak_virtual)
+        (
+            rss_values,
+            min_rss,
+            peak_rss,
+            virtual_values,
+            min_virtual,
+            peak_virtual,
+        )
     });
 
     let duration = load_test_concurrent(concurrency, total_requests).await;
@@ -183,7 +188,9 @@ async fn load_test_with_memory_tracking(
         .expect("Failed to send stop signal to memory monitor");
 
     let (rss_values, mut min_rss, mut max_rss, virtual_values, mut min_virtual, mut max_virtual) =
-        monitor_handle.await.expect("Failed to collect memory metrics from run.");
+        monitor_handle
+            .await
+            .expect("Failed to collect memory metrics from run.");
 
     let (end_rss, end_virtual) = get_memory_stats();
 
@@ -233,14 +240,13 @@ fn scrape_load_test(c: &mut Criterion) {
     group.bench_function("load_test_1000_req_10_concurrent_sequential", |b| {
         let tx = tx.clone();
 
-        b.to_async(&rt)
-            .iter(|| async {
-                let (duration, memory_usage) = load_test_with_memory_tracking(10, 1000).await;
+        b.to_async(&rt).iter(|| async {
+            let (duration, memory_usage) = load_test_with_memory_tracking(10, 1000).await;
 
-                let _ = tx.send(memory_usage.clone());
+            let _ = tx.send(memory_usage.clone());
 
-                std::hint::black_box((duration, memory_usage))
-            })
+            std::hint::black_box((duration, memory_usage))
+        })
     });
 
     group.finish();
@@ -254,14 +260,14 @@ fn scrape_load_test(c: &mut Criterion) {
 
         let bencher_output: BencherOutput = aggregated.into();
 
-        let serialized_metrics = serde_json::to_string_pretty(&bencher_output).expect("Failed to serialize benchmark output.");
+        let serialized_metrics = serde_json::to_string_pretty(&bencher_output)
+            .expect("Failed to serialize benchmark output.");
 
         std::fs::write("scrape_allocations_results.json", serialized_metrics)
             .expect("Failed to write benchmark results to `scrape_allocations_results.json`");
 
         println!("✅ Bencher results written to scrape_allocations_results.json");
     }
-
 }
 
 fn aggregate_samples(samples: &[MemoryUsage]) -> MemoryUsage {
@@ -271,19 +277,53 @@ fn aggregate_samples(samples: &[MemoryUsage]) -> MemoryUsage {
     MemoryUsage {
         start_rss: samples.iter().map(|x| x.start_rss).sum::<f64>() / size / MIB_CONVERSION_FACTOR,
         end_rss: samples.iter().map(|x| x.end_rss).sum::<f64>() / size / MIB_CONVERSION_FACTOR,
-        memory_growth: samples.iter().map(|x| x.memory_growth).sum::<f64>() / size / MIB_CONVERSION_FACTOR,
-        peak_over_start_rss_ratio: samples.iter().map(|x| x.peak_over_start_rss_ratio).sum::<f64>() / size,
+        memory_growth: samples.iter().map(|x| x.memory_growth).sum::<f64>()
+            / size
+            / MIB_CONVERSION_FACTOR,
+        peak_over_start_rss_ratio: samples
+            .iter()
+            .map(|x| x.peak_over_start_rss_ratio)
+            .sum::<f64>()
+            / size,
         avg_rss: samples.iter().map(|x| x.avg_rss).sum::<f64>() / size / MIB_CONVERSION_FACTOR,
-        min_rss: samples.iter().map(|x| x.min_rss).fold(f64::INFINITY, f64::min) / MIB_CONVERSION_FACTOR,
-        max_rss: samples.iter().map(|x| x.max_rss).fold(f64::NEG_INFINITY, f64::max) / MIB_CONVERSION_FACTOR,
+        min_rss: samples
+            .iter()
+            .map(|x| x.min_rss)
+            .fold(f64::INFINITY, f64::min)
+            / MIB_CONVERSION_FACTOR,
+        max_rss: samples
+            .iter()
+            .map(|x| x.max_rss)
+            .fold(f64::NEG_INFINITY, f64::max)
+            / MIB_CONVERSION_FACTOR,
 
-        start_virtual: samples.iter().map(|x| x.start_virtual).sum::<f64>() / size / MIB_CONVERSION_FACTOR,
-        end_virtual: samples.iter().map(|x| x.end_virtual).sum::<f64>() / size / MIB_CONVERSION_FACTOR,
-        virtual_growth: samples.iter().map(|x| x.virtual_growth).sum::<f64>() / size / MIB_CONVERSION_FACTOR,
-        peak_over_start_virtual_ratio: samples.iter().map(|x| x.peak_over_start_virtual_ratio).sum::<f64>() / size,
-        avg_virtual: samples.iter().map(|x| x.avg_virtual).sum::<f64>() / size / MIB_CONVERSION_FACTOR,
-        min_virtual: samples.iter().map(|x| x.min_virtual).fold(f64::INFINITY, f64::min) / MIB_CONVERSION_FACTOR,
-        max_virtual: samples.iter().map(|x| x.max_virtual).fold(f64::NEG_INFINITY, f64::max) / MIB_CONVERSION_FACTOR,
+        start_virtual: samples.iter().map(|x| x.start_virtual).sum::<f64>()
+            / size
+            / MIB_CONVERSION_FACTOR,
+        end_virtual: samples.iter().map(|x| x.end_virtual).sum::<f64>()
+            / size
+            / MIB_CONVERSION_FACTOR,
+        virtual_growth: samples.iter().map(|x| x.virtual_growth).sum::<f64>()
+            / size
+            / MIB_CONVERSION_FACTOR,
+        peak_over_start_virtual_ratio: samples
+            .iter()
+            .map(|x| x.peak_over_start_virtual_ratio)
+            .sum::<f64>()
+            / size,
+        avg_virtual: samples.iter().map(|x| x.avg_virtual).sum::<f64>()
+            / size
+            / MIB_CONVERSION_FACTOR,
+        min_virtual: samples
+            .iter()
+            .map(|x| x.min_virtual)
+            .fold(f64::INFINITY, f64::min)
+            / MIB_CONVERSION_FACTOR,
+        max_virtual: samples
+            .iter()
+            .map(|x| x.max_virtual)
+            .fold(f64::NEG_INFINITY, f64::max)
+            / MIB_CONVERSION_FACTOR,
     }
 }
 

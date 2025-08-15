@@ -2,8 +2,6 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use std::hint::black_box;
-
 use iai_callgrind::{
     Callgrind, CallgrindMetrics, FlamegraphConfig, FlamegraphKind, LibraryBenchmarkConfig,
     OutputFormat, library_benchmark, library_benchmark_group, main,
@@ -12,6 +10,7 @@ use lustre_collector::{Record, parse_lnetctl_output, parse_lnetctl_stats};
 use lustrefs_exporter::openmetrics::{self, OpenTelemetryMetrics};
 use opentelemetry::metrics::MeterProvider;
 use prometheus::{Encoder as _, TextEncoder};
+use std::hint::black_box;
 
 fn generate_records() -> Vec<Record> {
     let mut records = Vec::new();

@@ -55,7 +55,6 @@ jobs:
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch '${{ github.head_ref }}' \
           --branch-start-point main \
-          --branch-start-point-hash '${{ github.base_ref }}' \
           --testbed ubuntu-latest \
           --threshold-measure instructions \
           --threshold-test t_test \
