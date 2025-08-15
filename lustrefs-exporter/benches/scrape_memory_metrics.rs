@@ -18,18 +18,18 @@ struct BencherOutput {
 
 #[derive(serde::Serialize)]
 struct BencherMetrics {
-    start_rss: MetricEntry,
-    peak_rss: MetricEntry,
-    end_rss: MetricEntry,
-    memory_growth: MetricEntry,
+    start_rss_mib: MetricEntry,
+    peak_rss_mib: MetricEntry,
+    end_rss_mib: MetricEntry,
+    memory_growth_mib: MetricEntry,
     peak_over_start_rss_ratio: MetricEntry,
-    avg_runtime_rss: MetricEntry,
-    start_virtual: MetricEntry,
-    peak_virtual: MetricEntry,
-    end_virtual: MetricEntry,
-    virtual_growth: MetricEntry,
+    avg_runtime_rss_mib: MetricEntry,
+    start_virtual_mib: MetricEntry,
+    peak_virtual_mib: MetricEntry,
+    end_virtual_mib: MetricEntry,
+    virtual_growth_mib: MetricEntry,
     peak_over_start_virtual_ratio: MetricEntry,
-    avg_runtime_virtual: MetricEntry,
+    avg_runtime_virtual_mib: MetricEntry,
 }
 
 #[derive(serde::Serialize)]
@@ -40,6 +40,8 @@ struct MetricEntry {
     #[serde(skip_serializing_if = "Option::is_none")]
     upper_value: Option<f64>,
 }
+
+const MIB: &str = "MiB";
 
 #[derive(Clone, Debug, serde::Serialize)]
 struct MemoryUsage {
@@ -63,22 +65,22 @@ impl From<MemoryUsage> for BencherOutput {
     fn from(x: MemoryUsage) -> Self {
         BencherOutput {
             scrape_allocations: BencherMetrics {
-                start_rss: MetricEntry {
+                start_rss_mib: MetricEntry {
                     value: x.start_rss,
                     lower_value: None,
                     upper_value: None,
                 },
-                peak_rss: MetricEntry {
+                peak_rss_mib: MetricEntry {
                     value: x.max_rss,
                     lower_value: None,
                     upper_value: None,
                 },
-                end_rss: MetricEntry {
+                end_rss_mib: MetricEntry {
                     value: x.end_rss,
                     lower_value: None,
                     upper_value: None,
                 },
-                memory_growth: MetricEntry {
+                memory_growth_mib: MetricEntry {
                     value: x.memory_growth,
                     lower_value: None,
                     upper_value: None,
@@ -88,27 +90,27 @@ impl From<MemoryUsage> for BencherOutput {
                     lower_value: None,
                     upper_value: None,
                 },
-                avg_runtime_rss: MetricEntry {
+                avg_runtime_rss_mib: MetricEntry {
                     value: x.avg_rss,
                     lower_value: Some(x.min_rss),
                     upper_value: Some(x.max_rss),
                 },
-                start_virtual: MetricEntry {
+                start_virtual_mib: MetricEntry {
                     value: x.start_virtual,
                     lower_value: None,
                     upper_value: None,
                 },
-                peak_virtual: MetricEntry {
+                peak_virtual_mib: MetricEntry {
                     value: x.max_virtual,
                     lower_value: None,
                     upper_value: None,
                 },
-                end_virtual: MetricEntry {
+                end_virtual_mib: MetricEntry {
                     value: x.end_virtual,
                     lower_value: None,
                     upper_value: None,
                 },
-                virtual_growth: MetricEntry {
+                virtual_growth_mib: MetricEntry {
                     value: x.virtual_growth,
                     lower_value: None,
                     upper_value: None,
@@ -118,7 +120,7 @@ impl From<MemoryUsage> for BencherOutput {
                     lower_value: None,
                     upper_value: None,
                 },
-                avg_runtime_virtual: MetricEntry {
+                avg_runtime_virtual_mib: MetricEntry {
                     value: x.avg_virtual,
                     lower_value: Some(x.min_virtual),
                     upper_value: Some(x.max_virtual),
