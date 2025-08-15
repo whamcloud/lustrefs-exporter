@@ -30,9 +30,7 @@ fn get_app() -> (Request<Body>, Router) {
 // 1. Putting the mock lctl binary in the PATH environment variable
 // 2. Putting the mock lnetctl binary in the PATH environment variable
 pub fn setup_env() {
-    let mock_bin = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("benches")
-        .join("mock_bins");
+    let mock_bin = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("mock_bins");
 
     let current_path = env::var("PATH").unwrap_or_default();
 

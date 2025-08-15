@@ -251,11 +251,29 @@ mod tests {
     };
     use injectorpp::interface::injector::*;
     use std::{
+        env,
+        io::{self, BufReader, Read},
         os::unix::process::ExitStatusExt as _,
+        path::PathBuf,
         process::{ExitStatus, Output},
     };
     use tokio::task::JoinSet;
     use tower::ServiceExt as _;
+
+    // Prepare the test environment. This includes:
+    // 1. Putting the mock lctl binary in the PATH environment variable
+    // 2. Putting the mock lnetctl binary in the PATH environment variable
+    pub fn setup_env() {
+        let mock_bin = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("mock_bins");
+
+        let current_path = env::var("PATH").unwrap_or_default();
+
+        let new_path = format!("{current_path}:{}", mock_bin.display());
+
+        unsafe {
+            env::set_var("PATH", new_path);
+        }
+    }
 
     fn mock_command_calls(injector: &mut InjectorPP) {
         injector
@@ -488,87 +506,57 @@ mod tests {
     }
 
     #[test]
-    fn test_jobstats_metrics_cmd_with_mock() {
-        // This test executes the real function for code coverage
-        let result = crate::routes::jobstats_metrics_cmd();
+    fn test_jobstats_metrics_cmd_with_mock() -> Result<(), Box<dyn std::error::Error>> {
+        setup_env();
 
-        // The function will either succeed (if lctl exists) or fail (if it doesn't).
-        // This achieves code coverage.
-        match result {
-            Ok(mut child) => {
-                // Command succeeded - verify the child process structure
-                assert!(child.stdout.is_some());
-                assert!(child.stderr.is_some());
+        let mut child = crate::routes::jobstats_metrics_cmd()?;
 
-                // Clean up
-                let _ = child.kill();
-                let _ = child.wait();
-            }
-            Err(e) => {
-                // Command failed (expected in test environment without lctl)
-                // Verify it's the expected error type
-                assert!(matches!(e.kind(), std::io::ErrorKind::NotFound));
-            }
-        }
+        let mut reader = BufReader::with_capacity(
+            128 * 1_024,
+            child.stdout.take().ok_or(io::Error::new(
+                io::ErrorKind::NotFound,
+                "stdout missing for lctl jobstats call.",
+            ))?,
+        );
+
+        let mut buff = String::new();
+        reader.read_to_string(&mut buff)?;
+
+        insta::assert_snapshot!(buff);
+
+        Ok(())
     }
 
     #[tokio::test]
-    async fn test_lustre_metrics_output_with_mock() {
-        // This test executes the real function for code coverage
-        let result = crate::routes::lustre_metrics_output().await;
+    async fn test_lustre_metrics_output_with_mock() -> Result<(), Box<dyn std::error::Error>> {
+        setup_env();
 
-        // The function will either succeed (if lctl exists) or fail (if it doesn't).
-        // This achieves code coverage.
-        match result {
-            Ok(child) => {
-                // Command succeeded - verify the child process structure
-                assert!(!child.stdout.is_empty());
-            }
-            Err(e) => {
-                // Command failed (expected in test environment without lctl)
-                // Verify it's the expected error type
-                assert!(matches!(e.kind(), std::io::ErrorKind::NotFound));
-            }
-        }
+        let output = crate::routes::lustre_metrics_output().await?;
+
+        insta::assert_snapshot!(String::from_utf8(output.stdout)?);
+
+        Ok(())
     }
 
     #[tokio::test]
-    async fn test_net_show_output_with_mock() {
-        // This test executes the real function for code coverage
-        let result = crate::routes::net_show_output().await;
+    async fn test_net_show_output_with_mock() -> Result<(), Box<dyn std::error::Error>> {
+        setup_env();
 
-        // The function will either succeed (if lctl exists) or fail (if it doesn't).
-        // This achieves code coverage.
-        match result {
-            Ok(child) => {
-                // Command succeeded - verify the child process structure
-                assert!(!child.stdout.is_empty());
-            }
-            Err(e) => {
-                // Command failed (expected in test environment without lctl)
-                // Verify it's the expected error type
-                assert!(matches!(e.kind(), std::io::ErrorKind::NotFound));
-            }
-        }
+        let output = crate::routes::net_show_output().await?;
+
+        insta::assert_snapshot!(String::from_utf8(output.stdout)?);
+
+        Ok(())
     }
 
     #[tokio::test]
-    async fn test_lnet_stats_output_with_mock() {
-        // This test executes the real function for code coverage
-        let result = crate::routes::lnet_stats_output().await;
+    async fn test_lnet_stats_output_with_mock() -> Result<(), Box<dyn std::error::Error>> {
+        setup_env();
 
-        // The function will either succeed (if lctl exists) or fail (if it doesn't).
-        // This achieves code coverage.
-        match result {
-            Ok(child) => {
-                // Command succeeded - verify the child process structure
-                assert!(!child.stdout.is_empty());
-            }
-            Err(e) => {
-                // Command failed (expected in test environment without lctl)
-                // Verify it's the expected error type
-                assert!(matches!(e.kind(), std::io::ErrorKind::NotFound));
-            }
-        }
+        let output = crate::routes::lnet_stats_output().await?;
+
+        insta::assert_snapshot!(String::from_utf8(output.stdout)?);
+
+        Ok(())
     }
 }

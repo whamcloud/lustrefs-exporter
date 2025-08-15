@@ -41,8 +41,6 @@ struct MetricEntry {
     upper_value: Option<f64>,
 }
 
-const MIB: &str = "MiB";
-
 #[derive(Clone, Debug, serde::Serialize)]
 struct MemoryUsage {
     start_rss: f64,
