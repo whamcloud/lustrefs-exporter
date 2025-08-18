@@ -26,7 +26,7 @@ pub fn params() -> Vec<String> {
         .collect()
 }
 
-pub fn _parse<I>() -> impl Parser<I, Output = Vec<Record>>
+pub fn parse<I>() -> impl Parser<I, Output = Vec<Record>>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -44,14 +44,6 @@ where
         quota::parse().map(|x| vec![x]),
     )))
     .map(|xs: Vec<_>| xs.into_iter().flatten().collect())
-}
-
-combine::parser! {
-    pub fn parse[Input]()(Input) -> Vec<Record>
-    where [Input: Stream<Token = char>]
-    {
-        _parse()
-    }
 }
 
 #[cfg(test)]
