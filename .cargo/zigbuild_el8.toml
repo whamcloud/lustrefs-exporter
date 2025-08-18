@@ -1,5 +1,0 @@
-[env]
-OPENSSL_DIR = {value = "./git-lfs/rocky8-libs/usr", relative = true}
-PKG_CONFIG_PATH = {value = "./git-lfs/rocky8-libs/usr/lib/pkgconfig", relative = true}
-PKG_CONFIG_SYSROOT_DIR = {value = "./git-lfs/rocky8-libs", relative = true}
-SODIUM_LIB_DIR = {value = "./git-lfs/rocky8-libs/usr/lib64", relative = true}

@@ -92,13 +92,7 @@ pub fn parse_lnetctl_stats(x: &str) -> Result<Vec<Record>, LustreCollectorError>
     let y: LnetStats = serde_yaml::from_str(x)?;
 
     Ok(y.statistics
-        .map(|x| {
-            let mut records = Vec::with_capacity(3);
-
-            records.extend(build_lnetctl_stats(&x));
-
-            records
-        })
+        .map(|x| build_lnetctl_stats(&x))
         .unwrap_or_default())
 }
 
