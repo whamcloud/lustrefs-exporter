@@ -7,7 +7,8 @@ use axum::{
     body::{Body, to_bytes},
     http::Request,
 };
-use lustrefs_exporter::{TestEnv, routes};
+
+use lustrefs_exporter::{JobstatsMock, LustreMock, create_mock_commander, routes};
 use std::time::Duration;
 use tokio::{task::JoinSet, time::Instant};
 use tower::ServiceExt as _;
@@ -15,12 +16,9 @@ use tower::ServiceExt as _;
 /// Create a new Axum app with the provided state and a Request
 /// to scrape the metrics endpoint.
 fn get_app() -> (Request<Body>, Router) {
-    let test_env = TestEnv::default();
-    let app_state = routes::AppState {
-        env_vars: test_env.vars(),
-    };
+    let _mock_commander = create_mock_commander(JobstatsMock::default(), LustreMock::default());
 
-    let app = routes::app(app_state);
+    let app = routes::app();
 
     let request = Request::builder()
         .uri("/metrics?jobstats=true")

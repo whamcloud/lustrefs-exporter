@@ -16,7 +16,10 @@ regex = { version = "1", default-features = false, features = [
   "std",
   "perf-dfa-full",
 ] }
+sealed_test = { workspace = true, optional = true }
 serde = { version = "1", features = ["derive"] }
+strum = { workspace = true, optional = true }
+strum_macros = { workspace = true, optional = true }
 sysinfo.workspace = true
 thiserror.workspace = true
 tokio = { workspace = true, features = [
@@ -29,6 +32,7 @@ tokio-stream.workspace = true
 tower = { workspace = true, features = ["timeout", "load-shed", "limit"] }
 tracing.workspace = true
 tracing-subscriber = { workspace = true, features = ["env-filter"] }
+xxhash-rust = { workspace = true, features = ["xxh3"], optional = true }
 
 [dev-dependencies]
 combine.workspace = true
@@ -39,8 +43,12 @@ include_dir.workspace = true
 insta.workspace = true
 pretty_assertions.workspace = true
 prometheus-parse.workspace = true
+sealed_test.workspace = true
 serde_json.workspace = true
 sysinfo.workspace = true
+
+[features]
+mock_bin = ["sealed_test", "strum", "strum_macros", "xxhash-rust"]
 
 [lib]
 bench = false
@@ -49,6 +57,12 @@ bench = false
 bench = false
 name = "lustrefs-exporter"
 path = "src/main.rs"
+
+[[bin]]
+bench = false
+name = "mock_bin"
+path = "src/bin/mock_bin.rs"
+required-features = ["mock_bin"]
 
 [[bench]]
 harness = false
@@ -61,3 +75,4 @@ name = "lustre_metrics"
 [[bench]]
 harness = false
 name = "scrape_memory_metrics"
+required-features = ["mock_bin"]

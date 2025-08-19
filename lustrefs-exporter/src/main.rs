@@ -6,11 +6,10 @@ use clap::Parser;
 use lustrefs_exporter::{
     Error,
     routes::{
-        AppState, app, jobstats_metrics_cmd, lnet_stats_output, lustre_metrics_output,
-        net_show_output,
+        app, jobstats_metrics_cmd, lnet_stats_output, lustre_metrics_output, net_show_output,
     },
 };
-use std::{collections::HashMap, net::SocketAddr};
+use std::net::SocketAddr;
 
 const LUSTREFS_EXPORTER_PORT: &str = "32221";
 
@@ -46,10 +45,10 @@ pub struct CommandOpts {
 ///
 /// dump_stats(&LocalCmd).await?;
 /// ```
-async fn dump_stats(env_vars: &HashMap<&'static str, String>) -> Result<(), Error> {
+async fn dump_stats() -> Result<(), Error> {
     println!("# Dumping lctl get_param output");
 
-    let mut lctl = lustre_metrics_output(env_vars);
+    let mut lctl = lustre_metrics_output();
 
     let lctl = lctl.output().await?;
 
@@ -57,7 +56,7 @@ async fn dump_stats(env_vars: &HashMap<&'static str, String>) -> Result<(), Erro
 
     println!("# Dumping lctl get_param jobstats output");
 
-    let mut lctl = jobstats_metrics_cmd(env_vars);
+    let mut lctl = jobstats_metrics_cmd();
 
     let lctl = tokio::task::spawn_blocking(move || lctl.output()).await??;
 
@@ -65,7 +64,7 @@ async fn dump_stats(env_vars: &HashMap<&'static str, String>) -> Result<(), Erro
 
     println!("# Dumping lnetctl net show output");
 
-    let mut lnetctl = net_show_output(env_vars);
+    let mut lnetctl = net_show_output();
 
     let lnetctl = lnetctl.output().await?;
 
@@ -73,7 +72,7 @@ async fn dump_stats(env_vars: &HashMap<&'static str, String>) -> Result<(), Erro
 
     println!("# Dumping lnetctl stats show output");
 
-    let mut lnetctl_stats_output = lnet_stats_output(env_vars);
+    let mut lnetctl_stats_output = lnet_stats_output();
 
     let lnetctl_stats_output = lnetctl_stats_output.output().await?;
 
@@ -86,14 +85,10 @@ async fn dump_stats(env_vars: &HashMap<&'static str, String>) -> Result<(), Erro
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let app_state = AppState {
-        env_vars: Default::default(),
-    };
-
     let opts = CommandOpts::parse();
 
     if opts.dump {
-        dump_stats(&app_state.env_vars).await?;
+        dump_stats().await?;
     } else {
         let addr = SocketAddr::from(([0, 0, 0, 0], opts.port));
 
@@ -101,7 +96,7 @@ async fn main() -> Result<(), Error> {
 
         let listener = tokio::net::TcpListener::bind(("0.0.0.0", opts.port)).await?;
 
-        axum::serve(listener, app(app_state))
+        axum::serve(listener, app())
             .with_graceful_shutdown(async {
                 tokio::signal::ctrl_c().await.ok();
             })
@@ -112,15 +107,20 @@ async fn main() -> Result<(), Error> {
 }
 
 #[cfg(test)]
+#[cfg(feature = "mock_bin")]
 mod tests {
-    use lustrefs_exporter::TestEnv;
+    use lustrefs_exporter::{JobstatsMock, LustreMock, create_mock_commander};
+    use sealed_test::prelude::*;
 
     use crate::dump_stats;
 
-    #[tokio::test]
-    async fn test_dump_stats() {
-        let test_env = TestEnv::default();
+    #[sealed_test]
+    fn test_dump_stats() {
+        tokio::runtime::Runtime::new().unwrap().block_on(async {
+            let _mock_commander =
+                create_mock_commander(JobstatsMock::default(), LustreMock::default());
 
-        dump_stats(&test_env.vars()).await.unwrap();
+            dump_stats().await.unwrap();
+        });
     }
 }

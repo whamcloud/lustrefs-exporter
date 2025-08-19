@@ -11,7 +11,7 @@ use axum::{
     BoxError, Router,
     body::Body,
     error_handling::HandleErrorLayer,
-    extract::{Query, State},
+    extract::Query,
     http::{StatusCode, header::CONTENT_TYPE},
     response::{IntoResponse, Response},
     routing::get,
@@ -21,7 +21,6 @@ use prometheus_client::{encoding::text::encode, registry::Registry};
 use serde::Deserialize;
 use std::{
     borrow::Cow,
-    collections::HashMap,
     io::{self, BufRead as _, BufReader},
 };
 use tokio::process::Command;
@@ -34,12 +33,7 @@ pub struct Params {
     jobstats: bool,
 }
 
-#[derive(Clone)]
-pub struct AppState {
-    pub env_vars: HashMap<&'static str, String>,
-}
-
-pub fn app(app_state: AppState) -> Router {
+pub fn app() -> Router {
     let load_shedder = ServiceBuilder::new()
         .layer(HandleErrorLayer::new(handle_error))
         .load_shed()
@@ -47,7 +41,6 @@ pub fn app(app_state: AppState) -> Router {
 
     Router::new()
         .route("/metrics", get(scrape))
-        .with_state(app_state)
         .layer(load_shedder)
 }
 
@@ -69,10 +62,8 @@ pub async fn handle_error(error: BoxError) -> impl IntoResponse {
     )
 }
 
-pub fn jobstats_metrics_cmd(env_vars: &HashMap<&'static str, String>) -> std::process::Command {
+pub fn jobstats_metrics_cmd() -> std::process::Command {
     let mut cmd = std::process::Command::new("lctl");
-
-    cmd.envs(env_vars);
 
     cmd.arg("get_param")
         .args(["obdfilter.*OST*.job_stats", "mdt.*.job_stats"])
@@ -82,10 +73,8 @@ pub fn jobstats_metrics_cmd(env_vars: &HashMap<&'static str, String>) -> std::pr
     cmd
 }
 
-pub fn lustre_metrics_output(env_vars: &HashMap<&'static str, String>) -> Command {
+pub fn lustre_metrics_output() -> Command {
     let mut cmd = Command::new("lctl");
-
-    cmd.envs(env_vars);
 
     cmd.arg("get_param")
         .args(parser::params())
@@ -94,20 +83,16 @@ pub fn lustre_metrics_output(env_vars: &HashMap<&'static str, String>) -> Comman
     cmd
 }
 
-pub fn net_show_output(env_vars: &HashMap<&'static str, String>) -> Command {
+pub fn net_show_output() -> Command {
     let mut cmd = Command::new("lnetctl");
-
-    cmd.envs(env_vars);
 
     cmd.args(["net", "show", "-v", "4"]).kill_on_drop(true);
 
     cmd
 }
 
-pub fn lnet_stats_output(env_vars: &HashMap<&'static str, String>) -> Command {
+pub fn lnet_stats_output() -> Command {
     let mut cmd = Command::new("lnetctl");
-
-    cmd.envs(env_vars);
 
     cmd.args(["stats", "show"]).kill_on_drop(true);
 
@@ -151,19 +136,15 @@ pub fn lnet_stats_output(env_vars: &HashMap<&'static str, String>) -> Command {
 ///   be run within a spawned task.
 /// - Standard metrics collection runs commands concurrently for efficiency
 /// - Only metrics with actual data are registered to keep output clean
-pub async fn scrape(
-    Query(params): Query<Params>,
-    State(app_state): State<AppState>,
-) -> Result<Response<Body>, Error> {
+pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
     let mut registry = Registry::default();
 
     // Build the lustre stats
     let mut opentelemetry_metrics = Metrics::default();
 
     if params.jobstats {
-        let env_vars = app_state.env_vars.clone();
         let child = tokio::task::spawn_blocking(move || {
-            let child = jobstats_metrics_cmd(&env_vars).spawn()?;
+            let child = jobstats_metrics_cmd().spawn()?;
 
             Ok::<_, Error>(child)
         })
@@ -210,13 +191,13 @@ pub async fn scrape(
 
     let mut output = vec![];
 
-    let lctl = lustre_metrics_output(&app_state.env_vars).output().await?;
+    let lctl = lustre_metrics_output().output().await?;
 
     let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
 
     output.append(&mut lctl_output);
 
-    let lnetctl = net_show_output(&app_state.env_vars).output().await?;
+    let lnetctl = net_show_output().output().await?;
 
     let lnetctl_stats = std::str::from_utf8(&lnetctl.stdout)?;
 
@@ -224,7 +205,7 @@ pub async fn scrape(
 
     output.append(&mut lnetctl_output);
 
-    let lnetctl_stats_output = lnet_stats_output(&app_state.env_vars).output().await?;
+    let lnetctl_stats_output = lnet_stats_output().output().await?;
 
     let mut lnetctl_stats_record =
         parse_lnetctl_stats(std::str::from_utf8(&lnetctl_stats_output.stdout)?)?;
@@ -250,30 +231,26 @@ pub async fn scrape(
 }
 
 #[cfg(test)]
+#[cfg(feature = "mock_bin")]
 mod tests {
     use crate::{
-        TestEnv,
-        routes::{
-            AppState, jobstats_metrics_cmd, lnet_stats_output, lustre_metrics_output,
-            net_show_output,
-        },
+        JobstatsMock, LustreMock, create_mock_commander,
+        routes::{jobstats_metrics_cmd, lnet_stats_output, lustre_metrics_output, net_show_output},
     };
     use axum::{
         Router,
         body::{Body, to_bytes},
         extract::Request,
     };
-    use std::{
-        env,
-        io::{self, BufReader, Read},
-    };
+    use sealed_test::prelude::*;
+    use std::io::{self, BufReader, Read};
     use tokio::task::JoinSet;
     use tower::ServiceExt as _;
 
     /// Create a new Axum app with the provided state and a Request
     /// to scrape the metrics endpoint.
-    fn get_app(app_state: AppState) -> (Request<Body>, Router) {
-        let app = crate::routes::app(app_state);
+    fn get_app() -> (Request<Body>, Router) {
+        let app = crate::routes::app();
 
         let request = Request::builder()
             .uri("/metrics?jobstats=true")
@@ -284,129 +261,122 @@ mod tests {
         (request, app)
     }
 
-    #[tokio::test(flavor = "multi_thread")]
-    async fn test_metrics_endpoint_is_idempotent() -> Result<(), Box<dyn std::error::Error>> {
-        let mut test_env = TestEnv::default();
-        test_env.set_var(
-            "JOBSTATS_RESPONSE_FILE",
-            "../fixtures/jobstats_only/2.14.0_162.txt",
-        );
+    #[sealed_test]
+    fn test_metrics_endpoint_is_idempotent() {
+        tokio::runtime::Runtime::new().unwrap().block_on(async {
+            let _mock_commander =
+                create_mock_commander(JobstatsMock::Lustre2_14_0_162, LustreMock::default());
 
-        let app_state = AppState {
-            env_vars: test_env.vars(),
-        };
+            let (request, app) = get_app();
 
-        let (request, app) = get_app(app_state.clone());
+            let resp = app.oneshot(request).await.unwrap();
 
-        let resp = app.oneshot(request).await?;
+            let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
+            let original_body_str = std::str::from_utf8(&body).unwrap();
 
-        let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
-        let original_body_str = std::str::from_utf8(&body).unwrap();
+            let (request, app) = get_app();
 
-        let (request, app) = get_app(app_state);
+            let resp = app.oneshot(request).await.unwrap();
 
-        let resp = app.oneshot(request).await.unwrap();
+            let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
+            let body_str = std::str::from_utf8(&body).unwrap();
 
-        let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
-        let body_str = std::str::from_utf8(&body).unwrap();
+            assert_eq!(
+                original_body_str, body_str,
+                "Stats not the same after second scrape"
+            );
 
-        assert_eq!(
-            original_body_str, body_str,
-            "Stats not the same after second scrape"
-        );
-
-        insta::assert_snapshot!(original_body_str);
-
-        Ok(())
+            insta::assert_snapshot!("metrics_endpoint_is_idempotent", original_body_str);
+        });
     }
 
-    #[tokio::test]
-    async fn test_app_function() {
-        let test_env = TestEnv::default();
-        let app_state = AppState {
-            env_vars: test_env.vars(),
-        };
+    #[sealed_test]
+    fn test_app_function() {
+        tokio::runtime::Runtime::new().unwrap().block_on(async {
+            let _mock_commander =
+                create_mock_commander(JobstatsMock::default(), LustreMock::default());
 
-        let (request, app) = get_app(app_state);
+            let (request, app) = get_app();
 
-        let response = app.oneshot(request).await.unwrap();
+            let response = app.oneshot(request).await.unwrap();
 
-        assert!(response.status().is_success());
+            assert!(response.status().is_success());
+        });
     }
 
-    #[tokio::test]
-    async fn test_app_routes() {
-        let test_env = TestEnv::default();
-        let app_state = AppState {
-            env_vars: test_env.vars(),
-        };
+    #[sealed_test]
+    fn test_app_routes() {
+        tokio::runtime::Runtime::new().unwrap().block_on(async {
+            let _mock_commander =
+                create_mock_commander(JobstatsMock::default(), LustreMock::default());
 
-        let app = crate::routes::app(app_state.clone());
+            let app = crate::routes::app();
 
-        // Test that the /metrics route exists
-        let request = Request::builder()
-            .uri("/metrics")
-            .method("GET")
-            .body(Body::empty())
-            .unwrap();
+            // Test that the /metrics route exists
+            let request = Request::builder()
+                .uri("/metrics")
+                .method("GET")
+                .body(Body::empty())
+                .unwrap();
 
-        let response = app.oneshot(request).await.unwrap();
+            let response = app.oneshot(request).await.unwrap();
 
-        // The route should exist
-        assert!(response.status().is_success());
+            // The route should exist
+            assert!(response.status().is_success());
 
-        // Test non-existent route returns 404
-        let request = Request::builder()
-            .uri("/nonexistent")
-            .method("GET")
-            .body(Body::empty())
-            .unwrap();
+            // Test non-existent route returns 404
+            let request = Request::builder()
+                .uri("/nonexistent")
+                .method("GET")
+                .body(Body::empty())
+                .unwrap();
 
-        let app = crate::routes::app(app_state);
+            let app = crate::routes::app();
 
-        let response = app.oneshot(request).await.unwrap();
+            let response = app.oneshot(request).await.unwrap();
 
-        assert_eq!(response.status(), axum::http::StatusCode::NOT_FOUND);
+            assert_eq!(response.status(), axum::http::StatusCode::NOT_FOUND);
+        });
     }
 
-    #[tokio::test]
-    async fn test_concurrent_requests() {
-        let test_env = TestEnv::default();
-        let app_state = AppState {
-            env_vars: test_env.vars(),
-        };
+    #[sealed_test]
+    fn test_concurrent_requests() {
+        tokio::runtime::Runtime::new().unwrap().block_on(async {
+            let _mock_commander =
+                create_mock_commander(JobstatsMock::default(), LustreMock::default());
 
-        let app = crate::routes::app(app_state);
+            let app = crate::routes::app();
 
-        // Test that concurrency limiting works by sending multiple requests
-        // This test verifies the load_shed layer is applied
-        let mut handles = JoinSet::new();
+            // Test that concurrency limiting works by sending multiple requests
+            // This test verifies the load_shed layer is applied
+            let mut handles = JoinSet::new();
 
-        // Send 15 requests (more than the 10 limit)
-        for _ in 0..15 {
-            let app = app.clone();
+            // Send 15 requests (more than the 10 limit)
+            for _ in 0..15 {
+                let app = app.clone();
 
-            handles.spawn(async move {
-                let request = Request::builder()
-                    .uri("/metrics")
-                    .method("GET")
-                    .body(Body::empty())
-                    .unwrap();
+                handles.spawn(async move {
+                    let request = Request::builder()
+                        .uri("/metrics")
+                        .method("GET")
+                        .body(Body::empty())
+                        .unwrap();
 
-                app.oneshot(request).await
-            });
-        }
+                    app.oneshot(request).await
+                });
+            }
 
-        // Wait for all requests to complete
-        let result = handles
-            .join_all()
-            .await
-            .into_iter()
-            .collect::<Result<Vec<_>, _>>();
+            // Wait for all requests to complete
+            let result = handles
+                .join_all()
+                .await
+                .into_iter()
+                .collect::<Result<Vec<_>, _>>();
 
-        // Some requests should succeed or fail based on system state,
-        // but none should panic
-        assert!(result.is_ok(), "/metrics endpoint encountered a panic");
+            // Some requests should succeed or fail based on system state,
+            // but none should panic
+            assert!(result.is_ok(), "/metrics endpoint encountered a panic");
+        });
     }
 
     #[tokio::test]
@@ -451,15 +421,12 @@ mod tests {
         assert!(body_str.starts_with("Unhandled internal error:"));
     }
 
-    #[test]
+    #[sealed_test]
     fn test_jobstats_metrics_cmd_with_mock() {
-        let mut test_env = TestEnv::default();
-        test_env.set_var(
-            "JOBSTATS_RESPONSE_FILE",
-            "../fixtures/jobstats_only/2.14.0_162.txt",
-        );
+        let _mock_commander =
+            create_mock_commander(JobstatsMock::Lustre2_14_0_162, LustreMock::default());
 
-        let mut child = jobstats_metrics_cmd(&test_env.vars()).spawn().unwrap();
+        let mut child = jobstats_metrics_cmd().spawn().unwrap();
 
         let mut reader = BufReader::with_capacity(
             128 * 1_024,
@@ -476,36 +443,51 @@ mod tests {
         let mut buff = String::new();
         reader.read_to_string(&mut buff).unwrap();
 
-        insta::assert_snapshot!(buff);
+        insta::assert_snapshot!("jobstats_metrics_cmd_with_mock", buff);
     }
 
-    #[tokio::test]
-    async fn test_lustre_metrics_output_with_mock() {
-        let test_env = TestEnv::default();
+    #[sealed_test]
+    fn test_lustre_metrics_output_with_mock() {
+        tokio::runtime::Runtime::new().unwrap().block_on(async {
+            let _mock_commander =
+                create_mock_commander(JobstatsMock::default(), LustreMock::default());
 
-        let output = lustre_metrics_output(&test_env.vars())
-            .output()
-            .await
-            .unwrap();
+            let output = lustre_metrics_output().output().await.unwrap();
 
-        insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
+            insta::assert_snapshot!(
+                "lustre_metrics_output_with_mock",
+                String::from_utf8(output.stdout).unwrap()
+            );
+        });
     }
 
-    #[tokio::test]
-    async fn test_net_show_output_with_mock() {
-        let test_env = TestEnv::default();
+    #[sealed_test]
+    fn test_net_show_output_with_mock() {
+        tokio::runtime::Runtime::new().unwrap().block_on(async {
+            let _mock_commander =
+                create_mock_commander(JobstatsMock::default(), LustreMock::default());
 
-        let output = net_show_output(&test_env.vars()).output().await.unwrap();
+            let output = net_show_output().output().await.unwrap();
 
-        insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
+            insta::assert_snapshot!(
+                "net_show_output_with_mock",
+                String::from_utf8(output.stdout).unwrap()
+            );
+        });
     }
 
-    #[tokio::test]
-    async fn test_lnet_stats_output_with_mock() {
-        let test_env = TestEnv::default();
+    #[sealed_test]
+    fn test_lnet_stats_output_with_mock() {
+        tokio::runtime::Runtime::new().unwrap().block_on(async {
+            let _mock_commander =
+                create_mock_commander(JobstatsMock::default(), LustreMock::default());
 
-        let output = lnet_stats_output(&test_env.vars()).output().await.unwrap();
+            let output = lnet_stats_output().output().await.unwrap();
 
-        insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
+            insta::assert_snapshot!(
+                "lnet_stats_output_with_mock",
+                String::from_utf8(output.stdout).unwrap()
+            );
+        });
     }
 }

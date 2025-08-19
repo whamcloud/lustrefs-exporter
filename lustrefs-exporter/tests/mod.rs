@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 mod jobstats;
-
+#[cfg(feature = "mock_bin")]
 use axum::{
     Router,
     body::{Body, to_bytes},
@@ -13,20 +13,21 @@ use combine::parser::EasyParser;
 use include_dir::{Dir, include_dir};
 use insta::assert_snapshot;
 use lustre_collector::parser::parse;
-use lustrefs_exporter::{
-    TestEnv,
-    openmetrics::{self, Metrics},
-    routes::{self, AppState},
-};
+use lustrefs_exporter::openmetrics::{self, Metrics};
+#[cfg(feature = "mock_bin")]
+use lustrefs_exporter::{JobstatsMock, LustreMock, create_mock_commander, routes};
 use prometheus_client::{encoding::text::encode, registry::Registry};
 use prometheus_parse::{Sample, Scrape};
+#[cfg(feature = "mock_bin")]
+use sealed_test::prelude::*;
 use std::{
     collections::{HashMap, HashSet},
     env,
     error::Error,
     fs,
 };
-use tower::ServiceExt as _;
+#[cfg(feature = "mock_bin")]
+use tower::util::ServiceExt;
 
 static VALID_FIXTURES: Dir<'_> =
     include_dir!("$CARGO_MANIFEST_DIR/../lustre-collector/src/fixtures/valid/");
@@ -213,20 +214,9 @@ async fn test_legacy_metrics() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-fn get_app(vars: Option<&[(&'static str, &str)]>) -> (TestEnv, Request<Body>, Router) {
-    let mut test_env = TestEnv::default();
-
-    if let Some(vars) = vars {
-        for (key, val) in vars {
-            test_env.set_var(key, val);
-        }
-    }
-
-    let app_state = AppState {
-        env_vars: test_env.vars(),
-    };
-
-    let app = routes::app(app_state);
+#[cfg(feature = "mock_bin")]
+fn get_app() -> (Request<Body>, Router) {
+    let app = routes::app();
 
     let request = Request::builder()
         .uri("/metrics?jobstats=true")
@@ -234,62 +224,74 @@ fn get_app(vars: Option<&[(&'static str, &str)]>) -> (TestEnv, Request<Body>, Ro
         .body(Body::empty())
         .unwrap();
 
-    (test_env, request, app)
+    (request, app)
 }
 
-#[tokio::test(flavor = "multi_thread")]
-async fn test_metrics_endpoint() {
-    let (test_env, request, app) = get_app(None);
+#[sealed_test]
+#[cfg(feature = "mock_bin")]
+fn test_metrics_endpoint() {
+    tokio::runtime::Runtime::new().unwrap().block_on(async {
+        let mock_commander = create_mock_commander(JobstatsMock::default(), LustreMock::default());
 
-    let resp = app.oneshot(request).await.unwrap();
+        let (request, app) = get_app();
 
-    let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
-    let original_body_str = std::str::from_utf8(&body).unwrap();
+        let resp = app.oneshot(request).await.unwrap();
 
-    drop(test_env);
+        let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
+        let original_body_str = std::str::from_utf8(&body).unwrap();
 
-    let (_test_env, request, app) = get_app(None);
+        drop(mock_commander);
 
-    let resp = app.oneshot(request).await.unwrap();
+        let _mock_commander = create_mock_commander(JobstatsMock::default(), LustreMock::default());
 
-    let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
-    let body_str = std::str::from_utf8(&body).unwrap();
+        let (request, app) = get_app();
 
-    assert_eq!(
-        original_body_str, body_str,
-        "Stats not the same after second scrape"
-    );
+        let resp = app.oneshot(request).await.unwrap();
 
-    insta::assert_snapshot!(original_body_str);
+        let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
+        let body_str = std::str::from_utf8(&body).unwrap();
+
+        assert_eq!(
+            original_body_str, body_str,
+            "Stats not the same after second scrape"
+        );
+
+        insta::assert_snapshot!("metrics_endpoint", original_body_str);
+    });
 }
 
-#[tokio::test(flavor = "multi_thread")]
-async fn test_metrics_endpoint_multiple_calls_different_data() {
-    let (test_env, request, app) = get_app(Some(&vec![(
-        "JOBSTATS_RESPONSE_FILE",
-        "../fixtures/jobstats_only/2.14.0_162.txt",
-    )]));
+#[sealed_test]
+#[cfg(feature = "mock_bin")]
+fn test_metrics_endpoint_multiple_calls_different_data() {
+    tokio::runtime::Runtime::new().unwrap().block_on(async {
+        let mock_commander =
+            create_mock_commander(JobstatsMock::Lustre2_14_0_162, LustreMock::default());
 
-    let resp = app.oneshot(request).await.unwrap();
+        let (request, app) = get_app();
 
-    let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
-    let original_body_str = std::str::from_utf8(&body).unwrap();
+        let resp = app.oneshot(request).await.unwrap();
 
-    insta::assert_snapshot!(original_body_str);
+        let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
+        let original_body_str = std::str::from_utf8(&body).unwrap();
 
-    drop(test_env);
+        insta::assert_snapshot!(
+            "metrics_endpoint_multiple_calls_different_data",
+            original_body_str
+        );
 
-    let (_test_env, request, app) = get_app(Some(&vec![(
-        "LUSTRE_RESPONSE_FILE",
-        "../../lustre-collector/src/fixtures/valid/valid_mds.txt",
-    )]));
+        drop(mock_commander);
 
-    let resp = app.oneshot(request).await.unwrap();
+        let _mock_commander = create_mock_commander(JobstatsMock::default(), LustreMock::ValidMds);
 
-    let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
-    let body_str = std::str::from_utf8(&body).unwrap();
+        let (request, app) = get_app();
 
-    insta::assert_snapshot!(body_str);
+        let resp = app.oneshot(request).await.unwrap();
+
+        let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
+        let body_str = std::str::from_utf8(&body).unwrap();
+
+        insta::assert_snapshot!("metrics_endpoint_multiple_calls_different_data-2", body_str);
+    });
 }
 
 fn read_metrics_from_snapshot(path: &str) -> Result<Scrape, Box<dyn Error>> {

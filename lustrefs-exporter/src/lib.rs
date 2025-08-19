@@ -12,8 +12,8 @@ pub mod quota;
 pub mod routes;
 pub mod service;
 pub mod stats;
-
-use std::{collections::HashMap, env, path::PathBuf};
+#[cfg(feature = "mock_bin")]
+pub mod test_utils;
 
 use axum::{
     http::{self, StatusCode},
@@ -21,6 +21,9 @@ use axum::{
 };
 use lustre_collector::{LustreCollectorError, TargetVariant};
 use prometheus_client::metrics::family::Family as PrometheusFamily;
+
+#[cfg(feature = "mock_bin")]
+use crate::test_utils::MockCommander;
 
 pub type LabelContainer = Vec<(&'static str, String)>;
 pub type Family<T> = PrometheusFamily<LabelContainer, T>;
@@ -105,44 +108,70 @@ impl LabelProm for TargetVariant {
     }
 }
 
-// Used to mock environment for unit testing and benchmarking
-pub struct TestEnv {
-    vars: HashMap<&'static str, String>,
+#[cfg(feature = "mock_bin")]
+#[derive(Default, strum_macros::AsRefStr)]
+pub enum JobstatsMock {
+    #[strum(serialize = "fixtures/jobstats_only/2.14.0_162.txt")]
+    Lustre2_14_0_162,
+    #[default]
+    #[strum(serialize = "fixtures/jobstats_only/2.14.0_164.txt")]
+    Lustre2_14_0_164,
 }
 
-impl TestEnv {
-    pub fn set_var(&mut self, key: &'static str, val: &str) {
-        self.vars.insert(key, val.to_string());
-    }
-
-    pub fn vars(&self) -> HashMap<&'static str, String> {
-        self.vars.clone()
-    }
+#[cfg(feature = "mock_bin")]
+#[derive(Default, strum_macros::AsRefStr)]
+pub enum LustreMock {
+    #[strum(
+        serialize = "../lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn133/2.14.0_ddn133_quota.txt"
+    )]
+    #[default]
+    Lustre2_14_0Ddn133Quota,
+    #[strum(serialize = "../lustre-collector/src/fixtures/valid/valid_mds.txt")]
+    ValidMds,
 }
 
-impl Default for TestEnv {
-    fn default() -> Self {
-        let mock_bin_path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("mock_bins");
-        let current_path = env::var("PATH").unwrap_or_default();
+#[cfg(feature = "mock_bin")]
+pub fn create_mock_commander(
+    jobstats_mock_file: JobstatsMock,
+    lustre_mock_file: LustreMock,
+) -> MockCommander {
+    use std::path::PathBuf;
 
-        let path_var = if !current_path.contains(&mock_bin_path.display().to_string()) {
-            format!("{current_path}:{}", mock_bin_path.display())
-        } else {
-            current_path
-        };
+    let mock_commander = MockCommander::default();
+    mock_commander
+        .mock_command("lctl")
+        .unwrap()
+        .with_args(vec![
+            "get_param".to_string(),
+            "obdfilter.*OST*.job_stats".to_string(),
+            "mdt.*.job_stats".to_string(),
+        ])
+        .returns_file(&PathBuf::from(env!("CARGO_MANIFEST_DIR")).join(jobstats_mock_file.as_ref()))
+        .unwrap();
 
-        Self {
-            vars: vec![
-                ("PATH", path_var),
-                ("JOBSTATS_RESPONSE_FILE", "../fixtures/jobstats_only/2.14.0_164.txt".to_string()),
-                ("LUSTRE_RESPONSE_FILE", "../../lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn133/2.14.0_ddn133_quota.txt".to_string()),
-                ("NET_SHOW_RESPONSE_FILE", "../fixtures/lnetctl_net_show.txt".to_string()),
-                ("NET_STATS_SHOW_RESPONSE_FILE", "../fixtures/lnetctl_stats.txt".to_string())
-            ]
-                .into_iter()
-                .collect::<HashMap<_, _>>()
-        }
-    }
+    mock_commander
+        .mock_command("lctl").unwrap()
+        .with_args_string("get_param memused memused_max lnet_memused health_check mdt.*.exports.*.uuid osd-*.*.filesfree osd-*.*.filestotal osd-*.*.fstype osd-*.*.kbytesavail osd-*.*.kbytesfree osd-*.*.kbytestotal osd-*.*.brw_stats osd-*.*.quota_slave.acct_group osd-*.*.quota_slave.acct_user osd-*.*.quota_slave.acct_project mgs.*.mgs.stats mgs.*.mgs.threads_max mgs.*.mgs.threads_min mgs.*.mgs.threads_started mgs.*.num_exports obdfilter.*OST*.stats obdfilter.*OST*.num_exports obdfilter.*OST*.tot_dirty obdfilter.*OST*.tot_granted obdfilter.*OST*.tot_pending obdfilter.*OST*.exports.*.stats ost.OSS.ost.stats ost.OSS.ost_io.stats ost.OSS.ost_create.stats ost.OSS.ost_out.stats ost.OSS.ost_seq.stats mds.MDS.mdt.stats mds.MDS.mdt_fld.stats mds.MDS.mdt_io.stats mds.MDS.mdt_out.stats mds.MDS.mdt_readpage.stats mds.MDS.mdt_seqm.stats mds.MDS.mdt_seqs.stats mds.MDS.mdt_setattr.stats mdt.*.md_stats mdt.*MDT*.num_exports mdt.*MDT*.exports.*.stats ldlm.namespaces.{mdt-,filter-}*.contended_locks ldlm.namespaces.{mdt-,filter-}*.contention_seconds ldlm.namespaces.{mdt-,filter-}*.ctime_age_limit ldlm.namespaces.{mdt-,filter-}*.early_lock_cancel ldlm.namespaces.{mdt-,filter-}*.lock_count ldlm.namespaces.{mdt-,filter-}*.lock_timeouts ldlm.namespaces.{mdt-,filter-}*.lock_unused_count ldlm.namespaces.{mdt-,filter-}*.lru_max_age ldlm.namespaces.{mdt-,filter-}*.lru_size ldlm.namespaces.{mdt-,filter-}*.max_nolock_bytes ldlm.namespaces.{mdt-,filter-}*.max_parallel_ast ldlm.namespaces.{mdt-,filter-}*.resource_count ldlm.services.ldlm_canceld.stats ldlm.services.ldlm_cbd.stats llite.*.stats mdd.*.changelog_users qmt.*.*.glb-usr qmt.*.*.glb-prj qmt.*.*.glb-grp".to_string())
+        .returns_file(&PathBuf::from(env!("CARGO_MANIFEST_DIR")).join(lustre_mock_file.as_ref()))
+        .unwrap();
+
+    mock_commander
+        .mock_command("lnetctl")
+        .unwrap()
+        .with_args_string("net show -v 4".to_string())
+        .returns_file(
+            &PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("fixtures/lnetctl_net_show.txt"),
+        )
+        .unwrap();
+
+    mock_commander
+        .mock_command("lnetctl")
+        .unwrap()
+        .with_args_string("stats show".to_string())
+        .returns_file(&PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("fixtures/lnetctl_stats.txt"))
+        .unwrap();
+
+    mock_commander
 }
 
 #[cfg(test)]
