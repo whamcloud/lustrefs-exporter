@@ -1,0 +1,13 @@
+{
+  "commands": {
+    "git:--version": [
+      {
+        "binary_name": "git",
+        "args": ["--version"],
+        "stdout": "git version 2.39.0\n",
+        "stderr": "",
+        "exit_code": 0
+      }
+    ]
+  }
+}

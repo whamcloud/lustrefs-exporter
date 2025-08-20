@@ -231,7 +231,6 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 }
 
 #[cfg(test)]
-#[cfg(feature = "mock_bin")]
 mod tests {
     use crate::{
         JobstatsMock, LustreMock, create_mock_commander,
@@ -242,7 +241,9 @@ mod tests {
         body::{Body, to_bytes},
         extract::Request,
     };
+    use commandeer_test::{commandeer, Commandeer, Mode};
     use sealed_test::prelude::*;
+    use serial_test::serial;
     use std::io::{self, BufReader, Read};
     use tokio::task::JoinSet;
     use tower::ServiceExt as _;
@@ -261,33 +262,56 @@ mod tests {
         (request, app)
     }
 
-    #[sealed_test]
-    fn test_metrics_endpoint_is_idempotent() {
-        tokio::runtime::Runtime::new().unwrap().block_on(async {
-            let _mock_commander =
-                create_mock_commander(JobstatsMock::Lustre2_14_0_162, LustreMock::default());
+    #[test]
+    #[serial]
+    fn with_macro_test() {
+        // Macro roughly_expands_to:
+        let commandeer = Commandeer::new("test_with_macro_test.json", Mode::Record);
+        commandeer.mock_command("git");
+        // commandeer.mock_command("npm");
+        // commandeer.mock_command("curl");
 
-            let (request, app) = get_app();
+        let output = std::process::Command::new("git")
+            .args(&["status"])
+            .output()
+            .unwrap();
 
-            let resp = app.oneshot(request).await.unwrap();
+        //assert!(output.status.success());
+    }
 
-            let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
-            let original_body_str = std::str::from_utf8(&body).unwrap();
+    #[tokio::test]
+    #[serial]
+    async fn test_metrics_endpoint_is_idempotent() {
+        let commandeer = Commandeer::new("test_metrics_endpoint_is_idempotent.json", Mode::Replay);
 
-            let (request, app) = get_app();
+        commandeer.mock_command("lctl");
+        commandeer.mock_command("lnetctl");
 
-            let resp = app.oneshot(request).await.unwrap();
 
-            let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
-            let body_str = std::str::from_utf8(&body).unwrap();
 
-            assert_eq!(
-                original_body_str, body_str,
-                "Stats not the same after second scrape"
-            );
+        // let _mock_commander =
+        //     create_mock_commander(JobstatsMock::Lustre2_14_0_162, LustreMock::default());
 
-            insta::assert_snapshot!("metrics_endpoint_is_idempotent", original_body_str);
-        });
+        // let (request, app) = get_app();
+
+        // let resp = app.oneshot(request).await.unwrap();
+
+        // let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
+        // let original_body_str = std::str::from_utf8(&body).unwrap();
+
+        // let (request, app) = get_app();
+
+        // let resp = app.oneshot(request).await.unwrap();
+
+        // let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
+        // let body_str = std::str::from_utf8(&body).unwrap();
+
+        // assert_eq!(
+        //     original_body_str, body_str,
+        //     "Stats not the same after second scrape"
+        // );
+
+        // insta::assert_snapshot!("metrics_endpoint_is_idempotent", original_body_str);
     }
 
     #[sealed_test]

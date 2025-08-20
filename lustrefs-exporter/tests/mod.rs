@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 mod jobstats;
-#[cfg(feature = "mock_bin")]
 use axum::{
     Router,
     body::{Body, to_bytes},
@@ -14,11 +13,9 @@ use include_dir::{Dir, include_dir};
 use insta::assert_snapshot;
 use lustre_collector::parser::parse;
 use lustrefs_exporter::openmetrics::{self, Metrics};
-#[cfg(feature = "mock_bin")]
 use lustrefs_exporter::{JobstatsMock, LustreMock, create_mock_commander, routes};
 use prometheus_client::{encoding::text::encode, registry::Registry};
 use prometheus_parse::{Sample, Scrape};
-#[cfg(feature = "mock_bin")]
 use sealed_test::prelude::*;
 use std::{
     collections::{HashMap, HashSet},
@@ -26,7 +23,6 @@ use std::{
     error::Error,
     fs,
 };
-#[cfg(feature = "mock_bin")]
 use tower::util::ServiceExt;
 
 static VALID_FIXTURES: Dir<'_> =
@@ -214,7 +210,6 @@ async fn test_legacy_metrics() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-#[cfg(feature = "mock_bin")]
 fn get_app() -> (Request<Body>, Router) {
     let app = routes::app();
 
@@ -228,7 +223,6 @@ fn get_app() -> (Request<Body>, Router) {
 }
 
 #[sealed_test]
-#[cfg(feature = "mock_bin")]
 fn test_metrics_endpoint() {
     tokio::runtime::Runtime::new().unwrap().block_on(async {
         let mock_commander = create_mock_commander(JobstatsMock::default(), LustreMock::default());
@@ -261,7 +255,6 @@ fn test_metrics_endpoint() {
 }
 
 #[sealed_test]
-#[cfg(feature = "mock_bin")]
 fn test_metrics_endpoint_multiple_calls_different_data() {
     tokio::runtime::Runtime::new().unwrap().block_on(async {
         let mock_commander =

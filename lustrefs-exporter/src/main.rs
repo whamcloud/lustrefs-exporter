@@ -107,7 +107,6 @@ async fn main() -> Result<(), Error> {
 }
 
 #[cfg(test)]
-#[cfg(feature = "mock_bin")]
 mod tests {
     use lustrefs_exporter::{JobstatsMock, LustreMock, create_mock_commander};
     use sealed_test::prelude::*;

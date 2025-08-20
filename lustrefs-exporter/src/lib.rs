@@ -12,7 +12,6 @@ pub mod quota;
 pub mod routes;
 pub mod service;
 pub mod stats;
-#[cfg(feature = "mock_bin")]
 pub mod test_utils;
 
 use axum::{
@@ -22,7 +21,6 @@ use axum::{
 use lustre_collector::{LustreCollectorError, TargetVariant};
 use prometheus_client::metrics::family::Family as PrometheusFamily;
 
-#[cfg(feature = "mock_bin")]
 use crate::test_utils::MockCommander;
 
 pub type LabelContainer = Vec<(&'static str, String)>;
@@ -108,7 +106,6 @@ impl LabelProm for TargetVariant {
     }
 }
 
-#[cfg(feature = "mock_bin")]
 #[derive(Default, strum_macros::AsRefStr)]
 pub enum JobstatsMock {
     #[strum(serialize = "fixtures/jobstats_only/2.14.0_162.txt")]
@@ -118,7 +115,6 @@ pub enum JobstatsMock {
     Lustre2_14_0_164,
 }
 
-#[cfg(feature = "mock_bin")]
 #[derive(Default, strum_macros::AsRefStr)]
 pub enum LustreMock {
     #[strum(
@@ -130,7 +126,6 @@ pub enum LustreMock {
     ValidMds,
 }
 
-#[cfg(feature = "mock_bin")]
 pub fn create_mock_commander(
     jobstats_mock_file: JobstatsMock,
     lustre_mock_file: LustreMock,
