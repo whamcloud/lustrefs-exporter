@@ -24,6 +24,9 @@ pub struct StatsMetrics {
 
     // MDT metrics
     stats_total: Family<Counter<u64>>,
+    stats_time_min: Family<Gauge<u64, AtomicU64>>,
+    stats_time_max: Family<Gauge<u64, AtomicU64>>,
+    stats_time_total: Family<Gauge<u64, AtomicU64>>,
 
     // MDS metrics
     mds_mdt_stats: Family<Gauge<u64, AtomicU64>>,
@@ -95,6 +98,24 @@ impl StatsMetrics {
             "lustre_stats",
             "Number of operations the filesystem has performed",
             self.stats_total.clone(),
+        );
+
+        registry.register(
+            "lustre_stats_time_min",
+            "Minimum time taken for an operation in microseconds.",
+            self.stats_time_min.clone(),
+        );
+
+        registry.register(
+            "lustre_stats_time_max",
+            "Maximum time taken for an operation in microseconds.",
+            self.stats_time_max.clone(),
+        );
+
+        registry.register(
+            "lustre_stats_time_total",
+            "Total time taken for an operation in microseconds.",
+            self.stats_time_total.clone(),
         );
 
         registry.register(
@@ -254,6 +275,16 @@ pub fn build_mdt_stats(stats: &[Stat], target: &Target, metrics: &mut StatsMetri
         ];
 
         metrics.stats_total.get_or_create(&labels).inc_by(s.samples);
+
+        if let Some(min) = s.min {
+            metrics.stats_time_min.get_or_create(&labels).inc_by(min);
+        }
+        if let Some(max) = s.max {
+            metrics.stats_time_max.get_or_create(&labels).inc_by(max);
+        }
+        if let Some(sum) = s.sum {
+            metrics.stats_time_total.get_or_create(&labels).inc_by(sum);
+        }
     }
 }
 

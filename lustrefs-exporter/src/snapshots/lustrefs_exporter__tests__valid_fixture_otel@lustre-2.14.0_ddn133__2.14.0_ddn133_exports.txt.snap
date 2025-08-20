@@ -842,6 +842,36 @@ lustre_stats_total{component="mdt",operation="open",target="ai400x2-MDT0000"} 51
 lustre_stats_total{component="mdt",operation="setattr",target="ai400x2-MDT0000"} 516
 lustre_stats_total{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 124601
 lustre_stats_total{component="mdt",operation="sync",target="ai400x2-MDT0000"} 512
+# HELP lustre_stats_time_min Minimum time taken for an operation in microseconds..
+# TYPE lustre_stats_time_min gauge
+lustre_stats_time_min{component="mdt",operation="close",target="ai400x2-MDT0000"} 6
+lustre_stats_time_min{component="mdt",operation="getattr",target="ai400x2-MDT0000"} 1
+lustre_stats_time_min{component="mdt",operation="getxattr",target="ai400x2-MDT0000"} 6
+lustre_stats_time_min{component="mdt",operation="mknod",target="ai400x2-MDT0000"} 59
+lustre_stats_time_min{component="mdt",operation="open",target="ai400x2-MDT0000"} 64
+lustre_stats_time_min{component="mdt",operation="setattr",target="ai400x2-MDT0000"} 26
+lustre_stats_time_min{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 0
+lustre_stats_time_min{component="mdt",operation="sync",target="ai400x2-MDT0000"} 4
+# HELP lustre_stats_time_max Maximum time taken for an operation in microseconds..
+# TYPE lustre_stats_time_max gauge
+lustre_stats_time_max{component="mdt",operation="close",target="ai400x2-MDT0000"} 4052
+lustre_stats_time_max{component="mdt",operation="getattr",target="ai400x2-MDT0000"} 2989
+lustre_stats_time_max{component="mdt",operation="getxattr",target="ai400x2-MDT0000"} 1091
+lustre_stats_time_max{component="mdt",operation="mknod",target="ai400x2-MDT0000"} 39101
+lustre_stats_time_max{component="mdt",operation="open",target="ai400x2-MDT0000"} 39146
+lustre_stats_time_max{component="mdt",operation="setattr",target="ai400x2-MDT0000"} 121
+lustre_stats_time_max{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 95
+lustre_stats_time_max{component="mdt",operation="sync",target="ai400x2-MDT0000"} 50
+# HELP lustre_stats_time_total Total time taken for an operation in microseconds..
+# TYPE lustre_stats_time_total gauge
+lustre_stats_time_total{component="mdt",operation="close",target="ai400x2-MDT0000"} 2613428
+lustre_stats_time_total{component="mdt",operation="getattr",target="ai400x2-MDT0000"} 974283
+lustre_stats_time_total{component="mdt",operation="getxattr",target="ai400x2-MDT0000"} 683000
+lustre_stats_time_total{component="mdt",operation="mknod",target="ai400x2-MDT0000"} 767427
+lustre_stats_time_total{component="mdt",operation="open",target="ai400x2-MDT0000"} 772784
+lustre_stats_time_total{component="mdt",operation="setattr",target="ai400x2-MDT0000"} 22544
+lustre_stats_time_total{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 1289724
+lustre_stats_time_total{component="mdt",operation="sync",target="ai400x2-MDT0000"} 7767
 # HELP lustre_client_export_stats Number of operations the target has performed per export.
 # TYPE lustre_client_export_stats counter
 lustre_client_export_stats{component="mdt",name="close",nid="192.168.0.100@o2ib",target="ai400x2-MDT0000",units="usecs"} 5408

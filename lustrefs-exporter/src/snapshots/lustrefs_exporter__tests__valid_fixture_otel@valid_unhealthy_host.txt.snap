@@ -248,4 +248,28 @@ lustre_stats_total{component="mdt",operation="getxattr",target="ai400-MDT0000"} 
 lustre_stats_total{component="mdt",operation="mknod",target="ai400-MDT0000"} 3
 lustre_stats_total{component="mdt",operation="open",target="ai400-MDT0000"} 3
 lustre_stats_total{component="mdt",operation="statfs",target="ai400-MDT0000"} 44863
+# HELP lustre_stats_time_min Minimum time taken for an operation in microseconds..
+# TYPE lustre_stats_time_min gauge
+lustre_stats_time_min{component="mdt",operation="close",target="ai400-MDT0000"} 116
+lustre_stats_time_min{component="mdt",operation="getattr",target="ai400-MDT0000"} 2
+lustre_stats_time_min{component="mdt",operation="getxattr",target="ai400-MDT0000"} 18
+lustre_stats_time_min{component="mdt",operation="mknod",target="ai400-MDT0000"} 669
+lustre_stats_time_min{component="mdt",operation="open",target="ai400-MDT0000"} 686
+lustre_stats_time_min{component="mdt",operation="statfs",target="ai400-MDT0000"} 0
+# HELP lustre_stats_time_max Maximum time taken for an operation in microseconds..
+# TYPE lustre_stats_time_max gauge
+lustre_stats_time_max{component="mdt",operation="close",target="ai400-MDT0000"} 157
+lustre_stats_time_max{component="mdt",operation="getattr",target="ai400-MDT0000"} 192
+lustre_stats_time_max{component="mdt",operation="getxattr",target="ai400-MDT0000"} 29
+lustre_stats_time_max{component="mdt",operation="mknod",target="ai400-MDT0000"} 16392
+lustre_stats_time_max{component="mdt",operation="open",target="ai400-MDT0000"} 16407
+lustre_stats_time_max{component="mdt",operation="statfs",target="ai400-MDT0000"} 43
+# HELP lustre_stats_time_total Total time taken for an operation in microseconds..
+# TYPE lustre_stats_time_total gauge
+lustre_stats_time_total{component="mdt",operation="close",target="ai400-MDT0000"} 399
+lustre_stats_time_total{component="mdt",operation="getattr",target="ai400-MDT0000"} 629
+lustre_stats_time_total{component="mdt",operation="getxattr",target="ai400-MDT0000"} 47
+lustre_stats_time_total{component="mdt",operation="mknod",target="ai400-MDT0000"} 18582
+lustre_stats_time_total{component="mdt",operation="open",target="ai400-MDT0000"} 18634
+lustre_stats_time_total{component="mdt",operation="statfs",target="ai400-MDT0000"} 323074
 # EOF

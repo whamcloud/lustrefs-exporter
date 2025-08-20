@@ -140,9 +140,19 @@ pub mod tests {
     use prometheus_parse::{Sample, Scrape};
     use serial_test::serial;
     use std::{
-        collections::{BTreeSet, HashSet},
+        collections::HashSet,
         path::{Path, PathBuf},
     };
+
+    // These metrics are ignored for the comparison with the previous implementation
+    // since they are new and not present in the previous implementation.
+    const IGNORED_METRICS: &[&str] = &[
+        "target_info",
+        "lustre_health_healthy",
+        "lustre_stats_time_total",
+        "lustre_stats_time_max",
+        "lustre_stats_time_min",
+    ];
 
     #[test]
     fn test_error_into_response() {
@@ -312,7 +322,6 @@ pub mod tests {
     fn compare_snapshots_to_existing_otel_snapshots() -> Result<(), Box<dyn std::error::Error>> {
         insta::glob!("otel_snapshots/", "*.otelsnap", |path| {
             let snap_name = path.file_name().unwrap();
-
             let snap_file = path
                 .parent()
                 .unwrap()
@@ -320,100 +329,13 @@ pub mod tests {
                 .unwrap()
                 .join("snapshots")
                 .join(snap_name.to_string_lossy().replace(".otelsnap", ".snap"));
+            let otel_metrics = read_metrics_from_snapshot(path);
+            let metrics = read_metrics_from_snapshot(&snap_file);
 
-            let otel_snapshot_contents = std::fs::read_to_string(path).unwrap();
-
-            let snapshot_contents = std::fs::read_to_string(&snap_file).unwrap();
-
-            let otel_snapshot = normalize_snapshot_for_otel_comparison(&otel_snapshot_contents);
-
-            let snapshot = normalize_snapshot_for_otel_comparison(&snapshot_contents);
-
-            let only_in_otel_snapshots = otel_snapshot
-                .difference(&snapshot)
-                .cloned()
-                .collect::<Vec<_>>();
-
-            let only_in_snapshots = snapshot
-                .difference(&otel_snapshot)
-                .cloned()
-                .collect::<Vec<_>>();
-
-            let snapshots_equal =
-                if only_in_otel_snapshots.is_empty() && only_in_snapshots.is_empty() {
-                    true
-                } else {
-                    if !only_in_otel_snapshots.is_empty() {
-                        eprintln!("Metrics only in {}:", path.display());
-
-                        for metric in only_in_otel_snapshots {
-                            eprintln!("{metric:?}");
-                        }
-                    }
-
-                    if !only_in_snapshots.is_empty() {
-                        eprintln!("Metrics only in {}:", snap_file.display());
-
-                        for metric in only_in_snapshots {
-                            eprintln!("{metric:?}");
-                        }
-                    }
-
-                    false
-                };
-
-            assert!(snapshots_equal, "Snapshots are not equal.");
+            compare_metrics(&otel_metrics, &metrics);
         });
 
         Ok(())
-    }
-
-    fn normalize_snapshot_for_otel_comparison(x: &str) -> BTreeSet<String> {
-        x.lines()
-            .filter(|x| {
-                !x.contains("target_info")
-                    && !x.contains("# EOF")
-                    && !x.starts_with("source:")
-                    && !x.starts_with("expression")
-                    && !x.starts_with("\"")
-                    && !x.starts_with("---")
-                    && !x.is_empty()
-            })
-            .map(String::from)
-            .map(|x| {
-                if !x.starts_with("# HELP") {
-                    return x;
-                }
-
-                x.strip_suffix(".").unwrap_or(&x).to_string()
-            })
-            .map(|x| {
-                if x.starts_with('#') {
-                    return x.to_string();
-                }
-
-                let Some((metric_name, rest)) = x.split_once("{") else {
-                    return x.to_string();
-                };
-
-                let Some((labels, value)) = rest.split_once("}") else {
-                    return x.to_string();
-                };
-
-                let labels = labels
-                    .trim()
-                    .split(",")
-                    .filter(|x| !x.contains("otel_scope_name"))
-                    .collect::<BTreeSet<_>>();
-
-                format!(
-                    "{}{{{}}} {}",
-                    metric_name.trim(),
-                    labels.into_iter().collect::<Vec<_>>().join(","),
-                    value.trim()
-                )
-            })
-            .collect::<BTreeSet<_>>()
     }
 
     pub(super) fn compare_metrics(metrics1: &Scrape, metrics2: &Scrape) {
@@ -421,14 +343,14 @@ pub mod tests {
         let set1: HashSet<_> = metrics1
             .samples
             .iter()
-            .filter(|s| s.metric != "target_info")
+            .filter(|s| !IGNORED_METRICS.contains(&s.metric.as_str()))
             .map(normalize_sample)
             .collect();
 
         let set2: HashSet<_> = metrics2
             .samples
             .iter()
-            .filter(|s| s.metric != "target_info")
+            .filter(|s| !IGNORED_METRICS.contains(&s.metric.as_str()))
             .map(normalize_sample)
             .collect();
 
@@ -565,7 +487,7 @@ pub mod tests {
         let mut sorted_docs: Vec<_> = docs
             .iter()
             .filter_map(|(k, v)| {
-                if k != "target_info" && k != "lustre_health_healthy" {
+                if !IGNORED_METRICS.contains(&k.as_str()) {
                     Some((k.clone(), v.strip_suffix(".").unwrap_or(v).to_string()))
                 } else {
                     None
