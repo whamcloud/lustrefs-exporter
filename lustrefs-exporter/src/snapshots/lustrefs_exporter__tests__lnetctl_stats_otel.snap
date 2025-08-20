@@ -374,6 +374,48 @@ lustre_send_bytes_total{otel_scope_name="lustre"} 109811678162896
 # TYPE lustre_send_count_total counter
 lustre_send_count_total{nid="0@lo",otel_scope_name="lustre"} 3298881
 lustre_send_count_total{nid="192.168.5.244@tcp",otel_scope_name="lustre"} 269295337
+# HELP lustre_stats_time_max Maximum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_max gauge
+lustre_stats_time_max{component="mdt",operation="close",target="ai400x2-MDT0000",otel_scope_name="lustre"} 85050
+lustre_stats_time_max{component="mdt",operation="crossdir_rename",target="ai400x2-MDT0000",otel_scope_name="lustre"} 16741
+lustre_stats_time_max{component="mdt",operation="getattr",target="ai400x2-MDT0000",otel_scope_name="lustre"} 3361
+lustre_stats_time_max{component="mdt",operation="getxattr",target="ai400x2-MDT0000",otel_scope_name="lustre"} 176
+lustre_stats_time_max{component="mdt",operation="mkdir",target="ai400x2-MDT0000",otel_scope_name="lustre"} 848
+lustre_stats_time_max{component="mdt",operation="mknod",target="ai400x2-MDT0000",otel_scope_name="lustre"} 63252
+lustre_stats_time_max{component="mdt",operation="open",target="ai400x2-MDT0000",otel_scope_name="lustre"} 63270
+lustre_stats_time_max{component="mdt",operation="rename",target="ai400x2-MDT0000",otel_scope_name="lustre"} 16740
+lustre_stats_time_max{component="mdt",operation="rmdir",target="ai400x2-MDT0000",otel_scope_name="lustre"} 25251
+lustre_stats_time_max{component="mdt",operation="setattr",target="ai400x2-MDT0000",otel_scope_name="lustre"} 1563
+lustre_stats_time_max{component="mdt",operation="statfs",target="ai400x2-MDT0000",otel_scope_name="lustre"} 158
+lustre_stats_time_max{component="mdt",operation="unlink",target="ai400x2-MDT0000",otel_scope_name="lustre"} 83006
+# HELP lustre_stats_time_min Minimum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_min gauge
+lustre_stats_time_min{component="mdt",operation="close",target="ai400x2-MDT0000",otel_scope_name="lustre"} 7
+lustre_stats_time_min{component="mdt",operation="crossdir_rename",target="ai400x2-MDT0000",otel_scope_name="lustre"} 144
+lustre_stats_time_min{component="mdt",operation="getattr",target="ai400x2-MDT0000",otel_scope_name="lustre"} 0
+lustre_stats_time_min{component="mdt",operation="getxattr",target="ai400x2-MDT0000",otel_scope_name="lustre"} 5
+lustre_stats_time_min{component="mdt",operation="mkdir",target="ai400x2-MDT0000",otel_scope_name="lustre"} 848
+lustre_stats_time_min{component="mdt",operation="mknod",target="ai400x2-MDT0000",otel_scope_name="lustre"} 38
+lustre_stats_time_min{component="mdt",operation="open",target="ai400x2-MDT0000",otel_scope_name="lustre"} 18
+lustre_stats_time_min{component="mdt",operation="rename",target="ai400x2-MDT0000",otel_scope_name="lustre"} 144
+lustre_stats_time_min{component="mdt",operation="rmdir",target="ai400x2-MDT0000",otel_scope_name="lustre"} 58
+lustre_stats_time_min{component="mdt",operation="setattr",target="ai400x2-MDT0000",otel_scope_name="lustre"} 20
+lustre_stats_time_min{component="mdt",operation="statfs",target="ai400x2-MDT0000",otel_scope_name="lustre"} 0
+lustre_stats_time_min{component="mdt",operation="unlink",target="ai400x2-MDT0000",otel_scope_name="lustre"} 32
+# HELP lustre_stats_time_total Total time taken for an operation in microseconds.
+# TYPE lustre_stats_time_total gauge
+lustre_stats_time_total{component="mdt",operation="close",target="ai400x2-MDT0000",otel_scope_name="lustre"} 179755139
+lustre_stats_time_total{component="mdt",operation="crossdir_rename",target="ai400x2-MDT0000",otel_scope_name="lustre"} 3652442
+lustre_stats_time_total{component="mdt",operation="getattr",target="ai400x2-MDT0000",otel_scope_name="lustre"} 25441051
+lustre_stats_time_total{component="mdt",operation="getxattr",target="ai400x2-MDT0000",otel_scope_name="lustre"} 2332202
+lustre_stats_time_total{component="mdt",operation="mkdir",target="ai400x2-MDT0000",otel_scope_name="lustre"} 848
+lustre_stats_time_total{component="mdt",operation="mknod",target="ai400x2-MDT0000",otel_scope_name="lustre"} 5520096
+lustre_stats_time_total{component="mdt",operation="open",target="ai400x2-MDT0000",otel_scope_name="lustre"} 5930326
+lustre_stats_time_total{component="mdt",operation="rename",target="ai400x2-MDT0000",otel_scope_name="lustre"} 3648898
+lustre_stats_time_total{component="mdt",operation="rmdir",target="ai400x2-MDT0000",otel_scope_name="lustre"} 28892
+lustre_stats_time_total{component="mdt",operation="setattr",target="ai400x2-MDT0000",otel_scope_name="lustre"} 475244
+lustre_stats_time_total{component="mdt",operation="statfs",target="ai400x2-MDT0000",otel_scope_name="lustre"} 1402624
+lustre_stats_time_total{component="mdt",operation="unlink",target="ai400x2-MDT0000",otel_scope_name="lustre"} 13930526
 # HELP lustre_stats_total Number of operations the filesystem has performed.
 # TYPE lustre_stats_total counter
 lustre_stats_total{component="mdt",operation="close",target="ai400x2-MDT0000",otel_scope_name="lustre"} 4928393

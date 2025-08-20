@@ -27,6 +27,9 @@ pub mod opentelemetry {
 
         // MDT metrics
         pub stats_total: Counter<u64>,
+        pub stats_time_min: Gauge<u64>,
+        pub stats_time_max: Gauge<u64>,
+        pub stats_time_total: Gauge<u64>,
 
         // MDS metrics
         pub mds_mdt_stats: Gauge<u64>,
@@ -85,6 +88,18 @@ pub mod opentelemetry {
                 stats_total: meter
                     .u64_counter("lustre_stats_total")
                     .with_description("Number of operations the filesystem has performed.")
+                    .build(),
+                stats_time_min: meter
+                    .u64_gauge("lustre_stats_time_min")
+                    .with_description("Minimum time taken for an operation in microseconds.")
+                    .build(),
+                stats_time_max: meter
+                    .u64_gauge("lustre_stats_time_max")
+                    .with_description("Maximum time taken for an operation in microseconds.")
+                    .build(),
+                stats_time_total: meter
+                    .u64_gauge("lustre_stats_time_total")
+                    .with_description("Total time taken for an operation in microseconds.")
                     .build(),
 
                 // MDS metrics
@@ -209,6 +224,15 @@ pub mod opentelemetry {
             ];
 
             otel_stats.stats_total.add(s.samples, labels);
+            if let Some(min) = s.min {
+                otel_stats.stats_time_min.record(min, labels);
+            }
+            if let Some(max) = s.max {
+                otel_stats.stats_time_max.record(max, labels);
+            }
+            if let Some(sum) = s.sum {
+                otel_stats.stats_time_total.record(sum, labels);
+            }
         }
     }
 
