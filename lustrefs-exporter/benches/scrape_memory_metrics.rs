@@ -228,7 +228,7 @@ fn scrape_load_test(c: &mut Criterion) {
         .enable_time()
         .enable_io()
         .build()
-        .unwrap();
+        .expect("Failed to build tokio runtime");
 
     let mut group = c.benchmark_group("scrape_benchmarks");
 

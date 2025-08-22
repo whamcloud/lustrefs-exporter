@@ -21,7 +21,7 @@ fn get_app() -> (Request<Body>, Router) {
         .uri("/metrics?jobstats=true")
         .method("GET")
         .body(Body::empty())
-        .unwrap();
+        .expect("Failed to build request");
 
     (request, app)
 }

@@ -18,23 +18,26 @@ fn generate_records() -> Vec<Record> {
     let lustre_metrics = include_str!(
         "../../lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn133/2.14.0_ddn133_quota.txt"
     );
-    let mut lustre_metrics_records =
-        lustre_collector::parse_lctl_output(lustre_metrics.as_bytes()).unwrap();
+    let mut lustre_metrics_records = lustre_collector::parse_lctl_output(lustre_metrics.as_bytes())
+        .expect("Failed to parse lustre metrics");
     records.append(&mut lustre_metrics_records);
 
     let net_show = include_str!("../fixtures/lnetctl_net_show.txt");
-    let mut net_show_records = parse_lnetctl_output(net_show).unwrap();
+    let mut net_show_records =
+        parse_lnetctl_output(net_show).expect("Failed to parse lnetctl net show");
     records.append(&mut net_show_records);
 
     let net_stats = include_str!("../fixtures/lnetctl_stats.txt");
-    let mut net_stats_records = parse_lnetctl_stats(&net_stats).unwrap();
+    let mut net_stats_records =
+        parse_lnetctl_stats(net_stats).expect("Failed to parse lnetctl stats");
     records.append(&mut net_stats_records);
 
     records
 }
 
-fn encode_metrics(records: Vec<Record>) {
-    let (provider, registry) = lustrefs_exporter::init_opentelemetry().unwrap();
+fn encode_metrics(records: Vec<Record>) -> String {
+    let (provider, registry) =
+        lustrefs_exporter::init_opentelemetry().expect("Failed to initialize OpenTelemetry");
 
     let meter = provider.meter("test");
 
@@ -51,14 +54,16 @@ fn encode_metrics(records: Vec<Record>) {
     let mut buffer = vec![];
     let encoder = TextEncoder::new();
     let metric_families = registry.gather();
-    encoder.encode(&metric_families, &mut buffer).unwrap();
+    encoder
+        .encode(&metric_families, &mut buffer)
+        .expect("Failed to encode metrics");
 
-    String::from_utf8_lossy(&buffer).to_string();
+    String::from_utf8_lossy(&buffer).to_string()
 }
 
 #[library_benchmark]
 #[benches::with_setup(setup = generate_records)]
-fn bench_encode_lustre_metrics(records: Vec<Record>) {
+fn bench_encode_lustre_metrics(records: Vec<Record>) -> String {
     black_box(encode_metrics(records))
 }
 

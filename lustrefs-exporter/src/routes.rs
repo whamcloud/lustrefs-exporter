@@ -202,7 +202,14 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
     let mut buffer = vec![];
     let encoder = TextEncoder::new();
     let metric_families = registry.gather();
-    encoder.encode(&metric_families, &mut buffer).unwrap();
+
+    if let Err(e) = encoder.encode(&metric_families, &mut buffer) {
+        tracing::warn!("Failed to encode metrics: {e}");
+
+        return Err(Error::Prometheus(prometheus::Error::Msg(format!(
+            "Failed to encode metrics: {e}"
+        ))));
+    }
 
     let lustre_stats = String::from_utf8_lossy(&buffer).to_string();
 
@@ -399,10 +406,8 @@ mod tests {
         assert_eq!(body_str, "service is overloaded, try again later");
 
         // Test generic/unhandled error
-        let generic_error = Box::new(std::io::Error::new(
-            std::io::ErrorKind::Other,
-            "some random error",
-        )) as BoxError;
+        let generic_error = Box::new(std::io::Error::other("some random error")) as BoxError;
+
         let response = handle_error(generic_error).await.into_response();
 
         assert_eq!(response.status(), StatusCode::INTERNAL_SERVER_ERROR);
@@ -417,7 +422,9 @@ mod tests {
     #[test]
     #[serial]
     fn test_jobstats_metrics_cmd_with_mock() {
-        let mut child = jobstats_metrics_cmd().spawn().unwrap();
+        let mut child = jobstats_metrics_cmd()
+            .spawn()
+            .expect("Failed to spawn child.");
 
         let mut reader = BufReader::with_capacity(
             128 * 1_024,
@@ -433,6 +440,8 @@ mod tests {
 
         let mut buff = String::new();
         reader.read_to_string(&mut buff).unwrap();
+
+        child.wait().expect("Failed to wait for child process");
 
         insta::assert_snapshot!(buff);
     }

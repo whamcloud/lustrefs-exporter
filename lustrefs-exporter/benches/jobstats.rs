@@ -49,7 +49,7 @@ async fn parse_synthetic_yaml_otel(input: &'static str) {
     let exporter = opentelemetry_prometheus::exporter()
         .with_registry(registry.clone())
         .build()
-        .unwrap();
+        .expect("Failed to build exporter");
 
     let provider = SdkMeterProvider::builder().with_reader(exporter).build();
 
@@ -62,23 +62,33 @@ async fn parse_synthetic_yaml_otel(input: &'static str) {
     let handle =
         lustrefs_exporter::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
 
-    handle.await.unwrap();
+    handle.await.expect("Stream failed");
 
     // Encode metrics to string
     let encoder = TextEncoder::new();
     let metric_families = registry.gather();
     let mut output = Vec::new();
-    encoder.encode(&metric_families, &mut output).unwrap();
+    encoder
+        .encode(&metric_families, &mut output)
+        .expect("Failed to encode metrics");
 }
 
 fn criterion_benchmark_fast(c: &mut Criterion) {
     c.bench_function("jobstats otel 100", |b| {
-        b.to_async(tokio::runtime::Builder::new_multi_thread().build().unwrap())
-            .iter(|| hint::black_box(parse_synthetic_yaml_otel(INPUT_100_JOBS)))
+        b.to_async(
+            tokio::runtime::Builder::new_multi_thread()
+                .build()
+                .expect("Failed to build tokio runtime"),
+        )
+        .iter(|| hint::black_box(parse_synthetic_yaml_otel(INPUT_100_JOBS)))
     });
     c.bench_function("jobstats otel 1000", |b| {
-        b.to_async(tokio::runtime::Builder::new_multi_thread().build().unwrap())
-            .iter(|| hint::black_box(parse_synthetic_yaml_otel(INPUT_1000_JOBS)))
+        b.to_async(
+            tokio::runtime::Builder::new_multi_thread()
+                .build()
+                .expect("Failed to build tokio runtime"),
+        )
+        .iter(|| hint::black_box(parse_synthetic_yaml_otel(INPUT_1000_JOBS)))
     });
 }
 criterion_group! {
