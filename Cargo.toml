@@ -20,7 +20,7 @@ unwrap_used = "warn"
 axum = "0.8"
 clap = "4"
 combine = "=4.6.7"
-commandeer-test = { git = "https://github.com/whamcloud/commandeer-test.git" }
+commandeer-test = "0.1.1"
 const_format = "0.2"
 iai-callgrind = "0.16"
 include_dir = { version = "0.7", features = ["glob"] }

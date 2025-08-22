@@ -330,8 +330,9 @@ dependencies = [
 
 [[package]]
 name = "commandeer-macros"
-version = "0.1.0"
-source = "git+https://github.com/whamcloud/commandeer-test.git#f2bd4ee1a2b6f055178ef09b925d68787c42781d"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "abcfaa28d018cb20c1f336d3e5b6dcf46a1b2a918a91edcf8e73d7807d091950"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -340,10 +341,12 @@ dependencies = [
 
 [[package]]
 name = "commandeer-test"
-version = "0.1.0"
-source = "git+https://github.com/whamcloud/commandeer-test.git#f2bd4ee1a2b6f055178ef09b925d68787c42781d"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "12e311d183d01ef2daf4770f7850eb64494d9e0505bf08f747d5970d9affd1cd"
 dependencies = [
  "anyhow",
+ "clap",
  "commandeer-macros",
  "escargot",
  "serde",
