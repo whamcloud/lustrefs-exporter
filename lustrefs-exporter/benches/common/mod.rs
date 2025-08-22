@@ -26,21 +26,6 @@ fn get_app() -> (Request<Body>, Router) {
     (request, app)
 }
 
-// Prepare the test environment. This includes:
-// 1. Putting the mock lctl binary in the PATH environment variable
-// 2. Putting the mock lnetctl binary in the PATH environment variable
-pub fn setup_env() {
-    let mock_bin = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("mock_bins");
-
-    let current_path = env::var("PATH").unwrap_or_default();
-
-    let new_path = format!("{current_path}:{}", mock_bin.display());
-
-    unsafe {
-        env::set_var("PATH", new_path);
-    }
-}
-
 // Create a single request using `oneshot`. This is equivalent to hitting the
 // `/scrape` endpoint if the http service was running.
 async fn make_single_request() -> Result<String, Box<dyn std::error::Error + Send + Sync>> {

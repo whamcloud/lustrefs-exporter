@@ -240,6 +240,8 @@ mod tests {
         body::{Body, to_bytes},
         extract::Request,
     };
+    use commandeer_test::commandeer;
+    use serial_test::serial;
     use std::{
         env,
         io::{self, BufReader, Read},
@@ -247,21 +249,6 @@ mod tests {
     };
     use tokio::task::JoinSet;
     use tower::ServiceExt as _;
-
-    // Prepare the test environment. This includes:
-    // 1. Putting the mock lctl binary in the PATH environment variable
-    // 2. Putting the mock lnetctl binary in the PATH environment variable
-    pub fn setup_env() {
-        let mock_bin = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("mock_bins");
-
-        let current_path = env::var("PATH").unwrap_or_default();
-
-        let new_path = format!("{current_path}:{}", mock_bin.display());
-
-        unsafe {
-            env::set_var("PATH", new_path);
-        }
-    }
 
     /// Create a new Axum app with the provided state and a Request
     /// to scrape the metrics endpoint.
@@ -277,10 +264,10 @@ mod tests {
         (request, app)
     }
 
-    #[tokio::test(flavor = "multi_thread")]
+    #[commandeer(Replay, "lctl", "lnetctl")]
+    #[tokio::test]
+    #[serial]
     async fn test_metrics_endpoint_is_idempotent() -> Result<(), Box<dyn std::error::Error>> {
-        setup_env();
-
         let (request, app) = get_app();
 
         let resp = app.oneshot(request).await?;
@@ -305,10 +292,10 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread")]
+    #[commandeer(Replay, "lctl", "lnetctl")]
+    #[tokio::test]
+    #[serial]
     async fn test_app_function() {
-        setup_env();
-
         let (request, app) = get_app();
 
         let response = app.oneshot(request).await.unwrap();
@@ -316,10 +303,10 @@ mod tests {
         assert!(response.status().is_success())
     }
 
-    #[tokio::test(flavor = "multi_thread")]
+    #[commandeer(Replay, "lctl", "lnetctl")]
+    #[tokio::test]
+    #[serial]
     async fn test_app_routes() {
-        setup_env();
-
         let app = crate::routes::app();
 
         // Test that the /metrics route exists
@@ -348,10 +335,10 @@ mod tests {
         assert_eq!(response.status(), axum::http::StatusCode::NOT_FOUND);
     }
 
-    #[tokio::test(flavor = "multi_thread")]
+    #[commandeer(Replay, "lctl", "lnetctl")]
+    #[tokio::test]
+    #[serial]
     async fn test_concurrent_requests() {
-        setup_env();
-
         let app = crate::routes::app();
 
         // Test that concurrency limiting works by sending multiple requests
@@ -427,10 +414,10 @@ mod tests {
         assert!(body_str.starts_with("Unhandled internal error:"));
     }
 
+    #[commandeer(Replay, "lctl")]
     #[test]
+    #[serial]
     fn test_jobstats_metrics_cmd_with_mock() {
-        setup_env();
-
         let mut child = jobstats_metrics_cmd().spawn().unwrap();
 
         let mut reader = BufReader::with_capacity(
@@ -451,28 +438,28 @@ mod tests {
         insta::assert_snapshot!(buff);
     }
 
+    #[commandeer(Replay, "lctl")]
     #[tokio::test]
+    #[serial]
     async fn test_lustre_metrics_output_with_mock() {
-        setup_env();
-
         let output = lustre_metrics_output().output().await.unwrap();
 
         insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }
 
+    #[commandeer(Replay, "lnetctl")]
     #[tokio::test]
+    #[serial]
     async fn test_net_show_output_with_mock() {
-        setup_env();
-
         let output = net_show_output().output().await.unwrap();
 
         insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }
 
+    #[commandeer(Replay, "lnetctl")]
     #[tokio::test]
+    #[serial]
     async fn test_lnet_stats_output_with_mock() {
-        setup_env();
-
         let output = lnet_stats_output().output().await.unwrap();
 
         insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());

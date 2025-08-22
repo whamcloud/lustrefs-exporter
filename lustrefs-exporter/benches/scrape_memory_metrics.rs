@@ -4,7 +4,7 @@
 
 mod common;
 
-use crate::common::setup_env;
+use commandeer_test::commandeer;
 use common::load_test_concurrent;
 use core::f64;
 use criterion::{Criterion, criterion_group, criterion_main};
@@ -220,9 +220,8 @@ async fn load_test_with_memory_tracking(
     (duration, memory_usage)
 }
 
+#[commandeer(Replay, "lctl", "lnetctl")]
 fn scrape_load_test(c: &mut Criterion) {
-    setup_env();
-
     let (tx, rx) = std::sync::mpsc::channel::<MemoryUsage>();
 
     let rt = tokio::runtime::Builder::new_multi_thread()
