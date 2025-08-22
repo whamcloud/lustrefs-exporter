@@ -8,7 +8,7 @@ use axum::{
     http::Request,
 };
 use lustrefs_exporter::routes;
-use std::{env, path::PathBuf, time::Duration};
+use std::time::Duration;
 use tokio::{task::JoinSet, time::Instant};
 use tower::ServiceExt as _;
 

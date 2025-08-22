@@ -245,7 +245,6 @@ mod tests {
     use std::{
         env,
         io::{self, BufReader, Read},
-        path::PathBuf,
     };
     use tokio::task::JoinSet;
     use tower::ServiceExt as _;
