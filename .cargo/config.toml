@@ -2,11 +2,11 @@
 linker = "rust-lld"
 
 [alias]
-# Build lustrefs-exporter with musl
-build-musl-lustrefs-exporter = "build -p lustrefs-exporter --release --target x86_64-unknown-linux-musl"
+build-musl = "build --release --target x86_64-unknown-linux-musl"
 
-# Build lustre-collector with musl
-build-musl-lustre-collector = "build -p lustre_collector --release --target x86_64-unknown-linux-musl"
+build-musl-lustrefs-exporter = "build-musl -p lustrefs-exporter"
+
+build-musl-lustre-collector = "build-musl -p lustre_collector"
 
 # Run clippy checks
 ci_clippy = """clippy \

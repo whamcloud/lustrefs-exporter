@@ -152,8 +152,6 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
                 let mut output = Vec::new();
                 encoder.encode(&metric_families, &mut output)?;
 
-                let output = String::from_utf8_lossy(&output).to_string();
-
                 Some(output)
             }
             Err(e) => {
@@ -176,16 +174,13 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 
     let lnetctl = net_show_output().output().await?;
 
-    let lnetctl_stats = std::str::from_utf8(&lnetctl.stdout)?;
-
-    let mut lnetctl_output = parse_lnetctl_output(lnetctl_stats)?;
+    let mut lnetctl_output = parse_lnetctl_output(&lnetctl.stdout)?;
 
     output.append(&mut lnetctl_output);
 
     let lnetctl_stats_output = lnet_stats_output().output().await?;
 
-    let mut lnetctl_stats_record =
-        parse_lnetctl_stats(std::str::from_utf8(&lnetctl_stats_output.stdout)?)?;
+    let mut lnetctl_stats_record = parse_lnetctl_stats(&lnetctl_stats_output.stdout)?;
 
     output.append(&mut lnetctl_stats_record);
 
@@ -199,19 +194,17 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
     // Build OTEL metrics
     openmetrics::build_lustre_stats(&output, opentelemetry_metrics);
 
-    let mut buffer = vec![];
+    let mut lustre_stats = vec![];
     let encoder = TextEncoder::new();
     let metric_families = registry.gather();
 
-    if let Err(e) = encoder.encode(&metric_families, &mut buffer) {
+    if let Err(e) = encoder.encode(&metric_families, &mut lustre_stats) {
         tracing::warn!("Failed to encode metrics: {e}");
 
         return Err(Error::Prometheus(prometheus::Error::Msg(format!(
             "Failed to encode metrics: {e}"
         ))));
     }
-
-    let lustre_stats = String::from_utf8_lossy(&buffer).to_string();
 
     let body = if let Some(stream) = jobstats {
         let merged = tokio_stream::once(Ok::<_, Infallible>(lustre_stats))
@@ -228,10 +221,10 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 
     let headers = response_builder.headers_mut();
 
-    if let Ok(content_type) = encoder.format_type().parse::<HeaderValue>() {
-        if let Some(headers) = headers {
-            headers.insert(http::header::CONTENT_TYPE, content_type);
-        }
+    if let Ok(content_type) = encoder.format_type().parse::<HeaderValue>()
+        && let Some(headers) = headers
+    {
+        headers.insert(http::header::CONTENT_TYPE, content_type);
     }
 
     let resp = response_builder.body(body)?;

@@ -163,11 +163,11 @@ pub mod opentelemetry {
                 }
             }
 
-            if let State::TargetJobStats(target, job, stats) = state {
-                if let Err(e) = render_stat(&otel_jobstats, &target, job, stats) {
-                    tracing::debug!("Unexpected error processing jobstats lines: {e}");
-                };
-            }
+            if let State::TargetJobStats(target, job, stats) = state
+                && let Err(e) = render_stat(&otel_jobstats, &target, job, stats)
+            {
+                tracing::debug!("Unexpected error processing jobstats lines: {e}");
+            };
         })
     }
 

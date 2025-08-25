@@ -4,7 +4,7 @@
 
 use axum::{
     Router,
-    body::{Body, to_bytes},
+    body::{Body, Bytes, to_bytes},
     http::Request,
 };
 use lustrefs_exporter::routes;
@@ -28,13 +28,18 @@ fn get_app() -> (Request<Body>, Router) {
 
 // Create a single request using `oneshot`. This is equivalent to hitting the
 // `/scrape` endpoint if the http service was running.
-async fn make_single_request() -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
+async fn make_single_request() -> Result<Bytes, Box<dyn std::error::Error + Send + Sync>> {
     let (request, app) = get_app();
-    let resp = app.oneshot(request).await?;
-    let body = to_bytes(resp.into_body(), usize::MAX).await?;
-    let body_str = std::str::from_utf8(&body)?;
 
-    Ok(body_str.to_string())
+    let resp = app.oneshot(request).await?;
+
+    if !resp.status().is_success() {
+        return Err(format!("Request failed with status: {}", resp.status()).into());
+    }
+
+    let body = to_bytes(resp.into_body(), usize::MAX).await?;
+
+    Ok(body)
 }
 
 // Use a JoinSet to make `concurrent` requests at a time, waiting for each batch to complete before
@@ -73,8 +78,7 @@ pub async fn load_test_concurrent(concurrency: usize, total_requests: usize) -> 
     let elapsed = start.elapsed();
 
     println!(
-        "Load test completed: {} successful, {} failed requests in {:?}",
-        successful_requests, failed_requests, elapsed
+        "Load test completed: {successful_requests} successful, {failed_requests} failed requests in {elapsed:?}",
     );
 
     elapsed

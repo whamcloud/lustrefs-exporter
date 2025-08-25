@@ -22,12 +22,12 @@ fn generate_records() -> Vec<Record> {
         .expect("Failed to parse lustre metrics");
     records.append(&mut lustre_metrics_records);
 
-    let net_show = include_str!("../fixtures/lnetctl_net_show.txt");
+    let net_show = include_bytes!("../fixtures/lnetctl_net_show.txt");
     let mut net_show_records =
         parse_lnetctl_output(net_show).expect("Failed to parse lnetctl net show");
     records.append(&mut net_show_records);
 
-    let net_stats = include_str!("../fixtures/lnetctl_stats.txt");
+    let net_stats = include_bytes!("../fixtures/lnetctl_stats.txt");
     let mut net_stats_records =
         parse_lnetctl_stats(net_stats).expect("Failed to parse lnetctl stats");
     records.append(&mut net_stats_records);
@@ -35,7 +35,7 @@ fn generate_records() -> Vec<Record> {
     records
 }
 
-fn encode_metrics(records: Vec<Record>) -> String {
+fn encode_metrics(records: Vec<Record>) -> Vec<u8> {
     let (provider, registry) =
         lustrefs_exporter::init_opentelemetry().expect("Failed to initialize OpenTelemetry");
 
@@ -58,12 +58,12 @@ fn encode_metrics(records: Vec<Record>) -> String {
         .encode(&metric_families, &mut buffer)
         .expect("Failed to encode metrics");
 
-    String::from_utf8_lossy(&buffer).to_string()
+    buffer
 }
 
 #[library_benchmark]
 #[benches::with_setup(setup = generate_records)]
-fn bench_encode_lustre_metrics(records: Vec<Record>) -> String {
+fn bench_encode_lustre_metrics(records: Vec<Record>) -> Vec<u8> {
     black_box(encode_metrics(records))
 }
 

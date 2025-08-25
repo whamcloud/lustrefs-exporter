@@ -131,7 +131,7 @@ fn run() -> Result<(), LustreCollectorError> {
     let lnetctl_stats_handle =
         thread::spawn(move || -> Result<Vec<Record>, LustreCollectorError> {
             let lnetctl_stats_output = get_lnetctl_stats_output()?;
-            let lnetctl_stats_record = parse_lnetctl_stats(str::from_utf8(&lnetctl_stats_output)?)?;
+            let lnetctl_stats_record = parse_lnetctl_stats(&lnetctl_stats_output)?;
 
             Ok(lnetctl_stats_record)
         });
@@ -149,10 +149,7 @@ fn run() -> Result<(), LustreCollectorError> {
         .output()
         .expect("failed to get lnetctl stats");
 
-    let lnetctl_net_show_stats = str::from_utf8(&lnetctl_net_show_output.stdout)
-        .expect("while converting 'lnetctl net show -v 4' stdout from utf8");
-
-    let mut lnet_record = parse_lnetctl_output(lnetctl_net_show_stats)
+    let mut lnet_record = parse_lnetctl_output(&lnetctl_net_show_output.stdout)
         .expect("while parsing 'lnetctl net show -v 4' stats");
 
     let mut lctl_record = match handle.join() {
