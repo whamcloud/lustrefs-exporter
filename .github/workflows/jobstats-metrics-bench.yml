@@ -26,8 +26,8 @@ jobs:
           --project '${{ secrets.BENCHER_PROJECT_ID }}' \
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch main \
-          --testbed ci-runner-jobstats \
-          --threshold-measure instructions \
+          --testbed ci-runner \
+          --threshold-measure Latency \
           --threshold-test t_test \
           --threshold-max-sample-size 64 \
           --threshold-lower-boundary 0.95 \
@@ -46,7 +46,7 @@ jobs:
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch '${{ github.head_ref }}' \
           --start-point main \
-          --testbed ci-runner-jobstats \
+          --testbed ci-runner \
           --start-point-clone-thresholds \
           --quiet \
           --err \
