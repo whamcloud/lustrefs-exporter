@@ -129,7 +129,7 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 
                 tokio::task::spawn(async move {
                     for line in reader_stderr.lines().map_while(Result::ok) {
-                        tracing::debug!("stderr: {}", line);
+                        tracing::debug!("stderr: {line}");
                     }
                 });
 
@@ -227,11 +227,13 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
     let mut response_builder = Response::builder().status(StatusCode::OK);
 
     let headers = response_builder.headers_mut();
+
     if let Ok(content_type) = encoder.format_type().parse::<HeaderValue>() {
         if let Some(headers) = headers {
             headers.insert(http::header::CONTENT_TYPE, content_type);
         }
     }
+
     let resp = response_builder.body(body)?;
 
     Ok(resp)
@@ -276,7 +278,7 @@ mod tests {
     async fn test_metrics_endpoint_is_idempotent() -> Result<(), Box<dyn std::error::Error>> {
         let (request, app) = get_app();
 
-        let resp = app.oneshot(request).await?;
+        let resp = app.oneshot(request).await.unwrap();
 
         let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
         let original_body_str = std::str::from_utf8(&body).unwrap();
@@ -288,10 +290,7 @@ mod tests {
         let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
         let body_str = std::str::from_utf8(&body).unwrap();
 
-        assert_eq!(
-            original_body_str, body_str,
-            "Stats not the same after second scrape"
-        );
+        assert_eq!(original_body_str, body_str);
 
         insta::assert_snapshot!(original_body_str);
 
@@ -375,7 +374,7 @@ mod tests {
 
         // Some requests should succeed or fail based on system state,
         // but none should panic
-        assert!(result.is_ok(), "/metrics endpoint encountered a panic");
+        assert!(result.is_ok());
     }
 
     #[tokio::test]
@@ -471,5 +470,21 @@ mod tests {
         let output = lnet_stats_output().output().await.unwrap();
 
         insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
+    }
+
+    #[commandeer(Replay, "lctl", "lnetctl")]
+    #[tokio::test]
+    #[serial]
+    async fn test_jobstats_with_stderr_output() -> Result<(), Box<dyn std::error::Error>> {
+        let (request, app) = get_app();
+
+        let resp = app.oneshot(request).await.unwrap();
+
+        let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
+        let original_body_str = std::str::from_utf8(&body).unwrap();
+
+        insta::assert_snapshot!(original_body_str);
+
+        Ok(())
     }
 }
