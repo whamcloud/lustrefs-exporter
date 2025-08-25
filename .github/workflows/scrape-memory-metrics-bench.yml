@@ -31,7 +31,7 @@ jobs:
           --project '${{ secrets.BENCHER_PROJECT_ID }}' \
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch main \
-          --testbed ci-runner \
+          --testbed ci-runner-scrape-memory-metrics \
           --threshold-measure peak_rss_mib \
           --threshold-test t_test \
           --threshold-max-sample-size 64 \
@@ -51,7 +51,7 @@ jobs:
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch '${{ github.head_ref }}' \
           --start-point main \
-          --testbed ci-runner \
+          --testbed ci-runner-scrape-memory-metrics \
           --ci-id '${{ github.sha }}' \
           --ci-number '${{ github.event.number }}' \
           --start-point-clone-thresholds \
