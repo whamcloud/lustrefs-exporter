@@ -102,10 +102,46 @@ mod tests {
     use opentelemetry::metrics::MeterProvider;
     use prometheus::{Encoder as _, Registry, TextEncoder};
     use prometheus_parse::{Sample, Scrape};
-    use std::{collections::HashSet, error::Error, fs};
+    use std::{
+        collections::{HashMap, HashSet},
+        error::Error,
+        fs,
+    };
 
     static VALID_FIXTURES: Dir<'_> =
         include_dir!("$CARGO_MANIFEST_DIR/../lustre-collector/src/fixtures/valid/");
+
+    // This is used to ignore metrics that are only part of OTEL implementation and are not part of legacy implementation
+    static IGNORED_METRICS: &[&str] = &[
+        "target_info",
+        "lustre_health_healthy",
+        "lustre_get_page_total",
+        "lustre_cache_access_total",
+        "lustre_cache_miss_total",
+        "lustre_many_credits_total",
+    ];
+
+    trait ValidMetrics {
+        fn valid_metrics(&self) -> Vec<(String, String)>;
+    }
+
+    impl ValidMetrics for HashMap<String, String> {
+        fn valid_metrics(&self) -> Vec<(String, String)> {
+            self.iter()
+                .filter(|(k, _)| !IGNORED_METRICS.contains(&k.as_str()))
+                .map(|(k, v)| (k.to_owned(), v.to_owned()))
+                .collect()
+        }
+    }
+
+    impl ValidMetrics for Vec<Sample> {
+        fn valid_metrics(&self) -> Vec<(String, String)> {
+            self.iter()
+                .filter(|s| !IGNORED_METRICS.contains(&s.metric.as_str()))
+                .map(normalize_sample)
+                .collect()
+        }
+    }
 
     fn test_valid_fixtures_otel() {
         for dir in VALID_FIXTURES.find("*").unwrap() {
@@ -356,54 +392,28 @@ mod tests {
         Ok(parsed)
     }
 
-    fn normalize_sample(sample: &Sample) -> (String, Vec<(String, String)>, String) {
-        let mut sorted_labels: Vec<_> = sample
-            .labels
-            .iter()
-            .filter(|(k, _)| k != &&"otel_scope_name".to_string())
-            .map(|(k, v)| (k.clone(), v.clone()))
-            .collect();
-        sorted_labels.sort();
-
+    fn normalize_sample(sample: &Sample) -> (String, String) {
         let value_str = match sample.value {
             prometheus_parse::Value::Counter(f) => format!("Counter({})", f),
             prometheus_parse::Value::Gauge(f) => format!("Gauge({})", f),
             _ => "0.0".to_string(),
         };
 
-        (sample.metric.clone(), sorted_labels, value_str)
+        (sample.metric.clone(), value_str)
     }
 
-    fn normalize_docs(docs: &std::collections::HashMap<String, String>) -> Vec<(String, String)> {
+    fn normalize_docs(docs: &HashMap<String, String>) -> Vec<(String, String)> {
         // Ignore updated metrics since OTEL move.
-        let mut sorted_docs: Vec<_> = docs
-            .iter()
-            .filter_map(|(k, v)| {
-                if k != "target_info" && k != "lustre_health_healthy" {
-                    Some((k.clone(), v.clone()))
-                } else {
-                    None
-                }
-            })
-            .collect();
+        let mut sorted_docs: Vec<_> = docs.valid_metrics();
+
         sorted_docs.sort_by(|a, b| a.0.cmp(&b.0)); // Sort by key
         sorted_docs
     }
 
     fn compare_metrics(metrics1: &Scrape, metrics2: &Scrape) {
         // Skip OTEL specific metric and updated metrics.
-        let set1: HashSet<_> = metrics1
-            .samples
-            .iter()
-            .filter(|s| s.metric != "target_info")
-            .map(normalize_sample)
-            .collect();
-        let set2: HashSet<_> = metrics2
-            .samples
-            .iter()
-            .filter(|s| s.metric != "target_info")
-            .map(normalize_sample)
-            .collect();
+        let set1: HashSet<_> = metrics1.samples.valid_metrics().into_iter().collect();
+        let set2: HashSet<_> = metrics2.samples.valid_metrics().into_iter().collect();
 
         let only_in_first: Vec<_> = set1.difference(&set2).collect();
         let only_in_second: Vec<_> = set2.difference(&set1).collect();
