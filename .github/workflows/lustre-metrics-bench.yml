@@ -10,7 +10,7 @@ jobs:
   benchmark_lustre_metrics:
     name: Benchmark Lustre Metrics
     permissions:
-      pull-requests: write
+      pull-requests: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
