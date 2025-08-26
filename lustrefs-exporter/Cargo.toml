@@ -35,8 +35,7 @@ commandeer-test.workspace = true
 const_format.workspace = true
 criterion = { workspace = true, features = ["html_reports", "async_tokio"] }
 iai-callgrind.workspace = true
-include_dir.workspace = true
-insta.workspace = true
+insta = { workspace = true, features = ["glob"] }
 pretty_assertions.workspace = true
 prometheus-parse.workspace = true
 serde_json.workspace = true

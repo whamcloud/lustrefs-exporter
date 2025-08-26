@@ -1,6 +1,7 @@
 ---
 source: lustrefs-exporter/src/main.rs
 expression: x
+input_file: lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn145/2.14.0_ddn145_recovery.txt
 ---
 # HELP target_info Target metadata
 # TYPE target_info gauge

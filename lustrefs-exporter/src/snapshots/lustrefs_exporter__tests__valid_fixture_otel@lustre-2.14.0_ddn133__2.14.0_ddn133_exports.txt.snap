@@ -1,6 +1,7 @@
 ---
 source: lustrefs-exporter/src/main.rs
 expression: x
+input_file: lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn133/2.14.0_ddn133_exports.txt
 ---
 # HELP lustre_available_kilobytes Number of kilobytes readily available in the pool
 # TYPE lustre_available_kilobytes gauge

@@ -745,7 +745,7 @@ lustre_dio_frags{component="ost",operation="write",target="ai400x2-OST0001",size
 lustre_dio_frags{component="ost",operation="read",target="ai400x2-OST0001",size="31"} 1536958
 lustre_dio_frags{component="ost",operation="write",target="ai400x2-OST0001",size="31"} 303886
 
-# HELP lustre_discontiguous_blocks_total 
+# HELP lustre_discontiguous_blocks_total
 # TYPE lustre_discontiguous_blocks_total counter
 lustre_discontiguous_blocks_total{component="ost",operation="read",target="ai400x2-OST0000",size="0"} 63441712
 lustre_discontiguous_blocks_total{component="ost",operation="write",target="ai400x2-OST0000",size="0"} 48567507
