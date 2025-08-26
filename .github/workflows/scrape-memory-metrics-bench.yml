@@ -10,6 +10,7 @@ jobs:
   benchmark_scrape_operation:
     name: Benchmark Scrape Operation
     permissions:
+      checks: write
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
@@ -38,7 +39,6 @@ jobs:
           --threshold-max-sample-size 64 \
           --threshold-lower-boundary 0.95 \
           --threshold-upper-boundary 0.95 \
-          --quiet \
           --err \
           --adapter json \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
@@ -53,10 +53,7 @@ jobs:
           --branch '${{ github.head_ref }}' \
           --start-point main \
           --testbed ci-runner \
-          --ci-id '${{ github.sha }}' \
-          --ci-number '${{ github.event.number }}' \
           --start-point-clone-thresholds \
-          --quiet \
           --err \
           --adapter json \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
