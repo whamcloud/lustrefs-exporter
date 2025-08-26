@@ -533,6 +533,48 @@ lustre_send_bytes_total{otel_scope_name="lustre"} 147965048
 # TYPE lustre_send_count_total counter
 lustre_send_count_total{nid="0@lo",otel_scope_name="lustre"} 13649
 lustre_send_count_total{nid="10.73.20.11@tcp",otel_scope_name="lustre"} 20083
+# HELP lustre_stats_time_max Maximum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_max gauge
+lustre_stats_time_max{component="mdt",operation="close",target="fs-MDT0000",otel_scope_name="lustre"} 103
+lustre_stats_time_max{component="mdt",operation="getattr",target="fs-MDT0000",otel_scope_name="lustre"} 6928
+lustre_stats_time_max{component="mdt",operation="getxattr",target="fs-MDT0000",otel_scope_name="lustre"} 15
+lustre_stats_time_max{component="mdt",operation="mknod",target="fs-MDT0000",otel_scope_name="lustre"} 5357
+lustre_stats_time_max{component="mdt",operation="open",target="fs-MDT0000",otel_scope_name="lustre"} 16976
+lustre_stats_time_max{component="mdt",operation="punch",target="fs-MDT0000",otel_scope_name="lustre"} 28
+lustre_stats_time_max{component="mdt",operation="read",target="fs-MDT0000",otel_scope_name="lustre"} 10837
+lustre_stats_time_max{component="mdt",operation="read_bytes",target="fs-MDT0000",otel_scope_name="lustre"} 405504
+lustre_stats_time_max{component="mdt",operation="setattr",target="fs-MDT0000",otel_scope_name="lustre"} 319
+lustre_stats_time_max{component="mdt",operation="statfs",target="fs-MDT0000",otel_scope_name="lustre"} 33
+lustre_stats_time_max{component="mdt",operation="write",target="fs-MDT0000",otel_scope_name="lustre"} 363
+lustre_stats_time_max{component="mdt",operation="write_bytes",target="fs-MDT0000",otel_scope_name="lustre"} 409600
+# HELP lustre_stats_time_min Minimum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_min gauge
+lustre_stats_time_min{component="mdt",operation="close",target="fs-MDT0000",otel_scope_name="lustre"} 17
+lustre_stats_time_min{component="mdt",operation="getattr",target="fs-MDT0000",otel_scope_name="lustre"} 10
+lustre_stats_time_min{component="mdt",operation="getxattr",target="fs-MDT0000",otel_scope_name="lustre"} 15
+lustre_stats_time_min{component="mdt",operation="mknod",target="fs-MDT0000",otel_scope_name="lustre"} 223
+lustre_stats_time_min{component="mdt",operation="open",target="fs-MDT0000",otel_scope_name="lustre"} 52
+lustre_stats_time_min{component="mdt",operation="punch",target="fs-MDT0000",otel_scope_name="lustre"} 28
+lustre_stats_time_min{component="mdt",operation="read",target="fs-MDT0000",otel_scope_name="lustre"} 4577
+lustre_stats_time_min{component="mdt",operation="read_bytes",target="fs-MDT0000",otel_scope_name="lustre"} 4096
+lustre_stats_time_min{component="mdt",operation="setattr",target="fs-MDT0000",otel_scope_name="lustre"} 100
+lustre_stats_time_min{component="mdt",operation="statfs",target="fs-MDT0000",otel_scope_name="lustre"} 0
+lustre_stats_time_min{component="mdt",operation="write",target="fs-MDT0000",otel_scope_name="lustre"} 363
+lustre_stats_time_min{component="mdt",operation="write_bytes",target="fs-MDT0000",otel_scope_name="lustre"} 409600
+# HELP lustre_stats_time_total Total time taken for an operation in microseconds.
+# TYPE lustre_stats_time_total gauge
+lustre_stats_time_total{component="mdt",operation="close",target="fs-MDT0000",otel_scope_name="lustre"} 352
+lustre_stats_time_total{component="mdt",operation="getattr",target="fs-MDT0000",otel_scope_name="lustre"} 7053
+lustre_stats_time_total{component="mdt",operation="getxattr",target="fs-MDT0000",otel_scope_name="lustre"} 15
+lustre_stats_time_total{component="mdt",operation="mknod",target="fs-MDT0000",otel_scope_name="lustre"} 5580
+lustre_stats_time_total{component="mdt",operation="open",target="fs-MDT0000",otel_scope_name="lustre"} 23055
+lustre_stats_time_total{component="mdt",operation="punch",target="fs-MDT0000",otel_scope_name="lustre"} 28
+lustre_stats_time_total{component="mdt",operation="read",target="fs-MDT0000",otel_scope_name="lustre"} 15414
+lustre_stats_time_total{component="mdt",operation="read_bytes",target="fs-MDT0000",otel_scope_name="lustre"} 409600
+lustre_stats_time_total{component="mdt",operation="setattr",target="fs-MDT0000",otel_scope_name="lustre"} 605
+lustre_stats_time_total{component="mdt",operation="statfs",target="fs-MDT0000",otel_scope_name="lustre"} 63
+lustre_stats_time_total{component="mdt",operation="write",target="fs-MDT0000",otel_scope_name="lustre"} 363
+lustre_stats_time_total{component="mdt",operation="write_bytes",target="fs-MDT0000",otel_scope_name="lustre"} 409600
 # HELP lustre_stats_total Number of operations the filesystem has performed.
 # TYPE lustre_stats_total counter
 lustre_stats_total{component="mdt",operation="close",target="fs-MDT0000",otel_scope_name="lustre"} 6

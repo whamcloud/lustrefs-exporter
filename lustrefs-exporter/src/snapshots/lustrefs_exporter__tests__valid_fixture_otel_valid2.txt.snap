@@ -121,6 +121,36 @@ lustre_oss_ost_stats{operation="req_qdepth",units="reqs",otel_scope_name="lustre
 lustre_oss_ost_stats{operation="req_timeout",units="secs",otel_scope_name="lustre"} 42
 lustre_oss_ost_stats{operation="req_waittime",units="usecs",otel_scope_name="lustre"} 42
 lustre_oss_ost_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 96
+# HELP lustre_stats_time_max Maximum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_max gauge
+lustre_stats_time_max{component="mdt",operation="close",target="testfs-MDT0000",otel_scope_name="lustre"} 51
+lustre_stats_time_max{component="mdt",operation="getattr",target="testfs-MDT0000",otel_scope_name="lustre"} 23
+lustre_stats_time_max{component="mdt",operation="getxattr",target="testfs-MDT0000",otel_scope_name="lustre"} 16
+lustre_stats_time_max{component="mdt",operation="mknod",target="testfs-MDT0000",otel_scope_name="lustre"} 376
+lustre_stats_time_max{component="mdt",operation="open",target="testfs-MDT0000",otel_scope_name="lustre"} 392
+lustre_stats_time_max{component="mdt",operation="setattr",target="testfs-MDT0000",otel_scope_name="lustre"} 64
+lustre_stats_time_max{component="mdt",operation="statfs",target="testfs-MDT0000",otel_scope_name="lustre"} 33
+lustre_stats_time_max{component="mdt",operation="unlink",target="testfs-MDT0000",otel_scope_name="lustre"} 118
+# HELP lustre_stats_time_min Minimum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_min gauge
+lustre_stats_time_min{component="mdt",operation="close",target="testfs-MDT0000",otel_scope_name="lustre"} 26
+lustre_stats_time_min{component="mdt",operation="getattr",target="testfs-MDT0000",otel_scope_name="lustre"} 6
+lustre_stats_time_min{component="mdt",operation="getxattr",target="testfs-MDT0000",otel_scope_name="lustre"} 16
+lustre_stats_time_min{component="mdt",operation="mknod",target="testfs-MDT0000",otel_scope_name="lustre"} 146
+lustre_stats_time_min{component="mdt",operation="open",target="testfs-MDT0000",otel_scope_name="lustre"} 62
+lustre_stats_time_min{component="mdt",operation="setattr",target="testfs-MDT0000",otel_scope_name="lustre"} 41
+lustre_stats_time_min{component="mdt",operation="statfs",target="testfs-MDT0000",otel_scope_name="lustre"} 0
+lustre_stats_time_min{component="mdt",operation="unlink",target="testfs-MDT0000",otel_scope_name="lustre"} 108
+# HELP lustre_stats_time_total Total time taken for an operation in microseconds.
+# TYPE lustre_stats_time_total gauge
+lustre_stats_time_total{component="mdt",operation="close",target="testfs-MDT0000",otel_scope_name="lustre"} 175
+lustre_stats_time_total{component="mdt",operation="getattr",target="testfs-MDT0000",otel_scope_name="lustre"} 142
+lustre_stats_time_total{component="mdt",operation="getxattr",target="testfs-MDT0000",otel_scope_name="lustre"} 16
+lustre_stats_time_total{component="mdt",operation="mknod",target="testfs-MDT0000",otel_scope_name="lustre"} 692
+lustre_stats_time_total{component="mdt",operation="open",target="testfs-MDT0000",otel_scope_name="lustre"} 794
+lustre_stats_time_total{component="mdt",operation="setattr",target="testfs-MDT0000",otel_scope_name="lustre"} 105
+lustre_stats_time_total{component="mdt",operation="statfs",target="testfs-MDT0000",otel_scope_name="lustre"} 44145
+lustre_stats_time_total{component="mdt",operation="unlink",target="testfs-MDT0000",otel_scope_name="lustre"} 226
 # HELP lustre_stats_total Number of operations the filesystem has performed.
 # TYPE lustre_stats_total counter
 lustre_stats_total{component="mdt",operation="close",target="testfs-MDT0000",otel_scope_name="lustre"} 5
