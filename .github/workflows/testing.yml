@@ -29,7 +29,18 @@ jobs:
         uses: taiki-e/install-action@nextest
       - run: |
           cargo nextest run --release
-
+  stale-snaphots:
+    name: Stale Snapshots
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+      - name: Install cargo-insta
+        run: cargo install cargo-insta
+      - run: |
+          cargo insta test --release --unreferenced=auto
   fmt:
     name: Rustfmt
     runs-on: ubuntu-latest

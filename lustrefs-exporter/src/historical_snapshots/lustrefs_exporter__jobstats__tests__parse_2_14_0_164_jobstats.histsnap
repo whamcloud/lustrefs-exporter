@@ -2,7 +2,8 @@
 source: lustrefs-exporter/src/jobstats.rs
 expression: output
 ---
-previous_stat{foo="bar"} 0
+# HELP lustre_job_stats_total Number of operations the filesystem has performed, recorded by jobstats.
+# TYPE lustre_job_stats_total counter
 lustre_job_stats_total{operation="open",component="mdt",target="es01a-MDT0000",jobid="node_exporter:989:es-2-virt3-co"} 0
 lustre_job_stats_total{operation="close",component="mdt",target="es01a-MDT0000",jobid="node_exporter:989:es-2-virt3-co"} 0
 lustre_job_stats_total{operation="mknod",component="mdt",target="es01a-MDT0000",jobid="node_exporter:989:es-2-virt3-co"} 0

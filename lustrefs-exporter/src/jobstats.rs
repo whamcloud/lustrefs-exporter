@@ -330,7 +330,13 @@ pub mod tests {
     use opentelemetry::metrics::MeterProvider;
     use prometheus::{Encoder as _, Registry, TextEncoder};
 
-    use crate::{init_opentelemetry, jobstats::opentelemetry::OpenTelemetryMetricsJobstats};
+    use crate::{
+        init_opentelemetry,
+        jobstats::opentelemetry::OpenTelemetryMetricsJobstats,
+        tests::{
+            compare_metrics, get_scrape, historical_snapshot_path, read_metrics_from_snapshot,
+        },
+    };
     use std::{fs::File, io::BufReader, sync::Arc};
 
     #[tokio::test(flavor = "multi_thread")]
@@ -505,13 +511,15 @@ job_stats:
 
     #[tokio::test(flavor = "multi_thread")]
     async fn parse_2_14_0_164_jobstats_otel() {
-        let f = File::open("fixtures/jobstats_only/2.14.0_164.txt").unwrap();
+        let x = include_bytes!("../fixtures/jobstats_only/2.14.0_164.txt");
 
-        let f = BufReader::with_capacity(128 * 1_024, f);
+        let f = BufReader::with_capacity(128 * 1_024, &x[..]);
 
         // Set up OpenTelemetry metrics
         let (provider, registry) = init_opentelemetry().unwrap();
+
         let meter = provider.meter("test");
+
         let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
 
         let handle = crate::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
@@ -519,7 +527,18 @@ job_stats:
         // Allow time for processing
         handle.await.unwrap();
 
-        insta::assert_snapshot!(get_output(&registry));
+        let stats = get_output(&registry);
+
+        insta::assert_snapshot!(stats);
+
+        let current = get_scrape(stats).unwrap();
+
+        let previous = read_metrics_from_snapshot(&historical_snapshot_path(
+            "lustrefs_exporter__jobstats__tests__parse_2_14_0_164_jobstats.histsnap",
+        ))
+        .unwrap();
+
+        compare_metrics(&current, &previous);
     }
 
     fn get_output(registry: &Registry) -> String {

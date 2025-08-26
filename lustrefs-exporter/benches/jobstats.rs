@@ -82,6 +82,7 @@ fn criterion_benchmark_fast(c: &mut Criterion) {
         )
         .iter(|| hint::black_box(parse_synthetic_yaml_otel(INPUT_100_JOBS)))
     });
+
     c.bench_function("jobstats otel 1000", |b| {
         b.to_async(
             tokio::runtime::Builder::new_multi_thread()

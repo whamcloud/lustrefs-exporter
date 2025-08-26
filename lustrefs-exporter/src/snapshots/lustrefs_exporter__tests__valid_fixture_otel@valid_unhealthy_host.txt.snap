@@ -1,6 +1,7 @@
 ---
 source: lustrefs-exporter/src/main.rs
 expression: x
+input_file: lustre-collector/src/fixtures/valid/valid_unhealthy_host.txt
 ---
 # HELP lustre_available_kilobytes Number of kilobytes readily available in the pool
 # TYPE lustre_available_kilobytes gauge
@@ -109,7 +110,10 @@ lustre_free_kilobytes{component="ost",target="ai400-OST0000",otel_scope_name="lu
 lustre_free_kilobytes{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 3978093456
 # HELP lustre_health_healthy Indicates whether the Lustre server is healthy or not. 1 is healthy, 0 is unhealthy.
 # TYPE lustre_health_healthy gauge
-lustre_health_healthy{otel_scope_name="lustre"} 1
+lustre_health_healthy{otel_scope_name="lustre"} 0
+lustre_health_healthy{target="lustre-OST0012",otel_scope_name="lustre"} 0
+lustre_health_healthy{target="lustre-OST0014",otel_scope_name="lustre"} 0
+lustre_health_healthy{target="lustre-OST0016",otel_scope_name="lustre"} 0
 # HELP lustre_inodes_free The number of inodes (objects) available
 # TYPE lustre_inodes_free gauge
 lustre_inodes_free{component="mdt",target="ai400-MDT0000",otel_scope_name="lustre"} 85908200
@@ -185,6 +189,16 @@ lustre_oss_ost_create_stats{operation="req_qdepth",units="reqs",otel_scope_name=
 lustre_oss_ost_create_stats{operation="req_timeout",units="sec",otel_scope_name="lustre"} 239924
 lustre_oss_ost_create_stats{operation="req_waittime",units="usec",otel_scope_name="lustre"} 239924
 lustre_oss_ost_create_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 500525
+# HELP lustre_oss_ost_io_stats OSS ost_io stats
+# TYPE lustre_oss_ost_io_stats gauge
+lustre_oss_ost_io_stats{operation="ost_punch",units="usec",otel_scope_name="lustre"} 16
+lustre_oss_ost_io_stats{operation="ost_read",units="usec",otel_scope_name="lustre"} 2442845
+lustre_oss_ost_io_stats{operation="ost_write",units="usec",otel_scope_name="lustre"} 2247452
+lustre_oss_ost_io_stats{operation="req_active",units="reqs",otel_scope_name="lustre"} 4690313
+lustre_oss_ost_io_stats{operation="req_qdepth",units="reqs",otel_scope_name="lustre"} 4690313
+lustre_oss_ost_io_stats{operation="req_timeout",units="sec",otel_scope_name="lustre"} 4690313
+lustre_oss_ost_io_stats{operation="req_waittime",units="usec",otel_scope_name="lustre"} 4690313
+lustre_oss_ost_io_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 9577644
 # HELP lustre_oss_ost_stats OSS ost stats
 # TYPE lustre_oss_ost_stats gauge
 lustre_oss_ost_stats{operation="ldlm_extent_enqueue",units="reqs",otel_scope_name="lustre"} 16

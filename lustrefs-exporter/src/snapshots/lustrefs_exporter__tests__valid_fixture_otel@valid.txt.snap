@@ -1,6 +1,7 @@
 ---
 source: lustrefs-exporter/src/main.rs
 expression: x
+input_file: lustre-collector/src/fixtures/valid/valid.txt
 ---
 # HELP lustre_available_kilobytes Number of kilobytes readily available in the pool
 # TYPE lustre_available_kilobytes gauge
@@ -12,6 +13,16 @@ lustre_available_kilobytes{component="ost",target="ai400-OST0001",otel_scope_nam
 lustre_capacity_kilobytes{component="mdt",target="ai400-MDT0000",otel_scope_name="lustre"} 110635320
 lustre_capacity_kilobytes{component="ost",target="ai400-OST0000",otel_scope_name="lustre"} 3978095168
 lustre_capacity_kilobytes{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 3978095168
+# HELP lustre_changelog_current_index current changelog index.
+# TYPE lustre_changelog_current_index gauge
+lustre_changelog_current_index{target="ai400x2-MDT0000",otel_scope_name="lustre"} 0
+lustre_changelog_current_index{target="ai400x2-MDT0001",otel_scope_name="lustre"} 0
+# HELP lustre_changelog_user_idle_sec current changelog user idle seconds.
+# TYPE lustre_changelog_user_idle_sec gauge
+lustre_changelog_user_idle_sec{user="cl1",otel_scope_name="lustre"} 327
+# HELP lustre_changelog_user_index current, maximum changelog index per registered changelog user.
+# TYPE lustre_changelog_user_index gauge
+lustre_changelog_user_index{target="ai400x2-MDT0000",user="cl1",otel_scope_name="lustre"} 0
 # HELP lustre_connected_clients Number of connected clients
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="ai400-MDT0000",otel_scope_name="lustre"} 4
@@ -109,10 +120,7 @@ lustre_free_kilobytes{component="ost",target="ai400-OST0000",otel_scope_name="lu
 lustre_free_kilobytes{component="ost",target="ai400-OST0001",otel_scope_name="lustre"} 3978093456
 # HELP lustre_health_healthy Indicates whether the Lustre server is healthy or not. 1 is healthy, 0 is unhealthy.
 # TYPE lustre_health_healthy gauge
-lustre_health_healthy{otel_scope_name="lustre"} 0
-lustre_health_healthy{target="lustre-OST0012",otel_scope_name="lustre"} 0
-lustre_health_healthy{target="lustre-OST0014",otel_scope_name="lustre"} 0
-lustre_health_healthy{target="lustre-OST0016",otel_scope_name="lustre"} 0
+lustre_health_healthy{otel_scope_name="lustre"} 1
 # HELP lustre_inodes_free The number of inodes (objects) available
 # TYPE lustre_inodes_free gauge
 lustre_inodes_free{component="mdt",target="ai400-MDT0000",otel_scope_name="lustre"} 85908200

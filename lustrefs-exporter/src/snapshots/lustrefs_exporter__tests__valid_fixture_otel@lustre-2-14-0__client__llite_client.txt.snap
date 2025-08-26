@@ -1,6 +1,7 @@
 ---
 source: lustrefs-exporter/src/main.rs
 expression: x
+input_file: lustre-collector/src/fixtures/valid/lustre-2-14-0/client/llite_client.txt
 ---
 # HELP lustre_client_stats Lustre client interface stats.
 # TYPE lustre_client_stats counter
