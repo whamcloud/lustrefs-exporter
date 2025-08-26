@@ -9,13 +9,9 @@ use lustrefs_exporter::{
     Error,
     routes::{handle_error, scrape},
 };
-use mimalloc::MiMalloc;
 use std::net::SocketAddr;
 use tokio::process::Command;
 use tower::ServiceBuilder;
-
-#[global_allocator]
-static GLOBAL: MiMalloc = MiMalloc;
 
 const LUSTREFS_EXPORTER_PORT: &str = "32221";
 

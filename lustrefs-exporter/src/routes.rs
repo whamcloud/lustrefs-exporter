@@ -17,6 +17,7 @@ use axum::{
     routing::get,
 };
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
+use mimalloc::MiMalloc;
 use opentelemetry::metrics::MeterProvider;
 use prometheus::{Encoder as _, TextEncoder};
 use serde::Deserialize;
@@ -29,6 +30,9 @@ use std::{
 use tokio::process::Command;
 use tokio_stream::StreamExt as _;
 use tower::ServiceBuilder;
+
+#[global_allocator]
+static GLOBAL: MiMalloc = MiMalloc;
 
 #[derive(Debug, Deserialize)]
 pub struct Params {
