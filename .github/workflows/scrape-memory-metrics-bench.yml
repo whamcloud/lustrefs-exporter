@@ -39,7 +39,7 @@ jobs:
           --threshold-max-sample-size 64 \
           --threshold-lower-boundary 0.95 \
           --threshold-upper-boundary 0.95 \
-          --ci-only-thresholds
+          --ci-only-thresholds \
           --err \
           --adapter json \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
@@ -55,7 +55,7 @@ jobs:
           --start-point main \
           --testbed ci-runner \
           --start-point-clone-thresholds \
-          --ci-only-thresholds
+          --ci-only-thresholds \
           --err \
           --adapter json \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
