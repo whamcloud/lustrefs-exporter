@@ -8,6 +8,7 @@ version.workspace = true
 axum = { workspace = true, features = ["http2"] }
 clap = { workspace = true, features = ["derive", "env", "wrap_help", "string"] }
 lustre_collector.path = "../lustre-collector"
+mimalloc.workspace = true
 opentelemetry = { workspace = true, features = ["metrics"] }
 opentelemetry-prometheus.workspace = true
 opentelemetry_sdk = { workspace = true, features = ["metrics", "rt-tokio"] }

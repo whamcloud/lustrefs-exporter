@@ -26,6 +26,7 @@ criterion = "0.7"
 iai-callgrind = "0.16"
 include_dir = { version = "0.7", features = ["glob"] }
 insta = "1"
+mimalloc = "0.1"
 opentelemetry = "0.29.1"
 opentelemetry-otlp = "0.29"
 opentelemetry-prometheus = "0.29.1"
