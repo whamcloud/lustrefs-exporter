@@ -28,7 +28,11 @@ use std::{
 };
 use tokio::process::Command;
 use tokio_stream::StreamExt as _;
-use tower::ServiceBuilder;
+use tower::{
+    ServiceBuilder, limit::GlobalConcurrencyLimitLayer, load_shed::LoadShedLayer,
+    timeout::TimeoutLayer,
+};
+use tower_http::compression::CompressionLayer;
 
 #[derive(Debug, Deserialize)]
 pub struct Params {
@@ -37,11 +41,17 @@ pub struct Params {
     jobstats: bool,
 }
 
+const TIMEOUT_DURATION_SECS: u64 = 120;
+
 pub fn app() -> Router {
     let load_shedder = ServiceBuilder::new()
         .layer(HandleErrorLayer::new(handle_error))
-        .load_shed()
-        .concurrency_limit(10); // Max 10 concurrent scrape
+        .layer(LoadShedLayer::new())
+        .layer(TimeoutLayer::new(std::time::Duration::from_secs(
+            TIMEOUT_DURATION_SECS,
+        )))
+        .layer(GlobalConcurrencyLimitLayer::new(10))
+        .layer(CompressionLayer::new());
 
     Router::new()
         .route("/metrics", get(scrape))
