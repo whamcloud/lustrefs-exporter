@@ -18,8 +18,12 @@ use axum::{
     response::{IntoResponse, Response},
 };
 use lustre_collector::{LustreCollectorError, TargetVariant};
+use mimalloc::MiMalloc;
 use opentelemetry_sdk::{Resource, metrics::SdkMeterProvider};
 use prometheus::Registry;
+
+#[global_allocator]
+static GLOBAL: MiMalloc = MiMalloc;
 
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
