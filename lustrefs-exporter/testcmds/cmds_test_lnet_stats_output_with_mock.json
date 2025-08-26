@@ -1,0 +1,16 @@
+{
+  "commands": {
+    "lnetctl:stats show": [
+      {
+        "binary_name": "lnetctl",
+        "args": [
+          "stats",
+          "show"
+        ],
+        "stdout": "statistics:\n    msgs_alloc: 0\n    msgs_max: 39\n    rst_alloc: 15\n    errors: 0\n    send_count: 1110532\n    resend_count: 0\n    response_timeout_count: 0\n    local_interrupt_count: 0\n    local_dropped_count: 0\n    local_aborted_count: 0\n    local_no_route_count: 0\n    local_timeout_count: 0\n    local_error_count: 0\n    remote_dropped_count: 0\n    remote_error_count: 0\n    remote_timeout_count: 0\n    network_timeout_count: 0\n    recv_count: 1110512\n    route_count: 0\n    drop_count: 11\n    send_length: 261865376\n    recv_length: 254091008\n    route_length: 0\n    drop_length: 4832\n",
+        "stderr": "",
+        "exit_code": 0
+      }
+    ]
+  }
+}

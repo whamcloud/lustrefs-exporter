@@ -1,0 +1,36 @@
+{
+  "commands": {
+    "lnetctl:stats show": [
+      {
+        "binary_name": "lnetctl",
+        "args": [
+          "stats",
+          "show"
+        ],
+        "stdout": "",
+        "stderr": "cat: /usr/local/bin/../fixtures/lnetctl_stats.txt: No such file or directory\n",
+        "exit_code": 1
+      },
+      {
+        "binary_name": "lnetctl",
+        "args": [
+          "stats",
+          "show"
+        ],
+        "stdout": "",
+        "stderr": "cat: /usr/local/bin/../fixtures/lnetctl_stats.txt: No such file or directory\n",
+        "exit_code": 1
+      },
+      {
+        "binary_name": "lnetctl",
+        "args": [
+          "stats",
+          "show"
+        ],
+        "stdout": "",
+        "stderr": "cat: /usr/local/bin/../fixtures/lnetctl_stats.txt: No such file or directory\n",
+        "exit_code": 1
+      }
+    ]
+  }
+}

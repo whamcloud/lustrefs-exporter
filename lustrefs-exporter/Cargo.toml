@@ -31,13 +31,17 @@ tracing-subscriber = { workspace = true, features = ["env-filter"] }
 
 [dev-dependencies]
 combine.workspace = true
+commandeer-test.workspace = true
 const_format.workspace = true
 criterion = { workspace = true, features = ["html_reports", "async_tokio"] }
+iai-callgrind.workspace = true
 include_dir.workspace = true
 insta.workspace = true
 pretty_assertions.workspace = true
 prometheus-parse.workspace = true
 serde_json.workspace = true
+serial_test.workspace = true
+sysinfo.workspace = true
 
 [lib]
 bench = false
@@ -50,3 +54,11 @@ path = "src/main.rs"
 [[bench]]
 harness = false
 name = "jobstats"
+
+[[bench]]
+harness = false
+name = "lustre_metrics"
+
+[[bench]]
+harness = false
+name = "scrape_memory_metrics"

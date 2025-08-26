@@ -163,11 +163,11 @@ pub mod opentelemetry {
                 }
             }
 
-            if let State::TargetJobStats(target, job, stats) = state {
-                if let Err(e) = render_stat(&otel_jobstats, &target, job, stats) {
-                    tracing::debug!("Unexpected error processing jobstats lines: {e}");
-                };
-            }
+            if let State::TargetJobStats(target, job, stats) = state
+                && let Err(e) = render_stat(&otel_jobstats, &target, job, stats)
+            {
+                tracing::debug!("Unexpected error processing jobstats lines: {e}");
+            };
         })
     }
 
@@ -498,7 +498,6 @@ job_stats:
             (4 + // 4 metrics per read_bytes
             4 + // 4 metrics per write_bytes
             10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
-            * 1 // 10 jobs
                + 2 * 9 // HELP and TYPE lines
                + 3 // target_info line + HELP and TYPE
         );

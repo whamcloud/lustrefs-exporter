@@ -1,0 +1,19 @@
+[target.x86_64-unknown-linux-musl]
+linker = "rust-lld"
+
+[alias]
+build-musl = "build --release --target x86_64-unknown-linux-musl"
+
+build-musl-lustrefs-exporter = "build-musl -p lustrefs-exporter"
+
+build-musl-lustre-collector = "build-musl -p lustre_collector"
+
+# Run clippy checks
+ci_clippy = """clippy \
+--locked \
+--all-features \
+--all-targets \
+-- \
+--deny warnings \
+--deny clippy::unwrap_used \
+--deny clippy::cast_possible_wrap"""

@@ -1,0 +1,58 @@
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+
+jobs:
+  benchmark_jobstats_metrics:
+    name: Benchmark Jobstats Metrics
+    permissions:
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: bencherdev/bencher@main
+
+      - name: Install Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+
+      - name: Track Jobstats Metrics Benchmarks on main branch
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          bencher run \
+          --project '${{ secrets.BENCHER_PROJECT_ID }}' \
+          --token '${{ secrets.BENCHER_API_TOKEN }}' \
+          --branch main \
+          --testbed ci-runner \
+          --threshold-measure Latency \
+          --threshold-test t_test \
+          --threshold-max-sample-size 64 \
+          --threshold-lower-boundary 0.95 \
+          --threshold-upper-boundary 0.95 \
+          --quiet \
+          --err \
+          --adapter rust_criterion \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          "cargo bench --bench jobstats"
+
+      - name: Compare Jobstats Metrics Benchmarks with main branch
+        if: github.event_name == 'pull_request'
+        run: |
+          bencher run \
+          --project '${{ secrets.BENCHER_PROJECT_ID }}' \
+          --token '${{ secrets.BENCHER_API_TOKEN }}' \
+          --branch '${{ github.head_ref }}' \
+          --start-point main \
+          --testbed ci-runner \
+          --start-point-clone-thresholds \
+          --quiet \
+          --err \
+          --ci-id '${{ github.sha }}' \
+          --ci-number '${{ github.event.number }}' \
+          --adapter rust_criterion \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          "cargo bench --bench jobstats"

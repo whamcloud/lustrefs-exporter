@@ -39,14 +39,14 @@ pub(crate) fn build_lnet_stats(x: &Net) -> Vec<Record> {
         .collect()
 }
 
-pub fn parse(x: &str) -> Result<Vec<Record>, LustreCollectorError> {
-    let x = x.trim();
+pub fn parse(xs: &[u8]) -> Result<Vec<Record>, LustreCollectorError> {
+    let xs = xs.trim_ascii();
 
-    if x.is_empty() {
+    if xs.is_empty() {
         return Ok(vec![]);
     }
 
-    let y: LnetNetStats = serde_yaml::from_str(x)?;
+    let y: LnetNetStats = serde_yaml::from_slice(xs)?;
 
     Ok(y.net
         .map(|x| x.iter().flat_map(build_lnet_stats).collect())
@@ -75,14 +75,14 @@ pub(crate) fn build_lnetctl_stats(x: &LNetStatsStatistics) -> Vec<Record> {
     ]
 }
 
-pub fn parse_lnetctl_stats(x: &str) -> Result<Vec<Record>, LustreCollectorError> {
-    let x = x.trim();
+pub fn parse_lnetctl_stats(xs: &[u8]) -> Result<Vec<Record>, LustreCollectorError> {
+    let xs = xs.trim_ascii();
 
-    if x.is_empty() {
+    if xs.is_empty() {
         return Ok(vec![]);
     }
 
-    let y: LnetStats = serde_yaml::from_str(x)?;
+    let y: LnetStats = serde_yaml::from_slice(xs)?;
 
     Ok(y.statistics
         .map(|x| build_lnetctl_stats(&x))
@@ -96,7 +96,7 @@ mod tests {
 
     #[test]
     fn test_empty_input() {
-        let xs = parse(" ").unwrap();
+        let xs = parse(b" ").unwrap();
 
         assert_eq!(xs, vec![]);
     }
@@ -104,7 +104,7 @@ mod tests {
     #[test]
     fn test_lnet_down() {
         let x = parse(
-            r#"show:
+            br#"show:
     - net:
           errno: -100
           descr: "cannot get networks: Network is down"
@@ -118,7 +118,7 @@ mod tests {
     #[test]
     fn test_lnet_parse2() {
         let x = parse(
-            r#"net:
+            br#"net:
     - net type: lo
       local NI(s):
         - nid: 0@lo
@@ -274,7 +274,7 @@ mod tests {
     #[test]
     fn test_lnet_net_parse() {
         let x = parse(
-            r#"net:
+            br#"net:
     - net type: lo
       local NI(s):
         - nid: 0@lo
@@ -371,7 +371,7 @@ mod tests {
     #[test]
     fn test_lnet_export_parse_no_bonding() {
         let x = parse(
-            r#"net:
+            br#"net:
     - net type: lo
       local NI(s):
         - nid: 0@lo
@@ -463,7 +463,7 @@ mod tests {
     #[test]
     fn test_lnet_stats_parse() {
         let x = parse_lnetctl_stats(
-            r#"statistics:
+            br#"statistics:
             msgs_alloc: 0
             msgs_max: 2578
             rst_alloc: 20
