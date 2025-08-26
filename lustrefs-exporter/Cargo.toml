@@ -26,6 +26,7 @@ tokio = { workspace = true, features = [
 ] }
 tokio-stream.workspace = true
 tower = { workspace = true, features = ["timeout", "load-shed", "limit"] }
+tower-http = { workspace = true, features = ["compression-full"] }
 tracing.workspace = true
 tracing-subscriber = { workspace = true, features = ["env-filter"] }
 
