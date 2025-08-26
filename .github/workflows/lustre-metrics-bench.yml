@@ -48,6 +48,7 @@ jobs:
           --quiet \
           --err \
           --adapter rust_iai_callgrind \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
           "cargo bench --bench lustre_metrics"
 
       - name: Compare Lustre Metrics Benchmarks with main branch
@@ -65,4 +66,5 @@ jobs:
           --ci-id '${{ github.sha }}' \
           --ci-number '${{ github.event.number }}' \
           --adapter rust_iai_callgrind \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
           "cargo bench --bench lustre_metrics"

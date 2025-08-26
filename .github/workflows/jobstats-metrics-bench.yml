@@ -36,6 +36,7 @@ jobs:
           --quiet \
           --err \
           --adapter rust_criterion \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
           "cargo bench --bench jobstats"
 
       - name: Compare Jobstats Metrics Benchmarks with main branch
@@ -53,4 +54,5 @@ jobs:
           --ci-id '${{ github.sha }}' \
           --ci-number '${{ github.event.number }}' \
           --adapter rust_criterion \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
           "cargo bench --bench jobstats"

@@ -41,6 +41,7 @@ jobs:
           --quiet \
           --err \
           --adapter json \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
           --file lustrefs-exporter/scrape_allocations_results.json
 
       - name: Compare scrape memory metrics with main branch
@@ -58,4 +59,5 @@ jobs:
           --quiet \
           --err \
           --adapter json \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
           --file lustrefs-exporter/scrape_allocations_results.json
