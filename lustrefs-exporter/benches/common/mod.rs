@@ -12,8 +12,6 @@ use std::time::Duration;
 use tokio::{task::JoinSet, time::Instant};
 use tower::ServiceExt as _;
 
-/// Create a new Axum app with the provided state and a Request
-/// to scrape the metrics endpoint.
 fn get_request() -> Request<Body> {
     Request::builder()
         .uri("/metrics?jobstats=true")
