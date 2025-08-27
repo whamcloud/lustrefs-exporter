@@ -64,4 +64,6 @@ expression: params()
     "qmt.*.*.glb-usr",
     "qmt.*.*.glb-prj",
     "qmt.*.*.glb-grp",
+    "nodemap.*.dt_stats",
+    "nodemap.*.md_stats",
 ]

@@ -8,6 +8,7 @@ use crate::{
     llite::LLITE,
     mdd_parser::MDD,
     mds::mds_parser::MDS,
+    nodemap::NODEMAP,
     oss::oss_parser::OST,
     quota::QMT,
     time::time_triple,
@@ -31,7 +32,19 @@ where
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     (
-        not_words(&["obdfilter", "mgs", "mdt", LDLM, OST, LLITE, MDS, MDD, QMT]).skip(spaces()),
+        not_words(&[
+            "obdfilter",
+            "mgs",
+            "mdt",
+            LDLM,
+            OST,
+            LLITE,
+            MDS,
+            MDD,
+            NODEMAP,
+            QMT,
+        ])
+        .skip(spaces()),
         digits(),
         spaces().with(string("samples")),
         spaces().with(between(token('['), token(']'), word())),
