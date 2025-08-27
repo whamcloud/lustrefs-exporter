@@ -69,14 +69,4 @@ pub fn build_lustre_stats(output: &Vec<Record>, metrics: &mut Metrics) {
             _ => {}
         }
     }
-
-    metrics
-        .target_info
-        .get_or_create(&vec![
-            ("service_name", "lustrefs-exporter".to_string()),
-            ("telemetry_sdk_language", "rust".to_string()),
-            ("telemetry_sdk_name", "opentelemetry".to_string()),
-            ("telemetry_sdk_version", "0.29.0".to_string()),
-        ])
-        .set(1);
 }

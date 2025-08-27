@@ -181,16 +181,6 @@ pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
             }
         }
 
-        jobstats
-            .target_info
-            .get_or_create(&vec![
-                ("service_name", "lustrefs-exporter".to_string()),
-                ("telemetry_sdk_language", "rust".to_string()),
-                ("telemetry_sdk_name", "opentelemetry".to_string()),
-                ("telemetry_sdk_version", "0.29.0".to_string()),
-            ])
-            .set(1);
-
         if let State::TargetJobStats(target, job, stats) = state
             && let Err(e) = render_stat(&mut jobstats, &target, job, stats)
         {
@@ -403,7 +393,7 @@ pub mod tests {
 
         let buffer = stream_jobstats(f).await;
 
-        assert_eq!(buffer.lines().count(), 3524668);
+        assert_eq!(buffer.lines().count(), 3524665);
     }
 
     #[tokio::test(flavor = "multi_thread")]
@@ -419,7 +409,6 @@ pub mod tests {
                 10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
                 * 49167 // 49167 jobs
                 + 2 * 9 // HELP and TYPE lines
-                + 3 // target_info line + HELP and TYPE
                 + 1 // # EOF
         );
     }
@@ -437,7 +426,6 @@ pub mod tests {
                 10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
                 * 16 // 16 jobs
                 + 2 * 9 // HELP and TYPE lines
-                + 3 // target_info line + HELP and TYPE
                 + 1 // # EOF
         );
     }
@@ -494,7 +482,6 @@ job_stats:
                 10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
                 * 10 // 10 jobs
                     + 2 * 9 // HELP and TYPE lines
-                    + 3 // target_info line + HELP and TYPE
                     + 1 // # EOF
         );
 
@@ -513,7 +500,6 @@ job_stats:
                 4 + // 4 metrics per write_bytes
                 10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
                 + 2 * 9 // HELP and TYPE lines
-                + 3 // target_info line + HELP and TYPE
                 + 1 // # EOF
         );
     }

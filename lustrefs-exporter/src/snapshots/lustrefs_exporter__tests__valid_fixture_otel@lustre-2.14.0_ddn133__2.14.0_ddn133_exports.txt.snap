@@ -1,5 +1,5 @@
 ---
-source: lustrefs-exporter/src/main.rs
+source: lustrefs-exporter/src/lib.rs
 expression: x
 input_file: lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn133/2.14.0_ddn133_exports.txt
 ---
@@ -1664,7 +1664,4 @@ lustre_client_export_bytes_total{component="ost",name="write_bytes",nid="192.168
 lustre_client_export_bytes_total{component="ost",name="write_bytes",nid="192.168.0.115@o2ib",target="ai400x2-OST0001",units="bytes",otel_scope_name="lustre"} 349229285376
 lustre_client_export_bytes_total{component="ost",name="write_bytes",nid="192.168.2.87@o2ib",target="ai400x2-OST0000",units="bytes",otel_scope_name="lustre"} 20008988631040
 lustre_client_export_bytes_total{component="ost",name="write_bytes",nid="192.168.2.87@o2ib",target="ai400x2-OST0001",units="bytes",otel_scope_name="lustre"} 25359790886912
-# HELP target_info Target metadata.
-# TYPE target_info gauge
-target_info{service_name="lustrefs-exporter",telemetry_sdk_language="rust",telemetry_sdk_name="opentelemetry",telemetry_sdk_version="0.29.0"} 1
 # EOF

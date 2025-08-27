@@ -1,5 +1,5 @@
 ---
-source: lustrefs-exporter/src/main.rs
+source: lustrefs-exporter/src/lib.rs
 expression: x
 input_file: lustre-collector/src/fixtures/valid/valid2.txt
 ---
@@ -132,7 +132,4 @@ lustre_stats_total{component="mdt",operation="open",target="testfs-MDT0000",otel
 lustre_stats_total{component="mdt",operation="setattr",target="testfs-MDT0000",otel_scope_name="lustre"} 2
 lustre_stats_total{component="mdt",operation="statfs",target="testfs-MDT0000",otel_scope_name="lustre"} 7286
 lustre_stats_total{component="mdt",operation="unlink",target="testfs-MDT0000",otel_scope_name="lustre"} 2
-# HELP target_info Target metadata.
-# TYPE target_info gauge
-target_info{service_name="lustrefs-exporter",telemetry_sdk_language="rust",telemetry_sdk_name="opentelemetry",telemetry_sdk_version="0.29.0"} 1
 # EOF

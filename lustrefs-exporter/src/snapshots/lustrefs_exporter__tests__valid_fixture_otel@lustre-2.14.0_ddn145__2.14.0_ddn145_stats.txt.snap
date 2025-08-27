@@ -280,7 +280,4 @@ lustre_mds_mdt_seqs_stats{operation="req_timeout",units="secs",otel_scope_name="
 lustre_mds_mdt_seqs_stats{operation="req_waittime",units="usecs",otel_scope_name="lustre"} 4
 lustre_mds_mdt_seqs_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 9
 lustre_mds_mdt_seqs_stats{operation="seq_query",units="usecs",otel_scope_name="lustre"} 4
-# HELP target_info Target metadata.
-# TYPE target_info gauge
-target_info{service_name="lustrefs-exporter",telemetry_sdk_language="rust",telemetry_sdk_name="opentelemetry",telemetry_sdk_version="0.29.0"} 1
 # EOF

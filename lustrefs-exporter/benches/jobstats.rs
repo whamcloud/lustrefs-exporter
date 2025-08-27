@@ -42,7 +42,7 @@ job_stats:{}"#,
 );
 
 async fn parse_synthetic_yaml(input: &'static str) -> String {
-    // Set up OpenTelemetry metrics
+    // Setup jobstats metrics
     let registry = Registry::default();
     let jobstats_metrics = JobstatMetrics::default();
 
