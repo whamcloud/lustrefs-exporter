@@ -1,5 +1,5 @@
 ---
-source: lustrefs-exporter/src/main.rs
+source: lustrefs-exporter/src/lib.rs
 expression: x
 input_file: lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn145/2.14.0_ddn145_stats.txt
 ---
@@ -186,7 +186,7 @@ lustre_oss_ost_create_stats{operation="req_qdepth",units="reqs",otel_scope_name=
 lustre_oss_ost_create_stats{operation="req_timeout",units="secs",otel_scope_name="lustre"} 455710
 lustre_oss_ost_create_stats{operation="req_waittime",units="usecs",otel_scope_name="lustre"} 455710
 lustre_oss_ost_create_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 919034
-# HELP lustre_changelog_current_index Current changelog index.
+# HELP lustre_changelog_current_index current changelog index.
 # TYPE lustre_changelog_current_index gauge
 lustre_changelog_current_index{target="fs-MDT0000",otel_scope_name="lustre"} 0
 # HELP lustre_client_stats Lustre client interface stats.

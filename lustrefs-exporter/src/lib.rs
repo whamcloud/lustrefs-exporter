@@ -436,7 +436,7 @@ pub mod tests {
             .iter()
             .filter_map(|(k, v)| {
                 if k != "target_info" && k != "lustre_health_healthy" {
-                    Some((k.clone(), v.clone()))
+                    Some((k.clone(), v.strip_suffix(".").unwrap_or(v).to_string()))
                 } else {
                     None
                 }

@@ -232,19 +232,19 @@ impl BrwStatsMetrics {
 
         registry.register(
             "lustre_changelog_current_index",
-            "Current changelog index",
+            "current changelog index",
             self.changelog_current_index.clone(),
         );
 
         registry.register(
             "lustre_changelog_user_index",
-            "Current, maximum changelog index per registered changelog user",
+            "current, maximum changelog index per registered changelog user",
             self.changelog_user_index.clone(),
         );
 
         registry.register(
             "lustre_changelog_user_idle_sec",
-            "Current changelog user idle seconds",
+            "current changelog user idle seconds",
             self.changelog_user_idle_sec.clone(),
         );
     }

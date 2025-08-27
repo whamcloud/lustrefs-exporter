@@ -109,7 +109,7 @@ mod tests {
 
     use crate::dump_stats;
 
-    #[commandeer(Record, "lctl", "lnetctl")]
+    #[commandeer(Replay, "lctl", "lnetctl")]
     #[tokio::test]
     #[serial]
     async fn test_dump_stats() {

@@ -1,5 +1,5 @@
 ---
-source: lustrefs-exporter/src/main.rs
+source: lustrefs-exporter/src/lib.rs
 expression: x
 input_file: lustre-collector/src/fixtures/valid/valid.txt
 ---
@@ -225,14 +225,14 @@ lustre_oss_ost_create_stats{operation="req_qdepth",units="reqs",otel_scope_name=
 lustre_oss_ost_create_stats{operation="req_timeout",units="sec",otel_scope_name="lustre"} 239924
 lustre_oss_ost_create_stats{operation="req_waittime",units="usec",otel_scope_name="lustre"} 239924
 lustre_oss_ost_create_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 500525
-# HELP lustre_changelog_current_index Current changelog index.
+# HELP lustre_changelog_current_index current changelog index.
 # TYPE lustre_changelog_current_index gauge
 lustre_changelog_current_index{target="ai400x2-MDT0000",otel_scope_name="lustre"} 0
 lustre_changelog_current_index{target="ai400x2-MDT0001",otel_scope_name="lustre"} 0
-# HELP lustre_changelog_user_index Current, maximum changelog index per registered changelog user.
+# HELP lustre_changelog_user_index current, maximum changelog index per registered changelog user.
 # TYPE lustre_changelog_user_index gauge
 lustre_changelog_user_index{target="ai400x2-MDT0000",user="cl1",otel_scope_name="lustre"} 0
-# HELP lustre_changelog_user_idle_sec Current changelog user idle seconds.
+# HELP lustre_changelog_user_idle_sec current changelog user idle seconds.
 # TYPE lustre_changelog_user_idle_sec gauge
 lustre_changelog_user_idle_sec{user="cl1",otel_scope_name="lustre"} 327
 # HELP lustre_write_samples_total Total number of writes that have been recorded.

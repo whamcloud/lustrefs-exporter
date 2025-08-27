@@ -362,7 +362,7 @@ lustre_oss_ost_create_stats{operation="req_qdepth",units="reqs",otel_scope_name=
 lustre_oss_ost_create_stats{operation="req_timeout",units="secs",otel_scope_name="lustre"} 3880
 lustre_oss_ost_create_stats{operation="req_waittime",units="usecs",otel_scope_name="lustre"} 3880
 lustre_oss_ost_create_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 7924
-# HELP lustre_changelog_current_index Current changelog index.
+# HELP lustre_changelog_current_index current changelog index.
 # TYPE lustre_changelog_current_index gauge
 lustre_changelog_current_index{target="fs-MDT0000",otel_scope_name="lustre"} 0
 # HELP lustre_client_stats Lustre client interface stats.
