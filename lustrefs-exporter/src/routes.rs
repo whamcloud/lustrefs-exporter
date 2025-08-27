@@ -435,10 +435,7 @@ mod tests {
     async fn test_lustre_metrics_output_with_mock() {
         let output = lustre_metrics_output().output().await.unwrap();
 
-        insta::assert_snapshot!(
-            "lustre_metrics_output_with_mock",
-            String::from_utf8(output.stdout).unwrap()
-        );
+        insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }
 
     #[commandeer(Replay, "lnetctl")]
@@ -447,10 +444,7 @@ mod tests {
     async fn test_net_show_output_with_mock() {
         let output = net_show_output().output().await.unwrap();
 
-        insta::assert_snapshot!(
-            "net_show_output_with_mock",
-            String::from_utf8(output.stdout).unwrap()
-        );
+        insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }
 
     #[commandeer(Replay, "lnetctl")]
@@ -459,10 +453,7 @@ mod tests {
     async fn test_lnet_stats_output_with_mock() {
         let output = lnet_stats_output().output().await.unwrap();
 
-        insta::assert_snapshot!(
-            "lnet_stats_output_with_mock",
-            String::from_utf8(output.stdout).unwrap()
-        );
+        insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }
 
     #[commandeer(Replay, "lctl", "lnetctl")]
