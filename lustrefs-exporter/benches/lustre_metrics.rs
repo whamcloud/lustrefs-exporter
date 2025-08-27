@@ -38,7 +38,7 @@ fn encode_metrics(records: Vec<Record>) -> String {
     let mut registry = Registry::default();
     let mut metrics = Metrics::default();
 
-    // Build OTEL metrics
+    // Build metrics
     build_lustre_stats(&records, &mut metrics);
 
     metrics.register_metric(&mut registry);

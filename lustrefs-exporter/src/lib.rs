@@ -57,6 +57,7 @@ pub fn create_labels(labels: &[(&'static str, String)]) -> LabelContainer {
 
     result.extend_from_slice(labels);
 
+    // This parameter is required to be otel compatible.
     result.push(("otel_scope_name", "lustre".to_string()));
 
     result

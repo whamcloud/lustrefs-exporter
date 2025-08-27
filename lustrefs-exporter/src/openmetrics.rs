@@ -48,29 +48,30 @@ impl Metrics {
     }
 }
 
-pub fn build_lustre_stats(output: &Vec<Record>, otel: &mut Metrics) {
+pub fn build_lustre_stats(output: &Vec<Record>, metrics: &mut Metrics) {
     // This set is used to store the possible duplicate target stats
     let mut set = HashSet::new();
 
     for x in output {
         match x {
             lustre_collector::Record::Host(x) => {
-                build_host_stats(x, &mut otel.host);
+                build_host_stats(x, &mut metrics.host);
             }
             lustre_collector::Record::LNetStat(x) => {
-                build_lnet_stats(x, &mut otel.lnet);
+                build_lnet_stats(x, &mut metrics.lnet);
             }
             lustre_collector::Record::Target(x) => {
-                build_target_stats(x, otel, &mut set);
+                build_target_stats(x, metrics, &mut set);
             }
             lustre_collector::Record::LustreService(x) => {
-                build_service_stats(x, &mut otel.service);
+                build_service_stats(x, &mut metrics.service);
             }
             _ => {}
         }
     }
 
-    otel.target_info
+    metrics
+        .target_info
         .get_or_create(&vec![
             ("service_name", "lustrefs-exporter".to_string()),
             ("telemetry_sdk_language", "rust".to_string()),
