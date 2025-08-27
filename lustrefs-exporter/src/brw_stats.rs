@@ -5,7 +5,7 @@
 use crate::{
     Family, LabelProm as _, create_labels,
     llite::build_llite_stats,
-    openmetrics::Metrics,
+    metrics::Metrics,
     quota::{build_ost_quota_stats, build_quota_stats},
     stats::{build_export_stats, build_mds_stats, build_stats},
 };

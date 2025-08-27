@@ -7,7 +7,7 @@ use iai_callgrind::{
     OutputFormat, library_benchmark, library_benchmark_group, main,
 };
 use lustre_collector::{Record, parse_lnetctl_output, parse_lnetctl_stats};
-use lustrefs_exporter::openmetrics::{Metrics, build_lustre_stats};
+use lustrefs_exporter::metrics::{Metrics, build_lustre_stats};
 use prometheus_client::{encoding::text::encode, registry::Registry};
 use std::hint::black_box;
 
@@ -34,7 +34,7 @@ fn generate_records() -> Vec<Record> {
     records
 }
 
-fn encode_metrics(records: Vec<Record>) -> String {
+fn encode_metrics(records: Vec<Record>) -> Vec<u8> {
     let mut registry = Registry::default();
     let mut metrics = Metrics::default();
 
@@ -47,12 +47,12 @@ fn encode_metrics(records: Vec<Record>) -> String {
 
     encode(&mut output, &registry).expect("Failed to encode metrics");
 
-    output
+    output.as_bytes().to_vec()
 }
 
 #[library_benchmark]
 #[benches::with_setup(setup = generate_records)]
-fn bench_encode_lustre_metrics(records: Vec<Record>) -> String {
+fn bench_encode_lustre_metrics(records: Vec<Record>) -> Vec<u8> {
     black_box(encode_metrics(records))
 }
 

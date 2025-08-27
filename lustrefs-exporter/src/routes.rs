@@ -5,7 +5,7 @@
 use crate::{
     Error,
     jobstats::{JobstatMetrics, jobstats_stream},
-    openmetrics::{self, Metrics},
+    metrics::{self, Metrics},
 };
 use axum::{
     BoxError, Router,
@@ -220,7 +220,7 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
     output.append(&mut lnetctl_stats_record);
 
     // Build and register Lustre metrics
-    openmetrics::build_lustre_stats(&output, &mut opentelemetry_metrics);
+    metrics::build_lustre_stats(&output, &mut opentelemetry_metrics);
     opentelemetry_metrics.register_metric(&mut registry);
 
     let mut buffer = String::new();

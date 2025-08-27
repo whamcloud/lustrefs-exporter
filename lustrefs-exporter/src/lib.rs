@@ -7,7 +7,7 @@ pub mod host;
 pub mod jobstats;
 pub mod llite;
 pub mod lnet;
-pub mod openmetrics;
+pub mod metrics;
 pub mod quota;
 pub mod routes;
 pub mod service;
@@ -167,7 +167,7 @@ pub async fn dump_stats() -> Result<(), Error> {
 pub mod tests {
     use crate::{
         Error, LabelProm as _, create_labels, dump_stats,
-        openmetrics::{self, Metrics},
+        metrics::{self, Metrics},
     };
     use axum::{http::StatusCode, response::IntoResponse as _};
     use combine::EasyParser as _;
@@ -469,7 +469,7 @@ pub mod tests {
         let mut registry = Registry::default();
         let mut metrics = Metrics::default();
 
-        openmetrics::build_lustre_stats(x, &mut metrics);
+        metrics::build_lustre_stats(x, &mut metrics);
 
         metrics.register_metric(&mut registry);
 
