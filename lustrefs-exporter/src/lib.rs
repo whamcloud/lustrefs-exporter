@@ -13,6 +13,9 @@ pub mod routes;
 pub mod service;
 pub mod stats;
 
+use crate::routes::{
+    jobstats_metrics_cmd, lnet_stats_output, lustre_metrics_output, net_show_output,
+};
 use axum::{
     http::{self, StatusCode},
     response::{IntoResponse, Response},
@@ -103,17 +106,75 @@ impl LabelProm for TargetVariant {
     }
 }
 
+/// Dumps Lustre filesystem statistics to stdout
+///
+/// This function executes several Lustre commands and prints their raw output:
+/// - `lctl get_param` with all standard parameters from the parser
+/// - `lctl get_param` for jobstats (OST and MDT job statistics)
+/// - `lnetctl net show -v 4` for network configuration details
+/// - `lnetctl stats show` for network statistics
+///
+/// # Returns
+/// * `Ok(())` on successful execution of all commands
+/// * `Err(Error)` if any command fails or output cannot be converted to UTF-8
+///
+/// # Example
+/// ```rust
+/// use lustrefs_exporter::dump_stats;
+///
+/// async fn test_dump_stats() {
+///     dump_stats().await.unwrap();
+/// }
+/// ```
+pub async fn dump_stats() -> Result<(), Error> {
+    println!("# Dumping lctl get_param output");
+
+    let mut lctl = lustre_metrics_output();
+
+    let lctl = lctl.output().await?;
+
+    println!("{}", std::str::from_utf8(&lctl.stdout)?);
+
+    println!("# Dumping lctl get_param jobstats output");
+
+    let mut lctl = jobstats_metrics_cmd();
+
+    let lctl = tokio::task::spawn_blocking(move || lctl.output()).await??;
+
+    println!("{}", std::str::from_utf8(&lctl.stdout)?);
+
+    println!("# Dumping lnetctl net show output");
+
+    let mut lnetctl = net_show_output();
+
+    let lnetctl = lnetctl.output().await?;
+
+    println!("{}", std::str::from_utf8(&lnetctl.stdout)?);
+
+    println!("# Dumping lnetctl stats show output");
+
+    let mut lnetctl_stats_output = lnet_stats_output();
+
+    let lnetctl_stats_output = lnetctl_stats_output.output().await?;
+
+    println!("{}", std::str::from_utf8(&lnetctl_stats_output.stdout)?);
+
+    Ok(())
+}
+
 #[cfg(test)]
 pub mod tests {
     use crate::{
-        Error, LabelProm as _, create_labels,
+        Error, LabelProm as _, create_labels, dump_stats,
         openmetrics::{self, Metrics},
     };
     use axum::{http::StatusCode, response::IntoResponse as _};
     use combine::EasyParser as _;
+    use commandeer_test::commandeer;
     use lustre_collector::{Record, TargetVariant, parser::parse};
     use prometheus_client::{encoding::text::encode, registry::Registry};
     use prometheus_parse::{Sample, Scrape};
+    use serial_test::serial;
     use std::{
         collections::HashSet,
         path::{Path, PathBuf},
@@ -168,6 +229,13 @@ pub mod tests {
         assert_eq!(TargetVariant::Ost.to_prom_label(), "ost");
         assert_eq!(TargetVariant::Mgt.to_prom_label(), "mgt");
         assert_eq!(TargetVariant::Mdt.to_prom_label(), "mdt");
+    }
+
+    #[commandeer(Replay, "lctl", "lnetctl")]
+    #[tokio::test]
+    #[serial]
+    async fn test_dump_stats() {
+        dump_stats().await.unwrap();
     }
 
     #[tokio::test(flavor = "multi_thread")]
