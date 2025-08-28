@@ -140,7 +140,7 @@ pub mod tests {
     use prometheus_parse::{Sample, Scrape};
     use serial_test::serial;
     use std::{
-        collections::HashSet,
+        collections::{BTreeSet, HashSet},
         path::{Path, PathBuf},
     };
 
@@ -291,6 +291,129 @@ pub mod tests {
         );
 
         Ok(())
+    }
+
+    /// There are various differences between the current snapshots and the otel snapshots.
+    /// It is imperative that the metrics between both snapshots are the same. However,
+    /// we cannot do a direct comparison of the text as there are several differences in the
+    /// way the data is encoded:
+    /// 1. Metric descriptions: The otel implementation did not have trailing periods, while
+    ///    the prometheus-client crate adds a period to the end of all metric descriptions.
+    /// 2. Label ordering: Labels are not sorted alphabetically in the otel implementation,
+    ///    while prometheus-client sorts them.
+    /// 3. EOF marker: The otel version did not contain the `# EOF` line that is present
+    ///    in the current implementation.
+    /// 4. Removed metrics: The `target_info` metric has been removed in the new implementation.
+    /// 5. Removed labels: The `otel_scope_name` label has been removed from all metrics.
+    ///
+    /// This test ensures that the current snapshots still match the otel snapshots by normalizing
+    /// each line in both snapshot files before performing a comparison.
+    #[test]
+    fn compare_snapshots_to_existing_otel_snapshots() -> Result<(), Box<dyn std::error::Error>> {
+        insta::glob!("otel_snapshots/", "*.snap", |path| {
+            let snap_name = path.file_name().unwrap();
+
+            let snap_file = path
+                .parent()
+                .unwrap()
+                .parent()
+                .unwrap()
+                .join("snapshots")
+                .join(snap_name);
+
+            let otel_snapshot_contents = std::fs::read_to_string(path).unwrap();
+
+            let snapshot_contents = std::fs::read_to_string(&snap_file).unwrap();
+
+            let otel_snapshot = normalize_snapshot_for_otel_comparison(&otel_snapshot_contents);
+
+            let snapshot = normalize_snapshot_for_otel_comparison(&snapshot_contents);
+
+            let only_in_otel_snapshots = otel_snapshot
+                .difference(&snapshot)
+                .cloned()
+                .collect::<Vec<_>>();
+
+            let only_in_snapshots = snapshot
+                .difference(&otel_snapshot)
+                .cloned()
+                .collect::<Vec<_>>();
+
+            let snapshots_equal =
+                if only_in_otel_snapshots.is_empty() && only_in_snapshots.is_empty() {
+                    true
+                } else {
+                    if !only_in_otel_snapshots.is_empty() {
+                        eprintln!("Metrics only in {}:", path.display());
+
+                        for metric in only_in_otel_snapshots {
+                            eprintln!("{metric:?}");
+                        }
+                    }
+
+                    if !only_in_snapshots.is_empty() {
+                        eprintln!("Metrics only in {}:", snap_file.display());
+
+                        for metric in only_in_snapshots {
+                            eprintln!("{metric:?}");
+                        }
+                    }
+
+                    false
+                };
+
+            assert!(snapshots_equal, "Snapshots are not equal.");
+        });
+
+        Ok(())
+    }
+
+    fn normalize_snapshot_for_otel_comparison(x: &str) -> BTreeSet<String> {
+        x.lines()
+            .filter(|x| {
+                !x.contains("target_info")
+                    && !x.contains("# EOF")
+                    && !x.starts_with("source:")
+                    && !x.starts_with("expression")
+                    && !x.starts_with("\"")
+                    && !x.starts_with("---")
+                    && !x.is_empty()
+            })
+            .map(String::from)
+            .map(|x| {
+                if !x.starts_with("# HELP") {
+                    return x;
+                }
+
+                x.strip_suffix(".").unwrap_or(&x).to_string()
+            })
+            .map(|x| {
+                if x.starts_with('#') {
+                    return x.to_string();
+                }
+
+                let Some((metric_name, rest)) = x.split_once("{") else {
+                    return x.to_string();
+                };
+
+                let Some((labels, value)) = rest.split_once("}") else {
+                    return x.to_string();
+                };
+
+                let labels = labels
+                    .trim()
+                    .split(",")
+                    .filter(|x| !x.contains("otel_scope_name"))
+                    .collect::<BTreeSet<_>>();
+
+                format!(
+                    "{}{{{}}} {}",
+                    metric_name.trim(),
+                    labels.into_iter().collect::<Vec<_>>().join(","),
+                    value.trim()
+                )
+            })
+            .collect::<BTreeSet<_>>()
     }
 
     pub(super) fn compare_metrics(metrics1: &Scrape, metrics2: &Scrape) {
