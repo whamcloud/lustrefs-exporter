@@ -310,7 +310,7 @@ pub mod tests {
     /// each line in both snapshot files before performing a comparison.
     #[test]
     fn compare_snapshots_to_existing_otel_snapshots() -> Result<(), Box<dyn std::error::Error>> {
-        insta::glob!("otel_snapshots/", "*.snap", |path| {
+        insta::glob!("otel_snapshots/", "*.otelsnap", |path| {
             let snap_name = path.file_name().unwrap();
 
             let snap_file = path
@@ -319,7 +319,7 @@ pub mod tests {
                 .parent()
                 .unwrap()
                 .join("snapshots")
-                .join(snap_name);
+                .join(snap_name.to_string_lossy().replace(".otelsnap", ".snap"));
 
             let otel_snapshot_contents = std::fs::read_to_string(path).unwrap();
 
