@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::{Family, create_labels};
+use crate::Family;
 use lustre_collector::LustreServiceStats;
 use prometheus_client::{metrics::counter::Counter, registry::Registry};
 use std::ops::Deref;
@@ -35,7 +35,7 @@ pub fn build_service_stats(x: &LustreServiceStats, service: &mut ServiceMetrics)
             for s in xs {
                 service
                     .ldlm_canceld_stats
-                    .get_or_create(&create_labels(&[("operation", s.name.deref().to_string())]))
+                    .get_or_create(&vec![("operation", s.name.deref().to_string())])
                     .inc_by(s.samples);
             }
         }
@@ -43,7 +43,7 @@ pub fn build_service_stats(x: &LustreServiceStats, service: &mut ServiceMetrics)
             for s in xs {
                 service
                     .ldlm_cbd_stats
-                    .get_or_create(&create_labels(&[("operation", s.name.deref().to_string())]))
+                    .get_or_create(&vec![("operation", s.name.deref().to_string())])
                     .inc_by(s.samples);
             }
         }

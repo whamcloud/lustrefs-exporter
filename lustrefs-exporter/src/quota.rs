@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::{Family, LabelProm, create_labels};
+use crate::{Family, LabelProm};
 use lustre_collector::{QuotaStats, QuotaStatsOsd, TargetQuotaStat, TargetStat};
 use prometheus_client::{metrics::gauge::Gauge, registry::Registry};
 use std::{ops::Deref, sync::atomic::AtomicU64};
@@ -70,37 +70,21 @@ pub fn build_quota_stats(x: &TargetQuotaStat<QuotaStats>, quota: &mut QuotaMetri
             _ => param.to_string(),
         };
 
-        quota
-            .quota_hard
-            .get_or_create(&create_labels(&[
-                ("accounting", accounting.clone()),
-                ("id", s.id.to_string()),
-                ("manager", manager.to_string()),
-                ("pool", pool.clone()),
-                ("target", target.to_string()),
-            ]))
-            .set(s.limits.hard);
+        let label = vec![
+            ("accounting", accounting.clone()),
+            ("id", s.id.to_string()),
+            ("manager", manager.to_string()),
+            ("pool", pool.clone()),
+            ("target", target.to_string()),
+        ];
 
-        quota
-            .quota_soft
-            .get_or_create(&create_labels(&[
-                ("accounting", accounting.clone()),
-                ("id", s.id.to_string()),
-                ("manager", manager.to_string()),
-                ("pool", pool.clone()),
-                ("target", target.to_string()),
-            ]))
-            .set(s.limits.soft);
+        quota.quota_hard.get_or_create(&label).set(s.limits.hard);
+
+        quota.quota_soft.get_or_create(&label).set(s.limits.soft);
 
         quota
             .quota_granted
-            .get_or_create(&create_labels(&[
-                ("accounting", accounting),
-                ("id", s.id.to_string()),
-                ("manager", manager.to_string()),
-                ("pool", pool),
-                ("target", target.to_string()),
-            ]))
+            .get_or_create(&label)
             .set(s.limits.granted);
     }
 }
@@ -120,24 +104,21 @@ pub fn build_ost_quota_stats(x: &TargetStat<QuotaStatsOsd>, quota: &mut QuotaMet
             lustre_collector::QuotaKind::Prj => "project",
         };
 
+        let label = vec![
+            ("accounting", accounting.to_string()),
+            ("component", kind.to_prom_label().to_string()),
+            ("id", s.id.to_string()),
+            ("target", target.to_string()),
+        ];
+
         quota
             .quota_used_inodes
-            .get_or_create(&create_labels(&[
-                ("accounting", accounting.to_string()),
-                ("component", kind.to_prom_label().to_string()),
-                ("id", s.id.to_string()),
-                ("target", target.to_string()),
-            ]))
+            .get_or_create(&label)
             .set(s.usage.inodes);
 
         quota
             .quota_used_kbytes
-            .get_or_create(&create_labels(&[
-                ("accounting", accounting.to_string()),
-                ("component", kind.to_prom_label().to_string()),
-                ("id", s.id.to_string()),
-                ("target", target.to_string()),
-            ]))
+            .get_or_create(&label)
             .set(s.usage.kbytes);
     }
 }

@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::{Family, create_labels};
+use crate::Family;
 use lustre_collector::LliteStat;
 use prometheus_client::{metrics::counter::Counter, registry::Registry};
 use std::ops::Deref;
@@ -32,10 +32,10 @@ pub fn build_llite_stats(x: &LliteStat, metrics: &mut LliteMetrics) {
     for stat in stats {
         metrics
             .client_stats
-            .get_or_create(&create_labels(&[
+            .get_or_create(&vec![
                 ("operation", stat.name.deref().to_string()),
                 ("target", target.deref().to_string()),
-            ]))
+            ])
             .inc_by(stat.samples);
     }
 }

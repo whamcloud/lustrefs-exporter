@@ -26,43 +26,6 @@ use prometheus_client::metrics::family::Family as PrometheusFamily;
 pub type LabelContainer = Vec<(&'static str, String)>;
 pub type Family<T> = PrometheusFamily<LabelContainer, T>;
 
-/// Creates a label container by combining provided labels with the default OpenTelemetry scope label.
-///
-/// This function takes a slice of label tuples and appends a default `otel_scope_name` label
-/// with the value "lustre" to create a complete set of labels for Prometheus metrics.
-///
-/// # Arguments
-///
-/// * `labels` - A slice of tuples containing label key-value pairs where keys are static strings
-///   and values are owned strings
-///
-/// # Returns
-///
-/// A `LabelContainer` (vector of label tuples) containing the input labels plus the default
-/// OpenTelemetry scope label
-///
-/// # Examples
-///
-/// ```
-/// use lustrefs_exporter::create_labels;
-///
-/// let labels = create_labels(&[
-///     ("component", "mdt".to_string()),
-///     ("target", "fs-MDT0000".to_string()),
-/// ]);
-/// // Results in: [("component", "mdt"), ("target", "fs-MDT0000"), ("otel_scope_name", "lustre")]
-/// ```
-pub fn create_labels(labels: &[(&'static str, String)]) -> LabelContainer {
-    let mut result = Vec::with_capacity(labels.len() + 1);
-
-    result.extend_from_slice(labels);
-
-    // This parameter is required to be otel compatible.
-    result.push(("otel_scope_name", "lustre".to_string()));
-
-    result
-}
-
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
     #[error(transparent)]
@@ -166,7 +129,7 @@ pub async fn dump_stats() -> Result<(), Error> {
 #[cfg(test)]
 pub mod tests {
     use crate::{
-        Error, LabelProm as _, create_labels, dump_stats,
+        Error, LabelProm as _, dump_stats,
         metrics::{self, Metrics},
     };
     use axum::{http::StatusCode, response::IntoResponse as _};
@@ -180,42 +143,6 @@ pub mod tests {
         collections::HashSet,
         path::{Path, PathBuf},
     };
-
-    #[test]
-    fn test_create_labels_empty() {
-        let result = create_labels(&[]);
-        assert_eq!(result, vec![("otel_scope_name", "lustre".to_string())]);
-    }
-
-    #[test]
-    fn test_create_labels_single() {
-        let result = create_labels(&[("component", "mdt".to_string())]);
-        assert_eq!(
-            result,
-            vec![
-                ("component", "mdt".to_string()),
-                ("otel_scope_name", "lustre".to_string())
-            ]
-        );
-    }
-
-    #[test]
-    fn test_create_labels_multiple() {
-        let result = create_labels(&[
-            ("component", "mdt".to_string()),
-            ("target", "fs-MDT0000".to_string()),
-            ("operation", "read".to_string()),
-        ]);
-        assert_eq!(
-            result,
-            vec![
-                ("component", "mdt".to_string()),
-                ("target", "fs-MDT0000".to_string()),
-                ("operation", "read".to_string()),
-                ("otel_scope_name", "lustre".to_string())
-            ]
-        );
-    }
 
     #[test]
     fn test_error_into_response() {
@@ -338,7 +265,7 @@ pub mod tests {
 
                 insta::assert_snapshot!(x);
 
-                let current = Scrape::parse(x.lines().map(|x| Ok(x.to_owned()))).unwrap();
+                let current = get_scrape(x);
 
                 let x = path.display().to_string();
 
@@ -435,6 +362,17 @@ pub mod tests {
     }
 
     pub fn get_scrape(x: String) -> Scrape {
+        // According to the Prometheus text exposition format specification,
+        // curly braces {} are required even for empty label sets.
+        // See: https://prometheus.io/docs/instrumenting/exposition_formats/#text-format-details
+        // The format is: metric_name [ "{" label_name "=" `"` label_value `"` ... "}" ] value [ timestamp ]
+        // The square brackets indicate the label section is optional, but when present,
+        // the curly braces are part of the required syntax, even if no labels exist.
+        // Therefore, as an example, "lustre_mem_used_max{} 1611219801" is the correct format,
+        // not "lustre_mem_used_max 1611219801". However, `Scrape::parse` will not parse this correctly... So
+        // it needs to be removed before parsing. This only affects testing.
+        let x = x.replace("{}", "");
+
         let x = x.lines().map(|x| Ok(x.to_owned()));
 
         Scrape::parse(x).unwrap()

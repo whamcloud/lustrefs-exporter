@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::{Family, create_labels};
+use crate::Family;
 use lustre_collector::{LNetStat, LNetStatGlobal, LNetStats};
 use prometheus_client::{metrics::counter::Counter, registry::Registry};
 
@@ -57,7 +57,7 @@ impl LNetMetrics {
 }
 
 fn record_lnet_stat(stat: &LNetStat<i64>, counter: &mut Family<Counter<u64>>) {
-    let labels = create_labels(&[("nid", stat.nid.to_string())]);
+    let labels = vec![("nid", stat.nid.to_string())];
 
     counter
         .get_or_create(&labels)
@@ -65,7 +65,7 @@ fn record_lnet_stat(stat: &LNetStat<i64>, counter: &mut Family<Counter<u64>>) {
 }
 
 fn record_lnet_stat_global(stat: &LNetStatGlobal<i64>, counter: &mut Family<Counter<u64>>) {
-    let labels = create_labels(&[]);
+    let labels = vec![];
 
     counter
         .get_or_create(&labels)

@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::{Family, create_labels};
+use crate::Family;
 use lustre_collector::HostStats;
 use prometheus_client::{
     metrics::{counter::Counter, gauge::Gauge},
@@ -53,33 +53,24 @@ pub fn build_host_stats(stats: &HostStats, metrics: &mut HostMetrics) {
 
             metrics
                 .lustre_targets_healthy
-                .get_or_create(&create_labels(&[]))
+                .get_or_create(&vec![])
                 .set(if healthy { 1 } else { 0 });
 
             for target in &x.value.targets {
                 metrics
                     .lustre_targets_healthy
-                    .get_or_create(&create_labels(&[("target", target.deref().to_string())]))
+                    .get_or_create(&vec![("target", target.deref().to_string())])
                     .set(if healthy { 1 } else { 0 });
             }
         }
         HostStats::LNetMemUsed(x) => {
-            metrics
-                .lnet_mem_used
-                .get_or_create(&create_labels(&[]))
-                .set(x.value);
+            metrics.lnet_mem_used.get_or_create(&vec![]).set(x.value);
         }
         HostStats::Memused(x) => {
-            metrics
-                .mem_used
-                .get_or_create(&create_labels(&[]))
-                .set(x.value);
+            metrics.mem_used.get_or_create(&vec![]).set(x.value);
         }
         HostStats::MemusedMax(x) => {
-            metrics
-                .mem_used_max
-                .get_or_create(&create_labels(&[]))
-                .inc_by(x.value);
+            metrics.mem_used_max.get_or_create(&vec![]).inc_by(x.value);
         }
     }
 }

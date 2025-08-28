@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::{Family, LabelProm, create_labels};
+use crate::{Family, LabelProm};
 use lustre_collector::{ExportStats, MdsStat, Stat, Target, TargetStat, TargetVariant};
 use prometheus_client::{
     metrics::{counter::Counter, gauge::Gauge},
@@ -171,68 +171,68 @@ pub fn build_ost_stats(stats: &[Stat], target: &Target, metrics: &mut StatsMetri
     for s in stats {
         match s.name.as_str() {
             "read_bytes" => {
-                let read_labels = &create_labels(&[
+                let read_labels = vec![
                     ("component", kind.to_prom_label().to_string()),
                     ("operation", "read".into()),
                     ("target", target.deref().to_string()),
-                ]);
+                ];
 
                 metrics
                     .read_samples_total
-                    .get_or_create(read_labels)
+                    .get_or_create(&read_labels)
                     .inc_by(s.samples);
 
                 if let Some(min) = s.min {
                     metrics
                         .read_minimum_size_bytes
-                        .get_or_create(read_labels)
+                        .get_or_create(&read_labels)
                         .set(min);
                 }
 
                 if let Some(max) = s.max {
                     metrics
                         .read_maximum_size_bytes
-                        .get_or_create(read_labels)
+                        .get_or_create(&read_labels)
                         .inc_by(max);
                 }
 
                 if let Some(sum) = s.sum {
                     metrics
                         .read_bytes_total
-                        .get_or_create(read_labels)
+                        .get_or_create(&read_labels)
                         .inc_by(sum);
                 }
             }
             "write_bytes" => {
-                let write_labels = &create_labels(&[
+                let write_labels = vec![
                     ("component", kind.to_prom_label().to_string()),
                     ("operation", "write".into()),
                     ("target", target.deref().to_string()),
-                ]);
+                ];
 
                 metrics
                     .write_samples_total
-                    .get_or_create(write_labels)
+                    .get_or_create(&write_labels)
                     .inc_by(s.samples);
 
                 if let Some(min) = s.min {
                     metrics
                         .write_minimum_size_bytes
-                        .get_or_create(write_labels)
+                        .get_or_create(&write_labels)
                         .set(min);
                 }
 
                 if let Some(max) = s.max {
                     metrics
                         .write_maximum_size_bytes
-                        .get_or_create(write_labels)
+                        .get_or_create(&write_labels)
                         .inc_by(max);
                 }
 
                 if let Some(sum) = s.sum {
                     metrics
                         .write_bytes_total
-                        .get_or_create(write_labels)
+                        .get_or_create(&write_labels)
                         .inc_by(sum);
                 }
             }
@@ -247,13 +247,13 @@ pub fn build_mdt_stats(stats: &[Stat], target: &Target, metrics: &mut StatsMetri
     let kind = TargetVariant::Mdt;
 
     for s in stats {
-        let labels = &create_labels(&[
+        let labels = vec![
             ("component", kind.to_prom_label().to_string()),
             ("operation", s.name.deref().to_string()),
             ("target", target.deref().to_string()),
-        ]);
+        ];
 
-        metrics.stats_total.get_or_create(labels).inc_by(s.samples);
+        metrics.stats_total.get_or_create(&labels).inc_by(s.samples);
     }
 }
 
@@ -276,50 +276,50 @@ pub fn build_mds_stats(x: &MdsStat, metrics: &mut StatsMetrics) {
     let MdsStat { param, stats } = x;
 
     for stat in stats {
-        let labels = &create_labels(&[
+        let labels = vec![
             ("operation", stat.name.as_str().to_string()),
             ("units", stat.units.as_str().to_string()),
-        ]);
+        ];
 
         match param.0.as_str() {
             "mdt" => metrics
                 .mds_mdt_stats
-                .get_or_create(labels)
+                .get_or_create(&labels)
                 .set(stat.samples),
 
             "mdt_fld" => metrics
                 .mds_mdt_fld_stats
-                .get_or_create(labels)
+                .get_or_create(&labels)
                 .set(stat.samples),
 
             "mdt_io" => metrics
                 .mds_mdt_io_stats
-                .get_or_create(labels)
+                .get_or_create(&labels)
                 .set(stat.samples),
 
             "mdt_out" => metrics
                 .mds_mdt_out_stats
-                .get_or_create(labels)
+                .get_or_create(&labels)
                 .set(stat.samples),
 
             "mdt_readpage" => metrics
                 .mds_mdt_readpage_stats
-                .get_or_create(labels)
+                .get_or_create(&labels)
                 .set(stat.samples),
 
             "mdt_seqm" => metrics
                 .mds_mdt_seqm_stats
-                .get_or_create(labels)
+                .get_or_create(&labels)
                 .set(stat.samples),
 
             "mdt_seqs" => metrics
                 .mds_mdt_seqs_stats
-                .get_or_create(labels)
+                .get_or_create(&labels)
                 .set(stat.samples),
 
             "mdt_setattr" => metrics
                 .mds_mdt_setattr_stats
-                .get_or_create(labels)
+                .get_or_create(&labels)
                 .set(stat.samples),
 
             _ => 0,
@@ -342,24 +342,24 @@ pub fn build_export_stats(x: &TargetStat<Vec<ExportStats>>, metrics: &mut StatsM
     for e in export_stats {
         let ExportStats { nid, stats } = e;
         for s in stats {
-            let labels = &create_labels(&[
+            let labels = vec![
                 ("component", kind.to_prom_label().to_string()),
                 ("name", s.name.as_str().to_string()),
                 ("nid", nid.as_str().to_string()),
                 ("target", target.deref().to_string()),
                 ("units", s.units.as_str().to_string()),
-            ]);
+            ];
 
             if let Some(sum) = s.sum {
                 match s.units.as_str() {
                     "bytes" => metrics
                         .client_export_bytes
-                        .get_or_create(labels)
+                        .get_or_create(&labels)
                         .inc_by(sum),
 
                     "usecs" => metrics
                         .client_export_milliseconds
-                        .get_or_create(labels)
+                        .get_or_create(&labels)
                         .inc_by(sum),
 
                     _ => 0,
@@ -368,7 +368,7 @@ pub fn build_export_stats(x: &TargetStat<Vec<ExportStats>>, metrics: &mut StatsM
 
             metrics
                 .client_export_stats
-                .get_or_create(labels)
+                .get_or_create(&labels)
                 .inc_by(s.samples);
         }
     }

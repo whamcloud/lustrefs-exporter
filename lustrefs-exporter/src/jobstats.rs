@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::{Error, Family, LabelProm, create_labels};
+use crate::{Error, Family, LabelProm};
 use lustre_collector::TargetVariant;
 use prometheus_client::{
     metrics::{counter::Counter, gauge::Gauge},
@@ -231,11 +231,11 @@ fn render_stat(
     let job = job.replace("- job_id:", "").replace('"', "");
     let jobid = job.trim();
 
-    let base_labels = create_labels(&[
+    let base_labels = vec![
         ("component", kind.to_prom_label().to_string()),
         ("jobid", jobid.to_string()),
         ("target", target.to_string()),
-    ]);
+    ];
 
     for stat in stats {
         let cap = JOB_STAT
