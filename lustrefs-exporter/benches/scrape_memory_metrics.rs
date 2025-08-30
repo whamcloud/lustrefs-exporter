@@ -234,7 +234,7 @@ fn scrape_load_test(c: &mut Criterion) {
 
     // Load test benchmark (like oha: 1000 requests, 10 concurrent)
     group.sample_size(10); // Fewer samples since each does 1000 requests
-    group.measurement_time(Duration::from_secs(255)); // Allow more time
+    group.measurement_time(Duration::from_secs(550)); // Allow more time
 
     group.bench_function("load_test_1000_req_10_concurrent_sequential", |b| {
         let tx = tx.clone();
