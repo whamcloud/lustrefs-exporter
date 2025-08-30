@@ -2,46 +2,40 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-pub mod opentelemetry {
-    use std::ops::Deref;
+use crate::Family;
+use lustre_collector::LliteStat;
+use prometheus_client::{metrics::counter::Counter, registry::Registry};
+use std::ops::Deref;
 
-    use lustre_collector::LliteStat;
-    use opentelemetry::{
-        KeyValue,
-        metrics::{Counter, Meter},
-    };
+#[derive(Debug, Default)]
+pub struct LliteMetrics {
+    client_stats: Family<Counter<u64>>,
+}
 
-    #[derive(Debug)]
-    pub struct OpenTelemetryMetricsLlite {
-        pub client_stats: Counter<u64>,
+impl LliteMetrics {
+    pub fn register_metric(&self, registry: &mut Registry) {
+        registry.register_without_auto_suffix(
+            "lustre_client_stats",
+            "Lustre client interface stats",
+            self.client_stats.clone(),
+        );
     }
+}
 
-    impl OpenTelemetryMetricsLlite {
-        pub fn new(meter: &Meter) -> Self {
-            OpenTelemetryMetricsLlite {
-                client_stats: meter
-                    .u64_counter("lustre_client_stats")
-                    .with_description("Lustre client interface stats.")
-                    .build(),
-            }
-        }
-    }
+pub fn build_llite_stats(x: &LliteStat, metrics: &mut LliteMetrics) {
+    let LliteStat {
+        target,
+        param: _,
+        stats,
+    } = x;
 
-    pub fn build_llite_stats(x: &LliteStat, otel_llite: &OpenTelemetryMetricsLlite) {
-        let LliteStat {
-            target,
-            param: _,
-            stats,
-        } = x;
-
-        for stat in stats {
-            otel_llite.client_stats.add(
-                stat.samples,
-                &[
-                    KeyValue::new("operation", stat.name.deref().to_string()),
-                    KeyValue::new("target", target.deref().to_string()),
-                ],
-            );
-        }
+    for stat in stats {
+        metrics
+            .client_stats
+            .get_or_create(&vec![
+                ("operation", stat.name.deref().to_string()),
+                ("target", target.deref().to_string()),
+            ])
+            .inc_by(stat.samples);
     }
 }

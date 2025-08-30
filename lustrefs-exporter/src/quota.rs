@@ -2,147 +2,123 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-pub mod opentelemetry {
-    use crate::LabelProm as _;
-    use lustre_collector::{QuotaStats, QuotaStatsOsd, TargetQuotaStat, TargetStat};
-    use opentelemetry::{
-        KeyValue,
-        metrics::{Gauge, Meter},
-    };
-    use std::ops::Deref as _;
+use crate::{Family, LabelProm};
+use lustre_collector::{QuotaStats, QuotaStatsOsd, TargetQuotaStat, TargetStat};
+use prometheus_client::{metrics::gauge::Gauge, registry::Registry};
+use std::{ops::Deref, sync::atomic::AtomicU64};
 
-    #[derive(Debug)]
-    pub struct OpenTelemetryMetricsQuota {
-        pub quota_hard: Gauge<u64>,
-        pub quota_soft: Gauge<u64>,
-        pub quota_granted: Gauge<u64>,
-        pub quota_used_kbytes: Gauge<u64>,
-        pub quota_used_inodes: Gauge<u64>,
+#[derive(Debug, Default)]
+pub struct QuotaMetrics {
+    quota_hard: Family<Gauge<u64, AtomicU64>>,
+    quota_soft: Family<Gauge<u64, AtomicU64>>,
+    quota_granted: Family<Gauge<u64, AtomicU64>>,
+    quota_used_kbytes: Family<Gauge<u64, AtomicU64>>,
+    quota_used_inodes: Family<Gauge<u64, AtomicU64>>,
+}
+
+impl QuotaMetrics {
+    pub fn register_metric(&self, registry: &mut Registry) {
+        registry.register(
+            "lustre_quota_hard",
+            "The hard quota for a given component",
+            self.quota_hard.clone(),
+        );
+
+        registry.register(
+            "lustre_quota_soft",
+            "The soft quota for a given component",
+            self.quota_soft.clone(),
+        );
+
+        registry.register(
+            "lustre_quota_granted",
+            "The granted quota for a given component",
+            self.quota_granted.clone(),
+        );
+
+        registry.register(
+            "lustre_quota_used_kbytes",
+            "The hard quota for a given component",
+            self.quota_used_kbytes.clone(),
+        );
+
+        registry.register(
+            "lustre_quota_used_inodes",
+            "The amount of inodes used by quota",
+            self.quota_used_inodes.clone(),
+        );
     }
+}
 
-    impl OpenTelemetryMetricsQuota {
-        pub fn new(meter: &Meter) -> Self {
-            OpenTelemetryMetricsQuota {
-                quota_hard: meter
-                    .u64_gauge("lustre_quota_hard")
-                    .with_description("The hard quota for a given component.")
-                    .with_unit("bytes")
-                    .build(),
-                quota_soft: meter
-                    .u64_gauge("lustre_quota_soft")
-                    .with_description("The soft quota for a given component.")
-                    .with_unit("bytes")
-                    .build(),
-                quota_granted: meter
-                    .u64_gauge("lustre_quota_granted")
-                    .with_description("The granted quota for a given component.")
-                    .with_unit("bytes")
-                    .build(),
-                quota_used_kbytes: meter
-                    .u64_gauge("lustre_quota_used_kbytes")
-                    .with_description("The hard quota for a given component.")
-                    .with_unit("kbytes")
-                    .build(),
-                quota_used_inodes: meter
-                    .u64_gauge("lustre_quota_used_inodes")
-                    .with_description("The amount of inodes used by quota.")
-                    .with_unit("inodes")
-                    .build(),
-            }
-        }
+pub fn build_quota_stats(x: &TargetQuotaStat<QuotaStats>, quota: &mut QuotaMetrics) {
+    let TargetQuotaStat {
+        target,
+        value,
+        pool,
+        manager,
+        param,
+        ..
+    } = x;
+
+    for s in &value.stats {
+        let pool = pool.deref().to_string();
+        let pool = if pool == "0x0" { String::new() } else { pool };
+        let accounting = match param.deref() {
+            "usr" => "user".to_string(),
+            "grp" => "group".to_string(),
+            "prj" => "project".to_string(),
+            _ => param.to_string(),
+        };
+
+        let label = vec![
+            ("accounting", accounting.clone()),
+            ("id", s.id.to_string()),
+            ("manager", manager.to_string()),
+            ("pool", pool.clone()),
+            ("target", target.to_string()),
+        ];
+
+        quota.quota_hard.get_or_create(&label).set(s.limits.hard);
+
+        quota.quota_soft.get_or_create(&label).set(s.limits.soft);
+
+        quota
+            .quota_granted
+            .get_or_create(&label)
+            .set(s.limits.granted);
     }
+}
 
-    pub fn build_quota_stats(
-        x: &TargetQuotaStat<QuotaStats>,
-        otel_quota: &OpenTelemetryMetricsQuota,
-    ) {
-        let TargetQuotaStat {
-            target,
-            value,
-            pool,
-            manager,
-            param,
-            ..
-        } = x;
+pub fn build_ost_quota_stats(x: &TargetStat<QuotaStatsOsd>, quota: &mut QuotaMetrics) {
+    let TargetStat {
+        kind,
+        target,
+        value,
+        ..
+    } = x;
 
-        for s in &value.stats {
-            let pool = pool.deref().to_string();
-            let pool = if pool == "0x0" { "".to_string() } else { pool };
-            let accounting = match param.deref() {
-                "usr" => "user".to_string(),
-                "grp" => "group".to_string(),
-                "prj" => "project".to_string(),
-                _ => param.to_string(),
-            };
-            otel_quota.quota_hard.record(
-                s.limits.hard,
-                &[
-                    KeyValue::new("target", target.to_string()),
-                    KeyValue::new("pool", pool.clone()),
-                    KeyValue::new("accounting", accounting.clone()),
-                    KeyValue::new("manager", manager.to_string()),
-                    KeyValue::new("id", s.id.to_string()),
-                ],
-            );
-            otel_quota.quota_soft.record(
-                s.limits.soft,
-                &[
-                    KeyValue::new("target", target.to_string()),
-                    KeyValue::new("pool", pool.clone()),
-                    KeyValue::new("accounting", accounting.clone()),
-                    KeyValue::new("manager", manager.to_string()),
-                    KeyValue::new("id", s.id.to_string()),
-                ],
-            );
-            otel_quota.quota_granted.record(
-                s.limits.granted,
-                &[
-                    KeyValue::new("target", target.to_string()),
-                    KeyValue::new("pool", pool),
-                    KeyValue::new("accounting", accounting),
-                    KeyValue::new("manager", manager.to_string()),
-                    KeyValue::new("id", s.id.to_string()),
-                ],
-            );
-        }
-    }
+    for s in &value.stats {
+        let accounting = match value.kind {
+            lustre_collector::QuotaKind::Usr => "user",
+            lustre_collector::QuotaKind::Grp => "group",
+            lustre_collector::QuotaKind::Prj => "project",
+        };
 
-    pub fn build_ost_quota_stats(
-        x: &TargetStat<QuotaStatsOsd>,
-        otel_quota: &OpenTelemetryMetricsQuota,
-    ) {
-        let TargetStat {
-            kind,
-            target,
-            value,
-            ..
-        } = x;
+        let label = vec![
+            ("accounting", accounting.to_string()),
+            ("component", kind.to_prom_label().to_string()),
+            ("id", s.id.to_string()),
+            ("target", target.to_string()),
+        ];
 
-        for s in &value.stats {
-            let accounting = match value.kind {
-                lustre_collector::QuotaKind::Usr => "user",
-                lustre_collector::QuotaKind::Grp => "group",
-                lustre_collector::QuotaKind::Prj => "project",
-            };
+        quota
+            .quota_used_inodes
+            .get_or_create(&label)
+            .set(s.usage.inodes);
 
-            otel_quota.quota_used_inodes.record(
-                s.usage.inodes,
-                &[
-                    KeyValue::new("component", kind.to_prom_label().to_string()),
-                    KeyValue::new("accounting", accounting),
-                    KeyValue::new("target", target.to_string()),
-                    KeyValue::new("id", s.id.to_string()),
-                ],
-            );
-            otel_quota.quota_used_kbytes.record(
-                s.usage.kbytes,
-                &[
-                    KeyValue::new("component", kind.to_prom_label().to_string()),
-                    KeyValue::new("accounting", accounting),
-                    KeyValue::new("target", target.to_string()),
-                    KeyValue::new("id", s.id.to_string()),
-                ],
-            );
-        }
+        quota
+            .quota_used_kbytes
+            .get_or_create(&label)
+            .set(s.usage.kbytes);
     }
 }

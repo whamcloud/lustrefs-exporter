@@ -4,11 +4,9 @@
 
 use const_format::{formatcp, str_repeat};
 use criterion::{Criterion, criterion_group, criterion_main};
-use lustrefs_exporter::jobstats::opentelemetry::OpenTelemetryMetricsJobstats;
-use opentelemetry::metrics::MeterProvider;
-use opentelemetry_sdk::metrics::SdkMeterProvider;
-use prometheus::{Encoder as _, Registry, TextEncoder};
-use std::{hint, io::BufReader, sync::Arc};
+use lustrefs_exporter::jobstats::JobstatMetrics;
+use prometheus_client::{encoding::text::encode, registry::Registry};
+use std::{hint, io::BufReader};
 
 const JOBSTAT_JOB: &str = r#"
 - job_id:          "FAKE_JOB"
@@ -43,53 +41,41 @@ job_stats:{}"#,
     str_repeat!(JOBSTAT_JOB, 1000)
 );
 
-async fn parse_synthetic_yaml_otel(input: &'static str) {
-    // Set up OpenTelemetry metrics
-    let registry = Registry::new();
-    let exporter = opentelemetry_prometheus::exporter()
-        .with_registry(registry.clone())
-        .build()
-        .expect("Failed to build exporter");
-
-    let provider = SdkMeterProvider::builder().with_reader(exporter).build();
-
-    let meter = provider.meter("test");
-
-    let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
+async fn parse_synthetic_yaml(input: &'static str) -> String {
+    // Setup jobstats metrics
+    let registry = Registry::default();
+    let jobstats_metrics = JobstatMetrics::default();
 
     let f = BufReader::with_capacity(128 * 1_024, input.as_bytes());
 
-    let handle =
-        lustrefs_exporter::jobstats::opentelemetry::jobstats_stream(f, otel_jobstats.clone());
+    lustrefs_exporter::jobstats::jobstats_stream(f, jobstats_metrics)
+        .await
+        .expect("Failed to parse jobstats");
 
-    handle.await.expect("Stream failed");
+    let mut buffer = String::new();
 
-    // Encode metrics to string
-    let encoder = TextEncoder::new();
-    let metric_families = registry.gather();
-    let mut output = Vec::new();
-    encoder
-        .encode(&metric_families, &mut output)
-        .expect("Failed to encode metrics");
+    encode(&mut buffer, &registry).expect("Failed to encode metrics");
+
+    buffer
 }
 
 fn criterion_benchmark_fast(c: &mut Criterion) {
-    c.bench_function("jobstats otel 100", |b| {
+    c.bench_function("jobstats 100", |b| {
         b.to_async(
             tokio::runtime::Builder::new_multi_thread()
                 .build()
                 .expect("Failed to build tokio runtime"),
         )
-        .iter(|| hint::black_box(parse_synthetic_yaml_otel(INPUT_100_JOBS)))
+        .iter(|| hint::black_box(parse_synthetic_yaml(INPUT_100_JOBS)))
     });
 
-    c.bench_function("jobstats otel 1000", |b| {
+    c.bench_function("jobstats 1000", |b| {
         b.to_async(
             tokio::runtime::Builder::new_multi_thread()
                 .build()
                 .expect("Failed to build tokio runtime"),
         )
-        .iter(|| hint::black_box(parse_synthetic_yaml_otel(INPUT_1000_JOBS)))
+        .iter(|| hint::black_box(parse_synthetic_yaml(INPUT_1000_JOBS)))
     });
 }
 criterion_group! {

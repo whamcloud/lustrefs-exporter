@@ -1,616 +1,614 @@
 ---
-source: lustrefs-exporter/src/main.rs
-expression: get_output(&registry)
+source: lustrefs-exporter/src/lib.rs
+expression: stats
 ---
-# HELP lustre_available_kilobytes Number of kilobytes readily available in the pool
-# TYPE lustre_available_kilobytes gauge
-lustre_available_kilobytes{component="mdt",target="ai400x2-MDT0000",otel_scope_name="lustre"} 419917436
-lustre_available_kilobytes{component="mgt",target="MGS",otel_scope_name="lustre"} 1873772
-lustre_available_kilobytes{component="ost",target="ai400x2-OST0000",otel_scope_name="lustre"} 34187914484
-lustre_available_kilobytes{component="ost",target="ai400x2-OST0001",otel_scope_name="lustre"} 34188706564
-# HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes
-# TYPE lustre_capacity_kilobytes gauge
-lustre_capacity_kilobytes{component="mdt",target="ai400x2-MDT0000",otel_scope_name="lustre"} 427170984
-lustre_capacity_kilobytes{component="mgt",target="MGS",otel_scope_name="lustre"} 1980036
-lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0000",otel_scope_name="lustre"} 34750424936
-lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0001",otel_scope_name="lustre"} 34750424936
-# HELP lustre_connected_clients Number of connected clients
-# TYPE lustre_connected_clients gauge
-lustre_connected_clients{component="mdt",target="ai400x2-MDT0000",otel_scope_name="lustre"} 1
-# HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.
-# TYPE lustre_dio_frags counter
-lustre_dio_frags{component="ost",operation="read",size="1",target="ai400x2-OST0000",otel_scope_name="lustre"} 9292607
-lustre_dio_frags{component="ost",operation="read",size="1",target="ai400x2-OST0001",otel_scope_name="lustre"} 9254837
-lustre_dio_frags{component="ost",operation="read",size="2",target="ai400x2-OST0000",otel_scope_name="lustre"} 3669
-lustre_dio_frags{component="ost",operation="read",size="2",target="ai400x2-OST0001",otel_scope_name="lustre"} 3808
-lustre_dio_frags{component="ost",operation="read",size="3",target="ai400x2-OST0000",otel_scope_name="lustre"} 2
-lustre_dio_frags{component="ost",operation="read",size="3",target="ai400x2-OST0001",otel_scope_name="lustre"} 1
-lustre_dio_frags{component="ost",operation="read",size="4",target="ai400x2-OST0000",otel_scope_name="lustre"} 11
-lustre_dio_frags{component="ost",operation="read",size="4",target="ai400x2-OST0001",otel_scope_name="lustre"} 14
-lustre_dio_frags{component="ost",operation="read",size="5",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_dio_frags{component="ost",operation="read",size="5",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_dio_frags{component="ost",operation="read",size="6",target="ai400x2-OST0000",otel_scope_name="lustre"} 6
-lustre_dio_frags{component="ost",operation="read",size="6",target="ai400x2-OST0001",otel_scope_name="lustre"} 7
-lustre_dio_frags{component="ost",operation="read",size="7",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_dio_frags{component="ost",operation="read",size="7",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_dio_frags{component="ost",operation="read",size="8",target="ai400x2-OST0000",otel_scope_name="lustre"} 55768
-lustre_dio_frags{component="ost",operation="read",size="8",target="ai400x2-OST0001",otel_scope_name="lustre"} 57294
-lustre_dio_frags{component="ost",operation="write",size="1",target="ai400x2-OST0000",otel_scope_name="lustre"} 4076945
-lustre_dio_frags{component="ost",operation="write",size="1",target="ai400x2-OST0001",otel_scope_name="lustre"} 4080923
-lustre_dio_frags{component="ost",operation="write",size="2",target="ai400x2-OST0000",otel_scope_name="lustre"} 3434
-lustre_dio_frags{component="ost",operation="write",size="2",target="ai400x2-OST0001",otel_scope_name="lustre"} 3599
-lustre_dio_frags{component="ost",operation="write",size="3",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_dio_frags{component="ost",operation="write",size="3",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_dio_frags{component="ost",operation="write",size="4",target="ai400x2-OST0000",otel_scope_name="lustre"} 2509
-lustre_dio_frags{component="ost",operation="write",size="4",target="ai400x2-OST0001",otel_scope_name="lustre"} 2603
-lustre_dio_frags{component="ost",operation="write",size="5",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_dio_frags{component="ost",operation="write",size="5",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_dio_frags{component="ost",operation="write",size="6",target="ai400x2-OST0000",otel_scope_name="lustre"} 2041
-lustre_dio_frags{component="ost",operation="write",size="6",target="ai400x2-OST0001",otel_scope_name="lustre"} 2055
-lustre_dio_frags{component="ost",operation="write",size="7",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_dio_frags{component="ost",operation="write",size="7",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_dio_frags{component="ost",operation="write",size="8",target="ai400x2-OST0000",otel_scope_name="lustre"} 38711
-lustre_dio_frags{component="ost",operation="write",size="8",target="ai400x2-OST0001",otel_scope_name="lustre"} 39039
-# HELP lustre_discontiguous_blocks_total 'size' label represents 'Discontiguous blocks', the number of discontinuities in the physical block allocation in the file system for a single RPC
-# TYPE lustre_discontiguous_blocks_total counter
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="0",target="ai400x2-OST0000",otel_scope_name="lustre"} 9292664
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="0",target="ai400x2-OST0001",otel_scope_name="lustre"} 9254895
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="1",target="ai400x2-OST0000",otel_scope_name="lustre"} 42047
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="1",target="ai400x2-OST0001",otel_scope_name="lustre"} 41231
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="10",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="11",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="12",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="13",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="14",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="15",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="16",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="17",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="18",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="19",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="2",target="ai400x2-OST0000",otel_scope_name="lustre"} 17352
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="2",target="ai400x2-OST0001",otel_scope_name="lustre"} 19835
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="20",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="21",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="22",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="23",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="24",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="25",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="26",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="27",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="28",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="29",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="3",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="3",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="30",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="31",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="4",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="4",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="5",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="5",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="6",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="6",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="7",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="7",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="8",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="8",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="read",size="9",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="0",target="ai400x2-OST0000",otel_scope_name="lustre"} 4072612
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="0",target="ai400x2-OST0001",otel_scope_name="lustre"} 4076814
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="1",target="ai400x2-OST0000",otel_scope_name="lustre"} 28493
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="1",target="ai400x2-OST0001",otel_scope_name="lustre"} 28934
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="10",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="11",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="12",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="13",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="14",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="15",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="16",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="17",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="18",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="19",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="2",target="ai400x2-OST0000",otel_scope_name="lustre"} 21665
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="2",target="ai400x2-OST0001",otel_scope_name="lustre"} 21641
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="20",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="21",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="22",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="23",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="24",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="25",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="26",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="27",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="28",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="29",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="3",target="ai400x2-OST0000",otel_scope_name="lustre"} 687
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="3",target="ai400x2-OST0001",otel_scope_name="lustre"} 635
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="30",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="31",target="ai400x2-OST0001",otel_scope_name="lustre"} 1
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="4",target="ai400x2-OST0000",otel_scope_name="lustre"} 137
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="4",target="ai400x2-OST0001",otel_scope_name="lustre"} 146
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="5",target="ai400x2-OST0000",otel_scope_name="lustre"} 27
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="5",target="ai400x2-OST0001",otel_scope_name="lustre"} 33
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="6",target="ai400x2-OST0000",otel_scope_name="lustre"} 13
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="6",target="ai400x2-OST0001",otel_scope_name="lustre"} 12
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="7",target="ai400x2-OST0000",otel_scope_name="lustre"} 5
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="7",target="ai400x2-OST0001",otel_scope_name="lustre"} 3
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="8",target="ai400x2-OST0000",otel_scope_name="lustre"} 1
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="8",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_blocks_total{component="ost",operation="write",size="9",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-# HELP lustre_discontiguous_pages_total Total number of logical discontinuities per RPC. 'size' label represents 'Discontiguous pages', the number of discontinuities in the logical file offset of each page in a single RPC.
-# TYPE lustre_discontiguous_pages_total counter
-lustre_discontiguous_pages_total{component="ost",operation="read",size="0",target="ai400x2-OST0000",otel_scope_name="lustre"} 9351652
-lustre_discontiguous_pages_total{component="ost",operation="read",size="0",target="ai400x2-OST0001",otel_scope_name="lustre"} 9315526
-lustre_discontiguous_pages_total{component="ost",operation="read",size="1",target="ai400x2-OST0000",otel_scope_name="lustre"} 409
-lustre_discontiguous_pages_total{component="ost",operation="read",size="1",target="ai400x2-OST0001",otel_scope_name="lustre"} 435
-lustre_discontiguous_pages_total{component="ost",operation="read",size="2",target="ai400x2-OST0000",otel_scope_name="lustre"} 2
-lustre_discontiguous_pages_total{component="ost",operation="read",size="2",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_discontiguous_pages_total{component="ost",operation="write",size="0",target="ai400x2-OST0000",otel_scope_name="lustre"} 4114231
-lustre_discontiguous_pages_total{component="ost",operation="write",size="0",target="ai400x2-OST0001",otel_scope_name="lustre"} 4118794
-lustre_discontiguous_pages_total{component="ost",operation="write",size="1",target="ai400x2-OST0000",otel_scope_name="lustre"} 9407
-lustre_discontiguous_pages_total{component="ost",operation="write",size="1",target="ai400x2-OST0001",otel_scope_name="lustre"} 9423
-lustre_discontiguous_pages_total{component="ost",operation="write",size="2",target="ai400x2-OST0000",otel_scope_name="lustre"} 2
-lustre_discontiguous_pages_total{component="ost",operation="write",size="2",target="ai400x2-OST0001",otel_scope_name="lustre"} 2
-# HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.
-# TYPE lustre_disk_io counter
-lustre_disk_io{component="ost",operation="read",size="1",target="ai400x2-OST0000",otel_scope_name="lustre"} 2499387
-lustre_disk_io{component="ost",operation="read",size="1",target="ai400x2-OST0001",otel_scope_name="lustre"} 2488039
-lustre_disk_io{component="ost",operation="read",size="10",target="ai400x2-OST0000",otel_scope_name="lustre"} 123818
-lustre_disk_io{component="ost",operation="read",size="10",target="ai400x2-OST0001",otel_scope_name="lustre"} 122401
-lustre_disk_io{component="ost",operation="read",size="11",target="ai400x2-OST0000",otel_scope_name="lustre"} 90035
-lustre_disk_io{component="ost",operation="read",size="11",target="ai400x2-OST0001",otel_scope_name="lustre"} 88149
-lustre_disk_io{component="ost",operation="read",size="12",target="ai400x2-OST0000",otel_scope_name="lustre"} 68887
-lustre_disk_io{component="ost",operation="read",size="12",target="ai400x2-OST0001",otel_scope_name="lustre"} 67154
-lustre_disk_io{component="ost",operation="read",size="13",target="ai400x2-OST0000",otel_scope_name="lustre"} 55465
-lustre_disk_io{component="ost",operation="read",size="13",target="ai400x2-OST0001",otel_scope_name="lustre"} 53823
-lustre_disk_io{component="ost",operation="read",size="14",target="ai400x2-OST0000",otel_scope_name="lustre"} 45232
-lustre_disk_io{component="ost",operation="read",size="14",target="ai400x2-OST0001",otel_scope_name="lustre"} 44023
-lustre_disk_io{component="ost",operation="read",size="15",target="ai400x2-OST0000",otel_scope_name="lustre"} 38000
-lustre_disk_io{component="ost",operation="read",size="15",target="ai400x2-OST0001",otel_scope_name="lustre"} 37170
-lustre_disk_io{component="ost",operation="read",size="16",target="ai400x2-OST0000",otel_scope_name="lustre"} 31971
-lustre_disk_io{component="ost",operation="read",size="16",target="ai400x2-OST0001",otel_scope_name="lustre"} 31368
-lustre_disk_io{component="ost",operation="read",size="17",target="ai400x2-OST0000",otel_scope_name="lustre"} 25211
-lustre_disk_io{component="ost",operation="read",size="17",target="ai400x2-OST0001",otel_scope_name="lustre"} 24929
-lustre_disk_io{component="ost",operation="read",size="18",target="ai400x2-OST0000",otel_scope_name="lustre"} 21467
-lustre_disk_io{component="ost",operation="read",size="18",target="ai400x2-OST0001",otel_scope_name="lustre"} 21347
-lustre_disk_io{component="ost",operation="read",size="19",target="ai400x2-OST0000",otel_scope_name="lustre"} 18780
-lustre_disk_io{component="ost",operation="read",size="19",target="ai400x2-OST0001",otel_scope_name="lustre"} 18674
-lustre_disk_io{component="ost",operation="read",size="2",target="ai400x2-OST0000",otel_scope_name="lustre"} 1883945
-lustre_disk_io{component="ost",operation="read",size="2",target="ai400x2-OST0001",otel_scope_name="lustre"} 1873744
-lustre_disk_io{component="ost",operation="read",size="20",target="ai400x2-OST0000",otel_scope_name="lustre"} 16625
-lustre_disk_io{component="ost",operation="read",size="20",target="ai400x2-OST0001",otel_scope_name="lustre"} 16527
-lustre_disk_io{component="ost",operation="read",size="21",target="ai400x2-OST0000",otel_scope_name="lustre"} 15098
-lustre_disk_io{component="ost",operation="read",size="21",target="ai400x2-OST0001",otel_scope_name="lustre"} 15156
-lustre_disk_io{component="ost",operation="read",size="22",target="ai400x2-OST0000",otel_scope_name="lustre"} 13849
-lustre_disk_io{component="ost",operation="read",size="22",target="ai400x2-OST0001",otel_scope_name="lustre"} 14051
-lustre_disk_io{component="ost",operation="read",size="23",target="ai400x2-OST0000",otel_scope_name="lustre"} 13017
-lustre_disk_io{component="ost",operation="read",size="23",target="ai400x2-OST0001",otel_scope_name="lustre"} 13243
-lustre_disk_io{component="ost",operation="read",size="24",target="ai400x2-OST0000",otel_scope_name="lustre"} 12337
-lustre_disk_io{component="ost",operation="read",size="24",target="ai400x2-OST0001",otel_scope_name="lustre"} 12577
-lustre_disk_io{component="ost",operation="read",size="25",target="ai400x2-OST0000",otel_scope_name="lustre"} 11413
-lustre_disk_io{component="ost",operation="read",size="25",target="ai400x2-OST0001",otel_scope_name="lustre"} 11661
-lustre_disk_io{component="ost",operation="read",size="26",target="ai400x2-OST0000",otel_scope_name="lustre"} 11028
-lustre_disk_io{component="ost",operation="read",size="26",target="ai400x2-OST0001",otel_scope_name="lustre"} 11371
-lustre_disk_io{component="ost",operation="read",size="27",target="ai400x2-OST0000",otel_scope_name="lustre"} 10704
-lustre_disk_io{component="ost",operation="read",size="27",target="ai400x2-OST0001",otel_scope_name="lustre"} 11019
-lustre_disk_io{component="ost",operation="read",size="28",target="ai400x2-OST0000",otel_scope_name="lustre"} 10471
-lustre_disk_io{component="ost",operation="read",size="28",target="ai400x2-OST0001",otel_scope_name="lustre"} 10843
-lustre_disk_io{component="ost",operation="read",size="29",target="ai400x2-OST0000",otel_scope_name="lustre"} 10297
-lustre_disk_io{component="ost",operation="read",size="29",target="ai400x2-OST0001",otel_scope_name="lustre"} 10656
-lustre_disk_io{component="ost",operation="read",size="3",target="ai400x2-OST0000",otel_scope_name="lustre"} 1493683
-lustre_disk_io{component="ost",operation="read",size="3",target="ai400x2-OST0001",otel_scope_name="lustre"} 1490244
-lustre_disk_io{component="ost",operation="read",size="30",target="ai400x2-OST0000",otel_scope_name="lustre"} 10119
-lustre_disk_io{component="ost",operation="read",size="30",target="ai400x2-OST0001",otel_scope_name="lustre"} 10512
-lustre_disk_io{component="ost",operation="read",size="31",target="ai400x2-OST0000",otel_scope_name="lustre"} 162513
-lustre_disk_io{component="ost",operation="read",size="31",target="ai400x2-OST0001",otel_scope_name="lustre"} 168860
-lustre_disk_io{component="ost",operation="read",size="4",target="ai400x2-OST0000",otel_scope_name="lustre"} 1058167
-lustre_disk_io{component="ost",operation="read",size="4",target="ai400x2-OST0001",otel_scope_name="lustre"} 1058749
-lustre_disk_io{component="ost",operation="read",size="5",target="ai400x2-OST0000",otel_scope_name="lustre"} 704804
-lustre_disk_io{component="ost",operation="read",size="5",target="ai400x2-OST0001",otel_scope_name="lustre"} 704439
-lustre_disk_io{component="ost",operation="read",size="6",target="ai400x2-OST0000",otel_scope_name="lustre"} 495027
-lustre_disk_io{component="ost",operation="read",size="6",target="ai400x2-OST0001",otel_scope_name="lustre"} 495012
-lustre_disk_io{component="ost",operation="read",size="7",target="ai400x2-OST0000",otel_scope_name="lustre"} 356780
-lustre_disk_io{component="ost",operation="read",size="7",target="ai400x2-OST0001",otel_scope_name="lustre"} 357583
-lustre_disk_io{component="ost",operation="read",size="8",target="ai400x2-OST0000",otel_scope_name="lustre"} 256413
-lustre_disk_io{component="ost",operation="read",size="8",target="ai400x2-OST0001",otel_scope_name="lustre"} 255910
-lustre_disk_io{component="ost",operation="read",size="9",target="ai400x2-OST0000",otel_scope_name="lustre"} 181632
-lustre_disk_io{component="ost",operation="read",size="9",target="ai400x2-OST0001",otel_scope_name="lustre"} 181672
-lustre_disk_io{component="ost",operation="write",size="1",target="ai400x2-OST0000",otel_scope_name="lustre"} 1187036
-lustre_disk_io{component="ost",operation="write",size="1",target="ai400x2-OST0001",otel_scope_name="lustre"} 1185285
-lustre_disk_io{component="ost",operation="write",size="10",target="ai400x2-OST0000",otel_scope_name="lustre"} 26704
-lustre_disk_io{component="ost",operation="write",size="10",target="ai400x2-OST0001",otel_scope_name="lustre"} 27549
-lustre_disk_io{component="ost",operation="write",size="11",target="ai400x2-OST0000",otel_scope_name="lustre"} 14119
-lustre_disk_io{component="ost",operation="write",size="11",target="ai400x2-OST0001",otel_scope_name="lustre"} 14513
-lustre_disk_io{component="ost",operation="write",size="12",target="ai400x2-OST0000",otel_scope_name="lustre"} 8829
-lustre_disk_io{component="ost",operation="write",size="12",target="ai400x2-OST0001",otel_scope_name="lustre"} 9077
-lustre_disk_io{component="ost",operation="write",size="13",target="ai400x2-OST0000",otel_scope_name="lustre"} 6550
-lustre_disk_io{component="ost",operation="write",size="13",target="ai400x2-OST0001",otel_scope_name="lustre"} 6688
-lustre_disk_io{component="ost",operation="write",size="14",target="ai400x2-OST0000",otel_scope_name="lustre"} 5547
-lustre_disk_io{component="ost",operation="write",size="14",target="ai400x2-OST0001",otel_scope_name="lustre"} 5725
-lustre_disk_io{component="ost",operation="write",size="15",target="ai400x2-OST0000",otel_scope_name="lustre"} 5383
-lustre_disk_io{component="ost",operation="write",size="15",target="ai400x2-OST0001",otel_scope_name="lustre"} 5530
-lustre_disk_io{component="ost",operation="write",size="16",target="ai400x2-OST0000",otel_scope_name="lustre"} 5481
-lustre_disk_io{component="ost",operation="write",size="16",target="ai400x2-OST0001",otel_scope_name="lustre"} 5664
-lustre_disk_io{component="ost",operation="write",size="17",target="ai400x2-OST0000",otel_scope_name="lustre"} 6177
-lustre_disk_io{component="ost",operation="write",size="17",target="ai400x2-OST0001",otel_scope_name="lustre"} 6440
-lustre_disk_io{component="ost",operation="write",size="18",target="ai400x2-OST0000",otel_scope_name="lustre"} 6767
-lustre_disk_io{component="ost",operation="write",size="18",target="ai400x2-OST0001",otel_scope_name="lustre"} 7087
-lustre_disk_io{component="ost",operation="write",size="19",target="ai400x2-OST0000",otel_scope_name="lustre"} 8074
-lustre_disk_io{component="ost",operation="write",size="19",target="ai400x2-OST0001",otel_scope_name="lustre"} 8465
-lustre_disk_io{component="ost",operation="write",size="2",target="ai400x2-OST0000",otel_scope_name="lustre"} 793707
-lustre_disk_io{component="ost",operation="write",size="2",target="ai400x2-OST0001",otel_scope_name="lustre"} 787309
-lustre_disk_io{component="ost",operation="write",size="20",target="ai400x2-OST0000",otel_scope_name="lustre"} 9646
-lustre_disk_io{component="ost",operation="write",size="20",target="ai400x2-OST0001",otel_scope_name="lustre"} 10044
-lustre_disk_io{component="ost",operation="write",size="21",target="ai400x2-OST0000",otel_scope_name="lustre"} 12313
-lustre_disk_io{component="ost",operation="write",size="21",target="ai400x2-OST0001",otel_scope_name="lustre"} 12647
-lustre_disk_io{component="ost",operation="write",size="22",target="ai400x2-OST0000",otel_scope_name="lustre"} 15267
-lustre_disk_io{component="ost",operation="write",size="22",target="ai400x2-OST0001",otel_scope_name="lustre"} 15863
-lustre_disk_io{component="ost",operation="write",size="23",target="ai400x2-OST0000",otel_scope_name="lustre"} 19877
-lustre_disk_io{component="ost",operation="write",size="23",target="ai400x2-OST0001",otel_scope_name="lustre"} 20105
-lustre_disk_io{component="ost",operation="write",size="24",target="ai400x2-OST0000",otel_scope_name="lustre"} 24453
-lustre_disk_io{component="ost",operation="write",size="24",target="ai400x2-OST0001",otel_scope_name="lustre"} 24737
-lustre_disk_io{component="ost",operation="write",size="25",target="ai400x2-OST0000",otel_scope_name="lustre"} 30315
-lustre_disk_io{component="ost",operation="write",size="25",target="ai400x2-OST0001",otel_scope_name="lustre"} 30564
-lustre_disk_io{component="ost",operation="write",size="26",target="ai400x2-OST0000",otel_scope_name="lustre"} 34324
-lustre_disk_io{component="ost",operation="write",size="26",target="ai400x2-OST0001",otel_scope_name="lustre"} 34765
-lustre_disk_io{component="ost",operation="write",size="27",target="ai400x2-OST0000",otel_scope_name="lustre"} 37750
-lustre_disk_io{component="ost",operation="write",size="27",target="ai400x2-OST0001",otel_scope_name="lustre"} 37755
-lustre_disk_io{component="ost",operation="write",size="28",target="ai400x2-OST0000",otel_scope_name="lustre"} 38776
-lustre_disk_io{component="ost",operation="write",size="28",target="ai400x2-OST0001",otel_scope_name="lustre"} 38708
-lustre_disk_io{component="ost",operation="write",size="29",target="ai400x2-OST0000",otel_scope_name="lustre"} 38871
-lustre_disk_io{component="ost",operation="write",size="29",target="ai400x2-OST0001",otel_scope_name="lustre"} 38610
-lustre_disk_io{component="ost",operation="write",size="3",target="ai400x2-OST0000",otel_scope_name="lustre"} 503920
-lustre_disk_io{component="ost",operation="write",size="3",target="ai400x2-OST0001",otel_scope_name="lustre"} 498673
-lustre_disk_io{component="ost",operation="write",size="30",target="ai400x2-OST0000",otel_scope_name="lustre"} 36556
-lustre_disk_io{component="ost",operation="write",size="30",target="ai400x2-OST0001",otel_scope_name="lustre"} 36144
-lustre_disk_io{component="ost",operation="write",size="31",target="ai400x2-OST0000",otel_scope_name="lustre"} 377499
-lustre_disk_io{component="ost",operation="write",size="31",target="ai400x2-OST0001",otel_scope_name="lustre"} 377811
-lustre_disk_io{component="ost",operation="write",size="4",target="ai400x2-OST0000",otel_scope_name="lustre"} 395381
-lustre_disk_io{component="ost",operation="write",size="4",target="ai400x2-OST0001",otel_scope_name="lustre"} 395423
-lustre_disk_io{component="ost",operation="write",size="5",target="ai400x2-OST0000",otel_scope_name="lustre"} 288275
-lustre_disk_io{component="ost",operation="write",size="5",target="ai400x2-OST0001",otel_scope_name="lustre"} 291932
-lustre_disk_io{component="ost",operation="write",size="6",target="ai400x2-OST0000",otel_scope_name="lustre"} 197769
-lustre_disk_io{component="ost",operation="write",size="6",target="ai400x2-OST0001",otel_scope_name="lustre"} 201902
-lustre_disk_io{component="ost",operation="write",size="7",target="ai400x2-OST0000",otel_scope_name="lustre"} 132864
-lustre_disk_io{component="ost",operation="write",size="7",target="ai400x2-OST0001",otel_scope_name="lustre"} 137081
-lustre_disk_io{component="ost",operation="write",size="8",target="ai400x2-OST0000",otel_scope_name="lustre"} 89052
-lustre_disk_io{component="ost",operation="write",size="8",target="ai400x2-OST0001",otel_scope_name="lustre"} 91340
-lustre_disk_io{component="ost",operation="write",size="9",target="ai400x2-OST0000",otel_scope_name="lustre"} 58501
-lustre_disk_io{component="ost",operation="write",size="9",target="ai400x2-OST0001",otel_scope_name="lustre"} 59739
-# HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation
-# TYPE lustre_disk_io_total counter
-lustre_disk_io_total{component="ost",operation="read",size="1048576",target="ai400x2-OST0000",otel_scope_name="lustre"} 9230582
-lustre_disk_io_total{component="ost",operation="read",size="1048576",target="ai400x2-OST0001",otel_scope_name="lustre"} 9191867
-lustre_disk_io_total{component="ost",operation="read",size="131072",target="ai400x2-OST0000",otel_scope_name="lustre"} 3731
-lustre_disk_io_total{component="ost",operation="read",size="131072",target="ai400x2-OST0001",otel_scope_name="lustre"} 3430
-lustre_disk_io_total{component="ost",operation="read",size="16384",target="ai400x2-OST0000",otel_scope_name="lustre"} 342
-lustre_disk_io_total{component="ost",operation="read",size="16384",target="ai400x2-OST0001",otel_scope_name="lustre"} 281
-lustre_disk_io_total{component="ost",operation="read",size="2097152",target="ai400x2-OST0000",otel_scope_name="lustre"} 446324
-lustre_disk_io_total{component="ost",operation="read",size="2097152",target="ai400x2-OST0001",otel_scope_name="lustre"} 458542
-lustre_disk_io_total{component="ost",operation="read",size="262144",target="ai400x2-OST0000",otel_scope_name="lustre"} 5397
-lustre_disk_io_total{component="ost",operation="read",size="262144",target="ai400x2-OST0001",otel_scope_name="lustre"} 5639
-lustre_disk_io_total{component="ost",operation="read",size="32768",target="ai400x2-OST0000",otel_scope_name="lustre"} 819
-lustre_disk_io_total{component="ost",operation="read",size="32768",target="ai400x2-OST0001",otel_scope_name="lustre"} 867
-lustre_disk_io_total{component="ost",operation="read",size="4096",target="ai400x2-OST0000",otel_scope_name="lustre"} 48747
-lustre_disk_io_total{component="ost",operation="read",size="4096",target="ai400x2-OST0001",otel_scope_name="lustre"} 50197
-lustre_disk_io_total{component="ost",operation="read",size="524288",target="ai400x2-OST0000",otel_scope_name="lustre"} 8031
-lustre_disk_io_total{component="ost",operation="read",size="524288",target="ai400x2-OST0001",otel_scope_name="lustre"} 7966
-lustre_disk_io_total{component="ost",operation="read",size="65536",target="ai400x2-OST0000",otel_scope_name="lustre"} 1394
-lustre_disk_io_total{component="ost",operation="read",size="65536",target="ai400x2-OST0001",otel_scope_name="lustre"} 1407
-lustre_disk_io_total{component="ost",operation="read",size="8192",target="ai400x2-OST0000",otel_scope_name="lustre"} 808
-lustre_disk_io_total{component="ost",operation="read",size="8192",target="ai400x2-OST0001",otel_scope_name="lustre"} 710
-lustre_disk_io_total{component="ost",operation="write",size="1048576",target="ai400x2-OST0000",otel_scope_name="lustre"} 4063409
-lustre_disk_io_total{component="ost",operation="write",size="1048576",target="ai400x2-OST0001",otel_scope_name="lustre"} 4067353
-lustre_disk_io_total{component="ost",operation="write",size="131072",target="ai400x2-OST0000",otel_scope_name="lustre"} 777
-lustre_disk_io_total{component="ost",operation="write",size="131072",target="ai400x2-OST0001",otel_scope_name="lustre"} 741
-lustre_disk_io_total{component="ost",operation="write",size="16384",target="ai400x2-OST0000",otel_scope_name="lustre"} 144
-lustre_disk_io_total{component="ost",operation="write",size="16384",target="ai400x2-OST0001",otel_scope_name="lustre"} 125
-lustre_disk_io_total{component="ost",operation="write",size="2097152",target="ai400x2-OST0000",otel_scope_name="lustre"} 338792
-lustre_disk_io_total{component="ost",operation="write",size="2097152",target="ai400x2-OST0001",otel_scope_name="lustre"} 342192
-lustre_disk_io_total{component="ost",operation="write",size="262144",target="ai400x2-OST0000",otel_scope_name="lustre"} 1152
-lustre_disk_io_total{component="ost",operation="write",size="262144",target="ai400x2-OST0001",otel_scope_name="lustre"} 1216
-lustre_disk_io_total{component="ost",operation="write",size="32768",target="ai400x2-OST0000",otel_scope_name="lustre"} 129
-lustre_disk_io_total{component="ost",operation="write",size="32768",target="ai400x2-OST0001",otel_scope_name="lustre"} 148
-lustre_disk_io_total{component="ost",operation="write",size="4096",target="ai400x2-OST0000",otel_scope_name="lustre"} 9253
-lustre_disk_io_total{component="ost",operation="write",size="4096",target="ai400x2-OST0001",otel_scope_name="lustre"} 9280
-lustre_disk_io_total{component="ost",operation="write",size="524288",target="ai400x2-OST0000",otel_scope_name="lustre"} 1759
-lustre_disk_io_total{component="ost",operation="write",size="524288",target="ai400x2-OST0001",otel_scope_name="lustre"} 1763
-lustre_disk_io_total{component="ost",operation="write",size="65536",target="ai400x2-OST0000",otel_scope_name="lustre"} 344
-lustre_disk_io_total{component="ost",operation="write",size="65536",target="ai400x2-OST0001",otel_scope_name="lustre"} 329
-lustre_disk_io_total{component="ost",operation="write",size="8192",target="ai400x2-OST0000",otel_scope_name="lustre"} 24
-lustre_disk_io_total{component="ost",operation="write",size="8192",target="ai400x2-OST0001",otel_scope_name="lustre"} 28
-# HELP lustre_drop_bytes_total Total number of bytes that have been dropped
-# TYPE lustre_drop_bytes_total counter
-lustre_drop_bytes_total{otel_scope_name="lustre"} 0
-# HELP lustre_drop_count_total Total number of messages that have been dropped
-# TYPE lustre_drop_count_total counter
-lustre_drop_count_total{nid="0@lo",otel_scope_name="lustre"} 0
-lustre_drop_count_total{nid="172.16.240.133@o2ib",otel_scope_name="lustre"} 0
-lustre_drop_count_total{nid="172.16.241.133@o2ib",otel_scope_name="lustre"} 0
-# HELP lustre_exports_dirty_total Total number of exports that have been marked dirty
-# TYPE lustre_exports_dirty_total gauge
-lustre_exports_dirty_total{component="ost",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_exports_dirty_total{component="ost",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-# HELP lustre_exports_granted_total Total number of exports that have been marked granted
-# TYPE lustre_exports_granted_total gauge
-lustre_exports_granted_total{component="ost",target="ai400x2-OST0000",otel_scope_name="lustre"} 143424
-lustre_exports_granted_total{component="ost",target="ai400x2-OST0001",otel_scope_name="lustre"} 143424
-# HELP lustre_exports_pending_total Total number of exports that have been marked pending
-# TYPE lustre_exports_pending_total gauge
-lustre_exports_pending_total{component="ost",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_exports_pending_total{component="ost",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-# HELP lustre_exports_total Total number of times the pool has been exported
-# TYPE lustre_exports_total gauge
-lustre_exports_total{component="mdt",target="ai400x2-MDT0000",otel_scope_name="lustre"} 16
-lustre_exports_total{component="mgt",target="MGS",otel_scope_name="lustre"} 6
-lustre_exports_total{component="ost",target="ai400x2-OST0000",otel_scope_name="lustre"} 4
-lustre_exports_total{component="ost",target="ai400x2-OST0001",otel_scope_name="lustre"} 4
-# HELP lustre_free_kilobytes Number of kilobytes allocated to the pool
-# TYPE lustre_free_kilobytes gauge
-lustre_free_kilobytes{component="mdt",target="ai400x2-MDT0000",otel_scope_name="lustre"} 427164896
-lustre_free_kilobytes{component="mgt",target="MGS",otel_scope_name="lustre"} 1978628
-lustre_free_kilobytes{component="ost",target="ai400x2-OST0000",otel_scope_name="lustre"} 34539581312
-lustre_free_kilobytes{component="ost",target="ai400x2-OST0001",otel_scope_name="lustre"} 34540373392
 # HELP lustre_health_healthy Indicates whether the Lustre server is healthy or not. 1 is healthy, 0 is unhealthy.
 # TYPE lustre_health_healthy gauge
-lustre_health_healthy{otel_scope_name="lustre"} 0
-lustre_health_healthy{target="lustre-OST0012",otel_scope_name="lustre"} 0
-lustre_health_healthy{target="lustre-OST0014",otel_scope_name="lustre"} 0
-lustre_health_healthy{target="lustre-OST0016",otel_scope_name="lustre"} 0
-# HELP lustre_inodes_free The number of inodes (objects) available
-# TYPE lustre_inodes_free gauge
-lustre_inodes_free{component="mdt",target="ai400x2-MDT0000",otel_scope_name="lustre"} 289887431
-lustre_inodes_free{component="mgt",target="MGS",otel_scope_name="lustre"} 130871
-lustre_inodes_free{component="ost",target="ai400x2-OST0000",otel_scope_name="lustre"} 274725135
-lustre_inodes_free{component="ost",target="ai400x2-OST0001",otel_scope_name="lustre"} 274725134
-# HELP lustre_inodes_maximum The maximum number of inodes (objects) the filesystem can hold
-# TYPE lustre_inodes_maximum gauge
-lustre_inodes_maximum{component="mdt",target="ai400x2-MDT0000",otel_scope_name="lustre"} 289887952
-lustre_inodes_maximum{component="mgt",target="MGS",otel_scope_name="lustre"} 131072
-lustre_inodes_maximum{component="ost",target="ai400x2-OST0000",otel_scope_name="lustre"} 274726912
-lustre_inodes_maximum{component="ost",target="ai400x2-OST0001",otel_scope_name="lustre"} 274726912
-# HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes. 'size' label represents 'I/O time (1/1000s)', the amount of time for each I/O operation to complete.
-# TYPE lustre_io_time_milliseconds_total counter
-lustre_io_time_milliseconds_total{component="ost",operation="read",size="1",target="ai400x2-OST0000",otel_scope_name="lustre"} 9244557
-lustre_io_time_milliseconds_total{component="ost",operation="read",size="1",target="ai400x2-OST0001",otel_scope_name="lustre"} 9207507
-lustre_io_time_milliseconds_total{component="ost",operation="read",size="128",target="ai400x2-OST0000",otel_scope_name="lustre"} 1
-lustre_io_time_milliseconds_total{component="ost",operation="read",size="16",target="ai400x2-OST0000",otel_scope_name="lustre"} 4808
-lustre_io_time_milliseconds_total{component="ost",operation="read",size="16",target="ai400x2-OST0001",otel_scope_name="lustre"} 4762
-lustre_io_time_milliseconds_total{component="ost",operation="read",size="2",target="ai400x2-OST0000",otel_scope_name="lustre"} 45925
-lustre_io_time_milliseconds_total{component="ost",operation="read",size="2",target="ai400x2-OST0001",otel_scope_name="lustre"} 45907
-lustre_io_time_milliseconds_total{component="ost",operation="read",size="32",target="ai400x2-OST0000",otel_scope_name="lustre"} 14
-lustre_io_time_milliseconds_total{component="ost",operation="read",size="32",target="ai400x2-OST0001",otel_scope_name="lustre"} 9
-lustre_io_time_milliseconds_total{component="ost",operation="read",size="4",target="ai400x2-OST0000",otel_scope_name="lustre"} 30611
-lustre_io_time_milliseconds_total{component="ost",operation="read",size="4",target="ai400x2-OST0001",otel_scope_name="lustre"} 31151
-lustre_io_time_milliseconds_total{component="ost",operation="read",size="64",target="ai400x2-OST0000",otel_scope_name="lustre"} 6
-lustre_io_time_milliseconds_total{component="ost",operation="read",size="64",target="ai400x2-OST0001",otel_scope_name="lustre"} 6
-lustre_io_time_milliseconds_total{component="ost",operation="read",size="8",target="ai400x2-OST0000",otel_scope_name="lustre"} 26141
-lustre_io_time_milliseconds_total{component="ost",operation="read",size="8",target="ai400x2-OST0001",otel_scope_name="lustre"} 26619
-lustre_io_time_milliseconds_total{component="ost",operation="write",size="1",target="ai400x2-OST0000",otel_scope_name="lustre"} 3616861
-lustre_io_time_milliseconds_total{component="ost",operation="write",size="1",target="ai400x2-OST0001",otel_scope_name="lustre"} 3621675
-lustre_io_time_milliseconds_total{component="ost",operation="write",size="128",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_io_time_milliseconds_total{component="ost",operation="write",size="16",target="ai400x2-OST0000",otel_scope_name="lustre"} 51585
-lustre_io_time_milliseconds_total{component="ost",operation="write",size="16",target="ai400x2-OST0001",otel_scope_name="lustre"} 52033
-lustre_io_time_milliseconds_total{component="ost",operation="write",size="2",target="ai400x2-OST0000",otel_scope_name="lustre"} 83848
-lustre_io_time_milliseconds_total{component="ost",operation="write",size="2",target="ai400x2-OST0001",otel_scope_name="lustre"} 83387
-lustre_io_time_milliseconds_total{component="ost",operation="write",size="32",target="ai400x2-OST0000",otel_scope_name="lustre"} 6394
-lustre_io_time_milliseconds_total{component="ost",operation="write",size="32",target="ai400x2-OST0001",otel_scope_name="lustre"} 6238
-lustre_io_time_milliseconds_total{component="ost",operation="write",size="4",target="ai400x2-OST0000",otel_scope_name="lustre"} 314948
-lustre_io_time_milliseconds_total{component="ost",operation="write",size="4",target="ai400x2-OST0001",otel_scope_name="lustre"} 314557
-lustre_io_time_milliseconds_total{component="ost",operation="write",size="64",target="ai400x2-OST0000",otel_scope_name="lustre"} 82
-lustre_io_time_milliseconds_total{component="ost",operation="write",size="64",target="ai400x2-OST0001",otel_scope_name="lustre"} 95
-lustre_io_time_milliseconds_total{component="ost",operation="write",size="8",target="ai400x2-OST0000",otel_scope_name="lustre"} 49922
-lustre_io_time_milliseconds_total{component="ost",operation="write",size="8",target="ai400x2-OST0001",otel_scope_name="lustre"} 50234
-# HELP lustre_ldlm_canceld_stats Gives information about LDLM Canceld service.
-# TYPE lustre_ldlm_canceld_stats counter
-lustre_ldlm_canceld_stats{operation="ldlm_cancel",otel_scope_name="lustre"} 30049
-lustre_ldlm_canceld_stats{operation="req_active",otel_scope_name="lustre"} 30049
-lustre_ldlm_canceld_stats{operation="req_qdepth",otel_scope_name="lustre"} 30049
-lustre_ldlm_canceld_stats{operation="req_timeout",otel_scope_name="lustre"} 30049
-lustre_ldlm_canceld_stats{operation="req_waittime",otel_scope_name="lustre"} 30049
-lustre_ldlm_canceld_stats{operation="reqbuf_avail",otel_scope_name="lustre"} 61601
-# HELP lustre_ldlm_cbd_stats Gives information about LDLM Callback service.
-# TYPE lustre_ldlm_cbd_stats counter
-lustre_ldlm_cbd_stats{operation="ldlm_bl_callback",otel_scope_name="lustre"} 79
-lustre_ldlm_cbd_stats{operation="req_active",otel_scope_name="lustre"} 79
-lustre_ldlm_cbd_stats{operation="req_qdepth",otel_scope_name="lustre"} 79
-lustre_ldlm_cbd_stats{operation="req_timeout",otel_scope_name="lustre"} 79
-lustre_ldlm_cbd_stats{operation="req_waittime",otel_scope_name="lustre"} 79
-lustre_ldlm_cbd_stats{operation="reqbuf_avail",otel_scope_name="lustre"} 177
+lustre_health_healthy{} 0
+lustre_health_healthy{target="lustre-OST0012"} 0
+lustre_health_healthy{target="lustre-OST0014"} 0
+lustre_health_healthy{target="lustre-OST0016"} 0
 # HELP lustre_lnet_mem_used Gives information about Lustre LNet memory usage.
 # TYPE lustre_lnet_mem_used gauge
-lustre_lnet_mem_used{otel_scope_name="lustre"} 174323852
-# HELP lustre_lock_contended_total Number of contended locks
-# TYPE lustre_lock_contended_total gauge
-lustre_lock_contended_total{component="mdt",target="ai400x2-MDT0000",otel_scope_name="lustre"} 32
-lustre_lock_contended_total{component="ost",target="ai400x2-OST0000",otel_scope_name="lustre"} 32
-lustre_lock_contended_total{component="ost",target="ai400x2-OST0001",otel_scope_name="lustre"} 32
-# HELP lustre_lock_contention_seconds_total Time in seconds during which locks were contended
-# TYPE lustre_lock_contention_seconds_total gauge
-lustre_lock_contention_seconds_total{component="mdt",target="ai400x2-MDT0000",otel_scope_name="lustre"} 2
-lustre_lock_contention_seconds_total{component="ost",target="ai400x2-OST0000",otel_scope_name="lustre"} 2
-lustre_lock_contention_seconds_total{component="ost",target="ai400x2-OST0001",otel_scope_name="lustre"} 2
-# HELP lustre_lock_count_total Number of locks
-# TYPE lustre_lock_count_total gauge
-lustre_lock_count_total{component="mdt",target="ai400x2-MDT0000",otel_scope_name="lustre"} 2
-lustre_lock_count_total{component="ost",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_lock_count_total{component="ost",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-# HELP lustre_lock_timeout_total Number of lock timeouts
-# TYPE lustre_lock_timeout_total counter
-lustre_lock_timeout_total{component="mdt",target="ai400x2-MDT0000",otel_scope_name="lustre"} 0
-lustre_lock_timeout_total{component="ost",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_lock_timeout_total{component="ost",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
+lustre_lnet_mem_used{} 174323852
 # HELP lustre_mem_used Gives information about Lustre memory usage.
 # TYPE lustre_mem_used gauge
-lustre_mem_used{otel_scope_name="lustre"} 1601002785
+lustre_mem_used{} 1601002785
 # HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
 # TYPE lustre_mem_used_max counter
-lustre_mem_used_max{otel_scope_name="lustre"} 1611219801
-# HELP lustre_oss_ost_create_stats OSS ost_create stats
-# TYPE lustre_oss_ost_create_stats gauge
-lustre_oss_ost_create_stats{operation="ost_statfs",units="usec",otel_scope_name="lustre"} 244994
-lustre_oss_ost_create_stats{operation="req_active",units="reqs",otel_scope_name="lustre"} 244994
-lustre_oss_ost_create_stats{operation="req_qdepth",units="reqs",otel_scope_name="lustre"} 244994
-lustre_oss_ost_create_stats{operation="req_timeout",units="sec",otel_scope_name="lustre"} 244994
-lustre_oss_ost_create_stats{operation="req_waittime",units="usec",otel_scope_name="lustre"} 244994
-lustre_oss_ost_create_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 507392
-# HELP lustre_oss_ost_io_stats OSS ost_io stats
-# TYPE lustre_oss_ost_io_stats gauge
-lustre_oss_ost_io_stats{operation="ost_punch",units="usec",otel_scope_name="lustre"} 59
-lustre_oss_ost_io_stats{operation="ost_read",units="usec",otel_scope_name="lustre"} 18668007
-lustre_oss_ost_io_stats{operation="ost_write",units="usec",otel_scope_name="lustre"} 8233790
-lustre_oss_ost_io_stats{operation="req_active",units="reqs",otel_scope_name="lustre"} 26901856
-lustre_oss_ost_io_stats{operation="req_qdepth",units="reqs",otel_scope_name="lustre"} 26901856
-lustre_oss_ost_io_stats{operation="req_timeout",units="sec",otel_scope_name="lustre"} 26901856
-lustre_oss_ost_io_stats{operation="req_waittime",units="usec",otel_scope_name="lustre"} 26901856
-lustre_oss_ost_io_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 55114862
-# HELP lustre_oss_ost_stats OSS ost stats
-# TYPE lustre_oss_ost_stats gauge
-lustre_oss_ost_stats{operation="ldlm_extent_enqueue",units="reqs",otel_scope_name="lustre"} 17980
-lustre_oss_ost_stats{operation="ldlm_glimpse_enqueue",units="reqs",otel_scope_name="lustre"} 42486
-lustre_oss_ost_stats{operation="obd_ping",units="usec",otel_scope_name="lustre"} 1050
-lustre_oss_ost_stats{operation="ost_connect",units="usec",otel_scope_name="lustre"} 68
-lustre_oss_ost_stats{operation="ost_create",units="usec",otel_scope_name="lustre"} 578
-lustre_oss_ost_stats{operation="ost_destroy",units="usec",otel_scope_name="lustre"} 15361
-lustre_oss_ost_stats{operation="ost_disconnect",units="usec",otel_scope_name="lustre"} 48
-lustre_oss_ost_stats{operation="ost_get_info",units="usec",otel_scope_name="lustre"} 8
-lustre_oss_ost_stats{operation="ost_set_info",units="usec",otel_scope_name="lustre"} 20
-lustre_oss_ost_stats{operation="ost_sync",units="usec",otel_scope_name="lustre"} 56
-lustre_oss_ost_stats{operation="req_active",units="reqs",otel_scope_name="lustre"} 77655
-lustre_oss_ost_stats{operation="req_qdepth",units="reqs",otel_scope_name="lustre"} 77655
-lustre_oss_ost_stats{operation="req_timeout",units="sec",otel_scope_name="lustre"} 77655
-lustre_oss_ost_stats{operation="req_waittime",units="usec",otel_scope_name="lustre"} 77655
-lustre_oss_ost_stats{operation="reqbuf_avail",units="bufs",otel_scope_name="lustre"} 157527
-# HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request
+lustre_mem_used_max{} 1611219801
+# HELP lustre_ldlm_canceld_stats Gives information about LDLM Canceld service.
+# TYPE lustre_ldlm_canceld_stats counter
+lustre_ldlm_canceld_stats{operation="ldlm_cancel"} 30049
+lustre_ldlm_canceld_stats{operation="req_active"} 30049
+lustre_ldlm_canceld_stats{operation="req_qdepth"} 30049
+lustre_ldlm_canceld_stats{operation="req_timeout"} 30049
+lustre_ldlm_canceld_stats{operation="req_waittime"} 30049
+lustre_ldlm_canceld_stats{operation="reqbuf_avail"} 61601
+# HELP lustre_ldlm_cbd_stats Gives information about LDLM Callback service.
+# TYPE lustre_ldlm_cbd_stats counter
+lustre_ldlm_cbd_stats{operation="ldlm_bl_callback"} 79
+lustre_ldlm_cbd_stats{operation="req_active"} 79
+lustre_ldlm_cbd_stats{operation="req_qdepth"} 79
+lustre_ldlm_cbd_stats{operation="req_timeout"} 79
+lustre_ldlm_cbd_stats{operation="req_waittime"} 79
+lustre_ldlm_cbd_stats{operation="reqbuf_avail"} 177
+# HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation.
+# TYPE lustre_disk_io_total counter
+lustre_disk_io_total{component="ost",operation="read",size="1048576",target="ai400x2-OST0000"} 9230582
+lustre_disk_io_total{component="ost",operation="read",size="1048576",target="ai400x2-OST0001"} 9191867
+lustre_disk_io_total{component="ost",operation="read",size="131072",target="ai400x2-OST0000"} 3731
+lustre_disk_io_total{component="ost",operation="read",size="131072",target="ai400x2-OST0001"} 3430
+lustre_disk_io_total{component="ost",operation="read",size="16384",target="ai400x2-OST0000"} 342
+lustre_disk_io_total{component="ost",operation="read",size="16384",target="ai400x2-OST0001"} 281
+lustre_disk_io_total{component="ost",operation="read",size="2097152",target="ai400x2-OST0000"} 446324
+lustre_disk_io_total{component="ost",operation="read",size="2097152",target="ai400x2-OST0001"} 458542
+lustre_disk_io_total{component="ost",operation="read",size="262144",target="ai400x2-OST0000"} 5397
+lustre_disk_io_total{component="ost",operation="read",size="262144",target="ai400x2-OST0001"} 5639
+lustre_disk_io_total{component="ost",operation="read",size="32768",target="ai400x2-OST0000"} 819
+lustre_disk_io_total{component="ost",operation="read",size="32768",target="ai400x2-OST0001"} 867
+lustre_disk_io_total{component="ost",operation="read",size="4096",target="ai400x2-OST0000"} 48747
+lustre_disk_io_total{component="ost",operation="read",size="4096",target="ai400x2-OST0001"} 50197
+lustre_disk_io_total{component="ost",operation="read",size="524288",target="ai400x2-OST0000"} 8031
+lustre_disk_io_total{component="ost",operation="read",size="524288",target="ai400x2-OST0001"} 7966
+lustre_disk_io_total{component="ost",operation="read",size="65536",target="ai400x2-OST0000"} 1394
+lustre_disk_io_total{component="ost",operation="read",size="65536",target="ai400x2-OST0001"} 1407
+lustre_disk_io_total{component="ost",operation="read",size="8192",target="ai400x2-OST0000"} 808
+lustre_disk_io_total{component="ost",operation="read",size="8192",target="ai400x2-OST0001"} 710
+lustre_disk_io_total{component="ost",operation="write",size="1048576",target="ai400x2-OST0000"} 4063409
+lustre_disk_io_total{component="ost",operation="write",size="1048576",target="ai400x2-OST0001"} 4067353
+lustre_disk_io_total{component="ost",operation="write",size="131072",target="ai400x2-OST0000"} 777
+lustre_disk_io_total{component="ost",operation="write",size="131072",target="ai400x2-OST0001"} 741
+lustre_disk_io_total{component="ost",operation="write",size="16384",target="ai400x2-OST0000"} 144
+lustre_disk_io_total{component="ost",operation="write",size="16384",target="ai400x2-OST0001"} 125
+lustre_disk_io_total{component="ost",operation="write",size="2097152",target="ai400x2-OST0000"} 338792
+lustre_disk_io_total{component="ost",operation="write",size="2097152",target="ai400x2-OST0001"} 342192
+lustre_disk_io_total{component="ost",operation="write",size="262144",target="ai400x2-OST0000"} 1152
+lustre_disk_io_total{component="ost",operation="write",size="262144",target="ai400x2-OST0001"} 1216
+lustre_disk_io_total{component="ost",operation="write",size="32768",target="ai400x2-OST0000"} 129
+lustre_disk_io_total{component="ost",operation="write",size="32768",target="ai400x2-OST0001"} 148
+lustre_disk_io_total{component="ost",operation="write",size="4096",target="ai400x2-OST0000"} 9253
+lustre_disk_io_total{component="ost",operation="write",size="4096",target="ai400x2-OST0001"} 9280
+lustre_disk_io_total{component="ost",operation="write",size="524288",target="ai400x2-OST0000"} 1759
+lustre_disk_io_total{component="ost",operation="write",size="524288",target="ai400x2-OST0001"} 1763
+lustre_disk_io_total{component="ost",operation="write",size="65536",target="ai400x2-OST0000"} 344
+lustre_disk_io_total{component="ost",operation="write",size="65536",target="ai400x2-OST0001"} 329
+lustre_disk_io_total{component="ost",operation="write",size="8192",target="ai400x2-OST0000"} 24
+lustre_disk_io_total{component="ost",operation="write",size="8192",target="ai400x2-OST0001"} 28
+# HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.
+# TYPE lustre_dio_frags counter
+lustre_dio_frags{component="ost",operation="read",size="1",target="ai400x2-OST0000"} 9292607
+lustre_dio_frags{component="ost",operation="read",size="1",target="ai400x2-OST0001"} 9254837
+lustre_dio_frags{component="ost",operation="read",size="2",target="ai400x2-OST0000"} 3669
+lustre_dio_frags{component="ost",operation="read",size="2",target="ai400x2-OST0001"} 3808
+lustre_dio_frags{component="ost",operation="read",size="3",target="ai400x2-OST0000"} 2
+lustre_dio_frags{component="ost",operation="read",size="3",target="ai400x2-OST0001"} 1
+lustre_dio_frags{component="ost",operation="read",size="4",target="ai400x2-OST0000"} 11
+lustre_dio_frags{component="ost",operation="read",size="4",target="ai400x2-OST0001"} 14
+lustre_dio_frags{component="ost",operation="read",size="5",target="ai400x2-OST0000"} 0
+lustre_dio_frags{component="ost",operation="read",size="5",target="ai400x2-OST0001"} 0
+lustre_dio_frags{component="ost",operation="read",size="6",target="ai400x2-OST0000"} 6
+lustre_dio_frags{component="ost",operation="read",size="6",target="ai400x2-OST0001"} 7
+lustre_dio_frags{component="ost",operation="read",size="7",target="ai400x2-OST0000"} 0
+lustre_dio_frags{component="ost",operation="read",size="7",target="ai400x2-OST0001"} 0
+lustre_dio_frags{component="ost",operation="read",size="8",target="ai400x2-OST0000"} 55768
+lustre_dio_frags{component="ost",operation="read",size="8",target="ai400x2-OST0001"} 57294
+lustre_dio_frags{component="ost",operation="write",size="1",target="ai400x2-OST0000"} 4076945
+lustre_dio_frags{component="ost",operation="write",size="1",target="ai400x2-OST0001"} 4080923
+lustre_dio_frags{component="ost",operation="write",size="2",target="ai400x2-OST0000"} 3434
+lustre_dio_frags{component="ost",operation="write",size="2",target="ai400x2-OST0001"} 3599
+lustre_dio_frags{component="ost",operation="write",size="3",target="ai400x2-OST0000"} 0
+lustre_dio_frags{component="ost",operation="write",size="3",target="ai400x2-OST0001"} 0
+lustre_dio_frags{component="ost",operation="write",size="4",target="ai400x2-OST0000"} 2509
+lustre_dio_frags{component="ost",operation="write",size="4",target="ai400x2-OST0001"} 2603
+lustre_dio_frags{component="ost",operation="write",size="5",target="ai400x2-OST0000"} 0
+lustre_dio_frags{component="ost",operation="write",size="5",target="ai400x2-OST0001"} 0
+lustre_dio_frags{component="ost",operation="write",size="6",target="ai400x2-OST0000"} 2041
+lustre_dio_frags{component="ost",operation="write",size="6",target="ai400x2-OST0001"} 2055
+lustre_dio_frags{component="ost",operation="write",size="7",target="ai400x2-OST0000"} 0
+lustre_dio_frags{component="ost",operation="write",size="7",target="ai400x2-OST0001"} 0
+lustre_dio_frags{component="ost",operation="write",size="8",target="ai400x2-OST0000"} 38711
+lustre_dio_frags{component="ost",operation="write",size="8",target="ai400x2-OST0001"} 39039
+# HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.
+# TYPE lustre_disk_io counter
+lustre_disk_io{component="ost",operation="read",size="1",target="ai400x2-OST0000"} 2499387
+lustre_disk_io{component="ost",operation="read",size="1",target="ai400x2-OST0001"} 2488039
+lustre_disk_io{component="ost",operation="read",size="10",target="ai400x2-OST0000"} 123818
+lustre_disk_io{component="ost",operation="read",size="10",target="ai400x2-OST0001"} 122401
+lustre_disk_io{component="ost",operation="read",size="11",target="ai400x2-OST0000"} 90035
+lustre_disk_io{component="ost",operation="read",size="11",target="ai400x2-OST0001"} 88149
+lustre_disk_io{component="ost",operation="read",size="12",target="ai400x2-OST0000"} 68887
+lustre_disk_io{component="ost",operation="read",size="12",target="ai400x2-OST0001"} 67154
+lustre_disk_io{component="ost",operation="read",size="13",target="ai400x2-OST0000"} 55465
+lustre_disk_io{component="ost",operation="read",size="13",target="ai400x2-OST0001"} 53823
+lustre_disk_io{component="ost",operation="read",size="14",target="ai400x2-OST0000"} 45232
+lustre_disk_io{component="ost",operation="read",size="14",target="ai400x2-OST0001"} 44023
+lustre_disk_io{component="ost",operation="read",size="15",target="ai400x2-OST0000"} 38000
+lustre_disk_io{component="ost",operation="read",size="15",target="ai400x2-OST0001"} 37170
+lustre_disk_io{component="ost",operation="read",size="16",target="ai400x2-OST0000"} 31971
+lustre_disk_io{component="ost",operation="read",size="16",target="ai400x2-OST0001"} 31368
+lustre_disk_io{component="ost",operation="read",size="17",target="ai400x2-OST0000"} 25211
+lustre_disk_io{component="ost",operation="read",size="17",target="ai400x2-OST0001"} 24929
+lustre_disk_io{component="ost",operation="read",size="18",target="ai400x2-OST0000"} 21467
+lustre_disk_io{component="ost",operation="read",size="18",target="ai400x2-OST0001"} 21347
+lustre_disk_io{component="ost",operation="read",size="19",target="ai400x2-OST0000"} 18780
+lustre_disk_io{component="ost",operation="read",size="19",target="ai400x2-OST0001"} 18674
+lustre_disk_io{component="ost",operation="read",size="2",target="ai400x2-OST0000"} 1883945
+lustre_disk_io{component="ost",operation="read",size="2",target="ai400x2-OST0001"} 1873744
+lustre_disk_io{component="ost",operation="read",size="20",target="ai400x2-OST0000"} 16625
+lustre_disk_io{component="ost",operation="read",size="20",target="ai400x2-OST0001"} 16527
+lustre_disk_io{component="ost",operation="read",size="21",target="ai400x2-OST0000"} 15098
+lustre_disk_io{component="ost",operation="read",size="21",target="ai400x2-OST0001"} 15156
+lustre_disk_io{component="ost",operation="read",size="22",target="ai400x2-OST0000"} 13849
+lustre_disk_io{component="ost",operation="read",size="22",target="ai400x2-OST0001"} 14051
+lustre_disk_io{component="ost",operation="read",size="23",target="ai400x2-OST0000"} 13017
+lustre_disk_io{component="ost",operation="read",size="23",target="ai400x2-OST0001"} 13243
+lustre_disk_io{component="ost",operation="read",size="24",target="ai400x2-OST0000"} 12337
+lustre_disk_io{component="ost",operation="read",size="24",target="ai400x2-OST0001"} 12577
+lustre_disk_io{component="ost",operation="read",size="25",target="ai400x2-OST0000"} 11413
+lustre_disk_io{component="ost",operation="read",size="25",target="ai400x2-OST0001"} 11661
+lustre_disk_io{component="ost",operation="read",size="26",target="ai400x2-OST0000"} 11028
+lustre_disk_io{component="ost",operation="read",size="26",target="ai400x2-OST0001"} 11371
+lustre_disk_io{component="ost",operation="read",size="27",target="ai400x2-OST0000"} 10704
+lustre_disk_io{component="ost",operation="read",size="27",target="ai400x2-OST0001"} 11019
+lustre_disk_io{component="ost",operation="read",size="28",target="ai400x2-OST0000"} 10471
+lustre_disk_io{component="ost",operation="read",size="28",target="ai400x2-OST0001"} 10843
+lustre_disk_io{component="ost",operation="read",size="29",target="ai400x2-OST0000"} 10297
+lustre_disk_io{component="ost",operation="read",size="29",target="ai400x2-OST0001"} 10656
+lustre_disk_io{component="ost",operation="read",size="3",target="ai400x2-OST0000"} 1493683
+lustre_disk_io{component="ost",operation="read",size="3",target="ai400x2-OST0001"} 1490244
+lustre_disk_io{component="ost",operation="read",size="30",target="ai400x2-OST0000"} 10119
+lustre_disk_io{component="ost",operation="read",size="30",target="ai400x2-OST0001"} 10512
+lustre_disk_io{component="ost",operation="read",size="31",target="ai400x2-OST0000"} 162513
+lustre_disk_io{component="ost",operation="read",size="31",target="ai400x2-OST0001"} 168860
+lustre_disk_io{component="ost",operation="read",size="4",target="ai400x2-OST0000"} 1058167
+lustre_disk_io{component="ost",operation="read",size="4",target="ai400x2-OST0001"} 1058749
+lustre_disk_io{component="ost",operation="read",size="5",target="ai400x2-OST0000"} 704804
+lustre_disk_io{component="ost",operation="read",size="5",target="ai400x2-OST0001"} 704439
+lustre_disk_io{component="ost",operation="read",size="6",target="ai400x2-OST0000"} 495027
+lustre_disk_io{component="ost",operation="read",size="6",target="ai400x2-OST0001"} 495012
+lustre_disk_io{component="ost",operation="read",size="7",target="ai400x2-OST0000"} 356780
+lustre_disk_io{component="ost",operation="read",size="7",target="ai400x2-OST0001"} 357583
+lustre_disk_io{component="ost",operation="read",size="8",target="ai400x2-OST0000"} 256413
+lustre_disk_io{component="ost",operation="read",size="8",target="ai400x2-OST0001"} 255910
+lustre_disk_io{component="ost",operation="read",size="9",target="ai400x2-OST0000"} 181632
+lustre_disk_io{component="ost",operation="read",size="9",target="ai400x2-OST0001"} 181672
+lustre_disk_io{component="ost",operation="write",size="1",target="ai400x2-OST0000"} 1187036
+lustre_disk_io{component="ost",operation="write",size="1",target="ai400x2-OST0001"} 1185285
+lustre_disk_io{component="ost",operation="write",size="10",target="ai400x2-OST0000"} 26704
+lustre_disk_io{component="ost",operation="write",size="10",target="ai400x2-OST0001"} 27549
+lustre_disk_io{component="ost",operation="write",size="11",target="ai400x2-OST0000"} 14119
+lustre_disk_io{component="ost",operation="write",size="11",target="ai400x2-OST0001"} 14513
+lustre_disk_io{component="ost",operation="write",size="12",target="ai400x2-OST0000"} 8829
+lustre_disk_io{component="ost",operation="write",size="12",target="ai400x2-OST0001"} 9077
+lustre_disk_io{component="ost",operation="write",size="13",target="ai400x2-OST0000"} 6550
+lustre_disk_io{component="ost",operation="write",size="13",target="ai400x2-OST0001"} 6688
+lustre_disk_io{component="ost",operation="write",size="14",target="ai400x2-OST0000"} 5547
+lustre_disk_io{component="ost",operation="write",size="14",target="ai400x2-OST0001"} 5725
+lustre_disk_io{component="ost",operation="write",size="15",target="ai400x2-OST0000"} 5383
+lustre_disk_io{component="ost",operation="write",size="15",target="ai400x2-OST0001"} 5530
+lustre_disk_io{component="ost",operation="write",size="16",target="ai400x2-OST0000"} 5481
+lustre_disk_io{component="ost",operation="write",size="16",target="ai400x2-OST0001"} 5664
+lustre_disk_io{component="ost",operation="write",size="17",target="ai400x2-OST0000"} 6177
+lustre_disk_io{component="ost",operation="write",size="17",target="ai400x2-OST0001"} 6440
+lustre_disk_io{component="ost",operation="write",size="18",target="ai400x2-OST0000"} 6767
+lustre_disk_io{component="ost",operation="write",size="18",target="ai400x2-OST0001"} 7087
+lustre_disk_io{component="ost",operation="write",size="19",target="ai400x2-OST0000"} 8074
+lustre_disk_io{component="ost",operation="write",size="19",target="ai400x2-OST0001"} 8465
+lustre_disk_io{component="ost",operation="write",size="2",target="ai400x2-OST0000"} 793707
+lustre_disk_io{component="ost",operation="write",size="2",target="ai400x2-OST0001"} 787309
+lustre_disk_io{component="ost",operation="write",size="20",target="ai400x2-OST0000"} 9646
+lustre_disk_io{component="ost",operation="write",size="20",target="ai400x2-OST0001"} 10044
+lustre_disk_io{component="ost",operation="write",size="21",target="ai400x2-OST0000"} 12313
+lustre_disk_io{component="ost",operation="write",size="21",target="ai400x2-OST0001"} 12647
+lustre_disk_io{component="ost",operation="write",size="22",target="ai400x2-OST0000"} 15267
+lustre_disk_io{component="ost",operation="write",size="22",target="ai400x2-OST0001"} 15863
+lustre_disk_io{component="ost",operation="write",size="23",target="ai400x2-OST0000"} 19877
+lustre_disk_io{component="ost",operation="write",size="23",target="ai400x2-OST0001"} 20105
+lustre_disk_io{component="ost",operation="write",size="24",target="ai400x2-OST0000"} 24453
+lustre_disk_io{component="ost",operation="write",size="24",target="ai400x2-OST0001"} 24737
+lustre_disk_io{component="ost",operation="write",size="25",target="ai400x2-OST0000"} 30315
+lustre_disk_io{component="ost",operation="write",size="25",target="ai400x2-OST0001"} 30564
+lustre_disk_io{component="ost",operation="write",size="26",target="ai400x2-OST0000"} 34324
+lustre_disk_io{component="ost",operation="write",size="26",target="ai400x2-OST0001"} 34765
+lustre_disk_io{component="ost",operation="write",size="27",target="ai400x2-OST0000"} 37750
+lustre_disk_io{component="ost",operation="write",size="27",target="ai400x2-OST0001"} 37755
+lustre_disk_io{component="ost",operation="write",size="28",target="ai400x2-OST0000"} 38776
+lustre_disk_io{component="ost",operation="write",size="28",target="ai400x2-OST0001"} 38708
+lustre_disk_io{component="ost",operation="write",size="29",target="ai400x2-OST0000"} 38871
+lustre_disk_io{component="ost",operation="write",size="29",target="ai400x2-OST0001"} 38610
+lustre_disk_io{component="ost",operation="write",size="3",target="ai400x2-OST0000"} 503920
+lustre_disk_io{component="ost",operation="write",size="3",target="ai400x2-OST0001"} 498673
+lustre_disk_io{component="ost",operation="write",size="30",target="ai400x2-OST0000"} 36556
+lustre_disk_io{component="ost",operation="write",size="30",target="ai400x2-OST0001"} 36144
+lustre_disk_io{component="ost",operation="write",size="31",target="ai400x2-OST0000"} 377499
+lustre_disk_io{component="ost",operation="write",size="31",target="ai400x2-OST0001"} 377811
+lustre_disk_io{component="ost",operation="write",size="4",target="ai400x2-OST0000"} 395381
+lustre_disk_io{component="ost",operation="write",size="4",target="ai400x2-OST0001"} 395423
+lustre_disk_io{component="ost",operation="write",size="5",target="ai400x2-OST0000"} 288275
+lustre_disk_io{component="ost",operation="write",size="5",target="ai400x2-OST0001"} 291932
+lustre_disk_io{component="ost",operation="write",size="6",target="ai400x2-OST0000"} 197769
+lustre_disk_io{component="ost",operation="write",size="6",target="ai400x2-OST0001"} 201902
+lustre_disk_io{component="ost",operation="write",size="7",target="ai400x2-OST0000"} 132864
+lustre_disk_io{component="ost",operation="write",size="7",target="ai400x2-OST0001"} 137081
+lustre_disk_io{component="ost",operation="write",size="8",target="ai400x2-OST0000"} 89052
+lustre_disk_io{component="ost",operation="write",size="8",target="ai400x2-OST0001"} 91340
+lustre_disk_io{component="ost",operation="write",size="9",target="ai400x2-OST0000"} 58501
+lustre_disk_io{component="ost",operation="write",size="9",target="ai400x2-OST0001"} 59739
+# HELP lustre_discontiguous_pages_total Total number of logical discontinuities per RPC. 'size' label represents 'Discontiguous pages', the number of discontinuities in the logical file offset of each page in a single RPC.
+# TYPE lustre_discontiguous_pages_total counter
+lustre_discontiguous_pages_total{component="ost",operation="read",size="0",target="ai400x2-OST0000"} 9351652
+lustre_discontiguous_pages_total{component="ost",operation="read",size="0",target="ai400x2-OST0001"} 9315526
+lustre_discontiguous_pages_total{component="ost",operation="read",size="1",target="ai400x2-OST0000"} 409
+lustre_discontiguous_pages_total{component="ost",operation="read",size="1",target="ai400x2-OST0001"} 435
+lustre_discontiguous_pages_total{component="ost",operation="read",size="2",target="ai400x2-OST0000"} 2
+lustre_discontiguous_pages_total{component="ost",operation="read",size="2",target="ai400x2-OST0001"} 0
+lustre_discontiguous_pages_total{component="ost",operation="write",size="0",target="ai400x2-OST0000"} 4114231
+lustre_discontiguous_pages_total{component="ost",operation="write",size="0",target="ai400x2-OST0001"} 4118794
+lustre_discontiguous_pages_total{component="ost",operation="write",size="1",target="ai400x2-OST0000"} 9407
+lustre_discontiguous_pages_total{component="ost",operation="write",size="1",target="ai400x2-OST0001"} 9423
+lustre_discontiguous_pages_total{component="ost",operation="write",size="2",target="ai400x2-OST0000"} 2
+lustre_discontiguous_pages_total{component="ost",operation="write",size="2",target="ai400x2-OST0001"} 2
+# HELP lustre_discontiguous_blocks_total 'size' label represents 'Discontiguous blocks', the number of discontinuities in the physical block allocation in the file system for a single RPC.
+# TYPE lustre_discontiguous_blocks_total counter
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="0",target="ai400x2-OST0000"} 9292664
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="0",target="ai400x2-OST0001"} 9254895
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="1",target="ai400x2-OST0000"} 42047
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="1",target="ai400x2-OST0001"} 41231
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="10",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="11",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="12",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="13",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="14",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="15",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="16",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="17",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="18",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="19",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="2",target="ai400x2-OST0000"} 17352
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="2",target="ai400x2-OST0001"} 19835
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="20",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="21",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="22",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="23",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="24",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="25",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="26",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="27",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="28",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="29",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="3",target="ai400x2-OST0000"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="3",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="30",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="31",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="4",target="ai400x2-OST0000"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="4",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="5",target="ai400x2-OST0000"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="5",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="6",target="ai400x2-OST0000"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="6",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="7",target="ai400x2-OST0000"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="7",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="8",target="ai400x2-OST0000"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="8",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="9",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="0",target="ai400x2-OST0000"} 4072612
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="0",target="ai400x2-OST0001"} 4076814
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="1",target="ai400x2-OST0000"} 28493
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="1",target="ai400x2-OST0001"} 28934
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="10",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="11",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="12",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="13",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="14",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="15",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="16",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="17",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="18",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="19",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="2",target="ai400x2-OST0000"} 21665
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="2",target="ai400x2-OST0001"} 21641
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="20",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="21",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="22",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="23",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="24",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="25",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="26",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="27",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="28",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="29",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="3",target="ai400x2-OST0000"} 687
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="3",target="ai400x2-OST0001"} 635
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="30",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="31",target="ai400x2-OST0001"} 1
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="4",target="ai400x2-OST0000"} 137
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="4",target="ai400x2-OST0001"} 146
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="5",target="ai400x2-OST0000"} 27
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="5",target="ai400x2-OST0001"} 33
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="6",target="ai400x2-OST0000"} 13
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="6",target="ai400x2-OST0001"} 12
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="7",target="ai400x2-OST0000"} 5
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="7",target="ai400x2-OST0001"} 3
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="8",target="ai400x2-OST0000"} 1
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="8",target="ai400x2-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="9",target="ai400x2-OST0001"} 0
+# HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes. 'size' label represents 'I/O time (1/1000s)', the amount of time for each I/O operation to complete.
+# TYPE lustre_io_time_milliseconds_total counter
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="1",target="ai400x2-OST0000"} 9244557
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="1",target="ai400x2-OST0001"} 9207507
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="128",target="ai400x2-OST0000"} 1
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="16",target="ai400x2-OST0000"} 4808
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="16",target="ai400x2-OST0001"} 4762
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="2",target="ai400x2-OST0000"} 45925
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="2",target="ai400x2-OST0001"} 45907
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="32",target="ai400x2-OST0000"} 14
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="32",target="ai400x2-OST0001"} 9
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="4",target="ai400x2-OST0000"} 30611
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="4",target="ai400x2-OST0001"} 31151
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="64",target="ai400x2-OST0000"} 6
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="64",target="ai400x2-OST0001"} 6
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="8",target="ai400x2-OST0000"} 26141
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="8",target="ai400x2-OST0001"} 26619
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="1",target="ai400x2-OST0000"} 3616861
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="1",target="ai400x2-OST0001"} 3621675
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="128",target="ai400x2-OST0000"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="16",target="ai400x2-OST0000"} 51585
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="16",target="ai400x2-OST0001"} 52033
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="2",target="ai400x2-OST0000"} 83848
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="2",target="ai400x2-OST0001"} 83387
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="32",target="ai400x2-OST0000"} 6394
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="32",target="ai400x2-OST0001"} 6238
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="4",target="ai400x2-OST0000"} 314948
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="4",target="ai400x2-OST0001"} 314557
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="64",target="ai400x2-OST0000"} 82
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="64",target="ai400x2-OST0001"} 95
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="8",target="ai400x2-OST0000"} 49922
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="8",target="ai400x2-OST0001"} 50234
+# HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request.
 # TYPE lustre_pages_per_bulk_rw_total counter
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="1",target="ai400x2-OST0000",otel_scope_name="lustre"} 45221
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="1",target="ai400x2-OST0001",otel_scope_name="lustre"} 46495
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="1024",target="ai400x2-OST0000",otel_scope_name="lustre"} 50
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="1024",target="ai400x2-OST0001",otel_scope_name="lustre"} 46
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="128",target="ai400x2-OST0000",otel_scope_name="lustre"} 7996
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="128",target="ai400x2-OST0001",otel_scope_name="lustre"} 7951
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="16",target="ai400x2-OST0000",otel_scope_name="lustre"} 1382
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="16",target="ai400x2-OST0001",otel_scope_name="lustre"} 1396
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="2",target="ai400x2-OST0000",otel_scope_name="lustre"} 807
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="2",target="ai400x2-OST0001",otel_scope_name="lustre"} 709
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="2048",target="ai400x2-OST0000",otel_scope_name="lustre"} 11
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="2048",target="ai400x2-OST0001",otel_scope_name="lustre"} 14
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="256",target="ai400x2-OST0000",otel_scope_name="lustre"} 9230582
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="256",target="ai400x2-OST0001",otel_scope_name="lustre"} 9191867
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="32",target="ai400x2-OST0000",otel_scope_name="lustre"} 3718
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="32",target="ai400x2-OST0001",otel_scope_name="lustre"} 3421
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="4",target="ai400x2-OST0000",otel_scope_name="lustre"} 341
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="4",target="ai400x2-OST0001",otel_scope_name="lustre"} 281
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="4096",target="ai400x2-OST0000",otel_scope_name="lustre"} 55774
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="4096",target="ai400x2-OST0001",otel_scope_name="lustre"} 57301
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="512",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="512",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="64",target="ai400x2-OST0000",otel_scope_name="lustre"} 5363
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="64",target="ai400x2-OST0001",otel_scope_name="lustre"} 5613
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="8",target="ai400x2-OST0000",otel_scope_name="lustre"} 818
-lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="8",target="ai400x2-OST0001",otel_scope_name="lustre"} 867
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="1",target="ai400x2-OST0000",otel_scope_name="lustre"} 192
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="1",target="ai400x2-OST0001",otel_scope_name="lustre"} 208
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="1024",target="ai400x2-OST0000",otel_scope_name="lustre"} 3411
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="1024",target="ai400x2-OST0001",otel_scope_name="lustre"} 3569
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="128",target="ai400x2-OST0000",otel_scope_name="lustre"} 3506
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="128",target="ai400x2-OST0001",otel_scope_name="lustre"} 3519
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="16",target="ai400x2-OST0000",otel_scope_name="lustre"} 728
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="16",target="ai400x2-OST0001",otel_scope_name="lustre"} 702
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="2",target="ai400x2-OST0000",otel_scope_name="lustre"} 67
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="2",target="ai400x2-OST0001",otel_scope_name="lustre"} 85
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="2048",target="ai400x2-OST0000",otel_scope_name="lustre"} 2509
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="2048",target="ai400x2-OST0001",otel_scope_name="lustre"} 2603
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="256",target="ai400x2-OST0000",otel_scope_name="lustre"} 4068108
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="256",target="ai400x2-OST0001",otel_scope_name="lustre"} 4072014
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="32",target="ai400x2-OST0000",otel_scope_name="lustre"} 1548
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="32",target="ai400x2-OST0001",otel_scope_name="lustre"} 1478
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="4",target="ai400x2-OST0000",otel_scope_name="lustre"} 262
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="4",target="ai400x2-OST0001",otel_scope_name="lustre"} 248
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="4096",target="ai400x2-OST0000",otel_scope_name="lustre"} 40752
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="4096",target="ai400x2-OST0001",otel_scope_name="lustre"} 41094
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="512",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="512",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="64",target="ai400x2-OST0000",otel_scope_name="lustre"} 2295
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="64",target="ai400x2-OST0001",otel_scope_name="lustre"} 2418
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="8",target="ai400x2-OST0000",otel_scope_name="lustre"} 262
-lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="8",target="ai400x2-OST0001",otel_scope_name="lustre"} 281
-# HELP lustre_read_bytes_total The total number of bytes that have been read.
-# TYPE lustre_read_bytes_total counter
-lustre_read_bytes_total{component="ost",operation="read",target="ai400x2-OST0000",otel_scope_name="lustre"} 10614117224448
-lustre_read_bytes_total{component="ost",operation="read",target="ai400x2-OST0001",otel_scope_name="lustre"} 10599265554432
-# HELP lustre_read_maximum_size_bytes The maximum read size in bytes.
-# TYPE lustre_read_maximum_size_bytes counter
-lustre_read_maximum_size_bytes{component="ost",operation="read",target="ai400x2-OST0000",otel_scope_name="lustre"} 16777216
-lustre_read_maximum_size_bytes{component="ost",operation="read",target="ai400x2-OST0001",otel_scope_name="lustre"} 16777216
-# HELP lustre_read_minimum_size_bytes The minimum read size in bytes.
-# TYPE lustre_read_minimum_size_bytes gauge
-lustre_read_minimum_size_bytes{component="ost",operation="read",target="ai400x2-OST0000",otel_scope_name="lustre"} 4096
-lustre_read_minimum_size_bytes{component="ost",operation="read",target="ai400x2-OST0001",otel_scope_name="lustre"} 4096
-# HELP lustre_read_samples_total Total number of reads that have been recorded.
-# TYPE lustre_read_samples_total counter
-lustre_read_samples_total{component="ost",operation="read",target="ai400x2-OST0000",otel_scope_name="lustre"} 9352060
-lustre_read_samples_total{component="ost",operation="read",target="ai400x2-OST0001",otel_scope_name="lustre"} 9315947
-# HELP lustre_receive_bytes_total Total number of bytes that have been received
-# TYPE lustre_receive_bytes_total counter
-lustre_receive_bytes_total{otel_scope_name="lustre"} 9966973976959
-# HELP lustre_receive_count_total Total number of messages that have been received
-# TYPE lustre_receive_count_total counter
-lustre_receive_count_total{nid="0@lo",otel_scope_name="lustre"} 191882
-lustre_receive_count_total{nid="172.16.240.133@o2ib",otel_scope_name="lustre"} 24143352
-lustre_receive_count_total{nid="172.16.241.133@o2ib",otel_scope_name="lustre"} 24141806
-# HELP lustre_send_bytes_total Total number of bytes that have been sent
-# TYPE lustre_send_bytes_total counter
-lustre_send_bytes_total{otel_scope_name="lustre"} 21225620772816
-# HELP lustre_send_count_total Total number of messages that have been sent
-# TYPE lustre_send_count_total counter
-lustre_send_count_total{nid="0@lo",otel_scope_name="lustre"} 191882
-lustre_send_count_total{nid="172.16.240.133@o2ib",otel_scope_name="lustre"} 28893723
-lustre_send_count_total{nid="172.16.241.133@o2ib",otel_scope_name="lustre"} 28892480
-# HELP lustre_stats_total Number of operations the filesystem has performed.
-# TYPE lustre_stats_total counter
-lustre_stats_total{component="mdt",operation="close",target="ai400x2-MDT0000",otel_scope_name="lustre"} 7632
-lustre_stats_total{component="mdt",operation="getattr",target="ai400x2-MDT0000",otel_scope_name="lustre"} 9464
-lustre_stats_total{component="mdt",operation="getxattr",target="ai400x2-MDT0000",otel_scope_name="lustre"} 3591
-lustre_stats_total{component="mdt",operation="mkdir",target="ai400x2-MDT0000",otel_scope_name="lustre"} 6
-lustre_stats_total{component="mdt",operation="mknod",target="ai400x2-MDT0000",otel_scope_name="lustre"} 228
-lustre_stats_total{component="mdt",operation="open",target="ai400x2-MDT0000",otel_scope_name="lustre"} 232
-lustre_stats_total{component="mdt",operation="rmdir",target="ai400x2-MDT0000",otel_scope_name="lustre"} 4
-lustre_stats_total{component="mdt",operation="setattr",target="ai400x2-MDT0000",otel_scope_name="lustre"} 228
-lustre_stats_total{component="mdt",operation="statfs",target="ai400x2-MDT0000",otel_scope_name="lustre"} 91893
-lustre_stats_total{component="mdt",operation="sync",target="ai400x2-MDT0000",otel_scope_name="lustre"} 224
-lustre_stats_total{component="mdt",operation="unlink",target="ai400x2-MDT0000",otel_scope_name="lustre"} 3
-# HELP lustre_write_bytes_total The total number of bytes that have been written.
-# TYPE lustre_write_bytes_total counter
-lustre_write_bytes_total{component="ost",operation="write",target="ai400x2-OST0000",otel_scope_name="lustre"} 4971114377425
-lustre_write_bytes_total{component="ost",operation="write",target="ai400x2-OST0001",otel_scope_name="lustre"} 4982409908141
-# HELP lustre_write_maximum_size_bytes The maximum write size in bytes.
-# TYPE lustre_write_maximum_size_bytes counter
-lustre_write_maximum_size_bytes{component="ost",operation="write",target="ai400x2-OST0000",otel_scope_name="lustre"} 16777216
-lustre_write_maximum_size_bytes{component="ost",operation="write",target="ai400x2-OST0001",otel_scope_name="lustre"} 16777216
-# HELP lustre_write_minimum_size_bytes The minimum write size in bytes.
-# TYPE lustre_write_minimum_size_bytes gauge
-lustre_write_minimum_size_bytes{component="ost",operation="write",target="ai400x2-OST0000",otel_scope_name="lustre"} 183
-lustre_write_minimum_size_bytes{component="ost",operation="write",target="ai400x2-OST0001",otel_scope_name="lustre"} 183
-# HELP lustre_write_samples_total Total number of writes that have been recorded.
-# TYPE lustre_write_samples_total counter
-lustre_write_samples_total{component="ost",operation="write",target="ai400x2-OST0000",otel_scope_name="lustre"} 4114603
-lustre_write_samples_total{component="ost",operation="write",target="ai400x2-OST0001",otel_scope_name="lustre"} 4119187
-# HELP recovery_status Gives the recovery status off a target. 0=Complete 1=Inactive 2=Waiting 3=WaitingForClients 4=Recovering 5=Unknown
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="1",target="ai400x2-OST0000"} 45221
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="1",target="ai400x2-OST0001"} 46495
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="1024",target="ai400x2-OST0000"} 50
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="1024",target="ai400x2-OST0001"} 46
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="128",target="ai400x2-OST0000"} 7996
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="128",target="ai400x2-OST0001"} 7951
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="16",target="ai400x2-OST0000"} 1382
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="16",target="ai400x2-OST0001"} 1396
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="2",target="ai400x2-OST0000"} 807
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="2",target="ai400x2-OST0001"} 709
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="2048",target="ai400x2-OST0000"} 11
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="2048",target="ai400x2-OST0001"} 14
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="256",target="ai400x2-OST0000"} 9230582
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="256",target="ai400x2-OST0001"} 9191867
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="32",target="ai400x2-OST0000"} 3718
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="32",target="ai400x2-OST0001"} 3421
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="4",target="ai400x2-OST0000"} 341
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="4",target="ai400x2-OST0001"} 281
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="4096",target="ai400x2-OST0000"} 55774
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="4096",target="ai400x2-OST0001"} 57301
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="512",target="ai400x2-OST0000"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="512",target="ai400x2-OST0001"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="64",target="ai400x2-OST0000"} 5363
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="64",target="ai400x2-OST0001"} 5613
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="8",target="ai400x2-OST0000"} 818
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="8",target="ai400x2-OST0001"} 867
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="1",target="ai400x2-OST0000"} 192
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="1",target="ai400x2-OST0001"} 208
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="1024",target="ai400x2-OST0000"} 3411
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="1024",target="ai400x2-OST0001"} 3569
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="128",target="ai400x2-OST0000"} 3506
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="128",target="ai400x2-OST0001"} 3519
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="16",target="ai400x2-OST0000"} 728
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="16",target="ai400x2-OST0001"} 702
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="2",target="ai400x2-OST0000"} 67
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="2",target="ai400x2-OST0001"} 85
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="2048",target="ai400x2-OST0000"} 2509
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="2048",target="ai400x2-OST0001"} 2603
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="256",target="ai400x2-OST0000"} 4068108
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="256",target="ai400x2-OST0001"} 4072014
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="32",target="ai400x2-OST0000"} 1548
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="32",target="ai400x2-OST0001"} 1478
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="4",target="ai400x2-OST0000"} 262
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="4",target="ai400x2-OST0001"} 248
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="4096",target="ai400x2-OST0000"} 40752
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="4096",target="ai400x2-OST0001"} 41094
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="512",target="ai400x2-OST0000"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="512",target="ai400x2-OST0001"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="64",target="ai400x2-OST0000"} 2295
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="64",target="ai400x2-OST0001"} 2418
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="8",target="ai400x2-OST0000"} 262
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="8",target="ai400x2-OST0001"} 281
+# HELP lustre_inodes_free The number of inodes (objects) available.
+# TYPE lustre_inodes_free gauge
+lustre_inodes_free{component="mdt",target="ai400x2-MDT0000"} 289887431
+lustre_inodes_free{component="mgt",target="MGS"} 130871
+lustre_inodes_free{component="ost",target="ai400x2-OST0000"} 274725135
+lustre_inodes_free{component="ost",target="ai400x2-OST0001"} 274725134
+# HELP lustre_inodes_maximum The maximum number of inodes (objects) the filesystem can hold.
+# TYPE lustre_inodes_maximum gauge
+lustre_inodes_maximum{component="mdt",target="ai400x2-MDT0000"} 289887952
+lustre_inodes_maximum{component="mgt",target="MGS"} 131072
+lustre_inodes_maximum{component="ost",target="ai400x2-OST0000"} 274726912
+lustre_inodes_maximum{component="ost",target="ai400x2-OST0001"} 274726912
+# HELP lustre_available_kilobytes Number of kilobytes readily available in the pool.
+# TYPE lustre_available_kilobytes gauge
+lustre_available_kilobytes{component="mdt",target="ai400x2-MDT0000"} 419917436
+lustre_available_kilobytes{component="mgt",target="MGS"} 1873772
+lustre_available_kilobytes{component="ost",target="ai400x2-OST0000"} 34187914484
+lustre_available_kilobytes{component="ost",target="ai400x2-OST0001"} 34188706564
+# HELP lustre_free_kilobytes Number of kilobytes allocated to the pool.
+# TYPE lustre_free_kilobytes gauge
+lustre_free_kilobytes{component="mdt",target="ai400x2-MDT0000"} 427164896
+lustre_free_kilobytes{component="mgt",target="MGS"} 1978628
+lustre_free_kilobytes{component="ost",target="ai400x2-OST0000"} 34539581312
+lustre_free_kilobytes{component="ost",target="ai400x2-OST0001"} 34540373392
+# HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes.
+# TYPE lustre_capacity_kilobytes gauge
+lustre_capacity_kilobytes{component="mdt",target="ai400x2-MDT0000"} 427170984
+lustre_capacity_kilobytes{component="mgt",target="MGS"} 1980036
+lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0000"} 34750424936
+lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0001"} 34750424936
+# HELP lustre_exports_total Total number of times the pool has been exported.
+# TYPE lustre_exports_total gauge
+lustre_exports_total{component="mdt",target="ai400x2-MDT0000"} 16
+lustre_exports_total{component="mgt",target="MGS"} 6
+lustre_exports_total{component="ost",target="ai400x2-OST0000"} 4
+lustre_exports_total{component="ost",target="ai400x2-OST0001"} 4
+# HELP lustre_exports_dirty_total Total number of exports that have been marked dirty.
+# TYPE lustre_exports_dirty_total gauge
+lustre_exports_dirty_total{component="ost",target="ai400x2-OST0000"} 0
+lustre_exports_dirty_total{component="ost",target="ai400x2-OST0001"} 0
+# HELP lustre_exports_granted_total Total number of exports that have been marked granted.
+# TYPE lustre_exports_granted_total gauge
+lustre_exports_granted_total{component="ost",target="ai400x2-OST0000"} 143424
+lustre_exports_granted_total{component="ost",target="ai400x2-OST0001"} 143424
+# HELP lustre_exports_pending_total Total number of exports that have been marked pending.
+# TYPE lustre_exports_pending_total gauge
+lustre_exports_pending_total{component="ost",target="ai400x2-OST0000"} 0
+lustre_exports_pending_total{component="ost",target="ai400x2-OST0001"} 0
+# HELP lustre_lock_contended_total Number of contended locks.
+# TYPE lustre_lock_contended_total gauge
+lustre_lock_contended_total{component="mdt",target="ai400x2-MDT0000"} 32
+lustre_lock_contended_total{component="ost",target="ai400x2-OST0000"} 32
+lustre_lock_contended_total{component="ost",target="ai400x2-OST0001"} 32
+# HELP lustre_lock_contention_seconds_total Time in seconds during which locks were contended.
+# TYPE lustre_lock_contention_seconds_total gauge
+lustre_lock_contention_seconds_total{component="mdt",target="ai400x2-MDT0000"} 2
+lustre_lock_contention_seconds_total{component="ost",target="ai400x2-OST0000"} 2
+lustre_lock_contention_seconds_total{component="ost",target="ai400x2-OST0001"} 2
+# HELP lustre_connected_clients Number of connected clients.
+# TYPE lustre_connected_clients gauge
+lustre_connected_clients{component="mdt",target="ai400x2-MDT0000"} 1
+# HELP lustre_lock_count_total Number of locks.
+# TYPE lustre_lock_count_total gauge
+lustre_lock_count_total{component="mdt",target="ai400x2-MDT0000"} 2
+lustre_lock_count_total{component="ost",target="ai400x2-OST0000"} 0
+lustre_lock_count_total{component="ost",target="ai400x2-OST0001"} 0
+# HELP lustre_lock_timeout_total Number of lock timeouts.
+# TYPE lustre_lock_timeout_total counter
+lustre_lock_timeout_total{component="mdt",target="ai400x2-MDT0000"} 0
+lustre_lock_timeout_total{component="ost",target="ai400x2-OST0000"} 0
+lustre_lock_timeout_total{component="ost",target="ai400x2-OST0001"} 0
+# HELP recovery_status Gives the recovery status off a target. 0=Complete 1=Inactive 2=Waiting 3=WaitingForClients 4=Recovering 5=Unknown.
 # TYPE recovery_status gauge
-recovery_status{kind="MDT",target="ai400x2-MDT0000",otel_scope_name="lustre"} 1
-recovery_status{kind="OST",target="ai400x2-OST0000",otel_scope_name="lustre"} 1
-recovery_status{kind="OST",target="ai400x2-OST0001",otel_scope_name="lustre"} 1
+recovery_status{kind="MDT",target="ai400x2-MDT0000"} 1
+recovery_status{kind="OST",target="ai400x2-OST0000"} 1
+recovery_status{kind="OST",target="ai400x2-OST0001"} 1
 # HELP recovery_status_completed_clients Gives the count of clients that complete the recovery on a target.
 # TYPE recovery_status_completed_clients gauge
-recovery_status_completed_clients{kind="MDT",target="fs-MDT0000",otel_scope_name="lustre"} 3
-recovery_status_completed_clients{kind="OST",target="fs-OST0000",otel_scope_name="lustre"} 4
+recovery_status_completed_clients{kind="MDT",target="fs-MDT0000"} 3
+recovery_status_completed_clients{kind="OST",target="fs-OST0000"} 4
 # HELP recovery_status_connected_clients Gives the count of clients connected to a target.
 # TYPE recovery_status_connected_clients gauge
-recovery_status_connected_clients{kind="MDT",target="fs-MDT0000",otel_scope_name="lustre"} 199
-recovery_status_connected_clients{kind="OST",target="fs-OST0000",otel_scope_name="lustre"} 199
+recovery_status_connected_clients{kind="MDT",target="fs-MDT0000"} 199
+recovery_status_connected_clients{kind="OST",target="fs-OST0000"} 199
 # HELP recovery_status_evicted_clients Gives the count of clients evicted from a target.
 # TYPE recovery_status_evicted_clients gauge
-recovery_status_evicted_clients{kind="MDT",target="fs-MDT0000",otel_scope_name="lustre"} 1
-recovery_status_evicted_clients{kind="OST",target="fs-OST0000",otel_scope_name="lustre"} 1
-# HELP target_info Target metadata
-# TYPE target_info gauge
-target_info{service_name="lustrefs-exporter",telemetry_sdk_language="rust",telemetry_sdk_name="opentelemetry",telemetry_sdk_version="0.29.0"} 1
+recovery_status_evicted_clients{kind="MDT",target="fs-MDT0000"} 1
+recovery_status_evicted_clients{kind="OST",target="fs-OST0000"} 1
+# HELP lustre_oss_ost_stats OSS ost stats.
+# TYPE lustre_oss_ost_stats gauge
+lustre_oss_ost_stats{operation="ldlm_extent_enqueue",units="reqs"} 17980
+lustre_oss_ost_stats{operation="ldlm_glimpse_enqueue",units="reqs"} 42486
+lustre_oss_ost_stats{operation="obd_ping",units="usec"} 1050
+lustre_oss_ost_stats{operation="ost_connect",units="usec"} 68
+lustre_oss_ost_stats{operation="ost_create",units="usec"} 578
+lustre_oss_ost_stats{operation="ost_destroy",units="usec"} 15361
+lustre_oss_ost_stats{operation="ost_disconnect",units="usec"} 48
+lustre_oss_ost_stats{operation="ost_get_info",units="usec"} 8
+lustre_oss_ost_stats{operation="ost_set_info",units="usec"} 20
+lustre_oss_ost_stats{operation="ost_sync",units="usec"} 56
+lustre_oss_ost_stats{operation="req_active",units="reqs"} 77655
+lustre_oss_ost_stats{operation="req_qdepth",units="reqs"} 77655
+lustre_oss_ost_stats{operation="req_timeout",units="sec"} 77655
+lustre_oss_ost_stats{operation="req_waittime",units="usec"} 77655
+lustre_oss_ost_stats{operation="reqbuf_avail",units="bufs"} 157527
+# HELP lustre_oss_ost_io_stats OSS ost_io stats.
+# TYPE lustre_oss_ost_io_stats gauge
+lustre_oss_ost_io_stats{operation="ost_punch",units="usec"} 59
+lustre_oss_ost_io_stats{operation="ost_read",units="usec"} 18668007
+lustre_oss_ost_io_stats{operation="ost_write",units="usec"} 8233790
+lustre_oss_ost_io_stats{operation="req_active",units="reqs"} 26901856
+lustre_oss_ost_io_stats{operation="req_qdepth",units="reqs"} 26901856
+lustre_oss_ost_io_stats{operation="req_timeout",units="sec"} 26901856
+lustre_oss_ost_io_stats{operation="req_waittime",units="usec"} 26901856
+lustre_oss_ost_io_stats{operation="reqbuf_avail",units="bufs"} 55114862
+# HELP lustre_oss_ost_create_stats OSS ost_create stats.
+# TYPE lustre_oss_ost_create_stats gauge
+lustre_oss_ost_create_stats{operation="ost_statfs",units="usec"} 244994
+lustre_oss_ost_create_stats{operation="req_active",units="reqs"} 244994
+lustre_oss_ost_create_stats{operation="req_qdepth",units="reqs"} 244994
+lustre_oss_ost_create_stats{operation="req_timeout",units="sec"} 244994
+lustre_oss_ost_create_stats{operation="req_waittime",units="usec"} 244994
+lustre_oss_ost_create_stats{operation="reqbuf_avail",units="bufs"} 507392
+# HELP lustre_send_count_total Total number of messages that have been sent.
+# TYPE lustre_send_count_total counter
+lustre_send_count_total{nid="0@lo"} 191882
+lustre_send_count_total{nid="172.16.240.133@o2ib"} 28893723
+lustre_send_count_total{nid="172.16.241.133@o2ib"} 28892480
+# HELP lustre_receive_count_total Total number of messages that have been received.
+# TYPE lustre_receive_count_total counter
+lustre_receive_count_total{nid="0@lo"} 191882
+lustre_receive_count_total{nid="172.16.240.133@o2ib"} 24143352
+lustre_receive_count_total{nid="172.16.241.133@o2ib"} 24141806
+# HELP lustre_drop_count_total Total number of messages that have been dropped.
+# TYPE lustre_drop_count_total counter
+lustre_drop_count_total{nid="0@lo"} 0
+lustre_drop_count_total{nid="172.16.240.133@o2ib"} 0
+lustre_drop_count_total{nid="172.16.241.133@o2ib"} 0
+# HELP lustre_send_bytes_total Total number of bytes that have been sent.
+# TYPE lustre_send_bytes_total counter
+lustre_send_bytes_total{} 21225620772816
+# HELP lustre_receive_bytes_total Total number of bytes that have been received.
+# TYPE lustre_receive_bytes_total counter
+lustre_receive_bytes_total{} 9966973976959
+# HELP lustre_drop_bytes_total Total number of bytes that have been dropped.
+# TYPE lustre_drop_bytes_total counter
+lustre_drop_bytes_total{} 0
+# HELP lustre_read_samples_total Total number of reads that have been recorded.
+# TYPE lustre_read_samples_total counter
+lustre_read_samples_total{component="ost",operation="read",target="ai400x2-OST0000"} 9352060
+lustre_read_samples_total{component="ost",operation="read",target="ai400x2-OST0001"} 9315947
+# HELP lustre_read_minimum_size_bytes The minimum read size in bytes.
+# TYPE lustre_read_minimum_size_bytes gauge
+lustre_read_minimum_size_bytes{component="ost",operation="read",target="ai400x2-OST0000"} 4096
+lustre_read_minimum_size_bytes{component="ost",operation="read",target="ai400x2-OST0001"} 4096
+# HELP lustre_read_maximum_size_bytes The maximum read size in bytes.
+# TYPE lustre_read_maximum_size_bytes counter
+lustre_read_maximum_size_bytes{component="ost",operation="read",target="ai400x2-OST0000"} 16777216
+lustre_read_maximum_size_bytes{component="ost",operation="read",target="ai400x2-OST0001"} 16777216
+# HELP lustre_read_bytes_total The total number of bytes that have been read.
+# TYPE lustre_read_bytes_total counter
+lustre_read_bytes_total{component="ost",operation="read",target="ai400x2-OST0000"} 10614117224448
+lustre_read_bytes_total{component="ost",operation="read",target="ai400x2-OST0001"} 10599265554432
+# HELP lustre_write_samples_total Total number of writes that have been recorded.
+# TYPE lustre_write_samples_total counter
+lustre_write_samples_total{component="ost",operation="write",target="ai400x2-OST0000"} 4114603
+lustre_write_samples_total{component="ost",operation="write",target="ai400x2-OST0001"} 4119187
+# HELP lustre_write_minimum_size_bytes The minimum write size in bytes.
+# TYPE lustre_write_minimum_size_bytes gauge
+lustre_write_minimum_size_bytes{component="ost",operation="write",target="ai400x2-OST0000"} 183
+lustre_write_minimum_size_bytes{component="ost",operation="write",target="ai400x2-OST0001"} 183
+# HELP lustre_write_maximum_size_bytes The maximum write size in bytes.
+# TYPE lustre_write_maximum_size_bytes counter
+lustre_write_maximum_size_bytes{component="ost",operation="write",target="ai400x2-OST0000"} 16777216
+lustre_write_maximum_size_bytes{component="ost",operation="write",target="ai400x2-OST0001"} 16777216
+# HELP lustre_write_bytes_total The total number of bytes that have been written.
+# TYPE lustre_write_bytes_total counter
+lustre_write_bytes_total{component="ost",operation="write",target="ai400x2-OST0000"} 4971114377425
+lustre_write_bytes_total{component="ost",operation="write",target="ai400x2-OST0001"} 4982409908141
+# HELP lustre_stats_total Number of operations the filesystem has performed.
+# TYPE lustre_stats_total counter
+lustre_stats_total{component="mdt",operation="close",target="ai400x2-MDT0000"} 7632
+lustre_stats_total{component="mdt",operation="getattr",target="ai400x2-MDT0000"} 9464
+lustre_stats_total{component="mdt",operation="getxattr",target="ai400x2-MDT0000"} 3591
+lustre_stats_total{component="mdt",operation="mkdir",target="ai400x2-MDT0000"} 6
+lustre_stats_total{component="mdt",operation="mknod",target="ai400x2-MDT0000"} 228
+lustre_stats_total{component="mdt",operation="open",target="ai400x2-MDT0000"} 232
+lustre_stats_total{component="mdt",operation="rmdir",target="ai400x2-MDT0000"} 4
+lustre_stats_total{component="mdt",operation="setattr",target="ai400x2-MDT0000"} 228
+lustre_stats_total{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 91893
+lustre_stats_total{component="mdt",operation="sync",target="ai400x2-MDT0000"} 224
+lustre_stats_total{component="mdt",operation="unlink",target="ai400x2-MDT0000"} 3
+# EOF
