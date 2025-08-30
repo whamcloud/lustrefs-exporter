@@ -23,7 +23,7 @@ use std::{
     borrow::Cow,
     io::{self, BufRead as _, BufReader},
 };
-use tokio::process::Command;
+use tokio::{process::Command, time::Instant};
 use tower::{
     ServiceBuilder, limit::GlobalConcurrencyLimitLayer, load_shed::LoadShedLayer,
     timeout::TimeoutLayer,
@@ -147,11 +147,13 @@ pub fn lnet_stats_output() -> Command {
 /// - Standard metrics collection runs commands concurrently for efficiency
 /// - Only metrics with actual data are registered to keep output clean
 pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
+    let inst = Instant::now();
     let mut registry = Registry::default();
 
     // Build the lustre stats
     let mut opentelemetry_metrics = Metrics::default();
 
+    println!("Checking for jobstats. elapsed: {:?}", inst.elapsed());
     if params.jobstats {
         let child = tokio::task::spawn_blocking(move || {
             let child = jobstats_metrics_cmd().spawn()?;
@@ -201,30 +203,52 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 
     let mut output = vec![];
 
+    let inst = Instant::now();
+    println!(
+        "Making lustre metrics request: elapsed: {:?}",
+        inst.elapsed()
+    );
     let lctl = lustre_metrics_output().output().await?;
+    println!("Request took: {:?}", inst.elapsed());
 
     let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
+    println!("Parsing took: {:?}", inst.elapsed());
 
     output.append(&mut lctl_output);
 
+    println!(
+        "Making lnetctl net show request: elapsed: {:?}",
+        inst.elapsed()
+    );
     let lnetctl = net_show_output().output().await?;
+    println!("Request took: {:?}", inst.elapsed());
 
     let mut lnetctl_output = parse_lnetctl_output(&lnetctl.stdout)?;
+    println!("Parsing took: {:?}", inst.elapsed());
 
     output.append(&mut lnetctl_output);
 
+    println!(
+        "Making lnetctl stats show request: elapsed: {:?}",
+        inst.elapsed()
+    );
     let lnetctl_stats_output = lnet_stats_output().output().await?;
+    println!("Request took: {:?}", inst.elapsed());
 
     let mut lnetctl_stats_record = parse_lnetctl_stats(&lnetctl_stats_output.stdout)?;
+    println!("Parsing took: {:?}", inst.elapsed());
 
     output.append(&mut lnetctl_stats_record);
 
     // Build and register Lustre metrics
+    println!("Building lustre metrics: elapsed: {:?}", inst.elapsed());
     metrics::build_lustre_stats(&output, &mut opentelemetry_metrics);
     opentelemetry_metrics.register_metric(&mut registry);
+    println!("Registering metrics: elapsed: {:?}", inst.elapsed());
 
     let mut buffer = String::new();
     encode(&mut buffer, &registry)?;
+    println!("Encoding took: {:?}", inst.elapsed());
 
     let resp = Response::builder()
         .status(StatusCode::OK)
@@ -240,18 +264,20 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 #[cfg(test)]
 mod tests {
     use crate::routes::{
-        jobstats_metrics_cmd, lnet_stats_output, lustre_metrics_output, net_show_output,
+        Params, jobstats_metrics_cmd, lnet_stats_output, lustre_metrics_output, net_show_output,
+        scrape,
     };
     use axum::{
         Router,
         body::{Body, to_bytes},
-        extract::Request,
+        extract::{Query, Request},
     };
     use commandeer_test::commandeer;
     use serial_test::serial;
     use std::{
         env,
         io::{self, BufReader, Read},
+        time::Instant,
     };
     use tokio::task::JoinSet;
     use tower::ServiceExt as _;
@@ -291,6 +317,21 @@ mod tests {
         assert_eq!(original_body_str, body_str);
 
         insta::assert_snapshot!(original_body_str);
+
+        Ok(())
+    }
+
+    #[commandeer(Replay, "lctl")]
+    #[tokio::test]
+    #[serial]
+    async fn test_metrics_endpoint_is_idempotent2() -> Result<(), Box<dyn std::error::Error>> {
+        let inst = Instant::now();
+
+        scrape(Query(Params { jobstats: true })).await?;
+
+        println!("first request took: {:?}", inst.elapsed());
+
+        //insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
 
         Ok(())
     }
