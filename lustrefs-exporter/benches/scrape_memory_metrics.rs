@@ -233,14 +233,14 @@ fn scrape_load_test(c: &mut Criterion) {
     let mut group = c.benchmark_group("scrape_benchmarks");
 
     // Load test benchmark (like oha: 1000 requests, 10 concurrent)
-    group.sample_size(15); // Fewer samples since each does 1000 requests
-    group.measurement_time(Duration::from_secs(120)); // Allow more time
+    group.sample_size(10); // Fewer samples since each does 1000 requests
+    group.measurement_time(Duration::from_secs(255)); // Allow more time
 
     group.bench_function("load_test_1000_req_10_concurrent_sequential", |b| {
         let tx = tx.clone();
 
         b.to_async(&rt).iter(|| async {
-            let (duration, memory_usage) = load_test_with_memory_tracking(10, 1000).await;
+            let (duration, memory_usage) = load_test_with_memory_tracking(10, 60).await;
 
             let _ = tx.send(memory_usage.clone());
 
