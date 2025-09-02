@@ -29,6 +29,7 @@ insta = "1"
 pretty_assertions = "1.4.1"
 prometheus-client = { git = "https://github.com/whamcloud/client_rust", branch = "whamcloud-08-12-2025" }
 prometheus-parse = "0.2.5"
+reqwest = "0.11"
 serde = "1"
 serde_json = "1"
 serde_yaml = "0.9"

@@ -230,11 +230,21 @@ fn scrape_load_test(c: &mut Criterion) {
         .build()
         .expect("Failed to build tokio runtime");
 
+    rt.spawn(async move {
+        let listener = tokio::net::TcpListener::bind(("0.0.0.0", 12345))
+            .await
+            .expect("Failed to bind to port 12345");
+
+        axum::serve(listener, lustrefs_exporter::routes::app())
+            .await
+            .expect("Failed to serve app.");
+    });
+
     let mut group = c.benchmark_group("scrape_benchmarks");
 
     // Load test benchmark (like oha: 1000 requests, 10 concurrent)
     group.sample_size(10); // Fewer samples since each does 1000 requests
-    group.measurement_time(Duration::from_secs(1000)); // Allow more time
+    group.measurement_time(Duration::from_secs(1500)); // Allow more time
 
     group.bench_function("load_test_1000_req_10_concurrent_sequential", |b| {
         let tx = tx.clone();
