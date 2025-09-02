@@ -240,7 +240,7 @@ fn scrape_load_test(c: &mut Criterion) {
         let tx = tx.clone();
 
         b.to_async(&rt).iter(|| async {
-            let (duration, memory_usage) = load_test_with_memory_tracking(10, 200).await;
+            let (duration, memory_usage) = load_test_with_memory_tracking(10, 60).await;
 
             let _ = tx.send(memory_usage.clone());
 
