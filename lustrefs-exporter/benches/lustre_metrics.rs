@@ -34,7 +34,7 @@ fn generate_records() -> Vec<Record> {
     records
 }
 
-fn encode_metrics(records: Vec<Record>) -> Vec<u8> {
+fn encode_metrics(records: Vec<Record>) -> String {
     let mut registry = Registry::default();
     let mut metrics = Metrics::default();
 
@@ -47,12 +47,12 @@ fn encode_metrics(records: Vec<Record>) -> Vec<u8> {
 
     encode(&mut output, &registry).expect("Failed to encode metrics");
 
-    output.as_bytes().to_vec()
+    output
 }
 
 #[library_benchmark]
 #[benches::with_setup(setup = generate_records)]
-fn bench_encode_lustre_metrics(records: Vec<Record>) -> Vec<u8> {
+fn bench_encode_lustre_metrics(records: Vec<Record>) -> String {
     black_box(encode_metrics(records))
 }
 
