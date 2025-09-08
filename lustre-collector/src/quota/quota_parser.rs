@@ -5,7 +5,6 @@
 use crate::{
     QuotaKind, QuotaStat, QuotaStatOsd, QuotaStats, TargetQuotaStat,
     base_parsers::{param, period, target},
-    quota::QMT,
     types::{Param, Record, Target, TargetStats},
 };
 use combine::{
@@ -23,18 +22,132 @@ use combine::{
 pub(crate) const USR_QUOTAS: &str = "usr";
 pub(crate) const PRJ_QUOTAS: &str = "prj";
 pub(crate) const GRP_QUOTAS: &str = "grp";
-pub(crate) const QMT_STATS: [&str; 3] = [USR_QUOTAS, PRJ_QUOTAS, GRP_QUOTAS];
 
-/// Takes QMT_STATS and produces a list of params for
-/// consumption in proper ltcl get_param format.
-pub(crate) fn params() -> Vec<String> {
-    QMT_STATS
-        .iter()
-        .map(|x| format!("{QMT}.*.*.glb-{x}"))
-        .collect()
+pub mod w {
+    use crate::{
+        Param, QuotaKind, QuotaStat, QuotaStatOsd, QuotaStats, Record, TargetQuotaStat,
+        quota::quota_parser::{GRP_QUOTAS, PRJ_QUOTAS, QMTStat, USR_QUOTAS},
+        types::{Target, TargetStats},
+    };
+    use winnow::{
+        ModalResult,
+        ascii::{multispace0, newline},
+        combinator::{alt, delimited, opt, preceded, terminated},
+        prelude::*,
+        stream::AsChar,
+        token::{take_till, take_while},
+    };
+
+    /// Parses a target name
+    fn target(input: &mut &str) -> ModalResult<Target> {
+        take_while(1.., |c: char| {
+            AsChar::is_alphanum(c) || c == '_' || c == '-'
+        })
+        .map(|s: &str| Target(s.into()))
+        .parse_next(input)
+    }
+
+    /// Parses a target name
+    fn qmt_pool(input: &mut &str) -> ModalResult<(Target, Target)> {
+        (
+            alt((
+                terminated("md", "-").value(Target("md".into())),
+                terminated("dt", "-").value(Target("md".into())),
+            )),
+            target,
+        )
+            .parse_next(input)
+    }
+
+    /// Parses a target
+    fn qmt_target(input: &mut &str) -> ModalResult<(Target, Target, Target)> {
+        (terminated(target, "."), terminated(qmt_pool, "."))
+            .map(|(target, (manager, pool))| (target, manager, pool))
+            .parse_next(input)
+    }
+
+    fn quota_stats(input: &mut &str) -> ModalResult<Vec<QuotaStat>> {
+        delimited(
+            (opt(newline), take_till(1.., AsChar::is_newline), newline),
+            take_till(1.., AsChar::is_newline)
+                .try_map(|s| serde_yaml::from_str::<Vec<QuotaStat>>(s)),
+            multispace0,
+        )
+        .parse_next(input)
+    }
+
+    fn quota_stats_osd(input: &mut &str) -> ModalResult<Vec<QuotaStatOsd>> {
+        delimited(
+            (opt(newline), take_till(1.., AsChar::is_newline), newline),
+            take_till(1.., AsChar::is_newline)
+                .try_map(|s| serde_yaml::from_str::<Vec<QuotaStatOsd>>(s)),
+            multispace0,
+        )
+        .parse_next(input)
+    }
+
+    fn qmt_stat(input: &mut &str) -> ModalResult<(Param, QMTStat)> {
+        preceded(
+            "glb-",
+            alt((
+                (
+                    USR_QUOTAS.map(|s: &str| Param(s.into())),
+                    quota_stats.map(QMTStat::Usr),
+                ),
+                (
+                    PRJ_QUOTAS.map(|s: &str| Param(s.into())),
+                    quota_stats.map(QMTStat::Prj),
+                ),
+                (
+                    GRP_QUOTAS.map(|s: &str| Param(s.into())),
+                    quota_stats.map(QMTStat::Grp),
+                ),
+            )),
+        )
+        .parse_next(input)
+    }
+
+    pub fn parse(input: &mut &str) -> ModalResult<Record> {
+        (qmt_target, qmt_stat)
+            .map(
+                |((target, Target(manager), Target(pool)), (param, value))| match value {
+                    QMTStat::Usr(stats) => TargetStats::QuotaStats(TargetQuotaStat {
+                        pool,
+                        manager,
+                        target,
+                        param,
+                        value: QuotaStats {
+                            kind: QuotaKind::Usr,
+                            stats,
+                        },
+                    }),
+                    QMTStat::Prj(stats) => TargetStats::QuotaStats(TargetQuotaStat {
+                        pool,
+                        manager,
+                        target,
+                        param,
+                        value: QuotaStats {
+                            kind: QuotaKind::Prj,
+                            stats,
+                        },
+                    }),
+                    QMTStat::Grp(stats) => TargetStats::QuotaStats(TargetQuotaStat {
+                        pool,
+                        manager,
+                        target,
+                        param,
+                        value: QuotaStats {
+                            kind: QuotaKind::Grp,
+                            stats,
+                        },
+                    }),
+                },
+            )
+            .map(Record::Target)
+            .parse_next(input)
+    }
 }
 
-/// Parses a target name
 pub(crate) fn qmt_pool<I>() -> impl Parser<I, Output = (Target, Target)>
 where
     I: Stream<Token = char>,
@@ -118,6 +231,7 @@ where
     )
         .map(|(_, param)| (param))
 }
+
 pub(crate) fn qmt_parse<I>() -> impl Parser<I, Output = Record>
 where
     I: Stream<Token = char>,
@@ -164,14 +278,12 @@ where
 
 #[cfg(test)]
 mod tests {
-    use crate::{QuotaStat, QuotaStatLimits};
-
-    use super::*;
+    use crate::{QuotaStat, QuotaStatLimits, quota::params};
 
     #[test]
     fn test_qmt_params() {
         assert_eq!(
-            params(),
+            params().into_iter().map(String::from).collect::<Vec<_>>(),
             vec![
                 "qmt.*.*.glb-usr".to_string(),
                 "qmt.*.*.glb-prj".to_string(),

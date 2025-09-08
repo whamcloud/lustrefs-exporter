@@ -9,8 +9,10 @@ pub(crate) mod quota_parser;
 
 pub(crate) const QMT: &str = "qmt";
 
-pub(crate) fn params() -> Vec<String> {
-    quota_parser::params()
+/// Takes QMT_STATS and produces a list of params for
+/// consumption in proper ltcl get_param format.
+pub(crate) const fn params() -> [&'static str; 3] {
+    ["qmt.*.*.glb-usr", "qmt.*.*.glb-prj", "qmt.*.*.glb-grp"]
 }
 
 pub fn parse<I>() -> impl Parser<I, Output = Record>

@@ -41,6 +41,7 @@ tower = "0.5"
 tower-http = "0.6"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+winnow = "0.7.13"
 
 [profile.release]
 lto = true
