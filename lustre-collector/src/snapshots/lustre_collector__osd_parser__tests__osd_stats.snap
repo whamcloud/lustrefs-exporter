@@ -1,9 +1,23 @@
 ---
-source: src/osd_parser.rs
+source: lustre-collector/src/osd_parser.rs
 expression: result
 ---
 (
     [
+        Target(
+            Stats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "stats",
+                    ),
+                    target: Target(
+                        "fs-OST0003",
+                    ),
+                    value: [],
+                },
+            ),
+        ),
         Target(
             FilesFree(
                 TargetStat {

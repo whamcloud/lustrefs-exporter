@@ -1,3 +1,11 @@
+osd-ldiskfs.ai400x2-OST0003.stats=
+snapshot_time             1750226041.107629473 secs.nsecs
+start_time                1750176720.390243856 secs.nsecs
+elapsed_time              49320.717385617 secs.nsecs
+get_page                  375 samples [usecs] 1 23 2956 28656
+cache_access              297 samples [pages] 830 1024 303934
+cache_hit                 0 samples [pages] 0 0 0
+cache_miss                297 samples [pages] 830 1024 303934
 osd-ldiskfs.MGS.filesfree=130871
 osd-ldiskfs.ai400x2-MDT0000.filesfree=97713887
 osd-ldiskfs.ai400x2-OST0000.filesfree=1073740846

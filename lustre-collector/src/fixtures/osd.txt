@@ -1,3 +1,7 @@
+osd-ldiskfs.fs-OST0003.stats=
+snapshot_time             1750226041.107594239 secs.nsecs
+start_time                1750176720.831807230 secs.nsecs
+elapsed_time              49320.275787009 secs.nsecs
 osd-ldiskfs.MGS.filesfree=32531
 osd-ldiskfs.fs-MDT0000.filesfree=1885343
 osd-ldiskfs.fs-OST0000.filesfree=39110
