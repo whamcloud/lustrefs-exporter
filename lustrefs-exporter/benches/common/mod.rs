@@ -2,39 +2,16 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use axum::{
-    Router,
-    body::{Body, Bytes, to_bytes},
-    http::{Request, header::ACCEPT_ENCODING},
-};
-use lustrefs_exporter::routes;
 use std::time::Duration;
 use tokio::{task::JoinSet, time::Instant};
-use tower::ServiceExt as _;
-
-fn get_request() -> Request<Body> {
-    Request::builder()
-        .uri("/metrics?jobstats=true")
-        .method("GET")
-        .header(ACCEPT_ENCODING, "gzip")
-        .body(Body::empty())
-        .expect("Failed to build request")
-}
 
 // Create a single request using `oneshot`. This is equivalent to hitting the
 // `/scrape` endpoint if the http service was running.
-async fn make_single_request(
-    app: Router,
-) -> Result<Bytes, Box<dyn std::error::Error + Send + Sync>> {
-    let request = get_request();
-
-    let resp = app.oneshot(request).await?;
-
-    if !resp.status().is_success() {
-        return Err(format!("Request failed with status: {}", resp.status()).into());
-    }
-
-    let body = to_bytes(resp.into_body(), usize::MAX).await?;
+async fn make_single_request() -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
+    let body = reqwest::get("http://localhost:12345/metrics?jobstats=true")
+        .await?
+        .text()
+        .await?;
 
     Ok(body)
 }
@@ -42,8 +19,6 @@ async fn make_single_request(
 // Use a JoinSet to make `concurrent` requests at a time, waiting for each batch to complete before
 // starting the next batch.
 pub async fn load_test_concurrent(concurrency: usize, total_requests: usize) -> Duration {
-    let app = routes::app();
-
     let start = Instant::now();
 
     let mut spawned_requests = 0;
@@ -54,9 +29,7 @@ pub async fn load_test_concurrent(concurrency: usize, total_requests: usize) -> 
 
     // Initially spawn `concurrency` requests
     for _ in 0..concurrency {
-        let app = app.clone();
-
-        join_set.spawn(async move { make_single_request(app.clone()).await });
+        join_set.spawn(async move { make_single_request().await });
 
         spawned_requests += 1;
     }
@@ -70,9 +43,7 @@ pub async fn load_test_concurrent(concurrency: usize, total_requests: usize) -> 
 
         // Immediately spawn a new request if there are more to be made
         if spawned_requests < total_requests {
-            let app = app.clone();
-
-            join_set.spawn(async move { make_single_request(app.clone()).await });
+            join_set.spawn(async move { make_single_request().await });
 
             spawned_requests += 1;
         }

@@ -6,8 +6,8 @@ Documentation=https://github.com/whamcloud/lustrefs-exporter
 Environment=RUST_LOG=info,opentelemetry_sdk=warn
 Restart=on-failure
 ExecStart=/usr/bin/lustrefs_exporter
-MemoryHigh=1750M
-MemoryMax=2G
+MemoryHigh=2750M
+MemoryMax=3G
 
 [Install]
 WantedBy=multi-user.target

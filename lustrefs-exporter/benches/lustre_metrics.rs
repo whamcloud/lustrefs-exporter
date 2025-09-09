@@ -7,9 +7,8 @@ use iai_callgrind::{
     OutputFormat, library_benchmark, library_benchmark_group, main,
 };
 use lustre_collector::{Record, parse_lnetctl_output, parse_lnetctl_stats};
-use lustrefs_exporter::openmetrics::{self, OpenTelemetryMetrics};
-use opentelemetry::metrics::MeterProvider;
-use prometheus::{Encoder as _, TextEncoder};
+use lustrefs_exporter::metrics::{Metrics, build_lustre_stats};
+use prometheus_client::{encoding::text::encode, registry::Registry};
 use std::hint::black_box;
 
 fn generate_records() -> Vec<Record> {
@@ -35,35 +34,25 @@ fn generate_records() -> Vec<Record> {
     records
 }
 
-fn encode_metrics(records: Vec<Record>) -> Vec<u8> {
-    let (provider, registry) =
-        lustrefs_exporter::init_opentelemetry().expect("Failed to initialize OpenTelemetry");
+fn encode_metrics(records: Vec<Record>) -> String {
+    let mut registry = Registry::default();
+    let mut metrics = Metrics::default();
 
-    let meter = provider.meter("test");
+    // Build metrics
+    build_lustre_stats(&records, &mut metrics);
 
-    let opentelemetry_metrics = OpenTelemetryMetrics::new(meter.clone());
+    metrics.register_metric(&mut registry);
 
-    let mut lustre_stats = vec![];
-    let encoder = TextEncoder::new();
-    let metric_families = registry.gather();
-    let _encoder_results = encoder.encode(&metric_families, &mut lustre_stats);
+    let mut output = String::new();
 
-    // Build OTEL metrics
-    openmetrics::build_lustre_stats(&records, opentelemetry_metrics);
+    encode(&mut output, &registry).expect("Failed to encode metrics");
 
-    let mut buffer = vec![];
-    let encoder = TextEncoder::new();
-    let metric_families = registry.gather();
-    encoder
-        .encode(&metric_families, &mut buffer)
-        .expect("Failed to encode metrics");
-
-    buffer
+    output
 }
 
 #[library_benchmark]
 #[benches::with_setup(setup = generate_records)]
-fn bench_encode_lustre_metrics(records: Vec<Record>) -> Vec<u8> {
+fn bench_encode_lustre_metrics(records: Vec<Record>) -> String {
     black_box(encode_metrics(records))
 }
 

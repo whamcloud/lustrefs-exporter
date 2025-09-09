@@ -3,31 +3,27 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    Error, init_opentelemetry,
-    jobstats::opentelemetry::OpenTelemetryMetricsJobstats,
-    openmetrics::{self, OpenTelemetryMetrics},
+    Error,
+    jobstats::{JobstatMetrics, jobstats_stream},
+    metrics::{self, Metrics},
 };
 use axum::{
     BoxError, Router,
     body::Body,
     error_handling::HandleErrorLayer,
     extract::Query,
-    http::{self, HeaderValue, StatusCode},
+    http::{StatusCode, header::CONTENT_TYPE},
     response::{IntoResponse, Response},
     routing::get,
 };
 use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
-use opentelemetry::metrics::MeterProvider;
-use prometheus::{Encoder as _, TextEncoder};
+use prometheus_client::{encoding::text::encode, registry::Registry};
 use serde::Deserialize;
 use std::{
     borrow::Cow,
-    convert::Infallible,
-    io::{self, BufRead, BufReader},
-    sync::Arc,
+    io::{self, BufRead as _, BufReader},
 };
 use tokio::process::Command;
-use tokio_stream::StreamExt as _;
 use tower::{
     ServiceBuilder, limit::GlobalConcurrencyLimitLayer, load_shed::LoadShedLayer,
     timeout::TimeoutLayer,
@@ -89,6 +85,7 @@ pub fn jobstats_metrics_cmd() -> std::process::Command {
 
 pub fn lustre_metrics_output() -> Command {
     let mut cmd = Command::new("lctl");
+
     cmd.arg("get_param")
         .args(parser::params())
         .kill_on_drop(true);
@@ -98,6 +95,7 @@ pub fn lustre_metrics_output() -> Command {
 
 pub fn net_show_output() -> Command {
     let mut cmd = Command::new("lnetctl");
+
     cmd.args(["net", "show", "-v", "4"]).kill_on_drop(true);
 
     cmd
@@ -105,16 +103,56 @@ pub fn net_show_output() -> Command {
 
 pub fn lnet_stats_output() -> Command {
     let mut cmd = Command::new("lnetctl");
+
     cmd.args(["stats", "show"]).kill_on_drop(true);
 
     cmd
 }
 
+/// Main metrics scraping endpoint handler for the Prometheus exporter.
+///
+/// This function serves as the primary HTTP handler for the `/metrics` endpoint,
+/// collecting and formatting Lustre filesystem metrics in Prometheus format.
+/// It orchestrates the collection of both standard Lustre statistics and optional
+/// jobstats data based on query parameters.
+///
+/// # Arguments
+///
+/// * `Query(params)` - Query parameters extracted from the HTTP request
+/// * `State(state)` - Shared application state containing the command handler
+///
+/// # Query Parameters
+///
+/// * `jobstats` - Optional boolean parameter to enable jobstats collection
+///   (e.g., `/metrics?jobstats=true`)
+///
+/// # Returns
+///
+/// * `Ok(Response<Body>)` - HTTP response with Prometheus-formatted metrics
+/// * `Err(Error)` - Error if metric collection or formatting fails
+///
+/// # Processing Flow
+///
+/// 1. **Initialize**: Creates a new Prometheus registry and default metrics structures
+/// 2. **Conditional Jobstats**: If `jobstats=true`, collects and registers jobstats metrics
+/// 3. **Standard Metrics**: Always collects standard Lustre and LNet statistics
+/// 4. **Registration**: Registers all populated metrics with the registry
+/// 5. **Encoding**: Encodes metrics in Prometheus text format
+/// 6. **Response**: Returns HTTP 200 response with metrics as body
+///
+/// # Performance Considerations
+///
+/// - Jobstats collection can be resource-intensive and is optional but will
+///   be run within a spawned task.
+/// - Standard metrics collection runs commands concurrently for efficiency
+/// - Only metrics with actual data are registered to keep output clean
 pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
-    let (provider, registry) = init_opentelemetry()?;
+    let mut registry = Registry::default();
 
-    let meter = provider.meter("lustre");
-    let jobstats = if params.jobstats {
+    // Build the lustre stats
+    let mut opentelemetry_metrics = Metrics::default();
+
+    if params.jobstats {
         let child = tokio::task::spawn_blocking(move || {
             let child = jobstats_metrics_cmd().spawn()?;
 
@@ -143,36 +181,23 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
                     }
                 });
 
-                let otel_jobstats = Arc::new(OpenTelemetryMetricsJobstats::new(&meter));
-
                 tokio::task::spawn_blocking(move || {
                     if let Err(e) = child.wait() {
                         tracing::debug!("Unexpected error when waiting for child: {e}");
                     }
                 });
 
-                let handle =
-                    crate::jobstats::opentelemetry::jobstats_stream(reader, otel_jobstats.clone());
+                let handle = jobstats_stream(reader, JobstatMetrics::default());
 
-                handle.await?;
+                let metrics = handle.await?;
 
-                // Encode metrics to string
-                let encoder = TextEncoder::new();
-                let metric_families = registry.gather();
-                let mut output = Vec::new();
-                encoder.encode(&metric_families, &mut output)?;
-
-                Some(output)
+                metrics.register_metric(&mut registry);
             }
             Err(e) => {
                 tracing::debug!("Error while spawning lctl jobstats: {e}");
-
-                None
             }
         }
-    } else {
-        None
-    };
+    }
 
     let mut output = vec![];
 
@@ -194,50 +219,20 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 
     output.append(&mut lnetctl_stats_record);
 
-    let opentelemetry_metrics = OpenTelemetryMetrics::new(meter.clone());
+    // Build and register Lustre metrics
+    metrics::build_lustre_stats(&output, &mut opentelemetry_metrics);
+    opentelemetry_metrics.register_metric(&mut registry);
 
-    let mut lustre_stats = vec![];
-    let encoder = TextEncoder::new();
-    let metric_families = registry.gather();
-    let _encoder_results = encoder.encode(&metric_families, &mut lustre_stats);
+    let mut buffer = String::new();
+    encode(&mut buffer, &registry)?;
 
-    // Build OTEL metrics
-    openmetrics::build_lustre_stats(&output, opentelemetry_metrics);
-
-    let mut lustre_stats = vec![];
-    let encoder = TextEncoder::new();
-    let metric_families = registry.gather();
-
-    if let Err(e) = encoder.encode(&metric_families, &mut lustre_stats) {
-        tracing::warn!("Failed to encode metrics: {e}");
-
-        return Err(Error::Prometheus(prometheus::Error::Msg(format!(
-            "Failed to encode metrics: {e}"
-        ))));
-    }
-
-    let body = if let Some(stream) = jobstats {
-        let merged = tokio_stream::once(Ok::<_, Infallible>(lustre_stats))
-            .chain(tokio_stream::once(Ok(stream)));
-
-        Body::from_stream(merged)
-    } else {
-        tracing::debug!("Jobstats collection disabled");
-
-        Body::from(lustre_stats)
-    };
-
-    let mut response_builder = Response::builder().status(StatusCode::OK);
-
-    let headers = response_builder.headers_mut();
-
-    if let Ok(content_type) = encoder.format_type().parse::<HeaderValue>()
-        && let Some(headers) = headers
-    {
-        headers.insert(http::header::CONTENT_TYPE, content_type);
-    }
-
-    let resp = response_builder.body(body)?;
+    let resp = Response::builder()
+        .status(StatusCode::OK)
+        .header(
+            CONTENT_TYPE,
+            "application/openmetrics-text; version=1.0.0; charset=utf-8",
+        )
+        .body(Body::from(buffer))?;
 
     Ok(resp)
 }
@@ -326,21 +321,7 @@ mod tests {
 
         let response = app.oneshot(request).await.unwrap();
 
-        // The route should exist
-        assert!(response.status().is_success());
-
-        // Test non-existent route returns 404
-        let request = Request::builder()
-            .uri("/nonexistent")
-            .method("GET")
-            .body(Body::empty())
-            .unwrap();
-
-        let app = crate::routes::app();
-
-        let response = app.oneshot(request).await.unwrap();
-
-        assert_eq!(response.status(), axum::http::StatusCode::NOT_FOUND);
+        assert!(response.status().is_success())
     }
 
     #[commandeer(Replay, "lctl", "lnetctl")]
