@@ -449,7 +449,7 @@ pub enum HostStats {
     HealthCheck(HostStat<HealthCheckStat>),
 }
 
-#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
+#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize, Clone)]
 pub struct HealthCheckStat {
     pub healthy: bool,
     pub targets: Vec<Target>,

@@ -16,6 +16,24 @@ use combine::{
     token,
 };
 
+pub mod w {
+    use winnow::{
+        ModalResult, Parser, ascii::alphanumeric1, combinator::separated_pair, stream::AsChar,
+        token::take_while,
+    };
+
+    /// Parses a single nid
+    pub(crate) fn nid(input: &mut &str) -> ModalResult<String> {
+        separated_pair(
+            take_while(1.., |c| AsChar::is_alphanum(c) || c == '.'),
+            "@",
+            alphanumeric1,
+        )
+        .map(|(ip, lnet)| format!("{ip}@{lnet}"))
+        .parse_next(input)
+    }
+}
+
 /// Parses a single nid
 pub(crate) fn nid<I>() -> impl Parser<I, Output = String>
 where

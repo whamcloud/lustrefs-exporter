@@ -24,6 +24,362 @@ pub(crate) fn params() -> Vec<String> {
     vec![format!("mdt.*.{}.*.uuid", EXPORTS)]
 }
 
+pub mod w {
+    use crate::{
+        Param, Record, Target, TargetStat, TargetStats, TargetVariant, exports_parser::w::nid,
+    };
+    use std::{collections::BTreeMap, ops::Add};
+    use winnow::{
+        ModalResult, Parser,
+        ascii::{alphanumeric1, multispace1, newline},
+        combinator::{alt, delimited, eof, peek, preceded, repeat, separated, terminated},
+        stream::AsChar,
+        token::take_while,
+    };
+
+    fn mdt_interface(input: &mut &str) -> ModalResult<String> {
+        delimited(
+            "mdt.",
+            take_while(1.., |c| AsChar::is_alphanum(c) || c == '-' || c == '_')
+                .map(|s: &str| String::from(s)),
+            (".", exports),
+        )
+        .parse_next(input)
+    }
+
+    pub(crate) fn exports(input: &mut &str) -> ModalResult<()> {
+        ("exports.", nid, ".uuid=").void().parse_next(input)
+    }
+
+    pub(crate) fn is_client(input: &mut &str) -> ModalResult<u64> {
+        preceded(
+            separated(1.., alphanumeric1, "-").map(|()| ()),
+            alt(("_UUID".value(0), peek(alt((multispace1, eof))).value(1))),
+        )
+        .parse_next(input)
+    }
+
+    fn interface_clients(input: &mut &str) -> ModalResult<(String, u64)> {
+        (
+            mdt_interface,
+            alt((
+                preceded(newline, repeat(0.., terminated(is_client, newline)))
+                    .map(|xs: Vec<_>| xs.into_iter().fold(0, Add::add)),
+                terminated(is_client, newline),
+            )),
+        )
+            .parse_next(input)
+    }
+
+    pub(crate) fn parse(input: &mut &str) -> ModalResult<Vec<Record>> {
+        repeat(1.., interface_clients)
+            .map(|xs: Vec<_>| {
+                xs.into_iter().fold(BTreeMap::new(), |mut acc, (k, v)| {
+                    acc.entry(k).and_modify(|x| *x += v).or_insert(v);
+
+                    acc
+                })
+            })
+            .map(|hm| {
+                hm.into_iter()
+                    .map(|(k, value)| TargetStat {
+                        kind: TargetVariant::Mdt,
+                        target: Target(k),
+                        param: Param("connected_clients".into()),
+                        value,
+                    })
+                    .map(TargetStats::ConnectedClients)
+                    .map(Record::Target)
+                    .collect()
+            })
+            .parse_next(input)
+    }
+
+    #[cfg(test)]
+    mod test {
+        use super::*;
+        use insta::assert_debug_snapshot;
+
+        #[test]
+        fn test_is_client() {
+            let result = is_client
+                .parse("a01e9c48-52f7-0c50-ff15-5aa13684bb5b")
+                .unwrap();
+
+            assert_debug_snapshot!(result, @"1");
+        }
+
+        #[test]
+        fn test_is_not_client() {
+            let result = is_client.parse("es01a-MDT0000-lwp-OST0000_UUID").unwrap();
+
+            assert_debug_snapshot!(result, @"0");
+        }
+
+        #[test]
+        fn test_export_param() {
+            let result = mdt_interface
+                .parse("mdt.es01a-MDT0000.exports.0@lo.uuid=")
+                .unwrap();
+
+            assert_debug_snapshot!(result, @r#""es01a-MDT0000""#);
+        }
+
+        #[test]
+        fn test_no_interface_clients() {
+            let result = interface_clients
+                .parse("mdt.fs-MDT0000.exports.0@lo.uuid=es01a-MDT0000-lwp-MDT0000_UUID\n")
+                .unwrap();
+
+            assert_debug_snapshot!(result, @r#"
+            (
+                "fs-MDT0000",
+                0,
+            )
+            "#);
+        }
+
+        #[test]
+        fn test_interface_clients() {
+            let result = interface_clients
+                .parse("mdt.fs-MDT0000.exports.0@lo.uuid=a01e9c48-52f7-0c50-ff15-5aa13684bb5b\n")
+                .unwrap();
+
+            assert_debug_snapshot!(result, @r#"
+            (
+                "fs-MDT0000",
+                1,
+            )
+            "#);
+        }
+
+        #[test]
+        fn test_multiple_interface_clients() {
+            let x = r#"mdt.fs-MDT0000.exports.0@lo.uuid=
+es01a-MDT0000-lwp-OST0002_UUID
+a01e9c48-52f7-0c50-ff15-5aa13684bb5a
+es01a-MDT0000-lwp-OST0001_UUID
+a01e9c48-52f7-0c50-ff15-5aa13684bb5b
+es01a-MDT0000-lwp-OST0000_UUID
+a01e9c48-52f7-0c50-ff15-5aa13684bb5c
+es01a-MDT0000-lwp-OST0000_UUID
+es01a-MDT0000-lwp-OST0000_UUID
+a01e9c48-52f7-0c50-ff15-5aa13684bb5c
+a01e9c48-52f7-0c50-ff15-5aa13684bb5c
+"#;
+
+            let result = interface_clients.parse(x).unwrap();
+
+            assert_debug_snapshot!(result, @r#"
+            (
+                "fs-MDT0000",
+                5,
+            )
+            "#);
+        }
+
+        #[test]
+        fn test_client_count_parser_one_client() {
+            let x = r#"mdt.fs-MDT0000.exports.0@lo.uuid=es01a-MDT0000-lwp-MDT0000_UUID
+mdt.es01a-MDT0000.exports.172.60.0.2@o2ib.uuid=
+es01a-MDT0000-lwp-OST0002_UUID
+es01a-MDT0000-lwp-OST0001_UUID
+es01a-MDT0000-lwp-OST0000_UUID
+mdt.es01a-MDT0000.exports.172.60.0.4@o2ib.uuid=es01a-MDT0000-lwp-OST0003_UUID
+mdt.es01a-MDT0000.exports.172.60.14.106@o2ib.uuid=
+a01e9c48-52f7-0c50-ff15-5aa13684bb5b
+"#;
+
+            let result = parse.parse(x).unwrap();
+
+            assert_debug_snapshot!(result, @r#"
+            [
+                Target(
+                    ConnectedClients(
+                        TargetStat {
+                            kind: Mdt,
+                            param: Param(
+                                "connected_clients",
+                            ),
+                            target: Target(
+                                "es01a-MDT0000",
+                            ),
+                            value: 1,
+                        },
+                    ),
+                ),
+                Target(
+                    ConnectedClients(
+                        TargetStat {
+                            kind: Mdt,
+                            param: Param(
+                                "connected_clients",
+                            ),
+                            target: Target(
+                                "fs-MDT0000",
+                            ),
+                            value: 0,
+                        },
+                    ),
+                ),
+            ]
+            "#);
+        }
+
+        #[test]
+        fn test_client_count_parser_zero_clients() {
+            let x = r#"mdt.fs-MDT0000.exports.0@lo.uuid=fs-MDT0000-lwp-MDT0000_UUID
+mdt.fs-MDT0000.exports.10.73.20.21@tcp.uuid=
+fs-MDT0000-lwp-OST000a_UUID
+fs-MDT0000-lwp-OST0004_UUID
+fs-MDT0000-lwp-OST0000_UUID
+fs-MDT0000-lwp-OST0006_UUID
+fs-MDT0000-lwp-OST0002_UUID
+fs-MDT0000-lwp-OST0008_UUID
+mdt.fs-MDT0000.exports.10.73.20.22@tcp.uuid=
+fs-MDT0000-lwp-OST0007_UUID
+fs-MDT0000-lwp-OST0003_UUID
+fs-MDT0000-lwp-OST0009_UUID
+fs-MDT0000-lwp-OST0001_UUID
+fs-MDT0000-lwp-OST000b_UUID
+fs-MDT0000-lwp-OST0005_UUID
+"#;
+
+            let result = parse.parse(x).unwrap();
+
+            assert_debug_snapshot!(result, @r#"
+            [
+                Target(
+                    ConnectedClients(
+                        TargetStat {
+                            kind: Mdt,
+                            param: Param(
+                                "connected_clients",
+                            ),
+                            target: Target(
+                                "fs-MDT0000",
+                            ),
+                            value: 0,
+                        },
+                    ),
+                ),
+            ]
+            "#);
+        }
+
+        #[test]
+        fn test_client_count_parser_two_clients() {
+            let x = r#"mdt.fs-MDT0000.exports.0@lo.uuid=fs-MDT0000-lwp-MDT0000_UUID
+mdt.fs-MDT0000.exports.10.0.2.15@tcp.uuid=
+613beb43-5df2-2ace-4209-be66b4b509df
+568acc64-085e-ada1-d493-6318930dfa74
+mdt.fs-MDT0000.exports.10.73.20.21@tcp.uuid=
+fs-MDT0000-lwp-OST000a_UUID
+fs-MDT0000-lwp-OST0004_UUID
+fs-MDT0000-lwp-OST0000_UUID
+fs-MDT0000-lwp-OST0006_UUID
+fs-MDT0000-lwp-OST0002_UUID
+fs-MDT0000-lwp-OST0008_UUID
+mdt.fs-MDT0000.exports.10.73.20.22@tcp.uuid=
+fs-MDT0000-lwp-OST0007_UUID
+fs-MDT0000-lwp-OST0003_UUID
+fs-MDT0000-lwp-OST0009_UUID
+fs-MDT0000-lwp-OST0001_UUID
+fs-MDT0000-lwp-OST000b_UUID
+fs-MDT0000-lwp-OST0005_UUID
+"#;
+
+            let result = parse.parse(x).unwrap();
+
+            assert_debug_snapshot!(result, @r#"
+            [
+                Target(
+                    ConnectedClients(
+                        TargetStat {
+                            kind: Mdt,
+                            param: Param(
+                                "connected_clients",
+                            ),
+                            target: Target(
+                                "fs-MDT0000",
+                            ),
+                            value: 2,
+                        },
+                    ),
+                ),
+            ]
+            "#);
+        }
+
+        #[test]
+        fn test_client_count_parser_multiple_fs() {
+            let x = r#"mdt.fs-MDT0000.exports.0@lo.uuid=fs-MDT0000-lwp-MDT0000_UUID
+mdt.fs-MDT0000.exports.10.0.2.15@tcp.uuid=
+613beb43-5df2-2ace-4209-be66b4b509df
+568acc64-085e-ada1-d493-6318930dfa74
+mdt.fs-MDT0000.exports.10.73.20.21@tcp.uuid=
+fs-MDT0000-lwp-OST000a_UUID
+fs-MDT0000-lwp-OST0004_UUID
+fs-MDT0000-lwp-OST0000_UUID
+fs-MDT0000-lwp-OST0006_UUID
+fs-MDT0000-lwp-OST0002_UUID
+fs-MDT0000-lwp-OST0008_UUID
+mdt.fs-MDT0000.exports.10.73.20.22@tcp.uuid=
+fs-MDT0000-lwp-OST0007_UUID
+fs-MDT0000-lwp-OST0003_UUID
+fs-MDT0000-lwp-OST0009_UUID
+fs-MDT0000-lwp-OST0001_UUID
+fs-MDT0000-lwp-OST000b_UUID
+fs-MDT0000-lwp-OST0005_UUID
+mdt.fs2-MDT0000.exports.0@lo.uuid=fs2-MDT0000-lwp-MDT0000_UUID
+mdt.fs2-MDT0000.exports.10.0.2.15@tcp.uuid=
+a7b7c685-18c1-eecc-eae2-5880f431cae3
+6f2afad1-ff3a-cdd0-721f-dcc123cae427
+mdt.fs2-MDT0000.exports.10.73.20.12@tcp.uuid=fs2-MDT0000-lwp-OST0002_UUID
+mdt.fs2-MDT0000.exports.10.73.20.21@tcp.uuid=
+fs2-MDT0000-lwp-OST0003_UUID
+fs2-MDT0000-lwp-OST0000_UUID
+mdt.fs2-MDT0000.exports.10.73.20.22@tcp.uuid=fs2-MDT0000-lwp-OST0001_UUID
+"#;
+
+            let result = parse.parse(x).unwrap();
+
+            assert_debug_snapshot!(result, @r#"
+            [
+                Target(
+                    ConnectedClients(
+                        TargetStat {
+                            kind: Mdt,
+                            param: Param(
+                                "connected_clients",
+                            ),
+                            target: Target(
+                                "fs-MDT0000",
+                            ),
+                            value: 2,
+                        },
+                    ),
+                ),
+                Target(
+                    ConnectedClients(
+                        TargetStat {
+                            kind: Mdt,
+                            param: Param(
+                                "connected_clients",
+                            ),
+                            target: Target(
+                                "fs2-MDT0000",
+                            ),
+                            value: 2,
+                        },
+                    ),
+                ),
+            ]
+            "#);
+        }
+    }
+}
+
 pub(crate) fn parse<I>() -> impl Parser<I, Output = Vec<Record>>
 where
     I: Stream<Token = char>,
@@ -119,7 +475,12 @@ mod test {
             .easy_parse("a01e9c48-52f7-0c50-ff15-5aa13684bb5b\n")
             .unwrap();
 
-        assert_debug_snapshot!(result)
+        assert_debug_snapshot!(result, @r#"
+        (
+            1,
+            "\n",
+        )
+        "#)
     }
 
     #[test]
@@ -128,7 +489,12 @@ mod test {
             .parse("es01a-MDT0000-lwp-OST0000_UUID\n")
             .unwrap();
 
-        assert_debug_snapshot!(result)
+        assert_debug_snapshot!(result, @r#"
+        (
+            0,
+            "\n",
+        )
+        "#)
     }
 
     #[test]
@@ -137,7 +503,12 @@ mod test {
             .easy_parse("mdt.es01a-MDT0000.exports.0@lo.uuid=")
             .unwrap();
 
-        assert_debug_snapshot!(result)
+        assert_debug_snapshot!(result, @r#"
+        (
+            "es01a-MDT0000",
+            "",
+        )
+        "#)
     }
 
     #[test]
@@ -146,7 +517,15 @@ mod test {
             .easy_parse("mdt.fs-MDT0000.exports.0@lo.uuid=es01a-MDT0000-lwp-MDT0000_UUID\n")
             .unwrap();
 
-        assert_debug_snapshot!(result)
+        assert_debug_snapshot!(result, @r#"
+        (
+            (
+                "fs-MDT0000",
+                0,
+            ),
+            "",
+        )
+        "#)
     }
 
     #[test]
@@ -155,7 +534,15 @@ mod test {
             .easy_parse("mdt.fs-MDT0000.exports.0@lo.uuid=a01e9c48-52f7-0c50-ff15-5aa13684bb5b\n")
             .unwrap();
 
-        assert_debug_snapshot!(result)
+        assert_debug_snapshot!(result, @r#"
+        (
+            (
+                "fs-MDT0000",
+                1,
+            ),
+            "",
+        )
+        "#)
     }
 
     #[test]
@@ -175,7 +562,15 @@ a01e9c48-52f7-0c50-ff15-5aa13684bb5c
 
         let result = interface_clients().easy_parse(x).unwrap();
 
-        assert_debug_snapshot!(result)
+        assert_debug_snapshot!(result, @r#"
+        (
+            (
+                "fs-MDT0000",
+                5,
+            ),
+            "",
+        )
+        "#)
     }
 
     #[test]
@@ -192,7 +587,41 @@ a01e9c48-52f7-0c50-ff15-5aa13684bb5b
 
         let result = parse().easy_parse(x).unwrap();
 
-        assert_debug_snapshot!(result)
+        assert_debug_snapshot!(result, @r#"
+        (
+            [
+                Target(
+                    ConnectedClients(
+                        TargetStat {
+                            kind: Mdt,
+                            param: Param(
+                                "connected_clients",
+                            ),
+                            target: Target(
+                                "es01a-MDT0000",
+                            ),
+                            value: 1,
+                        },
+                    ),
+                ),
+                Target(
+                    ConnectedClients(
+                        TargetStat {
+                            kind: Mdt,
+                            param: Param(
+                                "connected_clients",
+                            ),
+                            target: Target(
+                                "fs-MDT0000",
+                            ),
+                            value: 0,
+                        },
+                    ),
+                ),
+            ],
+            "",
+        )
+        "#)
     }
 
     #[test]
@@ -216,7 +645,27 @@ fs-MDT0000-lwp-OST0005_UUID
 
         let result = parse().easy_parse(x).unwrap();
 
-        assert_debug_snapshot!(result)
+        assert_debug_snapshot!(result, @r#"
+        (
+            [
+                Target(
+                    ConnectedClients(
+                        TargetStat {
+                            kind: Mdt,
+                            param: Param(
+                                "connected_clients",
+                            ),
+                            target: Target(
+                                "fs-MDT0000",
+                            ),
+                            value: 0,
+                        },
+                    ),
+                ),
+            ],
+            "",
+        )
+        "#)
     }
 
     #[test]
@@ -243,7 +692,27 @@ fs-MDT0000-lwp-OST0005_UUID
 
         let result = parse().easy_parse(x).unwrap();
 
-        assert_debug_snapshot!(result)
+        assert_debug_snapshot!(result, @r#"
+        (
+            [
+                Target(
+                    ConnectedClients(
+                        TargetStat {
+                            kind: Mdt,
+                            param: Param(
+                                "connected_clients",
+                            ),
+                            target: Target(
+                                "fs-MDT0000",
+                            ),
+                            value: 2,
+                        },
+                    ),
+                ),
+            ],
+            "",
+        )
+        "#)
     }
 
     #[test]
@@ -279,6 +748,40 @@ mdt.fs2-MDT0000.exports.10.73.20.22@tcp.uuid=fs2-MDT0000-lwp-OST0001_UUID
 
         let result = parse().easy_parse(x).unwrap();
 
-        assert_debug_snapshot!(result)
+        assert_debug_snapshot!(result, @r#"
+        (
+            [
+                Target(
+                    ConnectedClients(
+                        TargetStat {
+                            kind: Mdt,
+                            param: Param(
+                                "connected_clients",
+                            ),
+                            target: Target(
+                                "fs-MDT0000",
+                            ),
+                            value: 2,
+                        },
+                    ),
+                ),
+                Target(
+                    ConnectedClients(
+                        TargetStat {
+                            kind: Mdt,
+                            param: Param(
+                                "connected_clients",
+                            ),
+                            target: Target(
+                                "fs2-MDT0000",
+                            ),
+                            value: 2,
+                        },
+                    ),
+                ),
+            ],
+            "",
+        )
+        "#)
     }
 }

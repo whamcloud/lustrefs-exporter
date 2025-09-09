@@ -1,8 +1,0 @@
----
-source: src/mds/client_count_parser.rs
-expression: result
----
-(
-    0,
-    "\n",
-)

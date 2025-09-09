@@ -29,7 +29,7 @@ mod test {
     #[test]
     fn parse_quotas() {
         use crate::quota::{parse as combine_parse, quota_parser::w::parse_all as winnow_parse};
-        use combine::EasyParser;
+        use combine::Parser as _;
         use std::{fs::File, io::Read};
         use winnow::Parser;
 
@@ -43,7 +43,7 @@ mod test {
         let anchor = std::time::Instant::now();
         let mut needle = raw.as_str();
         let mut combine_out = Vec::new();
-        while let Ok((t, e)) = combine_parse().easy_parse(needle) {
+        while let Ok((t, e)) = combine_parse().parse(needle) {
             combine_out.push(t);
             needle = e;
         }

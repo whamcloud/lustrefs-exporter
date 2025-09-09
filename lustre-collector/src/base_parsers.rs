@@ -16,6 +16,35 @@ use combine::{
 
 use crate::types::{Param, Target};
 
+pub mod w {
+    use crate::types::{Param, Target};
+    use winnow::{
+        ModalResult,
+        combinator::terminated,
+        prelude::*,
+        stream::AsChar,
+        token::{literal, take_while},
+    };
+
+    /// Parses a target name
+    pub fn target(input: &mut &str) -> ModalResult<Target> {
+        take_while(1.., |c: char| {
+            AsChar::is_alphanum(c) || c == '_' || c == '-'
+        })
+        .map(|s: &str| Target(s.into()))
+        .parse_next(input)
+    }
+
+    pub fn param(param_name: &str) -> impl FnMut(&mut &str) -> ModalResult<Param> {
+        let param_name = param_name.to_string();
+        move |input: &mut &str| {
+            terminated(literal(param_name.as_str()), "=")
+                .map(|s: &str| Param(s.into()))
+                .parse_next(input)
+        }
+    }
+}
+
 pub(crate) fn period<I>() -> impl Parser<I, Output = char>
 where
     I: Stream<Token = char>,

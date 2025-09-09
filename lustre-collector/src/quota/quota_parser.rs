@@ -27,6 +27,7 @@ pub mod w {
     use crate::{
         Param, QuotaKind, QuotaStat, QuotaStatLimits, QuotaStatOsd, QuotaStats, Record,
         TargetQuotaStat,
+        base_parsers::w::target,
         quota::{
             QMT,
             quota_parser::{GRP_QUOTAS, PRJ_QUOTAS, QMTStat, USR_QUOTAS},
@@ -39,17 +40,8 @@ pub mod w {
         combinator::{alt, delimited, opt, preceded, repeat, separated_pair, seq, terminated},
         prelude::*,
         stream::AsChar,
-        token::{take_till, take_while},
+        token::take_till,
     };
-
-    /// Parses a target name
-    fn target(input: &mut &str) -> ModalResult<Target> {
-        take_while(1.., |c: char| {
-            AsChar::is_alphanum(c) || c == '_' || c == '-'
-        })
-        .map(|s: &str| Target(s.into()))
-        .parse_next(input)
-    }
 
     /// Parses a target name
     fn qmt_pool(input: &mut &str) -> ModalResult<(Target, Target)> {

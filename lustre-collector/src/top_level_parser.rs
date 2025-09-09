@@ -34,6 +34,236 @@ enum TopLevelStat {
     HealthCheck(HealthCheckStat),
 }
 
+mod w {
+    use super::TopLevelStat;
+    use crate::{
+        base_parsers::w::{param, target},
+        types::{HealthCheckStat, HostStat, HostStats, Param, Record, Target},
+    };
+    use winnow::{
+        ModalResult, Parser,
+        ascii::{dec_uint, multispace1, newline},
+        combinator::{alt, delimited, opt, repeat, terminated},
+        error::StrContext,
+        token::literal,
+    };
+
+    fn target_health(input: &mut &str) -> ModalResult<Target> {
+        delimited(
+            (literal("device"), multispace1),
+            target,
+            (multispace1, literal("reported unhealthy")),
+        )
+        .parse_next(input)
+    }
+
+    fn targets_health(input: &mut &str) -> ModalResult<Vec<Target>> {
+        repeat(1.., terminated(target_health, newline)).parse_next(input)
+    }
+
+    fn health_stats(input: &mut &str) -> ModalResult<HealthCheckStat> {
+        alt((
+            // Longest match first for correctness
+            terminated(targets_health, "NOT HEALTHY").map(|targets| HealthCheckStat {
+                healthy: false,
+                targets,
+            }),
+            "healthy".value(HealthCheckStat {
+                healthy: true,
+                targets: vec![],
+            }),
+            "LBUG".value(HealthCheckStat {
+                healthy: false,
+                targets: vec![],
+            }),
+            "NOT HEALTHY".value(HealthCheckStat {
+                healthy: false,
+                targets: vec![],
+            }),
+        ))
+        .parse_next(input)
+    }
+
+    fn top_level_stat(input: &mut &str) -> ModalResult<(Param, TopLevelStat)> {
+        terminated(
+            alt((
+                (param("memused"), dec_uint).map(|(p, v)| (p, TopLevelStat::Memused(v))),
+                (param("memused_max"), dec_uint).map(|(p, v)| (p, TopLevelStat::MemusedMax(v))),
+                (param("lnet_memused"), (opt("-"), dec_uint)).map(|(p, (negative, x))| {
+                    // Counter can overflow and go negative. Cast to 0.
+                    let value = if negative.is_some() { 0 } else { x };
+                    (p, TopLevelStat::LnetMemused(value))
+                }),
+                (param("health_check"), health_stats)
+                    .map(|(p, v)| (p, TopLevelStat::HealthCheck(v))),
+            )),
+            newline,
+        )
+        .parse_next(input)
+    }
+
+    pub(crate) fn parse(input: &mut &str) -> ModalResult<Record> {
+        top_level_stat
+            .map(|(param, v)| match v {
+                TopLevelStat::Memused(value) => HostStats::Memused(HostStat { param, value }),
+                TopLevelStat::MemusedMax(value) => HostStats::MemusedMax(HostStat { param, value }),
+                TopLevelStat::LnetMemused(value) => {
+                    HostStats::LNetMemUsed(HostStat { param, value })
+                }
+                TopLevelStat::HealthCheck(value) => {
+                    HostStats::HealthCheck(HostStat { param, value })
+                }
+            })
+            .map(Record::Host)
+            .context(StrContext::Label("while parsing top_level_param"))
+            .parse_next(input)
+    }
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+        use crate::{
+            top_level_parser::{HEALTH_CHECK, LNET_MEMUSED, MEMUSED_MAX},
+            types::{HostStat, HostStats, Param},
+        };
+
+        #[test]
+        fn test_row() {
+            let result = parse.parse("memused_max=77991501\n").unwrap();
+
+            assert_eq!(
+                result,
+                Record::Host(HostStats::MemusedMax(HostStat {
+                    param: Param(MEMUSED_MAX.to_string()),
+                    value: 77_991_501
+                })),
+            )
+        }
+
+        #[test]
+        fn test_lnet_memused() {
+            let result = parse.parse("lnet_memused=17448\n").unwrap();
+
+            assert_eq!(
+                result,
+                Record::Host(HostStats::LNetMemUsed(HostStat {
+                    param: Param(LNET_MEMUSED.to_string()),
+                    value: 17448
+                })),
+            )
+        }
+
+        #[test]
+        fn test_negative_lnet_memused() {
+            let result = parse.parse("lnet_memused=-1744897928\n").unwrap();
+
+            assert_eq!(
+                result,
+                Record::Host(HostStats::LNetMemUsed(HostStat {
+                    param: Param(LNET_MEMUSED.to_string()),
+                    value: 0
+                })),
+            )
+        }
+
+        #[test]
+        fn test_healthy_health_check() {
+            let result = parse.parse("health_check=healthy\n").unwrap();
+
+            assert_eq!(
+                result,
+                Record::Host(HostStats::HealthCheck(HostStat {
+                    param: Param(HEALTH_CHECK.to_string()),
+                    value: HealthCheckStat {
+                        healthy: true,
+                        targets: vec![]
+                    }
+                })),
+            )
+        }
+        #[test]
+        fn test_unhealthy_old_health_check() {
+            let result = parse.parse("health_check=NOT HEALTHY\n").unwrap();
+
+            assert_eq!(
+                result,
+                Record::Host(HostStats::HealthCheck(HostStat {
+                    param: Param(HEALTH_CHECK.to_string()),
+                    value: HealthCheckStat {
+                        healthy: false,
+                        targets: vec![]
+                    }
+                })),
+            )
+        }
+        #[test]
+        fn test_lbug_health_check() {
+            let result = parse.parse("health_check=LBUG\n").unwrap();
+
+            assert_eq!(
+                result,
+                Record::Host(HostStats::HealthCheck(HostStat {
+                    param: Param(HEALTH_CHECK.to_string()),
+                    value: HealthCheckStat {
+                        healthy: false,
+                        targets: vec![]
+                    }
+                })),
+            )
+        }
+
+        #[test]
+        fn test_unhealthy_health_check() {
+            let result = parse
+                .parse(
+                    r#"health_check=device lustre-OST0012 reported unhealthy
+device lustre-OST0014 reported unhealthy
+device lustre-OST0016 reported unhealthy
+NOT HEALTHY
+"#,
+                )
+                .unwrap();
+
+            assert_eq!(
+                result,
+                Record::Host(HostStats::HealthCheck(HostStat {
+                    param: Param(HEALTH_CHECK.to_string()),
+                    value: HealthCheckStat {
+                        healthy: false,
+                        targets: vec![
+                            Target("lustre-OST0012".to_string()),
+                            Target("lustre-OST0014".to_string()),
+                            Target("lustre-OST0016".to_string())
+                        ]
+                    }
+                })),
+            )
+        }
+
+        #[test]
+        fn test_unhealthy_single_target_health_check() {
+            let result = parse
+                .parse(
+                    r#"health_check=device lustre-OST0012 reported unhealthy
+NOT HEALTHY
+"#,
+                )
+                .unwrap();
+
+            assert_eq!(
+                result,
+                Record::Host(HostStats::HealthCheck(HostStat {
+                    param: Param(HEALTH_CHECK.to_string()),
+                    value: HealthCheckStat {
+                        healthy: false,
+                        targets: vec![Target("lustre-OST0012".to_string()),]
+                    }
+                })),
+            )
+        }
+    }
+}
+
 fn target_health<I>() -> impl Parser<I, Output = Target>
 where
     I: Stream<Token = char>,
@@ -126,7 +356,6 @@ where
 
 #[cfg(test)]
 mod tests {
-
     use super::*;
     use crate::types::{HostStat, HostStats, Param};
 
