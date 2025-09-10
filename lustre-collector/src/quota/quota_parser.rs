@@ -3,20 +3,20 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    QuotaKind, QuotaStat, QuotaStatOsd, QuotaStats, TargetQuotaStat,
-    base_parsers::{param, period, target},
+    QuotaKind, QuotaStat, QuotaStatLimits, QuotaStatOsd, QuotaStatUsage, QuotaStats,
+    TargetQuotaStat,
+    base_parsers::{digits, param, period, target},
     quota::QMT,
     types::{Param, Record, Target, TargetStats},
 };
 use combine::{
-    Parser, attempt, choice, eof,
-    error::{ParseError, StreamError},
-    optional,
+    Parser, Stream, between, choice, eof,
+    error::ParseError,
+    many1, optional,
     parser::{
-        char::{alpha_num, newline, string},
+        char::{newline, spaces, string},
         repeat::take_until,
     },
-    stream::{Stream, StreamErrorFor},
     token,
 };
 
@@ -60,6 +60,71 @@ where
         .message("while parsing target_name")
 }
 
+/// Parses an ID line like "- id: 123\n"
+fn id<I>() -> impl Parser<I, Output = u64>
+where
+    I: Stream<Token = char>,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    // `between(open, close, p)` is the `combine` equivalent of `winnow`'s `delimited(open, p, close)`
+    between(
+        (string("- id:"), spaces()), // open parser
+        newline(),                   // close parser
+        digits(),                    // main value parser
+    )
+}
+
+/// Parses a limits block like "  limits: { hard: 1, soft: 2, granted: 3, time: 4 }"
+fn limit<I>() -> impl Parser<I, Output = QuotaStatLimits>
+where
+    I: Stream<Token = char>,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    // Define parsers for each key-value field
+    let hard = string("hard:").skip(spaces()).with(digits());
+    let soft = string(", soft:").skip(spaces()).with(digits());
+    let granted = string(", granted:").skip(spaces()).with(digits());
+    let time = string(", time:").skip(spaces()).with(digits());
+
+    // Combine the field parsers into a tuple and map the result to the struct
+    let body = (hard, soft, granted, time);
+
+    // Wrap the body parser with the prefix "  limits: { " and suffix " }"
+    (spaces(), string("limits:"), spaces(), token('{'), spaces())
+        .with(body)
+        .map(
+            |(hard, soft, granted, time): (u64, u64, u64, u64)| QuotaStatLimits {
+                hard,
+                soft,
+                granted,
+                time,
+            },
+        )
+        // Discard prefix, keep body's result
+        .skip((spaces(), token('}'))) // Keep body's result, discard suffix
+}
+
+/// Parses a limits block like "  limits: { hard: 1, soft: 2, granted: 3, time: 4 }"
+fn usage<I>() -> impl Parser<I, Output = QuotaStatUsage>
+where
+    I: Stream<Token = char>,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    // Define parsers for each key-value field
+    let inodes = string("inodes:").skip(spaces()).with(digits());
+    let kbytes = string(", kbytes:").skip(spaces()).with(digits());
+
+    // Combine the field parsers into a tuple and map the result to the struct
+    let body = (inodes, kbytes);
+
+    // Wrap the body parser with the prefix "  limits: { " and suffix " }"
+    (spaces(), string("usage:"), spaces(), token('{'), spaces())
+        .with(body)
+        .map(|(inodes, kbytes): (u64, u64)| QuotaStatUsage { inodes, kbytes })
+        // Discard prefix, keep body's result
+        .skip((spaces(), token('}'))) // Keep body's result, discard suffix
+}
+
 pub(crate) fn quota_stats<I>() -> impl Parser<I, Output = Vec<QuotaStat>>
 where
     I: Stream<Token = char>,
@@ -69,13 +134,11 @@ where
         optional(newline()), // If quota stats are present, the whole yaml blob will start on a newline
         take_until::<Vec<_>, _, _>(newline()), // But yaml header might not be indented, ignore it
         newline(),
-        take_until(attempt((newline(), alpha_num()).map(drop).or(eof()))),
+        many1((id(), limit(), newline()).map(|(id, limits, _)| QuotaStat { id, limits })),
     )
         .skip(optional(newline()))
         .skip(optional(eof()))
-        .and_then(|(_, _, _, x): (_, _, _, String)| {
-            serde_yaml::from_str::<Vec<QuotaStat>>(&x).map_err(StreamErrorFor::<I>::other)
-        })
+        .map(|(_, _, _, qs)| qs)
 }
 
 pub(crate) fn quota_stats_osd<I>() -> impl Parser<I, Output = Vec<QuotaStatOsd>>
@@ -87,13 +150,11 @@ where
         optional(newline()), // If quota stats are present, the whole yaml blob will start on a newline
         take_until::<Vec<_>, _, _>(newline()), // But yaml header might not be indented, ignore it
         newline(),
-        take_until(attempt((newline(), alpha_num()).map(drop).or(eof()))),
+        many1((id(), usage(), newline()).map(|(id, usage, _)| QuotaStatOsd { id, usage })),
     )
         .skip(optional(newline()))
         .skip(optional(eof()))
-        .and_then(|(_, _, _, x): (_, _, _, String)| {
-            serde_yaml::from_str::<Vec<QuotaStatOsd>>(&x).map_err(StreamErrorFor::<I>::other)
-        })
+        .map(|(_, _, _, x)| x)
 }
 
 #[derive(Debug)]
@@ -210,5 +271,69 @@ mod tests {
         ];
 
         assert_eq!(serde_yaml::from_str::<Vec<QuotaStat>>(x).unwrap(), expected)
+    }
+
+    #[test]
+    fn test_parse_stats() {
+        let x = r#"
+global_pool0_dt_usr
+- id:      0
+  limits:  { hard:                    0, soft:                    0, granted:                    0, time:               604800 }
+- id:      1337
+  limits:  { hard:               309200, soft:               307200, granted:              1025032, time:           1687277628 }
+  "#;
+
+        let expected = vec![
+            QuotaStat {
+                id: 0,
+                limits: QuotaStatLimits {
+                    hard: 0,
+                    soft: 0,
+                    granted: 0,
+                    time: 604800,
+                },
+            },
+            QuotaStat {
+                id: 1337,
+                limits: QuotaStatLimits {
+                    hard: 309200,
+                    soft: 307200,
+                    granted: 1025032,
+                    time: 1687277628,
+                },
+            },
+        ];
+
+        assert_eq!(quota_stats().parse(x).map(|o| o.0).unwrap(), expected)
+    }
+
+    #[test]
+    fn test_parse_stats_osd() {
+        let x = r#"
+usr_accounting:
+- id:      0
+  usage:   { inodes:              2416855, kbytes:             10214128 }
+- id:      23
+  usage:   { inodes:              241123355, kbytes:             102141328 }
+  "#;
+
+        let expected = vec![
+            QuotaStatOsd {
+                id: 0,
+                usage: QuotaStatUsage {
+                    inodes: 2416855,
+                    kbytes: 10214128,
+                },
+            },
+            QuotaStatOsd {
+                id: 23,
+                usage: QuotaStatUsage {
+                    inodes: 241123355,
+                    kbytes: 102141328,
+                },
+            },
+        ];
+
+        assert_eq!(quota_stats_osd().parse(x).map(|o| o.0).unwrap(), expected)
     }
 }
