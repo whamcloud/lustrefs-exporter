@@ -16,7 +16,7 @@ mod node_stats_parsers;
 mod osd_parser;
 mod oss;
 pub mod parser;
-pub(crate) mod quota;
+pub mod quota;
 pub mod recovery_status_parser;
 mod stats_parser;
 mod time;
@@ -25,8 +25,7 @@ pub mod types;
 
 pub use crate::error::LustreCollectorError;
 use combine::parser::EasyParser;
-pub use lnetctl_parser::parse as parse_lnetctl_output;
-pub use lnetctl_parser::parse_lnetctl_stats;
+pub use lnetctl_parser::{parse as parse_lnetctl_output, parse_lnetctl_stats};
 pub use node_stats_parsers::{parse_cpustats_output, parse_meminfo_output};
 use std::{io, str};
 pub use types::*;

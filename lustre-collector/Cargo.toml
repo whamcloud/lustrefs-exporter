@@ -19,11 +19,15 @@ tracing-subscriber.workspace = true
 [dev-dependencies]
 include_dir.workspace = true
 insta.workspace = true
-
-[lib]
-bench = false
+tokio = { workspace = true, features = ["full"] }
+criterion = { workspace = true, features = ["html_reports", "async_tokio"] }
+sysinfo.workspace = true
 
 [[bin]]
 bench = false
 name = "lustre_collector"
 path = "src/main.rs"
+
+[[bench]]
+name = "quotas"
+harness = false
