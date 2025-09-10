@@ -473,7 +473,7 @@ pub mod tests {
         let mut sorted_labels: Vec<_> = sample
             .labels
             .iter()
-            .filter(|(k, _)| k != &&"otel_scope_name".to_string())
+            .filter(|(k, _)| *k != "otel_scope_name")
             .map(|(k, v)| (k.clone(), v.clone()))
             .collect();
 
