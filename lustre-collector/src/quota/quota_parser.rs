@@ -25,14 +25,18 @@ pub(crate) const GRP_QUOTAS: &str = "grp";
 
 pub mod w {
     use crate::{
-        Param, QuotaKind, QuotaStat, QuotaStatOsd, QuotaStats, Record, TargetQuotaStat,
-        quota::quota_parser::{GRP_QUOTAS, PRJ_QUOTAS, QMTStat, USR_QUOTAS},
+        Param, QuotaKind, QuotaStat, QuotaStatLimits, QuotaStatOsd, QuotaStats, Record,
+        TargetQuotaStat,
+        quota::{
+            QMT,
+            quota_parser::{GRP_QUOTAS, PRJ_QUOTAS, QMTStat, USR_QUOTAS},
+        },
         types::{Target, TargetStats},
     };
     use winnow::{
         ModalResult,
-        ascii::{multispace0, newline},
-        combinator::{alt, delimited, opt, preceded, terminated},
+        ascii::{dec_uint, multispace0, newline},
+        combinator::{alt, delimited, opt, preceded, repeat, separated_pair, seq, terminated},
         prelude::*,
         stream::AsChar,
         token::{take_till, take_while},
@@ -52,7 +56,7 @@ pub mod w {
         (
             alt((
                 terminated("md", "-").value(Target("md".into())),
-                terminated("dt", "-").value(Target("md".into())),
+                terminated("dt", "-").value(Target("dt".into())),
             )),
             target,
         )
@@ -66,12 +70,37 @@ pub mod w {
             .parse_next(input)
     }
 
+    fn id(input: &mut &str) -> ModalResult<u32> {
+        delimited(("- id:", multispace0), dec_uint, newline).parse_next(input)
+    }
+
+    fn limit(input: &mut &str) -> ModalResult<QuotaStatLimits> {
+        seq! {QuotaStatLimits {
+            _: (multispace0, "limits:", multispace0, "{", multispace0),
+            _: ("hard:", multispace0),
+            hard: dec_uint,
+            _: (", soft:", multispace0),
+            soft: dec_uint,
+            _: (", granted:", multispace0),
+            granted: dec_uint,
+            _: (", time:", multispace0),
+            time: dec_uint,
+            _: (multispace0, "}")
+        }
+        }
+        .parse_next(input)
+    }
+
     fn quota_stats(input: &mut &str) -> ModalResult<Vec<QuotaStat>> {
-        delimited(
+        preceded(
             (opt(newline), take_till(1.., AsChar::is_newline), newline),
-            take_till(1.., AsChar::is_newline)
-                .try_map(|s| serde_yaml::from_str::<Vec<QuotaStat>>(s)),
-            multispace0,
+            repeat(
+                1..,
+                terminated((id, limit), multispace0).map(|(id, limits)| QuotaStat {
+                    id: id as u64,
+                    limits,
+                }),
+            ),
         )
         .parse_next(input)
     }
@@ -87,28 +116,32 @@ pub mod w {
     }
 
     fn qmt_stat(input: &mut &str) -> ModalResult<(Param, QMTStat)> {
-        preceded(
+        delimited(
             "glb-",
             alt((
-                (
+                separated_pair(
                     USR_QUOTAS.map(|s: &str| Param(s.into())),
+                    "=",
                     quota_stats.map(QMTStat::Usr),
                 ),
-                (
+                separated_pair(
                     PRJ_QUOTAS.map(|s: &str| Param(s.into())),
+                    "=",
                     quota_stats.map(QMTStat::Prj),
                 ),
-                (
+                separated_pair(
                     GRP_QUOTAS.map(|s: &str| Param(s.into())),
+                    "=",
                     quota_stats.map(QMTStat::Grp),
                 ),
             )),
+            multispace0,
         )
         .parse_next(input)
     }
 
     pub fn parse(input: &mut &str) -> ModalResult<Record> {
-        (qmt_target, qmt_stat)
+        preceded((QMT, "."), (qmt_target, qmt_stat))
             .map(
                 |((target, Target(manager), Target(pool)), (param, value))| match value {
                     QMTStat::Usr(stats) => TargetStats::QuotaStats(TargetQuotaStat {
@@ -145,6 +178,10 @@ pub mod w {
             )
             .map(Record::Target)
             .parse_next(input)
+    }
+
+    pub fn parse_all(input: &mut &str) -> ModalResult<Vec<Record>> {
+        repeat(1.., parse).parse_next(input)
     }
 }
 

@@ -41,7 +41,7 @@ where
         ldlm::parse().map(|x| vec![x]),
         llite::parse().map(|x| vec![x]),
         mdd_parser::parse().map(|x| vec![x]),
-        quota::w::parse().map(|x| vec![x]),
+        quota::parse().map(|x| vec![x]),
     )))
     .map(|xs: Vec<_>| xs.into_iter().flatten().collect())
 }

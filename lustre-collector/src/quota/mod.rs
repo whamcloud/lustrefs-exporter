@@ -22,3 +22,41 @@ where
 {
     (string(QMT), period()).with(quota_parser::qmt_parse())
 }
+
+pub use quota_parser::w::parse_all as w_parse;
+
+mod test {
+    #[test]
+    fn parse_quotas() {
+        use crate::quota::{parse as combine_parse, quota_parser::w::parse_all as winnow_parse};
+        use combine::EasyParser;
+        use std::{fs::File, io::Read};
+        use winnow::Parser;
+
+        let mut raw = String::new();
+
+        File::open("benches/quotas.yml")
+            .unwrap()
+            .read_to_string(&mut raw)
+            .unwrap();
+
+        let anchor = std::time::Instant::now();
+        let mut needle = raw.as_str();
+        let mut combine_out = Vec::new();
+        while let Ok((t, e)) = combine_parse().easy_parse(needle) {
+            combine_out.push(t);
+            needle = e;
+        }
+        println!("Elapsed in combine: {}s", anchor.elapsed().as_secs());
+
+        let anchor = std::time::Instant::now();
+        let needle = &mut raw.as_str();
+        let winnow_out = winnow_parse
+            .parse(needle)
+            .inspect_err(|e| println!("{e}"))
+            .unwrap();
+        println!("Elapsed in winnow: {}ms", anchor.elapsed().as_millis());
+
+        assert_eq!(combine_out, winnow_out)
+    }
+}
