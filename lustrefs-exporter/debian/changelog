@@ -1,3 +1,12 @@
+prometheus-lustrefs-exporter (0.11.0-0.1) unstable; urgency=medium
+
+  * Integrate Bencher
+  * Add metrics for operation time statistics
+  * Add per-node stats collection
+  * Change otel dependencies to prometheus-client
+
+ -- EMF Team <emf@whamcloud.com>  Thu, 11 Sep 2025 09:48:22 +0200
+
 prometheus-lustrefs-exporter (0.10.2-0.1) unstable; urgency=medium
 
   * New release.
