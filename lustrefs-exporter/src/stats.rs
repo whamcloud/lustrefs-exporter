@@ -102,19 +102,19 @@ impl StatsMetrics {
 
         registry.register(
             "lustre_stats_time_min",
-            "Minimum time taken for an operation in microseconds.",
+            "Minimum time taken for an operation in microseconds",
             self.stats_time_min.clone(),
         );
 
         registry.register(
             "lustre_stats_time_max",
-            "Maximum time taken for an operation in microseconds.",
+            "Maximum time taken for an operation in microseconds",
             self.stats_time_max.clone(),
         );
 
         registry.register(
             "lustre_stats_time_total",
-            "Total time taken for an operation in microseconds.",
+            "Total time taken for an operation in microseconds",
             self.stats_time_total.clone(),
         );
 

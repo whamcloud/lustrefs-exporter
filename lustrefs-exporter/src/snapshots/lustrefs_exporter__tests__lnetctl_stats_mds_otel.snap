@@ -432,7 +432,7 @@ lustre_stats_total{component="mdt",operation="setattr",target="fs-MDT0000"} 3
 lustre_stats_total{component="mdt",operation="statfs",target="fs-MDT0000"} 4
 lustre_stats_total{component="mdt",operation="write",target="fs-MDT0000"} 1
 lustre_stats_total{component="mdt",operation="write_bytes",target="fs-MDT0000"} 1
-# HELP lustre_stats_time_min Minimum time taken for an operation in microseconds..
+# HELP lustre_stats_time_min Minimum time taken for an operation in microseconds.
 # TYPE lustre_stats_time_min gauge
 lustre_stats_time_min{component="mdt",operation="close",target="fs-MDT0000"} 17
 lustre_stats_time_min{component="mdt",operation="getattr",target="fs-MDT0000"} 10
@@ -446,7 +446,7 @@ lustre_stats_time_min{component="mdt",operation="setattr",target="fs-MDT0000"} 1
 lustre_stats_time_min{component="mdt",operation="statfs",target="fs-MDT0000"} 0
 lustre_stats_time_min{component="mdt",operation="write",target="fs-MDT0000"} 363
 lustre_stats_time_min{component="mdt",operation="write_bytes",target="fs-MDT0000"} 409600
-# HELP lustre_stats_time_max Maximum time taken for an operation in microseconds..
+# HELP lustre_stats_time_max Maximum time taken for an operation in microseconds.
 # TYPE lustre_stats_time_max gauge
 lustre_stats_time_max{component="mdt",operation="close",target="fs-MDT0000"} 103
 lustre_stats_time_max{component="mdt",operation="getattr",target="fs-MDT0000"} 6928
@@ -460,7 +460,7 @@ lustre_stats_time_max{component="mdt",operation="setattr",target="fs-MDT0000"} 3
 lustre_stats_time_max{component="mdt",operation="statfs",target="fs-MDT0000"} 33
 lustre_stats_time_max{component="mdt",operation="write",target="fs-MDT0000"} 363
 lustre_stats_time_max{component="mdt",operation="write_bytes",target="fs-MDT0000"} 409600
-# HELP lustre_stats_time_total Total time taken for an operation in microseconds..
+# HELP lustre_stats_time_total Total time taken for an operation in microseconds.
 # TYPE lustre_stats_time_total gauge
 lustre_stats_time_total{component="mdt",operation="close",target="fs-MDT0000"} 352
 lustre_stats_time_total{component="mdt",operation="getattr",target="fs-MDT0000"} 7053
