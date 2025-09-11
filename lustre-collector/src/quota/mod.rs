@@ -13,7 +13,7 @@ pub(crate) fn params() -> Vec<String> {
     quota_parser::params()
 }
 
-pub(crate) fn parse<I>() -> impl Parser<I, Output = Record>
+pub fn parse<I>() -> impl Parser<I, Output = Record>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,

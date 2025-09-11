@@ -19,6 +19,9 @@ tracing-subscriber.workspace = true
 [dev-dependencies]
 include_dir.workspace = true
 insta.workspace = true
+tokio = { workspace = true, features = ["full"] }
+criterion = { workspace = true, features = ["html_reports", "async_tokio"] }
+sysinfo.workspace = true
 
 [lib]
 bench = false
@@ -27,3 +30,11 @@ bench = false
 bench = false
 name = "lustre_collector"
 path = "src/main.rs"
+
+[[bench]]
+harness = false
+name = "combine_performance"
+
+[[bench]]
+harness = false
+name = "combine_memory"

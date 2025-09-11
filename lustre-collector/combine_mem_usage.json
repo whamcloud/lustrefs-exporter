@@ -1,0 +1,44 @@
+{
+  "scrape_allocations": {
+    "start_rss_mib": {
+      "value": 318.8093196902655
+    },
+    "peak_rss_mib": {
+      "value": 359.84375
+    },
+    "end_rss_mib": {
+      "value": 320.30074668141594
+    },
+    "memory_growth_mib": {
+      "value": 1.4914269911504425
+    },
+    "peak_over_start_rss_ratio": {
+      "value": 1.0788454764864892
+    },
+    "avg_runtime_rss_mib": {
+      "value": 319.2835635533252,
+      "lower_value": 24.296875,
+      "upper_value": 359.84375
+    },
+    "start_virtual_mib": {
+      "value": 402485.0271017699
+    },
+    "peak_virtual_mib": {
+      "value": 402526.0625
+    },
+    "end_virtual_mib": {
+      "value": 402497.05365044245
+    },
+    "virtual_growth_mib": {
+      "value": 12.026548672566372
+    },
+    "peak_over_start_virtual_ratio": {
+      "value": 1.0000299443068315
+    },
+    "avg_runtime_virtual_mib": {
+      "value": 402490.81627407606,
+      "lower_value": 401167.0625,
+      "upper_value": 402526.0625
+    }
+  }
+}

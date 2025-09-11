@@ -1,4 +1,0 @@
-[toolchain]
-channel = "1.78.0"
-profile = "default"
-targets = ["x86_64-unknown-linux-gnu"]
