@@ -1,0 +1,93 @@
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+
+jobs:
+  benchmark_jobstats_metrics:
+    name: Benchmark Jobstats Metrics
+    permissions:
+      checks: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: bencherdev/bencher@main
+
+      - name: Install Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+
+      - name: Track quota parsing metrics benchmarks on main branch
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          bencher run \
+          --project '${{ secrets.BENCHER_PROJECT_ID }}' \
+          --token '${{ secrets.BENCHER_API_TOKEN }}' \
+          --branch main \
+          --testbed ci-runner \
+          --threshold-measure Latency \
+          --threshold-test t_test \
+          --threshold-max-sample-size 64 \
+          --threshold-lower-boundary 0.95 \
+          --threshold-upper-boundary 0.95 \
+          --err \
+          --adapter rust_criterion \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          "cargo bench --bench combine_performance"
+
+      - name: Compare quota parsing metrics benchmarks with main branch
+        if: github.event_name == 'pull_request'
+        run: |
+          bencher run \
+          --project '${{ secrets.BENCHER_PROJECT_ID }}' \
+          --token '${{ secrets.BENCHER_API_TOKEN }}' \
+          --branch '${{ github.head_ref }}' \
+          --start-point main \
+          --testbed ci-runner \
+          --start-point-clone-thresholds \
+          --err \
+          --adapter rust_criterion \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          "cargo bench --bench combine_performance"
+
+      - name: Run Scrape Memory Metrics Benchmark
+        run: |
+          # Run the benchmark first (suppress Criterion output)
+          cargo bench --bench combine_memory 2>&1 > /dev/null
+
+      - name: Track quota parsing memory usage benchmark on main branch
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          bencher run \
+          --project '${{ secrets.BENCHER_PROJECT_ID }}' \
+          --token '${{ secrets.BENCHER_API_TOKEN }}' \
+          --branch main \
+          --testbed ci-runner \
+          --threshold-measure peak_rss_mib \
+          --threshold-test t_test \
+          --threshold-max-sample-size 64 \
+          --threshold-lower-boundary 0.95 \
+          --threshold-upper-boundary 0.95 \
+          --err \
+          --adapter json \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          --file lustre-collector/combine_mem_usage.json
+
+      - name: Compare quota parsing memory metrics with main branch
+        if: github.event_name == 'pull_request'
+        run: |
+          bencher run \
+          --project '${{ secrets.BENCHER_PROJECT_ID }}' \
+          --token '${{ secrets.BENCHER_API_TOKEN }}' \
+          --branch '${{ github.head_ref }}' \
+          --start-point main \
+          --testbed ci-runner \
+          --start-point-clone-thresholds \
+          --err \
+          --adapter json \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          --file lustre-collector/combine_mem_usage.json

@@ -32,5 +32,9 @@ name = "lustre_collector"
 path = "src/main.rs"
 
 [[bench]]
-name = "quotas"
 harness = false
+name = "combine_performance"
+
+[[bench]]
+harness = false
+name = "combine_memory"
