@@ -9,15 +9,15 @@ pub fn combine_perf(c: &mut Criterion) {
     group.sample_size(10);
     group.measurement_time(Duration::from_secs(90)); // Allow more time
 
-    group.bench_function("combine_performance", |b| {
-        let mut raw = String::new();
-        File::open("benches/quotas.yml")
-            .expect("Failed to open file")
-            .read_to_string(&mut raw)
-            .expect("Failed to read file");
+    let mut raw = String::new();
+    File::open("benches/quotas.yml")
+        .expect("Failed to open file")
+        .read_to_string(&mut raw)
+        .expect("Failed to read file");
 
+    group.bench_with_input("combine_performance", &raw, |b, input| {
         b.iter(|| {
-            let mut needle = raw.as_str();
+            let mut needle = input.as_str();
             while let Ok((_, e)) = combine_parse().easy_parse(needle) {
                 needle = e;
             }

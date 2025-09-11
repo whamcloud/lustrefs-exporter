@@ -1,5 +1,4 @@
 use combine::parser::EasyParser;
-use core::f64;
 use criterion::{Criterion, criterion_group, criterion_main};
 use lustre_collector::quota::parse as combine_parse;
 use std::{fs::File, io::Read, time::Duration};
@@ -226,15 +225,15 @@ pub fn combine_memory(c: &mut Criterion) {
     group.sample_size(10);
     group.measurement_time(Duration::from_secs(90)); // Allow more time
 
-    group.bench_function("combine_memory", |b| {
-        let mut raw = String::new();
-        File::open("benches/quotas.yml")
-            .expect("Failed to open file")
-            .read_to_string(&mut raw)
-            .expect("Failed to read file");
+    let mut raw = String::new();
+    File::open("benches/quotas.yml")
+        .expect("Failed to open file")
+        .read_to_string(&mut raw)
+        .expect("Failed to read file");
 
+    group.bench_with_input("combine_memory", &raw, |b, input| {
         b.to_async(&rt).iter(|| async {
-            let memory_usage = test_combine_with_mem(&raw).await;
+            let memory_usage = test_combine_with_mem(input).await;
 
             let _ = tx.send(memory_usage.clone());
         })
