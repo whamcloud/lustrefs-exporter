@@ -225,9 +225,8 @@ where
 
 #[cfg(test)]
 mod tests {
-    use crate::{QuotaStat, QuotaStatLimits};
-
-    use super::*;
+    use crate::quota::quota_parser::{params, quota_stats, quota_stats_osd};
+    use combine::Parser as _;
 
     #[test]
     fn test_qmt_params() {
@@ -251,7 +250,8 @@ global_pool0_dt_usr
   limits:  { hard:               309200, soft:               307200, granted:              1025032, time:           1687277628 }
   "#;
 
-        let expected = vec![
+        insta::assert_debug_snapshot!(quota_stats().parse(x).map(|o| o.0).unwrap(), @r###"
+        [
             QuotaStat {
                 id: 0,
                 limits: QuotaStatLimits {
@@ -270,9 +270,8 @@ global_pool0_dt_usr
                     time: 1687277628,
                 },
             },
-        ];
-
-        assert_eq!(quota_stats().parse(x).map(|o| o.0).unwrap(), expected)
+        ]
+        "###);
     }
 
     #[test]
@@ -285,7 +284,8 @@ usr_accounting:
   usage:   { inodes:              241123355, kbytes:             102141328 }
   "#;
 
-        let expected = vec![
+        insta::assert_debug_snapshot!(quota_stats_osd().parse(x).map(|o| o.0).unwrap(), @r###"
+        [
             QuotaStatOsd {
                 id: 0,
                 usage: QuotaStatUsage {
@@ -300,8 +300,7 @@ usr_accounting:
                     kbytes: 102141328,
                 },
             },
-        ];
-
-        assert_eq!(quota_stats_osd().parse(x).map(|o| o.0).unwrap(), expected)
+        ]
+        "###);
     }
 }
