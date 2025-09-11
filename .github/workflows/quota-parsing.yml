@@ -7,8 +7,8 @@ on:
     types: [opened, reopened, edited, synchronize]
 
 jobs:
-  benchmark_jobstats_metrics:
-    name: Benchmark Jobstats Metrics
+  benchmark_quota_parsing:
+    name: Benchmark quota parsing
     permissions:
       checks: write
       pull-requests: write
@@ -54,7 +54,7 @@ jobs:
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
           "cargo bench --bench combine_performance"
 
-      - name: Run Scrape Memory Metrics Benchmark
+      - name: Run quota parsing memory usage benchmark
         run: |
           # Run the benchmark first (suppress Criterion output)
           cargo bench --bench combine_memory 2>&1 > /dev/null

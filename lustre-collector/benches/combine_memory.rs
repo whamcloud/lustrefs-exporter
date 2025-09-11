@@ -6,7 +6,7 @@ use sysinfo::{Pid, ProcessExt, System, SystemExt};
 
 #[derive(serde::Serialize)]
 struct BencherOutput {
-    scrape_allocations: BencherMetrics,
+    memory_usage: BencherMetrics,
 }
 
 #[derive(serde::Serialize)]
@@ -55,7 +55,7 @@ struct MemoryUsage {
 impl From<MemoryUsage> for BencherOutput {
     fn from(x: MemoryUsage) -> Self {
         BencherOutput {
-            scrape_allocations: BencherMetrics {
+            memory_usage: BencherMetrics {
                 start_rss_mib: MetricEntry {
                     value: x.start_rss,
                     lower_value: None,
