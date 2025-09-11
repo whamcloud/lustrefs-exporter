@@ -1,9 +1,7 @@
 use combine::parser::EasyParser;
-use core::f64;
 use criterion::{Criterion, criterion_group, criterion_main};
 use lustre_collector::quota::parse as combine_parse;
 use std::{fs::File, io::Read, time::Duration};
-use sysinfo::{Pid, ProcessExt, System, SystemExt};
 
 pub fn combine_perf(c: &mut Criterion) {
     let mut group = c.benchmark_group("parse_benchmarks");
