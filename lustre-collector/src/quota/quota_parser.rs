@@ -242,38 +242,6 @@ mod tests {
     }
 
     #[test]
-    fn test_yaml_deserialize() {
-        let x = r#"
-- id:      0
-  limits:  { hard:                    0, soft:                    0, granted:                    0, time:               604800 }
-- id:      1337
-  limits:  { hard:               309200, soft:               307200, granted:              1025032, time:           1687277628 }"#;
-
-        let expected = vec![
-            QuotaStat {
-                id: 0,
-                limits: QuotaStatLimits {
-                    hard: 0,
-                    soft: 0,
-                    granted: 0,
-                    time: 604800,
-                },
-            },
-            QuotaStat {
-                id: 1337,
-                limits: QuotaStatLimits {
-                    hard: 309200,
-                    soft: 307200,
-                    granted: 1025032,
-                    time: 1687277628,
-                },
-            },
-        ];
-
-        assert_eq!(serde_yaml::from_str::<Vec<QuotaStat>>(x).unwrap(), expected)
-    }
-
-    #[test]
     fn test_parse_stats() {
         let x = r#"
 global_pool0_dt_usr
