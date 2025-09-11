@@ -110,6 +110,15 @@ lustre_oss_ost_create_stats{operation="reqbuf_avail",units="bufs"} 9411
 # HELP lustre_stats_total Number of operations the filesystem has performed.
 # TYPE lustre_stats_total counter
 lustre_stats_total{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 1691
+# HELP lustre_stats_time_min Minimum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_min gauge
+lustre_stats_time_min{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 0
+# HELP lustre_stats_time_max Maximum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_max gauge
+lustre_stats_time_max{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 92
+# HELP lustre_stats_time_total Total time taken for an operation in microseconds.
+# TYPE lustre_stats_time_total gauge
+lustre_stats_time_total{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 15198
 # HELP lustre_mds_mdt_stats MDS mdt stats.
 # TYPE lustre_mds_mdt_stats gauge
 lustre_mds_mdt_stats{operation="mds_connect",units="usecs"} 18

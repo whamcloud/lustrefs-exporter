@@ -432,6 +432,48 @@ lustre_stats_total{component="mdt",operation="setattr",target="fs-MDT0000"} 3
 lustre_stats_total{component="mdt",operation="statfs",target="fs-MDT0000"} 4
 lustre_stats_total{component="mdt",operation="write",target="fs-MDT0000"} 1
 lustre_stats_total{component="mdt",operation="write_bytes",target="fs-MDT0000"} 1
+# HELP lustre_stats_time_min Minimum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_min gauge
+lustre_stats_time_min{component="mdt",operation="close",target="fs-MDT0000"} 17
+lustre_stats_time_min{component="mdt",operation="getattr",target="fs-MDT0000"} 10
+lustre_stats_time_min{component="mdt",operation="getxattr",target="fs-MDT0000"} 15
+lustre_stats_time_min{component="mdt",operation="mknod",target="fs-MDT0000"} 223
+lustre_stats_time_min{component="mdt",operation="open",target="fs-MDT0000"} 52
+lustre_stats_time_min{component="mdt",operation="punch",target="fs-MDT0000"} 28
+lustre_stats_time_min{component="mdt",operation="read",target="fs-MDT0000"} 4577
+lustre_stats_time_min{component="mdt",operation="read_bytes",target="fs-MDT0000"} 4096
+lustre_stats_time_min{component="mdt",operation="setattr",target="fs-MDT0000"} 100
+lustre_stats_time_min{component="mdt",operation="statfs",target="fs-MDT0000"} 0
+lustre_stats_time_min{component="mdt",operation="write",target="fs-MDT0000"} 363
+lustre_stats_time_min{component="mdt",operation="write_bytes",target="fs-MDT0000"} 409600
+# HELP lustre_stats_time_max Maximum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_max gauge
+lustre_stats_time_max{component="mdt",operation="close",target="fs-MDT0000"} 103
+lustre_stats_time_max{component="mdt",operation="getattr",target="fs-MDT0000"} 6928
+lustre_stats_time_max{component="mdt",operation="getxattr",target="fs-MDT0000"} 15
+lustre_stats_time_max{component="mdt",operation="mknod",target="fs-MDT0000"} 5357
+lustre_stats_time_max{component="mdt",operation="open",target="fs-MDT0000"} 16976
+lustre_stats_time_max{component="mdt",operation="punch",target="fs-MDT0000"} 28
+lustre_stats_time_max{component="mdt",operation="read",target="fs-MDT0000"} 10837
+lustre_stats_time_max{component="mdt",operation="read_bytes",target="fs-MDT0000"} 405504
+lustre_stats_time_max{component="mdt",operation="setattr",target="fs-MDT0000"} 319
+lustre_stats_time_max{component="mdt",operation="statfs",target="fs-MDT0000"} 33
+lustre_stats_time_max{component="mdt",operation="write",target="fs-MDT0000"} 363
+lustre_stats_time_max{component="mdt",operation="write_bytes",target="fs-MDT0000"} 409600
+# HELP lustre_stats_time_total Total time taken for an operation in microseconds.
+# TYPE lustre_stats_time_total gauge
+lustre_stats_time_total{component="mdt",operation="close",target="fs-MDT0000"} 352
+lustre_stats_time_total{component="mdt",operation="getattr",target="fs-MDT0000"} 7053
+lustre_stats_time_total{component="mdt",operation="getxattr",target="fs-MDT0000"} 15
+lustre_stats_time_total{component="mdt",operation="mknod",target="fs-MDT0000"} 5580
+lustre_stats_time_total{component="mdt",operation="open",target="fs-MDT0000"} 23055
+lustre_stats_time_total{component="mdt",operation="punch",target="fs-MDT0000"} 28
+lustre_stats_time_total{component="mdt",operation="read",target="fs-MDT0000"} 15414
+lustre_stats_time_total{component="mdt",operation="read_bytes",target="fs-MDT0000"} 409600
+lustre_stats_time_total{component="mdt",operation="setattr",target="fs-MDT0000"} 605
+lustre_stats_time_total{component="mdt",operation="statfs",target="fs-MDT0000"} 63
+lustre_stats_time_total{component="mdt",operation="write",target="fs-MDT0000"} 363
+lustre_stats_time_total{component="mdt",operation="write_bytes",target="fs-MDT0000"} 409600
 # HELP lustre_client_export_stats Number of operations the target has performed per export.
 # TYPE lustre_client_export_stats counter
 lustre_client_export_stats{component="mdt",name="close",nid="0@lo",target="fs-MDT0000",units="usecs"} 6

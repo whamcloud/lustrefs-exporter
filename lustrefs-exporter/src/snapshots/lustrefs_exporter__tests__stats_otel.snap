@@ -795,4 +795,43 @@ lustre_stats_total{component="mdt",operation="setattr",target="ai400x2-MDT0000"}
 lustre_stats_total{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 91893
 lustre_stats_total{component="mdt",operation="sync",target="ai400x2-MDT0000"} 224
 lustre_stats_total{component="mdt",operation="unlink",target="ai400x2-MDT0000"} 3
+# HELP lustre_stats_time_min Minimum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_min gauge
+lustre_stats_time_min{component="mdt",operation="close",target="ai400x2-MDT0000"} 7
+lustre_stats_time_min{component="mdt",operation="getattr",target="ai400x2-MDT0000"} 0
+lustre_stats_time_min{component="mdt",operation="getxattr",target="ai400x2-MDT0000"} 6
+lustre_stats_time_min{component="mdt",operation="mkdir",target="ai400x2-MDT0000"} 162
+lustre_stats_time_min{component="mdt",operation="mknod",target="ai400x2-MDT0000"} 47
+lustre_stats_time_min{component="mdt",operation="open",target="ai400x2-MDT0000"} 24
+lustre_stats_time_min{component="mdt",operation="rmdir",target="ai400x2-MDT0000"} 58
+lustre_stats_time_min{component="mdt",operation="setattr",target="ai400x2-MDT0000"} 18
+lustre_stats_time_min{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 0
+lustre_stats_time_min{component="mdt",operation="sync",target="ai400x2-MDT0000"} 2
+lustre_stats_time_min{component="mdt",operation="unlink",target="ai400x2-MDT0000"} 412
+# HELP lustre_stats_time_max Maximum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_max gauge
+lustre_stats_time_max{component="mdt",operation="close",target="ai400x2-MDT0000"} 255
+lustre_stats_time_max{component="mdt",operation="getattr",target="ai400x2-MDT0000"} 1740
+lustre_stats_time_max{component="mdt",operation="getxattr",target="ai400x2-MDT0000"} 47
+lustre_stats_time_max{component="mdt",operation="mkdir",target="ai400x2-MDT0000"} 2911
+lustre_stats_time_max{component="mdt",operation="mknod",target="ai400x2-MDT0000"} 1081
+lustre_stats_time_max{component="mdt",operation="open",target="ai400x2-MDT0000"} 1091
+lustre_stats_time_max{component="mdt",operation="rmdir",target="ai400x2-MDT0000"} 115
+lustre_stats_time_max{component="mdt",operation="setattr",target="ai400x2-MDT0000"} 241
+lustre_stats_time_max{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 65
+lustre_stats_time_max{component="mdt",operation="sync",target="ai400x2-MDT0000"} 24
+lustre_stats_time_max{component="mdt",operation="unlink",target="ai400x2-MDT0000"} 4498
+# HELP lustre_stats_time_total Total time taken for an operation in microseconds.
+# TYPE lustre_stats_time_total gauge
+lustre_stats_time_total{component="mdt",operation="close",target="ai400x2-MDT0000"} 191804
+lustre_stats_time_total{component="mdt",operation="getattr",target="ai400x2-MDT0000"} 44670
+lustre_stats_time_total{component="mdt",operation="getxattr",target="ai400x2-MDT0000"} 50689
+lustre_stats_time_total{component="mdt",operation="mkdir",target="ai400x2-MDT0000"} 5639
+lustre_stats_time_total{component="mdt",operation="mknod",target="ai400x2-MDT0000"} 19926
+lustre_stats_time_total{component="mdt",operation="open",target="ai400x2-MDT0000"} 22203
+lustre_stats_time_total{component="mdt",operation="rmdir",target="ai400x2-MDT0000"} 302
+lustre_stats_time_total{component="mdt",operation="setattr",target="ai400x2-MDT0000"} 8279
+lustre_stats_time_total{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 634431
+lustre_stats_time_total{component="mdt",operation="sync",target="ai400x2-MDT0000"} 1433
+lustre_stats_time_total{component="mdt",operation="unlink",target="ai400x2-MDT0000"} 5408
 # EOF

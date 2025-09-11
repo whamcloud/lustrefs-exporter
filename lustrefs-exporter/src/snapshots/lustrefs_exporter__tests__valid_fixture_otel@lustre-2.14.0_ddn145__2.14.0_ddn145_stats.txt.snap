@@ -196,6 +196,18 @@ lustre_client_stats{operation="getattr",target="fs-ffff97e895d31000"} 6
 # TYPE lustre_stats_total counter
 lustre_stats_total{component="mdt",operation="getattr",target="fs-MDT0000"} 7
 lustre_stats_total{component="mdt",operation="statfs",target="fs-MDT0000"} 113929
+# HELP lustre_stats_time_min Minimum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_min gauge
+lustre_stats_time_min{component="mdt",operation="getattr",target="fs-MDT0000"} 11
+lustre_stats_time_min{component="mdt",operation="statfs",target="fs-MDT0000"} 2
+# HELP lustre_stats_time_max Maximum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_max gauge
+lustre_stats_time_max{component="mdt",operation="getattr",target="fs-MDT0000"} 65
+lustre_stats_time_max{component="mdt",operation="statfs",target="fs-MDT0000"} 209
+# HELP lustre_stats_time_total Total time taken for an operation in microseconds.
+# TYPE lustre_stats_time_total gauge
+lustre_stats_time_total{component="mdt",operation="getattr",target="fs-MDT0000"} 338
+lustre_stats_time_total{component="mdt",operation="statfs",target="fs-MDT0000"} 798435
 # HELP lustre_client_export_stats Number of operations the target has performed per export.
 # TYPE lustre_client_export_stats counter
 lustre_client_export_stats{component="mdt",name="getattr",nid="0@lo",target="fs-MDT0000",units="usecs"} 7
