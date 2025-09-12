@@ -834,4 +834,16 @@ lustre_stats_time_total{component="mdt",operation="setattr",target="ai400x2-MDT0
 lustre_stats_time_total{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 634431
 lustre_stats_time_total{component="mdt",operation="sync",target="ai400x2-MDT0000"} 1433
 lustre_stats_time_total{component="mdt",operation="unlink",target="ai400x2-MDT0000"} 5408
+# HELP lustre_get_page_total The total number of times the linux page cache was used.
+# TYPE lustre_get_page_total counter
+lustre_get_page_total{component="ost",operation="get_page",target="exatest-OST0003"} 375
+# HELP lustre_cache_access_total The total number cache accesses.
+# TYPE lustre_cache_access_total counter
+lustre_cache_access_total{component="ost",operation="cache_access",target="exatest-OST0003"} 297
+# HELP lustre_cache_miss_total The total number cache misses.
+# TYPE lustre_cache_miss_total counter
+lustre_cache_miss_total{component="ost",operation="cache_miss",target="exatest-OST0003"} 297
+# HELP lustre_many_credits_total The total number of times lustre hit too many credits.
+# TYPE lustre_many_credits_total counter
+lustre_many_credits_total{component="ost",operation="many_credits",target="exatest-OST0003"} 1
 # EOF

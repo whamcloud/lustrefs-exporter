@@ -21,6 +21,11 @@ pub struct StatsMetrics {
     write_minimum_size_bytes: Family<Gauge<u64, AtomicU64>>,
     write_maximum_size_bytes: Family<Counter<u64>>,
     write_bytes_total: Family<Counter<u64>>,
+    get_page_total: Family<Counter<u64>>,
+    cache_access_total: Family<Counter<u64>>,
+    cache_hit_total: Family<Counter<u64>>,
+    cache_miss_total: Family<Counter<u64>>,
+    many_credits_total: Family<Counter<u64>>,
 
     // MDT metrics
     stats_total: Family<Counter<u64>>,
@@ -183,6 +188,36 @@ impl StatsMetrics {
             "Accumulated bytes per operation the target has performed per export",
             self.client_export_bytes.clone(),
         );
+
+        registry.register_without_auto_suffix(
+            "lustre_get_page_total",
+            "The total number of times the linux page cache was used",
+            self.get_page_total.clone(),
+        );
+
+        registry.register_without_auto_suffix(
+            "lustre_cache_access_total",
+            "The total number cache accesses",
+            self.cache_access_total.clone(),
+        );
+
+        registry.register_without_auto_suffix(
+            "lustre_cache_hit_total",
+            "The total of cache hits",
+            self.cache_hit_total.clone(),
+        );
+
+        registry.register_without_auto_suffix(
+            "lustre_cache_miss_total",
+            "The total number cache misses",
+            self.cache_miss_total.clone(),
+        );
+
+        registry.register_without_auto_suffix(
+            "lustre_many_credits_total",
+            "The total number of times lustre hit too many credits",
+            self.many_credits_total.clone(),
+        );
     }
 }
 
@@ -256,6 +291,67 @@ pub fn build_ost_stats(stats: &[Stat], target: &Target, metrics: &mut StatsMetri
                         .get_or_create(&write_labels)
                         .inc_by(sum);
                 }
+            }
+            "get_page" => {
+                let write_labels = vec![
+                    ("component", kind.to_prom_label().to_string()),
+                    ("operation", "get_page".into()),
+                    ("target", target.deref().to_string()),
+                ];
+
+                metrics
+                    .get_page_total
+                    .get_or_create(&write_labels)
+                    .inc_by(s.samples);
+            }
+
+            "cache_access" => {
+                let cache_access_labels = vec![
+                    ("component", kind.to_prom_label().to_string()),
+                    ("operation", "cache_access".into()),
+                    ("target", target.deref().to_string()),
+                ];
+
+                metrics
+                    .cache_access_total
+                    .get_or_create(&cache_access_labels)
+                    .inc_by(s.samples);
+            }
+            "cache_hit" => {
+                let cache_hit_labels = vec![
+                    ("component", kind.to_prom_label().to_string()),
+                    ("operation", "cache_hit".into()),
+                    ("target", target.deref().to_string()),
+                ];
+
+                metrics
+                    .cache_hit_total
+                    .get_or_create(&cache_hit_labels)
+                    .inc_by(s.samples);
+            }
+            "cache_miss" => {
+                let cache_miss_labels = vec![
+                    ("component", kind.to_prom_label().to_string()),
+                    ("operation", "cache_miss".into()),
+                    ("target", target.deref().to_string()),
+                ];
+
+                metrics
+                    .cache_miss_total
+                    .get_or_create(&cache_miss_labels)
+                    .inc_by(s.samples);
+            }
+            "many_credits" => {
+                let many_credits_labels = vec![
+                    ("component", kind.to_prom_label().to_string()),
+                    ("operation", "many_credits".into()),
+                    ("target", target.deref().to_string()),
+                ];
+
+                metrics
+                    .many_credits_total
+                    .get_or_create(&many_credits_labels)
+                    .inc_by(s.samples);
             }
             _ => {
                 // Ignore other stats
