@@ -29,7 +29,7 @@ jobs:
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch main \
           --testbed ci-runner \
-          --threshold-measure Latency \
+          --threshold-measure latency \
           --threshold-test t_test \
           --threshold-max-sample-size 64 \
           --threshold-lower-boundary 0.95 \
@@ -67,7 +67,42 @@ jobs:
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch main \
           --testbed ci-runner \
+          --threshold-measure start_rss_mib \
+          --threshold-test t_test \
+          --threshold-max-sample-size 64 \
+          --threshold-lower-boundary 0.95 \
+          --threshold-upper-boundary 0.95 \
           --threshold-measure peak_rss_mib \
+          --threshold-test t_test \
+          --threshold-max-sample-size 64 \
+          --threshold-lower-boundary 0.95 \
+          --threshold-upper-boundary 0.95 \
+          --threshold-measure end_rss_mib \
+          --threshold-test t_test \
+          --threshold-max-sample-size 64 \
+          --threshold-lower-boundary 0.95 \
+          --threshold-upper-boundary 0.95 \
+          --threshold-measure memory_growth_mib \
+          --threshold-test t_test \
+          --threshold-max-sample-size 64 \
+          --threshold-lower-boundary 0.95 \
+          --threshold-upper-boundary 0.95 \
+          --threshold-measure start_virtual_mib \
+          --threshold-test t_test \
+          --threshold-max-sample-size 64 \
+          --threshold-lower-boundary 0.95 \
+          --threshold-upper-boundary 0.95 \
+          --threshold-measure peak_virtual_mib \
+          --threshold-test t_test \
+          --threshold-max-sample-size 64 \
+          --threshold-lower-boundary 0.95 \
+          --threshold-upper-boundary 0.95 \
+          --threshold-measure end_virtual_mib \
+          --threshold-test t_test \
+          --threshold-max-sample-size 64 \
+          --threshold-lower-boundary 0.95 \
+          --threshold-upper-boundary 0.95 \
+          --threshold-measure virtual_growth_mib \
           --threshold-test t_test \
           --threshold-max-sample-size 64 \
           --threshold-lower-boundary 0.95 \
