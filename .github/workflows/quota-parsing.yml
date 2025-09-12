@@ -29,7 +29,7 @@ jobs:
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch main \
           --testbed ci-runner \
-          --threshold-measure Latency \
+          --threshold-measure latency \
           --threshold-test t_test \
           --threshold-max-sample-size 64 \
           --threshold-lower-boundary 0.95 \
@@ -37,6 +37,8 @@ jobs:
           --err \
           --adapter rust_criterion \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          --ci-only-thresholds \
+          --ci-id '${{ github.workflow_ref }}-performance' \
           "cargo bench --bench combine_performance"
 
       - name: Compare quota parsing metrics benchmarks with main branch
@@ -52,6 +54,8 @@ jobs:
           --err \
           --adapter rust_criterion \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          --ci-only-thresholds \
+          --ci-id '${{ github.workflow_ref }}-performance' \
           "cargo bench --bench combine_performance"
 
       - name: Run quota parsing memory usage benchmark
@@ -67,7 +71,7 @@ jobs:
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch main \
           --testbed ci-runner \
-          --threshold-measure peak_rss_mib \
+          --threshold-measure start_rss_mib \
           --threshold-test t_test \
           --threshold-max-sample-size 64 \
           --threshold-lower-boundary 0.95 \
@@ -75,6 +79,8 @@ jobs:
           --err \
           --adapter json \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          --ci-only-thresholds \
+          --ci-id '${{ github.workflow_ref }}-memory' \
           --file lustre-collector/combine_mem_usage.json
 
       - name: Compare quota parsing memory metrics with main branch
@@ -90,4 +96,6 @@ jobs:
           --err \
           --adapter json \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          --ci-only-thresholds \
+          --ci-id '${{ github.workflow_ref }}-memory' \
           --file lustre-collector/combine_mem_usage.json

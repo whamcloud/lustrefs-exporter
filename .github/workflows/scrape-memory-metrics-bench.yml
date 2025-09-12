@@ -52,6 +52,8 @@ jobs:
           --err \
           --adapter json \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          --ci-only-thresholds \
+          --ci-id '${{ github.workflow_ref }}' \
           --file lustrefs-exporter/scrape_allocations_results.json
 
       - name: Compare scrape memory metrics with main branch
@@ -67,4 +69,6 @@ jobs:
           --err \
           --adapter json \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          --ci-only-thresholds \
+          --ci-id '${{ github.workflow_ref }}' \
           --file lustrefs-exporter/scrape_allocations_results.json
