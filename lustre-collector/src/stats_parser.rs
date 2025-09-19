@@ -193,6 +193,68 @@ mod tests {
     }
 
     #[test]
+    fn test_stat_cache_hit() {
+        let x = r#"cache_hit                99 samples [pages] 1 1 99 10
+"#;
+
+        let result = stat().parse(x);
+
+        assert_debug_snapshot!(
+            result, @r#"
+        Ok(
+            (
+                Stat {
+                    name: "cache_hit",
+                    units: "pages",
+                    samples: 99,
+                    min: Some(
+                        1,
+                    ),
+                    max: Some(
+                        1,
+                    ),
+                    sum: Some(
+                        99,
+                    ),
+                    sumsquare: Some(
+                        10,
+                    ),
+                },
+                "",
+            ),
+        )
+        "#
+        );
+    }
+
+    #[test]
+    fn test_stat_cache_hit_all_none() {
+        let x = r#"cache_hit                123 samples [pages]
+"#;
+
+        let result = stat().parse(x);
+
+        assert_debug_snapshot!(
+            result, @r#"
+        Ok(
+            (
+                Stat {
+                    name: "cache_hit",
+                    units: "pages",
+                    samples: 123,
+                    min: None,
+                    max: None,
+                    sum: None,
+                    sumsquare: None,
+                },
+                "",
+            ),
+        )
+        "#
+        );
+    }
+
+    #[test]
     fn test_stat() {
         let x = r#"obd_ping                  1108 samples [usec] 15 72 47014 2156132
 "#;
