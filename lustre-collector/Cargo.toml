@@ -9,6 +9,7 @@ version.workspace = true
 [dependencies]
 clap = { workspace = true, features = ["derive"] }
 combine.workspace = true
+memory-benchmarking = { version = "0.11.0", path = "../memory-benchmarking" }
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
 serde_yaml.workspace = true
