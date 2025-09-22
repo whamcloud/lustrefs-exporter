@@ -34,18 +34,32 @@ struct MetricEntry {
 pub struct MemoryUsage {
     pub start_rss: f64,
     pub end_rss: f64,
-    pub memory_growth: f64,
-    pub peak_over_start_rss_ratio: f64,
     pub avg_rss: f64,
     pub min_rss: f64,
     pub max_rss: f64,
     pub start_virtual: f64,
     pub end_virtual: f64,
-    pub virtual_growth: f64,
-    pub peak_over_start_virtual_ratio: f64,
     pub avg_virtual: f64,
     pub min_virtual: f64,
     pub max_virtual: f64,
+}
+
+impl MemoryUsage {
+    fn memory_growth(&self) -> f64 {
+        self.end_rss - self.start_rss
+    }
+
+    fn peak_over_start_rss(&self) -> f64 {
+        self.max_rss / self.start_rss
+    }
+
+    fn virtual_growth(&self) -> f64 {
+        self.end_virtual - self.start_virtual
+    }
+
+    fn peak_over_start_virtual(&self) -> f64 {
+        self.max_virtual / self.start_virtual
+    }
 }
 
 impl From<MemoryUsage> for BencherOutput {
@@ -65,11 +79,11 @@ impl From<MemoryUsage> for BencherOutput {
                     ..Default::default()
                 },
                 memory_growth_mib: MetricEntry {
-                    value: x.memory_growth,
+                    value: x.memory_growth(),
                     ..Default::default()
                 },
                 peak_over_start_rss_ratio: MetricEntry {
-                    value: x.peak_over_start_rss_ratio,
+                    value: x.peak_over_start_rss(),
                     ..Default::default()
                 },
                 avg_runtime_rss_mib: MetricEntry {
@@ -90,11 +104,11 @@ impl From<MemoryUsage> for BencherOutput {
                     ..Default::default()
                 },
                 virtual_growth_mib: MetricEntry {
-                    value: x.virtual_growth,
+                    value: x.virtual_growth(),
                     ..Default::default()
                 },
                 peak_over_start_virtual_ratio: MetricEntry {
-                    value: x.peak_over_start_virtual_ratio,
+                    value: x.peak_over_start_virtual(),
                     ..Default::default()
                 },
                 avg_runtime_virtual_mib: MetricEntry {
@@ -114,14 +128,6 @@ pub fn aggregate_samples(samples: &[MemoryUsage]) -> MemoryUsage {
     MemoryUsage {
         start_rss: samples.iter().map(|x| x.start_rss).sum::<f64>() / size / MIB_CONVERSION_FACTOR,
         end_rss: samples.iter().map(|x| x.end_rss).sum::<f64>() / size / MIB_CONVERSION_FACTOR,
-        memory_growth: samples.iter().map(|x| x.memory_growth).sum::<f64>()
-            / size
-            / MIB_CONVERSION_FACTOR,
-        peak_over_start_rss_ratio: samples
-            .iter()
-            .map(|x| x.peak_over_start_rss_ratio)
-            .sum::<f64>()
-            / size,
         avg_rss: samples.iter().map(|x| x.avg_rss).sum::<f64>() / size / MIB_CONVERSION_FACTOR,
         min_rss: samples
             .iter()
@@ -140,14 +146,6 @@ pub fn aggregate_samples(samples: &[MemoryUsage]) -> MemoryUsage {
         end_virtual: samples.iter().map(|x| x.end_virtual).sum::<f64>()
             / size
             / MIB_CONVERSION_FACTOR,
-        virtual_growth: samples.iter().map(|x| x.virtual_growth).sum::<f64>()
-            / size
-            / MIB_CONVERSION_FACTOR,
-        peak_over_start_virtual_ratio: samples
-            .iter()
-            .map(|x| x.peak_over_start_virtual_ratio)
-            .sum::<f64>()
-            / size,
         avg_virtual: samples.iter().map(|x| x.avg_virtual).sum::<f64>()
             / size
             / MIB_CONVERSION_FACTOR,
@@ -164,12 +162,60 @@ pub fn aggregate_samples(samples: &[MemoryUsage]) -> MemoryUsage {
     }
 }
 
-pub fn get_memory_stats() -> (f64, f64) {
+#[derive(Default)]
+pub struct Sample(f64, f64);
+
+#[derive(thiserror::Error, Debug, Clone)]
+pub enum Error {
+    #[error("Not enough samples")]
+    NotEnoughSamples,
+}
+
+impl TryFrom<&[Sample]> for MemoryUsage {
+    type Error = Error;
+
+    fn try_from(value: &[Sample]) -> Result<Self, Self::Error> {
+        if value.is_empty() {
+            return Err(Error::NotEnoughSamples);
+        }
+
+        Ok(MemoryUsage {
+            start_rss: value.first().map(|s| s.0).unwrap_or_default(),
+            end_rss: value.last().map(|s| s.0).unwrap_or_default(),
+            avg_rss: value.iter().map(|s| s.0).sum::<f64>() / (value.len() as f64),
+            min_rss: value
+                .iter()
+                .map(|s| s.0)
+                .reduce(f64::min)
+                .unwrap_or_default(),
+            max_rss: value
+                .iter()
+                .map(|s| s.0)
+                .reduce(f64::max)
+                .unwrap_or_default(),
+            start_virtual: value.first().map(|s| s.1).unwrap_or_default(),
+            end_virtual: value.last().map(|s| s.1).unwrap_or_default(),
+            avg_virtual: value.iter().map(|s| s.1).sum::<f64>() / (value.len() as f64),
+            min_virtual: value
+                .iter()
+                .map(|s| s.1)
+                .reduce(f64::min)
+                .unwrap_or_default(),
+            max_virtual: value
+                .iter()
+                .map(|s| s.1)
+                .reduce(f64::max)
+                .unwrap_or_default(),
+        })
+    }
+}
+
+pub fn sample_memory() -> Sample {
     let mut system = System::new();
     system.refresh_process(Pid::from(std::process::id() as usize));
 
     system
         .process(Pid::from(std::process::id() as usize))
-        .map(|process| (process.memory() as f64, process.virtual_memory() as f64))
+        .map(|process| Sample(process.memory() as f64, process.virtual_memory() as f64))
         .unwrap_or_default()
 }

@@ -1425,6 +1425,7 @@ version = "0.11.0"
 dependencies = [
  "serde",
  "sysinfo",
+ "thiserror",
 ]
 
 [[package]]

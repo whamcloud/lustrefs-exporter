@@ -1,47 +1,25 @@
 use combine::parser::EasyParser;
 use criterion::{Criterion, criterion_group, criterion_main};
 use lustre_collector::quota::parse as combine_parse;
-use memory_benchmarking::{BencherOutput, MemoryUsage, aggregate_samples, get_memory_stats};
+use memory_benchmarking::{
+    BencherOutput, Error as MemBenchError, MemoryUsage, aggregate_samples, sample_memory,
+};
 use std::{fs::File, io::Read, time::Duration};
 
-async fn test_combine_with_mem(buffer: &str) -> MemoryUsage {
-    let (start_rss, start_virtual) = get_memory_stats();
-    let mut rss_values = vec![];
-    let mut virtual_values = vec![];
-
-    rss_values.push(start_rss);
-    virtual_values.push(start_virtual);
+async fn test_combine_with_mem(buffer: &str) -> Result<MemoryUsage, MemBenchError> {
+    let mut samples = vec![sample_memory()];
 
     let (tx, mut rx) = tokio::sync::oneshot::channel::<()>();
     let monitor_handle = tokio::spawn(async move {
-        let mut min_rss = start_rss;
-        let mut peak_rss = start_rss;
-        let mut min_virtual = start_virtual;
-        let mut peak_virtual = start_virtual;
         let mut interval = tokio::time::interval(Duration::from_millis(100));
 
         while rx.try_recv().is_err() {
             interval.tick().await;
 
-            let (current_rss, current_virtual) = get_memory_stats();
-
-            rss_values.push(current_rss);
-            min_rss = min_rss.min(current_rss);
-            peak_rss = peak_rss.max(current_rss);
-
-            virtual_values.push(current_virtual);
-            min_virtual = min_virtual.min(current_virtual);
-            peak_virtual = peak_virtual.max(current_virtual);
+            samples.push(sample_memory());
         }
 
-        (
-            rss_values,
-            min_rss,
-            peak_rss,
-            virtual_values,
-            min_virtual,
-            peak_virtual,
-        )
+        samples
     });
 
     let mut needle = buffer;
@@ -52,39 +30,19 @@ async fn test_combine_with_mem(buffer: &str) -> MemoryUsage {
     tx.send(())
         .expect("Failed to send stop signal to memory monitor");
 
-    let (rss_values, mut min_rss, mut max_rss, virtual_values, mut min_virtual, mut max_virtual) =
-        monitor_handle
-            .await
-            .expect("Failed to collect memory metrics from run.");
+    let mut samples = monitor_handle
+        .await
+        .expect("Failed to collect memory metrics from run.");
 
-    let (end_rss, end_virtual) = get_memory_stats();
+    samples.push(sample_memory());
 
-    min_rss = min_rss.min(end_rss);
-    max_rss = max_rss.max(end_rss);
+    let mem = MemoryUsage::try_from(samples.as_slice())?;
 
-    min_virtual = min_virtual.min(end_virtual);
-    max_virtual = max_virtual.max(end_virtual);
-
-    MemoryUsage {
-        start_rss,
-        end_rss,
-        memory_growth: end_rss - start_rss,
-        peak_over_start_rss_ratio: max_rss / start_rss,
-        avg_rss: rss_values.iter().sum::<f64>() / rss_values.len() as f64,
-        min_rss,
-        max_rss,
-        start_virtual,
-        end_virtual,
-        virtual_growth: end_virtual - start_virtual,
-        peak_over_start_virtual_ratio: max_virtual / start_virtual,
-        avg_virtual: virtual_values.iter().sum::<f64>() / virtual_values.len() as f64,
-        min_virtual,
-        max_virtual,
-    }
+    Ok(mem)
 }
 
 pub fn combine_memory(c: &mut Criterion) {
-    let (tx, rx) = std::sync::mpsc::channel::<MemoryUsage>();
+    let (tx, rx) = std::sync::mpsc::channel();
 
     let rt = tokio::runtime::Builder::new_multi_thread()
         .enable_time()
@@ -115,7 +73,10 @@ pub fn combine_memory(c: &mut Criterion) {
 
     drop(tx);
 
-    let samples = rx.iter().collect::<Vec<_>>();
+    let samples = rx
+        .iter()
+        .collect::<Result<Vec<_>, _>>()
+        .expect("Failed to get memory information");
 
     if !samples.is_empty() {
         let aggregated = aggregate_samples(&samples);
