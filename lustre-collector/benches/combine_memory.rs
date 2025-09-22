@@ -7,12 +7,6 @@ use std::{fs::File, io::Read, sync::mpsc, time::Duration};
 pub fn combine_memory(c: &mut Criterion) {
     let (tx, rx) = mpsc::channel();
 
-    let rt = tokio::runtime::Builder::new_multi_thread()
-        .enable_time()
-        .enable_io()
-        .build()
-        .expect("Failed to build tokio runtime");
-
     let mut group = c.benchmark_group("parse_benchmarks");
 
     group.sample_size(10);
@@ -25,7 +19,7 @@ pub fn combine_memory(c: &mut Criterion) {
         .expect("Failed to read file");
 
     group.bench_with_input("combine_memory", &raw, |b, input| {
-        b.to_async(&rt).iter(|| async {
+        b.iter(|| {
             let routine = move || {
                 let mut needle = input.as_str();
                 while let Ok((_, e)) = combine_parse().easy_parse(needle) {
@@ -34,7 +28,6 @@ pub fn combine_memory(c: &mut Criterion) {
             };
 
             let memory_usage: MemoryUsage = trace_memory(routine, Duration::from_millis(100))
-                .await
                 .as_slice()
                 .try_into()
                 .expect("Failed to extract memory usage from samples");

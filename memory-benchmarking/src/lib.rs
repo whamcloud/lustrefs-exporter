@@ -222,33 +222,40 @@ pub fn sample_memory() -> Sample {
         .unwrap_or_default()
 }
 
-pub async fn trace_memory(mut routine: impl FnMut(), duration: Duration) -> Vec<Sample> {
-    let mut samples = vec![sample_memory()];
+pub fn trace_memory(mut routine: impl FnMut(), duration: Duration) -> Vec<Sample> {
+    tokio::runtime::Builder::new_multi_thread()
+        .enable_time()
+        .enable_io()
+        .build()
+        .expect("Failed to build tokio runtime")
+        .block_on(async move {
+            let mut samples = vec![sample_memory()];
 
-    let (abort_sender, mut abort_receiver) = tokio::sync::oneshot::channel::<()>();
-    let monitor_handle = tokio::spawn(async move {
-        let mut interval = tokio::time::interval(duration);
+            let (abort_sender, mut abort_receiver) = tokio::sync::oneshot::channel::<()>();
+            let monitor_handle = tokio::spawn(async move {
+                let mut interval = tokio::time::interval(duration);
 
-        while abort_receiver.try_recv().is_err() {
-            interval.tick().await;
+                while abort_receiver.try_recv().is_err() {
+                    interval.tick().await;
+
+                    samples.push(sample_memory());
+                }
+
+                samples
+            });
+
+            routine();
+
+            abort_sender
+                .send(())
+                .expect("Failed to send stop signal to memory monitor");
+
+            let mut samples = monitor_handle
+                .await
+                .expect("Failed to collect memory metrics from run.");
 
             samples.push(sample_memory());
-        }
 
-        samples
-    });
-
-    routine();
-
-    abort_sender
-        .send(())
-        .expect("Failed to send stop signal to memory monitor");
-
-    let mut samples = monitor_handle
-        .await
-        .expect("Failed to collect memory metrics from run.");
-
-    samples.push(sample_memory());
-
-    samples
+            samples
+        })
 }

@@ -1,0 +1,44 @@
+{
+  "memory_usage": {
+    "start_rss_mib": {
+      "value": 48.78263927003293
+    },
+    "peak_rss_mib": {
+      "value": 54.484375
+    },
+    "end_rss_mib": {
+      "value": 48.81320321075741
+    },
+    "memory_growth_mib": {
+      "value": 0.03056394072447688
+    },
+    "peak_over_start_rss_ratio": {
+      "value": 1.1168804274489026
+    },
+    "avg_runtime_rss_mib": {
+      "value": 48.79867161772777,
+      "lower_value": 24.5,
+      "upper_value": 54.484375
+    },
+    "start_virtual_mib": {
+      "value": 402134.2293496158
+    },
+    "peak_virtual_mib": {
+      "value": 402380.0625
+    },
+    "end_virtual_mib": {
+      "value": 402134.66074368823
+    },
+    "virtual_growth_mib": {
+      "value": 0.43139407242415473
+    },
+    "peak_over_start_virtual_ratio": {
+      "value": 1.000611321127231
+    },
+    "avg_runtime_virtual_mib": {
+      "value": 402134.4801728869,
+      "lower_value": 401310.0625,
+      "upper_value": 402380.0625
+    }
+  }
+}
