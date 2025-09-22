@@ -1,48 +1,11 @@
 use combine::parser::EasyParser;
 use criterion::{Criterion, criterion_group, criterion_main};
 use lustre_collector::quota::parse as combine_parse;
-use memory_benchmarking::{
-    BencherOutput, Error as MemBenchError, MemoryUsage, aggregate_samples, sample_memory,
-};
-use std::{fs::File, io::Read, time::Duration};
-
-async fn test_combine_with_mem(buffer: &str) -> Result<MemoryUsage, MemBenchError> {
-    let mut samples = vec![sample_memory()];
-
-    let (tx, mut rx) = tokio::sync::oneshot::channel::<()>();
-    let monitor_handle = tokio::spawn(async move {
-        let mut interval = tokio::time::interval(Duration::from_millis(100));
-
-        while rx.try_recv().is_err() {
-            interval.tick().await;
-
-            samples.push(sample_memory());
-        }
-
-        samples
-    });
-
-    let mut needle = buffer;
-    while let Ok((_, e)) = combine_parse().easy_parse(needle) {
-        needle = e;
-    }
-
-    tx.send(())
-        .expect("Failed to send stop signal to memory monitor");
-
-    let mut samples = monitor_handle
-        .await
-        .expect("Failed to collect memory metrics from run.");
-
-    samples.push(sample_memory());
-
-    let mem = MemoryUsage::try_from(samples.as_slice())?;
-
-    Ok(mem)
-}
+use memory_benchmarking::{BencherOutput, MemoryUsage, aggregate_samples, trace_memory};
+use std::{fs::File, io::Read, sync::mpsc, time::Duration};
 
 pub fn combine_memory(c: &mut Criterion) {
-    let (tx, rx) = std::sync::mpsc::channel();
+    let (tx, rx) = mpsc::channel();
 
     let rt = tokio::runtime::Builder::new_multi_thread()
         .enable_time()
@@ -63,8 +26,18 @@ pub fn combine_memory(c: &mut Criterion) {
 
     group.bench_with_input("combine_memory", &raw, |b, input| {
         b.to_async(&rt).iter(|| async {
-            let memory_usage = test_combine_with_mem(input).await;
+            let routine = move || {
+                let mut needle = input.as_str();
+                while let Ok((_, e)) = combine_parse().easy_parse(needle) {
+                    needle = e;
+                }
+            };
 
+            let memory_usage: MemoryUsage = trace_memory(routine, Duration::from_millis(100))
+                .await
+                .as_slice()
+                .try_into()
+                .expect("Failed to extract memory usage from samples");
             let _ = tx.send(memory_usage.clone());
         })
     });
@@ -73,10 +46,7 @@ pub fn combine_memory(c: &mut Criterion) {
 
     drop(tx);
 
-    let samples = rx
-        .iter()
-        .collect::<Result<Vec<_>, _>>()
-        .expect("Failed to get memory information");
+    let samples = rx.iter().collect::<Vec<_>>();
 
     if !samples.is_empty() {
         let aggregated = aggregate_samples(&samples);

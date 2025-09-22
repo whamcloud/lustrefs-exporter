@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use sysinfo::{Pid, ProcessExt, System, SystemExt};
 
 #[derive(serde::Serialize)]
@@ -218,4 +220,35 @@ pub fn sample_memory() -> Sample {
         .process(Pid::from(std::process::id() as usize))
         .map(|process| Sample(process.memory() as f64, process.virtual_memory() as f64))
         .unwrap_or_default()
+}
+
+pub async fn trace_memory(mut routine: impl FnMut(), duration: Duration) -> Vec<Sample> {
+    let mut samples = vec![sample_memory()];
+
+    let (abort_sender, mut abort_receiver) = tokio::sync::oneshot::channel::<()>();
+    let monitor_handle = tokio::spawn(async move {
+        let mut interval = tokio::time::interval(duration);
+
+        while abort_receiver.try_recv().is_err() {
+            interval.tick().await;
+
+            samples.push(sample_memory());
+        }
+
+        samples
+    });
+
+    routine();
+
+    abort_sender
+        .send(())
+        .expect("Failed to send stop signal to memory monitor");
+
+    let mut samples = monitor_handle
+        .await
+        .expect("Failed to collect memory metrics from run.");
+
+    samples.push(sample_memory());
+
+    samples
 }

@@ -9,6 +9,7 @@ version.workspace = true
 serde = { workspace = true, features = ["derive"] }
 sysinfo.workspace = true
 thiserror.workspace = true
+tokio = { workspace = true, features = ["full"] }
 
 [lints]
 workspace = true
