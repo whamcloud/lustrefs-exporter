@@ -5,8 +5,8 @@
 mod common;
 
 use common::load_test_concurrent;
-use memory_benchmarking::{BencherOutput, trace_memory_async};
-use std::time::Duration;
+use memory_benchmarking::{MemoryMetrics, trace_memory_async};
+use std::{collections::HashMap, time::Duration};
 
 pub fn main() {
     let samples: Vec<_> = (0..10)
@@ -32,8 +32,11 @@ pub fn main() {
         })
         .collect();
 
-    let serialized_metrics = serde_json::to_string_pretty(&BencherOutput::from(samples.as_slice()))
-        .expect("Failed to serialize benchmark output.");
+    let serialized_metrics = serde_json::to_string_pretty(&HashMap::from([(
+        "scrape_memory_usage",
+        MemoryMetrics::from(samples.as_slice()),
+    )]))
+    .expect("Failed to serialize benchmark output.");
 
     println!("{serialized_metrics}");
 }

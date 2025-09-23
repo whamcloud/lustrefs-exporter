@@ -1,7 +1,7 @@
 use combine::parser::EasyParser;
 use lustre_collector::quota::parse as combine_parse;
-use memory_benchmarking::{BencherOutput, trace_memory};
-use std::time::Duration;
+use memory_benchmarking::{MemoryMetrics, trace_memory};
+use std::{collections::HashMap, time::Duration};
 
 pub fn main() {
     let buffer = std::fs::read_to_string("benches/quotas.yml").expect("Failed to read file");
@@ -24,10 +24,11 @@ pub fn main() {
         })
         .collect();
 
-    let bencher_output: BencherOutput = samples.as_slice().into();
+    let memory_usage: MemoryMetrics = samples.as_slice().into();
 
-    let serialized_metrics = serde_json::to_string_pretty(&bencher_output)
-        .expect("Failed to serialize benchmark output.");
+    let serialized_metrics =
+        serde_json::to_string_pretty(&HashMap::from([("quota_parsing", memory_usage)]))
+            .expect("Failed to serialize benchmark output.");
 
     println!("{serialized_metrics}");
 }

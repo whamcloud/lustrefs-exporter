@@ -3,12 +3,7 @@ use std::time::Duration;
 use sysinfo::{Pid, ProcessExt, System, SystemExt};
 
 #[derive(serde::Serialize)]
-pub struct BencherOutput {
-    memory_usage: BencherMetrics,
-}
-
-#[derive(serde::Serialize)]
-struct BencherMetrics {
+pub struct MemoryMetrics {
     start_rss_mib: MetricEntry,
     peak_rss_mib: MetricEntry,
     end_rss_mib: MetricEntry,
@@ -90,27 +85,25 @@ impl GetStatsExt for &[MemoryUsage] {
     }
 }
 
-impl From<&[MemoryUsage]> for BencherOutput {
+impl From<&[MemoryUsage]> for MemoryMetrics {
     fn from(samples: &[MemoryUsage]) -> Self {
-        BencherOutput {
-            memory_usage: BencherMetrics {
-                start_rss_mib: samples.get_stats(|x| x.start_rss).bytes_as_mib(),
-                peak_rss_mib: samples.get_stats(|x| x.max_rss).bytes_as_mib(),
-                end_rss_mib: samples.get_stats(|x| x.end_rss).bytes_as_mib(),
-                memory_growth_mib: samples.get_stats(|x| x.memory_growth()).bytes_as_mib(),
-                peak_over_start_rss_ratio: samples
-                    .get_stats(|x| x.peak_over_start_rss())
-                    .bytes_as_mib(),
-                avg_runtime_rss_mib: samples.get_stats(|x| x.avg_rss).bytes_as_mib(),
-                start_virtual_mib: samples.get_stats(|x| x.start_virtual).bytes_as_mib(),
-                peak_virtual_mib: samples.get_stats(|x| x.max_virtual).bytes_as_mib(),
-                end_virtual_mib: samples.get_stats(|x| x.end_virtual).bytes_as_mib(),
-                virtual_growth_mib: samples.get_stats(|x| x.virtual_growth()).bytes_as_mib(),
-                peak_over_start_virtual_ratio: samples
-                    .get_stats(|x| x.peak_over_start_virtual())
-                    .bytes_as_mib(),
-                avg_runtime_virtual_mib: samples.get_stats(|x| x.avg_virtual).bytes_as_mib(),
-            },
+        MemoryMetrics {
+            start_rss_mib: samples.get_stats(|x| x.start_rss).bytes_as_mib(),
+            peak_rss_mib: samples.get_stats(|x| x.max_rss).bytes_as_mib(),
+            end_rss_mib: samples.get_stats(|x| x.end_rss).bytes_as_mib(),
+            memory_growth_mib: samples.get_stats(|x| x.memory_growth()).bytes_as_mib(),
+            peak_over_start_rss_ratio: samples
+                .get_stats(|x| x.peak_over_start_rss())
+                .bytes_as_mib(),
+            avg_runtime_rss_mib: samples.get_stats(|x| x.avg_rss).bytes_as_mib(),
+            start_virtual_mib: samples.get_stats(|x| x.start_virtual).bytes_as_mib(),
+            peak_virtual_mib: samples.get_stats(|x| x.max_virtual).bytes_as_mib(),
+            end_virtual_mib: samples.get_stats(|x| x.end_virtual).bytes_as_mib(),
+            virtual_growth_mib: samples.get_stats(|x| x.virtual_growth()).bytes_as_mib(),
+            peak_over_start_virtual_ratio: samples
+                .get_stats(|x| x.peak_over_start_virtual())
+                .bytes_as_mib(),
+            avg_runtime_virtual_mib: samples.get_stats(|x| x.avg_virtual).bytes_as_mib(),
         }
     }
 }
