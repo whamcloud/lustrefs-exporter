@@ -53,7 +53,7 @@ pub async fn load_test_concurrent(concurrency: usize, total_requests: usize) -> 
 
     let elapsed = start.elapsed();
 
-    println!(
+    eprintln!(
         "Load test completed: {successful_requests} successful, {failed_requests} failed requests in {elapsed:?}",
     );
 
