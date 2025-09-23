@@ -2,6 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
+use commandeer_test::commandeer;
 use std::time::Duration;
 use tokio::{task::JoinSet, time::Instant};
 
@@ -18,6 +19,7 @@ async fn make_single_request() -> Result<String, Box<dyn std::error::Error + Sen
 
 // Use a JoinSet to make `concurrent` requests at a time, waiting for each batch to complete before
 // starting the next batch.
+#[commandeer(Replay, "lctl", "lnetctl")]
 pub async fn load_test_concurrent(concurrency: usize, total_requests: usize) -> Duration {
     let start = Instant::now();
 

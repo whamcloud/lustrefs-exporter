@@ -64,103 +64,38 @@ impl MemoryUsage {
     }
 }
 
-impl From<MemoryUsage> for BencherOutput {
-    fn from(x: MemoryUsage) -> Self {
-        BencherOutput {
-            memory_usage: BencherMetrics {
-                start_rss_mib: MetricEntry {
-                    value: x.start_rss,
-                    ..Default::default()
-                },
-                peak_rss_mib: MetricEntry {
-                    value: x.max_rss,
-                    ..Default::default()
-                },
-                end_rss_mib: MetricEntry {
-                    value: x.end_rss,
-                    ..Default::default()
-                },
-                memory_growth_mib: MetricEntry {
-                    value: x.memory_growth(),
-                    ..Default::default()
-                },
-                peak_over_start_rss_ratio: MetricEntry {
-                    value: x.peak_over_start_rss(),
-                    ..Default::default()
-                },
-                avg_runtime_rss_mib: MetricEntry {
-                    value: x.avg_rss,
-                    lower_value: Some(x.min_rss),
-                    upper_value: Some(x.max_rss),
-                },
-                start_virtual_mib: MetricEntry {
-                    value: x.start_virtual,
-                    ..Default::default()
-                },
-                peak_virtual_mib: MetricEntry {
-                    value: x.max_virtual,
-                    ..Default::default()
-                },
-                end_virtual_mib: MetricEntry {
-                    value: x.end_virtual,
-                    ..Default::default()
-                },
-                virtual_growth_mib: MetricEntry {
-                    value: x.virtual_growth(),
-                    ..Default::default()
-                },
-                peak_over_start_virtual_ratio: MetricEntry {
-                    value: x.peak_over_start_virtual(),
-                    ..Default::default()
-                },
-                avg_runtime_virtual_mib: MetricEntry {
-                    value: x.avg_virtual,
-                    lower_value: Some(x.min_virtual),
-                    upper_value: Some(x.max_virtual),
-                },
-            },
+trait GetStatsExt {
+    fn get_stats(&self, accessor: impl Fn(&MemoryUsage) -> f64 + Copy) -> MetricEntry;
+}
+
+impl GetStatsExt for &[MemoryUsage] {
+    fn get_stats(&self, accessor: impl Fn(&MemoryUsage) -> f64 + Copy) -> MetricEntry {
+        MetricEntry {
+            value: self.iter().map(accessor).sum::<f64>() / self.len() as f64,
+            lower_value: self.iter().map(accessor).reduce(f64::min),
+            upper_value: self.iter().map(accessor).reduce(f64::max),
         }
     }
 }
 
-pub fn aggregate_samples(samples: &[MemoryUsage]) -> MemoryUsage {
-    let size = samples.len() as f64;
-    const MIB_CONVERSION_FACTOR: f64 = 1_048_576.0;
-
-    MemoryUsage {
-        start_rss: samples.iter().map(|x| x.start_rss).sum::<f64>() / size / MIB_CONVERSION_FACTOR,
-        end_rss: samples.iter().map(|x| x.end_rss).sum::<f64>() / size / MIB_CONVERSION_FACTOR,
-        avg_rss: samples.iter().map(|x| x.avg_rss).sum::<f64>() / size / MIB_CONVERSION_FACTOR,
-        min_rss: samples
-            .iter()
-            .map(|x| x.min_rss)
-            .fold(f64::INFINITY, f64::min)
-            / MIB_CONVERSION_FACTOR,
-        max_rss: samples
-            .iter()
-            .map(|x| x.max_rss)
-            .fold(f64::NEG_INFINITY, f64::max)
-            / MIB_CONVERSION_FACTOR,
-
-        start_virtual: samples.iter().map(|x| x.start_virtual).sum::<f64>()
-            / size
-            / MIB_CONVERSION_FACTOR,
-        end_virtual: samples.iter().map(|x| x.end_virtual).sum::<f64>()
-            / size
-            / MIB_CONVERSION_FACTOR,
-        avg_virtual: samples.iter().map(|x| x.avg_virtual).sum::<f64>()
-            / size
-            / MIB_CONVERSION_FACTOR,
-        min_virtual: samples
-            .iter()
-            .map(|x| x.min_virtual)
-            .fold(f64::INFINITY, f64::min)
-            / MIB_CONVERSION_FACTOR,
-        max_virtual: samples
-            .iter()
-            .map(|x| x.max_virtual)
-            .fold(f64::NEG_INFINITY, f64::max)
-            / MIB_CONVERSION_FACTOR,
+impl From<&[MemoryUsage]> for BencherOutput {
+    fn from(samples: &[MemoryUsage]) -> Self {
+        BencherOutput {
+            memory_usage: BencherMetrics {
+                start_rss_mib: samples.get_stats(|x| x.start_rss),
+                peak_rss_mib: samples.get_stats(|x| x.max_rss),
+                end_rss_mib: samples.get_stats(|x| x.end_rss),
+                memory_growth_mib: samples.get_stats(|x| x.memory_growth()),
+                peak_over_start_rss_ratio: samples.get_stats(|x| x.peak_over_start_rss()),
+                avg_runtime_rss_mib: samples.get_stats(|x| x.avg_rss),
+                start_virtual_mib: samples.get_stats(|x| x.start_virtual),
+                peak_virtual_mib: samples.get_stats(|x| x.max_virtual),
+                end_virtual_mib: samples.get_stats(|x| x.end_virtual),
+                virtual_growth_mib: samples.get_stats(|x| x.virtual_growth()),
+                peak_over_start_virtual_ratio: samples.get_stats(|x| x.peak_over_start_virtual()),
+                avg_runtime_virtual_mib: samples.get_stats(|x| x.avg_virtual),
+            },
+        }
     }
 }
 
@@ -177,7 +112,7 @@ impl TryFrom<&[Sample]> for MemoryUsage {
     type Error = Error;
 
     fn try_from(value: &[Sample]) -> Result<Self, Self::Error> {
-        if value.is_empty() {
+        if value.len() < 10 {
             return Err(Error::NotEnoughSamples);
         }
 
@@ -222,7 +157,7 @@ pub fn sample_memory() -> Sample {
         .unwrap_or_default()
 }
 
-pub fn trace_memory(mut routine: impl FnMut(), duration: Duration) -> Vec<Sample> {
+pub fn trace_memory(routine: impl Fn(), duration: Duration) -> Vec<Sample> {
     tokio::runtime::Builder::new_multi_thread()
         .enable_time()
         .enable_io()
@@ -258,4 +193,53 @@ pub fn trace_memory(mut routine: impl FnMut(), duration: Duration) -> Vec<Sample
 
             samples
         })
+}
+
+pub fn trace_memory_async<I, F>(
+    init: impl Fn() -> I + Send + 'static,
+    routine: impl Fn() -> F,
+    duration: Duration,
+) -> Vec<Sample>
+where
+    I: Future<Output = ()> + Sized + Send + 'static,
+    F: Future<Output = ()> + Sized,
+{
+    let rt = tokio::runtime::Builder::new_multi_thread()
+        .enable_time()
+        .enable_io()
+        .build()
+        .expect("Failed to build tokio runtime");
+
+    rt.spawn(init());
+
+    let mut samples = vec![sample_memory()];
+
+    rt.block_on(async move {
+        let (abort_sender, mut abort_receiver) = tokio::sync::oneshot::channel::<()>();
+        let monitor_handle = tokio::spawn(async move {
+            let mut interval = tokio::time::interval(duration);
+
+            while abort_receiver.try_recv().is_err() {
+                interval.tick().await;
+
+                samples.push(sample_memory());
+            }
+
+            samples
+        });
+
+        routine().await;
+
+        abort_sender
+            .send(())
+            .expect("Failed to send stop signal to memory monitor");
+
+        let mut samples = monitor_handle
+            .await
+            .expect("Failed to collect memory metrics from run.");
+
+        samples.push(sample_memory());
+
+        samples
+    })
 }

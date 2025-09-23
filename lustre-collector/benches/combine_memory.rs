@@ -9,17 +9,18 @@ pub fn main() {
 
     let samples: Vec<_> = (0..100)
         .map(|_| {
-            let routine = move || {
-                let mut needle = needle;
-                while let Ok((_, e)) = combine_parse().easy_parse(needle) {
-                    needle = e;
-                }
-            };
-
-            trace_memory(routine, Duration::from_millis(10))
-                .as_slice()
-                .try_into()
-                .expect("Failed to extract memory usage from samples")
+            trace_memory(
+                move || {
+                    let mut needle = needle;
+                    while let Ok((_, e)) = combine_parse().easy_parse(needle) {
+                        needle = e;
+                    }
+                },
+                Duration::from_millis(10),
+            )
+            .as_slice()
+            .try_into()
+            .expect("Failed to extract memory usage from samples")
         })
         .collect();
 
