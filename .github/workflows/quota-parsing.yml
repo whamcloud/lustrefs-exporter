@@ -58,11 +58,6 @@ jobs:
           --ci-id '${{ github.workflow_ref }}-performance' \
           "cargo bench --bench combine_performance"
 
-      - name: Run quota parsing memory usage benchmark
-        run: |
-          # Run the benchmark first (suppress Criterion output)
-          cargo bench --bench combine_memory 2>&1 > /dev/null
-
       - name: Track quota parsing memory usage benchmark on main branch
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
@@ -81,7 +76,7 @@ jobs:
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
           --ci-only-thresholds \
           --ci-id '${{ github.workflow_ref }}-memory' \
-          --file lustre-collector/combine_mem_usage.json
+          "cargo bench --bench combine_memory"
 
       - name: Compare quota parsing memory metrics with main branch
         if: github.event_name == 'pull_request'
@@ -98,4 +93,4 @@ jobs:
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
           --ci-only-thresholds \
           --ci-id '${{ github.workflow_ref }}-memory' \
-          --file lustre-collector/combine_mem_usage.json
+          "cargo bench --bench combine_memory"
