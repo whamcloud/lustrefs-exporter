@@ -7,6 +7,7 @@ version.workspace = true
 [dependencies]
 axum = { workspace = true, features = ["http2"] }
 clap = { workspace = true, features = ["derive", "env", "wrap_help", "string"] }
+divan = "0.1.21"
 lustre_collector.path = "../lustre-collector"
 memory-benchmarking = { version = "0.11.0", path = "../memory-benchmarking" }
 prometheus-client.workspace = true
