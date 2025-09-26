@@ -1,6 +1,6 @@
 ---
 source: lustrefs-exporter/src/routes.rs
-expression: response.as_text().await
+expression: response.try_into_string().await
 ---
 # HELP lustre_send_count_total Total number of messages that have been sent.
 # TYPE lustre_send_count_total counter
