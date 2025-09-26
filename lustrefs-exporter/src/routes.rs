@@ -21,6 +21,7 @@ use prometheus_client::{encoding::text::encode, registry::Registry};
 use serde::Deserialize;
 use std::{
     borrow::Cow,
+    collections::BTreeMap,
     io::{self, BufRead as _, BufReader},
 };
 use tokio::process::Command;
@@ -30,11 +31,31 @@ use tower::{
 };
 use tower_http::compression::CompressionLayer;
 
-#[derive(Debug, Deserialize)]
-pub struct Params {
-    // Only enable jobstats if "jobstats=true"
-    #[serde(default)]
-    jobstats: bool,
+#[derive(Debug, Deserialize, PartialEq, PartialOrd, Eq, Ord, Hash, Copy, Clone)]
+#[serde(rename_all = "snake_case")]
+pub enum Dimension {
+    Jobstats,
+    Lnet,
+    Lustre,
+    LnetStats,
+}
+
+pub type Params = BTreeMap<Dimension, bool>;
+
+static DEFAULT_PARAMS: [(Dimension, bool); 3] = [
+    (Dimension::Lnet, true),
+    (Dimension::Lustre, true),
+    (Dimension::LnetStats, true),
+];
+
+trait EnableConvenienceExt {
+    fn enabled(&self, param: &Dimension) -> bool;
+}
+
+impl EnableConvenienceExt for Params {
+    fn enabled(&self, param: &Dimension) -> bool {
+        self.get(param).copied().unwrap_or_default()
+    }
 }
 
 const TIMEOUT_DURATION_SECS: u64 = 120;
@@ -149,69 +170,72 @@ pub fn lnet_stats_output() -> Command {
 pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
     let mut registry = Registry::default();
 
-    if params.jobstats {
-        let child = tokio::task::spawn_blocking(move || jobstats_metrics_cmd().spawn()).await?;
-
-        if let Ok(mut child) =
-            child.inspect_err(|e| tracing::debug!("Error while spawning lctl jobstats: {e}"))
-        {
-            let reader = BufReader::with_capacity(
-                128 * 1_024,
-                child.stdout.take().ok_or(io::Error::new(
-                    io::ErrorKind::NotFound,
-                    "stdout missing for lctl jobstats call.",
-                ))?,
-            );
-
-            let reader_stderr = BufReader::new(child.stderr.take().ok_or(io::Error::new(
-                io::ErrorKind::NotFound,
-                "stderr missing for lctl jobstats call.",
-            ))?);
-
-            tokio::task::spawn(async move {
-                for line in reader_stderr.lines().map_while(Result::ok) {
-                    tracing::debug!("stderr: {line}");
-                }
-            });
-
-            tokio::task::spawn_blocking(move || {
-                if let Err(e) = child.wait() {
-                    tracing::debug!("Unexpected error when waiting for child: {e}");
-                }
-            });
-
-            jobstats_stream(reader, JobstatMetrics::default())
-                .await?
-                .register_metric(&mut registry);
-        }
-    } else {
-        let mut output = vec![];
-
-        let lctl = lustre_metrics_output().output().await?;
-
-        let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
-
-        output.append(&mut lctl_output);
-
-        let lnetctl = net_show_output().output().await?;
-
-        let mut lnetctl_output = parse_lnetctl_output(&lnetctl.stdout)?;
-
-        output.append(&mut lnetctl_output);
-
-        let lnetctl_stats_output = lnet_stats_output().output().await?;
-
-        let mut lnetctl_stats_record = parse_lnetctl_stats(&lnetctl_stats_output.stdout)?;
-
-        output.append(&mut lnetctl_stats_record);
-
-        // Build the lustre stats
-        let mut opentelemetry_metrics = Metrics::default();
-
-        // Build and register Lustre metrics
-        metrics::build_lustre_stats(&output, &mut opentelemetry_metrics);
-        opentelemetry_metrics.register_metric(&mut registry);
+    let mut targets = BTreeMap::from(DEFAULT_PARAMS);
+    for (param, value) in params {
+        targets
+            .entry(param)
+            .and_modify(|v| *v = value)
+            .or_insert(value);
     }
+
+    if targets.enabled(&Dimension::Jobstats)
+        && let Ok(mut child) = tokio::task::spawn_blocking(move || jobstats_metrics_cmd().spawn())
+            .await?
+            .inspect_err(|e| tracing::debug!("Error while spawning lctl jobstats: {e}"))
+    {
+        let reader = BufReader::with_capacity(
+            128 * 1_024,
+            child.stdout.take().ok_or(io::Error::new(
+                io::ErrorKind::NotFound,
+                "stdout missing for lctl jobstats call.",
+            ))?,
+        );
+
+        let reader_stderr = BufReader::new(child.stderr.take().ok_or(io::Error::new(
+            io::ErrorKind::NotFound,
+            "stderr missing for lctl jobstats call.",
+        ))?);
+
+        tokio::task::spawn(async move {
+            for line in reader_stderr.lines().map_while(Result::ok) {
+                tracing::debug!("stderr: {line}");
+            }
+        });
+
+        tokio::task::spawn_blocking(move || {
+            if let Err(e) = child.wait() {
+                tracing::debug!("Unexpected error when waiting for child: {e}");
+            }
+        });
+
+        jobstats_stream(reader, JobstatMetrics::default())
+            .await?
+            .register_metric(&mut registry);
+    }
+
+    let mut output = vec![];
+
+    if targets.enabled(&Dimension::Lustre) {
+        let lctl = lustre_metrics_output().output().await?;
+        output.extend(parse_lctl_output(&lctl.stdout)?);
+    }
+
+    if targets.enabled(&Dimension::LnetStats) {
+        let lnetctl_stats_output = lnet_stats_output().output().await?;
+        output.extend(parse_lnetctl_stats(&lnetctl_stats_output.stdout)?);
+    }
+
+    if targets.enabled(&Dimension::Lnet) {
+        let lnetctl = net_show_output().output().await?;
+        output.extend(parse_lnetctl_output(&lnetctl.stdout)?);
+    }
+
+    // Build the lustre stats
+    let mut opentelemetry_metrics = Metrics::default();
+
+    // Build and register Lustre metrics
+    metrics::build_lustre_stats(&output, &mut opentelemetry_metrics);
+    opentelemetry_metrics.register_metric(&mut registry);
 
     let mut buffer = String::new();
     encode(&mut buffer, &registry)?;
@@ -267,10 +291,10 @@ mod tests {
     #[serial]
     async fn test_metrics_endpoint_is_idempotent() -> Result<(), Box<dyn std::error::Error>> {
         let (request, app) = get_app();
-        let original = app.oneshot(request).await.unwrap().as_text().await;
+        let original = app.oneshot(request).await.unwrap().try_into_string().await;
 
         let (request, app) = get_app();
-        let new = app.oneshot(request).await.unwrap().as_text().await;
+        let new = app.oneshot(request).await.unwrap().try_into_string().await;
         assert_eq!(original, new);
 
         insta::assert_snapshot!(original);
@@ -279,11 +303,11 @@ mod tests {
     }
 
     trait AsText {
-        fn as_text(self) -> impl Future<Output = String>;
+        fn try_into_string(self) -> impl Future<Output = String>;
     }
 
     impl AsText for Response<Body> {
-        async fn as_text(self) -> String {
+        async fn try_into_string(self) -> String {
             let mut body = self.into_body().into_data_stream();
             let mut out = vec![];
 
@@ -306,7 +330,7 @@ mod tests {
     #[serial]
     async fn test_app_params(params: Option<&str>) {
         let request = Request::builder()
-            .uri(&format!(
+            .uri(format!(
                 "/metrics{}",
                 params.map(|p| format!("?{p}")).unwrap_or_default()
             ))
@@ -317,7 +341,10 @@ mod tests {
         let response = crate::routes::app().oneshot(request).await.unwrap();
 
         assert!(response.status().is_success());
-        insta::assert_snapshot!(params.unwrap_or("default"), response.as_text().await);
+        insta::assert_snapshot!(
+            params.unwrap_or("default"),
+            response.try_into_string().await
+        );
     }
 
     #[commandeer(Replay, "lctl", "lnetctl")]
