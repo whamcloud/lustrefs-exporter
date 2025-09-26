@@ -246,8 +246,10 @@ mod tests {
         Router,
         body::{Body, to_bytes},
         extract::Request,
+        response::Response,
     };
     use commandeer_test::commandeer;
+    use futures_util::StreamExt;
     use serial_test::serial;
     use std::{
         env,
@@ -275,53 +277,57 @@ mod tests {
     #[serial]
     async fn test_metrics_endpoint_is_idempotent() -> Result<(), Box<dyn std::error::Error>> {
         let (request, app) = get_app();
-
-        let resp = app.oneshot(request).await.unwrap();
-
-        let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
-        let original_body_str = std::str::from_utf8(&body).unwrap();
+        let original = app.oneshot(request).await.unwrap().as_text().await;
 
         let (request, app) = get_app();
+        let new = app.oneshot(request).await.unwrap().as_text().await;
+        assert_eq!(original, new);
 
-        let resp = app.oneshot(request).await.unwrap();
-
-        let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
-        let body_str = std::str::from_utf8(&body).unwrap();
-
-        assert_eq!(original_body_str, body_str);
-
-        insta::assert_snapshot!(original_body_str);
+        insta::assert_snapshot!(original);
 
         Ok(())
     }
 
-    #[commandeer(Replay, "lctl", "lnetctl")]
-    #[tokio::test]
-    #[serial]
-    async fn test_app_function() {
-        let (request, app) = get_app();
+    trait AsText {
+        fn as_text(self) -> impl Future<Output = String>;
+    }
 
-        let response = app.oneshot(request).await.unwrap();
+    impl AsText for Response<Body> {
+        async fn as_text(self) -> String {
+            let mut body = self.into_body().into_data_stream();
+            let mut out = vec![];
 
-        assert!(response.status().is_success())
+            while let Some(data) = body.next().await {
+                out.extend(Vec::from(data.unwrap()));
+            }
+
+            String::from_utf8_lossy(&out).into()
+        }
     }
 
     #[commandeer(Replay, "lctl", "lnetctl")]
+    #[test_case::test_case(None)]
+    #[test_case::test_case(Some("jobstats=true"))]
+    #[test_case::test_case(Some("lustre=true&lnet=false&lnet_stats=false"))]
+    #[test_case::test_case(Some("lustre=false&lnet=true&lnet_stats=false"))]
+    #[test_case::test_case(Some("lustre=false&lnet=false&lnet_stats=true"))]
+    #[test_case::test_case(Some("lustre=false&lnet=false&lnet_stats=false&jobstats=true"))]
     #[tokio::test]
     #[serial]
-    async fn test_app_routes() {
-        let app = crate::routes::app();
-
-        // Test that the /metrics route exists
+    async fn test_app_params(params: Option<&str>) {
         let request = Request::builder()
-            .uri("/metrics")
+            .uri(&format!(
+                "/metrics{}",
+                params.map(|p| format!("?{p}")).unwrap_or_default()
+            ))
             .method("GET")
             .body(Body::empty())
             .unwrap();
 
-        let response = app.oneshot(request).await.unwrap();
+        let response = crate::routes::app().oneshot(request).await.unwrap();
 
-        assert!(response.status().is_success())
+        assert!(response.status().is_success());
+        insta::assert_snapshot!(params.unwrap_or("default"), response.as_text().await);
     }
 
     #[commandeer(Replay, "lctl", "lnetctl")]
