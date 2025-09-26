@@ -149,79 +149,69 @@ pub fn lnet_stats_output() -> Command {
 pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
     let mut registry = Registry::default();
 
-    // Build the lustre stats
-    let mut opentelemetry_metrics = Metrics::default();
-
     if params.jobstats {
-        let child = tokio::task::spawn_blocking(move || {
-            let child = jobstats_metrics_cmd().spawn()?;
+        let child = tokio::task::spawn_blocking(move || jobstats_metrics_cmd().spawn()).await?;
 
-            Ok::<_, Error>(child)
-        })
-        .await?;
-
-        match child {
-            Ok(mut child) => {
-                let reader = BufReader::with_capacity(
-                    128 * 1_024,
-                    child.stdout.take().ok_or(io::Error::new(
-                        io::ErrorKind::NotFound,
-                        "stdout missing for lctl jobstats call.",
-                    ))?,
-                );
-
-                let reader_stderr = BufReader::new(child.stderr.take().ok_or(io::Error::new(
+        if let Ok(mut child) =
+            child.inspect_err(|e| tracing::debug!("Error while spawning lctl jobstats: {e}"))
+        {
+            let reader = BufReader::with_capacity(
+                128 * 1_024,
+                child.stdout.take().ok_or(io::Error::new(
                     io::ErrorKind::NotFound,
-                    "stderr missing for lctl jobstats call.",
-                ))?);
+                    "stdout missing for lctl jobstats call.",
+                ))?,
+            );
 
-                tokio::task::spawn(async move {
-                    for line in reader_stderr.lines().map_while(Result::ok) {
-                        tracing::debug!("stderr: {line}");
-                    }
-                });
+            let reader_stderr = BufReader::new(child.stderr.take().ok_or(io::Error::new(
+                io::ErrorKind::NotFound,
+                "stderr missing for lctl jobstats call.",
+            ))?);
 
-                tokio::task::spawn_blocking(move || {
-                    if let Err(e) = child.wait() {
-                        tracing::debug!("Unexpected error when waiting for child: {e}");
-                    }
-                });
+            tokio::task::spawn(async move {
+                for line in reader_stderr.lines().map_while(Result::ok) {
+                    tracing::debug!("stderr: {line}");
+                }
+            });
 
-                let handle = jobstats_stream(reader, JobstatMetrics::default());
+            tokio::task::spawn_blocking(move || {
+                if let Err(e) = child.wait() {
+                    tracing::debug!("Unexpected error when waiting for child: {e}");
+                }
+            });
 
-                let metrics = handle.await?;
-
-                metrics.register_metric(&mut registry);
-            }
-            Err(e) => {
-                tracing::debug!("Error while spawning lctl jobstats: {e}");
-            }
+            jobstats_stream(reader, JobstatMetrics::default())
+                .await?
+                .register_metric(&mut registry);
         }
+    } else {
+        let mut output = vec![];
+
+        let lctl = lustre_metrics_output().output().await?;
+
+        let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
+
+        output.append(&mut lctl_output);
+
+        let lnetctl = net_show_output().output().await?;
+
+        let mut lnetctl_output = parse_lnetctl_output(&lnetctl.stdout)?;
+
+        output.append(&mut lnetctl_output);
+
+        let lnetctl_stats_output = lnet_stats_output().output().await?;
+
+        let mut lnetctl_stats_record = parse_lnetctl_stats(&lnetctl_stats_output.stdout)?;
+
+        output.append(&mut lnetctl_stats_record);
+
+        // Build the lustre stats
+        let mut opentelemetry_metrics = Metrics::default();
+
+        // Build and register Lustre metrics
+        metrics::build_lustre_stats(&output, &mut opentelemetry_metrics);
+        opentelemetry_metrics.register_metric(&mut registry);
     }
-
-    let mut output = vec![];
-
-    let lctl = lustre_metrics_output().output().await?;
-
-    let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
-
-    output.append(&mut lctl_output);
-
-    let lnetctl = net_show_output().output().await?;
-
-    let mut lnetctl_output = parse_lnetctl_output(&lnetctl.stdout)?;
-
-    output.append(&mut lnetctl_output);
-
-    let lnetctl_stats_output = lnet_stats_output().output().await?;
-
-    let mut lnetctl_stats_record = parse_lnetctl_stats(&lnetctl_stats_output.stdout)?;
-
-    output.append(&mut lnetctl_stats_record);
-
-    // Build and register Lustre metrics
-    metrics::build_lustre_stats(&output, &mut opentelemetry_metrics);
-    opentelemetry_metrics.register_metric(&mut registry);
 
     let mut buffer = String::new();
     encode(&mut buffer, &registry)?;
