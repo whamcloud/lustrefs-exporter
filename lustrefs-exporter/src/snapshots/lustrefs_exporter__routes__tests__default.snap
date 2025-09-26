@@ -1,6 +1,6 @@
 ---
 source: lustrefs-exporter/src/routes.rs
-expression: response.as_text().await
+expression: response.try_into_string().await
 ---
 # HELP lustre_health_healthy Indicates whether the Lustre server is healthy or not. 1 is healthy, 0 is unhealthy.
 # TYPE lustre_health_healthy gauge
