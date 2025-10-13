@@ -151,12 +151,10 @@ pub mod tests {
         "lustre_cache_miss_total",
         "lustre_get_page_total",
         "lustre_health_healthy",
-        "lustre_health_healthy",
         "lustre_many_credits_total",
         "lustre_stats_time_max",
         "lustre_stats_time_min",
         "lustre_stats_time_total",
-        "target_info",
         "target_info",
     ];
 
