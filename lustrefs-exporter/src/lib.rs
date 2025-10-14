@@ -147,6 +147,7 @@ pub mod tests {
     // These metrics are ignored for the comparison with the previous implementation
     // since they are new and not present in the previous implementation.
     const IGNORED_METRICS: &[&str] = &[
+        "lustre_cache_hit_total",
         "lustre_cache_access_total",
         "lustre_cache_miss_total",
         "lustre_get_page_total",

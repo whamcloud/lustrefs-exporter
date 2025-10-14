@@ -133,7 +133,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use insta::assert_debug_snapshot;
+    use insta::{assert_compact_debug_snapshot, assert_debug_snapshot};
 
     #[test]
     fn test_name_count_units() {
@@ -142,20 +142,9 @@ mod tests {
 
         let result = name_count_units().parse(x);
 
-        assert_debug_snapshot!(
+        assert_compact_debug_snapshot!(
             result,
-            @r#"
-        Ok(
-            (
-                (
-                    "create",
-                    726,
-                    "reqs",
-                ),
-                "\n",
-            ),
-        )
-        "#
+            @r#"Ok((("create", 726, "reqs"), "\n"))"#
         );
     }
 
@@ -166,29 +155,8 @@ mod tests {
 
         let result = stat().parse(x);
 
-        assert_debug_snapshot!(
-            result, @r#"
-        Ok(
-            (
-                Stat {
-                    name: "cache_miss",
-                    units: "pages",
-                    samples: 21108,
-                    min: Some(
-                        1,
-                    ),
-                    max: Some(
-                        1,
-                    ),
-                    sum: Some(
-                        21108,
-                    ),
-                    sumsquare: None,
-                },
-                "",
-            ),
-        )
-        "#
+        assert_compact_debug_snapshot!(
+            result, @r#"Ok((Stat { name: "cache_miss", units: "pages", samples: 21108, min: Some(1), max: Some(1), sum: Some(21108), sumsquare: None }, ""))"#
         );
     }
 
@@ -199,31 +167,8 @@ mod tests {
 
         let result = stat().parse(x);
 
-        assert_debug_snapshot!(
-            result, @r#"
-        Ok(
-            (
-                Stat {
-                    name: "cache_hit",
-                    units: "pages",
-                    samples: 99,
-                    min: Some(
-                        1,
-                    ),
-                    max: Some(
-                        1,
-                    ),
-                    sum: Some(
-                        99,
-                    ),
-                    sumsquare: Some(
-                        10,
-                    ),
-                },
-                "",
-            ),
-        )
-        "#
+        assert_compact_debug_snapshot!(
+            result, @r#"Ok((Stat { name: "cache_hit", units: "pages", samples: 99, min: Some(1), max: Some(1), sum: Some(99), sumsquare: Some(10) }, ""))"#
         );
     }
 
@@ -234,23 +179,8 @@ mod tests {
 
         let result = stat().parse(x);
 
-        assert_debug_snapshot!(
-            result, @r#"
-        Ok(
-            (
-                Stat {
-                    name: "cache_hit",
-                    units: "pages",
-                    samples: 123,
-                    min: None,
-                    max: None,
-                    sum: None,
-                    sumsquare: None,
-                },
-                "",
-            ),
-        )
-        "#
+        assert_compact_debug_snapshot!(
+            result, @r#"Ok((Stat { name: "cache_hit", units: "pages", samples: 123, min: None, max: None, sum: None, sumsquare: None }, ""))"#
         );
     }
 
@@ -261,32 +191,9 @@ mod tests {
 
         let result = stat().parse(x);
 
-        assert_debug_snapshot!(
+        assert_compact_debug_snapshot!(
             result,
-            @r#"
-        Ok(
-            (
-                Stat {
-                    name: "obd_ping",
-                    units: "usec",
-                    samples: 1108,
-                    min: Some(
-                        15,
-                    ),
-                    max: Some(
-                        72,
-                    ),
-                    sum: Some(
-                        47014,
-                    ),
-                    sumsquare: Some(
-                        2156132,
-                    ),
-                },
-                "",
-            ),
-        )
-        "#
+            @r#"Ok((Stat { name: "obd_ping", units: "usec", samples: 1108, min: Some(15), max: Some(72), sum: Some(47014), sumsquare: Some(2156132) }, ""))"#
 
         );
     }

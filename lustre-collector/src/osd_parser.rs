@@ -26,12 +26,11 @@ pub(crate) const KBYTES_TOTAL: &str = "kbytestotal";
 pub(crate) const FS_TYPE: &str = "fstype";
 
 pub(crate) const BRW_STATS: &str = "brw_stats";
+pub(crate) const STATS: &str = "stats";
 
 pub(crate) const QUOTA_ACCT_GRP: &str = "quota_slave.acct_group";
 pub(crate) const QUOTA_ACCT_USR: &str = "quota_slave.acct_user";
 pub(crate) const QUOTA_ACCT_PRJ: &str = "quota_slave.acct_project";
-
-pub(crate) const STATS: &str = "stats";
 
 pub(crate) fn params() -> Vec<String> {
     vec![
@@ -65,6 +64,7 @@ enum OsdStat {
     KBytesTotal(u64),
     BrwStats(Vec<BrwStats>),
     QuotaStats(QuotaStatsOsd),
+    /// Generic OSD statistics (performance counters, operation counts)
     Stats(Vec<Stat>),
 }
 

@@ -197,19 +197,19 @@ impl StatsMetrics {
 
         registry.register_without_auto_suffix(
             "lustre_cache_access_total",
-            "The total number cache accesses",
+            "The total number of cache accesses",
             self.cache_access_total.clone(),
         );
 
         registry.register_without_auto_suffix(
             "lustre_cache_hit_total",
-            "The total of cache hits",
+            "The total number of cache hits",
             self.cache_hit_total.clone(),
         );
 
         registry.register_without_auto_suffix(
             "lustre_cache_miss_total",
-            "The total number cache misses",
+            "The total number of cache misses",
             self.cache_miss_total.clone(),
         );
 
@@ -293,7 +293,7 @@ pub fn build_ost_stats(stats: &[Stat], target: &Target, metrics: &mut StatsMetri
                 }
             }
             "get_page" => {
-                let write_labels = vec![
+                let get_page_labels = vec![
                     ("component", kind.to_prom_label().to_string()),
                     ("operation", "get_page".into()),
                     ("target", target.deref().to_string()),
@@ -301,7 +301,7 @@ pub fn build_ost_stats(stats: &[Stat], target: &Target, metrics: &mut StatsMetri
 
                 metrics
                     .get_page_total
-                    .get_or_create(&write_labels)
+                    .get_or_create(&get_page_labels)
                     .inc_by(s.samples);
             }
 

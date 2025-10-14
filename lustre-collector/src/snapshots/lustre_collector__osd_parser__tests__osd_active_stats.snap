@@ -138,6 +138,83 @@ expression: result
             ),
         ),
         Target(
+            Stats(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "stats",
+                    ),
+                    target: Target(
+                        "ai400x2-OST0001",
+                    ),
+                    value: [
+                        Stat {
+                            name: "get_page",
+                            units: "usecs",
+                            samples: 375,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                23,
+                            ),
+                            sum: Some(
+                                2956,
+                            ),
+                            sumsquare: Some(
+                                28656,
+                            ),
+                        },
+                        Stat {
+                            name: "cache_access",
+                            units: "pages",
+                            samples: 297,
+                            min: Some(
+                                830,
+                            ),
+                            max: Some(
+                                1024,
+                            ),
+                            sum: Some(
+                                303934,
+                            ),
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "cache_hit",
+                            units: "pages",
+                            samples: 123,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                1024,
+                            ),
+                            sum: Some(
+                                303934,
+                            ),
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "cache_miss",
+                            units: "pages",
+                            samples: 297,
+                            min: Some(
+                                830,
+                            ),
+                            max: Some(
+                                1024,
+                            ),
+                            sum: Some(
+                                303934,
+                            ),
+                            sumsquare: None,
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
             FilesTotal(
                 TargetStat {
                     kind: Mgt,
