@@ -2356,17 +2356,16 @@
         "param": "changelog_users",
         "target": "ai400x2-MDT0000",
         "value": {
-          "users":
-            [
-              {
-                "user": "cl2",
-                "index": 8,
-                "idle_secs": 180
-              }
-            ],
+          "users": [
+            {
+              "user": "cl2",
+              "index": 8,
+              "idle_secs": 180
+            }
+          ],
           "current_index": 50
-          }
         }
+      }
     }
   },
   {
@@ -2376,13 +2375,10 @@
         "param": "changelog_users",
         "target": "ai400x2-MDT0001",
         "value": {
-          "users":
-            [
-
-            ],
+          "users": [],
           "current_index": 0
-          }
         }
+      }
     }
   },
   {
@@ -2983,6 +2979,62 @@
           "sumsquare": 29612
         }
       ]
+    }
+  },
+  {
+    "Target": {
+      "Stats": {
+        "kind": "Ost",
+        "param": "stats",
+        "target": "exatest-OST0003",
+        "value": [
+          {
+            "name": "get_page",
+            "units": "usecs",
+            "samples": 375,
+            "min": 1,
+            "max": 23,
+            "sum": 2956,
+            "sumsquare": 28656
+          },
+          {
+            "name": "cache_access",
+            "units": "pages",
+            "samples": 297,
+            "min": 830,
+            "max": 1024,
+            "sum": 303934,
+            "sumsquare": null
+          },
+          {
+            "name": "cache_miss",
+            "units": "pages",
+            "samples": 297,
+            "min": 830,
+            "max": 1024,
+            "sum": 303934,
+            "sumsquare": null
+          },
+          {
+            "name": "cache_hit",
+            "units": "pages",
+            "samples": 2810,
+            "min": 830,
+            "max": 2956,
+            "sum": 28656,
+            "sumsquare": null
+          },
+          {
+            "name": "many_credits",
+            "units": "reqs",
+            "samples": 1,
+            "min": null,
+            "max": null,
+            "sum": null,
+            "sumsquare": null
+          }
+        ]
+      }
     }
   },
   {

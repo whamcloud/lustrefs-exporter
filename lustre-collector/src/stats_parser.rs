@@ -9,6 +9,7 @@ use crate::{
     mdd_parser::MDD,
     mds::mds_parser::MDS,
     nodemap::NODEMAP,
+    osd_parser::OSD,
     oss::oss_parser::OST,
     quota::QMT,
     time::time_triple,
@@ -43,6 +44,7 @@ where
             MDD,
             NODEMAP,
             QMT,
+            OSD,
         ])
         .skip(spaces()),
         digits(),
@@ -131,7 +133,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use insta::assert_debug_snapshot;
+    use insta::{assert_compact_debug_snapshot, assert_debug_snapshot};
 
     #[test]
     fn test_name_count_units() {
@@ -140,9 +142,9 @@ mod tests {
 
         let result = name_count_units().parse(x);
 
-        assert_eq!(
+        assert_compact_debug_snapshot!(
             result,
-            Ok((("create".to_string(), 726, "reqs".to_string()), "\n"))
+            @r#"Ok((("create", 726, "reqs"), "\n"))"#
         );
     }
 
@@ -153,20 +155,32 @@ mod tests {
 
         let result = stat().parse(x);
 
-        assert_eq!(
-            result,
-            Ok((
-                Stat {
-                    name: "cache_miss".to_string(),
-                    samples: 21108,
-                    units: "pages".to_string(),
-                    min: Some(1),
-                    max: Some(1),
-                    sum: Some(21108),
-                    sumsquare: None
-                },
-                ""
-            ))
+        assert_compact_debug_snapshot!(
+            result, @r#"Ok((Stat { name: "cache_miss", units: "pages", samples: 21108, min: Some(1), max: Some(1), sum: Some(21108), sumsquare: None }, ""))"#
+        );
+    }
+
+    #[test]
+    fn test_stat_cache_hit() {
+        let x = r#"cache_hit                99 samples [pages] 1 1 99 10
+"#;
+
+        let result = stat().parse(x);
+
+        assert_compact_debug_snapshot!(
+            result, @r#"Ok((Stat { name: "cache_hit", units: "pages", samples: 99, min: Some(1), max: Some(1), sum: Some(99), sumsquare: Some(10) }, ""))"#
+        );
+    }
+
+    #[test]
+    fn test_stat_cache_hit_all_none() {
+        let x = r#"cache_hit                123 samples [pages]
+"#;
+
+        let result = stat().parse(x);
+
+        assert_compact_debug_snapshot!(
+            result, @r#"Ok((Stat { name: "cache_hit", units: "pages", samples: 123, min: None, max: None, sum: None, sumsquare: None }, ""))"#
         );
     }
 
@@ -177,20 +191,10 @@ mod tests {
 
         let result = stat().parse(x);
 
-        assert_eq!(
+        assert_compact_debug_snapshot!(
             result,
-            Ok((
-                Stat {
-                    name: "obd_ping".to_string(),
-                    units: "usec".to_string(),
-                    samples: 1108,
-                    min: Some(15),
-                    max: Some(72),
-                    sum: Some(47014),
-                    sumsquare: Some(2_156_132)
-                },
-                ""
-            ))
+            @r#"Ok((Stat { name: "obd_ping", units: "usec", samples: 1108, min: Some(15), max: Some(72), sum: Some(47014), sumsquare: Some(2156132) }, ""))"#
+
         );
     }
 
@@ -209,6 +213,10 @@ statfs                    18 samples [reqs]
 preprw                    9 samples [reqs]
 commitrw                  9 samples [reqs]
 ping                      1075 samples [reqs]
+get_page                  13 samples [usecs] 0 3 6 18
+cache_access              4 samples [pages] 1 25 52
+cache_hit                 4 samples [pages] 1 25 52
+many_credits              1 samples [reqs] 1 1 1
 "#;
 
         let result = stats().parse(x).unwrap();

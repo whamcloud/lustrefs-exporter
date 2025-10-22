@@ -7,7 +7,8 @@ use crate::{
     base_parsers::{digits, param, period, target, till_newline, till_period},
     brw_stats_parser::brw_stats,
     quota::quota_parser::quota_stats_osd,
-    types::{BrwStats, Param, Record, Target, TargetStat, TargetStats, TargetVariant},
+    stats_parser::stats,
+    types::{BrwStats, Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
 };
 use combine::{
     Parser, attempt, choice,
@@ -16,6 +17,7 @@ use combine::{
     stream::{Stream, StreamErrorFor},
 };
 
+pub(crate) const OSD: &str = "osd";
 pub(crate) const FILES_FREE: &str = "filesfree";
 pub(crate) const FILES_TOTAL: &str = "filestotal";
 pub(crate) const KBYTES_AVAIL: &str = "kbytesavail";
@@ -24,6 +26,7 @@ pub(crate) const KBYTES_TOTAL: &str = "kbytestotal";
 pub(crate) const FS_TYPE: &str = "fstype";
 
 pub(crate) const BRW_STATS: &str = "brw_stats";
+pub(crate) const STATS: &str = "stats";
 
 pub(crate) const QUOTA_ACCT_GRP: &str = "quota_slave.acct_group";
 pub(crate) const QUOTA_ACCT_USR: &str = "quota_slave.acct_user";
@@ -31,6 +34,7 @@ pub(crate) const QUOTA_ACCT_PRJ: &str = "quota_slave.acct_project";
 
 pub(crate) fn params() -> Vec<String> {
     vec![
+        format!("osd-*.*.{STATS}"),
         format!("osd-*.*.{FILES_FREE}"),
         format!("osd-*.*.{FILES_TOTAL}"),
         format!("osd-*.*.{FS_TYPE}"),
@@ -60,6 +64,8 @@ enum OsdStat {
     KBytesTotal(u64),
     BrwStats(Vec<BrwStats>),
     QuotaStats(QuotaStatsOsd),
+    /// Generic OSD statistics (performance counters, operation counts)
+    Stats(Vec<Stat>),
 }
 
 fn target_and_variant<I>() -> impl Parser<I, Output = (Target, TargetVariant)>
@@ -88,6 +94,7 @@ where
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     choice((
+        (param(STATS), stats().map(OsdStat::Stats)),
         (param(BRW_STATS), brw_stats().map(OsdStat::BrwStats)),
         (
             param(FILES_FREE),
@@ -153,6 +160,12 @@ where
 {
     (target_and_variant(), osd_stat())
         .map(|((target, kind), (param, stat))| match stat {
+            OsdStat::Stats(value) => TargetStats::Stats(TargetStat {
+                kind,
+                target,
+                param,
+                value,
+            }),
             OsdStat::FilesFree(value) => TargetStats::FilesFree(TargetStat {
                 kind,
                 target,
