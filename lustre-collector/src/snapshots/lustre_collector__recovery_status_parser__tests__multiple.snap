@@ -1,5 +1,5 @@
 ---
-source: src/recovery_status_parser.rs
+source: lustre-collector/src/recovery_status_parser.rs
 expression: records
 ---
 [
@@ -18,6 +18,34 @@ expression: records
         ),
     ),
     Target(
+        RecoveryStart(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0000",
+                ),
+                value: 1620410016,
+            },
+        ),
+    ),
+    Target(
+        RecoveryDuration(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0000",
+                ),
+                value: 150,
+            },
+        ),
+    ),
+    Target(
         RecoveryCompletedClients(
             TargetStat {
                 kind: Ost,
@@ -32,6 +60,34 @@ expression: records
         ),
     ),
     Target(
+        RecoveryReplayedRequests(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0000",
+                ),
+                value: 0,
+            },
+        ),
+    ),
+    Target(
+        RecoveryLastTransno(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0000",
+                ),
+                value: 4294967296,
+            },
+        ),
+    ),
+    Target(
         RecoveryStatus(
             TargetStat {
                 kind: Ost,
@@ -42,6 +98,34 @@ expression: records
                     "fs-OST0001",
                 ),
                 value: Complete,
+            },
+        ),
+    ),
+    Target(
+        RecoveryStart(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0001",
+                ),
+                value: 1620410016,
+            },
+        ),
+    ),
+    Target(
+        RecoveryDuration(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0001",
+                ),
+                value: 150,
             },
         ),
     ),
@@ -60,6 +144,34 @@ expression: records
         ),
     ),
     Target(
+        RecoveryReplayedRequests(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0001",
+                ),
+                value: 0,
+            },
+        ),
+    ),
+    Target(
+        RecoveryLastTransno(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0001",
+                ),
+                value: 4294967296,
+            },
+        ),
+    ),
+    Target(
         RecoveryStatus(
             TargetStat {
                 kind: Mdt,
@@ -74,6 +186,34 @@ expression: records
         ),
     ),
     Target(
+        RecoveryStart(
+            TargetStat {
+                kind: Mdt,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-MDT0000",
+                ),
+                value: 1620410024,
+            },
+        ),
+    ),
+    Target(
+        RecoveryDuration(
+            TargetStat {
+                kind: Mdt,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-MDT0000",
+                ),
+                value: 1760,
+            },
+        ),
+    ),
+    Target(
         RecoveryCompletedClients(
             TargetStat {
                 kind: Mdt,
@@ -84,6 +224,34 @@ expression: records
                     "fs-MDT0000",
                 ),
                 value: 3,
+            },
+        ),
+    ),
+    Target(
+        RecoveryReplayedRequests(
+            TargetStat {
+                kind: Mdt,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-MDT0000",
+                ),
+                value: 0,
+            },
+        ),
+    ),
+    Target(
+        RecoveryLastTransno(
+            TargetStat {
+                kind: Mdt,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-MDT0000",
+                ),
+                value: 4294967310,
             },
         ),
     ),

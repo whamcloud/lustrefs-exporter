@@ -88,10 +88,17 @@ where
 
 #[derive(Debug)]
 enum RecoveryStat {
-    Status(RecoveryStatus),
     Completed(u64),
     Connected(u64),
     Evicted(u64),
+    LastTransno(u64),
+    QueuedRequests(u64),
+    RecoveryDuration(u64),
+    RecoveryStart(u64),
+    ReplayedRequests(u64),
+    RequestedReplayClients(u64),
+    Status(RecoveryStatus),
+    TimeRemaining(u64),
 }
 
 pub struct StatName(pub String);
@@ -115,17 +122,53 @@ where
             .skip(optional(newline()))
             .map(RecoveryStat::Status)
             .map(Some),
+        clients_line("recovery_start")
+            .skip(optional(newline()))
+            .map(RecoveryStat::RecoveryStart)
+            .map(Some),
+        clients_line("recovery_duration")
+            .skip(optional(newline()))
+            .map(RecoveryStat::RecoveryDuration)
+            .map(Some),
         clients_line("completed_clients")
             .skip(optional(newline()))
             .map(RecoveryStat::Completed)
+            .map(Some),
+        clients_line("replayed_requests")
+            .skip(optional(newline()))
+            .map(RecoveryStat::ReplayedRequests)
+            .map(Some),
+        clients_line("last_transno")
+            .skip(optional(newline()))
+            .map(RecoveryStat::LastTransno)
+            .map(Some),
+        clients_line("time_remaining")
+            .skip(optional(newline()))
+            .map(RecoveryStat::TimeRemaining)
             .map(Some),
         clients_line("connected_clients")
             .skip(optional(newline()))
             .map(RecoveryStat::Connected)
             .map(Some),
+        clients_line("req_replay_clients")
+            .skip(optional(newline()))
+            .map(RecoveryStat::RequestedReplayClients)
+            .map(Some),
+        clients_line("lock_repay_clients")
+            .skip(optional(newline()))
+            .map(RecoveryStat::RequestedReplayClients)
+            .map(Some),
         clients_line("evicted_clients")
             .skip(optional(newline()))
             .map(RecoveryStat::Evicted)
+            .map(Some),
+        clients_line("replayed_requests")
+            .skip(optional(newline()))
+            .map(RecoveryStat::QueuedRequests)
+            .map(Some),
+        clients_line("queued_requests")
+            .skip(optional(newline()))
+            .map(RecoveryStat::QueuedRequests)
             .map(Some),
         // This will ignore line/field we don't care
         attempt((stat_name(), token(':'), till_newline().skip(newline()))).map(|_| None),
@@ -170,6 +213,60 @@ where
                     }
                     RecoveryStat::Evicted(value) => {
                         TargetStats::RecoveryEvictedClients(TargetStat {
+                            kind,
+                            param: param.clone(),
+                            target: target.clone(),
+                            value: *value,
+                        })
+                    }
+                    RecoveryStat::RecoveryDuration(value) => {
+                        TargetStats::RecoveryDuration(TargetStat {
+                            kind,
+                            param: param.clone(),
+                            target: target.clone(),
+                            value: *value,
+                        })
+                    }
+                    RecoveryStat::LastTransno(value) => {
+                        TargetStats::RecoveryLastTransno(TargetStat {
+                            kind,
+                            param: param.clone(),
+                            target: target.clone(),
+                            value: *value,
+                        })
+                    }
+                    RecoveryStat::QueuedRequests(value) => {
+                        TargetStats::RecoveryQueuedRequests(TargetStat {
+                            kind,
+                            param: param.clone(),
+                            target: target.clone(),
+                            value: *value,
+                        })
+                    }
+                    RecoveryStat::RecoveryStart(value) => TargetStats::RecoveryStart(TargetStat {
+                        kind,
+                        param: param.clone(),
+                        target: target.clone(),
+                        value: *value,
+                    }),
+                    RecoveryStat::ReplayedRequests(value) => {
+                        TargetStats::RecoveryReplayedRequests(TargetStat {
+                            kind,
+                            param: param.clone(),
+                            target: target.clone(),
+                            value: *value,
+                        })
+                    }
+                    RecoveryStat::RequestedReplayClients(value) => {
+                        TargetStats::RecoveryQueuedRequests(TargetStat {
+                            kind,
+                            param: param.clone(),
+                            target: target.clone(),
+                            value: *value,
+                        })
+                    }
+                    RecoveryStat::TimeRemaining(value) => {
+                        TargetStats::RecoveryTimeRemaining(TargetStat {
                             kind,
                             param: param.clone(),
                             target: target.clone(),
@@ -259,7 +356,28 @@ IR: ENABLED
 
         let (records, _): (Vec<_>, _) = target_recovery_stats().parse(x).unwrap();
 
-        insta::assert_debug_snapshot!(records);
+        insta::assert_debug_snapshot!(records, @r"
+        [
+            Status(
+                Complete,
+            ),
+            RecoveryStart(
+                1620410016,
+            ),
+            RecoveryDuration(
+                150,
+            ),
+            Completed(
+                4,
+            ),
+            ReplayedRequests(
+                0,
+            ),
+            LastTransno(
+                4294967296,
+            ),
+        ]
+        ");
     }
 
     #[test]
@@ -275,6 +393,30 @@ completed_clients: 3
 
         let (records, _): (Vec<_>, _) = target_recovery_stats().parse(x).unwrap();
 
-        insta::assert_debug_snapshot!(records);
+        insta::assert_debug_snapshot!(records, @r"
+        [
+            Status(
+                Recovering,
+            ),
+            RecoveryStart(
+                1620920843,
+            ),
+            TimeRemaining(
+                119,
+            ),
+            Connected(
+                3,
+            ),
+            RequestedReplayClients(
+                0,
+            ),
+            RequestedReplayClients(
+                0,
+            ),
+            Completed(
+                3,
+            ),
+        ]
+        ");
     }
 }
