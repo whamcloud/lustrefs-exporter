@@ -21,6 +21,7 @@ use prometheus_client::{encoding::text::encode, registry::Registry};
 use serde::Deserialize;
 use std::{
     borrow::Cow,
+    collections::BTreeMap,
     io::{self, BufRead as _, BufReader},
 };
 use tokio::process::Command;
@@ -30,11 +31,31 @@ use tower::{
 };
 use tower_http::compression::CompressionLayer;
 
-#[derive(Debug, Deserialize)]
-pub struct Params {
-    // Only enable jobstats if "jobstats=true"
-    #[serde(default)]
-    jobstats: bool,
+#[derive(Debug, Deserialize, PartialEq, PartialOrd, Eq, Ord, Hash, Copy, Clone)]
+#[serde(rename_all = "snake_case")]
+pub enum Dimension {
+    Jobstats,
+    Lnet,
+    Lustre,
+    LnetStats,
+}
+
+pub type Params = BTreeMap<Dimension, bool>;
+
+static DEFAULT_PARAMS: [(Dimension, bool); 3] = [
+    (Dimension::Lnet, true),
+    (Dimension::Lustre, true),
+    (Dimension::LnetStats, true),
+];
+
+trait EnableConvenienceExt {
+    fn enabled(&self, param: &Dimension) -> bool;
+}
+
+impl EnableConvenienceExt for Params {
+    fn enabled(&self, param: &Dimension) -> bool {
+        self.get(param).copied().unwrap_or_default()
+    }
 }
 
 const TIMEOUT_DURATION_SECS: u64 = 120;
@@ -149,75 +170,68 @@ pub fn lnet_stats_output() -> Command {
 pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
     let mut registry = Registry::default();
 
-    // Build the lustre stats
-    let mut opentelemetry_metrics = Metrics::default();
+    let mut targets = BTreeMap::from(DEFAULT_PARAMS);
+    for (param, value) in params {
+        targets
+            .entry(param)
+            .and_modify(|v| *v = value)
+            .or_insert(value);
+    }
 
-    if params.jobstats {
-        let child = tokio::task::spawn_blocking(move || {
-            let child = jobstats_metrics_cmd().spawn()?;
+    if targets.enabled(&Dimension::Jobstats)
+        && let Ok(mut child) = tokio::task::spawn_blocking(move || jobstats_metrics_cmd().spawn())
+            .await?
+            .inspect_err(|e| tracing::debug!("Error while spawning lctl jobstats: {e}"))
+    {
+        let reader = BufReader::with_capacity(
+            128 * 1_024,
+            child.stdout.take().ok_or(io::Error::new(
+                io::ErrorKind::NotFound,
+                "stdout missing for lctl jobstats call.",
+            ))?,
+        );
 
-            Ok::<_, Error>(child)
-        })
-        .await?;
+        let reader_stderr = BufReader::new(child.stderr.take().ok_or(io::Error::new(
+            io::ErrorKind::NotFound,
+            "stderr missing for lctl jobstats call.",
+        ))?);
 
-        match child {
-            Ok(mut child) => {
-                let reader = BufReader::with_capacity(
-                    128 * 1_024,
-                    child.stdout.take().ok_or(io::Error::new(
-                        io::ErrorKind::NotFound,
-                        "stdout missing for lctl jobstats call.",
-                    ))?,
-                );
-
-                let reader_stderr = BufReader::new(child.stderr.take().ok_or(io::Error::new(
-                    io::ErrorKind::NotFound,
-                    "stderr missing for lctl jobstats call.",
-                ))?);
-
-                tokio::task::spawn(async move {
-                    for line in reader_stderr.lines().map_while(Result::ok) {
-                        tracing::debug!("stderr: {line}");
-                    }
-                });
-
-                tokio::task::spawn_blocking(move || {
-                    if let Err(e) = child.wait() {
-                        tracing::debug!("Unexpected error when waiting for child: {e}");
-                    }
-                });
-
-                let handle = jobstats_stream(reader, JobstatMetrics::default());
-
-                let metrics = handle.await?;
-
-                metrics.register_metric(&mut registry);
+        tokio::task::spawn(async move {
+            for line in reader_stderr.lines().map_while(Result::ok) {
+                tracing::debug!("stderr: {line}");
             }
-            Err(e) => {
-                tracing::debug!("Error while spawning lctl jobstats: {e}");
+        });
+
+        tokio::task::spawn_blocking(move || {
+            if let Err(e) = child.wait() {
+                tracing::debug!("Unexpected error when waiting for child: {e}");
             }
-        }
+        });
+
+        jobstats_stream(reader, JobstatMetrics::default())
+            .await?
+            .register_metric(&mut registry);
     }
 
     let mut output = vec![];
 
-    let lctl = lustre_metrics_output().output().await?;
+    if targets.enabled(&Dimension::Lustre) {
+        let lctl = lustre_metrics_output().output().await?;
+        output.extend(parse_lctl_output(&lctl.stdout)?);
+    }
 
-    let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
+    if targets.enabled(&Dimension::LnetStats) {
+        let lnetctl_stats_output = lnet_stats_output().output().await?;
+        output.extend(parse_lnetctl_stats(&lnetctl_stats_output.stdout)?);
+    }
 
-    output.append(&mut lctl_output);
+    if targets.enabled(&Dimension::Lnet) {
+        let lnetctl = net_show_output().output().await?;
+        output.extend(parse_lnetctl_output(&lnetctl.stdout)?);
+    }
 
-    let lnetctl = net_show_output().output().await?;
-
-    let mut lnetctl_output = parse_lnetctl_output(&lnetctl.stdout)?;
-
-    output.append(&mut lnetctl_output);
-
-    let lnetctl_stats_output = lnet_stats_output().output().await?;
-
-    let mut lnetctl_stats_record = parse_lnetctl_stats(&lnetctl_stats_output.stdout)?;
-
-    output.append(&mut lnetctl_stats_record);
+    // Build the lustre stats
+    let mut opentelemetry_metrics = Metrics::default();
 
     // Build and register Lustre metrics
     metrics::build_lustre_stats(&output, &mut opentelemetry_metrics);
@@ -246,8 +260,10 @@ mod tests {
         Router,
         body::{Body, to_bytes},
         extract::Request,
+        response::Response,
     };
     use commandeer_test::commandeer;
+    use futures_util::StreamExt;
     use serial_test::serial;
     use std::{
         env,
@@ -275,53 +291,60 @@ mod tests {
     #[serial]
     async fn test_metrics_endpoint_is_idempotent() -> Result<(), Box<dyn std::error::Error>> {
         let (request, app) = get_app();
-
-        let resp = app.oneshot(request).await.unwrap();
-
-        let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
-        let original_body_str = std::str::from_utf8(&body).unwrap();
+        let original = app.oneshot(request).await.unwrap().try_into_string().await;
 
         let (request, app) = get_app();
+        let new = app.oneshot(request).await.unwrap().try_into_string().await;
+        assert_eq!(original, new);
 
-        let resp = app.oneshot(request).await.unwrap();
-
-        let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
-        let body_str = std::str::from_utf8(&body).unwrap();
-
-        assert_eq!(original_body_str, body_str);
-
-        insta::assert_snapshot!(original_body_str);
+        insta::assert_snapshot!(original);
 
         Ok(())
     }
 
-    #[commandeer(Replay, "lctl", "lnetctl")]
-    #[tokio::test]
-    #[serial]
-    async fn test_app_function() {
-        let (request, app) = get_app();
+    trait AsText {
+        fn try_into_string(self) -> impl Future<Output = String>;
+    }
 
-        let response = app.oneshot(request).await.unwrap();
+    impl AsText for Response<Body> {
+        async fn try_into_string(self) -> String {
+            let mut body = self.into_body().into_data_stream();
+            let mut out = vec![];
 
-        assert!(response.status().is_success())
+            while let Some(data) = body.next().await {
+                out.extend(Vec::from(data.unwrap()));
+            }
+
+            String::from_utf8_lossy(&out).into()
+        }
     }
 
     #[commandeer(Replay, "lctl", "lnetctl")]
+    #[test_case::test_case(None)]
+    #[test_case::test_case(Some("jobstats=true"))]
+    #[test_case::test_case(Some("lustre=true&lnet=false&lnet_stats=false"))]
+    #[test_case::test_case(Some("lustre=false&lnet=true&lnet_stats=false"))]
+    #[test_case::test_case(Some("lustre=false&lnet=false&lnet_stats=true"))]
+    #[test_case::test_case(Some("lustre=false&lnet=false&lnet_stats=false&jobstats=true"))]
     #[tokio::test]
     #[serial]
-    async fn test_app_routes() {
-        let app = crate::routes::app();
-
-        // Test that the /metrics route exists
+    async fn test_app_params(params: Option<&str>) {
         let request = Request::builder()
-            .uri("/metrics")
+            .uri(format!(
+                "/metrics{}",
+                params.map(|p| format!("?{p}")).unwrap_or_default()
+            ))
             .method("GET")
             .body(Body::empty())
             .unwrap();
 
-        let response = app.oneshot(request).await.unwrap();
+        let response = crate::routes::app().oneshot(request).await.unwrap();
 
-        assert!(response.status().is_success())
+        assert!(response.status().is_success());
+        insta::assert_snapshot!(
+            params.unwrap_or("default"),
+            response.try_into_string().await
+        );
     }
 
     #[commandeer(Replay, "lctl", "lnetctl")]
