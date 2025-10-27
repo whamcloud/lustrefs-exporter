@@ -1,3 +1,9 @@
+prometheus-lustrefs-exporter (0.12.0-0.1) unstable; urgency=medium
+
+  * Include lustre OSD cache statistics in the exporter
+
+ -- EMF Team <emf@whamcloud.com>  Mon, 27 Oct 2025 02:02:00 +0200
+
 prometheus-lustrefs-exporter (0.11.0-0.1) unstable; urgency=medium
 
   * Integrate Bencher
