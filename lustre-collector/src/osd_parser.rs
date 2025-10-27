@@ -7,7 +7,7 @@ use crate::{
     base_parsers::{digits, param, period, target, till_newline, till_period},
     brw_stats_parser::brw_stats,
     io_latency_stats_parser::io_latency_stats,
-    quota::quota_parser::quota_stats_osd,
+    quota::quota_stats_osd,
     stats_parser::stats,
     types::{BrwStats, Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
 };
