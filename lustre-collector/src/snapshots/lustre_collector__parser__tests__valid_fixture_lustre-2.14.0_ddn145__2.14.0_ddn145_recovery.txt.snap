@@ -3,6 +3,77 @@ source: lustre-collector/src/parser.rs
 expression: result
 ---
 (
-    [],
-    "obdfilter.fs-OST0000.recovery_status=status: INACTIVE\nobdfilter.fs-OST0001.recovery_status=status: INACTIVE\nmdt.fs-MDT0000.recovery_status=\nstatus: COMPLETE\nrecovery_start: 1715712434\nrecovery_duration: 0\ncompleted_clients: 1/1\nreplayed_requests: 0\nlast_transno: 4294967298\nVBR: DISABLED\nIR: DISABLED\n",
+    [
+        Target(
+            RecoveryStatus(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "recovery_status",
+                    ),
+                    target: Target(
+                        "fs-OST0000",
+                    ),
+                    value: Inactive,
+                },
+            ),
+        ),
+        Target(
+            RecoveryStatus(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "recovery_status",
+                    ),
+                    target: Target(
+                        "fs-OST0001",
+                    ),
+                    value: Inactive,
+                },
+            ),
+        ),
+        Target(
+            RecoveryStatus(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "recovery_status",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: Complete,
+                },
+            ),
+        ),
+        Target(
+            RecoveryDuration(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "recovery_status",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            RecoveryCompletedClients(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "recovery_status",
+                    ),
+                    target: Target(
+                        "fs-MDT0000",
+                    ),
+                    value: 1,
+                },
+            ),
+        ),
+    ],
+    "",
 )

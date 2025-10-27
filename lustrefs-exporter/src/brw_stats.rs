@@ -46,6 +46,9 @@ pub struct BrwStatsMetrics {
     pub(crate) recovery_status_completed_clients: Family<Gauge<u64, AtomicU64>>,
     pub(crate) recovery_status_connected_clients: Family<Gauge<u64, AtomicU64>>,
     pub(crate) recovery_status_evicted_clients: Family<Gauge<u64, AtomicU64>>,
+    pub(crate) recovery_status_duration_seconds: Family<Gauge<u64, AtomicU64>>,
+    pub(crate) recovery_status_time_remaining_seconds: Family<Gauge<u64, AtomicU64>>,
+    pub(crate) recovery_status_total_clients: Family<Gauge<u64, AtomicU64>>,
     pub(crate) ost_stats: Family<Gauge<u64, AtomicU64>>,
     pub(crate) ost_io_stats: Family<Gauge<u64, AtomicU64>>,
     pub(crate) ost_create_stats: Family<Gauge<u64, AtomicU64>>,
@@ -210,6 +213,24 @@ impl BrwStatsMetrics {
             "recovery_status_evicted_clients",
             "Gives the count of clients evicted from a target",
             self.recovery_status_evicted_clients.clone(),
+        );
+
+        registry.register(
+            "recovery_status_duration_seconds",
+            "Gives the total duration in seconds of the recovery on a target",
+            self.recovery_status_duration_seconds.clone(),
+        );
+
+        registry.register(
+            "recovery_status_time_remaining_seconds",
+            "Gives the estimated time remaining in seconds of the recovery on a target",
+            self.recovery_status_time_remaining_seconds.clone(),
+        );
+
+        registry.register(
+            "recovery_status_total_clients",
+            "Gives the total number of clients involved in the recovery on a target",
+            self.recovery_status_total_clients.clone(),
         );
 
         registry.register(
@@ -604,6 +625,36 @@ pub fn build_target_stats(
             metrics
                 .brw
                 .recovery_status_evicted_clients
+                .get_or_create(&vec![
+                    ("kind", x.kind.to_string()),
+                    ("target", x.target.to_string()),
+                ])
+                .set(x.value);
+        }
+        TargetStats::RecoveryDuration(x) => {
+            metrics
+                .brw
+                .recovery_status_duration_seconds
+                .get_or_create(&vec![
+                    ("kind", x.kind.to_string()),
+                    ("target", x.target.to_string()),
+                ])
+                .set(x.value);
+        }
+        TargetStats::RecoveryTimeRemaining(x) => {
+            metrics
+                .brw
+                .recovery_status_time_remaining_seconds
+                .get_or_create(&vec![
+                    ("kind", x.kind.to_string()),
+                    ("target", x.target.to_string()),
+                ])
+                .set(x.value);
+        }
+        TargetStats::RecoveryTotalClients(x) => {
+            metrics
+                .brw
+                .recovery_status_total_clients
                 .get_or_create(&vec![
                     ("kind", x.kind.to_string()),
                     ("target", x.target.to_string()),
