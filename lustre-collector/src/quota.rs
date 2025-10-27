@@ -6,13 +6,10 @@ use crate::{
     QuotaKind, QuotaStat, QuotaStatLimits, QuotaStatOsd, QuotaStatUsage, QuotaStats,
     TargetQuotaStat,
     base_parsers::{digits, param, period, target},
-    quota::QMT,
     types::{Param, Record, Target, TargetStats},
 };
 use combine::{
-    Parser, Stream, between, choice, eof,
-    error::ParseError,
-    many1, optional,
+    ParseError, Parser, Stream, between, choice, eof, many1, optional,
     parser::{
         char::{newline, spaces, string},
         repeat::take_until,
@@ -20,10 +17,20 @@ use combine::{
     token,
 };
 
+pub(crate) const QMT: &str = "qmt";
+
 pub(crate) const USR_QUOTAS: &str = "usr";
 pub(crate) const PRJ_QUOTAS: &str = "prj";
 pub(crate) const GRP_QUOTAS: &str = "grp";
 pub(crate) const QMT_STATS: [&str; 3] = [USR_QUOTAS, PRJ_QUOTAS, GRP_QUOTAS];
+
+pub fn parse<I>() -> impl Parser<I, Output = Record>
+where
+    I: Stream<Token = char>,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    (string(QMT), period()).with(qmt_parse())
+}
 
 /// Takes QMT_STATS and produces a list of params for
 /// consumption in proper ltcl get_param format.
@@ -225,7 +232,7 @@ where
 
 #[cfg(test)]
 mod tests {
-    use crate::quota::quota_parser::{params, quota_stats, quota_stats_osd};
+    use crate::quota::{params, quota_stats, quota_stats_osd};
     use combine::Parser as _;
 
     #[test]
