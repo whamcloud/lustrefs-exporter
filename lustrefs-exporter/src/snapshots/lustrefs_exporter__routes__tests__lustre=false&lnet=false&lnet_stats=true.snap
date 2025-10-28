@@ -1,0 +1,14 @@
+---
+source: lustrefs-exporter/src/routes.rs
+expression: response.as_text().await
+---
+# HELP lustre_send_bytes_total Total number of bytes that have been sent.
+# TYPE lustre_send_bytes_total counter
+lustre_send_bytes_total{} 261865376
+# HELP lustre_receive_bytes_total Total number of bytes that have been received.
+# TYPE lustre_receive_bytes_total counter
+lustre_receive_bytes_total{} 254091008
+# HELP lustre_drop_bytes_total Total number of bytes that have been dropped.
+# TYPE lustre_drop_bytes_total counter
+lustre_drop_bytes_total{} 4832
+# EOF

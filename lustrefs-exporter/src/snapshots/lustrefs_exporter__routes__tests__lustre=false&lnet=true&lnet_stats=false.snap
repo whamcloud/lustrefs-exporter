@@ -1,0 +1,20 @@
+---
+source: lustrefs-exporter/src/routes.rs
+expression: response.as_text().await
+---
+# HELP lustre_send_count_total Total number of messages that have been sent.
+# TYPE lustre_send_count_total counter
+lustre_send_count_total{nid="0@lo"} 180076
+lustre_send_count_total{nid="172.16.0.24@tcp"} 464970
+lustre_send_count_total{nid="172.16.0.25@tcp"} 464886
+# HELP lustre_receive_count_total Total number of messages that have been received.
+# TYPE lustre_receive_count_total counter
+lustre_receive_count_total{nid="0@lo"} 180072
+lustre_receive_count_total{nid="172.16.0.24@tcp"} 464963
+lustre_receive_count_total{nid="172.16.0.25@tcp"} 464877
+# HELP lustre_drop_count_total Total number of messages that have been dropped.
+# TYPE lustre_drop_count_total counter
+lustre_drop_count_total{nid="0@lo"} 4
+lustre_drop_count_total{nid="172.16.0.24@tcp"} 4
+lustre_drop_count_total{nid="172.16.0.25@tcp"} 3
+# EOF

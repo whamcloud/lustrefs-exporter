@@ -32,9 +32,7 @@ async fn main() -> Result<(), Error> {
 
         tracing::info!("Listening on http://{addr}/metrics");
 
-        let listener = tokio::net::TcpListener::bind(("0.0.0.0", opts.port)).await?;
-
-        axum::serve(listener, app()).await?;
+        axum::serve(tokio::net::TcpListener::bind(addr).await?, app()).await?;
     }
 
     Ok(())

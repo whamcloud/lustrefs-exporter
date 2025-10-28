@@ -54,19 +54,11 @@ pub fn build_lustre_stats(output: &Vec<Record>, metrics: &mut Metrics) {
 
     for x in output {
         match x {
-            lustre_collector::Record::Host(x) => {
-                build_host_stats(x, &mut metrics.host);
-            }
-            lustre_collector::Record::LNetStat(x) => {
-                build_lnet_stats(x, &mut metrics.lnet);
-            }
-            lustre_collector::Record::Target(x) => {
-                build_target_stats(x, metrics, &mut set);
-            }
-            lustre_collector::Record::LustreService(x) => {
-                build_service_stats(x, &mut metrics.service);
-            }
-            _ => {}
+            Record::Host(x) => build_host_stats(x, &mut metrics.host),
+            Record::LNetStat(x) => build_lnet_stats(x, &mut metrics.lnet),
+            Record::Target(x) => build_target_stats(x, metrics, &mut set),
+            Record::LustreService(x) => build_service_stats(x, &mut metrics.service),
+            _ => (),
         }
     }
 }

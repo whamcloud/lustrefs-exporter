@@ -13,10 +13,7 @@ pub(crate) const LLITE: &str = "llite";
 pub(crate) const STATS: &str = "stats";
 
 pub(crate) fn params() -> Vec<String> {
-    [STATS]
-        .into_iter()
-        .map(|x| format!("{LLITE}.*.{x}"))
-        .collect()
+    vec![format!("{LLITE}.*.{STATS}")]
 }
 
 fn target_name<I>() -> impl Parser<I, Output = Target>
