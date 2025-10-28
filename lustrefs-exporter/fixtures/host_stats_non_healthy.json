@@ -29,9 +29,11 @@
         "param": "health_check",
         "value": {
           "healthy": false,
-          "targets": ["lustre-OST0012",
-          "lustre-OST0014",
-          "lustre-OST0016"]
+          "targets": [
+            "lustre-OST0012",
+            "lustre-OST0014",
+            "lustre-OST0016"
+          ]
         }
       }
     }
@@ -3155,6 +3157,36 @@
         "param": "recovery_status",
         "target": "fs-OST0000",
         "value": 1
+      }
+    }
+  },
+  {
+    "Target": {
+      "RecoveryDuration": {
+        "kind": "Ost",
+        "param": "recovery_status",
+        "target": "fs-OST0000",
+        "value": 92
+      }
+    }
+  },
+  {
+    "Target": {
+      "RecoveryTimeRemaining": {
+        "kind": "Ost",
+        "param": "recovery_status",
+        "target": "fs-OST0000",
+        "value": 80
+      }
+    }
+  },
+  {
+    "Target": {
+      "RecoveryTotalClients": {
+        "kind": "Ost",
+        "param": "recovery_status",
+        "target": "fs-OST0000",
+        "value": 204
       }
     }
   }
