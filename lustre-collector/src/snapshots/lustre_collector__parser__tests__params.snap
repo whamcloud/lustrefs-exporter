@@ -62,9 +62,9 @@ expression: params()
     "ldlm.services.ldlm_cbd.stats",
     "llite.*.stats",
     "mdd.*.changelog_users",
-    "qmt.*.*.glb-usr",
-    "qmt.*.*.glb-prj",
-    "qmt.*.*.glb-grp",
+    "qmt.*.{dt,md}-*.glb-usr",
+    "qmt.*.{dt,md}-*.glb-prj",
+    "qmt.*.{dt,md}-*.glb-grp",
     "nodemap.*.dt_stats",
     "nodemap.*.md_stats",
 ]
