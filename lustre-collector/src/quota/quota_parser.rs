@@ -23,15 +23,15 @@ use combine::{
 pub(crate) const USR_QUOTAS: &str = "usr";
 pub(crate) const PRJ_QUOTAS: &str = "prj";
 pub(crate) const GRP_QUOTAS: &str = "grp";
-pub(crate) const QMT_STATS: [&str; 3] = [USR_QUOTAS, PRJ_QUOTAS, GRP_QUOTAS];
 
 /// Takes QMT_STATS and produces a list of params for
 /// consumption in proper ltcl get_param format.
 pub(crate) fn params() -> Vec<String> {
-    QMT_STATS
-        .iter()
-        .map(|x| format!("{QMT}.*.*.glb-{x}"))
-        .collect()
+    vec![
+        format!("{QMT}.*.{{dt,md}}-*.glb-{USR_QUOTAS}"),
+        format!("{QMT}.*.{{dt,md}}-*.glb-{PRJ_QUOTAS}"),
+        format!("{QMT}.*.{{dt,md}}-*.glb-{GRP_QUOTAS}"),
+    ]
 }
 
 /// Parses a target name
@@ -233,9 +233,9 @@ mod tests {
         assert_eq!(
             params(),
             vec![
-                "qmt.*.*.glb-usr".to_string(),
-                "qmt.*.*.glb-prj".to_string(),
-                "qmt.*.*.glb-grp".to_string(),
+                "qmt.*.{dt,md}-*.glb-usr".to_string(),
+                "qmt.*.{dt,md}-*.glb-prj".to_string(),
+                "qmt.*.{dt,md}-*.glb-grp".to_string(),
             ]
         )
     }
