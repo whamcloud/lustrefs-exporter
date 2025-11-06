@@ -23,6 +23,12 @@ pub(crate) const USR_QUOTAS: &str = "usr";
 pub(crate) const PRJ_QUOTAS: &str = "prj";
 pub(crate) const GRP_QUOTAS: &str = "grp";
 
+const PARAMS: [&str; 3] = [
+    "qmt.*.{dt,md}-*.glb-usr",
+    "qmt.*.{dt,md}-*.glb-prj",
+    "qmt.*.{dt,md}-*.glb-grp",
+];
+
 pub fn parse<I>() -> impl Parser<I, Output = Record>
 where
     I: Stream<Token = char>,
@@ -34,11 +40,7 @@ where
 /// Takes QMT_STATS and produces a list of params for
 /// consumption in proper ltcl get_param format.
 pub(crate) fn params() -> Vec<String> {
-    vec![
-        format!("{QMT}.*.{{dt,md}}-*.glb-{USR_QUOTAS}"),
-        format!("{QMT}.*.{{dt,md}}-*.glb-{PRJ_QUOTAS}"),
-        format!("{QMT}.*.{{dt,md}}-*.glb-{GRP_QUOTAS}"),
-    ]
+    PARAMS.into_iter().map(String::from).collect()
 }
 
 /// Parses a target name
