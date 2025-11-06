@@ -20,7 +20,7 @@ use axum::{
     http::{self, StatusCode},
     response::{IntoResponse, Response},
 };
-use lustre_collector::{LustreCollectorError, TargetVariant};
+use lustre_collector::{LustreCollectorError, TargetVariant, parser};
 use prometheus_client::metrics::family::Family as PrometheusFamily;
 
 pub type LabelContainer = Vec<(&'static str, String)>;
@@ -93,7 +93,7 @@ impl LabelProm for TargetVariant {
 pub async fn dump_stats() -> Result<(), Error> {
     println!("# Dumping lctl get_param output");
 
-    let mut lctl = lustre_metrics_output();
+    let mut lctl = lustre_metrics_output(&parser::params());
 
     let lctl = lctl.output().await?;
 
