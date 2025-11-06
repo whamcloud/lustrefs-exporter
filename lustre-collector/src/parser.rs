@@ -2,6 +2,8 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
+use std::collections::BTreeSet;
+
 use crate::{
     ldlm, llite, mdd_parser,
     mds::{self, client_count_parser},
@@ -11,20 +13,59 @@ use crate::{
 };
 use combine::{Parser, Stream, choice, error::ParseError, many};
 
-pub fn params() -> Vec<String> {
-    top_level_parser::top_level_params()
+#[derive(Copy, Clone)]
+pub enum Component {
+    Clients,
+    Osd,
+    Mgs,
+    Oss,
+    Mds,
+    Ldlm,
+    Llite,
+    Mdd,
+    Quota,
+    Nodemap,
+}
+
+pub fn get_params(components: &[Component]) -> Vec<String> {
+    components
+        .iter()
+        .fold(
+            BTreeSet::from_iter(top_level_parser::top_level_params()),
+            |mut acc, e| {
+                acc.extend(match e {
+                    Component::Clients => client_count_parser::params(),
+                    Component::Osd => osd_parser::params(),
+                    Component::Mgs => mgs_parser::params(),
+                    Component::Oss => oss::params(),
+                    Component::Mds => mds::params(),
+                    Component::Ldlm => ldlm::params(),
+                    Component::Llite => llite::params(),
+                    Component::Mdd => mdd_parser::params(),
+                    Component::Quota => quota::params(),
+                    Component::Nodemap => nodemap::params(),
+                });
+
+                acc
+            },
+        )
         .into_iter()
-        .chain(client_count_parser::params())
-        .chain(osd_parser::params())
-        .chain(mgs_parser::params())
-        .chain(oss::params())
-        .chain(mds::params())
-        .chain(ldlm::params())
-        .chain(llite::params())
-        .chain(mdd_parser::params())
-        .chain(quota::params())
-        .chain(nodemap::params())
         .collect()
+}
+
+pub fn params() -> Vec<String> {
+    get_params(&[
+        Component::Clients,
+        Component::Osd,
+        Component::Mgs,
+        Component::Oss,
+        Component::Mds,
+        Component::Ldlm,
+        Component::Llite,
+        Component::Mdd,
+        Component::Quota,
+        Component::Nodemap,
+    ])
 }
 
 pub fn parse<I>() -> impl Parser<I, Output = Vec<Record>>

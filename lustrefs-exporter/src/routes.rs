@@ -16,7 +16,10 @@ use axum::{
     response::{IntoResponse, Response},
     routing::get,
 };
-use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
+use lustre_collector::{
+    parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats,
+    parser::{self, Component},
+};
 use prometheus_client::{encoding::text::encode, registry::Registry};
 use serde::Deserialize;
 use std::{
@@ -34,9 +37,12 @@ use tower_http::compression::CompressionLayer;
 #[derive(Debug, Deserialize, PartialEq, PartialOrd, Eq, Ord, Hash, Copy, Clone)]
 #[serde(rename_all = "snake_case")]
 pub enum Dimension {
+    /// `obdfilter.*OST*.job_stats mdt.*.job_stats`
     Jobstats,
-    Lnet,
+    /// `qmt.*.*.glb-usr qmt.*.*.glb-prj qmt.*.*.glb-grp`
+    Quotas,
     Lustre,
+    Lnet,
     LnetStats,
 }
 
@@ -104,12 +110,10 @@ pub fn jobstats_metrics_cmd() -> std::process::Command {
     cmd
 }
 
-pub fn lustre_metrics_output() -> Command {
+pub fn lustre_metrics_output(params: &[String]) -> Command {
     let mut cmd = Command::new("lctl");
 
-    cmd.arg("get_param")
-        .args(parser::params())
-        .kill_on_drop(true);
+    cmd.arg("get_param").args(params).kill_on_drop(true);
 
     cmd
 }
@@ -216,7 +220,24 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
     let mut output = vec![];
 
     if targets.enabled(&Dimension::Lustre) {
-        let lctl = lustre_metrics_output().output().await?;
+        let params = parser::get_params(&[
+            Component::Clients,
+            Component::Osd,
+            Component::Mgs,
+            Component::Oss,
+            Component::Mds,
+            Component::Ldlm,
+            Component::Llite,
+            Component::Mdd,
+            Component::Nodemap,
+        ]);
+        let lctl = lustre_metrics_output(&params).output().await?;
+        output.extend(parse_lctl_output(&lctl.stdout)?);
+    }
+
+    if targets.enabled(&Dimension::Quotas) {
+        let params = parser::get_params(&[Component::Quota]);
+        let lctl = lustre_metrics_output(&params).output().await?;
         output.extend(parse_lctl_output(&lctl.stdout)?);
     }
 
@@ -456,7 +477,10 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn test_lustre_metrics_output_with_mock() {
-        let output = lustre_metrics_output().output().await.unwrap();
+        let output = lustre_metrics_output(&lustre_collector::parser::params())
+            .output()
+            .await
+            .unwrap();
 
         insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }

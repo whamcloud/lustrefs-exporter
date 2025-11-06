@@ -22,7 +22,14 @@ pub(crate) const QMT: &str = "qmt";
 pub(crate) const USR_QUOTAS: &str = "usr";
 pub(crate) const PRJ_QUOTAS: &str = "prj";
 pub(crate) const GRP_QUOTAS: &str = "grp";
-pub(crate) const QMT_STATS: [&str; 3] = [USR_QUOTAS, PRJ_QUOTAS, GRP_QUOTAS];
+
+const PARAMS: [&str; 3] = ["qmt.*.*.glb-usr", "qmt.*.*.glb-prj", "qmt.*.*.glb-grp"];
+
+/// Takes QMT_STATS and produces a list of params for
+/// consumption in proper ltcl get_param format.
+pub(crate) fn params() -> Vec<String> {
+    PARAMS.into_iter().map(String::from).collect()
+}
 
 pub fn parse<I>() -> impl Parser<I, Output = Record>
 where
@@ -30,15 +37,6 @@ where
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     (string(QMT), period()).with(qmt_parse())
-}
-
-/// Takes QMT_STATS and produces a list of params for
-/// consumption in proper ltcl get_param format.
-pub(crate) fn params() -> Vec<String> {
-    QMT_STATS
-        .iter()
-        .map(|x| format!("{QMT}.*.*.glb-{x}"))
-        .collect()
 }
 
 /// Parses a target name
