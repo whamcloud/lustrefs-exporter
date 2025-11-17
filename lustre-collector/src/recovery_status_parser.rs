@@ -241,6 +241,7 @@ mod tests {
     use crate::parser::parse;
     use crate::recovery_status_parser::{clients_line, target_recovery_stats};
     use combine::{Parser, parser::EasyParser, stream::position};
+    use test_case::test_case;
 
     #[test]
     fn test_multiple() {
@@ -276,14 +277,12 @@ mod tests {
         insta::assert_debug_snapshot!(records);
     }
 
-    #[test]
-    fn test_clients_line() {
-        let result = clients_line("completed_clients").parse("completed_clients: 3/7\n");
-        assert_eq!(result, Ok(((3, Some(7)), "")));
-        let result = clients_line("connected_clients").parse("connected_clients: 3/7\n");
-        assert_eq!(result, Ok(((3, Some(7)), "")));
-        let result = clients_line("completed_clients").parse("completed_clients: 3\n");
-        assert_eq!(result, Ok(((3, None), "")));
+    #[test_case("completed_clients", "completed_clients: 3/7\n", (3, Some(7)); "completed clients with total")]
+    #[test_case("connected_clients", "connected_clients: 3/7\n", (3, Some(7)); "connected clients with total")]
+    #[test_case("completed_clients", "completed_clients: 3\n", (3, None); "completed clients without total")]
+    fn test_clients_line(field_name: &'static str, input: &str, expected: (u64, Option<u64>)) {
+        let result = clients_line(field_name).parse(input);
+        assert_eq!(result, Ok((expected, "")));
     }
 
     #[test]
