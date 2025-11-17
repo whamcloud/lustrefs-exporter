@@ -2,6 +2,8 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
+use std::iter;
+
 use crate::{
     base_parsers::{digits, param, period, target, till_newline},
     types::{Param, Record, RecoveryStatus, Target, TargetStat, TargetStats, TargetVariant},
@@ -139,11 +141,12 @@ where
         clients_line("connected_clients")
             .skip(optional(newline()))
             .map(|(x, y)| {
-                let mut stats = vec![RecoveryStat::Connected(x)];
-                if let Some(total) = y {
-                    stats.push(RecoveryStat::Total(Some(total)));
-                }
-                stats
+                iter::once(RecoveryStat::Connected(x))
+                    .chain(
+                        y.map(|total| vec![RecoveryStat::Total(Some(total))])
+                            .unwrap_or_default(),
+                    )
+                    .collect()
             }),
         // This will ignore line/field we don't care
         attempt((stat_name(), token(':'), till_newline().skip(newline()))).map(|_| vec![]),

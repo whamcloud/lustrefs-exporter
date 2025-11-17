@@ -45,7 +45,7 @@ where
         mdd_parser::parse().map(|x| vec![x]),
         quota::parse().map(|x| vec![x]),
         nodemap::parse().map(|x| vec![x]),
-        recovery_status_parser::parse().map(|x| x),
+        recovery_status_parser::parse(),
     )))
     .map(|xs: Vec<_>| xs.into_iter().flatten().collect())
 }
