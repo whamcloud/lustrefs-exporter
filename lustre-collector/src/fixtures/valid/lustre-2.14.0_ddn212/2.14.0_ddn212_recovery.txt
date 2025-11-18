@@ -1,0 +1,36 @@
+obdfilter.200NVX2-OST0000.recovery_status=
+status: COMPLETE
+recovery_start: 1761567697
+recovery_duration: 1
+completed_clients: 8/8
+replayed_requests: 0
+last_transno: 17184814233
+VBR: DISABLED
+IR: ENABLED
+obdfilter.200NVX2-OST0003.recovery_status=
+status: COMPLETE
+recovery_start: 1759494115
+recovery_duration: 15
+completed_clients: 8/8
+replayed_requests: 0
+last_transno: 12934942643
+VBR: DISABLED
+IR: DISABLED
+obdfilter.200NVX2-OST0004.recovery_status=
+status: COMPLETE
+recovery_start: 1759494115
+recovery_duration: 14
+completed_clients: 8/8
+replayed_requests: 0
+last_transno: 12934956643
+VBR: DISABLED
+IR: DISABLED
+obdfilter.200NVX2-OST0007.recovery_status=
+status: COMPLETE
+recovery_start: 1759494115
+recovery_duration: 14
+completed_clients: 8/8
+replayed_requests: 0
+last_transno: 12934943652
+VBR: DISABLED
+IR: DISABLED
