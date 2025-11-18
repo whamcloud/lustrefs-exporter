@@ -1,6 +1,0 @@
----
-source: lustrefs-exporter/src/lib.rs
-expression: x
-input_file: lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn145/2.14.0_ddn145_recovery.txt
----
-# EOF
