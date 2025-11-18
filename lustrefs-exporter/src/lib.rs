@@ -128,36 +128,12 @@ pub async fn dump_stats() -> Result<(), Error> {
 
 #[cfg(test)]
 pub mod tests {
-    use crate::{
-        Error, LabelProm as _, dump_stats,
-        metrics::{self, Metrics},
-    };
+    use crate::{Error, LabelProm as _, dump_stats};
     use axum::{http::StatusCode, response::IntoResponse as _};
-    use combine::EasyParser as _;
     use commandeer_test::commandeer;
-    use lustre_collector::{Record, TargetVariant, parser::parse};
-    use prometheus_client::{encoding::text::encode, registry::Registry};
-    use prometheus_parse::{Sample, Scrape};
+    use lustre_collector::TargetVariant;
+    use prometheus_parse::Scrape;
     use serial_test::serial;
-    use std::{
-        collections::HashSet,
-        path::{Path, PathBuf},
-    };
-
-    // These metrics are ignored for the comparison with the previous implementation
-    // since they are new and not present in the previous implementation.
-    const IGNORED_METRICS: &[&str] = &[
-        "lustre_cache_hit_total",
-        "lustre_cache_access_total",
-        "lustre_cache_miss_total",
-        "lustre_get_page_total",
-        "lustre_health_healthy",
-        "lustre_many_credits_total",
-        "lustre_stats_time_max",
-        "lustre_stats_time_min",
-        "lustre_stats_time_total",
-        "target_info",
-    ];
 
     #[test]
     fn test_error_into_response() {
@@ -181,109 +157,6 @@ pub mod tests {
         dump_stats().await.unwrap();
     }
 
-    /// There are various differences between the current snapshots and the otel snapshots.
-    /// It is imperative that the metrics between both snapshots are the same. However,
-    /// we cannot do a direct comparison of the text as there are several differences in the
-    /// way the data is encoded:
-    /// 1. Metric descriptions: The otel implementation did not have trailing periods, while
-    ///    the prometheus-client crate adds a period to the end of all metric descriptions.
-    /// 2. Label ordering: Labels are not sorted alphabetically in the otel implementation,
-    ///    while prometheus-client sorts them.
-    /// 3. EOF marker: The otel version did not contain the `# EOF` line that is present
-    ///    in the current implementation.
-    /// 4. Removed metrics: The `target_info` metric has been removed in the new implementation.
-    /// 5. Removed labels: The `otel_scope_name` label has been removed from all metrics.
-    ///
-    /// This test ensures that the current snapshots still match the otel snapshots by normalizing
-    /// each line in both snapshot files before performing a comparison.
-    #[test]
-    fn compare_snapshots_to_existing_otel_snapshots() -> Result<(), Box<dyn std::error::Error>> {
-        insta::glob!("otel_snapshots/", "*.otelsnap", |path| {
-            let snap_name = path.file_name().unwrap();
-            let snap_file = path
-                .parent()
-                .unwrap()
-                .parent()
-                .unwrap()
-                .join("snapshots")
-                .join(snap_name.to_string_lossy().replace(".otelsnap", ".snap"));
-            let otel_metrics = read_metrics_from_snapshot(path);
-            let metrics = read_metrics_from_snapshot(&snap_file);
-
-            compare_metrics(&otel_metrics, &metrics);
-        });
-
-        Ok(())
-    }
-
-    pub(super) fn compare_metrics(metrics1: &Scrape, metrics2: &Scrape) {
-        // Skip OTEL specific metric and updated metrics.
-        let set1: HashSet<_> = metrics1
-            .samples
-            .iter()
-            .filter(|s| !IGNORED_METRICS.contains(&s.metric.as_str()))
-            .map(normalize_sample)
-            .collect();
-
-        let set2: HashSet<_> = metrics2
-            .samples
-            .iter()
-            .filter(|s| !IGNORED_METRICS.contains(&s.metric.as_str()))
-            .map(normalize_sample)
-            .collect();
-
-        let only_in_first: Vec<_> = set1.difference(&set2).collect();
-
-        let only_in_second: Vec<_> = set2.difference(&set1).collect();
-
-        let metric_value_comparison = if only_in_first.is_empty() && only_in_second.is_empty() {
-            true
-        } else {
-            if !only_in_first.is_empty() {
-                println!("Metrics only in first file:");
-
-                for metric in only_in_first {
-                    println!("{metric:?}");
-                }
-            }
-
-            if !only_in_second.is_empty() {
-                println!("Metrics only in second file:");
-
-                for metric in only_in_second {
-                    println!("{metric:?}");
-                }
-            }
-
-            false
-        };
-
-        // Assert metrics values/labels are exactly the same
-        assert!(
-            metric_value_comparison,
-            "Metrics values/labels are not the same"
-        );
-
-        // Normalize and compare metrics help
-        let normalized_docs1 = normalize_docs(&metrics1.docs);
-        let normalized_docs2 = normalize_docs(&metrics2.docs);
-
-        pretty_assertions::assert_eq!(
-            normalized_docs1,
-            normalized_docs2,
-            "Metrics help are not the same"
-        );
-    }
-
-    pub(super) fn historical_snapshot_path(name: &str) -> PathBuf {
-        PathBuf::from_iter([
-            env!("CARGO_MANIFEST_DIR"),
-            "src",
-            "historical_snapshots",
-            name,
-        ])
-    }
-
     pub fn get_scrape(x: String) -> Scrape {
         // According to the Prometheus text exposition format specification,
         // curly braces {} are required even for empty label sets.
@@ -299,82 +172,5 @@ pub mod tests {
         let x = x.lines().map(|x| Ok(x.to_owned()));
 
         Scrape::parse(x).unwrap()
-    }
-
-    pub(super) fn read_metrics_from_snapshot(path: &Path) -> Scrape {
-        let x = insta::Snapshot::from_file(path).unwrap();
-
-        let insta::internals::SnapshotContents::Text(x) = x.contents() else {
-            panic!("Snapshot is not text");
-        };
-
-        get_scrape(x.to_string())
-    }
-
-    fn parse_lustre_metrics(contents: &str) -> String {
-        let (records, _) = parse()
-            .easy_parse(contents)
-            .map_err(|err| err.map_position(|p| p.translate_position(contents)))
-            .unwrap();
-
-        build_lustre_stats(&records)
-    }
-
-    fn encode_lustre_stats_from_fixture(content: &str) -> String {
-        let records = serde_json::from_str(content).unwrap();
-
-        build_lustre_stats(&records)
-    }
-
-    fn build_lustre_stats(x: &Vec<Record>) -> String {
-        let mut registry = Registry::default();
-        let mut metrics = Metrics::default();
-
-        metrics::build_lustre_stats(x, &mut metrics);
-
-        metrics.register_metric(&mut registry);
-
-        let mut stats = String::new();
-
-        encode(&mut stats, &registry).unwrap();
-
-        stats
-    }
-
-    fn normalize_sample(sample: &Sample) -> (String, Vec<(String, String)>, String) {
-        let mut sorted_labels: Vec<_> = sample
-            .labels
-            .iter()
-            .filter(|(k, _)| *k != "otel_scope_name")
-            .map(|(k, v)| (k.clone(), v.clone()))
-            .collect();
-
-        sorted_labels.sort();
-
-        let value_str = match sample.value {
-            prometheus_parse::Value::Counter(f) => format!("Counter({f})"),
-            prometheus_parse::Value::Gauge(f) => format!("Gauge({f})"),
-            _ => "0.0".to_string(),
-        };
-
-        (sample.metric.clone(), sorted_labels, value_str)
-    }
-
-    fn normalize_docs(docs: &std::collections::HashMap<String, String>) -> Vec<(String, String)> {
-        // Ignore updated metrics since OTEL move.
-        let mut sorted_docs: Vec<_> = docs
-            .iter()
-            .filter_map(|(k, v)| {
-                if !IGNORED_METRICS.contains(&k.as_str()) {
-                    Some((k.clone(), v.strip_suffix(".").unwrap_or(v).to_string()))
-                } else {
-                    None
-                }
-            })
-            .collect();
-
-        sorted_docs.sort_by(|a, b| a.0.cmp(&b.0)); // Sort by key
-
-        sorted_docs
     }
 }

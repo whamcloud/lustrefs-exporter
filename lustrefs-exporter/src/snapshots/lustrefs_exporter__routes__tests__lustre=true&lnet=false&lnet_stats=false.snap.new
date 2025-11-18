@@ -1,6 +1,0 @@
----
-source: lustrefs-exporter/src/routes.rs
-assertion_line: 365
-expression: response.try_into_string().await
----
-# EOF

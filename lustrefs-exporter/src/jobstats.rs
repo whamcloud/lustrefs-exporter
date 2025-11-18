@@ -359,12 +359,7 @@ fn render_stat(
 pub mod tests {
     use prometheus_client::{encoding::text::encode, registry::Registry};
 
-    use crate::{
-        jobstats::{self, JobstatMetrics},
-        tests::{
-            compare_metrics, get_scrape, historical_snapshot_path, read_metrics_from_snapshot,
-        },
-    };
+    use crate::jobstats::{self, JobstatMetrics};
     use std::{
         fs::File,
         io::{BufRead, BufReader},
