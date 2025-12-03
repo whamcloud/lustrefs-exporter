@@ -321,7 +321,12 @@ mod tests {
 
         let response = app.oneshot(request).await.unwrap();
 
-        assert!(response.status().is_success())
+        assert!(response.status().is_success());
+
+        let body = to_bytes(response.into_body(), usize::MAX).await.unwrap();
+        let original_body_str = std::str::from_utf8(&body).unwrap();
+
+        insta::assert_snapshot!(original_body_str);
     }
 
     #[commandeer(Replay, "lctl", "lnetctl")]
@@ -459,7 +464,7 @@ mod tests {
     #[commandeer(Replay, "lctl", "lnetctl")]
     #[tokio::test]
     #[serial]
-    async fn test_jobstats_with_stderr_output() -> Result<(), Box<dyn std::error::Error>> {
+    async fn test_jobstats_with_stderr_output() {
         let (request, app) = get_app();
 
         let resp = app.oneshot(request).await.unwrap();
@@ -468,7 +473,5 @@ mod tests {
         let original_body_str = std::str::from_utf8(&body).unwrap();
 
         insta::assert_snapshot!(original_body_str);
-
-        Ok(())
     }
 }

@@ -259,6 +259,7 @@ pub fn build_ost_stats(stats: &[Stat], target: &Target, metrics: &mut StatsMetri
                         .inc_by(sum);
                 }
             }
+
             "write_bytes" => {
                 let write_labels = vec![
                     ("component", kind.to_prom_label().to_string()),
@@ -292,6 +293,7 @@ pub fn build_ost_stats(stats: &[Stat], target: &Target, metrics: &mut StatsMetri
                         .inc_by(sum);
                 }
             }
+
             "get_page" => {
                 let get_page_labels = vec![
                     ("component", kind.to_prom_label().to_string()),
@@ -317,6 +319,7 @@ pub fn build_ost_stats(stats: &[Stat], target: &Target, metrics: &mut StatsMetri
                     .get_or_create(&cache_access_labels)
                     .inc_by(s.samples);
             }
+
             "cache_hit" => {
                 let cache_hit_labels = vec![
                     ("component", kind.to_prom_label().to_string()),
@@ -329,6 +332,7 @@ pub fn build_ost_stats(stats: &[Stat], target: &Target, metrics: &mut StatsMetri
                     .get_or_create(&cache_hit_labels)
                     .inc_by(s.samples);
             }
+
             "cache_miss" => {
                 let cache_miss_labels = vec![
                     ("component", kind.to_prom_label().to_string()),
