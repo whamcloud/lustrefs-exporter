@@ -67,4 +67,6 @@ expression: params()
     "qmt.*.{dt,md}-*.glb-grp",
     "nodemap.*.dt_stats",
     "nodemap.*.md_stats",
+    "obdfilter.*OST*.recovery_status",
+    "mdt.*MDT*.recovery_status",
 ]
