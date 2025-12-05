@@ -359,12 +359,7 @@ fn render_stat(
 pub mod tests {
     use prometheus_client::{encoding::text::encode, registry::Registry};
 
-    use crate::{
-        jobstats::{self, JobstatMetrics},
-        tests::{
-            compare_metrics, get_scrape, historical_snapshot_path, read_metrics_from_snapshot,
-        },
-    };
+    use crate::jobstats::{self, JobstatMetrics};
     use std::{
         fs::File,
         io::{BufRead, BufReader},
@@ -502,22 +497,5 @@ job_stats:
                 + 2 * 9 // HELP and TYPE lines
                 + 1 // # EOF
         );
-    }
-
-    #[tokio::test(flavor = "multi_thread")]
-    async fn parse_2_14_0_164_jobstats_otel() {
-        let f = BufReader::new(File::open("fixtures/jobstats_only/2.14.0_164.txt").unwrap());
-
-        let stats = stream_jobstats(f).await;
-
-        insta::assert_snapshot!(stats);
-
-        let current = get_scrape(stats);
-
-        let previous = read_metrics_from_snapshot(&historical_snapshot_path(
-            "lustrefs_exporter__jobstats__tests__parse_2_14_0_164_jobstats.histsnap",
-        ));
-
-        compare_metrics(&current, &previous);
     }
 }

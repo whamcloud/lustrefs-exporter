@@ -1,0 +1,780 @@
+---
+source: lustrefs-exporter/src/routes.rs
+expression: original_body_str
+---
+# HELP lustre_health_healthy Indicates whether the Lustre server is healthy or not. 1 is healthy, 0 is unhealthy.
+# TYPE lustre_health_healthy gauge
+lustre_health_healthy{} 1
+# HELP lustre_lnet_mem_used Gives information about Lustre LNet memory usage.
+# TYPE lustre_lnet_mem_used gauge
+lustre_lnet_mem_used{} 201941292
+# HELP lustre_mem_used Gives information about Lustre memory usage.
+# TYPE lustre_mem_used gauge
+lustre_mem_used{} 1797025236
+# HELP lustre_mem_used_max Gives information about Lustre maximum memory usage.
+# TYPE lustre_mem_used_max counter
+lustre_mem_used_max{} 1852233151
+# HELP lustre_quota_hard The hard quota for a given component.
+# TYPE lustre_quota_hard gauge
+lustre_quota_hard{accounting="group",id="0",manager="dt",pool="",target="testfs-QMT0000"} 0
+lustre_quota_hard{accounting="group",id="0",manager="md",pool="",target="testfs-QMT0000"} 0
+lustre_quota_hard{accounting="project",id="0",manager="dt",pool="",target="testfs-QMT0000"} 0
+lustre_quota_hard{accounting="project",id="0",manager="md",pool="",target="testfs-QMT0000"} 0
+lustre_quota_hard{accounting="user",id="0",manager="dt",pool="",target="testfs-QMT0000"} 0
+lustre_quota_hard{accounting="user",id="0",manager="md",pool="",target="testfs-QMT0000"} 0
+# HELP lustre_quota_soft The soft quota for a given component.
+# TYPE lustre_quota_soft gauge
+lustre_quota_soft{accounting="group",id="0",manager="dt",pool="",target="testfs-QMT0000"} 0
+lustre_quota_soft{accounting="group",id="0",manager="md",pool="",target="testfs-QMT0000"} 0
+lustre_quota_soft{accounting="project",id="0",manager="dt",pool="",target="testfs-QMT0000"} 0
+lustre_quota_soft{accounting="project",id="0",manager="md",pool="",target="testfs-QMT0000"} 0
+lustre_quota_soft{accounting="user",id="0",manager="dt",pool="",target="testfs-QMT0000"} 0
+lustre_quota_soft{accounting="user",id="0",manager="md",pool="",target="testfs-QMT0000"} 0
+# HELP lustre_quota_granted The granted quota for a given component.
+# TYPE lustre_quota_granted gauge
+lustre_quota_granted{accounting="group",id="0",manager="dt",pool="",target="testfs-QMT0000"} 0
+lustre_quota_granted{accounting="group",id="0",manager="md",pool="",target="testfs-QMT0000"} 0
+lustre_quota_granted{accounting="project",id="0",manager="dt",pool="",target="testfs-QMT0000"} 0
+lustre_quota_granted{accounting="project",id="0",manager="md",pool="",target="testfs-QMT0000"} 0
+lustre_quota_granted{accounting="user",id="0",manager="dt",pool="",target="testfs-QMT0000"} 0
+lustre_quota_granted{accounting="user",id="0",manager="md",pool="",target="testfs-QMT0000"} 0
+# HELP lustre_quota_used_kbytes The hard quota for a given component.
+# TYPE lustre_quota_used_kbytes gauge
+lustre_quota_used_kbytes{accounting="group",component="mdt",id="0",target="testfs-MDT0000"} 6688
+lustre_quota_used_kbytes{accounting="group",component="ost",id="0",target="testfs-OST0000"} 514096
+lustre_quota_used_kbytes{accounting="group",component="ost",id="0",target="testfs-OST0001"} 515332
+lustre_quota_used_kbytes{accounting="project",component="mdt",id="0",target="testfs-MDT0000"} 6688
+lustre_quota_used_kbytes{accounting="project",component="ost",id="0",target="testfs-OST0000"} 514096
+lustre_quota_used_kbytes{accounting="project",component="ost",id="0",target="testfs-OST0001"} 515332
+lustre_quota_used_kbytes{accounting="user",component="mdt",id="0",target="testfs-MDT0000"} 6688
+lustre_quota_used_kbytes{accounting="user",component="ost",id="0",target="testfs-OST0000"} 514096
+lustre_quota_used_kbytes{accounting="user",component="ost",id="0",target="testfs-OST0001"} 515332
+# HELP lustre_quota_used_inodes The amount of inodes used by quota.
+# TYPE lustre_quota_used_inodes gauge
+lustre_quota_used_inodes{accounting="group",component="mdt",id="0",target="testfs-MDT0000"} 30448
+lustre_quota_used_inodes{accounting="group",component="ost",id="0",target="testfs-OST0000"} 2643
+lustre_quota_used_inodes{accounting="group",component="ost",id="0",target="testfs-OST0001"} 2643
+lustre_quota_used_inodes{accounting="project",component="mdt",id="0",target="testfs-MDT0000"} 30448
+lustre_quota_used_inodes{accounting="project",component="ost",id="0",target="testfs-OST0000"} 2643
+lustre_quota_used_inodes{accounting="project",component="ost",id="0",target="testfs-OST0001"} 2643
+lustre_quota_used_inodes{accounting="user",component="mdt",id="0",target="testfs-MDT0000"} 30448
+lustre_quota_used_inodes{accounting="user",component="ost",id="0",target="testfs-OST0000"} 2643
+lustre_quota_used_inodes{accounting="user",component="ost",id="0",target="testfs-OST0001"} 2643
+# HELP lustre_ldlm_canceld_stats Gives information about LDLM Canceld service.
+# TYPE lustre_ldlm_canceld_stats counter
+lustre_ldlm_canceld_stats{operation="ldlm_cancel"} 1454993564
+lustre_ldlm_canceld_stats{operation="req_active"} 1454993564
+lustre_ldlm_canceld_stats{operation="req_qdepth"} 1454993564
+lustre_ldlm_canceld_stats{operation="req_timeout"} 1454993564
+lustre_ldlm_canceld_stats{operation="req_waittime"} 1454993564
+lustre_ldlm_canceld_stats{operation="reqbuf_avail"} 2913200758
+# HELP lustre_ldlm_cbd_stats Gives information about LDLM Callback service.
+# TYPE lustre_ldlm_cbd_stats counter
+lustre_ldlm_cbd_stats{operation="ldlm_bl_callback"} 11
+lustre_ldlm_cbd_stats{operation="ldlm_cp_callback"} 1
+lustre_ldlm_cbd_stats{operation="req_active"} 12
+lustre_ldlm_cbd_stats{operation="req_qdepth"} 12
+lustre_ldlm_cbd_stats{operation="req_timeout"} 12
+lustre_ldlm_cbd_stats{operation="req_waittime"} 12
+lustre_ldlm_cbd_stats{operation="reqbuf_avail"} 32
+# HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation.
+# TYPE lustre_disk_io_total counter
+lustre_disk_io_total{component="ost",operation="read",size="4096",target="testfs-OST0000"} 20676888
+lustre_disk_io_total{component="ost",operation="read",size="4096",target="testfs-OST0001"} 20689508
+lustre_disk_io_total{component="ost",operation="write",size="4096",target="testfs-OST0000"} 20927032
+lustre_disk_io_total{component="ost",operation="write",size="4096",target="testfs-OST0001"} 20940365
+# HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.
+# TYPE lustre_dio_frags counter
+lustre_dio_frags{component="ost",operation="read",size="1",target="testfs-OST0000"} 20676888
+lustre_dio_frags{component="ost",operation="read",size="1",target="testfs-OST0001"} 20689508
+lustre_dio_frags{component="ost",operation="write",size="1",target="testfs-OST0000"} 20927032
+lustre_dio_frags{component="ost",operation="write",size="1",target="testfs-OST0001"} 20940365
+# HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.
+# TYPE lustre_disk_io counter
+lustre_disk_io{component="ost",operation="read",size="1",target="testfs-OST0000"} 12626959
+lustre_disk_io{component="ost",operation="read",size="1",target="testfs-OST0001"} 14649054
+lustre_disk_io{component="ost",operation="read",size="10",target="testfs-OST0000"} 1150
+lustre_disk_io{component="ost",operation="read",size="10",target="testfs-OST0001"} 756
+lustre_disk_io{component="ost",operation="read",size="11",target="testfs-OST0000"} 255
+lustre_disk_io{component="ost",operation="read",size="11",target="testfs-OST0001"} 169
+lustre_disk_io{component="ost",operation="read",size="12",target="testfs-OST0000"} 99
+lustre_disk_io{component="ost",operation="read",size="12",target="testfs-OST0001"} 74
+lustre_disk_io{component="ost",operation="read",size="13",target="testfs-OST0000"} 49
+lustre_disk_io{component="ost",operation="read",size="13",target="testfs-OST0001"} 41
+lustre_disk_io{component="ost",operation="read",size="14",target="testfs-OST0000"} 25
+lustre_disk_io{component="ost",operation="read",size="14",target="testfs-OST0001"} 19
+lustre_disk_io{component="ost",operation="read",size="15",target="testfs-OST0000"} 16
+lustre_disk_io{component="ost",operation="read",size="15",target="testfs-OST0001"} 11
+lustre_disk_io{component="ost",operation="read",size="16",target="testfs-OST0000"} 6
+lustre_disk_io{component="ost",operation="read",size="16",target="testfs-OST0001"} 3
+lustre_disk_io{component="ost",operation="read",size="17",target="testfs-OST0000"} 6
+lustre_disk_io{component="ost",operation="read",size="17",target="testfs-OST0001"} 1
+lustre_disk_io{component="ost",operation="read",size="18",target="testfs-OST0000"} 3
+lustre_disk_io{component="ost",operation="read",size="2",target="testfs-OST0000"} 4742288
+lustre_disk_io{component="ost",operation="read",size="2",target="testfs-OST0001"} 4184377
+lustre_disk_io{component="ost",operation="read",size="3",target="testfs-OST0000"} 1978229
+lustre_disk_io{component="ost",operation="read",size="3",target="testfs-OST0001"} 1228376
+lustre_disk_io{component="ost",operation="read",size="4",target="testfs-OST0000"} 792960
+lustre_disk_io{component="ost",operation="read",size="4",target="testfs-OST0001"} 371200
+lustre_disk_io{component="ost",operation="read",size="5",target="testfs-OST0000"} 314989
+lustre_disk_io{component="ost",operation="read",size="5",target="testfs-OST0001"} 136224
+lustre_disk_io{component="ost",operation="read",size="6",target="testfs-OST0000"} 128976
+lustre_disk_io{component="ost",operation="read",size="6",target="testfs-OST0001"} 62570
+lustre_disk_io{component="ost",operation="read",size="7",target="testfs-OST0000"} 56165
+lustre_disk_io{component="ost",operation="read",size="7",target="testfs-OST0001"} 32577
+lustre_disk_io{component="ost",operation="read",size="8",target="testfs-OST0000"} 24897
+lustre_disk_io{component="ost",operation="read",size="8",target="testfs-OST0001"} 16852
+lustre_disk_io{component="ost",operation="read",size="9",target="testfs-OST0000"} 9816
+lustre_disk_io{component="ost",operation="read",size="9",target="testfs-OST0001"} 7204
+lustre_disk_io{component="ost",operation="write",size="1",target="testfs-OST0000"} 12664060
+lustre_disk_io{component="ost",operation="write",size="1",target="testfs-OST0001"} 12303250
+lustre_disk_io{component="ost",operation="write",size="10",target="testfs-OST0000"} 626
+lustre_disk_io{component="ost",operation="write",size="10",target="testfs-OST0001"} 625
+lustre_disk_io{component="ost",operation="write",size="11",target="testfs-OST0000"} 176
+lustre_disk_io{component="ost",operation="write",size="11",target="testfs-OST0001"} 138
+lustre_disk_io{component="ost",operation="write",size="12",target="testfs-OST0000"} 68
+lustre_disk_io{component="ost",operation="write",size="12",target="testfs-OST0001"} 50
+lustre_disk_io{component="ost",operation="write",size="13",target="testfs-OST0000"} 37
+lustre_disk_io{component="ost",operation="write",size="13",target="testfs-OST0001"} 26
+lustre_disk_io{component="ost",operation="write",size="14",target="testfs-OST0000"} 15
+lustre_disk_io{component="ost",operation="write",size="14",target="testfs-OST0001"} 8
+lustre_disk_io{component="ost",operation="write",size="15",target="testfs-OST0000"} 7
+lustre_disk_io{component="ost",operation="write",size="15",target="testfs-OST0001"} 5
+lustre_disk_io{component="ost",operation="write",size="16",target="testfs-OST0000"} 6
+lustre_disk_io{component="ost",operation="write",size="16",target="testfs-OST0001"} 2
+lustre_disk_io{component="ost",operation="write",size="17",target="testfs-OST0000"} 1
+lustre_disk_io{component="ost",operation="write",size="17",target="testfs-OST0001"} 1
+lustre_disk_io{component="ost",operation="write",size="18",target="testfs-OST0000"} 1
+lustre_disk_io{component="ost",operation="write",size="2",target="testfs-OST0000"} 4967820
+lustre_disk_io{component="ost",operation="write",size="2",target="testfs-OST0001"} 5069917
+lustre_disk_io{component="ost",operation="write",size="3",target="testfs-OST0000"} 2062300
+lustre_disk_io{component="ost",operation="write",size="3",target="testfs-OST0001"} 2194482
+lustre_disk_io{component="ost",operation="write",size="4",target="testfs-OST0000"} 771497
+lustre_disk_io{component="ost",operation="write",size="4",target="testfs-OST0001"} 854955
+lustre_disk_io{component="ost",operation="write",size="5",target="testfs-OST0000"} 284589
+lustre_disk_io{component="ost",operation="write",size="5",target="testfs-OST0001"} 321213
+lustre_disk_io{component="ost",operation="write",size="6",target="testfs-OST0000"} 109145
+lustre_disk_io{component="ost",operation="write",size="6",target="testfs-OST0001"} 122612
+lustre_disk_io{component="ost",operation="write",size="7",target="testfs-OST0000"} 43817
+lustre_disk_io{component="ost",operation="write",size="7",target="testfs-OST0001"} 48503
+lustre_disk_io{component="ost",operation="write",size="8",target="testfs-OST0000"} 17198
+lustre_disk_io{component="ost",operation="write",size="8",target="testfs-OST0001"} 18543
+lustre_disk_io{component="ost",operation="write",size="9",target="testfs-OST0000"} 5669
+lustre_disk_io{component="ost",operation="write",size="9",target="testfs-OST0001"} 6035
+# HELP lustre_discontiguous_pages_total Total number of logical discontinuities per RPC. 'size' label represents 'Discontiguous pages', the number of discontinuities in the logical file offset of each page in a single RPC.
+# TYPE lustre_discontiguous_pages_total counter
+lustre_discontiguous_pages_total{component="ost",operation="read",size="0",target="testfs-OST0000"} 20678764
+lustre_discontiguous_pages_total{component="ost",operation="read",size="0",target="testfs-OST0001"} 20691383
+lustre_discontiguous_pages_total{component="ost",operation="write",size="0",target="testfs-OST0000"} 20927032
+lustre_discontiguous_pages_total{component="ost",operation="write",size="0",target="testfs-OST0001"} 20940365
+# HELP lustre_discontiguous_blocks_total 'size' label represents 'Discontiguous blocks', the number of discontinuities in the physical block allocation in the file system for a single RPC.
+# TYPE lustre_discontiguous_blocks_total counter
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="0",target="testfs-OST0000"} 20678764
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="0",target="testfs-OST0001"} 20691383
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="1",target="testfs-OST0000"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="read",size="1",target="testfs-OST0001"} 0
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="0",target="testfs-OST0000"} 20807661
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="0",target="testfs-OST0001"} 20820744
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="1",target="testfs-OST0000"} 119371
+lustre_discontiguous_blocks_total{component="ost",operation="write",size="1",target="testfs-OST0001"} 119621
+# HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes. 'size' label represents 'I/O time (1/1000s)', the amount of time for each I/O operation to complete.
+# TYPE lustre_io_time_milliseconds_total counter
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="1",target="testfs-OST0000"} 20659034
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="1",target="testfs-OST0001"} 20673674
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="16",target="testfs-OST0000"} 12
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="16",target="testfs-OST0001"} 9
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="2",target="testfs-OST0000"} 10828
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="2",target="testfs-OST0001"} 9337
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="4",target="testfs-OST0000"} 4884
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="4",target="testfs-OST0001"} 4372
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="8",target="testfs-OST0000"} 2130
+lustre_io_time_milliseconds_total{component="ost",operation="read",size="8",target="testfs-OST0001"} 2116
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="1",target="testfs-OST0000"} 20922963
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="1",target="testfs-OST0001"} 20936581
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="16",target="testfs-OST0000"} 4
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="16",target="testfs-OST0001"} 1
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="2",target="testfs-OST0000"} 3293
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="2",target="testfs-OST0001"} 3023
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="4",target="testfs-OST0000"} 517
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="4",target="testfs-OST0001"} 524
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="8",target="testfs-OST0000"} 255
+lustre_io_time_milliseconds_total{component="ost",operation="write",size="8",target="testfs-OST0001"} 236
+# HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request.
+# TYPE lustre_pages_per_bulk_rw_total counter
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="1",target="testfs-OST0000"} 20678764
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="1",target="testfs-OST0001"} 20691383
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="2",target="testfs-OST0000"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="2",target="testfs-OST0001"} 0
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="1",target="testfs-OST0000"} 20807661
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="1",target="testfs-OST0001"} 20820744
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="2",target="testfs-OST0000"} 119371
+lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="2",target="testfs-OST0001"} 119621
+# HELP lustre_inodes_free The number of inodes (objects) available.
+# TYPE lustre_inodes_free gauge
+lustre_inodes_free{component="mdt",target="testfs-MDT0000"} 85878038
+lustre_inodes_free{component="mgt",target="MGS"} 130859
+lustre_inodes_free{component="ost",target="testfs-OST0000"} 33027491
+lustre_inodes_free{component="ost",target="testfs-OST0001"} 33027491
+# HELP lustre_inodes_maximum The maximum number of inodes (objects) the filesystem can hold.
+# TYPE lustre_inodes_maximum gauge
+lustre_inodes_maximum{component="mdt",target="testfs-MDT0000"} 85908496
+lustre_inodes_maximum{component="mgt",target="MGS"} 131072
+lustre_inodes_maximum{component="ost",target="testfs-OST0000"} 33030144
+lustre_inodes_maximum{component="ost",target="testfs-OST0001"} 33030144
+# HELP lustre_available_kilobytes Number of kilobytes readily available in the pool.
+# TYPE lustre_available_kilobytes gauge
+lustre_available_kilobytes{component="mdt",target="testfs-MDT0000"} 108465092
+lustre_available_kilobytes{component="mgt",target="MGS"} 1857024
+lustre_available_kilobytes{component="ost",target="testfs-OST0000"} 4134247316
+lustre_available_kilobytes{component="ost",target="testfs-OST0001"} 4134246080
+# HELP lustre_free_kilobytes Number of kilobytes allocated to the pool.
+# TYPE lustre_free_kilobytes gauge
+lustre_free_kilobytes{component="mdt",target="testfs-MDT0000"} 110628596
+lustre_free_kilobytes{component="mgt",target="MGS"} 1978264
+lustre_free_kilobytes{component="ost",target="testfs-OST0000"} 4176542284
+lustre_free_kilobytes{component="ost",target="testfs-OST0001"} 4176541048
+# HELP lustre_capacity_kilobytes Capacity of the pool in kilobytes.
+# TYPE lustre_capacity_kilobytes gauge
+lustre_capacity_kilobytes{component="mdt",target="testfs-MDT0000"} 110635320
+lustre_capacity_kilobytes{component="mgt",target="MGS"} 1980036
+lustre_capacity_kilobytes{component="ost",target="testfs-OST0000"} 4177056416
+lustre_capacity_kilobytes{component="ost",target="testfs-OST0001"} 4177056416
+# HELP lustre_exports_total Total number of times the pool has been exported.
+# TYPE lustre_exports_total gauge
+lustre_exports_total{component="mdt",target="testfs-MDT0000"} 38
+lustre_exports_total{component="mgt",target="MGS"} 9
+lustre_exports_total{component="ost",target="testfs-OST0000"} 13
+lustre_exports_total{component="ost",target="testfs-OST0001"} 13
+# HELP lustre_exports_dirty_total Total number of exports that have been marked dirty.
+# TYPE lustre_exports_dirty_total gauge
+lustre_exports_dirty_total{component="ost",target="testfs-OST0000"} 13692928
+lustre_exports_dirty_total{component="ost",target="testfs-OST0001"} 9957376
+# HELP lustre_exports_granted_total Total number of exports that have been marked granted.
+# TYPE lustre_exports_granted_total gauge
+lustre_exports_granted_total{component="ost",target="testfs-OST0000"} 2721876800
+lustre_exports_granted_total{component="ost",target="testfs-OST0001"} 2733996864
+# HELP lustre_exports_pending_total Total number of exports that have been marked pending.
+# TYPE lustre_exports_pending_total gauge
+lustre_exports_pending_total{component="ost",target="testfs-OST0000"} 2265088
+lustre_exports_pending_total{component="ost",target="testfs-OST0001"} 3182592
+# HELP lustre_lock_contended_total Number of contended locks.
+# TYPE lustre_lock_contended_total gauge
+lustre_lock_contended_total{component="mdt",target="testfs-MDT0000"} 32
+lustre_lock_contended_total{component="ost",target="testfs-OST0000"} 32
+lustre_lock_contended_total{component="ost",target="testfs-OST0001"} 32
+# HELP lustre_lock_contention_seconds_total Time in seconds during which locks were contended.
+# TYPE lustre_lock_contention_seconds_total gauge
+lustre_lock_contention_seconds_total{component="mdt",target="testfs-MDT0000"} 2
+lustre_lock_contention_seconds_total{component="ost",target="testfs-OST0000"} 2
+lustre_lock_contention_seconds_total{component="ost",target="testfs-OST0001"} 2
+# HELP lustre_connected_clients Number of connected clients.
+# TYPE lustre_connected_clients gauge
+lustre_connected_clients{component="mdt",target="testfs-MDT0000"} 7
+# HELP lustre_lock_count_total Number of locks.
+# TYPE lustre_lock_count_total gauge
+lustre_lock_count_total{component="mdt",target="testfs-MDT0000"} 60105
+lustre_lock_count_total{component="ost",target="testfs-OST0000"} 1875
+lustre_lock_count_total{component="ost",target="testfs-OST0001"} 1875
+# HELP lustre_lock_timeout_total Number of lock timeouts.
+# TYPE lustre_lock_timeout_total counter
+lustre_lock_timeout_total{component="mdt",target="testfs-MDT0000"} 0
+lustre_lock_timeout_total{component="ost",target="testfs-OST0000"} 0
+lustre_lock_timeout_total{component="ost",target="testfs-OST0001"} 0
+# HELP lustre_block_maps_milliseconds_total Number of block maps in milliseconds.
+# TYPE lustre_block_maps_milliseconds_total counter
+lustre_block_maps_milliseconds_total{component="ost",operation="read",size="1",target="testfs-OST0000"} 41479739
+lustre_block_maps_milliseconds_total{component="ost",operation="read",size="1",target="testfs-OST0001"} 41505382
+lustre_block_maps_milliseconds_total{component="ost",operation="write",size="1",target="testfs-OST0000"} 126057
+lustre_block_maps_milliseconds_total{component="ost",operation="write",size="1",target="testfs-OST0001"} 126366
+# HELP lustre_oss_ost_stats OSS ost stats.
+# TYPE lustre_oss_ost_stats gauge
+lustre_oss_ost_stats{operation="ldlm_extent_enqueue",units="reqs"} 3841
+lustre_oss_ost_stats{operation="ldlm_glimpse_enqueue",units="reqs"} 2337
+lustre_oss_ost_stats{operation="obd_ping",units="usecs"} 168013
+lustre_oss_ost_stats{operation="ost_connect",units="usecs"} 40
+lustre_oss_ost_stats{operation="ost_create",units="usecs"} 150
+lustre_oss_ost_stats{operation="ost_disconnect",units="usecs"} 14
+lustre_oss_ost_stats{operation="ost_get_info",units="usecs"} 16
+lustre_oss_ost_stats{operation="ost_set_info",units="usecs"} 2
+lustre_oss_ost_stats{operation="ost_setattr",units="usecs"} 1
+lustre_oss_ost_stats{operation="ost_sync",units="usecs"} 8011672
+lustre_oss_ost_stats{operation="req_active",units="reqs"} 8186086
+lustre_oss_ost_stats{operation="req_qdepth",units="reqs"} 8186086
+lustre_oss_ost_stats{operation="req_timeout",units="secs"} 8186086
+lustre_oss_ost_stats{operation="req_waittime",units="usecs"} 8186086
+lustre_oss_ost_stats{operation="reqbuf_avail",units="bufs"} 16340778
+# HELP lustre_oss_ost_io_stats OSS ost_io stats.
+# TYPE lustre_oss_ost_io_stats gauge
+lustre_oss_ost_io_stats{operation="ost_punch",units="usecs"} 1
+lustre_oss_ost_io_stats{operation="ost_read",units="usecs"} 95
+lustre_oss_ost_io_stats{operation="ost_write",units="usecs"} 41628405
+lustre_oss_ost_io_stats{operation="req_active",units="reqs"} 41628501
+lustre_oss_ost_io_stats{operation="req_qdepth",units="reqs"} 41628501
+lustre_oss_ost_io_stats{operation="req_timeout",units="secs"} 41628501
+lustre_oss_ost_io_stats{operation="req_waittime",units="usecs"} 41628501
+lustre_oss_ost_io_stats{operation="reqbuf_avail",units="bufs"} 86712876
+# HELP lustre_oss_ost_create_stats OSS ost_create stats.
+# TYPE lustre_oss_ost_create_stats gauge
+lustre_oss_ost_create_stats{operation="ost_statfs",units="usecs"} 1306344
+lustre_oss_ost_create_stats{operation="req_active",units="reqs"} 1306344
+lustre_oss_ost_create_stats{operation="req_qdepth",units="reqs"} 1306344
+lustre_oss_ost_create_stats{operation="req_timeout",units="secs"} 1306344
+lustre_oss_ost_create_stats{operation="req_waittime",units="usecs"} 1306344
+lustre_oss_ost_create_stats{operation="reqbuf_avail",units="bufs"} 2681248
+# HELP lustre_changelog_current_index current changelog index.
+# TYPE lustre_changelog_current_index gauge
+lustre_changelog_current_index{target="testfs-MDT0000"} 0
+# HELP lustre_client_stats Lustre client interface stats.
+# TYPE lustre_client_stats counter
+lustre_client_stats{operation="getattr",target="testfs-ff4cc0b3b14b9000"} 6
+lustre_client_stats{operation="inode_permission",target="testfs-ff4cc0b3b14b9000"} 1
+lustre_client_stats{operation="ioctl",target="testfs-ff4cc0b3b14b9000"} 82
+lustre_client_stats{operation="opencount",target="testfs-ff4cc0b3b14b9000"} 1
+lustre_client_stats{operation="statfs",target="testfs-ff4cc0b3b14b9000"} 13058
+# HELP lustre_send_count_total Total number of messages that have been sent.
+# TYPE lustre_send_count_total counter
+lustre_send_count_total{nid="0@lo"} 180076
+lustre_send_count_total{nid="172.16.0.24@tcp"} 464970
+lustre_send_count_total{nid="172.16.0.25@tcp"} 464886
+# HELP lustre_receive_count_total Total number of messages that have been received.
+# TYPE lustre_receive_count_total counter
+lustre_receive_count_total{nid="0@lo"} 180072
+lustre_receive_count_total{nid="172.16.0.24@tcp"} 464963
+lustre_receive_count_total{nid="172.16.0.25@tcp"} 464877
+# HELP lustre_drop_count_total Total number of messages that have been dropped.
+# TYPE lustre_drop_count_total counter
+lustre_drop_count_total{nid="0@lo"} 4
+lustre_drop_count_total{nid="172.16.0.24@tcp"} 4
+lustre_drop_count_total{nid="172.16.0.25@tcp"} 3
+# HELP lustre_send_bytes_total Total number of bytes that have been sent.
+# TYPE lustre_send_bytes_total counter
+lustre_send_bytes_total{} 261865376
+# HELP lustre_receive_bytes_total Total number of bytes that have been received.
+# TYPE lustre_receive_bytes_total counter
+lustre_receive_bytes_total{} 254091008
+# HELP lustre_drop_bytes_total Total number of bytes that have been dropped.
+# TYPE lustre_drop_bytes_total counter
+lustre_drop_bytes_total{} 4832
+# HELP lustre_read_samples_total Total number of reads that have been recorded.
+# TYPE lustre_read_samples_total counter
+lustre_read_samples_total{component="ost",operation="read",target="testfs-OST0000"} 95
+# HELP lustre_read_minimum_size_bytes The minimum read size in bytes.
+# TYPE lustre_read_minimum_size_bytes gauge
+lustre_read_minimum_size_bytes{component="ost",operation="read",target="testfs-OST0000"} 4096
+# HELP lustre_read_maximum_size_bytes The maximum read size in bytes.
+# TYPE lustre_read_maximum_size_bytes counter
+lustre_read_maximum_size_bytes{component="ost",operation="read",target="testfs-OST0000"} 4096
+# HELP lustre_read_bytes_total The total number of bytes that have been read.
+# TYPE lustre_read_bytes_total counter
+lustre_read_bytes_total{component="ost",operation="read",target="testfs-OST0000"} 389120
+# HELP lustre_write_samples_total Total number of writes that have been recorded.
+# TYPE lustre_write_samples_total counter
+lustre_write_samples_total{component="ost",operation="write",target="testfs-OST0000"} 20807661
+lustre_write_samples_total{component="ost",operation="write",target="testfs-OST0001"} 20820744
+# HELP lustre_write_minimum_size_bytes The minimum write size in bytes.
+# TYPE lustre_write_minimum_size_bytes gauge
+lustre_write_minimum_size_bytes{component="ost",operation="write",target="testfs-OST0000"} 3
+lustre_write_minimum_size_bytes{component="ost",operation="write",target="testfs-OST0001"} 4
+# HELP lustre_write_maximum_size_bytes The maximum write size in bytes.
+# TYPE lustre_write_maximum_size_bytes counter
+lustre_write_maximum_size_bytes{component="ost",operation="write",target="testfs-OST0000"} 4175
+lustre_write_maximum_size_bytes{component="ost",operation="write",target="testfs-OST0001"} 4190
+# HELP lustre_write_bytes_total The total number of bytes that have been written.
+# TYPE lustre_write_bytes_total counter
+lustre_write_bytes_total{component="ost",operation="write",target="testfs-OST0000"} 43041012485
+lustre_write_bytes_total{component="ost",operation="write",target="testfs-OST0001"} 43071770260
+# HELP lustre_stats_total Number of operations the filesystem has performed.
+# TYPE lustre_stats_total counter
+lustre_stats_total{component="mdt",operation="close",target="testfs-MDT0000"} 1454477058
+lustre_stats_total{component="mdt",operation="getattr",target="testfs-MDT0000"} 1444704848
+lustre_stats_total{component="mdt",operation="getxattr",target="testfs-MDT0000"} 12009250
+lustre_stats_total{component="mdt",operation="mkdir",target="testfs-MDT0000"} 1
+lustre_stats_total{component="mdt",operation="mknod",target="testfs-MDT0000"} 30008
+lustre_stats_total{component="mdt",operation="open",target="testfs-MDT0000"} 1454477063
+lustre_stats_total{component="mdt",operation="setattr",target="testfs-MDT0000"} 4
+lustre_stats_total{component="mdt",operation="statfs",target="testfs-MDT0000"} 571533
+lustre_stats_total{component="mdt",operation="sync",target="testfs-MDT0000"} 10
+lustre_stats_total{component="mdt",operation="unlink",target="testfs-MDT0000"} 6
+# HELP lustre_stats_time_min Minimum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_min gauge
+lustre_stats_time_min{component="mdt",operation="close",target="testfs-MDT0000"} 6
+lustre_stats_time_min{component="mdt",operation="getattr",target="testfs-MDT0000"} 0
+lustre_stats_time_min{component="mdt",operation="getxattr",target="testfs-MDT0000"} 5
+lustre_stats_time_min{component="mdt",operation="mkdir",target="testfs-MDT0000"} 216
+lustre_stats_time_min{component="mdt",operation="mknod",target="testfs-MDT0000"} 40
+lustre_stats_time_min{component="mdt",operation="open",target="testfs-MDT0000"} 6
+lustre_stats_time_min{component="mdt",operation="setattr",target="testfs-MDT0000"} 23
+lustre_stats_time_min{component="mdt",operation="statfs",target="testfs-MDT0000"} 0
+lustre_stats_time_min{component="mdt",operation="sync",target="testfs-MDT0000"} 1
+lustre_stats_time_min{component="mdt",operation="unlink",target="testfs-MDT0000"} 60
+# HELP lustre_stats_time_max Maximum time taken for an operation in microseconds.
+# TYPE lustre_stats_time_max gauge
+lustre_stats_time_max{component="mdt",operation="close",target="testfs-MDT0000"} 12022
+lustre_stats_time_max{component="mdt",operation="getattr",target="testfs-MDT0000"} 4417
+lustre_stats_time_max{component="mdt",operation="getxattr",target="testfs-MDT0000"} 2561
+lustre_stats_time_max{component="mdt",operation="mkdir",target="testfs-MDT0000"} 216
+lustre_stats_time_max{component="mdt",operation="mknod",target="testfs-MDT0000"} 4805
+lustre_stats_time_max{component="mdt",operation="open",target="testfs-MDT0000"} 12037
+lustre_stats_time_max{component="mdt",operation="setattr",target="testfs-MDT0000"} 116
+lustre_stats_time_max{component="mdt",operation="statfs",target="testfs-MDT0000"} 368
+lustre_stats_time_max{component="mdt",operation="sync",target="testfs-MDT0000"} 216
+lustre_stats_time_max{component="mdt",operation="unlink",target="testfs-MDT0000"} 91
+# HELP lustre_stats_time_total Total time taken for an operation in microseconds.
+# TYPE lustre_stats_time_total gauge
+lustre_stats_time_total{component="mdt",operation="close",target="testfs-MDT0000"} 30096213017
+lustre_stats_time_total{component="mdt",operation="getattr",target="testfs-MDT0000"} 3146350244
+lustre_stats_time_total{component="mdt",operation="getxattr",target="testfs-MDT0000"} 129047116
+lustre_stats_time_total{component="mdt",operation="mkdir",target="testfs-MDT0000"} 216
+lustre_stats_time_total{component="mdt",operation="mknod",target="testfs-MDT0000"} 1748773
+lustre_stats_time_total{component="mdt",operation="open",target="testfs-MDT0000"} 17984605912
+lustre_stats_time_total{component="mdt",operation="setattr",target="testfs-MDT0000"} 286
+lustre_stats_time_total{component="mdt",operation="statfs",target="testfs-MDT0000"} 2290528
+lustre_stats_time_total{component="mdt",operation="sync",target="testfs-MDT0000"} 264
+lustre_stats_time_total{component="mdt",operation="unlink",target="testfs-MDT0000"} 434
+# HELP lustre_get_page_total The total number of times the linux page cache was used.
+# TYPE lustre_get_page_total counter
+lustre_get_page_total{component="ost",operation="get_page",target="testfs-OST0000"} 20807756
+lustre_get_page_total{component="ost",operation="get_page",target="testfs-OST0001"} 20820744
+# HELP lustre_cache_access_total The total number of cache accesses.
+# TYPE lustre_cache_access_total counter
+lustre_cache_access_total{component="ost",operation="cache_access",target="testfs-OST0000"} 95
+# HELP lustre_cache_miss_total The total number of cache misses.
+# TYPE lustre_cache_miss_total counter
+lustre_cache_miss_total{component="ost",operation="cache_miss",target="testfs-OST0000"} 95
+# HELP lustre_client_export_stats Number of operations the target has performed per export.
+# TYPE lustre_client_export_stats counter
+lustre_client_export_stats{component="mdt",name="close",nid="0@lo",target="testfs-MDT0000",units="usecs"} 1
+lustre_client_export_stats{component="mdt",name="close",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 268448014
+lustre_client_export_stats{component="mdt",name="close",nid="172.16.1.29@o2ib",target="testfs-MDT0000",units="usecs"} 267768575
+lustre_client_export_stats{component="mdt",name="close",nid="172.16.1.31@o2ib",target="testfs-MDT0000",units="usecs"} 351584002
+lustre_client_export_stats{component="mdt",name="close",nid="172.16.1.3@o2ib",target="testfs-MDT0000",units="usecs"} 298636196
+lustre_client_export_stats{component="mdt",name="close",nid="172.16.1.7@o2ib",target="testfs-MDT0000",units="usecs"} 268040271
+lustre_client_export_stats{component="mdt",name="getattr",nid="0@lo",target="testfs-MDT0000",units="usecs"} 13
+lustre_client_export_stats{component="mdt",name="getattr",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 266293114
+lustre_client_export_stats{component="mdt",name="getattr",nid="172.16.1.29@o2ib",target="testfs-MDT0000",units="usecs"} 266422416
+lustre_client_export_stats{component="mdt",name="getattr",nid="172.16.1.31@o2ib",target="testfs-MDT0000",units="usecs"} 348430085
+lustre_client_export_stats{component="mdt",name="getattr",nid="172.16.1.3@o2ib",target="testfs-MDT0000",units="usecs"} 296988124
+lustre_client_export_stats{component="mdt",name="getattr",nid="172.16.1.7@o2ib",target="testfs-MDT0000",units="usecs"} 266571082
+lustre_client_export_stats{component="mdt",name="getattr",nid="172.16.2.244@o2ib",target="testfs-MDT0000",units="usecs"} 15
+lustre_client_export_stats{component="mdt",name="getxattr",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 809467
+lustre_client_export_stats{component="mdt",name="getxattr",nid="172.16.1.29@o2ib",target="testfs-MDT0000",units="usecs"} 807263
+lustre_client_export_stats{component="mdt",name="getxattr",nid="172.16.1.31@o2ib",target="testfs-MDT0000",units="usecs"} 3217989
+lustre_client_export_stats{component="mdt",name="getxattr",nid="172.16.1.3@o2ib",target="testfs-MDT0000",units="usecs"} 6366873
+lustre_client_export_stats{component="mdt",name="getxattr",nid="172.16.1.7@o2ib",target="testfs-MDT0000",units="usecs"} 807656
+lustre_client_export_stats{component="mdt",name="getxattr",nid="172.16.2.244@o2ib",target="testfs-MDT0000",units="usecs"} 2
+lustre_client_export_stats{component="mdt",name="mkdir",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 1
+lustre_client_export_stats{component="mdt",name="mknod",nid="0@lo",target="testfs-MDT0000",units="usecs"} 1
+lustre_client_export_stats{component="mdt",name="mknod",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 2007
+lustre_client_export_stats{component="mdt",name="mknod",nid="172.16.1.29@o2ib",target="testfs-MDT0000",units="usecs"} 2000
+lustre_client_export_stats{component="mdt",name="mknod",nid="172.16.1.31@o2ib",target="testfs-MDT0000",units="usecs"} 8000
+lustre_client_export_stats{component="mdt",name="mknod",nid="172.16.1.3@o2ib",target="testfs-MDT0000",units="usecs"} 16000
+lustre_client_export_stats{component="mdt",name="mknod",nid="172.16.1.7@o2ib",target="testfs-MDT0000",units="usecs"} 2000
+lustre_client_export_stats{component="mdt",name="open",nid="0@lo",target="testfs-MDT0000",units="usecs"} 1
+lustre_client_export_stats{component="mdt",name="open",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 268448015
+lustre_client_export_stats{component="mdt",name="open",nid="172.16.1.29@o2ib",target="testfs-MDT0000",units="usecs"} 267768576
+lustre_client_export_stats{component="mdt",name="open",nid="172.16.1.31@o2ib",target="testfs-MDT0000",units="usecs"} 351584003
+lustre_client_export_stats{component="mdt",name="open",nid="172.16.1.3@o2ib",target="testfs-MDT0000",units="usecs"} 298636198
+lustre_client_export_stats{component="mdt",name="open",nid="172.16.1.7@o2ib",target="testfs-MDT0000",units="usecs"} 268040273
+lustre_client_export_stats{component="mdt",name="setattr",nid="0@lo",target="testfs-MDT0000",units="usecs"} 1
+lustre_client_export_stats{component="mdt",name="setattr",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 3
+lustre_client_export_stats{component="mdt",name="statfs",nid="0@lo",target="testfs-MDT0000",units="usecs"} 5
+lustre_client_export_stats{component="mdt",name="statfs",nid="172.16.1.25@o2ib",target="testfs-MDT0000",units="usecs"} 81645
+lustre_client_export_stats{component="mdt",name="statfs",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 81648
+lustre_client_export_stats{component="mdt",name="statfs",nid="172.16.1.29@o2ib",target="testfs-MDT0000",units="usecs"} 81647
+lustre_client_export_stats{component="mdt",name="statfs",nid="172.16.1.31@o2ib",target="testfs-MDT0000",units="usecs"} 81647
+lustre_client_export_stats{component="mdt",name="statfs",nid="172.16.1.3@o2ib",target="testfs-MDT0000",units="usecs"} 81647
+lustre_client_export_stats{component="mdt",name="statfs",nid="172.16.1.5@o2ib",target="testfs-MDT0000",units="usecs"} 81645
+lustre_client_export_stats{component="mdt",name="statfs",nid="172.16.1.7@o2ib",target="testfs-MDT0000",units="usecs"} 81647
+lustre_client_export_stats{component="mdt",name="statfs",nid="172.16.2.244@o2ib",target="testfs-MDT0000",units="usecs"} 2
+lustre_client_export_stats{component="mdt",name="sync",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 10
+lustre_client_export_stats{component="mdt",name="unlink",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 6
+lustre_client_export_stats{component="ost",name="create",nid="0@lo",target="testfs-OST0000",units="usecs"} 61
+lustre_client_export_stats{component="ost",name="create",nid="0@lo",target="testfs-OST0001",units="usecs"} 61
+lustre_client_export_stats{component="ost",name="create",nid="172.16.1.25@o2ib",target="testfs-OST0000",units="usecs"} 2
+lustre_client_export_stats{component="ost",name="create",nid="172.16.1.25@o2ib",target="testfs-OST0001",units="usecs"} 2
+lustre_client_export_stats{component="ost",name="create",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="usecs"} 2
+lustre_client_export_stats{component="ost",name="create",nid="172.16.1.27@o2ib",target="testfs-OST0001",units="usecs"} 2
+lustre_client_export_stats{component="ost",name="create",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="usecs"} 2
+lustre_client_export_stats{component="ost",name="create",nid="172.16.1.29@o2ib",target="testfs-OST0001",units="usecs"} 2
+lustre_client_export_stats{component="ost",name="create",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="usecs"} 2
+lustre_client_export_stats{component="ost",name="create",nid="172.16.1.31@o2ib",target="testfs-OST0001",units="usecs"} 2
+lustre_client_export_stats{component="ost",name="create",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="usecs"} 2
+lustre_client_export_stats{component="ost",name="create",nid="172.16.1.3@o2ib",target="testfs-OST0001",units="usecs"} 2
+lustre_client_export_stats{component="ost",name="create",nid="172.16.1.5@o2ib",target="testfs-OST0000",units="usecs"} 2
+lustre_client_export_stats{component="ost",name="create",nid="172.16.1.5@o2ib",target="testfs-OST0001",units="usecs"} 2
+lustre_client_export_stats{component="ost",name="create",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="usecs"} 2
+lustre_client_export_stats{component="ost",name="create",nid="172.16.1.7@o2ib",target="testfs-OST0001",units="usecs"} 2
+lustre_client_export_stats{component="ost",name="get_info",nid="0@lo",target="testfs-OST0000",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="0@lo",target="testfs-OST0001",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="172.16.1.25@o2ib",target="testfs-OST0000",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="172.16.1.25@o2ib",target="testfs-OST0001",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="172.16.1.27@o2ib",target="testfs-OST0001",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="172.16.1.29@o2ib",target="testfs-OST0001",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="172.16.1.31@o2ib",target="testfs-OST0001",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="172.16.1.3@o2ib",target="testfs-OST0001",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="172.16.1.5@o2ib",target="testfs-OST0000",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="172.16.1.5@o2ib",target="testfs-OST0001",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="get_info",nid="172.16.1.7@o2ib",target="testfs-OST0001",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="punch",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="read",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="usecs"} 16
+lustre_client_export_stats{component="ost",name="read",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="usecs"} 16
+lustre_client_export_stats{component="ost",name="read",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="usecs"} 47
+lustre_client_export_stats{component="ost",name="read",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="usecs"} 16
+lustre_client_export_stats{component="ost",name="read_bytes",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="bytes"} 16
+lustre_client_export_stats{component="ost",name="read_bytes",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="bytes"} 16
+lustre_client_export_stats{component="ost",name="read_bytes",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="bytes"} 47
+lustre_client_export_stats{component="ost",name="read_bytes",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="bytes"} 16
+lustre_client_export_stats{component="ost",name="set_info",nid="0@lo",target="testfs-OST0000",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="set_info",nid="0@lo",target="testfs-OST0001",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="setattr",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="usecs"} 1
+lustre_client_export_stats{component="ost",name="statfs",nid="0@lo",target="testfs-OST0000",units="usecs"} 81647
+lustre_client_export_stats{component="ost",name="statfs",nid="0@lo",target="testfs-OST0001",units="usecs"} 81647
+lustre_client_export_stats{component="ost",name="statfs",nid="172.16.1.25@o2ib",target="testfs-OST0000",units="usecs"} 81646
+lustre_client_export_stats{component="ost",name="statfs",nid="172.16.1.25@o2ib",target="testfs-OST0001",units="usecs"} 81646
+lustre_client_export_stats{component="ost",name="statfs",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="usecs"} 81646
+lustre_client_export_stats{component="ost",name="statfs",nid="172.16.1.27@o2ib",target="testfs-OST0001",units="usecs"} 81646
+lustre_client_export_stats{component="ost",name="statfs",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="usecs"} 81646
+lustre_client_export_stats{component="ost",name="statfs",nid="172.16.1.29@o2ib",target="testfs-OST0001",units="usecs"} 81646
+lustre_client_export_stats{component="ost",name="statfs",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="usecs"} 81646
+lustre_client_export_stats{component="ost",name="statfs",nid="172.16.1.31@o2ib",target="testfs-OST0001",units="usecs"} 81646
+lustre_client_export_stats{component="ost",name="statfs",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="usecs"} 81649
+lustre_client_export_stats{component="ost",name="statfs",nid="172.16.1.3@o2ib",target="testfs-OST0001",units="usecs"} 81649
+lustre_client_export_stats{component="ost",name="statfs",nid="172.16.1.5@o2ib",target="testfs-OST0000",units="usecs"} 81646
+lustre_client_export_stats{component="ost",name="statfs",nid="172.16.1.5@o2ib",target="testfs-OST0001",units="usecs"} 81646
+lustre_client_export_stats{component="ost",name="statfs",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="usecs"} 81646
+lustre_client_export_stats{component="ost",name="statfs",nid="172.16.1.7@o2ib",target="testfs-OST0001",units="usecs"} 81646
+lustre_client_export_stats{component="ost",name="sync",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="usecs"} 1305784
+lustre_client_export_stats{component="ost",name="sync",nid="172.16.1.27@o2ib",target="testfs-OST0001",units="usecs"} 1093398
+lustre_client_export_stats{component="ost",name="sync",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="usecs"} 974934
+lustre_client_export_stats{component="ost",name="sync",nid="172.16.1.29@o2ib",target="testfs-OST0001",units="usecs"} 890411
+lustre_client_export_stats{component="ost",name="sync",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="usecs"} 647998
+lustre_client_export_stats{component="ost",name="sync",nid="172.16.1.31@o2ib",target="testfs-OST0001",units="usecs"} 590738
+lustre_client_export_stats{component="ost",name="sync",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="usecs"} 450349
+lustre_client_export_stats{component="ost",name="sync",nid="172.16.1.3@o2ib",target="testfs-OST0001",units="usecs"} 529110
+lustre_client_export_stats{component="ost",name="sync",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="usecs"} 786693
+lustre_client_export_stats{component="ost",name="sync",nid="172.16.1.7@o2ib",target="testfs-OST0001",units="usecs"} 742257
+lustre_client_export_stats{component="ost",name="write",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="usecs"} 2072696
+lustre_client_export_stats{component="ost",name="write",nid="172.16.1.27@o2ib",target="testfs-OST0001",units="usecs"} 2072002
+lustre_client_export_stats{component="ost",name="write",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="usecs"} 2034601
+lustre_client_export_stats{component="ost",name="write",nid="172.16.1.29@o2ib",target="testfs-OST0001",units="usecs"} 2067377
+lustre_client_export_stats{component="ost",name="write",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="usecs"} 5409461
+lustre_client_export_stats{component="ost",name="write",nid="172.16.1.31@o2ib",target="testfs-OST0001",units="usecs"} 5409453
+lustre_client_export_stats{component="ost",name="write",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="usecs"} 9223997
+lustre_client_export_stats{component="ost",name="write",nid="172.16.1.3@o2ib",target="testfs-OST0001",units="usecs"} 9205355
+lustre_client_export_stats{component="ost",name="write",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="usecs"} 2066906
+lustre_client_export_stats{component="ost",name="write",nid="172.16.1.7@o2ib",target="testfs-OST0001",units="usecs"} 2066557
+lustre_client_export_stats{component="ost",name="write_bytes",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="bytes"} 2072696
+lustre_client_export_stats{component="ost",name="write_bytes",nid="172.16.1.27@o2ib",target="testfs-OST0001",units="bytes"} 2072002
+lustre_client_export_stats{component="ost",name="write_bytes",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="bytes"} 2034601
+lustre_client_export_stats{component="ost",name="write_bytes",nid="172.16.1.29@o2ib",target="testfs-OST0001",units="bytes"} 2067377
+lustre_client_export_stats{component="ost",name="write_bytes",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="bytes"} 5409461
+lustre_client_export_stats{component="ost",name="write_bytes",nid="172.16.1.31@o2ib",target="testfs-OST0001",units="bytes"} 5409453
+lustre_client_export_stats{component="ost",name="write_bytes",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="bytes"} 9223997
+lustre_client_export_stats{component="ost",name="write_bytes",nid="172.16.1.3@o2ib",target="testfs-OST0001",units="bytes"} 9205355
+lustre_client_export_stats{component="ost",name="write_bytes",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="bytes"} 2066906
+lustre_client_export_stats{component="ost",name="write_bytes",nid="172.16.1.7@o2ib",target="testfs-OST0001",units="bytes"} 2066557
+# HELP lustre_client_export_milliseconds_total Accumulated latency per operations the target has performed per export.
+# TYPE lustre_client_export_milliseconds_total counter
+lustre_client_export_milliseconds_total{component="mdt",name="close",nid="0@lo",target="testfs-MDT0000",units="usecs"} 39
+lustre_client_export_milliseconds_total{component="mdt",name="close",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 5585401043
+lustre_client_export_milliseconds_total{component="mdt",name="close",nid="172.16.1.29@o2ib",target="testfs-MDT0000",units="usecs"} 5345048426
+lustre_client_export_milliseconds_total{component="mdt",name="close",nid="172.16.1.31@o2ib",target="testfs-MDT0000",units="usecs"} 7284550281
+lustre_client_export_milliseconds_total{component="mdt",name="close",nid="172.16.1.3@o2ib",target="testfs-MDT0000",units="usecs"} 6295048094
+lustre_client_export_milliseconds_total{component="mdt",name="close",nid="172.16.1.7@o2ib",target="testfs-MDT0000",units="usecs"} 5586165154
+lustre_client_export_milliseconds_total{component="mdt",name="getattr",nid="0@lo",target="testfs-MDT0000",units="usecs"} 102
+lustre_client_export_milliseconds_total{component="mdt",name="getattr",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 579398886
+lustre_client_export_milliseconds_total{component="mdt",name="getattr",nid="172.16.1.29@o2ib",target="testfs-MDT0000",units="usecs"} 553048248
+lustre_client_export_milliseconds_total{component="mdt",name="getattr",nid="172.16.1.31@o2ib",target="testfs-MDT0000",units="usecs"} 764700819
+lustre_client_export_milliseconds_total{component="mdt",name="getattr",nid="172.16.1.3@o2ib",target="testfs-MDT0000",units="usecs"} 663609994
+lustre_client_export_milliseconds_total{component="mdt",name="getattr",nid="172.16.1.7@o2ib",target="testfs-MDT0000",units="usecs"} 585592146
+lustre_client_export_milliseconds_total{component="mdt",name="getattr",nid="172.16.2.244@o2ib",target="testfs-MDT0000",units="usecs"} 50
+lustre_client_export_milliseconds_total{component="mdt",name="getxattr",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 8869872
+lustre_client_export_milliseconds_total{component="mdt",name="getxattr",nid="172.16.1.29@o2ib",target="testfs-MDT0000",units="usecs"} 8340408
+lustre_client_export_milliseconds_total{component="mdt",name="getxattr",nid="172.16.1.31@o2ib",target="testfs-MDT0000",units="usecs"} 33873717
+lustre_client_export_milliseconds_total{component="mdt",name="getxattr",nid="172.16.1.3@o2ib",target="testfs-MDT0000",units="usecs"} 69287212
+lustre_client_export_milliseconds_total{component="mdt",name="getxattr",nid="172.16.1.7@o2ib",target="testfs-MDT0000",units="usecs"} 8675880
+lustre_client_export_milliseconds_total{component="mdt",name="getxattr",nid="172.16.2.244@o2ib",target="testfs-MDT0000",units="usecs"} 27
+lustre_client_export_milliseconds_total{component="mdt",name="mkdir",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 216
+lustre_client_export_milliseconds_total{component="mdt",name="mknod",nid="0@lo",target="testfs-MDT0000",units="usecs"} 285
+lustre_client_export_milliseconds_total{component="mdt",name="mknod",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 102476
+lustre_client_export_milliseconds_total{component="mdt",name="mknod",nid="172.16.1.29@o2ib",target="testfs-MDT0000",units="usecs"} 111753
+lustre_client_export_milliseconds_total{component="mdt",name="mknod",nid="172.16.1.31@o2ib",target="testfs-MDT0000",units="usecs"} 457201
+lustre_client_export_milliseconds_total{component="mdt",name="mknod",nid="172.16.1.3@o2ib",target="testfs-MDT0000",units="usecs"} 967682
+lustre_client_export_milliseconds_total{component="mdt",name="mknod",nid="172.16.1.7@o2ib",target="testfs-MDT0000",units="usecs"} 109376
+lustre_client_export_milliseconds_total{component="mdt",name="open",nid="0@lo",target="testfs-MDT0000",units="usecs"} 300
+lustre_client_export_milliseconds_total{component="mdt",name="open",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 3465591538
+lustre_client_export_milliseconds_total{component="mdt",name="open",nid="172.16.1.29@o2ib",target="testfs-MDT0000",units="usecs"} 3223053334
+lustre_client_export_milliseconds_total{component="mdt",name="open",nid="172.16.1.31@o2ib",target="testfs-MDT0000",units="usecs"} 4228693255
+lustre_client_export_milliseconds_total{component="mdt",name="open",nid="172.16.1.3@o2ib",target="testfs-MDT0000",units="usecs"} 3649849290
+lustre_client_export_milliseconds_total{component="mdt",name="open",nid="172.16.1.7@o2ib",target="testfs-MDT0000",units="usecs"} 3417418228
+lustre_client_export_milliseconds_total{component="mdt",name="setattr",nid="0@lo",target="testfs-MDT0000",units="usecs"} 116
+lustre_client_export_milliseconds_total{component="mdt",name="setattr",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 170
+lustre_client_export_milliseconds_total{component="mdt",name="statfs",nid="0@lo",target="testfs-MDT0000",units="usecs"} 30
+lustre_client_export_milliseconds_total{component="mdt",name="statfs",nid="172.16.1.25@o2ib",target="testfs-MDT0000",units="usecs"} 739306
+lustre_client_export_milliseconds_total{component="mdt",name="statfs",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 312084
+lustre_client_export_milliseconds_total{component="mdt",name="statfs",nid="172.16.1.29@o2ib",target="testfs-MDT0000",units="usecs"} 305835
+lustre_client_export_milliseconds_total{component="mdt",name="statfs",nid="172.16.1.31@o2ib",target="testfs-MDT0000",units="usecs"} 216955
+lustre_client_export_milliseconds_total{component="mdt",name="statfs",nid="172.16.1.3@o2ib",target="testfs-MDT0000",units="usecs"} 296821
+lustre_client_export_milliseconds_total{component="mdt",name="statfs",nid="172.16.1.5@o2ib",target="testfs-MDT0000",units="usecs"} 185705
+lustre_client_export_milliseconds_total{component="mdt",name="statfs",nid="172.16.1.7@o2ib",target="testfs-MDT0000",units="usecs"} 233785
+lustre_client_export_milliseconds_total{component="mdt",name="statfs",nid="172.16.2.244@o2ib",target="testfs-MDT0000",units="usecs"} 7
+lustre_client_export_milliseconds_total{component="mdt",name="sync",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 264
+lustre_client_export_milliseconds_total{component="mdt",name="unlink",nid="172.16.1.27@o2ib",target="testfs-MDT0000",units="usecs"} 434
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="0@lo",target="testfs-OST0000",units="usecs"} 22124
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="0@lo",target="testfs-OST0001",units="usecs"} 24111
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="172.16.1.25@o2ib",target="testfs-OST0000",units="usecs"} 3429
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="172.16.1.25@o2ib",target="testfs-OST0001",units="usecs"} 1079
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="usecs"} 328
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="172.16.1.27@o2ib",target="testfs-OST0001",units="usecs"} 315
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="usecs"} 262
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="172.16.1.29@o2ib",target="testfs-OST0001",units="usecs"} 247
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="usecs"} 237
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="172.16.1.31@o2ib",target="testfs-OST0001",units="usecs"} 251
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="usecs"} 277
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="172.16.1.3@o2ib",target="testfs-OST0001",units="usecs"} 222
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="172.16.1.5@o2ib",target="testfs-OST0000",units="usecs"} 229
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="172.16.1.5@o2ib",target="testfs-OST0001",units="usecs"} 345
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="usecs"} 412
+lustre_client_export_milliseconds_total{component="ost",name="create",nid="172.16.1.7@o2ib",target="testfs-OST0001",units="usecs"} 395
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="0@lo",target="testfs-OST0000",units="usecs"} 837
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="0@lo",target="testfs-OST0001",units="usecs"} 1056
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="172.16.1.25@o2ib",target="testfs-OST0000",units="usecs"} 324
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="172.16.1.25@o2ib",target="testfs-OST0001",units="usecs"} 203
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="usecs"} 621
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="172.16.1.27@o2ib",target="testfs-OST0001",units="usecs"} 831
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="usecs"} 906
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="172.16.1.29@o2ib",target="testfs-OST0001",units="usecs"} 1209
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="usecs"} 794
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="172.16.1.31@o2ib",target="testfs-OST0001",units="usecs"} 781
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="usecs"} 1417
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="172.16.1.3@o2ib",target="testfs-OST0001",units="usecs"} 1390
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="172.16.1.5@o2ib",target="testfs-OST0000",units="usecs"} 1806
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="172.16.1.5@o2ib",target="testfs-OST0001",units="usecs"} 2524
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="usecs"} 1273
+lustre_client_export_milliseconds_total{component="ost",name="get_info",nid="172.16.1.7@o2ib",target="testfs-OST0001",units="usecs"} 1716
+lustre_client_export_milliseconds_total{component="ost",name="punch",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="usecs"} 192
+lustre_client_export_milliseconds_total{component="ost",name="read",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="usecs"} 846
+lustre_client_export_milliseconds_total{component="ost",name="read",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="usecs"} 3007
+lustre_client_export_milliseconds_total{component="ost",name="read",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="usecs"} 3639
+lustre_client_export_milliseconds_total{component="ost",name="read",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="usecs"} 889
+lustre_client_export_milliseconds_total{component="ost",name="set_info",nid="0@lo",target="testfs-OST0000",units="usecs"} 3
+lustre_client_export_milliseconds_total{component="ost",name="set_info",nid="0@lo",target="testfs-OST0001",units="usecs"} 5
+lustre_client_export_milliseconds_total{component="ost",name="setattr",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="usecs"} 30
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="0@lo",target="testfs-OST0000",units="usecs"} 204083
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="0@lo",target="testfs-OST0001",units="usecs"} 205446
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="172.16.1.25@o2ib",target="testfs-OST0000",units="usecs"} 181656
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="172.16.1.25@o2ib",target="testfs-OST0001",units="usecs"} 192590
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="usecs"} 152668
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="172.16.1.27@o2ib",target="testfs-OST0001",units="usecs"} 168524
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="usecs"} 352472
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="172.16.1.29@o2ib",target="testfs-OST0001",units="usecs"} 358791
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="usecs"} 116661
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="172.16.1.31@o2ib",target="testfs-OST0001",units="usecs"} 126165
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="usecs"} 468150
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="172.16.1.3@o2ib",target="testfs-OST0001",units="usecs"} 476838
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="172.16.1.5@o2ib",target="testfs-OST0000",units="usecs"} 132652
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="172.16.1.5@o2ib",target="testfs-OST0001",units="usecs"} 137527
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="usecs"} 146753
+lustre_client_export_milliseconds_total{component="ost",name="statfs",nid="172.16.1.7@o2ib",target="testfs-OST0001",units="usecs"} 155324
+lustre_client_export_milliseconds_total{component="ost",name="sync",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="usecs"} 1278660
+lustre_client_export_milliseconds_total{component="ost",name="sync",nid="172.16.1.27@o2ib",target="testfs-OST0001",units="usecs"} 1042914
+lustre_client_export_milliseconds_total{component="ost",name="sync",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="usecs"} 868253
+lustre_client_export_milliseconds_total{component="ost",name="sync",nid="172.16.1.29@o2ib",target="testfs-OST0001",units="usecs"} 801461
+lustre_client_export_milliseconds_total{component="ost",name="sync",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="usecs"} 556015
+lustre_client_export_milliseconds_total{component="ost",name="sync",nid="172.16.1.31@o2ib",target="testfs-OST0001",units="usecs"} 592254
+lustre_client_export_milliseconds_total{component="ost",name="sync",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="usecs"} 330119
+lustre_client_export_milliseconds_total{component="ost",name="sync",nid="172.16.1.3@o2ib",target="testfs-OST0001",units="usecs"} 542791
+lustre_client_export_milliseconds_total{component="ost",name="sync",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="usecs"} 771885
+lustre_client_export_milliseconds_total{component="ost",name="sync",nid="172.16.1.7@o2ib",target="testfs-OST0001",units="usecs"} 755314
+lustre_client_export_milliseconds_total{component="ost",name="write",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="usecs"} 126915899
+lustre_client_export_milliseconds_total{component="ost",name="write",nid="172.16.1.27@o2ib",target="testfs-OST0001",units="usecs"} 115955539
+lustre_client_export_milliseconds_total{component="ost",name="write",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="usecs"} 130743953
+lustre_client_export_milliseconds_total{component="ost",name="write",nid="172.16.1.29@o2ib",target="testfs-OST0001",units="usecs"} 117574079
+lustre_client_export_milliseconds_total{component="ost",name="write",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="usecs"} 383627182
+lustre_client_export_milliseconds_total{component="ost",name="write",nid="172.16.1.31@o2ib",target="testfs-OST0001",units="usecs"} 292813687
+lustre_client_export_milliseconds_total{component="ost",name="write",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="usecs"} 855434526
+lustre_client_export_milliseconds_total{component="ost",name="write",nid="172.16.1.3@o2ib",target="testfs-OST0001",units="usecs"} 505732433
+lustre_client_export_milliseconds_total{component="ost",name="write",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="usecs"} 123289017
+lustre_client_export_milliseconds_total{component="ost",name="write",nid="172.16.1.7@o2ib",target="testfs-OST0001",units="usecs"} 112571767
+# HELP lustre_client_export_bytes_total Accumulated bytes per operation the target has performed per export.
+# TYPE lustre_client_export_bytes_total counter
+lustre_client_export_bytes_total{component="ost",name="read_bytes",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="bytes"} 65536
+lustre_client_export_bytes_total{component="ost",name="read_bytes",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="bytes"} 65536
+lustre_client_export_bytes_total{component="ost",name="read_bytes",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="bytes"} 192512
+lustre_client_export_bytes_total{component="ost",name="read_bytes",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="bytes"} 65536
+lustre_client_export_bytes_total{component="ost",name="write_bytes",nid="172.16.1.27@o2ib",target="testfs-OST0000",units="bytes"} 4339867131
+lustre_client_export_bytes_total{component="ost",name="write_bytes",nid="172.16.1.27@o2ib",target="testfs-OST0001",units="bytes"} 4338572041
+lustre_client_export_bytes_total{component="ost",name="write_bytes",nid="172.16.1.29@o2ib",target="testfs-OST0000",units="bytes"} 4268286292
+lustre_client_export_bytes_total{component="ost",name="write_bytes",nid="172.16.1.29@o2ib",target="testfs-OST0001",units="bytes"} 4334248099
+lustre_client_export_bytes_total{component="ost",name="write_bytes",nid="172.16.1.31@o2ib",target="testfs-OST0000",units="bytes"} 11208839972
+lustre_client_export_bytes_total{component="ost",name="write_bytes",nid="172.16.1.31@o2ib",target="testfs-OST0001",units="bytes"} 11210467261
+lustre_client_export_bytes_total{component="ost",name="write_bytes",nid="172.16.1.3@o2ib",target="testfs-OST0000",units="bytes"} 18896144103
+lustre_client_export_bytes_total{component="ost",name="write_bytes",nid="172.16.1.3@o2ib",target="testfs-OST0001",units="bytes"} 18861397118
+lustre_client_export_bytes_total{component="ost",name="write_bytes",nid="172.16.1.7@o2ib",target="testfs-OST0000",units="bytes"} 4327874987
+lustre_client_export_bytes_total{component="ost",name="write_bytes",nid="172.16.1.7@o2ib",target="testfs-OST0001",units="bytes"} 4327085741
+# HELP lustre_mds_mdt_stats MDS mdt stats.
+# TYPE lustre_mds_mdt_stats gauge
+lustre_mds_mdt_stats{operation="ldlm_ibits_enqueue",units="reqs"} 2911191166
+lustre_mds_mdt_stats{operation="mds_connect",units="usecs"} 60
+lustre_mds_mdt_stats{operation="mds_disconnect",units="usecs"} 1
+lustre_mds_mdt_stats{operation="mds_get_root",units="usecs"} 8
+lustre_mds_mdt_stats{operation="mds_hsm_state_set",units="usecs"} 1
+lustre_mds_mdt_stats{operation="mds_reint_create",units="reqs"} 1
+lustre_mds_mdt_stats{operation="mds_reint_open",units="reqs"} 1454477065
+lustre_mds_mdt_stats{operation="mds_reint_setattr",units="reqs"} 4
+lustre_mds_mdt_stats{operation="mds_reint_unlink",units="reqs"} 6
+lustre_mds_mdt_stats{operation="mds_statfs",units="usecs"} 18
+lustre_mds_mdt_stats{operation="mds_sync",units="usecs"} 10
+lustre_mds_mdt_stats{operation="obd_ping",units="usecs"} 428911
+lustre_mds_mdt_stats{operation="ost_set_info",units="usecs"} 1074
+lustre_mds_mdt_stats{operation="req_active",units="reqs"} 2911621309
+lustre_mds_mdt_stats{operation="req_qdepth",units="reqs"} 2911621309
+lustre_mds_mdt_stats{operation="req_timeout",units="secs"} 2911621309
+lustre_mds_mdt_stats{operation="req_waittime",units="usecs"} 2911621309
+lustre_mds_mdt_stats{operation="reqbuf_avail",units="bufs"} 5852118928
+# HELP lustre_mds_mdt_fld_stats MDS mdt_fld stats.
+# TYPE lustre_mds_mdt_fld_stats gauge
+lustre_mds_mdt_fld_stats{operation="fld_query",units="usecs"} 62
+lustre_mds_mdt_fld_stats{operation="req_active",units="reqs"} 62
+lustre_mds_mdt_fld_stats{operation="req_qdepth",units="reqs"} 62
+lustre_mds_mdt_fld_stats{operation="req_timeout",units="secs"} 62
+lustre_mds_mdt_fld_stats{operation="req_waittime",units="usecs"} 62
+lustre_mds_mdt_fld_stats{operation="reqbuf_avail",units="bufs"} 148
+# HELP lustre_mds_mdt_out_stats MDS mdt_out stats.
+# TYPE lustre_mds_mdt_out_stats gauge
+lustre_mds_mdt_out_stats{operation="ldlm_ibits_enqueue",units="reqs"} 1
+lustre_mds_mdt_out_stats{operation="mds_statfs",units="usecs"} 284853
+lustre_mds_mdt_out_stats{operation="obd_ping",units="usecs"} 7
+lustre_mds_mdt_out_stats{operation="out_update",units="usecs"} 12
+lustre_mds_mdt_out_stats{operation="req_active",units="reqs"} 284873
+lustre_mds_mdt_out_stats{operation="req_qdepth",units="reqs"} 284873
+lustre_mds_mdt_out_stats{operation="req_timeout",units="secs"} 284873
+lustre_mds_mdt_out_stats{operation="req_waittime",units="usecs"} 284873
+lustre_mds_mdt_out_stats{operation="reqbuf_avail",units="bufs"} 570471
+# HELP lustre_mds_mdt_readpage_stats MDS mdt_readpage stats.
+# TYPE lustre_mds_mdt_readpage_stats gauge
+lustre_mds_mdt_readpage_stats{operation="dt_index_read",units="usecs"} 96
+lustre_mds_mdt_readpage_stats{operation="ldlm_ibits_enqueue",units="reqs"} 96
+lustre_mds_mdt_readpage_stats{operation="mds_close",units="usecs"} 1454477057
+lustre_mds_mdt_readpage_stats{operation="mds_getattr",units="usecs"} 8
+lustre_mds_mdt_readpage_stats{operation="mds_getxattr",units="usecs"} 5
+lustre_mds_mdt_readpage_stats{operation="mds_readpage",units="usecs"} 178
+lustre_mds_mdt_readpage_stats{operation="req_active",units="reqs"} 1454477440
+lustre_mds_mdt_readpage_stats{operation="req_qdepth",units="reqs"} 1454477440
+lustre_mds_mdt_readpage_stats{operation="req_timeout",units="secs"} 1454477440
+lustre_mds_mdt_readpage_stats{operation="req_waittime",units="usecs"} 1454477440
+lustre_mds_mdt_readpage_stats{operation="reqbuf_avail",units="bufs"} 2912302048
+# HELP lustre_mds_mdt_seqm_stats MDS mdt_seqm stats.
+# TYPE lustre_mds_mdt_seqm_stats gauge
+lustre_mds_mdt_seqm_stats{operation="req_active",units="reqs"} 11
+lustre_mds_mdt_seqm_stats{operation="req_qdepth",units="reqs"} 11
+lustre_mds_mdt_seqm_stats{operation="req_timeout",units="secs"} 11
+lustre_mds_mdt_seqm_stats{operation="req_waittime",units="usecs"} 11
+lustre_mds_mdt_seqm_stats{operation="reqbuf_avail",units="bufs"} 28
+lustre_mds_mdt_seqm_stats{operation="seq_query",units="usecs"} 11
+# EOF
