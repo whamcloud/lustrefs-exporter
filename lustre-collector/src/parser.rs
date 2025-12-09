@@ -6,7 +6,7 @@ use crate::{
     ldlm, llite, mdd_parser,
     mds::{self, client_count_parser},
     mgs::mgs_parser,
-    nodemap, osd_parser, oss, quota, top_level_parser,
+    nodemap, osd_parser, oss, quota, recovery_status_parser, top_level_parser,
     types::Record,
 };
 use combine::{Parser, Stream, choice, error::ParseError, many};
@@ -24,6 +24,7 @@ pub fn params() -> Vec<String> {
         .chain(mdd_parser::params())
         .chain(quota::params())
         .chain(nodemap::params())
+        .chain(recovery_status_parser::params())
         .collect()
 }
 
@@ -44,6 +45,7 @@ where
         mdd_parser::parse().map(|x| vec![x]),
         quota::parse().map(|x| vec![x]),
         nodemap::parse().map(|x| vec![x]),
+        recovery_status_parser::parse(),
     )))
     .map(|xs: Vec<_>| xs.into_iter().flatten().collect())
 }
@@ -86,6 +88,7 @@ mod tests {
     test_fixtures!(test_lustre_2_14_0_ddn145_fixtures, "*ddn145*");
 
     test_fixtures!(test_lustre_2_14_0_ddn133_fixtures, "*ddn133*");
+    test_fixtures!(test_lustre_2_14_0_ddn212_fixtures, "*ddn212*");
 
     #[test]
     fn test_params() {

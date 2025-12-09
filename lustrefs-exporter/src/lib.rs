@@ -156,6 +156,11 @@ pub mod tests {
         "lustre_stats_time_max",
         "lustre_stats_time_min",
         "lustre_stats_time_total",
+        "recovery_status",
+        "recovery_status_completed_clients",
+        "recovery_status_duration_seconds",
+        "recovery_status_time_remaining_seconds",
+        "recovery_status_total_clients",
         "target_info",
     ];
 
@@ -429,7 +434,9 @@ pub mod tests {
     }
 
     pub(super) fn read_metrics_from_snapshot(path: &Path) -> Scrape {
-        let x = insta::Snapshot::from_file(path).unwrap();
+        let x = insta::Snapshot::from_file(path).unwrap_or_else(|e| {
+            panic!("Could not read snapshot from {}: {e}", path.display());
+        });
 
         let insta::internals::SnapshotContents::Text(x) = x.contents() else {
             panic!("Snapshot is not text");

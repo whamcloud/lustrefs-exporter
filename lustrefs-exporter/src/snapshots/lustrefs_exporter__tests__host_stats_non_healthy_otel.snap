@@ -507,6 +507,15 @@ recovery_status_connected_clients{kind="OST",target="fs-OST0000"} 199
 # TYPE recovery_status_evicted_clients gauge
 recovery_status_evicted_clients{kind="MDT",target="fs-MDT0000"} 1
 recovery_status_evicted_clients{kind="OST",target="fs-OST0000"} 1
+# HELP recovery_status_duration_seconds Gives the total duration in seconds of the recovery on a target.
+# TYPE recovery_status_duration_seconds gauge
+recovery_status_duration_seconds{kind="OST",target="fs-OST0000"} 92
+# HELP recovery_status_time_remaining_seconds Gives the estimated time remaining in seconds of the recovery on a target.
+# TYPE recovery_status_time_remaining_seconds gauge
+recovery_status_time_remaining_seconds{kind="OST",target="fs-OST0000"} 80
+# HELP recovery_status_total_clients Gives the total number of clients involved in the recovery on a target.
+# TYPE recovery_status_total_clients gauge
+recovery_status_total_clients{kind="OST",target="fs-OST0000"} 204
 # HELP lustre_oss_ost_stats OSS ost stats.
 # TYPE lustre_oss_ost_stats gauge
 lustre_oss_ost_stats{operation="ldlm_extent_enqueue",units="reqs"} 17980
