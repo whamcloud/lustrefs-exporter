@@ -1,5 +1,5 @@
 ---
-source: src/recovery_status_parser.rs
+source: lustre-collector/src/recovery_status_parser.rs
 expression: records
 ---
 [
@@ -14,6 +14,20 @@ expression: records
                     "fs-MDT0000",
                 ),
                 value: Complete,
+            },
+        ),
+    ),
+    Target(
+        RecoveryDuration(
+            TargetStat {
+                kind: Mdt,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-MDT0000",
+                ),
+                value: 1760,
             },
         ),
     ),
@@ -60,6 +74,20 @@ expression: records
         ),
     ),
     Target(
+        RecoveryDuration(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0000",
+                ),
+                value: 150,
+            },
+        ),
+    ),
+    Target(
         RecoveryCompletedClients(
             TargetStat {
                 kind: Ost,
@@ -84,6 +112,20 @@ expression: records
                     "fs-OST0001",
                 ),
                 value: Complete,
+            },
+        ),
+    ),
+    Target(
+        RecoveryDuration(
+            TargetStat {
+                kind: Ost,
+                param: Param(
+                    "recovery_status",
+                ),
+                target: Target(
+                    "fs-OST0001",
+                ),
+                value: 150,
             },
         ),
     ),
