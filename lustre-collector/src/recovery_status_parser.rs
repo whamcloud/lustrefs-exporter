@@ -229,14 +229,11 @@ where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
-    many1(
-        (
-            target_status(),
-            skip_until(attempt(ost_or_mdt().map(drop)).or(eof())),
-        )
-            .map(|(x, _)| x),
+    (
+        target_status(),
+        skip_until(attempt(ost_or_mdt().map(drop)).or(eof())),
     )
-    .map(|xs: Vec<Vec<TargetStats>>| xs.into_iter().flatten().map(Record::Target).collect())
+        .map(|(x, _)| x.into_iter().map(Record::Target).collect())
 }
 
 #[cfg(test)]
