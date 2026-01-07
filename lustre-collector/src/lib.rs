@@ -31,9 +31,11 @@ pub use node_stats_parsers::{parse_cpustats_output, parse_meminfo_output};
 use std::{io, str};
 pub use types::*;
 
-fn check_output(records: Vec<Record>, state: &str) -> Result<Vec<Record>, LustreCollectorError> {
-    let params = crate::parser::params().join(" ");
-
+fn check_output(
+    records: Vec<Record>,
+    state: &str,
+    params: &str,
+) -> Result<Vec<Record>, LustreCollectorError> {
     if !state.is_empty() {
         return Err(io::Error::new(
             io::ErrorKind::InvalidInput,
@@ -53,7 +55,9 @@ pub fn parse_lctl_output(lctl_output: &[u8]) -> Result<Vec<Record>, LustreCollec
         .easy_parse(lctl_stats)
         .map_err(|err| err.map_position(|p| p.translate_position(lctl_stats)))?;
 
-    check_output(lctl_record, state)
+    let params = parser::params().join(" ");
+
+    check_output(lctl_record, state, &params)
 }
 
 pub fn parse_mgs_fs_output(mgs_fs_output: &[u8]) -> Result<Vec<Record>, LustreCollectorError> {
@@ -63,7 +67,9 @@ pub fn parse_mgs_fs_output(mgs_fs_output: &[u8]) -> Result<Vec<Record>, LustreCo
         .easy_parse(mgs_fs)
         .map_err(|err| err.map_position(|p| p.translate_position(mgs_fs)))?;
 
-    check_output(mgs_fs_record, state)
+    let params = mgs::mgs_fs_parser::params().join(" ");
+
+    check_output(mgs_fs_record, state, &params)
 }
 
 pub fn parse_recovery_status_output(
@@ -76,17 +82,30 @@ pub fn parse_recovery_status_output(
         .easy_parse(recovery_status)
         .map_err(|err| err.map_position(|p| p.translate_position(recovery_status)))?;
 
-    check_output(recovery_statuses, state)
+    let params = recovery_status_parser::params().join(" ");
+
+    check_output(recovery_statuses, state, &params)
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{Record, parse_lctl_output};
+    use crate::{Record, parse_lctl_output, parse_recovery_status_output};
 
     #[test]
     fn ex8761_job_stats() {
         let xs = include_bytes!("./fixtures/valid/ex8761-lctl.txt");
         let expected = parse_lctl_output(xs).unwrap();
+
+        let y = serde_json::to_string(&expected).unwrap();
+        let z: Vec<Record> = serde_json::from_str(&y).unwrap();
+
+        assert_eq!(expected, z);
+    }
+
+    #[test]
+    fn test_parse_recovery_status_output() {
+        let xs = include_bytes!("./fixtures/recovery-multiple.txt");
+        let expected = parse_recovery_status_output(xs).unwrap();
 
         let y = serde_json::to_string(&expected).unwrap();
         let z: Vec<Record> = serde_json::from_str(&y).unwrap();
