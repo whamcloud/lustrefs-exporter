@@ -229,7 +229,7 @@ where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
-    many(
+    many1(
         (
             target_status(),
             skip_until(attempt(ost_or_mdt().map(drop)).or(eof())),
