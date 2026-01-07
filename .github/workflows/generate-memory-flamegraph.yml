@@ -1,0 +1,123 @@
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+
+defaults:
+  run:
+    shell: bash -eux {0}
+
+jobs:
+  generate_memory_flamegraph:
+    name: Generate flamegraph
+    permissions:
+      checks: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/checkout@v4
+        with:
+          repository: rust-lang/rustc-demangle
+          path: rustc-demangle
+
+      - uses: actions/checkout@v4
+        with:
+          repository: KDE/heaptrack
+          path: heaptrack
+
+      - uses: actions/checkout@v4
+        with:
+          repository: brendangregg/FlameGraph
+          path: FlameGraph
+
+      - name: Install Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rustflags: ""
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+
+          # Install heaptrack dependencies
+          sudo apt-get install -y \
+            build-essential libssl-dev pkg-config curl git \
+            cmake g++ libboost-dev libboost-iostreams-dev \
+            libboost-program-options-dev libdw-dev libelf-dev \
+            elfutils libunwind-dev zlib1g-dev binutils-dev \
+            libiberty-dev libdebuginfod-dev libboost-system-dev \
+            libboost-filesystem-dev libboost-thread-dev libboost-regex-dev
+
+            # Install rustfilt - used for demangling symbols
+            cargo install rustfilt
+
+      - name: Build and install librustc_demangle.so
+        run: |
+          cd rustc-demangle
+          cargo build -p rustc-demangle-capi --release
+          sudo mv target/release/librustc_demangle.so /usr/lib
+
+      - name: Build and install heaptrack
+        run: |
+          cd heaptrack
+          mkdir build && cd build
+
+          cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=/usr/local -DHEAPTRACK_USE_LIBUNWIND=ON -DHEAPTRACK_BUILD_PRINT_TRACES=ON
+
+          make -j$(nproc)
+          sudo make install
+
+      - name: Build flamegraph
+        run: |
+           cargo build --profile profiling --test flamegraph_test
+        env:
+          RUSTFLAGS: "-C force-frame-pointers=yes -C symbol-mangling-version=v0"
+          CARGO_PROFILE_RELEASE_DEBUG: true
+
+      - name: Build heaptrack data
+        run: |
+          export TEST_BINARY=$(find "$GITHUB_WORKSPACE/target/profiling/deps" -name "flamegraph_test-*" -type f -executable | head -1)
+
+          if [ -z "$TEST_BINARY" ]; then
+            echo "Error: Could not find test binary"
+            exit 1
+          fi
+
+          "$TEST_BINARY" profile_with_flamegraph --ignored  --no-capture | head -100
+
+          heaptrack --output heaptrack-data "$TEST_BINARY" --ignored profile_with_flamegraph
+        env:
+          CARGO_MANIFEST_DIR: "$GITHUB_WORKSPACE/lustrefs-exporter"
+
+      - name: Generate flamegraph
+        run: |
+          heaptrack_print --version
+          HEAPTRACK_FILE=$(ls heaptrack-data.* | head -1)
+
+          echo "Writing flamegraph data to flamegraph-data.txt"
+          heaptrack_print "$HEAPTRACK_FILE" -F flamegraph-data.txt > /dev/null
+          echo "Done writing flamegraph data to flamegraph-data.txt: $?"
+
+          # Demangle symbols
+          rustfilt < flamegraph-data.txt > demangled-flamegraph.txt
+
+          # Filter out stacks with less than 1000 allocations. This has to be done because there are so many
+          # of them that flamegraph generation will fail.
+          awk '$NF > 1000' demangled-flamegraph.txt > significant_stacks.txt
+
+          # Generate the flamegraph
+          FlameGraph/flamegraph.pl --colors mem --countname allocations < significant_stacks.txt > flamegraph.svg
+
+      - name: Upload flamegraphs and heaptrack data
+        uses: actions/upload-artifact@v4
+        with:
+          name: flamegraph
+          path: |
+            flamegraph.svg
+            cpu-flamegraph.svg
+            heaptrack-data.*
