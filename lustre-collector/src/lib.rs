@@ -63,7 +63,7 @@ pub fn parse_lctl_output(lctl_output: &[u8]) -> Result<Vec<Record>, LustreCollec
 pub fn parse_mgs_fs_output(mgs_fs_output: &[u8]) -> Result<Vec<Record>, LustreCollectorError> {
     let mgs_fs = str::from_utf8(mgs_fs_output)?;
 
-    let (mgs_fs_record, state) = parser::parse()
+    let (mgs_fs_record, state) = mgs::mgs_fs_parser::parse()
         .easy_parse(mgs_fs)
         .map_err(|err| err.map_position(|p| p.translate_position(mgs_fs)))?;
 
@@ -89,7 +89,7 @@ pub fn parse_recovery_status_output(
 
 #[cfg(test)]
 mod tests {
-    use crate::{parse_lctl_output, parse_recovery_status_output};
+    use crate::{parse_lctl_output, parse_mgs_fs_output, parse_recovery_status_output};
 
     #[test]
     fn ex8761_job_stats() {
@@ -103,6 +103,14 @@ mod tests {
     fn test_parse_recovery_status_output() {
         let xs = include_bytes!("./fixtures/recovery-multiple.txt");
         let expected = parse_recovery_status_output(xs).unwrap();
+
+        insta::assert_debug_snapshot!(expected);
+    }
+
+    #[test]
+    fn test_parse_mgs_fs_output() {
+        let xs = include_bytes!("./fixtures/mgs-fs.txt");
+        let expected = parse_mgs_fs_output(xs).unwrap();
 
         insta::assert_debug_snapshot!(expected);
     }
