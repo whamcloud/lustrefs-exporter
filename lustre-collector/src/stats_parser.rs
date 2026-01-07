@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    base_parsers::{digits, not_words, word},
+    base_parsers::{digits, digits_positive, not_words, word},
     ldlm::LDLM,
     llite::LLITE,
     mdd_parser::MDD,
@@ -54,24 +54,24 @@ where
         .map(|(x, y, _, z)| (x, y, z))
 }
 
-fn min_max_sum<I>() -> impl Parser<I, Output = (u64, u64, u64)>
+fn min_max_sum<I>() -> impl Parser<I, Output = (Option<u64>, Option<u64>, Option<u64>)>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     (
-        spaces().with(digits()),
-        spaces().with(digits()),
-        spaces().with(digits()),
+        spaces().with(digits_positive()),
+        spaces().with(digits_positive()),
+        spaces().with(digits_positive()),
     )
 }
 
-fn sum_sq<I>() -> impl Parser<I, Output = u64>
+fn sum_sq<I>() -> impl Parser<I, Output = Option<u64>>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
-    spaces().with(digits())
+    spaces().with(digits_positive())
 }
 
 pub(crate) fn stat<I>() -> impl Parser<I, Output = Stat>
@@ -95,18 +95,18 @@ where
                     name,
                     samples,
                     units,
-                    min: Some(min),
-                    max: Some(max),
-                    sum: Some(sum),
-                    sumsquare: Some(sumsquare),
+                    min,
+                    max,
+                    sum,
+                    sumsquare,
                 },
                 (Some((min, max, sum)), None) => Stat {
                     name,
                     samples,
                     units,
-                    min: Some(min),
-                    max: Some(max),
-                    sum: Some(sum),
+                    min,
+                    max,
+                    sum,
                     sumsquare: None,
                 },
                 (None, _) => Stat {
@@ -245,5 +245,29 @@ snapshot_time             1581546409.693472737 secs.nsecs
         let result = stats().parse(x).unwrap();
 
         assert_debug_snapshot!(result);
+    }
+
+    #[test]
+    fn test_negative_stat() {
+        let x = r#"write                     186442470 samples [usecs] 36 149845092510 -823495890607571055 4426400394686790401
+"#;
+
+        let result = stat().parse(x);
+
+        assert_eq!(
+            result,
+            Ok((
+                Stat {
+                    name: "write".to_string(),
+                    units: "usecs".to_string(),
+                    samples: 186442470,
+                    min: Some(36),
+                    max: Some(149_845_092_510),
+                    sum: None,
+                    sumsquare: Some(4_426_400_394_686_790_401)
+                },
+                ""
+            ))
+        );
     }
 }
