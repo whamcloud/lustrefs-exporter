@@ -1,3 +1,9 @@
+prometheus-lustrefs-exporter (0.12.3-0.1) unstable; urgency=medium
+
+  * Fix parsing recovery status for multiple targets
+
+ -- EMF Team <emf@whamcloud.com>  Wed, 07 Jan 2026 17:00:00 +0200
+
 prometheus-lustrefs-exporter (0.12.2-0.1) unstable; urgency=medium
 
   * Add recovery_status to lustrefs_exporter and enhance recovery
