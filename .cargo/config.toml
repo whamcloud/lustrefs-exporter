@@ -1,6 +1,9 @@
 [target.x86_64-unknown-linux-musl]
 linker = "rust-lld"
 
+[target.aarch64-apple-darwin]
+linker = "rust-lld"
+
 [alias]
 build-musl = "build --release --target x86_64-unknown-linux-musl"
 
