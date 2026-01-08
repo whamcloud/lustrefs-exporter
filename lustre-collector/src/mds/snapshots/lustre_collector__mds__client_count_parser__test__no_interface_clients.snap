@@ -1,10 +1,13 @@
 ---
-source: src/mds/client_count_parser.rs
+source: lustre-collector/src/mds/client_count_parser.rs
 expression: result
 ---
 (
     (
-        "fs-MDT0000",
+        (
+            "fs-MDT0000",
+            Mdt,
+        ),
         0,
     ),
     "",

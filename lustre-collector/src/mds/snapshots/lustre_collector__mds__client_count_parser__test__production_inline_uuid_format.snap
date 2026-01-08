@@ -1,0 +1,37 @@
+---
+source: lustre-collector/src/mds/client_count_parser.rs
+expression: result
+---
+(
+    [
+        Target(
+            ConnectedClients(
+                TargetStat {
+                    kind: Mgt,
+                    param: Param(
+                        "connected_clients",
+                    ),
+                    target: Target(
+                        "MGS",
+                    ),
+                    value: 3,
+                },
+            ),
+        ),
+        Target(
+            ConnectedClients(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "connected_clients",
+                    ),
+                    target: Target(
+                        "sfa18k26-OST0000",
+                    ),
+                    value: 1,
+                },
+            ),
+        ),
+    ],
+    "",
+)
