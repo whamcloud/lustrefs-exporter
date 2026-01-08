@@ -4,8 +4,8 @@ expression: result
 ---
 (
     (
-        "es01a-MDT0000",
-        Mdt,
+        "MGS",
+        Mgt,
     ),
     "",
 )
