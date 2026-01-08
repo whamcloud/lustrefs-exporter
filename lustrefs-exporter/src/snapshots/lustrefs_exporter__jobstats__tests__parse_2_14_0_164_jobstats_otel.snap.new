@@ -1,5 +1,6 @@
 ---
 source: lustrefs-exporter/src/jobstats.rs
+assertion_line: 513
 expression: stats
 ---
 # EOF

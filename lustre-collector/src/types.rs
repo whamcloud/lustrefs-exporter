@@ -295,7 +295,7 @@ pub struct HostStat<T> {
     pub value: T,
 }
 
-#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize, Clone, Copy)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Debug, serde::Serialize, serde::Deserialize, Clone, Copy)]
 pub enum TargetVariant {
     Ost,
     Mgt,
