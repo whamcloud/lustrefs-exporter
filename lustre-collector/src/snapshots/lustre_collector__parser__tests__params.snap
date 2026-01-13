@@ -8,6 +8,8 @@ expression: params()
     "lnet_memused",
     "health_check",
     "mdt.*.exports.*.uuid",
+    "obdfilter.*.exports.*.uuid",
+    "mgs.MGS.exports.*.uuid",
     "osd-*.*.stats",
     "osd-*.*.filesfree",
     "osd-*.*.filestotal",
