@@ -35,11 +35,14 @@ where
 {
     many1(interface_clients())
         .map(|xs: Vec<_>| {
-            xs.into_iter().fold(BTreeMap::new(), |mut acc, ((target, kind), count)| {
-                acc.entry((target, kind)).and_modify(|x| *x += count).or_insert(count);
+            xs.into_iter()
+                .fold(BTreeMap::new(), |mut acc, ((target, kind), count)| {
+                    acc.entry((target, kind))
+                        .and_modify(|x| *x += count)
+                        .or_insert(count);
 
-                acc
-            })
+                    acc
+                })
         })
         .map(|hm| {
             hm.into_iter()
@@ -328,7 +331,9 @@ mdt.fs2-MDT0000.exports.10.73.20.22@tcp.uuid=fs2-MDT0000-lwp-OST0001_UUID
     #[test]
     fn test_ost_interface_clients() {
         let result = interface_clients()
-            .easy_parse("obdfilter.fs-OST0000.exports.0@lo.uuid=a01e9c48-52f7-0c50-ff15-5aa13684bb5b\n")
+            .easy_parse(
+                "obdfilter.fs-OST0000.exports.0@lo.uuid=a01e9c48-52f7-0c50-ff15-5aa13684bb5b\n",
+            )
             .unwrap();
 
         assert_debug_snapshot!(result)
