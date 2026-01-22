@@ -129,4 +129,12 @@ mod tests {
 
         insta::assert_snapshot!(xs.join(" "));
     }
+
+    #[test]
+    fn ipv6() {
+        let xs = include_bytes!("./fixtures/ipv6.txt");
+        let expected = parse_lctl_output(xs).unwrap();
+
+        insta::assert_debug_snapshot!(expected);
+    }
 }

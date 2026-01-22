@@ -23,7 +23,7 @@ where
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     (
-        many1::<String, _, _>(alpha_num().or(period())),
+        many1::<String, _, _>(alpha_num().or(period()).or(token(':'))),
         token('@'),
         many1::<String, _, _>(alpha_num()),
     )
