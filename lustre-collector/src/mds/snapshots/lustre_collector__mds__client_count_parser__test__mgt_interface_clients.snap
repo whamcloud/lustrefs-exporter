@@ -5,8 +5,8 @@ expression: result
 (
     (
         (
-            "fs-MDT0000",
-            Mdt,
+            "MGS",
+            Mgt,
         ),
         1,
     ),
