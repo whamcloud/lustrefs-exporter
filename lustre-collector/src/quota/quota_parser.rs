@@ -146,15 +146,19 @@ where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
-    (
-        optional(newline()), // If quota stats are present, the whole yaml blob will start on a newline
-        take_until::<Vec<_>, _, _>(newline()), // But yaml header might not be indented, ignore it
-        newline(),
-        many1((id(), usage(), newline()).map(|(id, usage, _)| QuotaStatOsd { id, usage })),
-    )
-        .skip(optional(newline()))
-        .skip(optional(eof()))
-        .map(|(_, _, _, x)| x)
+    choice((
+        // In the field some systems report not supported on the same line
+        string("not supported").map(|_| vec![]),
+        (
+            optional(newline()), // If quota stats are present, the whole yaml blob will start on a newline
+            take_until::<Vec<_>, _, _>(newline()), // But yaml header might not be indented, ignore it
+            newline(),
+            many1((id(), usage(), newline()).map(|(id, usage, _)| QuotaStatOsd { id, usage })),
+        )
+            .map(|(_, _, _, x)| x),
+    ))
+    .skip(optional(newline()))
+    .skip(optional(eof()))
 }
 
 #[derive(Debug)]

@@ -249,4 +249,16 @@ mod tests {
 
         assert_debug_snapshot!(result);
     }
+
+    #[test]
+    fn test_osd_not_supported() {
+        static FIXTURE: &str = include_str!("fixtures/osd-13229.txt");
+
+        let result = many::<Vec<_>, _, _>(parse())
+            .easy_parse(FIXTURE)
+            .map_err(|err| err.map_position(|p| p.translate_position(FIXTURE)))
+            .unwrap();
+
+        assert_debug_snapshot!(result);
+    }
 }
