@@ -41,7 +41,7 @@ lustre_client_stats{operation="statfs",target="exatest-ff3f2ef8d0a64000"} 346865
 lustre_client_stats{operation="inode_permission",target="exatest-ff3f2ef8d0a64000"} 18
 lustre_client_stats{operation="opencount",target="exatest-ff3f2ef8d0a64000"} 14
 
-# HELP lustre_connected_clients Number of connected clients
+# HELP lustre_connected_clients Number of connected clients per target. MDT shows metadata clients. OST shows only active I/O clients. MGT shows all connected clients and servers.
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="ai400x2-MDT0000"} 1
 lustre_connected_clients{component="mdt",target="ai400x2-MDT0000"} 1

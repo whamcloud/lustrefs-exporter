@@ -28,6 +28,18 @@ pub(crate) fn params() -> Vec<String> {
     ]
 }
 
+/// Derives the TargetVariant from the target name.
+/// Target names contain their type: "-MDT" for MDT, "-OST" for OST, and "MGS" for MGT.
+fn target_kind(target: &str) -> TargetVariant {
+    match target {
+        t if t.contains("-MDT") => TargetVariant::Mdt,
+        t if t.contains("-OST") => TargetVariant::Ost,
+        _ => TargetVariant::Mgt,
+    }
+}
+
+/// Parses client count data for MDT, OST, and MGT exports.
+/// Aggregates client counts by target name and returns records for connected_clients metric.
 pub(crate) fn parse<I>() -> impl Parser<I, Output = Vec<Record>>
 where
     I: Stream<Token = char>,
@@ -35,20 +47,16 @@ where
 {
     many1(interface_clients())
         .map(|xs: Vec<_>| {
-            xs.into_iter()
-                .fold(BTreeMap::new(), |mut acc, ((target, kind), count)| {
-                    acc.entry((target, kind))
-                        .and_modify(|x| *x += count)
-                        .or_insert(count);
-
-                    acc
-                })
+            xs.into_iter().fold(BTreeMap::new(), |mut acc, (k, v)| {
+                acc.entry(k).and_modify(|x| *x += v).or_insert(v);
+                acc
+            })
         })
         .map(|hm| {
             hm.into_iter()
-                .map(|((target, kind), value)| TargetStat {
-                    kind,
-                    target: Target(target),
+                .map(|(k, value)| TargetStat {
+                    kind: target_kind(&k),
+                    target: Target(k),
                     param: Param("connected_clients".into()),
                     value,
                 })
@@ -58,7 +66,9 @@ where
         })
 }
 
-fn interface_clients<I>() -> impl Parser<I, Output = ((String, TargetVariant), u64)>
+/// Parses a single interface export entry and returns the target name with client count.
+/// Handles MDT (mdt.*), OST (obdfilter.*), and MGT (mgs.MGS) export formats.
+fn interface_clients<I>() -> impl Parser<I, Output = (String, u64)>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -105,7 +115,8 @@ where
         .map(drop)
 }
 
-fn mdt_interface<I>() -> impl Parser<I, Output = (String, TargetVariant)>
+/// Parses MDT interface export entry (e.g., "mdt.fs-MDT0000.exports.*.uuid").
+fn mdt_interface<I>() -> impl Parser<I, Output = String>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -115,10 +126,11 @@ where
         many1::<String, _, _>(alpha_num().or(one_of("_-".chars()))),
         period().skip(exports()),
     )
-        .map(|(_, x, _)| (x, TargetVariant::Mdt))
+        .map(|(_, x, _)| x)
 }
 
-fn ost_interface<I>() -> impl Parser<I, Output = (String, TargetVariant)>
+/// Parses OST interface export entry (e.g., "obdfilter.fs-OST0000.exports.*.uuid").
+fn ost_interface<I>() -> impl Parser<I, Output = String>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -128,10 +140,11 @@ where
         many1::<String, _, _>(alpha_num().or(one_of("_-".chars()))),
         period().skip(exports()),
     )
-        .map(|(_, x, _)| (x, TargetVariant::Ost))
+        .map(|(_, x, _)| x)
 }
 
-fn mgt_interface<I>() -> impl Parser<I, Output = (String, TargetVariant)>
+/// Parses MGT interface export entry (e.g., "mgs.MGS.exports.*.uuid").
+fn mgt_interface<I>() -> impl Parser<I, Output = String>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -141,7 +154,7 @@ where
         string("MGS"),
         period().skip(exports()),
     )
-        .map(|(_, x, _)| (x.to_string(), TargetVariant::Mgt))
+        .map(|(_, x, _)| x.to_string())
 }
 
 #[cfg(test)]
@@ -174,7 +187,12 @@ mod test {
             .easy_parse("mdt.es01a-MDT0000.exports.0@lo.uuid=")
             .unwrap();
 
-        assert_debug_snapshot!(result)
+        insta::assert_debug_snapshot!(result, @r###"
+        (
+            "es01a-MDT0000",
+            "",
+        )
+        "###);
     }
 
     #[test]
@@ -183,7 +201,15 @@ mod test {
             .easy_parse("mdt.fs-MDT0000.exports.0@lo.uuid=es01a-MDT0000-lwp-MDT0000_UUID\n")
             .unwrap();
 
-        assert_debug_snapshot!(result)
+        insta::assert_debug_snapshot!(result, @r###"
+        (
+            (
+                "fs-MDT0000",
+                0,
+            ),
+            "",
+        )
+        "###);
     }
 
     #[test]
@@ -192,7 +218,15 @@ mod test {
             .easy_parse("mdt.fs-MDT0000.exports.0@lo.uuid=a01e9c48-52f7-0c50-ff15-5aa13684bb5b\n")
             .unwrap();
 
-        assert_debug_snapshot!(result)
+        insta::assert_debug_snapshot!(result, @r###"
+        (
+            (
+                "fs-MDT0000",
+                1,
+            ),
+            "",
+        )
+        "###);
     }
 
     #[test]
@@ -212,7 +246,15 @@ a01e9c48-52f7-0c50-ff15-5aa13684bb5c
 
         let result = interface_clients().easy_parse(x).unwrap();
 
-        assert_debug_snapshot!(result)
+        insta::assert_debug_snapshot!(result, @r###"
+        (
+            (
+                "fs-MDT0000",
+                5,
+            ),
+            "",
+        )
+        "###);
     }
 
     #[test]
@@ -325,7 +367,12 @@ mdt.fs2-MDT0000.exports.10.73.20.22@tcp.uuid=fs2-MDT0000-lwp-OST0001_UUID
             .easy_parse("obdfilter.fs-OST0000.exports.0@lo.uuid=")
             .unwrap();
 
-        assert_debug_snapshot!(result)
+        insta::assert_debug_snapshot!(result, @r###"
+        (
+            "fs-OST0000",
+            "",
+        )
+        "###);
     }
 
     #[test]
@@ -336,7 +383,15 @@ mdt.fs2-MDT0000.exports.10.73.20.22@tcp.uuid=fs2-MDT0000-lwp-OST0001_UUID
             )
             .unwrap();
 
-        assert_debug_snapshot!(result)
+        insta::assert_debug_snapshot!(result, @r###"
+        (
+            (
+                "fs-OST0000",
+                1,
+            ),
+            "",
+        )
+        "###);
     }
 
     #[test]
@@ -352,7 +407,7 @@ obdfilter.fs-OST0001.exports.10.0.2.15@tcp.uuid=
 
         let result = parse().easy_parse(x).unwrap();
 
-        assert_debug_snapshot!(result)
+        assert_debug_snapshot!(result);
     }
 
     #[test]
@@ -361,7 +416,12 @@ obdfilter.fs-OST0001.exports.10.0.2.15@tcp.uuid=
             .easy_parse("mgs.MGS.exports.0@lo.uuid=")
             .unwrap();
 
-        assert_debug_snapshot!(result)
+        insta::assert_debug_snapshot!(result, @r###"
+        (
+            "MGS",
+            "",
+        )
+        "###);
     }
 
     #[test]
@@ -370,7 +430,15 @@ obdfilter.fs-OST0001.exports.10.0.2.15@tcp.uuid=
             .easy_parse("mgs.MGS.exports.0@lo.uuid=a01e9c48-52f7-0c50-ff15-5aa13684bb5b\n")
             .unwrap();
 
-        assert_debug_snapshot!(result)
+        insta::assert_debug_snapshot!(result, @r###"
+        (
+            (
+                "MGS",
+                1,
+            ),
+            "",
+        )
+        "###);
     }
 
     #[test]
@@ -383,7 +451,7 @@ mgs.MGS.exports.10.0.2.15@tcp.uuid=
 
         let result = parse().easy_parse(x).unwrap();
 
-        assert_debug_snapshot!(result)
+        assert_debug_snapshot!(result);
     }
 
     #[test]
@@ -401,7 +469,7 @@ mgs.MGS.exports.10.0.2.15@tcp.uuid=
 
         let result = parse().easy_parse(x).unwrap();
 
-        assert_debug_snapshot!(result)
+        assert_debug_snapshot!(result);
     }
 
     #[test]
@@ -420,6 +488,6 @@ mgs.MGS.exports.172.25.80.30@tcp.uuid=ccbde25b-bd34-4601-b3bf-cb8704ed9266
 
         let result = parse().easy_parse(x).unwrap();
 
-        assert_debug_snapshot!(result)
+        assert_debug_snapshot!(result);
     }
 }

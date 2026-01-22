@@ -35,7 +35,7 @@ lustre_client_stats{operation="inode_permission",target="exatest-ff3f2ef8d0a6400
 lustre_client_stats{operation="ioctl",target="exatest-ff3f2ef8d0a64000",otel_scope_name="lustre"} 22
 lustre_client_stats{operation="opencount",target="exatest-ff3f2ef8d0a64000",otel_scope_name="lustre"} 14
 lustre_client_stats{operation="statfs",target="exatest-ff3f2ef8d0a64000",otel_scope_name="lustre"} 3468656
-# HELP lustre_connected_clients Number of connected clients
+# HELP lustre_connected_clients Number of connected clients per target. MDT shows metadata clients. OST shows only active I/O clients. MGT shows all connected clients and servers
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="ai400x2-MDT0000",otel_scope_name="lustre"} 1
 # HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.

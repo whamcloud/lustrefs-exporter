@@ -27,7 +27,7 @@ lustre_changelog_user_idle_sec{user="cl1"} 327
 # TYPE lustre_changelog_user_index gauge
 lustre_changelog_user_index{user="cl1",target="ai400x2-MDT0000"} 0
 
-# HELP lustre_connected_clients Number of connected clients
+# HELP lustre_connected_clients Number of connected clients per target. MDT shows metadata clients. OST shows only active I/O clients. MGT shows all connected clients and servers.
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="ai400-MDT0000"} 4
 lustre_connected_clients{component="mdt",target="ai400-MDT0000"} 4
