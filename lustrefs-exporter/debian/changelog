@@ -1,3 +1,9 @@
+prometheus-lustrefs-exporter (0.12.4-0.1) unstable; urgency=medium
+
+  * Allow IPv6 nids
+
+ -- EMF Team <emf@whamcloud.com>  Wed, 22 Jan 2026 17:00:00 +0200
+
 prometheus-lustrefs-exporter (0.12.3-0.1) unstable; urgency=medium
 
   * Fix parsing recovery status for multiple targets
