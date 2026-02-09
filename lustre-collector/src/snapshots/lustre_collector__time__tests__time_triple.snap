@@ -1,8 +1,0 @@
----
-source: src/time.rs
-expression: result
----
-(
-    "1684948453.142852820",
-    "",
-)

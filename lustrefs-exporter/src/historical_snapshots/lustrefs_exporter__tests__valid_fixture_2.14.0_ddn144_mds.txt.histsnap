@@ -38,7 +38,7 @@ lustre_client_stats{operation="statfs",target="fs-ffff8920f73de000"} 1701
 lustre_client_stats{operation="inode_permission",target="fs-ffff8920f73de000"} 2
 lustre_client_stats{operation="opencount",target="fs-ffff8920f73de000"} 2
 
-# HELP lustre_connected_clients Number of connected clients
+# HELP lustre_connected_clients Number of connected clients per target. MDT shows metadata clients. OST shows only active I/O clients. MGT shows all connected clients and servers.
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="fs-MDT0000"} 1
 

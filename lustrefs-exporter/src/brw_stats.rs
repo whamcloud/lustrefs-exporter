@@ -169,7 +169,7 @@ impl BrwStatsMetrics {
 
         registry.register(
             "lustre_connected_clients",
-            "Number of connected clients",
+            "Number of connected clients per target. MDT shows metadata clients. OST shows only active I/O clients. MGT shows all connected clients and servers",
             self.connected_clients.clone(),
         );
 
