@@ -1,8 +1,0 @@
----
-source: lustre-collector/src/mds/client_count_parser.rs
-expression: result
----
-(
-    "es01a-MDT0000",
-    "",
-)
