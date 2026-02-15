@@ -1,0 +1,10 @@
+---
+source: src/node_stats_parsers.rs
+expression: "parse_meminfo().easy_parse(\"\")"
+---
+Ok(
+    (
+        [],
+        "",
+    ),
+)

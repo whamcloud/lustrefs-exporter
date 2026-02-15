@@ -1,0 +1,18 @@
+---
+source: src/stats_parser.rs
+expression: result
+---
+(
+    [
+        Stat {
+            name: "statfs",
+            units: "reqs",
+            samples: 16360,
+            min: None,
+            max: None,
+            sum: None,
+            sumsquare: None,
+        },
+    ],
+    "",
+)

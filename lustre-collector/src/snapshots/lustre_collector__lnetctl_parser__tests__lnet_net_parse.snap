@@ -1,0 +1,73 @@
+---
+source: src/lnetctl_parser.rs
+expression: x
+
+---
+[
+    LNetStat(
+        SendCount(
+            LNetStat {
+                nid: "0@lo",
+                param: Param(
+                    "send_count",
+                ),
+                value: 942,
+            },
+        ),
+    ),
+    LNetStat(
+        RecvCount(
+            LNetStat {
+                nid: "0@lo",
+                param: Param(
+                    "recv_count",
+                ),
+                value: 942,
+            },
+        ),
+    ),
+    LNetStat(
+        DropCount(
+            LNetStat {
+                nid: "0@lo",
+                param: Param(
+                    "drop_count",
+                ),
+                value: 0,
+            },
+        ),
+    ),
+    LNetStat(
+        SendCount(
+            LNetStat {
+                nid: "10.73.20.11@tcp",
+                param: Param(
+                    "send_count",
+                ),
+                value: 3825,
+            },
+        ),
+    ),
+    LNetStat(
+        RecvCount(
+            LNetStat {
+                nid: "10.73.20.11@tcp",
+                param: Param(
+                    "recv_count",
+                ),
+                value: 3736,
+            },
+        ),
+    ),
+    LNetStat(
+        DropCount(
+            LNetStat {
+                nid: "10.73.20.11@tcp",
+                param: Param(
+                    "drop_count",
+                ),
+                value: 30,
+            },
+        ),
+    ),
+]
