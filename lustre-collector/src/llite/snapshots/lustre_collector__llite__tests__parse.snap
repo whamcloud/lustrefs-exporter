@@ -1,0 +1,236 @@
+---
+source: src/llite/mod.rs
+expression: result
+---
+(
+    [
+        Target(
+            Llite(
+                LliteStat {
+                    target: Target(
+                        "ai400x2-ffff9440f1003000",
+                    ),
+                    param: Param(
+                        "stats",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "ioctl",
+                            units: "reqs",
+                            samples: 2,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "open",
+                            units: "usec",
+                            samples: 13812423,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                725287,
+                            ),
+                            sum: Some(
+                                1027077752,
+                            ),
+                            sumsquare: Some(
+                                8835364169944,
+                            ),
+                        },
+                        Stat {
+                            name: "close",
+                            units: "usec",
+                            samples: 13812423,
+                            min: Some(
+                                47,
+                            ),
+                            max: Some(
+                                778498,
+                            ),
+                            sum: Some(
+                                1320315612,
+                            ),
+                            sumsquare: Some(
+                                17542973849370,
+                            ),
+                        },
+                        Stat {
+                            name: "readdir",
+                            units: "usec",
+                            samples: 12,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                4647,
+                            ),
+                            sum: Some(
+                                6715,
+                            ),
+                            sumsquare: Some(
+                                22456295,
+                            ),
+                        },
+                        Stat {
+                            name: "getattr",
+                            units: "usec",
+                            samples: 14812440,
+                            min: Some(
+                                2,
+                            ),
+                            max: Some(
+                                320411,
+                            ),
+                            sum: Some(
+                                1317584841,
+                            ),
+                            sumsquare: Some(
+                                2110166912709,
+                            ),
+                        },
+                        Stat {
+                            name: "unlink",
+                            units: "usec",
+                            samples: 6906208,
+                            min: Some(
+                                117,
+                            ),
+                            max: Some(
+                                749323,
+                            ),
+                            sum: Some(
+                                1386719680,
+                            ),
+                            sumsquare: Some(
+                                23443327087798,
+                            ),
+                        },
+                        Stat {
+                            name: "mkdir",
+                            units: "usec",
+                            samples: 7906554,
+                            min: Some(
+                                104,
+                            ),
+                            max: Some(
+                                1529199,
+                            ),
+                            sum: Some(
+                                20996782592,
+                            ),
+                            sumsquare: Some(
+                                1837945636486522,
+                            ),
+                        },
+                        Stat {
+                            name: "rmdir",
+                            units: "usec",
+                            samples: 6939862,
+                            min: Some(
+                                95,
+                            ),
+                            max: Some(
+                                646028,
+                            ),
+                            sum: Some(
+                                16617944601,
+                            ),
+                            sumsquare: Some(
+                                635123583760591,
+                            ),
+                        },
+                        Stat {
+                            name: "mknod",
+                            units: "usec",
+                            samples: 6906208,
+                            min: Some(
+                                119,
+                            ),
+                            max: Some(
+                                775827,
+                            ),
+                            sum: Some(
+                                1454511094,
+                            ),
+                            sumsquare: Some(
+                                10119157242014,
+                            ),
+                        },
+                        Stat {
+                            name: "statfs",
+                            units: "usec",
+                            samples: 7,
+                            min: Some(
+                                147,
+                            ),
+                            max: Some(
+                                197,
+                            ),
+                            sum: Some(
+                                1236,
+                            ),
+                            sumsquare: Some(
+                                220284,
+                            ),
+                        },
+                        Stat {
+                            name: "inode_permission",
+                            units: "usec",
+                            samples: 251887103,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                14235,
+                            ),
+                            sum: Some(
+                                178199279,
+                            ),
+                            sumsquare: Some(
+                                1102415701,
+                            ),
+                        },
+                        Stat {
+                            name: "opencount",
+                            units: "reqs",
+                            samples: 13812424,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                2,
+                            ),
+                            sum: Some(
+                                20718632,
+                            ),
+                            sumsquare: Some(
+                                34531048,
+                            ),
+                        },
+                        Stat {
+                            name: "openclosetime",
+                            units: "usec",
+                            samples: 6906208,
+                            min: Some(
+                                2225920,
+                            ),
+                            max: Some(
+                                34405427,
+                            ),
+                            sum: Some(
+                                163169641155255,
+                            ),
+                            sumsquare: Some(
+                                11416538743473681487,
+                            ),
+                        },
+                    ],
+                },
+            ),
+        ),
+    ],
+    "",
+)

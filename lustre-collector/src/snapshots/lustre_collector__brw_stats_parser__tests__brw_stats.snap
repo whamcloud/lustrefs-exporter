@@ -1,0 +1,232 @@
+---
+source: src/brw_stats_parser.rs
+expression: result
+---
+(
+    [
+        BrwStats {
+            name: "pages",
+            unit: "rpcs",
+            buckets: [
+                BrwStatsBucket {
+                    name: 32,
+                    read: 0,
+                    write: 1,
+                },
+                BrwStatsBucket {
+                    name: 64,
+                    read: 0,
+                    write: 0,
+                },
+                BrwStatsBucket {
+                    name: 128,
+                    read: 0,
+                    write: 0,
+                },
+                BrwStatsBucket {
+                    name: 256,
+                    read: 1,
+                    write: 0,
+                },
+                BrwStatsBucket {
+                    name: 512,
+                    read: 0,
+                    write: 0,
+                },
+                BrwStatsBucket {
+                    name: 1024,
+                    read: 0,
+                    write: 8,
+                },
+            ],
+        },
+        BrwStats {
+            name: "discont_pages",
+            unit: "rpcs",
+            buckets: [
+                BrwStatsBucket {
+                    name: 0,
+                    read: 0,
+                    write: 6,
+                },
+                BrwStatsBucket {
+                    name: 1,
+                    read: 0,
+                    write: 3,
+                },
+            ],
+        },
+        BrwStats {
+            name: "discont_blocks",
+            unit: "rpcs",
+            buckets: [
+                BrwStatsBucket {
+                    name: 0,
+                    read: 0,
+                    write: 9,
+                },
+            ],
+        },
+        BrwStats {
+            name: "dio_frags",
+            unit: "ios",
+            buckets: [
+                BrwStatsBucket {
+                    name: 1,
+                    read: 0,
+                    write: 1,
+                },
+                BrwStatsBucket {
+                    name: 2,
+                    read: 0,
+                    write: 0,
+                },
+                BrwStatsBucket {
+                    name: 3,
+                    read: 0,
+                    write: 0,
+                },
+                BrwStatsBucket {
+                    name: 4,
+                    read: 0,
+                    write: 8,
+                },
+            ],
+        },
+        BrwStats {
+            name: "rpc_hist",
+            unit: "ios",
+            buckets: [
+                BrwStatsBucket {
+                    name: 1,
+                    read: 0,
+                    write: 3,
+                },
+                BrwStatsBucket {
+                    name: 2,
+                    read: 0,
+                    write: 3,
+                },
+                BrwStatsBucket {
+                    name: 3,
+                    read: 0,
+                    write: 3,
+                },
+                BrwStatsBucket {
+                    name: 4,
+                    read: 0,
+                    write: 3,
+                },
+                BrwStatsBucket {
+                    name: 5,
+                    read: 0,
+                    write: 3,
+                },
+                BrwStatsBucket {
+                    name: 6,
+                    read: 0,
+                    write: 3,
+                },
+                BrwStatsBucket {
+                    name: 7,
+                    read: 0,
+                    write: 3,
+                },
+                BrwStatsBucket {
+                    name: 8,
+                    read: 0,
+                    write: 3,
+                },
+                BrwStatsBucket {
+                    name: 9,
+                    read: 0,
+                    write: 2,
+                },
+                BrwStatsBucket {
+                    name: 10,
+                    read: 0,
+                    write: 2,
+                },
+                BrwStatsBucket {
+                    name: 11,
+                    read: 0,
+                    write: 2,
+                },
+                BrwStatsBucket {
+                    name: 12,
+                    read: 0,
+                    write: 2,
+                },
+                BrwStatsBucket {
+                    name: 13,
+                    read: 0,
+                    write: 1,
+                },
+            ],
+        },
+        BrwStats {
+            name: "io_time",
+            unit: "ios",
+            buckets: [
+                BrwStatsBucket {
+                    name: 32,
+                    read: 0,
+                    write: 1,
+                },
+                BrwStatsBucket {
+                    name: 64,
+                    read: 0,
+                    write: 0,
+                },
+                BrwStatsBucket {
+                    name: 128,
+                    read: 0,
+                    write: 2,
+                },
+                BrwStatsBucket {
+                    name: 256,
+                    read: 0,
+                    write: 6,
+                },
+            ],
+        },
+        BrwStats {
+            name: "disk_iosize",
+            unit: "ios",
+            buckets: [
+                BrwStatsBucket {
+                    name: 131072,
+                    read: 0,
+                    write: 1,
+                },
+                BrwStatsBucket {
+                    name: 262144,
+                    read: 0,
+                    write: 0,
+                },
+                BrwStatsBucket {
+                    name: 524288,
+                    read: 0,
+                    write: 0,
+                },
+                BrwStatsBucket {
+                    name: 1048576,
+                    read: 0,
+                    write: 32,
+                },
+            ],
+        },
+        BrwStats {
+            name: "block_maps_msec",
+            unit: "maps",
+            buckets: [
+                BrwStatsBucket {
+                    name: 1,
+                    read: 12689,
+                    write: 0,
+                },
+            ],
+        },
+    ],
+    "",
+)
