@@ -299,6 +299,25 @@ fs-MDT0000-lwp-OST0005_UUID
     }
 
     #[test]
+    fn test_client_count_parser_trevis158_format() {
+        // Test the exact format from Trevis-158 where 0@lo has client UUID on next line
+        // followed by multiple internal UUIDs
+        let x = r#"mdt.fs-MDT0000.exports.0@lo.uuid=
+c7f6f6cb-06fd-4e06-b837-513a6ee08fb5
+fs-MDT0000-lwp-OST0001_UUID
+fs-MDT0000-lwp-MDT0000_UUID
+fs-MDT0000-lwp-OST0000_UUID
+mdt.fs-MDT0000.exports.10.73.20.12@tcp.uuid=
+fs-MDT0000-lwp-OST0003_UUID
+fs-MDT0000-lwp-OST0002_UUID
+"#;
+
+        let result = parse().easy_parse(x).unwrap();
+
+        assert_debug_snapshot!(result)
+    }
+
+    #[test]
     fn test_client_count_parser_two_clients() {
         let x = r#"mdt.fs-MDT0000.exports.0@lo.uuid=fs-MDT0000-lwp-MDT0000_UUID
 mdt.fs-MDT0000.exports.10.0.2.15@tcp.uuid=
@@ -484,6 +503,31 @@ obdfilter.sfa18k26-OST0000.exports.172.25.80.92@o2ib.uuid=sfa18k26-MDT0003-mdtlo
 mgs.MGS.exports.0@lo.uuid=893f59e7-eb98-4898-a972-5f3b8273ed46
 mgs.MGS.exports.172.25.80.29@tcp.uuid=c13b8c2a-f6cc-4b1d-a955-05e603f1ed26
 mgs.MGS.exports.172.25.80.30@tcp.uuid=ccbde25b-bd34-4601-b3bf-cb8704ed9266
+"#;
+
+        let result = parse().easy_parse(x).unwrap();
+
+        assert_debug_snapshot!(result);
+    }
+
+    #[test]
+    fn test_trevis158_actual_full_output() {
+        // EXACT production output from Trevis-158 node1
+        // This includes both MDT and OST exports
+        let x = r#"mdt.fs-MDT0000.exports.0@lo.uuid=
+c7f6f6cb-06fd-4e06-b837-513a6ee08fb5
+fs-MDT0000-lwp-OST0001_UUID
+fs-MDT0000-lwp-MDT0000_UUID
+fs-MDT0000-lwp-OST0000_UUID
+mdt.fs-MDT0000.exports.10.73.20.12@tcp.uuid=
+fs-MDT0000-lwp-OST0003_UUID
+fs-MDT0000-lwp-OST0002_UUID
+fs-MDT0001-mdtlov_UUID
+fs-MDT0000-lwp-MDT0001_UUID
+obdfilter.fs-OST0000.exports.0@lo.uuid=fs-MDT0000-mdtlov_UUID
+obdfilter.fs-OST0000.exports.10.73.20.12@tcp.uuid=fs-MDT0001-mdtlov_UUID
+obdfilter.fs-OST0001.exports.0@lo.uuid=fs-MDT0000-mdtlov_UUID
+obdfilter.fs-OST0001.exports.10.73.20.12@tcp.uuid=fs-MDT0001-mdtlov_UUID
 "#;
 
         let result = parse().easy_parse(x).unwrap();
