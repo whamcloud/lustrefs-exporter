@@ -689,12 +689,12 @@ expression: result
                                     write: 174,
                                 },
                                 BrwStatsBucket {
-                                    name: 3,
+                                    name: 4,
                                     read: 0,
                                     write: 174,
                                 },
                                 BrwStatsBucket {
-                                    name: 4,
+                                    name: 8,
                                     read: 0,
                                     write: 174,
                                 },
@@ -796,12 +796,12 @@ expression: result
                                     write: 64,
                                 },
                                 BrwStatsBucket {
-                                    name: 3,
+                                    name: 4,
                                     read: 0,
                                     write: 64,
                                 },
                                 BrwStatsBucket {
-                                    name: 4,
+                                    name: 8,
                                     read: 0,
                                     write: 64,
                                 },
