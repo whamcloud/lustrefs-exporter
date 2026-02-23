@@ -299,8 +299,8 @@ fs-MDT0000-lwp-OST0005_UUID
     }
 
     #[test]
-    fn test_client_count_parser_trevis158_format() {
-        // Test the exact format from Trevis-158 where 0@lo has client UUID on next line
+    fn test_multiline_uuid_format() {
+        // Test format where 0@lo has client UUID on next line
         // followed by multiple internal UUIDs
         let x = r#"mdt.fs-MDT0000.exports.0@lo.uuid=
 c7f6f6cb-06fd-4e06-b837-513a6ee08fb5
@@ -511,9 +511,9 @@ mgs.MGS.exports.172.25.80.30@tcp.uuid=ccbde25b-bd34-4601-b3bf-cb8704ed9266
     }
 
     #[test]
-    fn test_trevis158_actual_full_output() {
-        // EXACT production output from Trevis-158 node1
-        // This includes both MDT and OST exports
+    fn test_mixed_targets_with_multiline_uuid() {
+        // Test parsing both MDT and OST exports together
+        // with multiline UUID format
         let x = r#"mdt.fs-MDT0000.exports.0@lo.uuid=
 c7f6f6cb-06fd-4e06-b837-513a6ee08fb5
 fs-MDT0000-lwp-OST0001_UUID
