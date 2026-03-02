@@ -232,22 +232,45 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
             Component::Nodemap,
         ]);
         let lctl = lustre_metrics_output(&params).output().await?;
+
+        if !lctl.status.success() {
+            eprintln!("Error: {}", String::from_utf8_lossy(&lctl.stderr));
+        }
+
         output.extend(parse_lctl_output(&lctl.stdout)?);
     }
 
     if targets.enabled(&Dimension::Quotas) {
         let params = parser::get_params(&[Component::Quota]);
         let lctl = lustre_metrics_output(&params).output().await?;
+
+        if !lctl.status.success() {
+            eprintln!("Error: {}", String::from_utf8_lossy(&lctl.stderr));
+        }
+
         output.extend(parse_lctl_output(&lctl.stdout)?);
     }
 
     if targets.enabled(&Dimension::LnetStats) {
         let lnetctl_stats_output = lnet_stats_output().output().await?;
+
+        if !lnetctl_stats_output.status.success() {
+            eprintln!(
+                "Error: {}",
+                String::from_utf8_lossy(&lnetctl_stats_output.stderr)
+            );
+        }
+
         output.extend(parse_lnetctl_stats(&lnetctl_stats_output.stdout)?);
     }
 
     if targets.enabled(&Dimension::Lnet) {
         let lnetctl = net_show_output().output().await?;
+
+        if !lnetctl.status.success() {
+            eprintln!("Error: {}", String::from_utf8_lossy(&lnetctl.stderr));
+        }
+
         output.extend(parse_lnetctl_output(&lnetctl.stdout)?);
     }
 
