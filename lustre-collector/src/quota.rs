@@ -6,13 +6,10 @@ use crate::{
     QuotaKind, QuotaStat, QuotaStatLimits, QuotaStatOsd, QuotaStatUsage, QuotaStats,
     TargetQuotaStat,
     base_parsers::{digits, param, period, target},
-    quota::QMT,
     types::{Param, Record, Target, TargetStats},
 };
 use combine::{
-    Parser, Stream, between, choice, eof,
-    error::ParseError,
-    many1, optional,
+    ParseError, Parser, Stream, between, choice, eof, many1, optional,
     parser::{
         char::{newline, spaces, string},
         repeat::take_until,
@@ -20,18 +17,30 @@ use combine::{
     token,
 };
 
+pub(crate) const QMT: &str = "qmt";
+
 pub(crate) const USR_QUOTAS: &str = "usr";
 pub(crate) const PRJ_QUOTAS: &str = "prj";
 pub(crate) const GRP_QUOTAS: &str = "grp";
 
+const PARAMS: [&str; 3] = [
+    "qmt.*.{dt,md}-*.glb-usr",
+    "qmt.*.{dt,md}-*.glb-prj",
+    "qmt.*.{dt,md}-*.glb-grp",
+];
+
+pub fn parse<I>() -> impl Parser<I, Output = Record>
+where
+    I: Stream<Token = char>,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    (string(QMT), period()).with(qmt_parse())
+}
+
 /// Takes QMT_STATS and produces a list of params for
 /// consumption in proper ltcl get_param format.
 pub(crate) fn params() -> Vec<String> {
-    vec![
-        format!("{QMT}.*.{{dt,md}}-*.glb-{USR_QUOTAS}"),
-        format!("{QMT}.*.{{dt,md}}-*.glb-{PRJ_QUOTAS}"),
-        format!("{QMT}.*.{{dt,md}}-*.glb-{GRP_QUOTAS}"),
-    ]
+    PARAMS.into_iter().map(String::from).collect()
 }
 
 /// Parses a target name
@@ -225,7 +234,7 @@ where
 
 #[cfg(test)]
 mod tests {
-    use crate::quota::quota_parser::{params, quota_stats, quota_stats_osd};
+    use crate::quota::{params, quota_stats, quota_stats_osd};
     use combine::Parser as _;
 
     #[test]
