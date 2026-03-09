@@ -1,5 +1,5 @@
 ---
-source: src/brw_stats_parser.rs
+source: lustre-collector/src/brw_stats_parser.rs
 expression: result
 ---
 (
@@ -100,67 +100,37 @@ expression: result
                 BrwStatsBucket {
                     name: 1,
                     read: 0,
-                    write: 3,
+                    write: 2704,
                 },
                 BrwStatsBucket {
                     name: 2,
                     read: 0,
-                    write: 3,
-                },
-                BrwStatsBucket {
-                    name: 3,
-                    read: 0,
-                    write: 3,
+                    write: 3180,
                 },
                 BrwStatsBucket {
                     name: 4,
                     read: 0,
-                    write: 3,
-                },
-                BrwStatsBucket {
-                    name: 5,
-                    read: 0,
-                    write: 3,
-                },
-                BrwStatsBucket {
-                    name: 6,
-                    read: 0,
-                    write: 3,
-                },
-                BrwStatsBucket {
-                    name: 7,
-                    read: 0,
-                    write: 3,
+                    write: 7370,
                 },
                 BrwStatsBucket {
                     name: 8,
                     read: 0,
-                    write: 3,
+                    write: 17365,
                 },
                 BrwStatsBucket {
-                    name: 9,
+                    name: 16,
                     read: 0,
-                    write: 2,
+                    write: 40726,
                 },
                 BrwStatsBucket {
-                    name: 10,
+                    name: 32,
                     read: 0,
-                    write: 2,
+                    write: 44513,
                 },
                 BrwStatsBucket {
-                    name: 11,
+                    name: 64,
                     read: 0,
-                    write: 2,
-                },
-                BrwStatsBucket {
-                    name: 12,
-                    read: 0,
-                    write: 2,
-                },
-                BrwStatsBucket {
-                    name: 13,
-                    read: 0,
-                    write: 1,
+                    write: 116,
                 },
             ],
         },

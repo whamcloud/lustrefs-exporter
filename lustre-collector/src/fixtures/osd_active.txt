@@ -112,8 +112,8 @@ disk fragmented I/Os   ios   % cum % |  ios         % cum %
 disk I/Os in flight    ios   % cum % |  ios         % cum %
 1:		         0   0   0   |  176  25  25
 2:		         0   0   0   |  174  24  50
-3:		         0   0   0   |  174  24  75
-4:		         0   0   0   |  174  24 100
+4:		         0   0   0   |  174  24  75
+8:		         0   0   0   |  174  24 100
 
                            read      |     write
 I/O time (1/1000s)     ios   % cum % |  ios         % cum %
@@ -145,8 +145,8 @@ disk fragmented I/Os   ios   % cum % |  ios         % cum %
 disk I/Os in flight    ios   % cum % |  ios         % cum %
 1:		         0   0   0   |   64  25  25
 2:		         0   0   0   |   64  25  50
-3:		         0   0   0   |   64  25  75
-4:		         0   0   0   |   64  25 100
+4:		         0   0   0   |   64  25  75
+8:		         0   0   0   |   64  25 100
 
                            read      |     write
 I/O time (1/1000s)     ios   % cum % |  ios         % cum %
