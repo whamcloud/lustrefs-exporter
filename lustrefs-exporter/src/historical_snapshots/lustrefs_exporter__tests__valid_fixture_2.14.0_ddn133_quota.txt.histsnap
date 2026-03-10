@@ -79,7 +79,7 @@ lustre_capacity_kilobytes{component="mdt",target="ai400x2-MDT0000"} 366222772
 lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0000"} 35016088872
 lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0001"} 35016088872
 
-# HELP lustre_connected_clients Number of connected clients
+# HELP lustre_connected_clients Number of connected clients per target. MDT shows metadata clients. OST shows only active I/O clients. MGT shows all connected clients and servers.
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="ai400x2-MDT0000"} 16
 lustre_connected_clients{component="mdt",target="ai400x2-MDT0000"} 16

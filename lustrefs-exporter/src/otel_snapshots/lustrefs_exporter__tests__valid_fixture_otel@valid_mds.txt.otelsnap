@@ -13,7 +13,7 @@ lustre_available_kilobytes{component="ost",target="ai400x2-OST0001",otel_scope_n
 lustre_capacity_kilobytes{component="mdt",target="ai400x2-MDT0000",otel_scope_name="lustre"} 414229176
 lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0000",otel_scope_name="lustre"} 34750424936
 lustre_capacity_kilobytes{component="ost",target="ai400x2-OST0001",otel_scope_name="lustre"} 34750424936
-# HELP lustre_connected_clients Number of connected clients
+# HELP lustre_connected_clients Number of connected clients per target. MDT shows metadata clients. OST shows only active I/O clients. MGT shows all connected clients and servers
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="ai400x2-MDT0000",otel_scope_name="lustre"} 0
 # HELP lustre_exports_dirty_total Total number of exports that have been marked dirty

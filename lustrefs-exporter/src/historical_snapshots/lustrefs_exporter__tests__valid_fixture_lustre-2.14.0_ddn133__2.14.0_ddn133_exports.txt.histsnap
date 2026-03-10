@@ -874,7 +874,7 @@ lustre_client_export_stats{component="mdt",target="ai400x2-MDT0000",nid="192.168
 lustre_client_export_stats{component="mdt",target="ai400x2-MDT0000",nid="192.168.5.136@o2ib",name="statfs",units="usecs"} 35587
 lustre_client_export_stats{component="mdt",target="ai400x2-MDT0000",nid="192.168.5.137@o2ib",name="statfs",units="usecs"} 35600
 
-# HELP lustre_connected_clients Number of connected clients
+# HELP lustre_connected_clients Number of connected clients per target. MDT shows metadata clients. OST shows only active I/O clients. MGT shows all connected clients and servers.
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="ai400x2-MDT0000"} 16
 
