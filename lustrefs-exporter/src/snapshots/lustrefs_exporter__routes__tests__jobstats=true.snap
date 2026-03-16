@@ -1,6 +1,6 @@
 ---
 source: lustrefs-exporter/src/routes.rs
-expression: original
+expression: response.try_into_string().await
 ---
 # HELP lustre_job_read_samples_total Total number of reads that have been recorded.
 # TYPE lustre_job_read_samples_total counter

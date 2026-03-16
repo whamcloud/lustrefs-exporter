@@ -6,7 +6,7 @@ use crate::{
     QuotaKind, QuotaStatsOsd,
     base_parsers::{digits, param, period, target, till_newline, till_period},
     brw_stats_parser::brw_stats,
-    quota::quota_parser::quota_stats_osd,
+    quota::quota_stats_osd,
     stats_parser::stats,
     types::{BrwStats, Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
 };
