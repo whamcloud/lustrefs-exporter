@@ -1,0 +1,1230 @@
+memused=5243093513
+memused_max=5253184993
+lnet_memused=375012180
+health_check=healthy
+mdt.ai400x3-MDT0000.exports.0@lo.uuid=
+ai400x3-MDT0000-lwp-OST0001_UUID
+ai400x3-MDT0000-lwp-OST0000_UUID
+ai400x3-MDT0000-lwp-MDT0000_UUID
+mdt.ai400x3-MDT0000.exports.172.16.130.31@o2ib.uuid=
+ai400x3-MDT0000-lwp-MDT0001_UUID
+ai400x3-MDT0000-lwp-OST0003_UUID
+ai400x3-MDT0000-lwp-OST0002_UUID
+ai400x3-MDT0001-mdtlov_UUID
+mdt.ai400x3-MDT0000.exports.172.16.252.11@o2ib.uuid=2b8e849b-ae70-44f3-9151-261732db2d7c
+mdt.ai400x3-MDT0000.exports.172.16.252.12@o2ib.uuid=3d90d747-3548-4bea-bf98-6b457c891e89
+mdt.ai400x3-MDT0000.exports.172.16.252.13@o2ib.uuid=69029009-bb5c-44b8-8365-602043157dc7
+mdt.ai400x3-MDT0000.exports.172.16.252.14@o2ib.uuid=12c50138-f459-4437-9f5b-934d03bb08e8
+mdt.ai400x3-MDT0000.exports.172.16.252.15@o2ib.uuid=216f36a8-89d8-4fbd-a349-c7e43d705998
+mdt.ai400x3-MDT0000.exports.172.16.252.16@o2ib.uuid=146b0d3c-b5a1-4b1f-a176-751cabd8aa78
+mdt.ai400x3-MDT0000.exports.172.16.252.17@o2ib.uuid=c859f228-9696-4d9b-902f-bcaf623665ad
+mdt.ai400x3-MDT0000.exports.172.16.252.18@o2ib.uuid=ba45844c-64b9-46ef-a227-1012dd455052
+mdt.ai400x3-MDT0000.exports.172.16.252.19@o2ib.uuid=d2a119cb-5e40-45ad-803c-cfc9ac0f87c6
+mdt.ai400x3-MDT0000.exports.172.16.252.20@o2ib.uuid=71396ec2-0940-4cea-8d2e-40da4240ae7a
+mdt.ai400x3-MDT0000.exports.172.16.252.21@o2ib.uuid=e09483b1-e25a-47b7-8295-74b1bd7b2068
+mdt.ai400x3-MDT0000.exports.172.16.252.22@o2ib.uuid=020d7888-fd38-4a4c-8e89-b4af669147cc
+mdt.ai400x3-MDT0000.exports.172.16.252.23@o2ib.uuid=18bb8b1f-0de8-4ce2-bf17-4cdf78eeb2bf
+mdt.ai400x3-MDT0000.exports.172.16.252.24@o2ib.uuid=40dd5baf-ce8f-48db-a4f8-3325a4abc092
+mdt.ai400x3-MDT0000.exports.172.16.252.25@o2ib.uuid=76af5769-8117-41bf-a97e-e0e06a5f3189
+mdt.ai400x3-MDT0000.exports.172.16.252.26@o2ib.uuid=b862e464-3a69-490a-8a2e-e489c67c6bf8
+osd-ldiskfs.MGS.filesfree=130877
+osd-ldiskfs.ai400x3-MDT0000.filesfree=171801633
+osd-ldiskfs.ai400x3-OST0000.filesfree=113243629
+osd-ldiskfs.ai400x3-OST0001.filesfree=113243629
+osd-ldiskfs.MGS.filestotal=131072
+osd-ldiskfs.ai400x3-MDT0000.filestotal=171802624
+osd-ldiskfs.ai400x3-OST0000.filestotal=113246208
+osd-ldiskfs.ai400x3-OST0001.filestotal=113246208
+osd-ldiskfs.MGS.fstype=ldiskfs
+osd-ldiskfs.ai400x3-MDT0000.fstype=ldiskfs
+osd-ldiskfs.ai400x3-OST0000.fstype=ldiskfs
+osd-ldiskfs.ai400x3-OST0001.fstype=ldiskfs
+osd-ldiskfs.MGS.kbytesavail=1873968
+osd-ldiskfs.ai400x3-MDT0000.kbytesavail=234139256
+osd-ldiskfs.ai400x3-OST0000.kbytesavail=13891968372
+osd-ldiskfs.ai400x3-OST0001.kbytesavail=13900062092
+osd-ldiskfs.MGS.kbytesfree=1978824
+osd-ldiskfs.ai400x3-MDT0000.kbytesfree=238434156
+osd-ldiskfs.ai400x3-OST0000.kbytesfree=14036939900
+osd-ldiskfs.ai400x3-OST0001.kbytesfree=14045033620
+osd-ldiskfs.MGS.kbytestotal=1980036
+osd-ldiskfs.ai400x3-MDT0000.kbytestotal=238453256
+osd-ldiskfs.ai400x3-OST0000.kbytestotal=14324071936
+osd-ldiskfs.ai400x3-OST0001.kbytestotal=14324071936
+osd-ldiskfs.MGS.brw_stats=
+snapshot_time:            1742378286.330946263 secs.nsecs
+start_time:               294.706849244 secs.nsecs
+elapsed_time:             1742377991.624097019 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+osd-ldiskfs.ai400x3-MDT0000.brw_stats=
+snapshot_time:            1742378286.330986134 secs.nsecs
+start_time:               296.941775270 secs.nsecs
+elapsed_time:             1742377989.389210864 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+osd-ldiskfs.ai400x3-OST0000.brw_stats=
+snapshot_time:            1742378286.331077094 secs.nsecs
+start_time:               294.926985080 secs.nsecs
+elapsed_time:             1742377991.404092014 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+1:                       1   0   0   |    1   0   0
+2:                       0   0   0   |    0   0   0
+4:                       0   0   0   |    0   0   0
+8:                       0   0   0   |    0   0   0
+16:                      0   0   0   |    0   0   0
+32:                      0   0   0   |    0   0   0
+64:                      0   0   0   |    0   0   0
+128:                     0   0   0   |    0   0   0
+256:               3469178  99 100   | 2278824   1   1
+512:                     0   0 100   |    0   0   1
+1K:                      0   0 100   |    0   0   1
+2K:                      0   0 100   |    0   0   1
+4K:                      0   0 100   | 184163638  98 100
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+0:                 3469179 100 100   | 186442463 100 100
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+0:                 3469179 100 100   | 186442463 100 100
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+1:                 3469178 100 100   | 2278825   1   1
+2:                       0   0 100   |    0   0   1
+3:                       0   0 100   |    0   0   1
+4:                       0   0 100   |    0   0   1
+5:                       0   0 100   |    0   0   1
+6:                       0   0 100   |    0   0   1
+7:                       0   0 100   |    0   0   1
+8:                       0   0 100   | 184163607  98 100
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+1:                   11031   0   0   | 37640   0   0
+2:                   32724   0   1   | 37119   0   0
+3:                   59126   1   2   | 33799   0   0
+4:                   88509   2   5   | 32873   0   0
+5:                  118436   3   8   | 33234   0   0
+6:                  146398   4  13   | 33690   0   0
+7:                  169882   4  18   | 34209   0   0
+8:                  189048   5  23   | 34919   0   0
+9:                  202061   5  29   | 31131   0   0
+10:                 208966   6  35   | 30716   0   0
+11:                 209823   6  41   | 30576   0   0
+12:                 206145   5  47   | 32027   0   0
+13:                 198829   5  53   | 34036   0   0
+14:                 187830   5  58   | 35276   0   0
+15:                 174810   5  63   | 36630   0   0
+16:                 160457   4  68   | 38056   0   0
+17:                 145904   4  72   | 35268   0   0
+18:                 130831   3  76   | 33800   0   0
+19:                 116398   3  79   | 33157   0   0
+20:                 102238   2  82   | 34846   0   0
+21:                  89557   2  85   | 36630   0   0
+22:                  78054   2  87   | 37848   0   0
+23:                  66884   1  89   | 40316   0   0
+24:                  57465   1  90   | 41816   0   0
+25:                  49499   1  92   | 37885   0   0
+26:                  42115   1  93   | 34775   0   0
+27:                  35657   1  94   | 33256   0   0
+28:                  30284   0  95   | 35188   0   0
+29:                  25435   0  96   | 36974   0   0
+30:                  21164   0  96   | 39293   0   0
+31:                 113618   3 100   | 1474530942  99 100
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+1:                 3468728  99  99   | 426596   0   0
+2:                     394   0  99   | 1211846   0   0
+4:                      56   0 100   | 1694657   0   1
+8:                       0   0 100   | 3947333   2   3
+16:                      0   0 100   | 84324306  45  49
+32:                      0   0 100   | 94811548  50  99
+64:                      0   0 100   | 21878   0  99
+128:                     0   0 100   | 2254   0  99
+256:                     0   0 100   | 1984   0  99
+512:                     0   0 100   |   30   0 100
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+4K:                      0   0   0   |    1   0   0
+8K:                      0   0   0   |    0   0   0
+16K:                     0   0   0   |    0   0   0
+32K:                     0   0   0   |    0   0   0
+64K:                     0   0   0   |    0   0   0
+128K:                    0   0   0   |    0   0   0
+256K:                    0   0   0   |    0   0   0
+512K:                    0   0   0   |    0   0   0
+1M:                3469178 100 100   | 2278824   0   0
+2M:                      0   0 100   | 1473309100  99 100
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+1:                 5587235 100 100   | 184196106  99  99
+2:                       0   0 100   | 37811   0  99
+4:                       0   0 100   | 57416   0  99
+8:                       0   0 100   | 26317   0  99
+16:                      0   0 100   | 6371   0  99
+32:                      0   0 100   |  386   0  99
+64:                      0   0 100   |    1   0 100
+osd-ldiskfs.ai400x3-OST0001.brw_stats=
+snapshot_time:            1742378286.331377474 secs.nsecs
+start_time:               294.929814230 secs.nsecs
+elapsed_time:             1742377991.401563244 secs.nsecs
+
+                           read      |     write
+pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
+256:               3445342 100 100   | 2280559   1   1
+512:                     0   0 100   |    0   0   1
+1K:                      0   0 100   |    0   0   1
+2K:                      0   0 100   |    0   0   1
+4K:                      0   0 100   | 184163464  98 100
+
+                           read      |     write
+discontiguous pages    rpcs  % cum % |  rpcs        % cum %
+0:                 3445342 100 100   | 186444023 100 100
+
+                           read      |     write
+discontiguous blocks   rpcs  % cum % |  rpcs        % cum %
+0:                 3445342 100 100   | 186444023 100 100
+
+                           read      |     write
+disk fragmented I/Os   ios   % cum % |  ios         % cum %
+1:                 3445342 100 100   | 2280559   1   1
+2:                       0   0 100   |    0   0   1
+3:                       0   0 100   |    0   0   1
+4:                       0   0 100   |    0   0   1
+5:                       0   0 100   |    0   0   1
+6:                       0   0 100   |    0   0   1
+7:                       0   0 100   |    0   0   1
+8:                       0   0 100   | 184163432  98 100
+
+                           read      |     write
+disk I/Os in flight    ios   % cum % |  ios         % cum %
+1:                   10751   0   0   | 37172   0   0
+2:                   31984   0   1   | 37038   0   0
+3:                   57527   1   2   | 34367   0   0
+4:                   85327   2   5   | 33126   0   0
+5:                  113467   3   8   | 33520   0   0
+6:                  139664   4  12   | 33944   0   0
+7:                  162002   4  17   | 34396   0   0
+8:                  179216   5  22   | 35066   0   0
+9:                  191120   5  28   | 31772   0   0
+10:                 197679   5  33   | 31340   0   0
+11:                 199594   5  39   | 31292   0   0
+12:                 196790   5  45   | 32574   0   0
+13:                 189488   5  50   | 34171   0   0
+14:                 180124   5  56   | 35309   0   0
+15:                 168505   4  61   | 36784   0   0
+16:                 155702   4  65   | 37954   0   0
+17:                 142949   4  69   | 35100   0   0
+18:                 129366   3  73   | 33947   0   0
+19:                 116852   3  76   | 33528   0   0
+20:                 104460   3  79   | 34844   0   0
+21:                  92552   2  82   | 36372   0   0
+22:                  81714   2  84   | 37795   0   0
+23:                  71771   2  87   | 40284   0   0
+24:                  62714   1  88   | 41802   0   0
+25:                  54487   1  90   | 38453   0   0
+26:                  47146   1  91   | 35672   0   0
+27:                  41005   1  92   | 34429   0   0
+28:                  35503   1  94   | 35478   0   0
+29:                  30731   0  94   | 37009   0   0
+30:                  26432   0  95   | 39094   0   0
+31:                 148720   4 100   | 1474524636  99 100
+
+                           read      |     write
+I/O time (1/1000s)     ios   % cum % |  ios         % cum %
+1:                 3444784  99  99   | 419002   0   0
+2:                     546   0  99   | 1176872   0   0
+4:                      12   0 100   | 1786299   0   1
+8:                       0   0 100   | 4058146   2   3
+16:                      0   0 100   | 84903828  45  49
+32:                      0   0 100   | 94071811  50  99
+64:                      0   0 100   | 24280   0  99
+128:                     0   0 100   | 1978   0  99
+256:                     0   0 100   | 1703   0  99
+512:                     0   0 100   |   72   0 100
+
+                           read      |     write
+disk I/O size          ios   % cum % |  ios         % cum %
+1M:                3445342 100 100   | 2280559   0   0
+2M:                      0   0 100   | 1473307709  99 100
+
+                           read      |     write
+block maps msec        maps  % cum % |  maps        % cum %
+1:                 5570253 100 100   | 184191672  99  99
+2:                       0   0 100   | 37686   0  99
+4:                       0   0 100   | 58888   0  99
+8:                       0   0 100   | 24624   0  99
+16:                      0   0 100   | 5989   0  99
+32:                      0   0 100   |  254   0 100
+osd-ldiskfs.ai400x3-MDT0000.quota_slave.acct_group=
+grp_accounting:
+- id:      0
+  usage:   { inodes:          981, kbytes:         2208 }
+osd-ldiskfs.ai400x3-OST0000.quota_slave.acct_group=
+grp_accounting:
+- id:      0
+  usage:   { inodes:         2569, kbytes:    287181152 }
+osd-ldiskfs.ai400x3-OST0001.quota_slave.acct_group=
+grp_accounting:
+- id:      0
+  usage:   { inodes:         2569, kbytes:    279087432 }
+osd-ldiskfs.ai400x3-MDT0000.quota_slave.acct_user=
+usr_accounting:
+- id:      0
+  usage:   { inodes:          981, kbytes:         2208 }
+osd-ldiskfs.ai400x3-OST0000.quota_slave.acct_user=
+usr_accounting:
+- id:      0
+  usage:   { inodes:         2569, kbytes:    287230304 }
+osd-ldiskfs.ai400x3-OST0001.quota_slave.acct_user=
+usr_accounting:
+- id:      0
+  usage:   { inodes:         2569, kbytes:    279087432 }
+osd-ldiskfs.ai400x3-MDT0000.quota_slave.acct_project=
+prj_accounting:
+- id:      0
+  usage:   { inodes:          981, kbytes:         2208 }
+osd-ldiskfs.ai400x3-OST0000.quota_slave.acct_project=
+prj_accounting:
+- id:      0
+  usage:   { inodes:         2569, kbytes:    287230304 }
+osd-ldiskfs.ai400x3-OST0001.quota_slave.acct_project=
+prj_accounting:
+- id:      0
+  usage:   { inodes:         2569, kbytes:    279103816 }
+mgs.MGS.mgs.stats=
+snapshot_time             1742378286.332404314 secs.nsecs
+start_time                1742228735.971713946 secs.nsecs
+elapsed_time              149550.360690368 secs.nsecs
+req_waittime              107783 samples [usecs] 7 9978 5068458 537774428
+req_qdepth                107783 samples [reqs] 0 1 1 1
+req_active                107783 samples [reqs] 1 2 107900 108134
+req_timeout               107783 samples [secs] 1 15 1614710 24218570
+reqbuf_avail              215009 samples [bufs] 62 64 13545231 853328989
+ldlm_plain_enqueue        101 samples [reqs] 1 1 101 101
+mgs_connect               18 samples [usecs] 25 76 670 29908
+mgs_target_reg            12 samples [usecs] 15 1292 3922 2794268
+mgs_config_read           22 samples [usecs] 30 179 1453 115179
+obd_ping                  107361 samples [usecs] 5 1128 3401066 124129922
+llog_origin_handle_open   82 samples [usecs] 8 44 1164 20648
+llog_origin_handle_next_block 129 samples [usecs] 9 143 2307 103597
+llog_origin_handle_read_header 58 samples [usecs] 9 213 1747 213951
+mgs.MGS.mgs.threads_max=32
+mgs.MGS.mgs.threads_min=3
+mgs.MGS.mgs.threads_started=4
+mgs.MGS.num_exports=18
+obdfilter.ai400x3-OST0000.stats=
+snapshot_time             1742378286.332900343 secs.nsecs
+start_time                1742228736.573307453 secs.nsecs
+elapsed_time              149549.759592890 secs.nsecs
+read_bytes                3469178 samples [bytes] 1048576 1048576 3637696790528 3814401549824688128
+write_bytes               186442470 samples [bytes] 1001 16777216 3092142771667945 4612433686335277585
+read                      3469178 samples [usecs] 623 16467 15904108552 85258323792650
+write                     186442470 samples [usecs] 36 149845092510 -823495890607571055 4426400394686790401
+punch                     562 samples [usecs] 10 48020 5760464 159896287662
+sync                      719 samples [usecs] 0 76522 930977 13284701619
+create                    11 samples [usecs] 2 30809 69396 1415757344
+statfs                    58418 samples [usecs] 0 756 191916 2548952
+get_info                  2 samples [usecs] 294 2488 2782 6276580
+set_info                  48 samples [usecs] 5 15 562 6948
+obdfilter.ai400x3-OST0001.stats=
+snapshot_time             1742378286.332951203 secs.nsecs
+start_time                1742228736.587948484 secs.nsecs
+elapsed_time              149549.745002719 secs.nsecs
+read_bytes                3445342 samples [bytes] 1048576 1048576 3612702932992 3788193590665019392
+write_bytes               186444027 samples [bytes] 1048576 16777216 3092141621379072 4564520268130680832
+read                      3445342 samples [usecs] 659 18365 16083674558 87550749323750
+write                     186444027 samples [usecs] 238 149845092572 -823534886281584464 2367182977989387198
+punch                     560 samples [usecs] 9 45879 2137338 37569230590
+sync                      712 samples [usecs] 0 64847 850504 10695472482
+create                    11 samples [usecs] 1 28348 63815 1164403947
+statfs                    58418 samples [usecs] 0 1083 193416 3909790
+get_info                  2 samples [usecs] 327 2192 2519 4911793
+set_info                  48 samples [usecs] 6 15 601 7747
+obdfilter.ai400x3-OST0000.num_exports=3
+obdfilter.ai400x3-OST0001.num_exports=3
+obdfilter.ai400x3-OST0000.tot_dirty=0
+obdfilter.ai400x3-OST0001.tot_dirty=0
+obdfilter.ai400x3-OST0000.tot_granted=125778357056
+obdfilter.ai400x3-OST0001.tot_granted=122787638080
+obdfilter.ai400x3-OST0000.tot_pending=125778214912
+obdfilter.ai400x3-OST0001.tot_pending=122787495936
+obdfilter.ai400x3-OST0000.exports.0@lo.stats=
+snapshot_time             1742378286.333593794 secs.nsecs
+start_time                1742228738.326444536 secs.nsecs
+elapsed_time              149548.007149258 secs.nsecs
+write_bytes               1 samples [bytes] 1001 1001 1001 1002001
+write                     1 samples [usecs] 36 36 36 1296
+create                    9 samples [usecs] 616 30809 67662 1412757516
+statfs                    29209 samples [usecs] 0 756 75727 1713501
+get_info                  1 samples [usecs] 2488 2488 2488 6190144
+obdfilter.ai400x3-OST0000.exports.172.16.130.31@o2ib.stats=
+snapshot_time             1742378286.333618914 secs.nsecs
+start_time                1742228736.599587544 secs.nsecs
+elapsed_time              149549.734031370 secs.nsecs
+create                    2 samples [usecs] 2 1732 1734 2999828
+statfs                    29209 samples [usecs] 0 36 116189 835451
+get_info                  1 samples [usecs] 294 294 294 86436
+obdfilter.ai400x3-OST0000.exports.172.16.252.11@o2ib.stats=
+snapshot_time             1742378286.333639823 secs.nsecs
+start_time                1742229737.986972528 secs.nsecs
+elapsed_time              148548.346667295 secs.nsecs
+read_bytes                218624 samples [bytes] 1048576 1048576 229243879424 240379630110900224
+write_bytes               142902 samples [bytes] 1048576 1048576 149843607552 157122410632445952
+read                      218624 samples [usecs] 729 15917 997606673 5363293139615
+write                     142902 samples [usecs] 247 12441 133878206 153179592788
+punch                     37 samples [usecs] 15 36204 277629 6911239947
+sync                      46 samples [usecs] 1 16613 69758 635880002
+set_info                  3 samples [usecs] 9 14 35 421
+obdfilter.ai400x3-OST0000.exports.172.16.252.12@o2ib.stats=
+snapshot_time             1742378286.333665923 secs.nsecs
+start_time                1742229737.952609997 secs.nsecs
+elapsed_time              148548.381055926 secs.nsecs
+read_bytes                218670 samples [bytes] 1048576 1048576 229292113920 240430207645777920
+write_bytes               141091 samples [bytes] 1048576 1048576 147944636416 155131195074543616
+read                      218670 samples [usecs] 754 12087 998509510 5366806072228
+write                     141091 samples [usecs] 243 11412 128926595 143790526503
+punch                     32 samples [usecs] 14 34902 129177 2822735737
+sync                      40 samples [usecs] 1 10069 57291 429674407
+set_info                  3 samples [usecs] 5 14 28 302
+obdfilter.ai400x3-OST0000.exports.172.16.252.13@o2ib.stats=
+snapshot_time             1742378286.333694274 secs.nsecs
+start_time                1742229737.996791708 secs.nsecs
+elapsed_time              148548.336902566 secs.nsecs
+read_bytes                218634 samples [bytes] 1048576 1048576 229254365184 240390625227177984
+write_bytes               140521 samples [bytes] 1048576 1048576 147346948096 154504473446711296
+read                      218634 samples [usecs] 741 16054 995330273 5383422490713
+write                     140521 samples [usecs] 231 9736 125137615 135839555621
+punch                     34 samples [usecs] 11 34833 96795 1750904457
+sync                      42 samples [usecs] 1 15129 68491 645776941
+set_info                  3 samples [usecs] 6 12 29 301
+obdfilter.ai400x3-OST0000.exports.172.16.252.14@o2ib.stats=
+snapshot_time             1742378286.333719774 secs.nsecs
+start_time                1742229737.964567747 secs.nsecs
+elapsed_time              148548.369152027 secs.nsecs
+read_bytes                215114 samples [bytes] 1048576 1048576 225563377664 236520344297406464
+write_bytes               135201 samples [bytes] 1048576 1048576 141768523776 148655071586942976
+read                      215114 samples [usecs] 794 13117 992880618 5313532817776
+write                     135201 samples [usecs] 230 10396 118111706 125289971264
+punch                     33 samples [usecs] 18 47854 728696 23105928228
+sync                      40 samples [usecs] 1 76522 128858 6323785332
+set_info                  3 samples [usecs] 13 14 40 534
+obdfilter.ai400x3-OST0000.exports.172.16.252.15@o2ib.stats=
+snapshot_time             1742378286.333744923 secs.nsecs
+start_time                1742229737.987565168 secs.nsecs
+elapsed_time              148548.346179755 secs.nsecs
+read_bytes                218505 samples [bytes] 1048576 1048576 229119098880 240248788227194880
+write_bytes               148214 samples [bytes] 1048576 1048576 155413643264 162963016399192064
+read                      218505 samples [usecs] 729 12720 997433366 5378007231204
+write                     148214 samples [usecs] 233 12796 138225365 157276504747
+punch                     37 samples [usecs] 15 34759 218046 5194017254
+sync                      50 samples [usecs] 1 6422 56450 260297238
+set_info                  3 samples [usecs] 12 14 39 509
+obdfilter.ai400x3-OST0000.exports.172.16.252.16@o2ib.stats=
+snapshot_time             1742378286.333778283 secs.nsecs
+start_time                1742229738.022467839 secs.nsecs
+elapsed_time              148548.311310444 secs.nsecs
+read_bytes                218697 samples [bytes] 1048576 1048576 229320425472 240459894459727872
+write_bytes               143314 samples [bytes] 1048576 1048576 150275620864 157575409423089664
+read                      218697 samples [usecs] 799 16226 998809323 5403854100215
+write                     143314 samples [usecs] 239 11143 131886699 148574769823
+punch                     35 samples [usecs] 347 47695 544773 13265189811
+sync                      44 samples [usecs] 1 8923 65335 482853399
+set_info                  3 samples [usecs] 10 14 37 465
+obdfilter.ai400x3-OST0000.exports.172.16.252.17@o2ib.stats=
+snapshot_time             1742378286.333807003 secs.nsecs
+start_time                1742229737.962682357 secs.nsecs
+elapsed_time              148548.371124646 secs.nsecs
+read_bytes                218525 samples [bytes] 1048576 1048576 229140070400 240270778459750400
+write_bytes               147541 samples [bytes] 1048576 1048576 154707951616 162223045073698816
+read                      218525 samples [usecs] 744 12359 997320197 5407405625425
+write                     147541 samples [usecs] 236 10369 132973510 148553317260
+punch                     35 samples [usecs] 11 47513 461169 14249829839
+sync                      47 samples [usecs] 1 7498 63890 349039048
+set_info                  3 samples [usecs] 6 13 32 374
+obdfilter.ai400x3-OST0000.exports.172.16.252.18@o2ib.stats=
+snapshot_time             1742378286.333838903 secs.nsecs
+start_time                1742229737.996548898 secs.nsecs
+elapsed_time              148548.337290005 secs.nsecs
+read_bytes                212913 samples [bytes] 1048576 1048576 223255461888 234100319204671488
+write_bytes               135927 samples [bytes] 1048576 1048576 142529789952 149453317028708352
+read                      212913 samples [usecs] 806 11798 990278286 5271884042650
+write                     135927 samples [usecs] 242 10394 120855632 132002936934
+punch                     34 samples [usecs] 11 48020 577881 19222629031
+sync                      41 samples [usecs] 1 35939 106527 2466476957
+set_info                  3 samples [usecs] 5 12 27 269
+obdfilter.ai400x3-OST0000.exports.172.16.252.19@o2ib.stats=
+snapshot_time             1742378286.333869363 secs.nsecs
+start_time                1742229738.019217359 secs.nsecs
+elapsed_time              148548.314652004 secs.nsecs
+read_bytes                210812 samples [bytes] 1048576 1048576 221052403712 231790245274714112
+write_bytes               142482 samples [bytes] 1048576 1048576 149403205632 156660615748780032
+read                      210812 samples [usecs] 815 15522 990454031 5268314958405
+write                     142482 samples [usecs] 254 10785 198348313 345856278525
+punch                     37 samples [usecs] 12 32915 138040 2235488656
+sync                      46 samples [usecs] 0 6693 46146 268979464
+set_info                  3 samples [usecs] 6 15 35 457
+obdfilter.ai400x3-OST0000.exports.172.16.252.20@o2ib.stats=
+snapshot_time             1742378286.333900014 secs.nsecs
+start_time                1742229737.997766488 secs.nsecs
+elapsed_time              148548.336133526 secs.nsecs
+read_bytes                218714 samples [bytes] 1048576 1048576 229338251264 240478586157400064
+write_bytes               146801 samples [bytes] 1048576 1048576 153932005376 161409406469144576
+read                      218714 samples [usecs] 776 12459 995739203 5388004680073
+write                     146801 samples [usecs] 237 11882 192309049 318949288157
+punch                     34 samples [usecs] 15 41223 771687 23738953867
+sync                      46 samples [usecs] 0 5067 49190 204280606
+set_info                  3 samples [usecs] 7 14 34 414
+obdfilter.ai400x3-OST0000.exports.172.16.252.21@o2ib.stats=
+snapshot_time             1742378286.333931283 secs.nsecs
+start_time                1742229737.989287618 secs.nsecs
+elapsed_time              148548.344643665 secs.nsecs
+read_bytes                218480 samples [bytes] 1048576 1048576 229092884480 240221300436500480
+write_bytes               142002 samples [bytes] 1048576 1048576 148899889152 156132850167447552
+read                      218480 samples [usecs] 803 13308 997239779 5417195863477
+write                     142002 samples [usecs] 248 10395 191305499 322503222859
+punch                     35 samples [usecs] 15 37621 176518 4571268580
+sync                      44 samples [usecs] 1 11173 62851 463977733
+set_info                  3 samples [usecs] 11 14 39 513
+obdfilter.ai400x3-OST0000.exports.172.16.252.22@o2ib.stats=
+snapshot_time             1742378286.333963083 secs.nsecs
+start_time                1742229738.012110549 secs.nsecs
+elapsed_time              148548.321852534 secs.nsecs
+read_bytes                218163 samples [bytes] 1048576 1048576 228760485888 239872755250495488
+write_bytes               145933 samples [bytes] 1048576 1048576 153021841408 160455030376235008
+read                      218163 samples [usecs] 697 16467 996623922 5395878926106
+write                     145933 samples [usecs] 245 10837 193827145 326252188283
+punch                     37 samples [usecs] 110 47719 613899 15804657337
+sync                      48 samples [usecs] 0 4449 35422 141508558
+set_info                  3 samples [usecs] 10 14 37 465
+obdfilter.ai400x3-OST0000.exports.172.16.252.23@o2ib.stats=
+snapshot_time             1742378286.333998994 secs.nsecs
+start_time                1742229738.032880449 secs.nsecs
+elapsed_time              148548.301118545 secs.nsecs
+read_bytes                210988 samples [bytes] 1048576 1048576 221236953088 231983759321202688
+write_bytes               137094 samples [bytes] 1048576 1048576 143753478144 150736447098322944
+read                      210988 samples [usecs] 952 16072 986045172 5211095865290
+write                     137094 samples [usecs] 314 11764 323904225 987248258439
+punch                     37 samples [usecs] 10 35014 132940 3669881820
+sync                      47 samples [usecs] 0 5462 15119 60316663
+set_info                  3 samples [usecs] 9 15 38 502
+obdfilter.ai400x3-OST0000.exports.172.16.252.24@o2ib.stats=
+snapshot_time             1742378286.334030294 secs.nsecs
+start_time                1742229737.977904618 secs.nsecs
+elapsed_time              148548.356125676 secs.nsecs
+read_bytes                219622 samples [bytes] 1048576 1048576 230290358272 241476942715420672
+write_bytes               146366 samples [bytes] 1048576 1048576 153475874816 160931118911062016
+read                      219622 samples [usecs] 623 12947 993195324 5287516191752
+write                     146366 samples [usecs] 238 8790 192232119 319060616699
+punch                     35 samples [usecs] 12 40618 139680 4207817502
+sync                      46 samples [usecs] 1 4644 41972 170649528
+set_info                  3 samples [usecs] 9 13 33 371
+obdfilter.ai400x3-OST0000.exports.172.16.252.25@o2ib.stats=
+snapshot_time             1742378286.334060534 secs.nsecs
+start_time                1742229738.025869759 secs.nsecs
+elapsed_time              148548.308190775 secs.nsecs
+read_bytes                213356 samples [bytes] 1048576 1048576 223719981056 234587402855776256
+write_bytes               139894 samples [bytes] 1048576 1048576 146689490944 153815079656095744
+read                      213356 samples [usecs] 701 13177 984555410 5120898764744
+write                     139894 samples [usecs] 312 12070 328644390 1011802476968
+punch                     34 samples [usecs] 4058 42006 578154 14593205054
+sync                      47 samples [usecs] 0 1740 6142 5007134
+set_info                  3 samples [usecs] 11 15 39 515
+obdfilter.ai400x3-OST0000.exports.172.16.252.26@o2ib.stats=
+snapshot_time             1742378286.334095994 secs.nsecs
+start_time                1742229738.028865309 secs.nsecs
+elapsed_time              148548.305230685 secs.nsecs
+read_bytes                219361 samples [bytes] 1048576 1048576 230016679936 241189970180571136
+write_bytes               143541 samples [bytes] 1048576 1048576 150513647616 157824998562594816
+read                      219361 samples [usecs] 762 12441 992087465 5281213022977
+write                     143541 samples [usecs] 234 11266 185445359 302305835393
+punch                     36 samples [usecs] 12 37359 175380 4552540542
+sync                      45 samples [usecs] 1 8380 57535 376198609
+set_info                  3 samples [usecs] 12 14 40 536
+obdfilter.ai400x3-OST0001.exports.0@lo.stats=
+snapshot_time             1742378286.334124903 secs.nsecs
+start_time                1742228738.326514836 secs.nsecs
+elapsed_time              149548.007610067 secs.nsecs
+create                    9 samples [usecs] 569 28348 62002 1161120602
+statfs                    29209 samples [usecs] 0 1083 77328 3058714
+get_info                  1 samples [usecs] 2192 2192 2192 4804864
+obdfilter.ai400x3-OST0001.exports.172.16.130.31@o2ib.stats=
+snapshot_time             1742378286.334148694 secs.nsecs
+start_time                1742228736.598803694 secs.nsecs
+elapsed_time              149549.735345000 secs.nsecs
+create                    2 samples [usecs] 1 1812 1813 3283345
+statfs                    29209 samples [usecs] 0 59 116088 851076
+get_info                  1 samples [usecs] 327 327 327 106929
+obdfilter.ai400x3-OST0001.exports.172.16.252.11@o2ib.stats=
+snapshot_time             1742378286.334173523 secs.nsecs
+start_time                1742229737.987016218 secs.nsecs
+elapsed_time              148548.347157305 secs.nsecs
+read_bytes                216957 samples [bytes] 1048576 1048576 227495903232 238546744227397632
+write_bytes               146592 samples [bytes] 1048576 1048576 153712852992 161179608538939392
+read                      216957 samples [usecs] 841 14959 1008155080 5502547523472
+write                     146592 samples [usecs] 246 11795 131767643 146489610691
+punch                     35 samples [usecs] 10 24187 140592 2352568142
+sync                      45 samples [usecs] 1 9008 53719 316892249
+set_info                  3 samples [usecs] 13 14 40 534
+obdfilter.ai400x3-OST0001.exports.172.16.252.12@o2ib.stats=
+snapshot_time             1742378286.334201594 secs.nsecs
+start_time                1742229737.952652997 secs.nsecs
+elapsed_time              148548.381548597 secs.nsecs
+read_bytes                217427 samples [bytes] 1048576 1048576 227988733952 239063514692452352
+write_bytes               149156 samples [bytes] 1048576 1048576 156401401856 163998756352557056
+read                      217427 samples [usecs] 693 12986 1010008159 5512365314519
+write                     149156 samples [usecs] 244 10828 142425841 163126224287
+punch                     33 samples [usecs] 12 24067 87421 1265223165
+sync                      45 samples [usecs] 1 5619 54866 260663716
+set_info                  3 samples [usecs] 12 14 40 536
+obdfilter.ai400x3-OST0001.exports.172.16.252.13@o2ib.stats=
+snapshot_time             1742378286.334230803 secs.nsecs
+start_time                1742229737.996838178 secs.nsecs
+elapsed_time              148548.337392625 secs.nsecs
+read_bytes                217069 samples [bytes] 1048576 1048576 227613343744 238669889529708544
+write_bytes               130764 samples [bytes] 1048576 1048576 137115992064 143776538494500864
+read                      217069 samples [usecs] 763 13407 1007790861 5541685992037
+write                     130764 samples [usecs] 242 11071 113309957 120487470167
+punch                     35 samples [usecs] 14 22161 159043 2070342107
+sync                      41 samples [usecs] 1 11114 56219 536919797
+set_info                  3 samples [usecs] 13 14 40 534
+obdfilter.ai400x3-OST0001.exports.172.16.252.14@o2ib.stats=
+snapshot_time             1742378286.334262203 secs.nsecs
+start_time                1742229737.964613997 secs.nsecs
+elapsed_time              148548.369648206 secs.nsecs
+read_bytes                213464 samples [bytes] 1048576 1048576 223833227264 234706150111576064
+write_bytes               148054 samples [bytes] 1048576 1048576 155245871104 162787094538747904
+read                      213464 samples [usecs] 852 14371 1004223654 5459306164026
+write                     148054 samples [usecs] 243 10939 126244617 132669343137
+punch                     34 samples [usecs] 11 36907 251142 5459610084
+sync                      45 samples [usecs] 1 6790 57915 319055141
+set_info                  3 samples [usecs] 10 14 35 417
+obdfilter.ai400x3-OST0001.exports.172.16.252.15@o2ib.stats=
+snapshot_time             1742378286.334291154 secs.nsecs
+start_time                1742229737.987617528 secs.nsecs
+elapsed_time              148548.346673626 secs.nsecs
+read_bytes                217190 samples [bytes] 1048576 1048576 227740221440 238802930436669440
+write_bytes               148934 samples [bytes] 1048576 1048576 156168617984 163754664771190784
+read                      217190 samples [usecs] 713 12684 1007501164 5507609503562
+write                     148934 samples [usecs] 238 13152 143042534 165833157642
+punch                     37 samples [usecs] 12 25538 121403 1854115971
+sync                      49 samples [usecs] 1 5054 48697 207760195
+set_info                  3 samples [usecs] 13 14 41 561
+obdfilter.ai400x3-OST0001.exports.172.16.252.16@o2ib.stats=
+snapshot_time             1742378286.334319023 secs.nsecs
+start_time                1742229738.022512719 secs.nsecs
+elapsed_time              148548.311806304 secs.nsecs
+read_bytes                217312 samples [bytes] 1048576 1048576 227868147712 238937070855258112
+write_bytes               148369 samples [bytes] 1048576 1048576 155576172544 163133440701497344
+read                      217312 samples [usecs] 720 14883 1010271223 5546920646679
+write                     148369 samples [usecs] 238 11664 136860689 155155747961
+punch                     36 samples [usecs] 12 9050 80152 542991748
+sync                      47 samples [usecs] 1 6187 56442 291513028
+set_info                  3 samples [usecs] 11 14 39 513
+obdfilter.ai400x3-OST0001.exports.172.16.252.17@o2ib.stats=
+snapshot_time             1742378286.334348103 secs.nsecs
+start_time                1742229737.962728667 secs.nsecs
+elapsed_time              148548.371619436 secs.nsecs
+read_bytes                217090 samples [bytes] 1048576 1048576 227635363840 238692979273891840
+write_bytes               146720 samples [bytes] 1048576 1048576 153847070720 161320346027294720
+read                      217090 samples [usecs] 757 13653 1010125830 5564032297146
+write                     146720 samples [usecs] 244 11355 141207729 163850431207
+punch                     35 samples [usecs] 10 45879 225697 6651926057
+sync                      45 samples [usecs] 1 6976 62534 393680096
+set_info                  3 samples [usecs] 13 14 40 534
+obdfilter.ai400x3-OST0001.exports.172.16.252.18@o2ib.stats=
+snapshot_time             1742378286.334378094 secs.nsecs
+start_time                1742229737.996592258 secs.nsecs
+elapsed_time              148548.337785836 secs.nsecs
+read_bytes                211377 samples [bytes] 1048576 1048576 221644849152 232411469344407552
+write_bytes               148293 samples [bytes] 1048576 1048576 155496480768 163049877817786368
+read                      211377 samples [usecs] 688 12209 1002113187 5425327513261
+write                     148293 samples [usecs] 238 12425 140103526 160492017304
+punch                     39 samples [usecs] 9 36913 158446 3274005990
+sync                      50 samples [usecs] 0 6019 35854 187226502
+set_info                  3 samples [usecs] 11 13 36 434
+obdfilter.ai400x3-OST0001.exports.172.16.252.19@o2ib.stats=
+snapshot_time             1742378286.334411494 secs.nsecs
+start_time                1742229738.019258599 secs.nsecs
+elapsed_time              148548.315152895 secs.nsecs
+read_bytes                209557 samples [bytes] 1048576 1048576 219736440832 230410358181855232
+write_bytes               146837 samples [bytes] 1048576 1048576 153969754112 161448988887744512
+read                      209557 samples [usecs] 722 12877 1002409223 5416924624781
+write                     146837 samples [usecs] 242 20265 209967725 372657956065
+punch                     38 samples [usecs] 9 31013 188254 2881021184
+sync                      48 samples [usecs] 0 4694 40866 173616892
+set_info                  3 samples [usecs] 6 14 32 376
+obdfilter.ai400x3-OST0001.exports.172.16.252.20@o2ib.stats=
+snapshot_time             1742378286.334439403 secs.nsecs
+start_time                1742229737.997816558 secs.nsecs
+elapsed_time              148548.336622845 secs.nsecs
+read_bytes                217551 samples [bytes] 1048576 1048576 228118757376 239199854134296576
+write_bytes               138354 samples [bytes] 1048576 1048576 145074683904 152121831749320704
+read                      217551 samples [usecs] 760 14667 1008741123 5539861046723
+write                     138354 samples [usecs] 247 12492 178974737 292250445201
+punch                     36 samples [usecs] 11 25632 116420 1564863984
+sync                      43 samples [usecs] 1 36080 91147 1823400463
+set_info                  3 samples [usecs] 13 14 41 561
+obdfilter.ai400x3-OST0001.exports.172.16.252.21@o2ib.stats=
+snapshot_time             1742378286.334467603 secs.nsecs
+start_time                1742229737.989341798 secs.nsecs
+elapsed_time              148548.345125805 secs.nsecs
+read_bytes                216702 samples [bytes] 1048576 1048576 227228516352 238266368762314752
+write_bytes               121510 samples [bytes] 1048576 1048576 127412469760 133601657891061760
+read                      216702 samples [usecs] 744 18365 1007264425 5554658580249
+write                     121510 samples [usecs] 244 12292 145095324 225164192438
+punch                     35 samples [usecs] 12 26717 116916 2216624394
+sync                      40 samples [usecs] 1 64847 115113 4861943793
+set_info                  3 samples [usecs] 8 14 32 360
+obdfilter.ai400x3-OST0001.exports.172.16.252.22@o2ib.stats=
+snapshot_time             1742378286.334497814 secs.nsecs
+start_time                1742229738.012156509 secs.nsecs
+elapsed_time              148548.322341305 secs.nsecs
+read_bytes                216886 samples [bytes] 1048576 1048576 227421454336 238468678901825536
+write_bytes               145437 samples [bytes] 1048576 1048576 152501747712 159909672608858112
+read                      216886 samples [usecs] 740 13356 1008669651 5543950354787
+write                     145437 samples [usecs] 239 10480 202262825 350570979629
+punch                     33 samples [usecs] 14 21360 67397 713425173
+sync                      42 samples [usecs] 1 7698 35112 163213928
+set_info                  3 samples [usecs] 13 14 41 561
+obdfilter.ai400x3-OST0001.exports.172.16.252.23@o2ib.stats=
+snapshot_time             1742378286.334530774 secs.nsecs
+start_time                1742229738.032926009 secs.nsecs
+elapsed_time              148548.301604765 secs.nsecs
+read_bytes                209732 samples [bytes] 1048576 1048576 219919941632 230602772716716032
+write_bytes               140953 samples [bytes] 1048576 1048576 147799932928 154979462469910528
+read                      209732 samples [usecs] 659 14934 996232293 5340282103093
+write                     140953 samples [usecs] 316 11860 325667739 981101690253
+punch                     29 samples [usecs] 14 25736 111091 2312394217
+sync                      41 samples [usecs] 0 1587 6337 4825429
+set_info                  3 samples [usecs] 13 14 41 561
+obdfilter.ai400x3-OST0001.exports.172.16.252.24@o2ib.stats=
+snapshot_time             1742378286.334558694 secs.nsecs
+start_time                1742229737.977853738 secs.nsecs
+elapsed_time              148548.356704956 secs.nsecs
+read_bytes                217631 samples [bytes] 1048576 1048576 228202643456 239287815064518656
+write_bytes               143260 samples [bytes] 1048576 1048576 150218997760 157516035795189760
+read                      217631 samples [usecs] 730 14855 1003392630 5426777361364
+write                     143260 samples [usecs] 249 12133 187057176 307899330438
+punch                     38 samples [usecs] 13 25439 71186 1281178312
+sync                      46 samples [usecs] 0 16490 67188 649474766
+set_info                  3 samples [usecs] 6 15 34 430
+obdfilter.ai400x3-OST0001.exports.172.16.252.25@o2ib.stats=
+snapshot_time             1742378286.334586394 secs.nsecs
+start_time                1742229738.025916999 secs.nsecs
+elapsed_time              148548.308669395 secs.nsecs
+read_bytes                211998 samples [bytes] 1048576 1048576 222296014848 233094266065256448
+write_bytes               139124 samples [bytes] 1048576 1048576 145882087424 152968455702708224
+read                      211998 samples [usecs] 740 16191 995372334 5255580778096
+write                     139124 samples [usecs] 314 14072 328262006 1004796709674
+punch                     34 samples [usecs] 14 21407 106346 1092529806
+sync                      45 samples [usecs] 0 6821 12106 49726010
+set_info                  3 samples [usecs] 6 13 30 326
+obdfilter.ai400x3-OST0001.exports.172.16.252.26@o2ib.stats=
+snapshot_time             1742378286.334617094 secs.nsecs
+start_time                1742229738.028901479 secs.nsecs
+elapsed_time              148548.305715615 secs.nsecs
+read_bytes                217399 samples [bytes] 1048576 1048576 227959373824 239032728366874624
+write_bytes               138202 samples [bytes] 1048576 1048576 144915300352 151954705981898752
+read                      217399 samples [usecs] 703 12815 1001403721 5412919519955
+write                     138202 samples [usecs] 249 11289 173908679 278718467343
+punch                     33 samples [usecs] 11 25429 135832 2036410256
+sync                      40 samples [usecs] 1 8859 56389 455560477
+set_info                  3 samples [usecs] 12 14 39 509
+ost.OSS.ost.stats=
+snapshot_time             1742378286.334676063 secs.nsecs
+start_time                1742228736.169360332 secs.nsecs
+elapsed_time              149550.165315731 secs.nsecs
+req_waittime              8724 samples [usecs] 3 7919 318619 171538747
+req_qdepth                8724 samples [reqs] 0 1 23 23
+req_active                8724 samples [reqs] 1 4 12747 21533
+req_timeout               8724 samples [secs] 1 15 130615 1958665
+reqbuf_avail              20565 samples [bufs] 63 64 1315467 84146229
+ldlm_glimpse_enqueue      619 samples [reqs] 1 1 619 619
+ldlm_extent_enqueue       1432 samples [reqs] 1 1 1432 1432
+ost_create                22 samples [usecs] 10 30825 133592 2584735032
+ost_get_info              4 samples [usecs] 309 2525 5383 11451467
+ost_connect               70 samples [usecs] 29 5286 46046 193943600
+ost_disconnect            66 samples [usecs] 21 201 4471 361335
+ost_sync                  1431 samples [usecs] 7 76557 1820954 24110162396
+ost_set_info              96 samples [usecs] 13 44 3197 110889
+obd_ping                  4984 samples [usecs] 5 52 118911 3002871
+ost.OSS.ost_io.stats=
+snapshot_time             1742378286.334867054 secs.nsecs
+start_time                1742228736.224074843 secs.nsecs
+elapsed_time              149550.110792211 secs.nsecs
+req_waittime              11475026 samples [usecs] 3 40483 441239367 380312463931
+req_qdepth                11475026 samples [reqs] 0 22 152255 226333
+req_active                11475026 samples [reqs] 1 37 189584526 3466965202
+req_timeout               11475026 samples [secs] 15 15 172125390 2581880850
+reqbuf_avail              23892267 samples [bufs] 63 64 1528135303 97739562937
+ost_read                  6914520 samples [usecs] 656 18388 32150276401 174318937728889
+ost_write                 4559384 samples [usecs] 328 76310 65029379350 973870905049254
+ost_punch                 1122 samples [usecs] 15 48029 7962704 197803738936
+ost.OSS.ost_create.stats=
+snapshot_time             1742378286.335044923 secs.nsecs
+start_time                1742228736.184447032 secs.nsecs
+elapsed_time              149550.150597891 secs.nsecs
+req_waittime              116836 samples [usecs] 8 2924 5092718 421394856
+req_qdepth                116836 samples [reqs] 0 1 3 3
+req_active                116836 samples [reqs] 1 2 120664 128320
+req_timeout               116836 samples [secs] 1 15 1751680 26274160
+reqbuf_avail              234666 samples [bufs] 63 64 15015038 960736514
+ost_statfs                116836 samples [usecs] 5 1197 3208034 113056428
+ost.OSS.ost_out.stats=
+snapshot_time             1742378286.335215754 secs.nsecs
+start_time                1742228736.474912970 secs.nsecs
+elapsed_time              149549.860302784 secs.nsecs
+req_waittime              15679 samples [usecs] 8 10969 654903 158659001
+req_qdepth                15679 samples [reqs] 0 0 0 0
+req_active                15679 samples [reqs] 1 1 15679 15679
+req_timeout               15679 samples [secs] 1 15 234927 3523467
+reqbuf_avail              33250 samples [bufs] 63 64 2127705 136154535
+ldlm_ibits_enqueue        4 samples [reqs] 1 1 4 4
+mds_connect               3 samples [usecs] 91 3831 7214 25522106
+mds_statfs                15641 samples [usecs] 15 130 728968 35450878
+out_update                31 samples [usecs] 7 933 2436 1301934
+ost.OSS.ost_seq.stats=
+snapshot_time             1742378286.335281394 secs.nsecs
+start_time                1742228736.342275417 secs.nsecs
+elapsed_time              149549.993005977 secs.nsecs
+req_waittime              2 samples [usecs] 22 49 71 2885
+req_qdepth                2 samples [reqs] 0 0 0 0
+req_active                2 samples [reqs] 1 1 2 2
+req_timeout               2 samples [secs] 10 10 20 200
+reqbuf_avail              6 samples [bufs] 64 64 384 24576
+seq_query                 2 samples [usecs] 928 1142 2070 2165348
+mds.MDS.mdt.stats=
+snapshot_time             1742378286.335349434 secs.nsecs
+start_time                1742228738.191626282 secs.nsecs
+elapsed_time              149548.143723152 secs.nsecs
+req_waittime              143292 samples [usecs] 3 6965 6692720 674618140
+req_qdepth                143292 samples [reqs] 0 2 205 217
+req_active                143292 samples [reqs] 1 8 179224 298714
+req_timeout               143292 samples [secs] 1 15 2149106 32235866
+reqbuf_avail              377680 samples [bufs] 63 64 24170838 1546890666
+ldlm_ibits_enqueue        7824 samples [reqs] 1 1 7824 7824
+mds_reint_setattr         642 samples [reqs] 1 1 642 642
+mds_reint_create          4 samples [reqs] 1 1 4 4
+mds_reint_open            3202 samples [reqs] 1 1 3202 3202
+ost_set_info              1952 samples [usecs] 16 101 83273 3680265
+mds_connect               26 samples [usecs] 12 2033 4660 5283558
+mds_disconnect            1 samples [usecs] 49 49 49 2401
+mds_get_root              17 samples [usecs] 7 9 133 1053
+mds_statfs                35 samples [usecs] 5 42 554 10408
+mds_sync                  640 samples [usecs] 9 9630 36810 186009034
+obd_ping                  132151 samples [usecs] 4 1844 3612334 119001588
+mds.MDS.mdt_fld.stats=
+snapshot_time             1742378286.335581263 secs.nsecs
+start_time                1742228738.255982624 secs.nsecs
+elapsed_time              149548.079598639 secs.nsecs
+req_waittime              19 samples [usecs] 18 65 565 19391
+req_qdepth                19 samples [reqs] 0 0 0 0
+req_active                19 samples [reqs] 1 1 19 19
+req_timeout               19 samples [secs] 10 15 280 4150
+reqbuf_avail              41 samples [bufs] 63 64 2622 167682
+fld_query                 19 samples [usecs] 8 32 302 6184
+mds.MDS.mdt_io.stats=
+snapshot_time             1742378286.335662383 secs.nsecs
+start_time                1742228738.273845044 secs.nsecs
+elapsed_time              149548.061817339 secs.nsecs
+mds.MDS.mdt_out.stats=
+snapshot_time             1742378286.335707214 secs.nsecs
+start_time                1742228738.246474533 secs.nsecs
+elapsed_time              149548.089232681 secs.nsecs
+req_waittime              13568 samples [usecs] 18 11023 594522 160607418
+req_qdepth                13568 samples [reqs] 0 0 0 0
+req_active                13568 samples [reqs] 1 1 13568 13568
+req_timeout               13568 samples [secs] 15 15 203520 3052800
+reqbuf_avail              28947 samples [bufs] 63 64 1852354 118534654
+mds_statfs                13568 samples [usecs] 20 171 722477 39447667
+mds.MDS.mdt_readpage.stats=
+snapshot_time             1742378286.335780083 secs.nsecs
+start_time                1742228738.198341662 secs.nsecs
+elapsed_time              149548.137438421 secs.nsecs
+req_waittime              3267 samples [usecs] 2 1083 82081 7326407
+req_qdepth                3267 samples [reqs] 0 1 9 9
+req_active                3267 samples [reqs] 1 4 4073 6011
+req_timeout               3267 samples [secs] 1 15 48723 730293
+reqbuf_avail              6882 samples [bufs] 63 64 438674 27963374
+ldlm_ibits_enqueue        24 samples [reqs] 1 1 24 24
+mds_getattr               17 samples [usecs] 17 36 444 12166
+mds_close                 3202 samples [usecs] 15 230 126056 6825586
+dt_index_read             24 samples [usecs] 211 652 9460 4257552
+mds.MDS.mdt_seqm.stats=
+snapshot_time             1742378286.335961283 secs.nsecs
+start_time                1742228738.255756044 secs.nsecs
+elapsed_time              149548.080205239 secs.nsecs
+req_waittime              18 samples [usecs] 9 50 393 10533
+req_qdepth                18 samples [reqs] 0 0 0 0
+req_active                18 samples [reqs] 1 2 19 21
+req_timeout               18 samples [secs] 15 15 270 4050
+reqbuf_avail              41 samples [bufs] 63 64 2622 167682
+seq_query                 18 samples [usecs] 7 36 290 6164
+mds.MDS.mdt_seqs.stats=
+snapshot_time             1742378286.336040583 secs.nsecs
+start_time                1742228738.255549334 secs.nsecs
+elapsed_time              149548.080491249 secs.nsecs
+mds.MDS.mdt_setattr.stats=
+snapshot_time             1742378286.336082794 secs.nsecs
+start_time                1742228738.204402312 secs.nsecs
+elapsed_time              149548.131680482 secs.nsecs
+mdt.ai400x3-MDT0000.md_stats=
+snapshot_time             1742378286.336159234 secs.nsecs
+start_time                1742228738.320403036 secs.nsecs
+elapsed_time              149548.015756198 secs.nsecs
+open                      3202 samples [usecs] 10 9259 305863 597886723
+close                     3202 samples [usecs] 9 197 89728 3872588
+mknod                     641 samples [usecs] 62 9229 220556 572299368
+mkdir                     4 samples [usecs] 349 3906 5932 16799766
+getattr                   812 samples [usecs] 1 141 4462 54898
+setattr                   642 samples [usecs] 24 108 28268 1315810
+getxattr                  640 samples [usecs] 8 37 7365 92675
+statfs                    29244 samples [usecs] 0 123 514749 9516557
+sync                      640 samples [usecs] 3 9591 26484 184096690
+mdt.ai400x3-MDT0000.num_exports=23
+mdt.ai400x3-MDT0000.exports.0@lo.stats=
+snapshot_time             1742378286.336440864 secs.nsecs
+start_time                1742228741.367616596 secs.nsecs
+elapsed_time              149544.968824268 secs.nsecs
+open                      1 samples [usecs] 151 151 151 22801
+close                     1 samples [usecs] 26 26 26 676
+mknod                     1 samples [usecs] 139 139 139 19321
+mkdir                     3 samples [usecs] 752 3906 5583 16677965
+getattr                   9 samples [usecs] 3 14 73 823
+setattr                   1 samples [usecs] 63 63 63 3969
+statfs                    3 samples [usecs] 0 14 16 200
+mdt.ai400x3-MDT0000.exports.172.16.130.31@o2ib.stats=
+snapshot_time             1742378286.336467554 secs.nsecs
+start_time                1742228741.713873927 secs.nsecs
+elapsed_time              149544.622593627 secs.nsecs
+statfs                    29209 samples [usecs] 6 123 514662 9516110
+mdt.ai400x3-MDT0000.exports.172.16.252.11@o2ib.stats=
+snapshot_time             1742378286.336487484 secs.nsecs
+start_time                1742229737.986702518 secs.nsecs
+elapsed_time              148548.349784966 secs.nsecs
+open                      201 samples [usecs] 12 7550 30471 83540489
+close                     201 samples [usecs] 10 137 5679 253873
+mknod                     40 samples [usecs] 84 7506 20827 73483665
+mkdir                     1 samples [usecs] 349 349 349 121801
+getattr                   63 samples [usecs] 2 141 462 22396
+setattr                   41 samples [usecs] 24 87 1838 86562
+getxattr                  40 samples [usecs] 8 23 467 5885
+statfs                    2 samples [usecs] 0 2 2 4
+sync                      40 samples [usecs] 3 30 493 8487
+mdt.ai400x3-MDT0000.exports.172.16.252.12@o2ib.stats=
+snapshot_time             1742378286.336517644 secs.nsecs
+start_time                1742229737.952335117 secs.nsecs
+elapsed_time              148548.384182527 secs.nsecs
+open                      200 samples [usecs] 12 2331 15450 8521828
+close                     200 samples [usecs] 10 127 5899 279919
+mknod                     40 samples [usecs] 79 2318 10656 7980834
+getattr                   49 samples [usecs] 3 25 267 2393
+setattr                   40 samples [usecs] 30 86 1672 72856
+getxattr                  40 samples [usecs] 8 37 459 6035
+statfs                    2 samples [usecs] 5 6 11 61
+sync                      40 samples [usecs] 4 44 589 12735
+mdt.ai400x3-MDT0000.exports.172.16.252.13@o2ib.stats=
+snapshot_time             1742378286.336547194 secs.nsecs
+start_time                1742229737.996495728 secs.nsecs
+elapsed_time              148548.340051466 secs.nsecs
+open                      200 samples [usecs] 12 7342 21085 62382187
+close                     200 samples [usecs] 10 180 5675 295595
+mknod                     40 samples [usecs] 83 7327 16581 61616051
+getattr                   49 samples [usecs] 2 18 234 1612
+setattr                   40 samples [usecs] 35 89 1864 91448
+getxattr                  40 samples [usecs] 8 21 453 5469
+statfs                    2 samples [usecs] 0 2 2 4
+sync                      40 samples [usecs] 3 40 491 8787
+mdt.ai400x3-MDT0000.exports.172.16.252.14@o2ib.stats=
+snapshot_time             1742378286.336585344 secs.nsecs
+start_time                1742229737.964280197 secs.nsecs
+elapsed_time              148548.372305147 secs.nsecs
+open                      200 samples [usecs] 10 6113 20353 44881747
+close                     200 samples [usecs] 10 155 5630 260650
+mknod                     40 samples [usecs] 77 6097 15582 44114140
+getattr                   49 samples [usecs] 3 19 266 2152
+setattr                   40 samples [usecs] 31 100 1821 89541
+getxattr                  40 samples [usecs] 8 13 417 4411
+statfs                    2 samples [usecs] 3 4 7 25
+sync                      40 samples [usecs] 4 33 545 9595
+mdt.ai400x3-MDT0000.exports.172.16.252.15@o2ib.stats=
+snapshot_time             1742378286.336620464 secs.nsecs
+start_time                1742229737.987298318 secs.nsecs
+elapsed_time              148548.349322146 secs.nsecs
+open                      200 samples [usecs] 13 2705 19341 14742157
+close                     200 samples [usecs] 10 138 6202 290730
+mknod                     40 samples [usecs] 91 2687 11707 10244527
+getattr                   50 samples [usecs] 3 27 290 3060
+setattr                   40 samples [usecs] 34 56 1708 74236
+getxattr                  40 samples [usecs] 8 32 408 4942
+statfs                    2 samples [usecs] 2 2 4 8
+sync                      40 samples [usecs] 5 39 586 12216
+mdt.ai400x3-MDT0000.exports.172.16.252.16@o2ib.stats=
+snapshot_time             1742378286.336658244 secs.nsecs
+start_time                1742229738.022203089 secs.nsecs
+elapsed_time              148548.314455155 secs.nsecs
+open                      200 samples [usecs] 14 6184 18424 41109190
+close                     200 samples [usecs] 11 143 5815 257487
+mknod                     40 samples [usecs] 78 6164 13946 40443914
+getattr                   49 samples [usecs] 2 17 245 1867
+setattr                   40 samples [usecs] 28 61 1616 66902
+getxattr                  40 samples [usecs] 9 23 483 6357
+statfs                    2 samples [usecs] 1 3 4 10
+sync                      40 samples [usecs] 4 42 546 10932
+mdt.ai400x3-MDT0000.exports.172.16.252.17@o2ib.stats=
+snapshot_time             1742378286.336690854 secs.nsecs
+start_time                1742229737.962376587 secs.nsecs
+elapsed_time              148548.374314267 secs.nsecs
+open                      200 samples [usecs] 11 2891 15358 11500328
+close                     200 samples [usecs] 10 172 5851 266083
+mknod                     40 samples [usecs] 68 2878 10840 11015752
+getattr                   49 samples [usecs] 3 17 267 2041
+setattr                   40 samples [usecs] 31 69 1720 77262
+getxattr                  40 samples [usecs] 9 26 442 5222
+statfs                    2 samples [usecs] 0 3 3 9
+sync                      40 samples [usecs] 4 9591 19551 183978927
+mdt.ai400x3-MDT0000.exports.172.16.252.18@o2ib.stats=
+snapshot_time             1742378286.336725294 secs.nsecs
+start_time                1742229737.996268828 secs.nsecs
+elapsed_time              148548.340456466 secs.nsecs
+open                      200 samples [usecs] 12 2435 15257 8402537
+close                     200 samples [usecs] 11 151 5267 214947
+mknod                     40 samples [usecs] 87 2418 10484 7851276
+getattr                   49 samples [usecs] 1 18 257 1943
+setattr                   40 samples [usecs] 32 58 1753 78871
+getxattr                  40 samples [usecs] 9 20 454 5382
+statfs                    2 samples [usecs] 1 2 3 5
+sync                      40 samples [usecs] 4 39 496 8366
+mdt.ai400x3-MDT0000.exports.172.16.252.19@o2ib.stats=
+snapshot_time             1742378286.336759174 secs.nsecs
+start_time                1742229738.018959319 secs.nsecs
+elapsed_time              148548.317799855 secs.nsecs
+open                      200 samples [usecs] 12 7754 21863 67279345
+close                     200 samples [usecs] 10 79 4952 153798
+mknod                     40 samples [usecs] 62 7717 16586 65978696
+getattr                   49 samples [usecs] 2 18 236 1738
+setattr                   40 samples [usecs] 26 98 1743 81301
+getxattr                  40 samples [usecs] 9 23 484 6474
+statfs                    2 samples [usecs] 1 2 3 5
+sync                      40 samples [usecs] 3 19 324 3426
+mdt.ai400x3-MDT0000.exports.172.16.252.20@o2ib.stats=
+snapshot_time             1742378286.336789994 secs.nsecs
+start_time                1742229737.997485398 secs.nsecs
+elapsed_time              148548.339304596 secs.nsecs
+open                      200 samples [usecs] 13 7629 23014 67855710
+close                     200 samples [usecs] 10 197 6340 355770
+mknod                     40 samples [usecs] 81 7607 17543 66768293
+getattr                   49 samples [usecs] 3 18 261 1927
+setattr                   40 samples [usecs] 32 98 1918 98728
+getxattr                  40 samples [usecs] 9 24 472 6096
+statfs                    2 samples [usecs] 3 4 7 25
+sync                      40 samples [usecs] 3 38 464 9296
+mdt.ai400x3-MDT0000.exports.172.16.252.21@o2ib.stats=
+snapshot_time             1742378286.336819524 secs.nsecs
+start_time                1742229737.989002508 secs.nsecs
+elapsed_time              148548.347817016 secs.nsecs
+open                      200 samples [usecs] 11 9259 21468 88597636
+close                     200 samples [usecs] 10 117 5078 191630
+mknod                     40 samples [usecs] 74 9229 17096 87624718
+getattr                   50 samples [usecs] 3 18 267 2055
+setattr                   40 samples [usecs] 28 103 1806 89462
+getxattr                  40 samples [usecs] 8 18 431 4811
+statfs                    2 samples [usecs] 0 3 3 9
+sync                      40 samples [usecs] 3 55 430 8638
+mdt.ai400x3-MDT0000.exports.172.16.252.22@o2ib.stats=
+snapshot_time             1742378286.336850834 secs.nsecs
+start_time                1742229738.011857159 secs.nsecs
+elapsed_time              148548.324993675 secs.nsecs
+open                      200 samples [usecs] 12 1141 14675 4471195
+close                     200 samples [usecs] 10 109 5443 196709
+mknod                     40 samples [usecs] 76 1126 9710 3831226
+getattr                   50 samples [usecs] 2 18 270 2072
+setattr                   40 samples [usecs] 31 80 1668 72398
+getxattr                  40 samples [usecs] 8 26 457 5603
+statfs                    2 samples [usecs] 1 2 3 5
+sync                      40 samples [usecs] 5 22 389 4347
+mdt.ai400x3-MDT0000.exports.172.16.252.23@o2ib.stats=
+snapshot_time             1742378286.336884734 secs.nsecs
+start_time                1742229738.032596039 secs.nsecs
+elapsed_time              148548.304288695 secs.nsecs
+open                      200 samples [usecs] 13 2634 15210 9707828
+close                     200 samples [usecs] 10 73 5061 160431
+mknod                     40 samples [usecs] 82 2617 10934 9220248
+getattr                   50 samples [usecs] 2 19 248 1764
+setattr                   40 samples [usecs] 32 99 1737 79149
+getxattr                  40 samples [usecs] 9 22 463 5593
+statfs                    2 samples [usecs] 0 4 4 16
+sync                      40 samples [usecs] 3 32 354 3916
+mdt.ai400x3-MDT0000.exports.172.16.252.24@o2ib.stats=
+snapshot_time             1742378286.336932274 secs.nsecs
+start_time                1742229737.977559798 secs.nsecs
+elapsed_time              148548.359372476 secs.nsecs
+open                      200 samples [usecs] 13 765 13491 3140975
+close                     200 samples [usecs] 12 147 5856 266348
+mknod                     40 samples [usecs] 77 750 8399 2565585
+getattr                   50 samples [usecs] 3 21 292 2644
+setattr                   40 samples [usecs] 30 77 1731 79045
+getxattr                  40 samples [usecs] 8 19 465 5659
+statfs                    2 samples [usecs] 0 3 3 9
+sync                      40 samples [usecs] 3 32 461 7391
+mdt.ai400x3-MDT0000.exports.172.16.252.25@o2ib.stats=
+snapshot_time             1742378286.336968514 secs.nsecs
+start_time                1742229738.025606949 secs.nsecs
+elapsed_time              148548.311361565 secs.nsecs
+open                      200 samples [usecs] 13 2831 17719 11817205
+close                     200 samples [usecs] 9 89 5223 170725
+mknod                     40 samples [usecs] 80 2813 11632 10791636
+getattr                   49 samples [usecs] 3 24 246 2048
+setattr                   40 samples [usecs] 34 80 1723 76749
+getxattr                  40 samples [usecs] 9 18 442 5054
+statfs                    2 samples [usecs] 5 5 10 50
+sync                      40 samples [usecs] 5 29 341 3501
+mdt.ai400x3-MDT0000.exports.172.16.252.26@o2ib.stats=
+snapshot_time             1742378286.337005074 secs.nsecs
+start_time                1742229738.028612519 secs.nsecs
+elapsed_time              148548.308392555 secs.nsecs
+open                      200 samples [usecs] 13 7714 22533 69913565
+close                     200 samples [usecs] 11 147 5731 257217
+mknod                     40 samples [usecs] 81 7675 17894 68749486
+getattr                   49 samples [usecs] 2 17 281 2363
+setattr                   40 samples [usecs] 31 108 1887 97331
+getxattr                  40 samples [usecs] 9 36 568 9682
+statfs                    2 samples [usecs] 1 1 2 2
+sync                      40 samples [usecs] 3 25 424 6130
+ldlm.namespaces.mdt-ai400x3-MDT0000_UUID.contended_locks=32
+ldlm.namespaces.filter-ai400x3-OST0000_UUID.contended_locks=32
+ldlm.namespaces.filter-ai400x3-OST0001_UUID.contended_locks=32
+ldlm.namespaces.mdt-ai400x3-MDT0000_UUID.contention_seconds=2
+ldlm.namespaces.filter-ai400x3-OST0000_UUID.contention_seconds=2
+ldlm.namespaces.filter-ai400x3-OST0001_UUID.contention_seconds=2
+ldlm.namespaces.mdt-ai400x3-MDT0000_UUID.ctime_age_limit=10
+ldlm.namespaces.filter-ai400x3-OST0000_UUID.ctime_age_limit=10
+ldlm.namespaces.filter-ai400x3-OST0001_UUID.ctime_age_limit=10
+ldlm.namespaces.mdt-ai400x3-MDT0000_UUID.early_lock_cancel=0
+ldlm.namespaces.filter-ai400x3-OST0000_UUID.early_lock_cancel=0
+ldlm.namespaces.filter-ai400x3-OST0001_UUID.early_lock_cancel=0
+ldlm.namespaces.mdt-ai400x3-MDT0000_UUID.lock_count=24
+ldlm.namespaces.filter-ai400x3-OST0000_UUID.lock_count=0
+ldlm.namespaces.filter-ai400x3-OST0001_UUID.lock_count=0
+ldlm.namespaces.mdt-ai400x3-MDT0000_UUID.lock_timeouts=0
+ldlm.namespaces.filter-ai400x3-OST0000_UUID.lock_timeouts=0
+ldlm.namespaces.filter-ai400x3-OST0001_UUID.lock_timeouts=0
+ldlm.namespaces.mdt-ai400x3-MDT0000_UUID.lock_unused_count=0
+ldlm.namespaces.filter-ai400x3-OST0000_UUID.lock_unused_count=0
+ldlm.namespaces.filter-ai400x3-OST0001_UUID.lock_unused_count=0
+ldlm.namespaces.mdt-ai400x3-MDT0000_UUID.lru_max_age=3900000
+ldlm.namespaces.filter-ai400x3-OST0000_UUID.lru_max_age=3900000
+ldlm.namespaces.filter-ai400x3-OST0001_UUID.lru_max_age=3900000
+ldlm.namespaces.mdt-ai400x3-MDT0000_UUID.lru_size=6400
+ldlm.namespaces.filter-ai400x3-OST0000_UUID.lru_size=6400
+ldlm.namespaces.filter-ai400x3-OST0001_UUID.lru_size=6400
+ldlm.namespaces.mdt-ai400x3-MDT0000_UUID.max_nolock_bytes=0
+ldlm.namespaces.filter-ai400x3-OST0000_UUID.max_nolock_bytes=0
+ldlm.namespaces.filter-ai400x3-OST0001_UUID.max_nolock_bytes=0
+ldlm.namespaces.mdt-ai400x3-MDT0000_UUID.max_parallel_ast=1024
+ldlm.namespaces.filter-ai400x3-OST0000_UUID.max_parallel_ast=1024
+ldlm.namespaces.filter-ai400x3-OST0001_UUID.max_parallel_ast=1024
+ldlm.namespaces.mdt-ai400x3-MDT0000_UUID.resource_count=6
+ldlm.namespaces.filter-ai400x3-OST0000_UUID.resource_count=0
+ldlm.namespaces.filter-ai400x3-OST0001_UUID.resource_count=0
+ldlm.services.ldlm_canceld.stats=
+snapshot_time             1742378286.338902724 secs.nsecs
+start_time                1742228735.955988065 secs.nsecs
+elapsed_time              149550.382914659 secs.nsecs
+req_waittime              3679 samples [usecs] 4 2533 142505 23756215
+req_qdepth                3679 samples [reqs] 0 1 18 18
+req_active                3679 samples [reqs] 1 4 4945 7915
+req_timeout               3679 samples [secs] 1 15 55109 826379
+reqbuf_avail              7777 samples [bufs] 62 64 495068 31516912
+ldlm_cancel               3679 samples [usecs] 5 1242 78387 12724595
+ldlm.services.ldlm_cbd.stats=
+snapshot_time             1742378286.339078944 secs.nsecs
+start_time                1742228735.947490345 secs.nsecs
+elapsed_time              149550.391588599 secs.nsecs
+req_waittime              8 samples [usecs] 13 79 307 15011
+req_qdepth                8 samples [reqs] 0 0 0 0
+req_active                8 samples [reqs] 1 1 8 8
+req_timeout               8 samples [secs] 1 15 82 1102
+reqbuf_avail              22 samples [bufs] 1 1 22 22
+ldlm_bl_callback          7 samples [usecs] 12 46 154 4174
+ldlm_cp_callback          1 samples [usecs] 18 18 18 324
+mdd.ai400x3-MDT0000.changelog_users=
+current_index: 0
+ID                            index (idle) mask
+qmt.ai400x3-QMT0000.dt-0x0.glb-usr=
+global_pool0_dt_usr
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.ai400x3-QMT0000.md-0x0.glb-usr=
+global_pool0_md_usr
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.ai400x3-QMT0000.dt-0x0.glb-prj=
+global_pool0_dt_prj
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.ai400x3-QMT0000.md-0x0.glb-prj=
+global_pool0_md_prj
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.ai400x3-QMT0000.dt-0x0.glb-grp=
+global_pool0_dt_grp
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.ai400x3-QMT0000.md-0x0.glb-grp=
+global_pool0_md_grp
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
