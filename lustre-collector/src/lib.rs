@@ -26,7 +26,9 @@ pub mod types;
 
 pub use crate::error::LustreCollectorError;
 use combine::parser::EasyParser;
-pub use lnetctl_parser::{parse as parse_lnetctl_output, parse_lnetctl_stats};
+pub use lnetctl_parser::{
+    parse as parse_lnetctl_output, parse_lnetctl_global_show, parse_lnetctl_stats,
+};
 pub use node_stats_parsers::{parse_cpustats_output, parse_meminfo_output};
 use std::{io, str};
 pub use types::*;

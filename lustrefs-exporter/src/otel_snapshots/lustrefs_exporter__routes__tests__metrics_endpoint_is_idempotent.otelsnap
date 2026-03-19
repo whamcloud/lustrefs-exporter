@@ -602,6 +602,11 @@ lustre_disk_io_total{component="ost",operation="write",size="8192",target="ai400
 # HELP lustre_drop_bytes_total Total number of bytes that have been dropped
 # TYPE lustre_drop_bytes_total counter
 lustre_drop_bytes_total{otel_scope_name="lustre"} 4832
+# HELP lustre_health_value Lustre health value.
+# TYPE lustre_health_value gauge
+lustre_health_value{nid="0@lo"} 1000
+lustre_health_value{nid="172.16.0.24@tcp"} 1000
+lustre_health_value{nid="172.16.0.25@tcp"} 1000
 # HELP lustre_drop_count_total Total number of messages that have been dropped
 # TYPE lustre_drop_count_total counter
 lustre_drop_count_total{nid="0@lo",otel_scope_name="lustre"} 4
