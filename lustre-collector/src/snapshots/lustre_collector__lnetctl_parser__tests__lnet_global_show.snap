@@ -1,0 +1,16 @@
+---
+source: lustre-collector/src/lnetctl_parser.rs
+expression: x
+---
+[
+    LNetStat(
+        HealthSensitiveValue(
+            LNetStatGlobal {
+                param: Param(
+                    "health_sensitivity",
+                ),
+                value: 100,
+            },
+        ),
+    ),
+]

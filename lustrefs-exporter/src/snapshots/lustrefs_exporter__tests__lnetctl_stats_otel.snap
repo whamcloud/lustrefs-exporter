@@ -363,6 +363,9 @@ lustre_receive_bytes_total{} 17112204583664
 # HELP lustre_drop_bytes_total Total number of bytes that have been dropped.
 # TYPE lustre_drop_bytes_total counter
 lustre_drop_bytes_total{} 568792
+# HELP lustre_health_sensitivity Lustre LNet health sensitivity.
+# TYPE lustre_health_sensitivity gauge
+lustre_health_sensitivity{} 100
 # HELP lustre_read_samples_total Total number of reads that have been recorded.
 # TYPE lustre_read_samples_total counter
 lustre_read_samples_total{component="ost",operation="read",target="ai400x2-OST0000"} 51611589

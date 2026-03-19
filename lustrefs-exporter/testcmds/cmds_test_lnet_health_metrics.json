@@ -1,0 +1,30 @@
+{
+  "commands": {
+    "lnetctl:global show": [
+      {
+        "binary_name": "lnetctl",
+        "args": [
+          "global",
+          "show"
+        ],
+        "stdout": "global:\n    numa_range: 0\n    max_intf: 200\n    discovery: 1\n    drop_asym_route: 0\n    retry_count: 2\n    transaction_timeout: 150\n    health_sensitivity: 100\n    recovery_interval: 1\n    router_sensitivity: 100\n    lnd_timeout: 49\n    response_tracking: 3\n    recovery_limit: 0\n    max_recovery_ping_interval: 900\n",
+        "stderr": "",
+        "exit_code": 0
+      }
+    ],
+    "lnetctl:net show -v 4": [
+      {
+        "binary_name": "lnetctl",
+        "args": [
+          "net",
+          "show",
+          "-v",
+          "4"
+        ],
+        "stdout": "net:\n    - net type: lo\n      local NI(s):\n        - nid: 0@lo\n          status: up\n          statistics:\n              send_count: 51507\n              recv_count: 51421\n              drop_count: 86\n          sent_stats:\n              put: 51507\n              get: 0\n              reply: 0\n              ack: 0\n              hello: 0\n          received_stats:\n              put: 51384\n              get: 0\n              reply: 0\n              ack: 37\n              hello: 0\n          dropped_stats:\n              put: 86\n              get: 0\n              reply: 0\n              ack: 0\n              hello: 0\n          health stats:\n              fatal_error: 0\n              health value: 1000\n              interrupts: 0\n              dropped: 0\n              aborted: 0\n              no route: 0\n              timeouts: 0\n              error: 0\n              ping_count: 0\n              next_ping: 0\n          tunables:\n              peer_timeout: 0\n              peer_credits: 0\n              peer_buffer_credits: 0\n              credits: 0\n          lnd tunables:\n          dev cpt: 0\n          CPT: \"[0,1,2,3,4,5]\"\n    - net type: tcp\n      local NI(s):\n        - nid: 172.16.14.1@tcp\n          status: up\n          interfaces:\n              0: mlxen0\n          statistics:\n              send_count: 525381\n              recv_count: 525340\n              drop_count: 21\n          sent_stats:\n              put: 490234\n              get: 35147\n              reply: 0\n              ack: 0\n              hello: 0\n          received_stats:\n              put: 490168\n              get: 35143\n              reply: 4\n              ack: 25\n              hello: 0\n          dropped_stats:\n              put: 21\n              get: 0\n              reply: 0\n              ack: 0\n              hello: 0\n          health stats:\n              fatal_error: 0\n              health value: 1000\n              interrupts: 0\n              dropped: 0\n              aborted: 0\n              no route: 0\n              timeouts: 0\n              error: 47\n              ping_count: 0\n              next_ping: 2731\n          tunables:\n              peer_timeout: 180\n              peer_credits: 8\n              peer_buffer_credits: 0\n              credits: 256\n          lnd tunables:\n              conns_per_peer: 1\n          dev cpt: 0\n          CPT: \"[0,1,2,3,4,5]\"\n        - nid: 172.16.14.2@tcp\n          status: up\n          interfaces:\n              0: mlxen1\n          statistics:\n              send_count: 520788\n              recv_count: 520745\n              drop_count: 1\n          sent_stats:\n              put: 485651\n              get: 35137\n              reply: 0\n              ack: 0\n              hello: 0\n          received_stats:\n              put: 485588\n              get: 35134\n              reply: 3\n              ack: 20\n              hello: 0\n          dropped_stats:\n              put: 1\n              get: 0\n              reply: 0\n              ack: 0\n              hello: 0\n          health stats:\n              fatal_error: 0\n              health value: 0\n              interrupts: 0\n              dropped: 0\n              aborted: 0\n              no route: 0\n              timeouts: 0\n              error: 55\n              ping_count: 0\n              next_ping: 2649\n          tunables:\n              peer_timeout: 180\n              peer_credits: 8\n              peer_buffer_credits: 0\n              credits: 256\n          lnd tunables:\n              conns_per_peer: 1\n          dev cpt: 0\n          CPT: \"[0,1,2,3,4,5]\"\n",
+        "stderr": "",
+        "exit_code": 0
+      }
+    ]
+  }
+}

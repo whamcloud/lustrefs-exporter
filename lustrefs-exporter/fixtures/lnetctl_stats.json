@@ -27,10 +27,10 @@
         "Host": {
             "HealthCheck": {
                 "param": "health_check",
-		"value": {
-		    "healthy": true,
-		    "targets": []
-		}
+                "value": {
+                    "healthy": true,
+                    "targets": []
+                }
             }
         }
     },
@@ -2134,6 +2134,14 @@
             "DropLength": {
                 "param": "drop_length",
                 "value": 568792
+            }
+        }
+    },
+    {
+        "LNetStat": {
+            "HealthSensitiveValue": {
+                "param": "health_sensitivity",
+                "value": 100
             }
         }
     }

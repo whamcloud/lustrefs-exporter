@@ -4,9 +4,9 @@
 
 use clap::{Arg, ValueEnum, value_parser};
 use lustre_collector::{
-    error::LustreCollectorError, mgs::mgs_fs_parser, parse_lctl_output, parse_lnetctl_output,
-    parse_lnetctl_stats, parse_mgs_fs_output, parse_recovery_status_output, parser,
-    recovery_status_parser, types::Record,
+    error::LustreCollectorError, mgs::mgs_fs_parser, parse_lctl_output, parse_lnetctl_global_show,
+    parse_lnetctl_output, parse_lnetctl_stats, parse_mgs_fs_output, parse_recovery_status_output,
+    parser, recovery_status_parser, types::Record,
 };
 use std::{
     fmt, panic,
@@ -81,6 +81,12 @@ fn get_lnetctl_stats_output() -> Result<Vec<u8>, LustreCollectorError> {
     Ok(r.stdout)
 }
 
+fn get_lnetctl_global_show_output() -> Result<Vec<u8>, LustreCollectorError> {
+    let r = Command::new("lnetctl").arg("global").arg("show").output()?;
+
+    Ok(r.stdout)
+}
+
 fn main() -> ExitCode {
     match run() {
         Ok(()) => ExitCode::SUCCESS,
@@ -136,6 +142,14 @@ fn run() -> Result<(), LustreCollectorError> {
             Ok(lnetctl_stats_record)
         });
 
+    let lnetctl_global_show =
+        thread::spawn(move || -> Result<Vec<Record>, LustreCollectorError> {
+            let lnetctl_global_output = get_lnetctl_global_show_output()?;
+            let lnetctl_global_record = parse_lnetctl_global_show(&lnetctl_global_output)?;
+
+            Ok(lnetctl_global_record)
+        });
+
     let recovery_status_handle =
         thread::spawn(move || -> Result<Vec<Record>, LustreCollectorError> {
             let recovery_status_output = get_recovery_status_output()?;
@@ -172,10 +186,16 @@ fn run() -> Result<(), LustreCollectorError> {
         Err(e) => panic::resume_unwind(e),
     };
 
+    let mut lnetctl_global_show_record = match lnetctl_global_show.join() {
+        Ok(r) => r.unwrap_or_default(),
+        Err(e) => panic::resume_unwind(e),
+    };
+
     lctl_record.append(&mut lnet_record);
     lctl_record.append(&mut mgs_fs_record);
     lctl_record.append(&mut recovery_status_records);
     lctl_record.append(&mut lnetctl_stats_record);
+    lctl_record.append(&mut lnetctl_global_show_record);
 
     let x = match format {
         Format::Json => serde_json::to_string(&lctl_record)?,
