@@ -167,7 +167,7 @@ pub mod lnet_exports {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct HealthStats {
         #[serde(rename = "health value")]
-        health_value: i64,
+        pub health_value: i64,
         interrupts: i64,
         dropped: i64,
         aborted: i64,
@@ -266,6 +266,23 @@ pub mod lnet_exports {
         pub recv_length: i64,
         pub route_length: i64,
         pub drop_length: i64,
+    }
+
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct LNetGlobal {
+        pub numa_range: i64,
+        pub max_intf: i64,
+        pub discovery: i64,
+        pub drop_asym_route: i64,
+        pub retry_count: i64,
+        pub transaction_timeout: i64,
+        pub health_sensitivity: i64,
+        pub recovery_interval: i64,
+        pub router_sensitivity: i64,
+        pub lnd_timeout: i64,
+        pub response_tracking: i64,
+        pub recovery_limit: i64,
+        pub max_recovery_ping_interval: i64,
     }
 
     #[derive(serde::Serialize, serde::Deserialize)]
@@ -537,6 +554,8 @@ pub enum LNetStats {
     SendCount(LNetStat<i64>),
     RecvCount(LNetStat<i64>),
     DropCount(LNetStat<i64>),
+    HealthValue(LNetStat<i64>),
+    HealthSensitiveValue(LNetStatGlobal<i64>),
     SendLength(LNetStatGlobal<i64>),
     RecvLength(LNetStatGlobal<i64>),
     DropLength(LNetStatGlobal<i64>),
