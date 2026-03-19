@@ -1,7 +1,6 @@
 ---
-source: src/lnetctl_parser.rs
+source: lustre-collector/src/lnetctl_parser.rs
 expression: x
-
 ---
 [
     LNetStat(
@@ -38,6 +37,17 @@ expression: x
         ),
     ),
     LNetStat(
+        HealthValue(
+            LNetStat {
+                nid: "0@lo",
+                param: Param(
+                    "health_value",
+                ),
+                value: 942,
+            },
+        ),
+    ),
+    LNetStat(
         SendCount(
             LNetStat {
                 nid: "10.73.20.11@tcp",
@@ -67,6 +77,17 @@ expression: x
                     "drop_count",
                 ),
                 value: 30,
+            },
+        ),
+    ),
+    LNetStat(
+        HealthValue(
+            LNetStat {
+                nid: "10.73.20.11@tcp",
+                param: Param(
+                    "health_value",
+                ),
+                value: 1000,
             },
         ),
     ),

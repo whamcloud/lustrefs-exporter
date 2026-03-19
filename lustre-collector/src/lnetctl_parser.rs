@@ -4,7 +4,7 @@
 
 use crate::{
     LNetStatGlobal, LustreCollectorError,
-    lnet_exports::LNetStatsStatistics,
+    lnet_exports::{LNetGlobal, LNetStatsStatistics},
     types::{LNetStat, LNetStats, Param, Record, lnet_exports::Net},
 };
 
@@ -32,6 +32,11 @@ pub(crate) fn build_lnet_stats(x: &Net) -> Vec<Record> {
                     nid: y.nid.to_string(),
                     param: Param("drop_count".to_string()),
                     value: y.statistics.drop_count,
+                }),
+                LNetStats::HealthValue(LNetStat {
+                    nid: y.nid.to_string(),
+                    param: Param("health_value".to_string()),
+                    value: y.health_stats.health_value,
                 }),
             ]
         })
@@ -65,6 +70,11 @@ struct LnetStats {
     statistics: Option<LNetStatsStatistics>,
 }
 
+#[derive(serde::Serialize, serde::Deserialize)]
+struct LnetGlobalShow {
+    global: Option<LNetGlobal>,
+}
+
 pub(crate) fn build_lnetctl_stats(x: &LNetStatsStatistics) -> Vec<Record> {
     vec![
         Record::LNetStat(LNetStats::SendLength(LNetStatGlobal {
@@ -82,6 +92,15 @@ pub(crate) fn build_lnetctl_stats(x: &LNetStatsStatistics) -> Vec<Record> {
     ]
 }
 
+pub(crate) fn build_lnetctl_global_show(x: &LNetGlobal) -> Vec<Record> {
+    vec![Record::LNetStat(LNetStats::HealthSensitiveValue(
+        LNetStatGlobal {
+            param: Param("health_sensitivity".to_string()),
+            value: x.health_sensitivity,
+        },
+    ))]
+}
+
 pub fn parse_lnetctl_stats(xs: &[u8]) -> Result<Vec<Record>, LustreCollectorError> {
     let xs = xs.trim_ascii();
 
@@ -93,6 +112,20 @@ pub fn parse_lnetctl_stats(xs: &[u8]) -> Result<Vec<Record>, LustreCollectorErro
 
     Ok(y.statistics
         .map(|x| build_lnetctl_stats(&x))
+        .unwrap_or_default())
+}
+
+pub fn parse_lnetctl_global_show(xs: &[u8]) -> Result<Vec<Record>, LustreCollectorError> {
+    let xs = xs.trim_ascii();
+
+    if xs.is_empty() {
+        return Ok(vec![]);
+    }
+
+    let y: LnetGlobalShow = serde_yaml::from_slice(xs)?;
+
+    Ok(y.global
+        .map(|x| build_lnetctl_global_show(&x))
         .unwrap_or_default())
 }
 
@@ -495,6 +528,30 @@ mod tests {
             recv_length: 17084716480056
             route_length: 0
             drop_length: 568792
+"#,
+        )
+        .unwrap();
+
+        assert_debug_snapshot!(x);
+    }
+
+    #[test]
+    fn test_lnet_global_show() {
+        let x = parse_lnetctl_global_show(
+            br#"global:
+    numa_range: 0
+    max_intf: 200
+    discovery: 1
+    drop_asym_route: 0
+    retry_count: 2
+    transaction_timeout: 150
+    health_sensitivity: 100
+    recovery_interval: 1
+    router_sensitivity: 100
+    lnd_timeout: 49
+    response_tracking: 3
+    recovery_limit: 0
+    max_recovery_ping_interval: 900
 "#,
         )
         .unwrap();
