@@ -14,7 +14,8 @@ pub mod service;
 pub mod stats;
 
 use crate::routes::{
-    jobstats_metrics_cmd, lnet_stats_output, lustre_metrics_output, net_show_output,
+    jobstats_metrics_cmd, lnet_global_output, lnet_stats_output, lustre_metrics_output,
+    net_show_output,
 };
 use axum::{
     http::{self, StatusCode},
@@ -122,6 +123,14 @@ pub async fn dump_stats() -> Result<(), Error> {
     let lnetctl_stats_output = lnetctl_stats_output.output().await?;
 
     println!("{}", std::str::from_utf8(&lnetctl_stats_output.stdout)?);
+
+    println!("# Dumping lnetctl global show output");
+
+    let mut lnetctl_global_output = lnet_global_output();
+
+    let lnetctl_global_output = lnetctl_global_output.output().await?;
+
+    println!("{}", std::str::from_utf8(&lnetctl_global_output.stdout)?);
 
     Ok(())
 }

@@ -4,7 +4,11 @@
 
 use crate::Family;
 use lustre_collector::{LNetStat, LNetStatGlobal, LNetStats};
-use prometheus_client::{metrics::counter::Counter, registry::Registry};
+use prometheus_client::{
+    metrics::{counter::Counter, gauge::Gauge},
+    registry::Registry,
+};
+use std::sync::atomic::AtomicU64;
 
 #[derive(Debug, Default)]
 pub struct LNetMetrics {
@@ -14,6 +18,8 @@ pub struct LNetMetrics {
     send_bytes_total: Family<Counter<u64>>,
     receive_bytes_total: Family<Counter<u64>>,
     drop_bytes_total: Family<Counter<u64>>,
+    health_value: Family<Gauge<u64, AtomicU64>>,
+    health_sensitivity: Family<Gauge<u64, AtomicU64>>,
 }
 
 impl LNetMetrics {
@@ -53,6 +59,18 @@ impl LNetMetrics {
             "Total number of bytes that have been dropped",
             self.drop_bytes_total.clone(),
         );
+
+        registry.register(
+            "lustre_health_value",
+            "Lustre health value",
+            self.health_value.clone(),
+        );
+
+        registry.register(
+            "lustre_health_sensitivity",
+            "Lustre health sensitivity",
+            self.health_sensitivity.clone(),
+        );
     }
 }
 
@@ -62,6 +80,20 @@ fn record_lnet_stat(stat: &LNetStat<i64>, counter: &mut Family<Counter<u64>>) {
     counter
         .get_or_create(&labels)
         .inc_by(stat.value.try_into().unwrap_or(0));
+}
+
+fn record_lnet_gauge(stat: &LNetStat<i64>, val: &mut Family<Gauge<u64, AtomicU64>>) {
+    let labels = vec![("nid", stat.nid.to_string())];
+
+    val.get_or_create(&labels)
+        .set(stat.value.try_into().unwrap_or(0));
+}
+
+fn record_lnet_global_gauge(stat: &LNetStatGlobal<i64>, val: &mut Family<Gauge<u64, AtomicU64>>) {
+    let labels = vec![];
+
+    val.get_or_create(&labels)
+        .set(stat.value.try_into().unwrap_or(0));
 }
 
 fn record_lnet_stat_global(stat: &LNetStatGlobal<i64>, counter: &mut Family<Counter<u64>>) {
@@ -91,6 +123,12 @@ pub fn build_lnet_stats(x: &LNetStats, lnet: &mut LNetMetrics) {
         }
         LNetStats::DropLength(stat) => {
             record_lnet_stat_global(stat, &mut lnet.drop_bytes_total);
+        }
+        LNetStats::HealthValue(stat) => {
+            record_lnet_gauge(stat, &mut lnet.health_value);
+        }
+        LNetStats::HealthSensitiveValue(stat) => {
+            record_lnet_global_gauge(stat, &mut lnet.health_sensitivity);
         }
     }
 }
