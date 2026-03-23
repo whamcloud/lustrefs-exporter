@@ -36,7 +36,7 @@ jobs:
         run: dnf install -y gcc make rpm-build
 
       - name: Install latest rust toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
           default: true
@@ -69,11 +69,7 @@ jobs:
         run: dnf install -y gcc make rpm-build
 
       - name: Install latest rust toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          default: true
-          override: true
+        uses: dtolnay/rust-toolchain@stable
 
       - name: Build
         run: make rpm
@@ -94,19 +90,19 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: rockylinux/rockylinux:10
+      #workaround, rocky10 by default not initializing PATH
+      env:
+        PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: dnf install -y gcc make rpm-build
+        run: |
+          dnf install -y gcc make rpm-build systemd-rpm-macros
 
       - name: Install latest rust toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          default: true
-          override: true
+        uses: dtolnay/rust-toolchain@stable
 
       - name: Build
         run: make rpm
@@ -140,7 +136,7 @@ jobs:
           apt-get build-dep -y .
 
       - name: Install latest rust toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
           default: true
