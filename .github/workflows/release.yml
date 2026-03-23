@@ -18,6 +18,10 @@ defaults:
   run:
     shell: bash -eux {0}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build_rocky8_rpms:
     name: Build Rockylinux 8 RPMs
@@ -25,13 +29,8 @@ jobs:
     container:
       image: rockylinux:8
     steps:
-      - name: Cancel Workflow Action
-        uses: styfle/cancel-workflow-action@0.6.0
-        with:
-          access_token: ${{ github.token }}
-
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         run: dnf install -y gcc make rpm-build
@@ -63,13 +62,8 @@ jobs:
     container:
       image: rockylinux/rockylinux:9.2-ubi
     steps:
-      - name: Cancel Workflow Action
-        uses: styfle/cancel-workflow-action@0.6.0
-        with:
-          access_token: ${{ github.token }}
-
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         run: dnf install -y gcc make rpm-build
@@ -95,19 +89,47 @@ jobs:
           retention-days: 1
           path: lustrefs-exporter/_rpm/RPMS/**/*.rpm
 
+  build_rocky10_rpms:
+    name: Build Rockylinux 10 RPMs
+    runs-on: ubuntu-latest
+    container:
+      image: rockylinux/rockylinux:10
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: dnf install -y gcc make rpm-build
+
+      - name: Install latest rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          default: true
+          override: true
+
+      - name: Build
+        run: make rpm
+
+      - name: Summary
+        run: |
+          find lustrefs-exporter/_rpm -type f -name \*.rpm -print -exec rpm -qivlp {} \;
+
+      - name: Upload RPMs
+        uses: actions/upload-artifact@v4
+        with:
+          name: rocky10_rpm
+          retention-days: 1
+          path: lustrefs-exporter/_rpm/RPMS/**/*.rpm
+
   build_ubuntu20_debs:
     name: Build Ubuntu 20.04 DEBs
     runs-on: ubuntu-latest
     container:
       image: ubuntu:20.04
     steps:
-      - name: Cancel Workflow Action
-        uses: styfle/cancel-workflow-action@0.6.0
-        with:
-          access_token: ${{ github.token }}
-
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
@@ -141,7 +163,7 @@ jobs:
   release:
     if: github.event_name == 'workflow_dispatch'
     name: Release
-    needs: [build_rocky8_rpms, build_rocky9_rpms, build_ubuntu20_debs]
+    needs: [build_rocky8_rpms, build_rocky9_rpms, build_rocky10_rpms, build_ubuntu20_debs]
     runs-on: ubuntu-latest
     steps:
       - name: Download Rockylinux 8 RPMs
@@ -153,6 +175,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: rocky9_rpm
+
+      - name: Download Rockylinux 10 RPMs
+        uses: actions/download-artifact@v4
+        with:
+          name: rocky10_rpm
 
       - name: Download Ubuntu 20.04 DEBs
         uses: actions/download-artifact@v4
