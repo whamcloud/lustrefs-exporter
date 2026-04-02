@@ -374,6 +374,30 @@ fn build_brw_stats(
                             .get_or_create(&write_labels)
                             .inc_by(b.write);
                     }
+                    _ if name.starts_with("io_time_") => {
+                        let opszie = name.strip_prefix("io_time_").unwrap_or_default();
+                        let read_labels = vec![
+                            ("component", kind.to_prom_label().to_string()),
+                            ("operation", "read".into()),
+                            ("opsize", opszie.to_string()),
+                            ("size", size.clone()),
+                            ("target", target.to_string()),
+                        ];
+                        let write_labels = vec![
+                            ("component", kind.to_prom_label().to_string()),
+                            ("operation", "write".into()),
+                            ("opsize", opszie.to_string()),
+                            ("size", size.clone()),
+                            ("target", target.to_string()),
+                        ];
+
+                        brw.io_time_milliseconds_total
+                            .get_or_create(&read_labels)
+                            .inc_by(b.read);
+                        brw.io_time_milliseconds_total
+                            .get_or_create(&write_labels)
+                            .inc_by(b.write);
+                    }
                     _ => {}
                 }
             }
