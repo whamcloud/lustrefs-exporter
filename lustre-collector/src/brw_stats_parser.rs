@@ -44,26 +44,47 @@ where
         .map(|_| ())
 }
 
+fn size_to_time<I>() -> impl Parser<I, Output = (String, Option<String>)>
+where
+    I: Stream<Token = char>,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    (
+        digits()
+            .and(optional(one_of("KkMmGg".chars())))
+            .map(human_to_bytes),
+        spaces().with(string("I/O time (1/1000s)")),
+    )
+        .map(|(size, _)| ("io_time".to_string(), Some(format!("{size}"))))
+}
+
 fn header<I>() -> impl Parser<I, Output = BrwStats>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
-    let keys = choice([
-        attempt(string_to("pages per bulk r/w", "pages")),
-        attempt(string_to("discontiguous pages", "discont_pages")),
-        attempt(string_to("discontiguous blocks", "discont_blocks")),
-        attempt(string_to("disk fragmented I/Os", "dio_frags")),
-        attempt(string_to("disk I/Os in flight", "rpc_hist")),
-        attempt(string_to("I/O time (1/1000s)", "io_time")),
-        attempt(string_to("disk I/O size", "disk_iosize")),
-        attempt(string_to("block maps msec", "block_maps_msec")),
-    ]);
+    let keys = choice((
+        attempt(size_to_time()),
+        attempt(string_to("pages per bulk r/w", "pages")).map(|s| (s, None)),
+        attempt(string_to("discontiguous pages", "discont_pages")).map(|s| (s, None)),
+        attempt(string_to("discontiguous blocks", "discont_blocks")).map(|s| (s, None)),
+        attempt(string_to("disk fragmented I/Os", "dio_frags")).map(|s| (s, None)),
+        attempt(string_to("disk I/Os in flight", "rpc_hist")).map(|s| (s, None)),
+        attempt(string_to("I/O time (1/1000s)", "io_time")).map(|s| (s, None)),
+        attempt(string_to("disk I/O size", "disk_iosize")).map(|s| (s, None)),
+        attempt(string_to("block maps msec", "block_maps_msec")).map(|s| (s, None)),
+    ));
 
-    (keys.skip(spaces()), word().skip(till_newline())).map(|(name, unit)| BrwStats {
-        name,
-        unit,
-        buckets: vec![],
+    (keys.skip(spaces()), word().skip(till_newline())).map(|((name, opsize), unit)| {
+        let name = match opsize {
+            Some(sz) => format!("{name}_{sz}"),
+            None => name,
+        };
+        BrwStats {
+            name,
+            unit,
+            buckets: vec![],
+        }
     })
 }
 
