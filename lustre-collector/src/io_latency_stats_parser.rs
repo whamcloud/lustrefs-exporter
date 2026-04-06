@@ -193,4 +193,89 @@ elapsed_time:   3011.066966653
 
         assert_eq!(result.0, vec![]);
     }
+
+    #[test]
+    fn test_latency_bucket_zero() {
+        let result = latency_bucket().easy_parse("256us: 0").unwrap();
+
+        assert_eq!(result.0, (256, 0));
+    }
+
+    #[test]
+    fn test_latency_bucket_large() {
+        let result = latency_bucket().easy_parse("65536us: 999999").unwrap();
+
+        assert_eq!(result.0, (65536, 999999));
+    }
+
+    #[test]
+    fn test_opsize_4k() {
+        let result = opsize().easy_parse("4K").unwrap();
+
+        assert_eq!(result.0, "4K");
+    }
+
+    #[test]
+    fn test_opsize_1024k() {
+        let result = opsize().easy_parse("1024K").unwrap();
+
+        assert_eq!(result.0, "1024K");
+    }
+
+    #[test]
+    fn test_latency_line_single_bucket() {
+        let result = latency_line()
+            .easy_parse("rd_4K: { 256us: 100, }\n")
+            .unwrap();
+
+        assert_eq!(result.0.0, "read");
+        assert_eq!(result.0.1, "4K");
+        assert_eq!(result.0.2, vec![(256, 100)]);
+    }
+
+    #[test]
+    fn test_io_latency_stats_read_only() {
+        let input = r#"
+io_latency_by_size:
+snapshot_time:  1775128065.882649010
+start_time:     1775125270.244958271
+elapsed_time:   2795.637690739
+rd_1024K: { 512us: 3, 1024us: 1, }
+"#;
+
+        let result = io_latency_stats().easy_parse(input).unwrap();
+
+        assert_debug_snapshot!(result);
+    }
+
+    #[test]
+    fn test_io_latency_stats_write_only() {
+        let input = r#"
+io_latency_by_size:
+snapshot_time:  1775128065.882649010
+start_time:     1775125270.244958271
+elapsed_time:   2795.637690739
+wr_4K: { 256us: 50, 512us: 10, }
+"#;
+
+        let result = io_latency_stats().easy_parse(input).unwrap();
+
+        assert_debug_snapshot!(result);
+    }
+
+    #[test]
+    fn test_io_latency_stats_disjoint_latencies() {
+        let input = r#"
+io_latency_by_size:
+snapshot_time:  1775128065.882649010
+start_time:     1775125270.244958271
+elapsed_time:   2795.637690739
+rd_1024K: { 512us: 3, 4096us: 5, }
+wr_1024K: { 1024us: 7, 8192us: 1, }
+"#;
+
+        let result = io_latency_stats().easy_parse(input).unwrap();
+
+        assert_debug_snapshot!(result);
+    }
 }

@@ -1,0 +1,26 @@
+---
+source: lustre-collector/src/io_latency_stats_parser.rs
+assertion_line: 263
+expression: result
+---
+(
+    [
+        BrwStats {
+            name: "io_time_4K",
+            unit: "ios",
+            buckets: [
+                BrwStatsBucket {
+                    name: 256,
+                    read: 0,
+                    write: 50,
+                },
+                BrwStatsBucket {
+                    name: 512,
+                    read: 0,
+                    write: 10,
+                },
+            ],
+        },
+    ],
+    "",
+)
