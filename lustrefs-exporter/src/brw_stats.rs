@@ -704,9 +704,7 @@ pub fn build_target_stats(
 #[cfg(test)]
 mod tests {
     use super::{BrwStatsMetrics, build_brw_stats};
-    use lustre_collector::{
-        BrwStats, BrwStatsBucket, Param, Target, TargetStat, TargetVariant,
-    };
+    use lustre_collector::{BrwStats, BrwStatsBucket, Param, Target, TargetStat, TargetVariant};
     use prometheus_client::{encoding::text::encode, registry::Registry};
     use std::collections::HashSet;
 

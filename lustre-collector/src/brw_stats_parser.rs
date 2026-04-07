@@ -202,7 +202,10 @@ mod tests {
     fn test_size_to_time() {
         let result = size_to_time().parse("1M I/O time (1/1000s)").unwrap();
 
-        assert_eq!(result.0, ("io_time".to_string(), Some("1048576".to_string())));
+        assert_eq!(
+            result.0,
+            ("io_time".to_string(), Some("1048576".to_string()))
+        );
     }
 
     #[test]
