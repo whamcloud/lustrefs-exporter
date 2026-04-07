@@ -180,6 +180,32 @@ mod tests {
     }
 
     #[test]
+    fn test_header_size_prefixed_io_time() {
+        let x = "4K I/O time (1/1000s)     ios   % cum % |  ios         % cum %\n";
+
+        let result = header().parse(x);
+
+        assert_eq!(
+            result,
+            Ok((
+                BrwStats {
+                    name: "io_time_4096".to_string(),
+                    unit: "ios".to_string(),
+                    buckets: vec![],
+                },
+                "\n"
+            ))
+        );
+    }
+
+    #[test]
+    fn test_size_to_time() {
+        let result = size_to_time().parse("1M I/O time (1/1000s)").unwrap();
+
+        assert_eq!(result.0, ("io_time".to_string(), Some("1048576".to_string())));
+    }
+
+    #[test]
     fn test_bucket() {
         let x = r#"32:		         0   0   0   |    1  11  11
 "#;

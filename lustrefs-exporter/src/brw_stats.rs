@@ -700,3 +700,54 @@ pub fn build_target_stats(
         _ => {}
     };
 }
+
+#[cfg(test)]
+mod tests {
+    use super::{BrwStatsMetrics, build_brw_stats};
+    use lustre_collector::{
+        BrwStats, BrwStatsBucket, Param, Target, TargetStat, TargetVariant,
+    };
+    use prometheus_client::{encoding::text::encode, registry::Registry};
+    use std::collections::HashSet;
+
+    #[test]
+    fn test_build_brw_stats_with_opsize() {
+        let mut registry = Registry::default();
+        let mut brw = BrwStatsMetrics::default();
+
+        brw.register_metric(&mut registry);
+
+        let mut set = HashSet::new();
+
+        let stat = TargetStat {
+            kind: TargetVariant::Ost,
+            target: Target("testfs-OST0001".to_string()),
+            param: Param("io_latency_stats".to_string()),
+            value: vec![BrwStats {
+                name: "io_time_1024K".to_string(),
+                unit: "ios".to_string(),
+                buckets: vec![
+                    BrwStatsBucket {
+                        name: 512,
+                        read: 3,
+                        write: 0,
+                    },
+                    BrwStatsBucket {
+                        name: 1024,
+                        read: 1,
+                        write: 7,
+                    },
+                ],
+            }],
+        };
+
+        build_brw_stats(&stat, &mut brw, &mut set);
+
+        let mut buffer = String::new();
+        encode(&mut buffer, &registry).unwrap();
+
+        assert!(buffer.contains("opsize=\"1024K\""));
+        assert!(buffer.contains("size=\"512\""));
+        assert!(buffer.contains("size=\"1024\""));
+    }
+}
