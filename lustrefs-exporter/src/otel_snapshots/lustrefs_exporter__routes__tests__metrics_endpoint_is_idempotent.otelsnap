@@ -690,6 +690,22 @@ lustre_io_time_milliseconds_total{component="ost",operation="write",size="64",ta
 lustre_io_time_milliseconds_total{component="ost",operation="write",size="64",target="ai400x2-OST0001",otel_scope_name="lustre"} 1111493
 lustre_io_time_milliseconds_total{component="ost",operation="write",size="8",target="ai400x2-OST0000",otel_scope_name="lustre"} 4652495
 lustre_io_time_milliseconds_total{component="ost",operation="write",size="8",target="ai400x2-OST0001",otel_scope_name="lustre"} 5122744
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="1024",target="ai400x2-OST0000",otel_scope_name="lustre"} 1
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="1024",target="ai400x2-OST0001",otel_scope_name="lustre"} 3
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="2048",target="ai400x2-OST0001",otel_scope_name="lustre"} 3
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="4096",target="ai400x2-OST0000",otel_scope_name="lustre"} 5
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="4096",target="ai400x2-OST0001",otel_scope_name="lustre"} 2
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="512",target="ai400x2-OST0000",otel_scope_name="lustre"} 3
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="512",target="ai400x2-OST0001",otel_scope_name="lustre"} 1
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="8192",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="1024",target="ai400x2-OST0000",otel_scope_name="lustre"} 7
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="1024",target="ai400x2-OST0001",otel_scope_name="lustre"} 7
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="2048",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="4096",target="ai400x2-OST0000",otel_scope_name="lustre"} 1
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="4096",target="ai400x2-OST0001",otel_scope_name="lustre"} 2
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="512",target="ai400x2-OST0000",otel_scope_name="lustre"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="512",target="ai400x2-OST0001",otel_scope_name="lustre"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="8192",target="ai400x2-OST0000",otel_scope_name="lustre"} 1
 # HELP lustre_job_read_bytes_total The total number of bytes that have been read.
 # TYPE lustre_job_read_bytes_total counter
 lustre_job_read_bytes_total{component="ost",jobid="SLURM_JOB10",operation="read_bytes",target="es01a-OST0001",otel_scope_name="lustre"} 0
