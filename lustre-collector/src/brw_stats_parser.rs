@@ -44,7 +44,7 @@ where
         .map(|_| ())
 }
 
-fn size_to_time<I>() -> impl Parser<I, Output = (String, Option<String>)>
+fn size_to_time<I>() -> impl Parser<I, Output = String>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -55,7 +55,7 @@ where
             .map(human_to_bytes),
         spaces().with(string("I/O time (1/1000s)")),
     )
-        .map(|(size, _)| ("io_time".to_string(), Some(format!("{size}"))))
+        .map(|(size, _)| format!("io_time_{size}"))
 }
 
 fn header<I>() -> impl Parser<I, Output = BrwStats>
@@ -65,26 +65,20 @@ where
 {
     let keys = choice((
         attempt(size_to_time()),
-        attempt(string_to("pages per bulk r/w", "pages")).map(|s| (s, None)),
-        attempt(string_to("discontiguous pages", "discont_pages")).map(|s| (s, None)),
-        attempt(string_to("discontiguous blocks", "discont_blocks")).map(|s| (s, None)),
-        attempt(string_to("disk fragmented I/Os", "dio_frags")).map(|s| (s, None)),
-        attempt(string_to("disk I/Os in flight", "rpc_hist")).map(|s| (s, None)),
-        attempt(string_to("I/O time (1/1000s)", "io_time")).map(|s| (s, None)),
-        attempt(string_to("disk I/O size", "disk_iosize")).map(|s| (s, None)),
-        attempt(string_to("block maps msec", "block_maps_msec")).map(|s| (s, None)),
+        attempt(string_to("pages per bulk r/w", "pages")),
+        attempt(string_to("discontiguous pages", "discont_pages")),
+        attempt(string_to("discontiguous blocks", "discont_blocks")),
+        attempt(string_to("disk fragmented I/Os", "dio_frags")),
+        attempt(string_to("disk I/Os in flight", "rpc_hist")),
+        attempt(string_to("I/O time (1/1000s)", "io_time")),
+        attempt(string_to("disk I/O size", "disk_iosize")),
+        attempt(string_to("block maps msec", "block_maps_msec")),
     ));
 
-    (keys.skip(spaces()), word().skip(till_newline())).map(|((name, opsize), unit)| {
-        let name = match opsize {
-            Some(sz) => format!("{name}_{sz}"),
-            None => name,
-        };
-        BrwStats {
-            name,
-            unit,
-            buckets: vec![],
-        }
+    (keys.skip(spaces()), word().skip(till_newline())).map(|(name, unit)| BrwStats {
+        name,
+        unit,
+        buckets: vec![],
     })
 }
 
@@ -202,10 +196,7 @@ mod tests {
     fn test_size_to_time() {
         let result = size_to_time().parse("1M I/O time (1/1000s)").unwrap();
 
-        assert_eq!(
-            result.0,
-            ("io_time".to_string(), Some("1048576".to_string()))
-        );
+        assert_eq!(result.0, "io_time_1048576".to_string());
     }
 
     #[test]

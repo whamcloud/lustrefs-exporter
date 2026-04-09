@@ -1,6 +1,7 @@
 ---
 source: lustrefs-exporter/src/routes.rs
-expression: "String::from_utf8(output.stdout)?"
+assertion_line: 438
+expression: "String::from_utf8(output.stdout).unwrap()"
 ---
 memused=2588372501
 memused_max=2614502697
@@ -921,6 +922,30 @@ block maps msec        maps  % cum % |  maps        % cum %
 16:                   3914   0  99   | 4689   0  99
 32:                    343   0 100   | 2109   0  99
 64:                      0   0 100   |  179   0 100
+osd-ldiskfs.MGS.io_latency_stats=
+io_latency_by_size:
+snapshot_time:  1775650313.221165456
+start_time:     1775125270.194383175
+elapsed_time:   525043.026782281
+osd-ldiskfs.ai400x2-MDT0000.io_latency_stats=
+io_latency_by_size:
+snapshot_time:  1775650313.221165456
+start_time:     1775125270.194383175
+elapsed_time:   525043.026782281
+osd-ldiskfs.ai400x2-OST0000.io_latency_stats=
+io_latency_by_size:
+snapshot_time:  1775650313.221165456
+start_time:     1775125270.194383175
+elapsed_time:   525043.026782281
+rd_1024K: { 512us: 3, 1024us: 1, 4096us: 5, }
+wr_1024K: { 1024us: 7, 4096us: 1, 8192us: 1, }
+osd-ldiskfs.ai400x2-OST0001.io_latency_stats=
+io_latency_by_size:
+snapshot_time:  1775650313.221165456
+start_time:     1775125270.194383175
+elapsed_time:   525043.026782281
+rd_1024K: { 512us: 1, 1024us: 3, 2048us: 3, 4096us: 2, }
+wr_1024K: { 1024us: 7, 4096us: 2, }
 osd-ldiskfs.ai400x2-MDT0000.quota_slave.acct_group=
 grp_accounting:
 - id:      0

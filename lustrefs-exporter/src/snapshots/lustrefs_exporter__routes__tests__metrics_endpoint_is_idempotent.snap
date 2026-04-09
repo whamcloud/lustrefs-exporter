@@ -1,5 +1,6 @@
 ---
 source: lustrefs-exporter/src/routes.rs
+assertion_line: 293
 expression: original_body_str
 ---
 # HELP lustre_job_read_samples_total Total number of reads that have been recorded.
@@ -936,6 +937,14 @@ lustre_discontiguous_blocks_total{component="ost",operation="write",size="9",tar
 lustre_discontiguous_blocks_total{component="ost",operation="write",size="9",target="ai400x2-OST0001"} 43018
 # HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes. 'size' label represents 'I/O time (1/1000s)', the amount of time for each I/O operation to complete.
 # TYPE lustre_io_time_milliseconds_total counter
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="1024",target="ai400x2-OST0000"} 1
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="1024",target="ai400x2-OST0001"} 3
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="2048",target="ai400x2-OST0001"} 3
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="4096",target="ai400x2-OST0000"} 5
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="4096",target="ai400x2-OST0001"} 2
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="512",target="ai400x2-OST0000"} 3
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="512",target="ai400x2-OST0001"} 1
+lustre_io_time_milliseconds_total{component="ost",operation="read",opsize="1024K",size="8192",target="ai400x2-OST0000"} 0
 lustre_io_time_milliseconds_total{component="ost",operation="read",size="1",target="ai400x2-OST0000"} 53100881
 lustre_io_time_milliseconds_total{component="ost",operation="read",size="1",target="ai400x2-OST0001"} 78258718
 lustre_io_time_milliseconds_total{component="ost",operation="read",size="1024",target="ai400x2-OST0001"} 0
@@ -957,6 +966,14 @@ lustre_io_time_milliseconds_total{component="ost",operation="read",size="64",tar
 lustre_io_time_milliseconds_total{component="ost",operation="read",size="64",target="ai400x2-OST0001"} 2152
 lustre_io_time_milliseconds_total{component="ost",operation="read",size="8",target="ai400x2-OST0000"} 1452785
 lustre_io_time_milliseconds_total{component="ost",operation="read",size="8",target="ai400x2-OST0001"} 1304438
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="1024",target="ai400x2-OST0000"} 7
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="1024",target="ai400x2-OST0001"} 7
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="2048",target="ai400x2-OST0001"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="4096",target="ai400x2-OST0000"} 1
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="4096",target="ai400x2-OST0001"} 2
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="512",target="ai400x2-OST0000"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="512",target="ai400x2-OST0001"} 0
+lustre_io_time_milliseconds_total{component="ost",operation="write",opsize="1024K",size="8192",target="ai400x2-OST0000"} 1
 lustre_io_time_milliseconds_total{component="ost",operation="write",size="1",target="ai400x2-OST0000"} 32329734
 lustre_io_time_milliseconds_total{component="ost",operation="write",size="1",target="ai400x2-OST0001"} 40428080
 lustre_io_time_milliseconds_total{component="ost",operation="write",size="1024",target="ai400x2-OST0001"} 143
