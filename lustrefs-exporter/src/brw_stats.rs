@@ -375,18 +375,18 @@ fn build_brw_stats(
                             .inc_by(b.write);
                     }
                     _ if name.starts_with("io_time_") => {
-                        let opszie = name.strip_prefix("io_time_").unwrap_or_default();
+                        let opsize = name.strip_prefix("io_time_").unwrap_or_default();
                         let read_labels = vec![
                             ("component", kind.to_prom_label().to_string()),
                             ("operation", "read".into()),
-                            ("opsize", opszie.to_string()),
+                            ("opsize", opsize.to_string()),
                             ("size", size.clone()),
                             ("target", target.to_string()),
                         ];
                         let write_labels = vec![
                             ("component", kind.to_prom_label().to_string()),
                             ("operation", "write".into()),
-                            ("opsize", opszie.to_string()),
+                            ("opsize", opsize.to_string()),
                             ("size", size.clone()),
                             ("target", target.to_string()),
                         ];
