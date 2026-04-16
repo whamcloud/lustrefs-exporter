@@ -41,7 +41,7 @@ jobs:
             jq '.packages[] | select(.name == "iai-callgrind").version' |\
             tr -d '"'
           )
-          cargo install iai-callgrind-runner --version $version
+          cargo install iai-callgrind-runner --version $version --force
 
       - name: Track Lustre Metrics Benchmarks on main branch
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
