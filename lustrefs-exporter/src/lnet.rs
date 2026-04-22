@@ -2,9 +2,11 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
+use std::sync::atomic::AtomicU64;
+
 use crate::Family;
 use lustre_collector::{LNetStat, LNetStatGlobal, LNetStats};
-use prometheus_client::{metrics::counter::Counter, registry::Registry};
+use prometheus_client::{metrics::counter::Counter, metrics::gauge::Gauge, registry::Registry};
 
 #[derive(Debug, Default)]
 pub struct LNetMetrics {
@@ -14,6 +16,8 @@ pub struct LNetMetrics {
     send_bytes_total: Family<Counter<u64>>,
     receive_bytes_total: Family<Counter<u64>>,
     drop_bytes_total: Family<Counter<u64>>,
+    health_value: Family<Gauge<u64, AtomicU64>>,
+    health_sensitivity: Family<Gauge<u64, AtomicU64>>,
 }
 
 impl LNetMetrics {
@@ -53,6 +57,18 @@ impl LNetMetrics {
             "Total number of bytes that have been dropped",
             self.drop_bytes_total.clone(),
         );
+
+        registry.register_without_auto_suffix(
+            "lustre_health_value",
+            "Health value of the LNet network",
+            self.health_value.clone(),
+        );
+
+        registry.register_without_auto_suffix(
+            "lustre_health_sensitivity",
+            "Health sensitivity of the LNet network",
+            self.health_sensitivity.clone(),
+        );
     }
 }
 
@@ -91,6 +107,18 @@ pub fn build_lnet_stats(x: &LNetStats, lnet: &mut LNetMetrics) {
         }
         LNetStats::DropLength(stat) => {
             record_lnet_stat_global(stat, &mut lnet.drop_bytes_total);
+        }
+        LNetStats::HealthValue(stat) => {
+            let labels = vec![("nid", stat.nid.to_string())];
+            lnet.health_value
+                .get_or_create(&labels)
+                .set(stat.value.try_into().unwrap_or(0));
+        }
+        LNetStats::HealthSensitivity(stat) => {
+            let labels = vec![];
+            lnet.health_sensitivity
+                .get_or_create(&labels)
+                .set(stat.value.try_into().unwrap_or(0));
         }
     }
 }

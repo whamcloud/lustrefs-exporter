@@ -16,7 +16,9 @@ use axum::{
     response::{IntoResponse, Response},
     routing::get,
 };
-use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
+use lustre_collector::{
+    parse_lctl_output, parse_lnetctl_global, parse_lnetctl_output, parse_lnetctl_stats, parser,
+};
 use prometheus_client::{encoding::text::encode, registry::Registry};
 use serde::Deserialize;
 use std::{
@@ -97,6 +99,14 @@ pub fn net_show_output() -> Command {
     let mut cmd = Command::new("lnetctl");
 
     cmd.args(["net", "show", "-v", "4"]).kill_on_drop(true);
+
+    cmd
+}
+
+pub fn global_show_output() -> Command {
+    let mut cmd = Command::new("lnetctl");
+
+    cmd.args(["global", "show"]).kill_on_drop(true);
 
     cmd
 }
@@ -202,22 +212,20 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
     let mut output = vec![];
 
     let lctl = lustre_metrics_output().output().await?;
-
     let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
-
     output.append(&mut lctl_output);
 
     let lnetctl = net_show_output().output().await?;
-
     let mut lnetctl_output = parse_lnetctl_output(&lnetctl.stdout)?;
-
     output.append(&mut lnetctl_output);
 
     let lnetctl_stats_output = lnet_stats_output().output().await?;
-
     let mut lnetctl_stats_record = parse_lnetctl_stats(&lnetctl_stats_output.stdout)?;
-
     output.append(&mut lnetctl_stats_record);
+
+    let lnetctl_global_output = global_show_output().output().await?;
+    let mut lnetctl_global_record = parse_lnetctl_global(&lnetctl_global_output.stdout)?;
+    output.append(&mut lnetctl_global_record);
 
     // Build and register Lustre metrics
     metrics::build_lustre_stats(&output, &mut opentelemetry_metrics);

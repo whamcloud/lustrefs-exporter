@@ -5,7 +5,7 @@
 use crate::{
     LNetStatGlobal, LustreCollectorError,
     lnet_exports::LNetStatsStatistics,
-    types::{LNetStat, LNetStats, Param, Record, lnet_exports::Net},
+    types::{LNetGlobal, LNetGlobalConfig, LNetStat, LNetStats, Param, Record, lnet_exports::Net},
 };
 
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -32,6 +32,11 @@ pub(crate) fn build_lnet_stats(x: &Net) -> Vec<Record> {
                     nid: y.nid.to_string(),
                     param: Param("drop_count".to_string()),
                     value: y.statistics.drop_count,
+                }),
+                LNetStats::HealthValue(LNetStat {
+                    nid: y.nid.to_string(),
+                    param: Param("health_value".to_string()),
+                    value: y.health_stats.health_value,
                 }),
             ]
         })
@@ -93,6 +98,29 @@ pub fn parse_lnetctl_stats(xs: &[u8]) -> Result<Vec<Record>, LustreCollectorErro
 
     Ok(y.statistics
         .map(|x| build_lnetctl_stats(&x))
+        .unwrap_or_default())
+}
+
+pub(crate) fn build_lnetctl_global(x: &LNetGlobalConfig) -> Vec<Record> {
+    vec![Record::LNetStat(LNetStats::HealthSensitivity(
+        LNetStatGlobal {
+            param: Param("health_sensitivity".to_string()),
+            value: x.health_sensitivity,
+        },
+    ))]
+}
+
+pub fn parse_lnetctl_global(xs: &[u8]) -> Result<Vec<Record>, LustreCollectorError> {
+    let xs = xs.trim_ascii();
+
+    if xs.is_empty() {
+        return Ok(vec![]);
+    }
+
+    let y: LNetGlobal = serde_yaml::from_slice(xs)?;
+
+    Ok(y.global
+        .map(|x| build_lnetctl_global(&x))
         .unwrap_or_default())
 }
 

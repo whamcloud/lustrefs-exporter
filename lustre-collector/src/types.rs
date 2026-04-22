@@ -167,7 +167,7 @@ pub mod lnet_exports {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct HealthStats {
         #[serde(rename = "health value")]
-        health_value: i64,
+        pub health_value: i64,
         interrupts: i64,
         dropped: i64,
         aborted: i64,
@@ -380,6 +380,16 @@ pub struct LNetStatGlobal<T> {
     pub value: T,
 }
 
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct LNetGlobal {
+    pub global: Option<LNetGlobalConfig>,
+}
+
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct LNetGlobalConfig {
+    pub health_sensitivity: i64,
+}
+
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
 /// Changelog stats from parsing `mdd.*.changelog_users`.
 pub struct ChangelogStat {
@@ -540,6 +550,8 @@ pub enum LNetStats {
     SendLength(LNetStatGlobal<i64>),
     RecvLength(LNetStatGlobal<i64>),
     DropLength(LNetStatGlobal<i64>),
+    HealthValue(LNetStat<i64>),
+    HealthSensitivity(LNetStatGlobal<i64>),
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
