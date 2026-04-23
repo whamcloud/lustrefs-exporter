@@ -11,7 +11,7 @@ use axum::{
     BoxError, Router,
     body::Body,
     error_handling::HandleErrorLayer,
-    extract::Query,
+    extract::{Query, State},
     http::{StatusCode, header::CONTENT_TYPE},
     response::{IntoResponse, Response},
     routing::get,
@@ -22,6 +22,7 @@ use serde::Deserialize;
 use std::{
     borrow::Cow,
     io::{self, BufRead as _, BufReader},
+    sync::Arc,
 };
 use tokio::process::Command;
 use tower::{
@@ -37,9 +38,23 @@ pub struct Params {
     jobstats: bool,
 }
 
+/// Shared application state reused across scrapes.
+///
+/// The `JobstatMetrics` families are built once and updated in place on every
+/// scrape (optimization A7), which avoids re-registering Families and keeps
+/// Prometheus series continuous instead of flapping on/off between scrapes.
+#[derive(Debug, Clone, Default)]
+pub struct AppState {
+    pub jobstats: Arc<JobstatMetrics>,
+}
+
 const TIMEOUT_DURATION_SECS: u64 = 120;
 
 pub fn app() -> Router {
+    app_with_state(AppState::default())
+}
+
+pub fn app_with_state(state: AppState) -> Router {
     let load_shedder = ServiceBuilder::new()
         .layer(HandleErrorLayer::new(handle_error))
         .layer(LoadShedLayer::new())
@@ -52,6 +67,7 @@ pub fn app() -> Router {
     Router::new()
         .route("/metrics", get(scrape))
         .layer(load_shedder)
+        .with_state(state)
 }
 
 pub async fn handle_error(error: BoxError) -> impl IntoResponse {
@@ -146,7 +162,10 @@ pub fn lnet_stats_output() -> Command {
 ///   be run within a spawned task.
 /// - Standard metrics collection runs commands concurrently for efficiency
 /// - Only metrics with actual data are registered to keep output clean
-pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
+pub async fn scrape(
+    State(state): State<AppState>,
+    Query(params): Query<Params>,
+) -> Result<Response<Body>, Error> {
     let mut registry = Registry::default();
 
     // Build the lustre stats
@@ -187,11 +206,17 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
                     }
                 });
 
-                let handle = jobstats_stream(reader, JobstatMetrics::default());
+                // Reuse the shared `JobstatMetrics` across scrapes (A7). The
+                // clone is cheap: the contained `Family` values share their
+                // underlying storage via `Arc`, so the spawned task updates the
+                // same series that the registry will later encode.
+                let shared = (*state.jobstats).clone();
 
-                let metrics = handle.await?;
+                let handle = jobstats_stream(reader, shared);
 
-                metrics.register_metric(&mut registry);
+                handle.await?;
+
+                state.jobstats.register_metric(&mut registry);
             }
             Err(e) => {
                 tracing::debug!("Error while spawning lctl jobstats: {e}");
