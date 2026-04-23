@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::{Error, Family, LabelProm};
+use crate::{Error, Family, LabelContainer, LabelProm};
 use lustre_collector::TargetVariant;
 use prometheus_client::{
     metrics::{counter::Counter, gauge::Gauge},
@@ -11,7 +11,10 @@ use prometheus_client::{
 use regex::Regex;
 use std::{
     io::BufRead,
-    sync::{LazyLock, atomic::AtomicU64},
+    sync::{
+        LazyLock,
+        atomic::{AtomicU64, Ordering},
+    },
 };
 use tokio::task::JoinHandle;
 
@@ -23,7 +26,7 @@ enum State {
     TargetJobStats(String, String, Vec<String>),
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone)]
 pub struct JobstatMetrics {
     read_samples_total: Family<Counter<u64>>,
     read_minimum_size_bytes: Family<Gauge<u64, AtomicU64>>,
@@ -35,6 +38,14 @@ pub struct JobstatMetrics {
     write_bytes_total: Family<Counter<u64>>,
     stats_total: Family<Counter<u64>>,
     target_info: Family<Gauge<u64, AtomicU64>>,
+}
+
+// Directly sets a Counter's underlying atomic value. This is required by A7
+// (persistent `JobstatMetrics` across scrapes): Lustre reports cumulative
+// counts since last reset, so each scrape must overwrite the exported value
+// rather than accumulate it.
+fn store_counter(counter: &Counter<u64>, value: u64) {
+    counter.inner().store(value, Ordering::Relaxed);
 }
 
 impl JobstatMetrics {
@@ -244,10 +255,9 @@ fn render_stat(
 
         let (_, [stat_name, samples, min, max, sum]) = cap.extract();
 
-        let min = min.parse();
-        let max = max.parse();
-        let sum = sum.parse();
-        let samples = samples.parse();
+        let Ok(samples) = samples.parse::<u64>() else {
+            continue;
+        };
 
         let mut labels = base_labels.clone();
         labels.insert(2, ("operation", stat_name.to_string()));
@@ -255,59 +265,59 @@ fn render_stat(
         if kind == TargetVariant::Ost {
             match stat_name {
                 "read_bytes" => {
-                    if let Ok(samples) = samples {
-                        jobstats
-                            .read_samples_total
-                            .get_or_create(&labels)
-                            .inc_by(samples);
+                    if samples == 0 {
+                        remove_read_bytes(jobstats, &labels);
+                        continue;
                     }
-                    if let Ok(min) = min {
+                    store_counter(&jobstats.read_samples_total.get_or_create(&labels), samples);
+                    if let Ok(min) = min.parse() {
                         jobstats
                             .read_minimum_size_bytes
                             .get_or_create(&labels)
                             .set(min);
                     }
-                    if let Ok(max) = max {
-                        jobstats
-                            .read_maximum_size_bytes
-                            .get_or_create(&labels)
-                            .inc_by(max);
+                    if let Ok(max) = max.parse() {
+                        store_counter(
+                            &jobstats.read_maximum_size_bytes.get_or_create(&labels),
+                            max,
+                        );
                     }
-                    if let Ok(sum) = sum {
-                        jobstats.read_bytes_total.get_or_create(&labels).inc_by(sum);
+                    if let Ok(sum) = sum.parse() {
+                        store_counter(&jobstats.read_bytes_total.get_or_create(&labels), sum);
                     }
                 }
                 "write_bytes" => {
-                    if let Ok(samples) = samples {
-                        jobstats
-                            .write_samples_total
-                            .get_or_create(&labels)
-                            .inc_by(samples);
+                    if samples == 0 {
+                        remove_write_bytes(jobstats, &labels);
+                        continue;
                     }
-                    if let Ok(min) = min {
+                    store_counter(
+                        &jobstats.write_samples_total.get_or_create(&labels),
+                        samples,
+                    );
+                    if let Ok(min) = min.parse() {
                         jobstats
                             .write_minimum_size_bytes
                             .get_or_create(&labels)
                             .set(min);
                     }
-                    if let Ok(max) = max {
-                        jobstats
-                            .write_maximum_size_bytes
-                            .get_or_create(&labels)
-                            .inc_by(max);
+                    if let Ok(max) = max.parse() {
+                        store_counter(
+                            &jobstats.write_maximum_size_bytes.get_or_create(&labels),
+                            max,
+                        );
                     }
-                    if let Ok(sum) = sum {
-                        jobstats
-                            .write_bytes_total
-                            .get_or_create(&labels)
-                            .inc_by(sum);
+                    if let Ok(sum) = sum.parse() {
+                        store_counter(&jobstats.write_bytes_total.get_or_create(&labels), sum);
                     }
                 }
                 "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs"
                 | "get_info" | "set_info" | "quotactl" => {
-                    if let Ok(samples) = samples {
-                        jobstats.stats_total.get_or_create(&labels).inc_by(samples);
+                    if samples == 0 {
+                        jobstats.stats_total.remove(&labels);
+                        continue;
                     }
+                    store_counter(&jobstats.stats_total.get_or_create(&labels), samples);
                 }
                 _ => {
                     // Unhandled OST jobstats stats
@@ -340,9 +350,11 @@ fn render_stat(
                 | "write_bytes"
                 | "punch"
                 | "migrate" => {
-                    if let Ok(samples) = samples {
-                        jobstats.stats_total.get_or_create(&labels).inc_by(samples);
+                    if samples == 0 {
+                        jobstats.stats_total.remove(&labels);
+                        continue;
                     }
+                    store_counter(&jobstats.stats_total.get_or_create(&labels), samples);
                 }
                 _ => {
                     // Unhandled MDT jobstats stats
@@ -353,6 +365,20 @@ fn render_stat(
     }
 
     Ok(())
+}
+
+fn remove_read_bytes(jobstats: &JobstatMetrics, labels: &LabelContainer) {
+    jobstats.read_samples_total.remove(labels);
+    jobstats.read_minimum_size_bytes.remove(labels);
+    jobstats.read_maximum_size_bytes.remove(labels);
+    jobstats.read_bytes_total.remove(labels);
+}
+
+fn remove_write_bytes(jobstats: &JobstatMetrics, labels: &LabelContainer) {
+    jobstats.write_samples_total.remove(labels);
+    jobstats.write_minimum_size_bytes.remove(labels);
+    jobstats.write_maximum_size_bytes.remove(labels);
+    jobstats.write_bytes_total.remove(labels);
 }
 
 #[cfg(test)]
@@ -393,7 +419,9 @@ pub mod tests {
 
         let buffer = stream_jobstats(f).await;
 
-        assert_eq!(buffer.lines().count(), 3524665);
+        // Zero-valued stats are not emitted (see jobstats_zero_values.md);
+        // only records with `samples > 0` contribute rows.
+        assert_eq!(buffer.lines().count(), 566975);
     }
 
     #[tokio::test(flavor = "multi_thread")]
@@ -402,15 +430,10 @@ pub mod tests {
 
         let buffer = stream_jobstats(f).await;
 
-        assert_eq!(
-            buffer.lines().count(),
-            (4 + // 4 metrics per read_bytes
-                4 + // 4 metrics per write_bytes
-                10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
-                * 49167 // 49167 jobs
-                + 2 * 9 // HELP and TYPE lines
-                + 1 // # EOF
-        );
+        // Zero-valued stats are not emitted (see jobstats_zero_values.md); the
+        // exact count depends on how many ops each of the 49167 jobs actually
+        // performed.
+        assert_eq!(buffer.lines().count(), 196677);
     }
 
     #[tokio::test(flavor = "multi_thread")]
@@ -419,15 +442,8 @@ pub mod tests {
 
         let buffer = stream_jobstats(f).await;
 
-        assert_eq!(
-            buffer.lines().count(),
-            (4 + // 4 metrics per read_bytes
-                4 + // 4 metrics per write_bytes
-                10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
-                * 16 // 16 jobs
-                + 2 * 9 // HELP and TYPE lines
-                + 1 // # EOF
-        );
+        // Zero-valued stats are not emitted (see jobstats_zero_values.md).
+        assert_eq!(buffer.lines().count(), 91);
     }
 
     fn create_job_template(job_id: &str) -> String {
@@ -475,14 +491,14 @@ job_stats:
         ))
         .await;
 
+        // Only `write_bytes` has samples > 0 in the template, so only its 4
+        // metrics are emitted per job (see jobstats_zero_values.md).
         assert_eq!(
             buffer.lines().count(),
-            (4 + // 4 metrics per read_bytes
-                4 + // 4 metrics per write_bytes
-                10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
+            4 // 4 metrics per write_bytes
                 * 10 // 10 jobs
-                    + 2 * 9 // HELP and TYPE lines
-                    + 1 // # EOF
+                + 2 * 4 // HELP and TYPE lines for the 4 write_bytes metrics
+                + 1 // # EOF
         );
 
         Ok(())
@@ -494,12 +510,12 @@ job_stats:
 
         let buffer = stream_jobstats(f).await;
 
+        // The only non-zero record in the fixture is `quotactl` on a single
+        // job, which produces a single `lustre_job_stats_total` line.
         assert_eq!(
             buffer.lines().count(),
-            (4 + // 4 metrics per read_bytes
-                4 + // 4 metrics per write_bytes
-                10) // 10 metrics for "getattr" | "setattr" | "punch" | "sync" | "destroy" | "create" | "statfs" | "get_info" | "set_info" | "quotactl"
-                + 2 * 9 // HELP and TYPE lines
+            1 // 1 stats_total row for the sole quotactl record
+                + 2 // HELP and TYPE lines for lustre_job_stats
                 + 1 // # EOF
         );
     }
