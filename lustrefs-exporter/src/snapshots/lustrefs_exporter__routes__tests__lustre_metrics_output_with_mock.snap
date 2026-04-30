@@ -45,6 +45,250 @@ ai400x2-MDT0003-mdtlov_UUID
 ai400x2-MDT0000-lwp-OST0007_UUID
 ai400x2-MDT0000-lwp-MDT0003_UUID
 ai400x2-MDT0000-lwp-OST0006_UUID
+osc.tesfs-OST0000-osc-MDT0000.state=
+current_state: DISCONN
+state_history:
+ - [ 1781485337, DISCONN ]
+ - [ 1781485342, CONNECTING ]
+ - [ 1781485342, REPLAY ]
+ - [ 1781485342, REPLAY_LOCKS ]
+ - [ 1781485342, REPLAY_WAIT ]
+ - [ 1781485342, RECOVER ]
+ - [ 1781485342, FULL ]
+ - [ 1781485439, DISCONN ]
+ - [ 1781485439, CONNECTING ]
+ - [ 1781485439, DISCONN ]
+ - [ 1781485439, CONNECTING ]
+ - [ 1781485439, DISCONN ]
+ - [ 1781485439, CONNECTING ]
+ - [ 1781485439, DISCONN ]
+ - [ 1781485439, CONNECTING ]
+ - [ 1781485439, DISCONN ]
+osc.tesfs-OST0001-osc-MDT0000.state=
+current_state: FULL
+state_history:
+ - [ 1781484433, CONNECTING ]
+ - [ 1781484433, DISCONN ]
+ - [ 1781484433, CONNECTING ]
+ - [ 1781484433, REPLAY_LOCKS ]
+ - [ 1781484433, REPLAY_WAIT ]
+ - [ 1781484436, RECOVER ]
+ - [ 1781484436, FULL ]
+osc.tesfs-OST0002-osc-MDT0000.state=
+current_state: FULL
+state_history:
+ - [ 1781484433, CONNECTING ]
+ - [ 1781484433, FULL ]
+osc.tesfs-OST0003-osc-MDT0000.state=
+current_state: FULL
+state_history:
+ - [ 1781484433, CONNECTING ]
+ - [ 1781484433, FULL ]
+osc.tesfs-OST0004-osc-MDT0000.state=
+current_state: FULL
+state_history:
+ - [ 1781484433, CONNECTING ]
+ - [ 1781484433, FULL ]
+osc.tesfs-OST0005-osc-MDT0000.state=
+current_state: FULL
+state_history:
+ - [ 1781484433, CONNECTING ]
+ - [ 1781484433, FULL ]
+osc.tesfs-OST0006-osc-MDT0000.state=
+current_state: FULL
+state_history:
+ - [ 1781484433, CONNECTING ]
+ - [ 1781484433, FULL ]
+osc.tesfs-OST0007-osc-MDT0000.state=
+current_state: FULL
+state_history:
+ - [ 1781484433, CONNECTING ]
+ - [ 1781484433, FULL ]
+mgs.MGS.mgs.stats=
+snapshot_time             1709306082.170692005 secs.nsecs
+req_waittime              73699 samples [usecs] 6 49913 4812259 42020469601
+req_qdepth                73699 samples [reqs] 0 0 0 0
+req_active                73699 samples [reqs] 1 3 73808 74032
+req_timeout               73699 samples [secs] 15 15 1105485 16582275
+reqbuf_avail              147359 samples [bufs] 61 64 9283354 584835438
+ldlm_plain_enqueue        722 samples [reqs] 1 1 722 722
+mgs_connect               171 samples [usecs] 15 73 5222 194162
+mgs_disconnect            149 samples [usecs] 10 59 2312 43686
+mgs_target_reg            6 samples [usecs] 9 556 978 370360
+mgs_config_read           176 samples [usecs] 19 186 10274 667442
+obd_ping                  70365 samples [usecs] 3 49041 2169610 17505099758
+llog_origin_handle_open   541 samples [usecs] 6 1319 10745 2559905
+llog_origin_handle_next_block 1199 samples [usecs] 7 419 15687 946229
+llog_origin_handle_read_header 370 samples [usecs] 6 261 7887 1005381
+mgs.MGS.mgs.threads_max=32
+mgs.MGS.mgs.threads_min=3
+mgs.MGS.mgs.threads_started=4
+mgs.MGS.num_exports=20
+obdfilter.ai400x2-OST0000.stats=
+snapshot_time             1709306082.170995043 secs.nsecs
+read_bytes                71482249 samples [bytes] 4096 1048576 58370831220736 5356592093840015360
+write_bytes               51198558 samples [bytes] 4096 1048576 47288584560640 12593290949599166464
+read                      71482249 samples [usecs] 13 640342 462391903386 6394091957365906
+write                     51198558 samples [usecs] 1 180084 91797930838 475551482436466
+punch                     453 samples [usecs] 9 601 13811 2419661
+sync                      771 samples [usecs] 0 233833 5520406 405123348902
+create                    16 samples [usecs] 1546 284516 574180 93247395606
+statfs                    142531 samples [usecs] 0 26666 634747 714999967
+get_info                  2 samples [usecs] 5 6 11 61
+set_info                  58 samples [usecs] 2 15 440 3678
+obdfilter.ai400x2-OST0001.stats=
+snapshot_time             1709306082.171022229 secs.nsecs
+read_bytes                95047172 samples [bytes] 4096 1048576 71484548943872 459021499014053888
+write_bytes               61097554 samples [bytes] 4096 1048576 54592520048640 1760900120527765504
+read                      95047172 samples [usecs] 13 638986 484812403750 6419423362201602
+write                     61097554 samples [usecs] 1 182399 98807931704 505713687526192
+punch                     464 samples [usecs] 10 211 10896 447630
+sync                      793 samples [usecs] 0 226593 7910557 575376403949
+create                    16 samples [usecs] 2361 289694 539400 93406251682
+statfs                    142532 samples [usecs] 0 86 584723 3564125
+get_info                  2 samples [usecs] 4 4 8 32
+set_info                  58 samples [usecs] 3 23 419 3539
+obdfilter.ai400x2-OST0000.num_exports=12
+obdfilter.ai400x2-OST0001.num_exports=12
+obdfilter.ai400x2-OST0000.tot_dirty=94437376
+obdfilter.ai400x2-OST0001.tot_dirty=98729984
+obdfilter.ai400x2-OST0000.tot_granted=4544887232
+obdfilter.ai400x2-OST0001.tot_granted=4448762304
+obdfilter.ai400x2-OST0000.tot_pending=0
+obdfilter.ai400x2-OST0001.tot_pending=0
+ost.OSS.ost.stats=
+snapshot_time             1709306082.171280493 secs.nsecs
+req_waittime              83250 samples [usecs] 4 27134 2316419 8367668909
+req_qdepth                83250 samples [reqs] 0 3 153 161
+req_active                83250 samples [reqs] 1 12 98604 142186
+req_timeout               83250 samples [secs] 15 15 1248750 18731250
+reqbuf_avail              174518 samples [bufs] 63 64 11164101 714184251
+ldlm_glimpse_enqueue      70569 samples [reqs] 1 1 70569 70569
+ldlm_extent_enqueue       1564 samples [reqs] 1 1 1564 1564
+ost_create                32 samples [usecs] 1560 289717 1114184 186706180850
+ost_get_info              4 samples [usecs] 10 23 60 998
+ost_connect               409 samples [usecs] 8 47049 91550 2331032792
+ost_disconnect            345 samples [usecs] 18 3080 28704 14077548
+ost_sync                  1564 samples [usecs] 7 233847 13450680 980959810506
+ost_set_info              116 samples [usecs] 10 48 2893 80653
+obd_ping                  8647 samples [usecs] 5 11543 166718 136487662
+ost.OSS.ost_io.stats=
+snapshot_time             1709306082.171339840 secs.nsecs
+req_waittime              278826450 samples [usecs] 3 256381 679180789541 17033293421667587
+req_qdepth                278826450 samples [reqs] 0 57 2996612 4115824
+req_active                278826450 samples [reqs] 1 82 8212823748 445460199062
+req_timeout               278826450 samples [secs] 15 15 4182396750 62735951250
+reqbuf_avail              576765593 samples [bufs] 61 64 36852221769 2354713494223
+ost_read                  166529421 samples [usecs] 25 640373 951059111021 12867597685838659
+ost_write                 112296112 samples [usecs] 107 1330182 1108563975461 26954717981473657
+ost_punch                 917 samples [usecs] 17 609 35595 3676339
+ost.OSS.ost_create.stats=
+snapshot_time             1709306082.171389681 secs.nsecs
+req_waittime              285063 samples [usecs] 4 50240 17442945 136104207523
+req_qdepth                285063 samples [reqs] 0 1 102 102
+req_active                285063 samples [reqs] 1 2 317581 382617
+req_timeout               285063 samples [secs] 15 15 4275945 64139175
+reqbuf_avail              581187 samples [bufs] 63 64 37185744 2379243504
+ost_statfs                285063 samples [usecs] 4 49790 8609278 28510056070
+ost.OSS.ost_out.stats=
+snapshot_time             1709306082.171434620 secs.nsecs
+req_waittime              62804 samples [usecs] 9 36100 4186292 32540407268
+req_qdepth                62804 samples [reqs] 0 0 0 0
+req_active                62804 samples [reqs] 1 2 62806 62810
+req_timeout               62804 samples [secs] 15 15 942060 14130900
+reqbuf_avail              128825 samples [bufs] 63 64 8243619 527517213
+mds_connect               27 samples [usecs] 35 26576 45671 802779901
+mds_statfs                62757 samples [usecs] 4 13772 1864962 247874738
+obd_ping                  4 samples [usecs] 9 12 40 406
+out_update                16 samples [usecs] 13 18295 23778 339079170
+ost.OSS.ost_seq.stats=snapshot_time             1709306082.171480402 secs.nsecs
+mdt.ai400x2-MDT0000.md_stats=
+snapshot_time             1709306082.171569687 secs.nsecs
+open                      512 samples [usecs] 64 39146 772784 11053232614
+close                     114600 samples [usecs] 6 4052 2630805 117582745
+mknod                     512 samples [usecs] 59 39101 767427 11030140065
+getattr                   128155 samples [usecs] 1 2989 989676 146718346
+setattr                   516 samples [usecs] 26 121 22544 1044320
+getxattr                  48656 samples [usecs] 6 1091 687561 11650127
+statfs                    124801 samples [usecs] 0 95 1292933 18510209
+sync                      512 samples [usecs] 4 50 7767 129923
+mdt.ai400x2-MDT0000.num_exports=31
+qmt.ai400x2-QMT0000.dt-0x0.glb-usr=
+global_pool0_dt_usr
+- id:      0
+  limits:  { hard:                    0, soft:                    0, granted:                    0, time:               604800 }
+qmt.ai400x2-QMT0000.md-0x0.glb-usr=
+global_pool0_md_usr
+- id:      0
+  limits:  { hard:                    0, soft:                    0, granted:                    0, time:               604800 }
+qmt.ai400x2-QMT0000.dt-0x0.glb-prj=
+global_pool0_dt_prj
+- id:      0
+  limits:  { hard:                    0, soft:                    0, granted:                    0, time:               604800 }
+qmt.ai400x2-QMT0000.md-0x0.glb-prj=
+global_pool0_md_prj
+- id:      0
+  limits:  { hard:                    0, soft:                    0, granted:                    0, time:               604800 }
+qmt.ai400x2-QMT0000.dt-0x0.glb-grp=
+global_pool0_dt_grp
+- id:      0
+  limits:  { hard:                    0, soft:                    0, granted:                    0, time:               604800 }
+qmt.ai400x2-QMT0000.md-0x0.glb-grp=
+global_pool0_md_grp
+- id:      0
+  limits:  { hard:                    0, soft:                    0, granted:                    0, time:               604800 }
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.contended_locks=32
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.contended_locks=32
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.contended_locks=32
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.contention_seconds=2
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.contention_seconds=2
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.contention_seconds=2
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.ctime_age_limit=10
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.ctime_age_limit=10
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.ctime_age_limit=10
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.early_lock_cancel=0
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.early_lock_cancel=0
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.early_lock_cancel=0
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.lock_count=520
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.lock_count=347
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.lock_count=364
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.lock_timeouts=0
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.lock_timeouts=0
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.lock_timeouts=0
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.lock_unused_count=0
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.lock_unused_count=0
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.lock_unused_count=0
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.lru_max_age=3900000
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.lru_max_age=3900000
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.lru_max_age=3900000
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.lru_size=2400
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.lru_size=2400
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.lru_size=2400
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.max_nolock_bytes=0
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.max_nolock_bytes=0
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.max_nolock_bytes=0
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.max_parallel_ast=1024
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.max_parallel_ast=1024
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.max_parallel_ast=1024
+ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.resource_count=257
+ldlm.namespaces.filter-ai400x2-OST0000_UUID.resource_count=347
+ldlm.namespaces.filter-ai400x2-OST0001_UUID.resource_count=364
+ldlm.services.ldlm_canceld.stats=
+snapshot_time             1709306082.173788842 secs.nsecs
+req_waittime              241065 samples [usecs] 2 16760 7505570 1799848938
+req_qdepth                241065 samples [reqs] 0 76 2454 23382
+req_active                241065 samples [reqs] 1 15 319673 583397
+req_timeout               241065 samples [secs] 15 15 3615975 54239625
+reqbuf_avail              498763 samples [bufs] 49 64 31759437 2022603051
+ldlm_cancel               241065 samples [usecs] 2 63482 16282441 171849796047
+ldlm.services.ldlm_cbd.stats=
+snapshot_time             1709306082.173837863 secs.nsecs
+req_waittime              2 samples [usecs] 33 36 69 2385
+req_qdepth                2 samples [reqs] 0 0 0 0
+req_active                2 samples [reqs] 1 1 2 2
+req_timeout               2 samples [secs] 15 15 30 450
+reqbuf_avail              6 samples [bufs] 1 1 6 6
+ldlm_bl_callback          2 samples [usecs] 18 19 37 685
 osd-ldiskfs.MGS.filesfree=130871
 osd-ldiskfs.ai400x2-MDT0000.filesfree=255306055
 osd-ldiskfs.ai400x2-OST0000.filesfree=276820333
@@ -1022,188 +1266,3 @@ ai400x2-MDT0003-mdtlov_UUID
 ai400x2-MDT0000-lwp-OST0007_UUID
 ai400x2-MDT0000-lwp-MDT0003_UUID
 ai400x2-MDT0000-lwp-OST0006_UUID
-mgs.MGS.mgs.stats=
-snapshot_time             1709306082.170692005 secs.nsecs
-req_waittime              73699 samples [usecs] 6 49913 4812259 42020469601
-req_qdepth                73699 samples [reqs] 0 0 0 0
-req_active                73699 samples [reqs] 1 3 73808 74032
-req_timeout               73699 samples [secs] 15 15 1105485 16582275
-reqbuf_avail              147359 samples [bufs] 61 64 9283354 584835438
-ldlm_plain_enqueue        722 samples [reqs] 1 1 722 722
-mgs_connect               171 samples [usecs] 15 73 5222 194162
-mgs_disconnect            149 samples [usecs] 10 59 2312 43686
-mgs_target_reg            6 samples [usecs] 9 556 978 370360
-mgs_config_read           176 samples [usecs] 19 186 10274 667442
-obd_ping                  70365 samples [usecs] 3 49041 2169610 17505099758
-llog_origin_handle_open   541 samples [usecs] 6 1319 10745 2559905
-llog_origin_handle_next_block 1199 samples [usecs] 7 419 15687 946229
-llog_origin_handle_read_header 370 samples [usecs] 6 261 7887 1005381
-mgs.MGS.mgs.threads_max=32
-mgs.MGS.mgs.threads_min=3
-mgs.MGS.mgs.threads_started=4
-mgs.MGS.num_exports=20
-obdfilter.ai400x2-OST0000.stats=
-snapshot_time             1709306082.170995043 secs.nsecs
-read_bytes                71482249 samples [bytes] 4096 1048576 58370831220736 5356592093840015360
-write_bytes               51198558 samples [bytes] 4096 1048576 47288584560640 12593290949599166464
-read                      71482249 samples [usecs] 13 640342 462391903386 6394091957365906
-write                     51198558 samples [usecs] 1 180084 91797930838 475551482436466
-punch                     453 samples [usecs] 9 601 13811 2419661
-sync                      771 samples [usecs] 0 233833 5520406 405123348902
-create                    16 samples [usecs] 1546 284516 574180 93247395606
-statfs                    142531 samples [usecs] 0 26666 634747 714999967
-get_info                  2 samples [usecs] 5 6 11 61
-set_info                  58 samples [usecs] 2 15 440 3678
-obdfilter.ai400x2-OST0001.stats=
-snapshot_time             1709306082.171022229 secs.nsecs
-read_bytes                95047172 samples [bytes] 4096 1048576 71484548943872 459021499014053888
-write_bytes               61097554 samples [bytes] 4096 1048576 54592520048640 1760900120527765504
-read                      95047172 samples [usecs] 13 638986 484812403750 6419423362201602
-write                     61097554 samples [usecs] 1 182399 98807931704 505713687526192
-punch                     464 samples [usecs] 10 211 10896 447630
-sync                      793 samples [usecs] 0 226593 7910557 575376403949
-create                    16 samples [usecs] 2361 289694 539400 93406251682
-statfs                    142532 samples [usecs] 0 86 584723 3564125
-get_info                  2 samples [usecs] 4 4 8 32
-set_info                  58 samples [usecs] 3 23 419 3539
-obdfilter.ai400x2-OST0000.num_exports=12
-obdfilter.ai400x2-OST0001.num_exports=12
-obdfilter.ai400x2-OST0000.tot_dirty=94437376
-obdfilter.ai400x2-OST0001.tot_dirty=98729984
-obdfilter.ai400x2-OST0000.tot_granted=4544887232
-obdfilter.ai400x2-OST0001.tot_granted=4448762304
-obdfilter.ai400x2-OST0000.tot_pending=0
-obdfilter.ai400x2-OST0001.tot_pending=0
-ost.OSS.ost.stats=
-snapshot_time             1709306082.171280493 secs.nsecs
-req_waittime              83250 samples [usecs] 4 27134 2316419 8367668909
-req_qdepth                83250 samples [reqs] 0 3 153 161
-req_active                83250 samples [reqs] 1 12 98604 142186
-req_timeout               83250 samples [secs] 15 15 1248750 18731250
-reqbuf_avail              174518 samples [bufs] 63 64 11164101 714184251
-ldlm_glimpse_enqueue      70569 samples [reqs] 1 1 70569 70569
-ldlm_extent_enqueue       1564 samples [reqs] 1 1 1564 1564
-ost_create                32 samples [usecs] 1560 289717 1114184 186706180850
-ost_get_info              4 samples [usecs] 10 23 60 998
-ost_connect               409 samples [usecs] 8 47049 91550 2331032792
-ost_disconnect            345 samples [usecs] 18 3080 28704 14077548
-ost_sync                  1564 samples [usecs] 7 233847 13450680 980959810506
-ost_set_info              116 samples [usecs] 10 48 2893 80653
-obd_ping                  8647 samples [usecs] 5 11543 166718 136487662
-ost.OSS.ost_io.stats=
-snapshot_time             1709306082.171339840 secs.nsecs
-req_waittime              278826450 samples [usecs] 3 256381 679180789541 17033293421667587
-req_qdepth                278826450 samples [reqs] 0 57 2996612 4115824
-req_active                278826450 samples [reqs] 1 82 8212823748 445460199062
-req_timeout               278826450 samples [secs] 15 15 4182396750 62735951250
-reqbuf_avail              576765593 samples [bufs] 61 64 36852221769 2354713494223
-ost_read                  166529421 samples [usecs] 25 640373 951059111021 12867597685838659
-ost_write                 112296112 samples [usecs] 107 1330182 1108563975461 26954717981473657
-ost_punch                 917 samples [usecs] 17 609 35595 3676339
-ost.OSS.ost_create.stats=
-snapshot_time             1709306082.171389681 secs.nsecs
-req_waittime              285063 samples [usecs] 4 50240 17442945 136104207523
-req_qdepth                285063 samples [reqs] 0 1 102 102
-req_active                285063 samples [reqs] 1 2 317581 382617
-req_timeout               285063 samples [secs] 15 15 4275945 64139175
-reqbuf_avail              581187 samples [bufs] 63 64 37185744 2379243504
-ost_statfs                285063 samples [usecs] 4 49790 8609278 28510056070
-ost.OSS.ost_out.stats=
-snapshot_time             1709306082.171434620 secs.nsecs
-req_waittime              62804 samples [usecs] 9 36100 4186292 32540407268
-req_qdepth                62804 samples [reqs] 0 0 0 0
-req_active                62804 samples [reqs] 1 2 62806 62810
-req_timeout               62804 samples [secs] 15 15 942060 14130900
-reqbuf_avail              128825 samples [bufs] 63 64 8243619 527517213
-mds_connect               27 samples [usecs] 35 26576 45671 802779901
-mds_statfs                62757 samples [usecs] 4 13772 1864962 247874738
-obd_ping                  4 samples [usecs] 9 12 40 406
-out_update                16 samples [usecs] 13 18295 23778 339079170
-ost.OSS.ost_seq.stats=snapshot_time             1709306082.171480402 secs.nsecs
-mdt.ai400x2-MDT0000.md_stats=
-snapshot_time             1709306082.171569687 secs.nsecs
-open                      512 samples [usecs] 64 39146 772784 11053232614
-close                     114600 samples [usecs] 6 4052 2630805 117582745
-mknod                     512 samples [usecs] 59 39101 767427 11030140065
-getattr                   128155 samples [usecs] 1 2989 989676 146718346
-setattr                   516 samples [usecs] 26 121 22544 1044320
-getxattr                  48656 samples [usecs] 6 1091 687561 11650127
-statfs                    124801 samples [usecs] 0 95 1292933 18510209
-sync                      512 samples [usecs] 4 50 7767 129923
-mdt.ai400x2-MDT0000.num_exports=31
-qmt.ai400x2-QMT0000.dt-0x0.glb-usr=
-global_pool0_dt_usr
-- id:      0
-  limits:  { hard:                    0, soft:                    0, granted:                    0, time:               604800 }
-qmt.ai400x2-QMT0000.md-0x0.glb-usr=
-global_pool0_md_usr
-- id:      0
-  limits:  { hard:                    0, soft:                    0, granted:                    0, time:               604800 }
-qmt.ai400x2-QMT0000.dt-0x0.glb-prj=
-global_pool0_dt_prj
-- id:      0
-  limits:  { hard:                    0, soft:                    0, granted:                    0, time:               604800 }
-qmt.ai400x2-QMT0000.md-0x0.glb-prj=
-global_pool0_md_prj
-- id:      0
-  limits:  { hard:                    0, soft:                    0, granted:                    0, time:               604800 }
-qmt.ai400x2-QMT0000.dt-0x0.glb-grp=
-global_pool0_dt_grp
-- id:      0
-  limits:  { hard:                    0, soft:                    0, granted:                    0, time:               604800 }
-qmt.ai400x2-QMT0000.md-0x0.glb-grp=
-global_pool0_md_grp
-- id:      0
-  limits:  { hard:                    0, soft:                    0, granted:                    0, time:               604800 }
-ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.contended_locks=32
-ldlm.namespaces.filter-ai400x2-OST0000_UUID.contended_locks=32
-ldlm.namespaces.filter-ai400x2-OST0001_UUID.contended_locks=32
-ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.contention_seconds=2
-ldlm.namespaces.filter-ai400x2-OST0000_UUID.contention_seconds=2
-ldlm.namespaces.filter-ai400x2-OST0001_UUID.contention_seconds=2
-ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.ctime_age_limit=10
-ldlm.namespaces.filter-ai400x2-OST0000_UUID.ctime_age_limit=10
-ldlm.namespaces.filter-ai400x2-OST0001_UUID.ctime_age_limit=10
-ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.early_lock_cancel=0
-ldlm.namespaces.filter-ai400x2-OST0000_UUID.early_lock_cancel=0
-ldlm.namespaces.filter-ai400x2-OST0001_UUID.early_lock_cancel=0
-ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.lock_count=520
-ldlm.namespaces.filter-ai400x2-OST0000_UUID.lock_count=347
-ldlm.namespaces.filter-ai400x2-OST0001_UUID.lock_count=364
-ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.lock_timeouts=0
-ldlm.namespaces.filter-ai400x2-OST0000_UUID.lock_timeouts=0
-ldlm.namespaces.filter-ai400x2-OST0001_UUID.lock_timeouts=0
-ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.lock_unused_count=0
-ldlm.namespaces.filter-ai400x2-OST0000_UUID.lock_unused_count=0
-ldlm.namespaces.filter-ai400x2-OST0001_UUID.lock_unused_count=0
-ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.lru_max_age=3900000
-ldlm.namespaces.filter-ai400x2-OST0000_UUID.lru_max_age=3900000
-ldlm.namespaces.filter-ai400x2-OST0001_UUID.lru_max_age=3900000
-ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.lru_size=2400
-ldlm.namespaces.filter-ai400x2-OST0000_UUID.lru_size=2400
-ldlm.namespaces.filter-ai400x2-OST0001_UUID.lru_size=2400
-ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.max_nolock_bytes=0
-ldlm.namespaces.filter-ai400x2-OST0000_UUID.max_nolock_bytes=0
-ldlm.namespaces.filter-ai400x2-OST0001_UUID.max_nolock_bytes=0
-ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.max_parallel_ast=1024
-ldlm.namespaces.filter-ai400x2-OST0000_UUID.max_parallel_ast=1024
-ldlm.namespaces.filter-ai400x2-OST0001_UUID.max_parallel_ast=1024
-ldlm.namespaces.mdt-ai400x2-MDT0000_UUID.resource_count=257
-ldlm.namespaces.filter-ai400x2-OST0000_UUID.resource_count=347
-ldlm.namespaces.filter-ai400x2-OST0001_UUID.resource_count=364
-ldlm.services.ldlm_canceld.stats=
-snapshot_time             1709306082.173788842 secs.nsecs
-req_waittime              241065 samples [usecs] 2 16760 7505570 1799848938
-req_qdepth                241065 samples [reqs] 0 76 2454 23382
-req_active                241065 samples [reqs] 1 15 319673 583397
-req_timeout               241065 samples [secs] 15 15 3615975 54239625
-reqbuf_avail              498763 samples [bufs] 49 64 31759437 2022603051
-ldlm_cancel               241065 samples [usecs] 2 63482 16282441 171849796047
-ldlm.services.ldlm_cbd.stats=
-snapshot_time             1709306082.173837863 secs.nsecs
-req_waittime              2 samples [usecs] 33 36 69 2385
-req_qdepth                2 samples [reqs] 0 0 0 0
-req_active                2 samples [reqs] 1 1 2 2
-req_timeout               2 samples [secs] 15 15 30 450
-reqbuf_avail              6 samples [bufs] 1 1 6 6
-ldlm_bl_callback          2 samples [usecs] 18 19 37 685

@@ -5,6 +5,7 @@
 use crate::{
     Family,
     brw_stats::{BrwStatsMetrics, build_target_stats},
+    controller::{ControllerMetrics, build_controller_stats},
     host::{HostMetrics, build_host_stats},
     llite::LliteMetrics,
     lnet::{LNetMetrics, build_lnet_stats},
@@ -22,6 +23,7 @@ pub struct Metrics {
     pub quota: QuotaMetrics,
     pub service: ServiceMetrics,
     pub brw: BrwStatsMetrics,
+    pub controller: ControllerMetrics,
     pub llite: LliteMetrics,
     pub lnet: LNetMetrics,
     pub stats: StatsMetrics,
@@ -36,6 +38,7 @@ impl Metrics {
         self.quota.register_metric(registry);
         self.service.register_metric(registry);
         self.brw.register_metric(registry);
+        self.controller.register_metric(registry);
         self.llite.register_metric(registry);
         self.lnet.register_metric(registry);
         self.stats.register_metric(registry);
@@ -62,6 +65,9 @@ pub fn build_lustre_stats(output: &Vec<Record>, metrics: &mut Metrics) {
             }
             lustre_collector::Record::Target(x) => {
                 build_target_stats(x, metrics, &mut set);
+            }
+            lustre_collector::Record::Controller(x) => {
+                build_controller_stats(x, &mut metrics.controller);
             }
             lustre_collector::Record::LustreService(x) => {
                 build_service_stats(x, &mut metrics.service);

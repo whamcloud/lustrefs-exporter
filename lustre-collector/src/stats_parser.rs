@@ -9,6 +9,7 @@ use crate::{
     mdd_parser::MDD,
     mds::mds_parser::MDS,
     nodemap::NODEMAP,
+    osc_parser::OSC,
     osd_parser::OSD,
     oss::oss_parser::OST,
     quota::QMT,
@@ -44,6 +45,7 @@ where
             MDD,
             NODEMAP,
             QMT,
+            OSC,
             OSD,
         ])
         .skip(spaces()),
