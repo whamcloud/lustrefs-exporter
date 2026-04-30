@@ -29,6 +29,18 @@ impl Deref for Target {
     }
 }
 
+#[derive(Clone, Debug, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
+/// The Lustre controller corresponding to these stats (e.g., OSC, MDC).
+pub struct Controller(pub String);
+
+impl Deref for Controller {
+    type Target = str;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
 #[derive(Clone, Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 /// The name of the stat.
 pub struct Param(pub String);
@@ -341,6 +353,11 @@ impl Deref for TargetVariant {
     }
 }
 
+#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize, Clone, Copy)]
+pub enum ControllerVariant {
+    Osc,
+}
+
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
 /// Stats specific to a target.
 pub struct TargetStat<T> {
@@ -357,6 +374,15 @@ pub struct TimedTargetStat<T> {
     pub target: Target,
     pub value: T,
     pub header: StatsHeader,
+}
+
+#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
+/// Stats specific to a controller (e.g., OSC, MDC).
+pub struct ControllerStat<T> {
+    pub kind: ControllerVariant,
+    pub param: Param,
+    pub controller: Controller,
+    pub value: T,
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
@@ -563,6 +589,12 @@ pub enum TargetStats {
     OspMaxCreateCount(TargetStat<u64>),
 }
 
+/// The controller stats currently collected
+#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
+pub enum ControllerStats {
+    OscState(ControllerStat<OscState>),
+}
+
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
 pub enum LNetStats {
     SendCount(LNetStat<i64>),
@@ -588,6 +620,7 @@ pub enum Record {
     LustreService(LustreServiceStats),
     Node(NodeStats),
     Target(TargetStats),
+    Controller(ControllerStats),
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
@@ -635,6 +668,38 @@ pub enum QuotaKind {
     Prj,
 }
 
+/// Controller state enum matching Lustre's import_state_names
+#[derive(PartialEq, Eq, Debug, Clone, Copy, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "SCREAMING_SNAKE_CASE")]
+pub enum ControllerState {
+    #[serde(rename = "<UNKNOWN>")]
+    Unknown,
+    Closed,
+    New,
+    Disconn,
+    Connecting,
+    Replay,
+    ReplayLocks,
+    ReplayWait,
+    Recover,
+    Full,
+    Evicted,
+    Idle,
+}
+
+impl std::fmt::Display for ControllerState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        // Use serde to serialize and strip quotes from the JSON string
+        let json_str = serde_json::to_string(self).unwrap_or_default();
+        write!(f, "{}", json_str.trim_matches('"'))
+    }
+}
+
+#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
+pub struct OscState {
+    pub current_state: ControllerState,
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -665,5 +730,22 @@ mod tests {
             Ok(t) => assert_eq!((t.0), 1709305846694),
             Err(e) => panic!("Error occurred: {:?}", e),
         }
+    }
+
+    #[test]
+    fn test_controller_state_to_string() {
+        // Test all ControllerState enum variants
+        assert_eq!(ControllerState::Unknown.to_string(), "<UNKNOWN>");
+        assert_eq!(ControllerState::Closed.to_string(), "CLOSED");
+        assert_eq!(ControllerState::New.to_string(), "NEW");
+        assert_eq!(ControllerState::Disconn.to_string(), "DISCONN");
+        assert_eq!(ControllerState::Connecting.to_string(), "CONNECTING");
+        assert_eq!(ControllerState::Replay.to_string(), "REPLAY");
+        assert_eq!(ControllerState::ReplayLocks.to_string(), "REPLAY_LOCKS");
+        assert_eq!(ControllerState::ReplayWait.to_string(), "REPLAY_WAIT");
+        assert_eq!(ControllerState::Recover.to_string(), "RECOVER");
+        assert_eq!(ControllerState::Full.to_string(), "FULL");
+        assert_eq!(ControllerState::Evicted.to_string(), "EVICTED");
+        assert_eq!(ControllerState::Idle.to_string(), "IDLE");
     }
 }

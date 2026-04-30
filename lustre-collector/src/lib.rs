@@ -15,6 +15,7 @@ mod mds;
 pub mod mgs;
 mod node_stats_parsers;
 mod nodemap;
+mod osc_parser;
 mod osd_parser;
 mod osp_parser;
 mod oss;
@@ -133,5 +134,56 @@ mod tests {
         let xs = super::parser::params();
 
         insta::assert_snapshot!(xs.join(" "));
+    }
+
+    #[test]
+    fn test_parse_osc_state_from_fixture() {
+        use crate::types::{ControllerStats, Record};
+        use combine::EasyParser;
+
+        let xs = include_bytes!("./fixtures/osc_states.txt");
+        let xs_str = std::str::from_utf8(xs).unwrap();
+
+        // OSC state is now parsed as part of the main parser, so test it through that
+        let parse_result = super::parser::parse().easy_parse(xs_str);
+
+        let all_records: Vec<Record> = match parse_result {
+            Ok((records, _remaining)) => records,
+            Err(e) => {
+                eprintln!("Parse error: {:?}", e);
+                panic!("Failed to parse OSC state fixture");
+            }
+        };
+
+        // Filter and collect only OSC state records
+        let mut expected = all_records
+            .into_iter()
+            .filter(|r| matches!(r, Record::Controller(ControllerStats::OscState(_))))
+            .collect::<Vec<_>>();
+
+        // Sort by controller name for consistent snapshot ordering
+        expected.sort_by(|a, b| match (a, b) {
+            (
+                Record::Controller(ControllerStats::OscState(a_stat)),
+                Record::Controller(ControllerStats::OscState(b_stat)),
+            ) => a_stat.controller.0.cmp(&b_stat.controller.0),
+            _ => std::cmp::Ordering::Equal,
+        });
+
+        // Serialize to JSON to match actual output format
+        let json = serde_json::to_string_pretty(&expected).unwrap();
+        insta::assert_snapshot!(json);
+    }
+
+    #[test]
+    fn test_parse_osc_state_empty() {
+        use combine::Parser;
+
+        // Test with empty string
+        let xs = "";
+        let result = super::parser::parse().parse(xs).unwrap().0;
+
+        // Empty input should return empty vector
+        assert_eq!(result.len(), 0);
     }
 }

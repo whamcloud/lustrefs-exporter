@@ -1,0 +1,102 @@
+---
+source: lustre-collector/src/lib.rs
+expression: json
+---
+[
+  {
+    "Controller": {
+      "OscState": {
+        "kind": "Osc",
+        "param": "state",
+        "controller": "tesfs-OST0000-osc-MDT0000",
+        "value": {
+          "current_state": "DISCONN"
+        }
+      }
+    }
+  },
+  {
+    "Controller": {
+      "OscState": {
+        "kind": "Osc",
+        "param": "state",
+        "controller": "tesfs-OST0001-osc-MDT0000",
+        "value": {
+          "current_state": "FULL"
+        }
+      }
+    }
+  },
+  {
+    "Controller": {
+      "OscState": {
+        "kind": "Osc",
+        "param": "state",
+        "controller": "tesfs-OST0002-osc-MDT0000",
+        "value": {
+          "current_state": "FULL"
+        }
+      }
+    }
+  },
+  {
+    "Controller": {
+      "OscState": {
+        "kind": "Osc",
+        "param": "state",
+        "controller": "tesfs-OST0003-osc-MDT0000",
+        "value": {
+          "current_state": "FULL"
+        }
+      }
+    }
+  },
+  {
+    "Controller": {
+      "OscState": {
+        "kind": "Osc",
+        "param": "state",
+        "controller": "tesfs-OST0004-osc-MDT0000",
+        "value": {
+          "current_state": "FULL"
+        }
+      }
+    }
+  },
+  {
+    "Controller": {
+      "OscState": {
+        "kind": "Osc",
+        "param": "state",
+        "controller": "tesfs-OST0005-osc-MDT0000",
+        "value": {
+          "current_state": "FULL"
+        }
+      }
+    }
+  },
+  {
+    "Controller": {
+      "OscState": {
+        "kind": "Osc",
+        "param": "state",
+        "controller": "tesfs-OST0006-osc-MDT0000",
+        "value": {
+          "current_state": "FULL"
+        }
+      }
+    }
+  },
+  {
+    "Controller": {
+      "OscState": {
+        "kind": "Osc",
+        "param": "state",
+        "controller": "tesfs-OST0007-osc-MDT0000",
+        "value": {
+          "current_state": "FULL"
+        }
+      }
+    }
+  }
+]
