@@ -5,8 +5,8 @@
 use clap::{Arg, ValueEnum, value_parser};
 use lustre_collector::{
     error::LustreCollectorError, mgs::mgs_fs_parser, parse_lctl_output, parse_lnetctl_output,
-    parse_lnetctl_stats, parse_mgs_fs_output, parse_recovery_status_output, parser,
-    recovery_status_parser, types::Record,
+    parse_lnetctl_stats, parse_mgs_fs_output, parse_osc_state_output, parse_recovery_status_output,
+    parser, recovery_status_parser, types::Record,
 };
 use std::{
     fmt, panic,
@@ -81,6 +81,15 @@ fn get_lnetctl_stats_output() -> Result<Vec<u8>, LustreCollectorError> {
     Ok(r.stdout)
 }
 
+fn get_osc_state_output() -> Result<Vec<u8>, LustreCollectorError> {
+    let r = Command::new("lctl")
+        .arg("get_param")
+        .arg("osc.*.state")
+        .output()?;
+
+    Ok(r.stdout)
+}
+
 fn main() -> ExitCode {
     match run() {
         Ok(()) => ExitCode::SUCCESS,
@@ -144,6 +153,13 @@ fn run() -> Result<(), LustreCollectorError> {
             Ok(recovery_statuses)
         });
 
+    let osc_state_handle = thread::spawn(move || -> Result<Vec<Record>, LustreCollectorError> {
+        let osc_state_output = get_osc_state_output()?;
+        let osc_states = parse_osc_state_output(&osc_state_output)?;
+
+        Ok(osc_states)
+    });
+
     let lnetctl_net_show_output = Command::new("lnetctl")
         .args(["net", "show", "-v", "4"])
         .output()
@@ -172,10 +188,16 @@ fn run() -> Result<(), LustreCollectorError> {
         Err(e) => panic::resume_unwind(e),
     };
 
+    let mut osc_state_records = match osc_state_handle.join() {
+        Ok(r) => r.unwrap_or_default(),
+        Err(e) => panic::resume_unwind(e),
+    };
+
     lctl_record.append(&mut lnet_record);
     lctl_record.append(&mut mgs_fs_record);
     lctl_record.append(&mut recovery_status_records);
     lctl_record.append(&mut lnetctl_stats_record);
+    lctl_record.append(&mut osc_state_records);
 
     let x = match format {
         Format::Json => serde_json::to_string(&lctl_record)?,

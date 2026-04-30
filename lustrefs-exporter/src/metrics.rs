@@ -4,7 +4,7 @@
 
 use crate::{
     Family,
-    brw_stats::{BrwStatsMetrics, build_target_stats},
+    brw_stats::{BrwStatsMetrics, build_controller_stats, build_target_stats},
     host::{HostMetrics, build_host_stats},
     llite::LliteMetrics,
     lnet::{LNetMetrics, build_lnet_stats},
@@ -62,6 +62,9 @@ pub fn build_lustre_stats(output: &Vec<Record>, metrics: &mut Metrics) {
             }
             lustre_collector::Record::Target(x) => {
                 build_target_stats(x, metrics, &mut set);
+            }
+            lustre_collector::Record::Controller(x) => {
+                build_controller_stats(x, metrics);
             }
             lustre_collector::Record::LustreService(x) => {
                 build_service_stats(x, &mut metrics.service);
