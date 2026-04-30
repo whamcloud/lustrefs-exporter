@@ -44,12 +44,27 @@ where
         .map(|_| ())
 }
 
+fn size_to_time<I>() -> impl Parser<I, Output = String>
+where
+    I: Stream<Token = char>,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    (
+        digits()
+            .and(optional(one_of("KkMmGg".chars())))
+            .map(human_to_bytes),
+        spaces().with(string("I/O time (1/1000s)")),
+    )
+        .map(|(size, _)| format!("io_time_{size}"))
+}
+
 fn header<I>() -> impl Parser<I, Output = BrwStats>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
-    let keys = choice([
+    let keys = choice((
+        attempt(size_to_time()),
         attempt(string_to("pages per bulk r/w", "pages")),
         attempt(string_to("discontiguous pages", "discont_pages")),
         attempt(string_to("discontiguous blocks", "discont_blocks")),
@@ -58,7 +73,7 @@ where
         attempt(string_to("I/O time (1/1000s)", "io_time")),
         attempt(string_to("disk I/O size", "disk_iosize")),
         attempt(string_to("block maps msec", "block_maps_msec")),
-    ]);
+    ));
 
     (keys.skip(spaces()), word().skip(till_newline())).map(|(name, unit)| BrwStats {
         name,
@@ -156,6 +171,32 @@ mod tests {
                 "\n"
             ))
         );
+    }
+
+    #[test]
+    fn test_header_size_prefixed_io_time() {
+        let x = "4K I/O time (1/1000s)     ios   % cum % |  ios         % cum %\n";
+
+        let result = header().parse(x);
+
+        assert_eq!(
+            result,
+            Ok((
+                BrwStats {
+                    name: "io_time_4096".to_string(),
+                    unit: "ios".to_string(),
+                    buckets: vec![],
+                },
+                "\n"
+            ))
+        );
+    }
+
+    #[test]
+    fn test_size_to_time() {
+        let result = size_to_time().parse("1M I/O time (1/1000s)").unwrap();
+
+        assert_eq!(result.0, "io_time_1048576".to_string());
     }
 
     #[test]

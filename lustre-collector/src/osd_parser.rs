@@ -6,6 +6,7 @@ use crate::{
     QuotaKind, QuotaStatsOsd,
     base_parsers::{digits, param, period, target, till_newline, till_period},
     brw_stats_parser::brw_stats,
+    io_latency_stats_parser::io_latency_stats,
     quota::quota_parser::quota_stats_osd,
     stats_parser::stats,
     types::{BrwStats, Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
@@ -26,6 +27,7 @@ pub(crate) const KBYTES_TOTAL: &str = "kbytestotal";
 pub(crate) const FS_TYPE: &str = "fstype";
 
 pub(crate) const BRW_STATS: &str = "brw_stats";
+pub(crate) const IO_LATENCY_STATS: &str = "io_latency_stats";
 pub(crate) const STATS: &str = "stats";
 
 pub(crate) const QUOTA_ACCT_GRP: &str = "quota_slave.acct_group";
@@ -42,6 +44,7 @@ pub(crate) fn params() -> Vec<String> {
         format!("osd-*.*.{KBYTES_FREE}"),
         format!("osd-*.*.{KBYTES_TOTAL}"),
         format!("osd-*.*.{BRW_STATS}"),
+        format!("osd-*.*.{IO_LATENCY_STATS}"),
         format!("osd-*.*.{QUOTA_ACCT_GRP}"),
         format!("osd-*.*.{QUOTA_ACCT_USR}"),
         format!("osd-*.*.{QUOTA_ACCT_PRJ}"),
@@ -96,6 +99,10 @@ where
     choice((
         (param(STATS), stats().map(OsdStat::Stats)),
         (param(BRW_STATS), brw_stats().map(OsdStat::BrwStats)),
+        (
+            param(IO_LATENCY_STATS),
+            io_latency_stats().map(OsdStat::BrwStats),
+        ),
         (
             param(FILES_FREE),
             digits().skip(newline()).map(OsdStat::FilesFree),

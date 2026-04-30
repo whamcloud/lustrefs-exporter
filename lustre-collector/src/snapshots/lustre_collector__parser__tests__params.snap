@@ -16,6 +16,7 @@ expression: params()
     "osd-*.*.kbytesfree",
     "osd-*.*.kbytestotal",
     "osd-*.*.brw_stats",
+    "osd-*.*.io_latency_stats",
     "osd-*.*.quota_slave.acct_group",
     "osd-*.*.quota_slave.acct_user",
     "osd-*.*.quota_slave.acct_project",
