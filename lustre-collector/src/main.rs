@@ -179,7 +179,7 @@ fn run() -> Result<(), LustreCollectorError> {
 
     let x = match format {
         Format::Json => serde_json::to_string(&lctl_record)?,
-        Format::Yaml => serde_yaml::to_string(&lctl_record)?,
+        Format::Yaml => yaml_serde::to_string(&lctl_record)?,
     };
 
     println!("{x}");

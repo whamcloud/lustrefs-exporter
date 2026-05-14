@@ -46,7 +46,7 @@ pub fn parse(xs: &[u8]) -> Result<Vec<Record>, LustreCollectorError> {
         return Ok(vec![]);
     }
 
-    let y: LnetNetStats = serde_yaml::from_slice(xs)?;
+    let y: LnetNetStats = yaml_serde::from_slice(xs)?;
 
     Ok(y.net
         .map(|xs| {
@@ -89,7 +89,7 @@ pub fn parse_lnetctl_stats(xs: &[u8]) -> Result<Vec<Record>, LustreCollectorErro
         return Ok(vec![]);
     }
 
-    let y: LnetStats = serde_yaml::from_slice(xs)?;
+    let y: LnetStats = yaml_serde::from_slice(xs)?;
 
     Ok(y.statistics
         .map(|x| build_lnetctl_stats(&x))
