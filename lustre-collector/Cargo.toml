@@ -11,10 +11,10 @@ clap = { workspace = true, features = ["derive"] }
 combine.workspace = true
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
-serde_yaml.workspace = true
 thiserror.workspace = true
 tracing.workspace = true
 tracing-subscriber.workspace = true
+yaml_serde.workspace = true
 
 [dev-dependencies]
 include_dir.workspace = true

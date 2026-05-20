@@ -13,7 +13,7 @@ pub enum LustreCollectorError {
     #[error(transparent)]
     SerdeJsonError(#[from] serde_json::error::Error),
     #[error(transparent)]
-    SerdeYamlError(#[from] serde_yaml::Error),
+    SerdeYamlError(#[from] yaml_serde::Error),
     #[error(transparent)]
     StringStreamError(#[from] StringStreamError),
     #[error(transparent)]
