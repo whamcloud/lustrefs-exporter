@@ -31,3 +31,13 @@ impl From<combine::stream::easy::Errors<char, &str, usize>> for LustreCollectorE
         LustreCollectorError::CombineEasyError(err.map_range(|_| ""))
     }
 }
+
+impl<'a> From<combine::stream::easy::Errors<char, &'a str, combine::stream::PointerOffset<str>>>
+    for LustreCollectorError
+{
+    fn from(
+        err: combine::stream::easy::Errors<char, &'a str, combine::stream::PointerOffset<str>>,
+    ) -> Self {
+        LustreCollectorError::CombineEasyError(err.map_range(|_| "").map_position(|_| 0))
+    }
+}

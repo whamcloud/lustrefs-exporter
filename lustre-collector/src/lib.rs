@@ -26,11 +26,75 @@ mod top_level_parser;
 pub mod types;
 
 pub use crate::error::LustreCollectorError;
-use combine::parser::EasyParser;
+use combine::{EasyParser, Parser, parser::token::satisfy};
 pub use lnetctl_parser::{parse as parse_lnetctl_output, parse_lnetctl_stats};
 pub use node_stats_parsers::{parse_cpustats_output, parse_meminfo_output};
 use std::{io, str};
 pub use types::*;
+
+/// Normalize lctl output to valid YAML format
+/// - If a line ends with '=', replace '=' with ':'
+/// - For all other non-empty lines, prepend a space
+fn normalize_lctl_output<Input>() -> impl Parser<Input, Output = String>
+where
+    Input: combine::Stream<Token = char>,
+    Input::Error: combine::ParseError<Input::Token, Input::Range, Input::Position>,
+{
+    use combine::{
+        attempt, choice, many, many1,
+        parser::char::{char, newline},
+    };
+
+    let normalize_line = choice((
+        // Line ending with '=' -> replace with ':'
+        attempt(
+            (many1(satisfy(|c| c != '\n' && c != '=')), char('='))
+                .map(|(s, _): (String, _)| format!("{}:", s)),
+        ),
+        // Other non-empty line -> prepend a space
+        many1(satisfy(|c| c != '\n')).map(|s: String| format!(" {}", s)),
+    ));
+
+    many(normalize_line.skip(newline())).map(|lines: Vec<String>| lines.join("\n"))
+}
+
+pub fn parse_osc_state_output(
+    osc_state_output: &[u8],
+) -> Result<Vec<Record>, LustreCollectorError> {
+    let osc_state_str = str::from_utf8(osc_state_output)?;
+
+    // Preprocess the output using combine parser to convert lctl format to valid YAML:
+    // - If a line ends with '=', replace '=' with ':'
+    // - For non-empty lines that don't end with '=', add a space at the beginning
+    let (processed_str, _) = normalize_lctl_output()
+        .easy_parse(osc_state_str)
+        .map_err(LustreCollectorError::from)?;
+
+    let osc_states: OscStates = serde_yaml::from_str(&processed_str)?;
+
+    // Convert each OSC state to a ControllerStats record
+    let records: Vec<Record> = osc_states
+        .into_iter()
+        .map(|(key, value)| {
+            // Remove "osc." prefix and ".state" suffix from keys
+            let cleaned_key = key
+                .strip_prefix("osc.")
+                .unwrap_or(&key)
+                .strip_suffix(".state")
+                .unwrap_or(&key)
+                .to_string();
+
+            Record::Controller(ControllerStats::OscState(ControllerStat {
+                kind: ControllerVariant::Osc,
+                param: Param("state".to_string()),
+                controller: Controller(cleaned_key),
+                value,
+            }))
+        })
+        .collect();
+
+    Ok(records)
+}
 
 fn check_output(
     records: Vec<Record>,

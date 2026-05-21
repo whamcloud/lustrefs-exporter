@@ -16,7 +16,9 @@ use axum::{
     response::{IntoResponse, Response},
     routing::get,
 };
-use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
+use lustre_collector::{
+    parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parse_osc_state_output, parser,
+};
 use prometheus_client::{encoding::text::encode, registry::Registry};
 use serde::Deserialize;
 use std::{
@@ -105,6 +107,14 @@ pub fn lnet_stats_output() -> Command {
     let mut cmd = Command::new("lnetctl");
 
     cmd.args(["stats", "show"]).kill_on_drop(true);
+
+    cmd
+}
+
+pub fn osc_state_output() -> Command {
+    let mut cmd = Command::new("lctl");
+
+    cmd.args(["get_param", "osc.*.state"]).kill_on_drop(true);
 
     cmd
 }
@@ -219,8 +229,15 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 
     output.append(&mut lnetctl_stats_record);
 
+    // Get OSC state
+    let osc_state_cmd_output = osc_state_output().output().await?;
+    let mut osc_state_records = parse_osc_state_output(&osc_state_cmd_output.stdout)?;
+
+    output.append(&mut osc_state_records);
+
     // Build and register Lustre metrics
     metrics::build_lustre_stats(&output, &mut opentelemetry_metrics);
+
     opentelemetry_metrics.register_metric(&mut registry);
 
     let mut buffer = String::new();

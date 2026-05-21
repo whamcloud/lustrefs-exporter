@@ -4,12 +4,13 @@
 
 use crate::Family;
 use lustre_collector::LliteStat;
-use prometheus_client::{metrics::counter::Counter, registry::Registry};
+use prometheus_client::{metrics::counter::Counter, metrics::gauge::Gauge, registry::Registry};
 use std::ops::Deref;
 
 #[derive(Debug, Default)]
 pub struct LliteMetrics {
     client_stats: Family<Counter<u64>>,
+    pub osc_state: Family<Gauge>,
 }
 
 impl LliteMetrics {
@@ -18,6 +19,11 @@ impl LliteMetrics {
             "lustre_client_stats",
             "Lustre client interface stats",
             self.client_stats.clone(),
+        );
+        registry.register(
+            "lustre_osc_state",
+            "Lustre OSC connection state",
+            self.osc_state.clone(),
         );
     }
 }

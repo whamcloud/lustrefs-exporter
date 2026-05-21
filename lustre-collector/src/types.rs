@@ -29,6 +29,18 @@ impl Deref for Target {
     }
 }
 
+#[derive(Clone, Debug, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
+/// The Lustre controller corresponding to these stats (e.g., OSC, MDC).
+pub struct Controller(pub String);
+
+impl Deref for Controller {
+    type Target = str;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
 #[derive(Clone, Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 /// The name of the stat.
 pub struct Param(pub String);
@@ -324,12 +336,44 @@ impl Deref for TargetVariant {
     }
 }
 
+#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize, Clone, Copy)]
+pub enum ControllerVariant {
+    Osc,
+}
+
+impl fmt::Display for ControllerVariant {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            ControllerVariant::Osc => write!(f, "OSC"),
+        }
+    }
+}
+
+impl Deref for ControllerVariant {
+    type Target = str;
+
+    fn deref(&self) -> &Self::Target {
+        match *self {
+            ControllerVariant::Osc => "OSC",
+        }
+    }
+}
+
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
 /// Stats specific to a target.
 pub struct TargetStat<T> {
     pub kind: TargetVariant,
     pub param: Param,
     pub target: Target,
+    pub value: T,
+}
+
+#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
+/// Stats specific to a controller (e.g., OSC, MDC).
+pub struct ControllerStat<T> {
+    pub kind: ControllerVariant,
+    pub param: Param,
+    pub controller: Controller,
     pub value: T,
 }
 
@@ -532,6 +576,12 @@ pub enum TargetStats {
     QuotaStatsOsd(TargetStat<QuotaStatsOsd>),
 }
 
+/// The controller stats currently collected
+#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
+pub enum ControllerStats {
+    OscState(ControllerStat<OscState>),
+}
+
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
 pub enum LNetStats {
     SendCount(LNetStat<i64>),
@@ -555,6 +605,7 @@ pub enum Record {
     LustreService(LustreServiceStats),
     Node(NodeStats),
     Target(TargetStats),
+    Controller(ControllerStats),
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
@@ -602,9 +653,17 @@ pub enum QuotaKind {
     Prj,
 }
 
+#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
+pub struct OscState {
+    pub current_state: String,
+}
+
+pub type OscStates = std::collections::HashMap<String, OscState>;
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    use insta::assert_debug_snapshot;
     use std::convert::TryInto;
 
     #[test]
@@ -632,5 +691,80 @@ mod tests {
             Ok(t) => assert_eq!((t.0), 1709305846694),
             Err(e) => panic!("Error occurred: {:?}", e),
         }
+    }
+
+    #[test]
+    fn test_osc_states_parse() {
+        // Test data matching fixtures/osc_states.json
+        // state_history is present but will be ignored during parsing
+        let yaml_data = r#"
+osc.fs-OST0000-osc-MDT0000.state:
+  current_state: FULL
+  state_history:
+    - [1775627216, CONNECTING]
+    - [1775627216, FULL]
+osc.fs-OST0000-osc-ffff8d639e4f0800.state:
+  current_state: CONNECTING
+  state_history:
+    - [1775627490, CONNECTING]
+osc.fs-OST0001-osc-MDT0000.state:
+  current_state: IDLE
+  state_history:
+    - [1775627600, CONNECTING]
+    - [1775627600, IDLE]
+"#;
+
+        let osc_states: OscStates = serde_yaml::from_str(yaml_data).unwrap();
+
+        // Verify we have 3 entries
+        assert_eq!(osc_states.len(), 3);
+
+        // Verify original keys (before cleaning)
+        let state0 = osc_states.get("osc.fs-OST0000-osc-MDT0000.state").unwrap();
+        assert_eq!(state0.current_state, "FULL");
+
+        let state1 = osc_states
+            .get("osc.fs-OST0000-osc-ffff8d639e4f0800.state")
+            .unwrap();
+        assert_eq!(state1.current_state, "CONNECTING");
+
+        let state2 = osc_states.get("osc.fs-OST0001-osc-MDT0000.state").unwrap();
+        assert_eq!(state2.current_state, "IDLE");
+    }
+
+    #[test]
+    fn test_osc_states_parse_with_cleaned_keys() {
+        use crate::parse_osc_state_output;
+
+        // Test data matching fixtures/osc_states.json in raw lctl format (before sed transformation)
+        let raw_lctl_output = r#"osc.fs-OST0000-osc-MDT0000.state=
+current_state: FULL
+state_history:
+  - [1775627216, CONNECTING]
+  - [1775627216, FULL]
+osc.fs-OST0000-osc-ffff8d639e4f0800.state=
+current_state: CONNECTING
+state_history:
+  - [1775627490, CONNECTING]
+osc.fs-OST0001-osc-MDT0000.state=
+current_state: IDLE
+state_history:
+  - [1775627600, CONNECTING]
+  - [1775627600, IDLE]
+"#;
+
+        let mut records = parse_osc_state_output(raw_lctl_output.as_bytes()).unwrap();
+
+        // Sort records by controller name to ensure consistent ordering for snapshot testing
+        records.sort_by(|a, b| match (a, b) {
+            (
+                Record::Controller(ControllerStats::OscState(a_stat)),
+                Record::Controller(ControllerStats::OscState(b_stat)),
+            ) => a_stat.controller.0.cmp(&b_stat.controller.0),
+            _ => std::cmp::Ordering::Equal,
+        });
+
+        // Use snapshot testing to verify the complete output structure
+        assert_debug_snapshot!(records);
     }
 }

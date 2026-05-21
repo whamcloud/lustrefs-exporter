@@ -1,0 +1,54 @@
+---
+source: lustre-collector/src/types.rs
+expression: records
+---
+[
+    Controller(
+        OscState(
+            ControllerStat {
+                kind: Osc,
+                param: Param(
+                    "state",
+                ),
+                controller: Controller(
+                    "fs-OST0000-osc-MDT0000",
+                ),
+                value: OscState {
+                    current_state: "FULL",
+                },
+            },
+        ),
+    ),
+    Controller(
+        OscState(
+            ControllerStat {
+                kind: Osc,
+                param: Param(
+                    "state",
+                ),
+                controller: Controller(
+                    "fs-OST0000-osc-ffff8d639e4f0800",
+                ),
+                value: OscState {
+                    current_state: "CONNECTING",
+                },
+            },
+        ),
+    ),
+    Controller(
+        OscState(
+            ControllerStat {
+                kind: Osc,
+                param: Param(
+                    "state",
+                ),
+                controller: Controller(
+                    "fs-OST0001-osc-MDT0000",
+                ),
+                value: OscState {
+                    current_state: "IDLE",
+                },
+            },
+        ),
+    ),
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "Controller": {
+      "OscState": {
+        "kind": "Osc",
+        "param": "state",
+        "controller": "fs-OST0000-osc-MDT0000",
+        "value": {
+          "current_state": "FULL"
+        }
+      }
+    }
+  },
+  {
+    "Controller": {
+      "OscState": {
+        "kind": "Osc",
+        "param": "state",
+        "controller": "fs-OST0000-osc-ffff8d639e4f0800",
+        "value": {
+          "current_state": "CONNECTING"
+        }
+      }
+    }
+  },
+  {
+    "Controller": {
+      "OscState": {
+        "kind": "Osc",
+        "param": "state",
+        "controller": "fs-OST0001-osc-MDT0000",
+        "value": {
+          "current_state": "IDLE"
+        }
+      }
+    }
+  }
+]

@@ -20,7 +20,7 @@ use axum::{
     http::{self, StatusCode},
     response::{IntoResponse, Response},
 };
-use lustre_collector::{LustreCollectorError, TargetVariant};
+use lustre_collector::{ControllerVariant, LustreCollectorError, TargetVariant};
 use prometheus_client::metrics::family::Family as PrometheusFamily;
 
 pub type LabelContainer = Vec<(&'static str, String)>;
@@ -66,6 +66,14 @@ impl LabelProm for TargetVariant {
             TargetVariant::Ost => "ost",
             TargetVariant::Mgt => "mgt",
             TargetVariant::Mdt => "mdt",
+        }
+    }
+}
+
+impl LabelProm for ControllerVariant {
+    fn to_prom_label(&self) -> &'static str {
+        match self {
+            ControllerVariant::Osc => "osc",
         }
     }
 }
@@ -270,6 +278,15 @@ pub mod tests {
         ));
 
         compare_metrics(&current, &previous);
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn test_osc_states_otel() {
+        let output = include_str!("../fixtures/osc_states.json");
+
+        let stats = encode_lustre_stats_from_fixture(output);
+
+        insta::assert_snapshot!(stats);
     }
 
     // Make sure metrics from the OpenTelemetry implementation are the same as the previous implementation

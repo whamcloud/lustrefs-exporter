@@ -10,7 +10,7 @@ use crate::{
     stats::{build_export_stats, build_mds_stats, build_stats},
 };
 use lustre_collector::{
-    BrwStats, ChangeLogUser, ChangelogStat, OssStat, Stat, TargetStat, TargetStats,
+    BrwStats, ChangeLogUser, ChangelogStat, ControllerStats, OssStat, Stat, TargetStat, TargetStats,
 };
 use prometheus_client::{
     metrics::{counter::Counter, gauge::Gauge},
@@ -699,6 +699,25 @@ pub fn build_target_stats(
         TargetStats::Mds(x) => build_mds_stats(x, &mut metrics.mds),
         _ => {}
     };
+}
+
+pub fn build_controller_stats(x: &ControllerStats, metrics: &mut Metrics) {
+    match x {
+        ControllerStats::OscState(x) => {
+            let value = match x.value.current_state.as_str() {
+                "FULL" | "IDLE" => 1,
+                _ => 0,
+            };
+            metrics
+                .llite
+                .osc_state
+                .get_or_create(&vec![
+                    ("controller", x.controller.to_string()),
+                    ("current_state", x.value.current_state.to_string()),
+                ])
+                .set(value);
+        }
+    }
 }
 
 #[cfg(test)]
