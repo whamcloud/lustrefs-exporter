@@ -6,7 +6,7 @@ use crate::{
     ldlm, llite, mdd_parser,
     mds::{self, client_count_parser},
     mgs::mgs_parser,
-    nodemap, osd_parser, oss, quota, recovery_status_parser, top_level_parser,
+    nodemap, osd_parser, osp_parser, oss, quota, recovery_status_parser, top_level_parser,
     types::Record,
 };
 use combine::{Parser, Stream, choice, error::ParseError, many};
@@ -16,6 +16,7 @@ pub fn params() -> Vec<String> {
         .into_iter()
         .chain(client_count_parser::params())
         .chain(osd_parser::params())
+        .chain(osp_parser::params())
         .chain(mgs_parser::params())
         .chain(oss::params())
         .chain(mds::params())
@@ -37,6 +38,7 @@ where
         top_level_parser::parse().map(|x| vec![x]),
         client_count_parser::parse(),
         osd_parser::parse().map(|x| vec![x]),
+        osp_parser::parse().map(|x| vec![x]),
         mgs_parser::parse().map(|x| vec![x]),
         oss::parse().map(|x| vec![x]),
         mds::parse().map(|x| vec![x]),
