@@ -1,12 +1,15 @@
 ---
 source: lustrefs-exporter/src/routes.rs
-assertion_line: 438
 expression: "String::from_utf8(output.stdout).unwrap()"
 ---
 memused=2588372501
 memused_max=2614502697
 lnet_memused=174891774
 health_check=healthy
+osp.ai400x2-OST0000-osc-MDT0000.active=1
+osp.ai400x2-OST0000-osc-MDT0000.max_create_count=20000
+osp.ai400x2-OST0001-osc-MDT0000.active=1
+osp.ai400x2-OST0001-osc-MDT0000.max_create_count=20000
 mdt.ai400x2-MDT0000.exports.0@lo.uuid=
 ai400x2-MDT0000-lwp-MDT0000_UUID
 ai400x2-MDT0000-lwp-OST0001_UUID

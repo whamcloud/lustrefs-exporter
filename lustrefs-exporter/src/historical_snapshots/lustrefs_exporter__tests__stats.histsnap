@@ -825,6 +825,16 @@ lustre_stats_total{component="mdt",operation="getxattr",target="ai400x2-MDT0000"
 lustre_stats_total{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 91893
 lustre_stats_total{component="mdt",operation="sync",target="ai400x2-MDT0000"} 224
 
+# HELP lustre_osp_active Whether the OSP target is active (1) or deactivated (0)
+# TYPE lustre_osp_active gauge
+lustre_osp_active{component="ost",target="ai400x2-OST0000-osc-MDT0000"} 1
+lustre_osp_active{component="ost",target="ai400x2-OST0001-osc-MDT0000"} 0
+
+# HELP lustre_osp_max_create_count Maximum object creation count for the OSP target (0 means disabled)
+# TYPE lustre_osp_max_create_count gauge
+lustre_osp_max_create_count{component="ost",target="ai400x2-OST0000-osc-MDT0000"} 16384
+lustre_osp_max_create_count{component="ost",target="ai400x2-OST0001-osc-MDT0000"} 0
+
 # HELP lustre_write_bytes_total The total number of bytes that have been written.
 # TYPE lustre_write_bytes_total counter
 lustre_write_bytes_total{component="ost",operation="write",target="ai400x2-OST0000"} 4971114377425

@@ -1,6 +1,5 @@
 ---
 source: lustrefs-exporter/src/routes.rs
-assertion_line: 470
 expression: original_body_str
 ---
 # HELP lustre_job_read_samples_total Total number of reads that have been recorded.
@@ -1170,6 +1169,14 @@ lustre_oss_ost_create_stats{operation="req_qdepth",units="reqs"} 285063
 lustre_oss_ost_create_stats{operation="req_timeout",units="secs"} 285063
 lustre_oss_ost_create_stats{operation="req_waittime",units="usecs"} 285063
 lustre_oss_ost_create_stats{operation="reqbuf_avail",units="bufs"} 581187
+# HELP lustre_osp_active Whether the OSP target is active. Value of 1 means active, 0 means deactivated.
+# TYPE lustre_osp_active gauge
+lustre_osp_active{component="ost",target="ai400x2-OST0000-osc-MDT0000"} 1
+lustre_osp_active{component="ost",target="ai400x2-OST0001-osc-MDT0000"} 1
+# HELP lustre_osp_max_create_count Maximum object creation count for the OSP target (0 means disabled).
+# TYPE lustre_osp_max_create_count gauge
+lustre_osp_max_create_count{component="ost",target="ai400x2-OST0000-osc-MDT0000"} 20000
+lustre_osp_max_create_count{component="ost",target="ai400x2-OST0001-osc-MDT0000"} 20000
 # HELP lustre_send_count_total Total number of messages that have been sent.
 # TYPE lustre_send_count_total counter
 lustre_send_count_total{nid="0@lo"} 180076

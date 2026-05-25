@@ -1,0 +1,275 @@
+---
+source: lustre-collector/src/osp_parser.rs
+expression: result
+---
+(
+    [
+        Target(
+            OspActive(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "active",
+                    ),
+                    target: Target(
+                        "tesfs-MDT0001-osp-MDT0000",
+                    ),
+                    value: true,
+                },
+            ),
+        ),
+        Target(
+            OspActive(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "active",
+                    ),
+                    target: Target(
+                        "tesfs-MDT0002-osp-MDT0000",
+                    ),
+                    value: true,
+                },
+            ),
+        ),
+        Target(
+            OspActive(
+                TargetStat {
+                    kind: Mdt,
+                    param: Param(
+                        "active",
+                    ),
+                    target: Target(
+                        "tesfs-MDT0003-osp-MDT0000",
+                    ),
+                    value: true,
+                },
+            ),
+        ),
+        Target(
+            OspActive(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "active",
+                    ),
+                    target: Target(
+                        "tesfs-OST0000-osc-MDT0000",
+                    ),
+                    value: true,
+                },
+            ),
+        ),
+        Target(
+            OspActive(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "active",
+                    ),
+                    target: Target(
+                        "tesfs-OST0001-osc-MDT0000",
+                    ),
+                    value: false,
+                },
+            ),
+        ),
+        Target(
+            OspActive(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "active",
+                    ),
+                    target: Target(
+                        "tesfs-OST0002-osc-MDT0000",
+                    ),
+                    value: true,
+                },
+            ),
+        ),
+        Target(
+            OspActive(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "active",
+                    ),
+                    target: Target(
+                        "tesfs-OST0003-osc-MDT0000",
+                    ),
+                    value: true,
+                },
+            ),
+        ),
+        Target(
+            OspActive(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "active",
+                    ),
+                    target: Target(
+                        "tesfs-OST0004-osc-MDT0000",
+                    ),
+                    value: true,
+                },
+            ),
+        ),
+        Target(
+            OspActive(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "active",
+                    ),
+                    target: Target(
+                        "tesfs-OST0005-osc-MDT0000",
+                    ),
+                    value: true,
+                },
+            ),
+        ),
+        Target(
+            OspActive(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "active",
+                    ),
+                    target: Target(
+                        "tesfs-OST0006-osc-MDT0000",
+                    ),
+                    value: true,
+                },
+            ),
+        ),
+        Target(
+            OspActive(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "active",
+                    ),
+                    target: Target(
+                        "tesfs-OST0007-osc-MDT0000",
+                    ),
+                    value: true,
+                },
+            ),
+        ),
+        Target(
+            OspMaxCreateCount(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "max_create_count",
+                    ),
+                    target: Target(
+                        "tesfs-OST0000-osc-MDT0000",
+                    ),
+                    value: 16384,
+                },
+            ),
+        ),
+        Target(
+            OspMaxCreateCount(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "max_create_count",
+                    ),
+                    target: Target(
+                        "tesfs-OST0001-osc-MDT0000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Target(
+            OspMaxCreateCount(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "max_create_count",
+                    ),
+                    target: Target(
+                        "tesfs-OST0002-osc-MDT0000",
+                    ),
+                    value: 16384,
+                },
+            ),
+        ),
+        Target(
+            OspMaxCreateCount(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "max_create_count",
+                    ),
+                    target: Target(
+                        "tesfs-OST0003-osc-MDT0000",
+                    ),
+                    value: 16384,
+                },
+            ),
+        ),
+        Target(
+            OspMaxCreateCount(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "max_create_count",
+                    ),
+                    target: Target(
+                        "tesfs-OST0004-osc-MDT0000",
+                    ),
+                    value: 16384,
+                },
+            ),
+        ),
+        Target(
+            OspMaxCreateCount(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "max_create_count",
+                    ),
+                    target: Target(
+                        "tesfs-OST0005-osc-MDT0000",
+                    ),
+                    value: 16384,
+                },
+            ),
+        ),
+        Target(
+            OspMaxCreateCount(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "max_create_count",
+                    ),
+                    target: Target(
+                        "tesfs-OST0006-osc-MDT0000",
+                    ),
+                    value: 16384,
+                },
+            ),
+        ),
+        Target(
+            OspMaxCreateCount(
+                TargetStat {
+                    kind: Ost,
+                    param: Param(
+                        "max_create_count",
+                    ),
+                    target: Target(
+                        "tesfs-OST0007-osc-MDT0000",
+                    ),
+                    value: 16384,
+                },
+            ),
+        ),
+    ],
+    "",
+)

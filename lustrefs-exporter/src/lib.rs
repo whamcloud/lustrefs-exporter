@@ -153,6 +153,8 @@ pub mod tests {
         "lustre_get_page_total",
         "lustre_health_healthy",
         "lustre_many_credits_total",
+        "lustre_osp_active",
+        "lustre_osp_max_create_count",
         "lustre_stats_time_max",
         "lustre_stats_time_min",
         "lustre_stats_time_total",

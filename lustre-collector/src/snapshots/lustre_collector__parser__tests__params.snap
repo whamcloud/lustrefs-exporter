@@ -20,6 +20,8 @@ expression: params()
     "osd-*.*.quota_slave.acct_group",
     "osd-*.*.quota_slave.acct_user",
     "osd-*.*.quota_slave.acct_project",
+    "osp.*.active",
+    "osp.*.max_create_count",
     "mgs.*.mgs.stats",
     "mgs.*.mgs.threads_max",
     "mgs.*.mgs.threads_min",

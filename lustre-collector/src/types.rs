@@ -530,6 +530,8 @@ pub enum TargetStats {
     Changelog(TargetStat<ChangelogStat>),
     QuotaStats(TargetQuotaStat<QuotaStats>),
     QuotaStatsOsd(TargetStat<QuotaStatsOsd>),
+    OspActive(TargetStat<bool>),
+    OspMaxCreateCount(TargetStat<u64>),
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
