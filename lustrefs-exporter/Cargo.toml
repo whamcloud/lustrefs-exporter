@@ -7,6 +7,8 @@ version.workspace = true
 [dependencies]
 axum = { workspace = true, features = ["http2"] }
 clap = { workspace = true, features = ["derive", "env", "wrap_help", "string"] }
+hyper = { version = "1", features = ["server", "http1"] }
+hyper-util = { version = "0.1", features = ["server-auto", "tokio", "http1"] }
 lustre_collector.path = "../lustre-collector"
 prometheus-client.workspace = true
 regex = { version = "1", default-features = false, features = [
@@ -25,6 +27,7 @@ tower = { workspace = true, features = ["timeout", "load-shed", "limit"] }
 tower-http = { workspace = true, features = ["compression-full"] }
 tracing.workspace = true
 tracing-subscriber = { workspace = true, features = ["env-filter"] }
+socket2 = "0.5"
 
 [dev-dependencies]
 combine.workspace = true
