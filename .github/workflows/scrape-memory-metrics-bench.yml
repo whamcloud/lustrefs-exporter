@@ -31,11 +31,6 @@ jobs:
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - name: Run Scrape Memory Metrics Benchmark
-        run: |
-          # Run the benchmark first (suppress Criterion output)
-          cargo bench --bench scrape_memory_metrics 2>&1 > /dev/null
-
       - name: Track scrape memory metrics benchmark on main branch
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
@@ -52,7 +47,9 @@ jobs:
           --err \
           --adapter json \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
-          --file lustrefs-exporter/scrape_allocations_results.json
+          --ci-only-thresholds \
+          --ci-id '${{ github.workflow_ref }}' \
+          "cargo bench --bench scrape_memory_metrics"
 
       - name: Compare scrape memory metrics with main branch
         if: github.event_name == 'pull_request'
@@ -67,4 +64,6 @@ jobs:
           --err \
           --adapter json \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
-          --file lustrefs-exporter/scrape_allocations_results.json
+          --ci-only-thresholds \
+          --ci-id '${{ github.workflow_ref }}' \
+          "cargo bench --bench scrape_memory_metrics"

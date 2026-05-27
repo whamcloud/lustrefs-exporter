@@ -1,5 +1,5 @@
 [workspace]
-members = ['lustre-collector', 'lustrefs-exporter']
+members = ['lustre-collector', 'lustrefs-exporter', "memory-benchmarking"]
 resolver = "3"
 
 [workspace.package]
