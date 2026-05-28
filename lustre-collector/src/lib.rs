@@ -16,6 +16,7 @@ pub mod mgs;
 mod node_stats_parsers;
 mod nodemap;
 mod osd_parser;
+mod osp_parser;
 mod oss;
 pub mod parser;
 pub mod quota;

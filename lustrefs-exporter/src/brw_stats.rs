@@ -55,6 +55,8 @@ pub struct BrwStatsMetrics {
     pub(crate) changelog_current_index: Family<Gauge<u64, AtomicU64>>,
     pub(crate) changelog_user_index: Family<Gauge<u64, AtomicU64>>,
     pub(crate) changelog_user_idle_sec: Family<Gauge<u64, AtomicU64>>,
+    pub(crate) osp_active: Family<Gauge<u64, AtomicU64>>,
+    pub(crate) osp_max_create_count: Family<Gauge<u64, AtomicU64>>,
 }
 
 impl BrwStatsMetrics {
@@ -267,6 +269,18 @@ impl BrwStatsMetrics {
             "lustre_changelog_user_idle_sec",
             "current changelog user idle seconds",
             self.changelog_user_idle_sec.clone(),
+        );
+
+        registry.register(
+            "lustre_osp_active",
+            "Whether the OSP target is active (1) or deactivated (0)",
+            self.osp_active.clone(),
+        );
+
+        registry.register(
+            "lustre_osp_max_create_count",
+            "Maximum object creation count for the OSP target (0 means disabled)",
+            self.osp_max_create_count.clone(),
         );
     }
 }
@@ -697,6 +711,26 @@ pub fn build_target_stats(
         TargetStats::Oss(x) => build_oss_stats(x, &mut metrics.brw),
         TargetStats::Changelog(x) => build_changelog_stats(x, &mut metrics.brw),
         TargetStats::Mds(x) => build_mds_stats(x, &mut metrics.mds),
+        TargetStats::OspActive(x) => {
+            metrics
+                .brw
+                .osp_active
+                .get_or_create(&vec![
+                    ("component", x.kind.to_prom_label().to_string()),
+                    ("target", x.target.to_string()),
+                ])
+                .set(x.value);
+        }
+        TargetStats::OspMaxCreateCount(x) => {
+            metrics
+                .brw
+                .osp_max_create_count
+                .get_or_create(&vec![
+                    ("component", x.kind.to_prom_label().to_string()),
+                    ("target", x.target.to_string()),
+                ])
+                .set(x.value);
+        }
         _ => {}
     };
 }
