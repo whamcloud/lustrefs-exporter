@@ -6,7 +6,7 @@ resolver = "3"
 authors = ["EMF Team <emf@whamcloud.com>"]
 edition = "2024"
 license = "MIT"
-version = "0.12.3"
+version = "0.12.4"
 
 [workspace.lints.rust]
 unreachable_pub = "deny"
