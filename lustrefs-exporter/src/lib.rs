@@ -176,6 +176,15 @@ pub mod tests {
         "recovery_status_time_remaining_seconds",
         "recovery_status_total_clients",
         "target_info",
+        // GCP-226: new _start_time companions, not present in the historical OTel baseline
+        "lustre_disk_io_total_start_time",
+        "lustre_dio_frags_start_time",
+        "lustre_disk_io_start_time",
+        "lustre_discontiguous_pages_total_start_time",
+        "lustre_discontiguous_blocks_start_time",
+        "lustre_io_time_milliseconds_start_time",
+        "lustre_pages_per_bulk_rw_start_time",
+        "lustre_block_maps_milliseconds_start_time",
     ];
 
     #[test]

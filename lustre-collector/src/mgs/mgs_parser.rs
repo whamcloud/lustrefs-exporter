@@ -101,30 +101,35 @@ where
                 target,
                 param,
                 value,
+                header: None,
             }),
             MgsStat::NumExports(value) => TargetStats::NumExports(TargetStat {
                 kind: TargetVariant::Mgt,
                 target,
                 param,
                 value,
+                header: None,
             }),
             MgsStat::ThreadsMin(value) => TargetStats::ThreadsMin(TargetStat {
                 kind: TargetVariant::Mgt,
                 target,
                 param,
                 value,
+                header: None,
             }),
             MgsStat::ThreadsMax(value) => TargetStats::ThreadsMax(TargetStat {
                 kind: TargetVariant::Mgt,
                 target,
                 param,
                 value,
+                header: None,
             }),
             MgsStat::ThreadsStarted(value) => TargetStats::ThreadsStarted(TargetStat {
                 kind: TargetVariant::Mgt,
                 target,
                 param,
                 value,
+                header: None,
             }),
         })
         .map(Record::Target)

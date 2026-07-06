@@ -108,36 +108,42 @@ where
                 target,
                 param,
                 value,
+                header: None,
             }),
             ObdfilterStat::NumExports(value) => TargetStats::NumExports(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
+                header: None,
             }),
             ObdfilterStat::TotDirty(value) => TargetStats::TotDirty(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
+                header: None,
             }),
             ObdfilterStat::TotGranted(value) => TargetStats::TotGranted(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
+                header: None,
             }),
             ObdfilterStat::TotPending(value) => TargetStats::TotPending(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
+                header: None,
             }),
             ObdfilterStat::ExportStats(value) => TargetStats::ExportStats(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
+                header: None,
             }),
         })
         .map(Record::Target)

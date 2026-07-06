@@ -460,6 +460,7 @@ pub fn build_export_stats(x: &TargetStat<Vec<ExportStats>>, metrics: &mut StatsM
         target,
         param,
         value: export_stats,
+        ..
     } = x;
 
     if param.0.as_str() != "exports" {

@@ -1,7 +1,6 @@
 ---
-source: src/mgs/mgs_parser.rs
+source: lustre-collector/src/mgs/mgs_parser.rs
 expression: result
-
 ---
 (
     [
@@ -255,6 +254,7 @@ expression: result
                             ),
                         },
                     ],
+                    header: None,
                 },
             ),
         ),
@@ -269,6 +269,7 @@ expression: result
                         "MGS",
                     ),
                     value: 32,
+                    header: None,
                 },
             ),
         ),
@@ -283,6 +284,7 @@ expression: result
                         "MGS",
                     ),
                     value: 3,
+                    header: None,
                 },
             ),
         ),
@@ -297,6 +299,7 @@ expression: result
                         "MGS",
                     ),
                     value: 4,
+                    header: None,
                 },
             ),
         ),
@@ -311,6 +314,7 @@ expression: result
                         "MGS",
                     ),
                     value: 5,
+                    header: None,
                 },
             ),
         ),

@@ -47,6 +47,22 @@ lustre_disk_io_total{component="ost",operation="write",size="262144",target="ai4
 lustre_disk_io_total{component="ost",operation="write",size="32768",target="ai400-OST0000"} 1
 lustre_disk_io_total{component="ost",operation="write",size="524288",target="ai400-OST0000"} 0
 lustre_disk_io_total{component="ost",operation="write",size="65536",target="ai400-OST0000"} 1
+# HELP lustre_disk_io_total_start_time Unix epoch seconds when lustre_disk_io_total was last reset.
+# TYPE lustre_disk_io_total_start_time gauge
+lustre_disk_io_total_start_time{component="ost",operation="read",size="1048576",target="ai400-OST0000"} 1688526475
+lustre_disk_io_total_start_time{component="ost",operation="read",size="131072",target="ai400-OST0000"} 1688526475
+lustre_disk_io_total_start_time{component="ost",operation="read",size="2097152",target="ai400-OST0000"} 1688526475
+lustre_disk_io_total_start_time{component="ost",operation="read",size="262144",target="ai400-OST0000"} 1688526475
+lustre_disk_io_total_start_time{component="ost",operation="read",size="32768",target="ai400-OST0000"} 1688526475
+lustre_disk_io_total_start_time{component="ost",operation="read",size="524288",target="ai400-OST0000"} 1688526475
+lustre_disk_io_total_start_time{component="ost",operation="read",size="65536",target="ai400-OST0000"} 1688526475
+lustre_disk_io_total_start_time{component="ost",operation="write",size="1048576",target="ai400-OST0000"} 1688526475
+lustre_disk_io_total_start_time{component="ost",operation="write",size="131072",target="ai400-OST0000"} 1688526475
+lustre_disk_io_total_start_time{component="ost",operation="write",size="2097152",target="ai400-OST0000"} 1688526475
+lustre_disk_io_total_start_time{component="ost",operation="write",size="262144",target="ai400-OST0000"} 1688526475
+lustre_disk_io_total_start_time{component="ost",operation="write",size="32768",target="ai400-OST0000"} 1688526475
+lustre_disk_io_total_start_time{component="ost",operation="write",size="524288",target="ai400-OST0000"} 1688526475
+lustre_disk_io_total_start_time{component="ost",operation="write",size="65536",target="ai400-OST0000"} 1688526475
 # HELP lustre_dio_frags Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially.
 # TYPE lustre_dio_frags counter
 lustre_dio_frags{component="ost",operation="read",size="1",target="ai400-OST0000"} 0
@@ -55,6 +71,14 @@ lustre_dio_frags{component="ost",operation="read",size="3",target="ai400-OST0000
 lustre_dio_frags{component="ost",operation="write",size="1",target="ai400-OST0000"} 1
 lustre_dio_frags{component="ost",operation="write",size="2",target="ai400-OST0000"} 24997
 lustre_dio_frags{component="ost",operation="write",size="3",target="ai400-OST0000"} 3
+# HELP lustre_dio_frags_start_time Unix epoch seconds when lustre_dio_frags was last reset.
+# TYPE lustre_dio_frags_start_time gauge
+lustre_dio_frags_start_time{component="ost",operation="read",size="1",target="ai400-OST0000"} 1688526475
+lustre_dio_frags_start_time{component="ost",operation="read",size="2",target="ai400-OST0000"} 1688526475
+lustre_dio_frags_start_time{component="ost",operation="read",size="3",target="ai400-OST0000"} 1688526475
+lustre_dio_frags_start_time{component="ost",operation="write",size="1",target="ai400-OST0000"} 1688526475
+lustre_dio_frags_start_time{component="ost",operation="write",size="2",target="ai400-OST0000"} 1688526475
+lustre_dio_frags_start_time{component="ost",operation="write",size="3",target="ai400-OST0000"} 1688526475
 # HELP lustre_disk_io Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending.
 # TYPE lustre_disk_io counter
 lustre_disk_io{component="ost",operation="read",size="1",target="ai400-OST0000"} 0
@@ -89,18 +113,64 @@ lustre_disk_io{component="ost",operation="write",size="6",target="ai400-OST0000"
 lustre_disk_io{component="ost",operation="write",size="7",target="ai400-OST0000"} 128
 lustre_disk_io{component="ost",operation="write",size="8",target="ai400-OST0000"} 121
 lustre_disk_io{component="ost",operation="write",size="9",target="ai400-OST0000"} 30
+# HELP lustre_disk_io_start_time Unix epoch seconds when lustre_disk_io was last reset.
+# TYPE lustre_disk_io_start_time gauge
+lustre_disk_io_start_time{component="ost",operation="read",size="1",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="read",size="10",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="read",size="11",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="read",size="12",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="read",size="13",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="read",size="14",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="read",size="15",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="read",size="16",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="read",size="2",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="read",size="3",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="read",size="4",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="read",size="5",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="read",size="6",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="read",size="7",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="read",size="8",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="read",size="9",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="1",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="10",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="11",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="12",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="13",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="14",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="15",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="16",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="2",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="3",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="4",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="5",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="6",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="7",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="8",target="ai400-OST0000"} 1688526475
+lustre_disk_io_start_time{component="ost",operation="write",size="9",target="ai400-OST0000"} 1688526475
 # HELP lustre_discontiguous_pages_total Total number of logical discontinuities per RPC. 'size' label represents 'Discontiguous pages', the number of discontinuities in the logical file offset of each page in a single RPC.
 # TYPE lustre_discontiguous_pages_total counter
 lustre_discontiguous_pages_total{component="ost",operation="read",size="0",target="ai400-OST0000"} 0
 lustre_discontiguous_pages_total{component="ost",operation="read",size="1",target="ai400-OST0000"} 0
 lustre_discontiguous_pages_total{component="ost",operation="write",size="0",target="ai400-OST0000"} 24998
 lustre_discontiguous_pages_total{component="ost",operation="write",size="1",target="ai400-OST0000"} 3
+# HELP lustre_discontiguous_pages_total_start_time Unix epoch seconds when lustre_discontiguous_pages_total was last reset.
+# TYPE lustre_discontiguous_pages_total_start_time gauge
+lustre_discontiguous_pages_total_start_time{component="ost",operation="read",size="0",target="ai400-OST0000"} 1688526475
+lustre_discontiguous_pages_total_start_time{component="ost",operation="read",size="1",target="ai400-OST0000"} 1688526475
+lustre_discontiguous_pages_total_start_time{component="ost",operation="write",size="0",target="ai400-OST0000"} 1688526475
+lustre_discontiguous_pages_total_start_time{component="ost",operation="write",size="1",target="ai400-OST0000"} 1688526475
 # HELP lustre_discontiguous_blocks_total 'size' label represents 'Discontiguous blocks', the number of discontinuities in the physical block allocation in the file system for a single RPC.
 # TYPE lustre_discontiguous_blocks_total counter
 lustre_discontiguous_blocks_total{component="ost",operation="read",size="0",target="ai400-OST0000"} 0
 lustre_discontiguous_blocks_total{component="ost",operation="read",size="1",target="ai400-OST0000"} 0
 lustre_discontiguous_blocks_total{component="ost",operation="write",size="0",target="ai400-OST0000"} 24998
 lustre_discontiguous_blocks_total{component="ost",operation="write",size="1",target="ai400-OST0000"} 3
+# HELP lustre_discontiguous_blocks_start_time Unix epoch seconds when lustre_discontiguous_blocks was last reset.
+# TYPE lustre_discontiguous_blocks_start_time gauge
+lustre_discontiguous_blocks_start_time{component="ost",operation="read",size="0",target="ai400-OST0000"} 1688526475
+lustre_discontiguous_blocks_start_time{component="ost",operation="read",size="1",target="ai400-OST0000"} 1688526475
+lustre_discontiguous_blocks_start_time{component="ost",operation="write",size="0",target="ai400-OST0000"} 1688526475
+lustre_discontiguous_blocks_start_time{component="ost",operation="write",size="1",target="ai400-OST0000"} 1688526475
 # HELP lustre_io_time_milliseconds_total Total time in milliseconds the filesystem has spent processing various object sizes. 'size' label represents 'I/O time (1/1000s)', the amount of time for each I/O operation to complete.
 # TYPE lustre_io_time_milliseconds_total counter
 lustre_io_time_milliseconds_total{component="ost",operation="read",size="1",target="ai400-OST0000"} 0
@@ -113,6 +183,18 @@ lustre_io_time_milliseconds_total{component="ost",operation="write",size="16",ta
 lustre_io_time_milliseconds_total{component="ost",operation="write",size="2",target="ai400-OST0000"} 50
 lustre_io_time_milliseconds_total{component="ost",operation="write",size="4",target="ai400-OST0000"} 35
 lustre_io_time_milliseconds_total{component="ost",operation="write",size="8",target="ai400-OST0000"} 12
+# HELP lustre_io_time_milliseconds_start_time Unix epoch seconds when lustre_io_time_milliseconds was last reset.
+# TYPE lustre_io_time_milliseconds_start_time gauge
+lustre_io_time_milliseconds_start_time{component="ost",operation="read",size="1",target="ai400-OST0000"} 1688526475
+lustre_io_time_milliseconds_start_time{component="ost",operation="read",size="16",target="ai400-OST0000"} 1688526475
+lustre_io_time_milliseconds_start_time{component="ost",operation="read",size="2",target="ai400-OST0000"} 1688526475
+lustre_io_time_milliseconds_start_time{component="ost",operation="read",size="4",target="ai400-OST0000"} 1688526475
+lustre_io_time_milliseconds_start_time{component="ost",operation="read",size="8",target="ai400-OST0000"} 1688526475
+lustre_io_time_milliseconds_start_time{component="ost",operation="write",size="1",target="ai400-OST0000"} 1688526475
+lustre_io_time_milliseconds_start_time{component="ost",operation="write",size="16",target="ai400-OST0000"} 1688526475
+lustre_io_time_milliseconds_start_time{component="ost",operation="write",size="2",target="ai400-OST0000"} 1688526475
+lustre_io_time_milliseconds_start_time{component="ost",operation="write",size="4",target="ai400-OST0000"} 1688526475
+lustre_io_time_milliseconds_start_time{component="ost",operation="write",size="8",target="ai400-OST0000"} 1688526475
 # HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request.
 # TYPE lustre_pages_per_bulk_rw_total counter
 lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="1024",target="ai400-OST0000"} 0
@@ -127,6 +209,20 @@ lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="256",targ
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="32",target="ai400-OST0000"} 1
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="512",target="ai400-OST0000"} 0
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="64",target="ai400-OST0000"} 0
+# HELP lustre_pages_per_bulk_rw_start_time Unix epoch seconds when lustre_pages_per_bulk_rw was last reset.
+# TYPE lustre_pages_per_bulk_rw_start_time gauge
+lustre_pages_per_bulk_rw_start_time{component="ost",operation="read",size="1024",target="ai400-OST0000"} 1688526475
+lustre_pages_per_bulk_rw_start_time{component="ost",operation="read",size="128",target="ai400-OST0000"} 1688526475
+lustre_pages_per_bulk_rw_start_time{component="ost",operation="read",size="256",target="ai400-OST0000"} 1688526475
+lustre_pages_per_bulk_rw_start_time{component="ost",operation="read",size="32",target="ai400-OST0000"} 1688526475
+lustre_pages_per_bulk_rw_start_time{component="ost",operation="read",size="512",target="ai400-OST0000"} 1688526475
+lustre_pages_per_bulk_rw_start_time{component="ost",operation="read",size="64",target="ai400-OST0000"} 1688526475
+lustre_pages_per_bulk_rw_start_time{component="ost",operation="write",size="1024",target="ai400-OST0000"} 1688526475
+lustre_pages_per_bulk_rw_start_time{component="ost",operation="write",size="128",target="ai400-OST0000"} 1688526475
+lustre_pages_per_bulk_rw_start_time{component="ost",operation="write",size="256",target="ai400-OST0000"} 1688526475
+lustre_pages_per_bulk_rw_start_time{component="ost",operation="write",size="32",target="ai400-OST0000"} 1688526475
+lustre_pages_per_bulk_rw_start_time{component="ost",operation="write",size="512",target="ai400-OST0000"} 1688526475
+lustre_pages_per_bulk_rw_start_time{component="ost",operation="write",size="64",target="ai400-OST0000"} 1688526475
 # HELP lustre_inodes_free The number of inodes (objects) available.
 # TYPE lustre_inodes_free gauge
 lustre_inodes_free{component="mdt",target="ai400-MDT0000"} 85908200

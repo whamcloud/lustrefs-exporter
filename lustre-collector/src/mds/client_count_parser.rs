@@ -44,6 +44,7 @@ where
                     target: Target(k),
                     param: Param("connected_clients".into()),
                     value,
+                    header: None,
                 })
                 .map(TargetStats::ConnectedClients)
                 .map(Record::Target)

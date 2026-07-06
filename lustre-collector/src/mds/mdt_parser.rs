@@ -79,18 +79,21 @@ where
                 target,
                 param,
                 value,
+                header: None,
             }),
             MdtStat::NumExports(value) => TargetStats::NumExports(TargetStat {
                 kind: TargetVariant::Mdt,
                 target,
                 param,
                 value,
+                header: None,
             }),
             MdtStat::ExportStats(value) => TargetStats::ExportStats(TargetStat {
                 kind: TargetVariant::Mdt,
                 target,
                 param,
                 value,
+                header: None,
             }),
         })
         .map(Record::Target)

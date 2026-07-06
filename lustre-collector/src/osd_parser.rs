@@ -9,6 +9,7 @@ use crate::{
     io_latency_stats_parser::io_latency_stats,
     quota::quota_parser::quota_stats_osd,
     stats_parser::stats,
+    time::StatsHeader,
     types::{BrwStats, Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
 };
 use combine::{
@@ -65,7 +66,7 @@ enum OsdStat {
     KBytesFree(u64),
     /// Total disk space
     KBytesTotal(u64),
-    BrwStats(Vec<BrwStats>),
+    BrwStats(StatsHeader, Vec<BrwStats>),
     QuotaStats(QuotaStatsOsd),
     /// Generic OSD statistics (performance counters, operation counts)
     Stats(Vec<Stat>),
@@ -98,10 +99,13 @@ where
 {
     choice((
         (param(STATS), stats().map(OsdStat::Stats)),
-        (param(BRW_STATS), brw_stats().map(OsdStat::BrwStats)),
+        (
+            param(BRW_STATS),
+            brw_stats().map(|(h, v)| OsdStat::BrwStats(h, v)),
+        ),
         (
             param(IO_LATENCY_STATS),
-            io_latency_stats().map(OsdStat::BrwStats),
+            io_latency_stats().map(|(h, v)| OsdStat::BrwStats(h, v)),
         ),
         (
             param(FILES_FREE),
@@ -172,54 +176,63 @@ where
                 target,
                 param,
                 value,
+                header: None,
             }),
             OsdStat::FilesFree(value) => TargetStats::FilesFree(TargetStat {
                 kind,
                 target,
                 param,
                 value,
+                header: None,
             }),
             OsdStat::FilesTotal(value) => TargetStats::FilesTotal(TargetStat {
                 kind,
                 target,
                 param,
                 value,
+                header: None,
             }),
             OsdStat::FsType(value) => TargetStats::FsType(TargetStat {
                 kind,
                 target,
                 param,
                 value,
+                header: None,
             }),
             OsdStat::KBytesAvail(value) => TargetStats::KBytesAvail(TargetStat {
                 kind,
                 target,
                 param,
                 value,
+                header: None,
             }),
             OsdStat::KBytesFree(value) => TargetStats::KBytesFree(TargetStat {
                 kind,
                 target,
                 param,
                 value,
+                header: None,
             }),
             OsdStat::KBytesTotal(value) => TargetStats::KBytesTotal(TargetStat {
                 kind,
                 target,
                 param,
                 value,
+                header: None,
             }),
-            OsdStat::BrwStats(value) => TargetStats::BrwStats(TargetStat {
+            OsdStat::BrwStats(header, value) => TargetStats::BrwStats(TargetStat {
                 kind,
                 target,
                 param,
                 value,
+                header: Some(header),
             }),
             OsdStat::QuotaStats(value) => TargetStats::QuotaStatsOsd(TargetStat {
                 kind,
                 target,
                 param,
                 value,
+                header: None,
             }),
         })
         .map(Record::Target)

@@ -1,5 +1,5 @@
 ---
-source: src/mds/mod.rs
+source: lustre-collector/src/mds/mod.rs
 expression: result
 ---
 (
@@ -25,6 +25,7 @@ expression: result
                             sumsquare: None,
                         },
                     ],
+                    header: None,
                 },
             ),
         ),
@@ -49,6 +50,7 @@ expression: result
                             sumsquare: None,
                         },
                     ],
+                    header: None,
                 },
             ),
         ),
@@ -73,6 +75,7 @@ expression: result
                             sumsquare: None,
                         },
                     ],
+                    header: None,
                 },
             ),
         ),
@@ -87,6 +90,7 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 16,
+                    header: None,
                 },
             ),
         ),
@@ -101,6 +105,7 @@ expression: result
                         "fs-MDT0001",
                     ),
                     value: 13,
+                    header: None,
                 },
             ),
         ),
@@ -115,6 +120,7 @@ expression: result
                         "fs-MDT0002",
                     ),
                     value: 13,
+                    header: None,
                 },
             ),
         ),

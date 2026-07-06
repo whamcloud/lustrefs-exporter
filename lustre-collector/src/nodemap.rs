@@ -61,12 +61,14 @@ where
                 target,
                 param,
                 value,
+                header: None,
             }),
             NodemapStat::Md(value) => TargetStats::Stats(TargetStat {
                 kind: TargetVariant::Mdt,
                 target,
                 param,
                 value,
+                header: None,
             }),
         })
         .map(Record::Target)
@@ -219,6 +221,7 @@ sync                      1 samples [usecs] 88 88 88 7744
                                 ),
                             },
                         ],
+                        header: None,
                     },
                 ),
             ),
@@ -285,6 +288,7 @@ sync                      1 samples [usecs] 88 88 88 7744
                                 ),
                             },
                         ],
+                        header: None,
                     },
                 ),
             ),
