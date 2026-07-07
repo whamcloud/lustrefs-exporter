@@ -177,7 +177,7 @@ where
             (param(GRP_QUOTAS), quota_stats().map(QMTStat::Grp)),
         )),
     )
-        .map(|(_, param)| (param))
+        .map(|(_, param)| param)
 }
 pub(crate) fn qmt_parse<I>() -> impl Parser<I, Output = Record>
 where
