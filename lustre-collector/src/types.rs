@@ -359,6 +359,8 @@ pub struct MdsStat {
 /// Stats specific to a quota target.
 pub struct TargetQuotaStat<T> {
     pub pool: String,
+    #[serde(default)]
+    pub tenant: Option<String>,
     pub manager: String,
     pub param: Param,
     pub target: Target,

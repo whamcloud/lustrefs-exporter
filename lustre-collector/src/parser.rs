@@ -91,6 +91,7 @@ mod tests {
 
     test_fixtures!(test_lustre_2_14_0_ddn133_fixtures, "*ddn133*");
     test_fixtures!(test_lustre_2_14_0_ddn212_fixtures, "*ddn212*");
+    test_fixtures!(test_lustre_2_14_0_ddn229_fixtures, "*ddn229*");
 
     #[test]
     fn test_params() {

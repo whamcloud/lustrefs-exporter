@@ -10,7 +10,7 @@ use crate::{
     types::{Param, Record, Target, TargetStats},
 };
 use combine::{
-    Parser, Stream, between, choice, eof,
+    Parser, Stream, attempt, between, choice, eof,
     error::ParseError,
     many1, optional,
     parser::{
@@ -28,9 +28,9 @@ pub(crate) const GRP_QUOTAS: &str = "grp";
 /// consumption in proper ltcl get_param format.
 pub(crate) fn params() -> Vec<String> {
     vec![
-        format!("{QMT}.*.{{dt,md}}-*.glb-{USR_QUOTAS}"),
-        format!("{QMT}.*.{{dt,md}}-*.glb-{PRJ_QUOTAS}"),
-        format!("{QMT}.*.{{dt,md}}-*.glb-{GRP_QUOTAS}"),
+        format!("{QMT}.*.{{dt,md,lqa-dt,lqa-md}}-*.glb-{USR_QUOTAS}"),
+        format!("{QMT}.*.{{dt,md,lqa-dt,lqa-md}}-*.glb-{PRJ_QUOTAS}"),
+        format!("{QMT}.*.{{dt,md,lqa-dt,lqa-md}}-*.glb-{GRP_QUOTAS}"),
     ]
 }
 
@@ -44,6 +44,16 @@ where
         choice((
             string("md").skip(token('-')).map(|x| Target(x.to_string())),
             string("dt").skip(token('-')).map(|x| Target(x.to_string())),
+            attempt(
+                string("lqa-md")
+                    .skip(token('-'))
+                    .map(|x| Target(x.to_string())),
+            ),
+            attempt(
+                string("lqa-dt")
+                    .skip(token('-'))
+                    .map(|x| Target(x.to_string())),
+            ),
         )),
         target(),
     )
@@ -186,37 +196,50 @@ where
 {
     (qmt_target(), qmt_stat())
         .map(
-            |((target, Target(manager), Target(pool)), (param, value))| match value {
-                QMTStat::Usr(stats) => TargetStats::QuotaStats(TargetQuotaStat {
-                    pool,
-                    manager,
-                    target,
-                    param,
-                    value: QuotaStats {
-                        kind: QuotaKind::Usr,
-                        stats,
-                    },
-                }),
-                QMTStat::Prj(stats) => TargetStats::QuotaStats(TargetQuotaStat {
-                    pool,
-                    manager,
-                    target,
-                    param,
-                    value: QuotaStats {
-                        kind: QuotaKind::Prj,
-                        stats,
-                    },
-                }),
-                QMTStat::Grp(stats) => TargetStats::QuotaStats(TargetQuotaStat {
-                    pool,
-                    manager,
-                    target,
-                    param,
-                    value: QuotaStats {
-                        kind: QuotaKind::Grp,
-                        stats,
-                    },
-                }),
+            |((target, Target(manager), Target(pool)), (param, value))| {
+                // Record `pool` as `tenant` for LQA because it is
+                // a tenant name not an MDT/OST pool.
+                let (pool, tenant) = if manager.starts_with("lqa-") {
+                    (String::new(), Some(pool))
+                } else {
+                    (pool, None)
+                };
+
+                match value {
+                    QMTStat::Usr(stats) => TargetStats::QuotaStats(TargetQuotaStat {
+                        pool,
+                        tenant,
+                        manager,
+                        target,
+                        param,
+                        value: QuotaStats {
+                            kind: QuotaKind::Usr,
+                            stats,
+                        },
+                    }),
+                    QMTStat::Prj(stats) => TargetStats::QuotaStats(TargetQuotaStat {
+                        pool,
+                        tenant,
+                        manager,
+                        target,
+                        param,
+                        value: QuotaStats {
+                            kind: QuotaKind::Prj,
+                            stats,
+                        },
+                    }),
+                    QMTStat::Grp(stats) => TargetStats::QuotaStats(TargetQuotaStat {
+                        pool,
+                        tenant,
+                        manager,
+                        target,
+                        param,
+                        value: QuotaStats {
+                            kind: QuotaKind::Grp,
+                            stats,
+                        },
+                    }),
+                }
             },
         )
         .map(Record::Target)
@@ -233,9 +256,9 @@ mod tests {
         assert_eq!(
             params(),
             vec![
-                "qmt.*.{dt,md}-*.glb-usr".to_string(),
-                "qmt.*.{dt,md}-*.glb-prj".to_string(),
-                "qmt.*.{dt,md}-*.glb-grp".to_string(),
+                "qmt.*.{dt,md,lqa-dt,lqa-md}-*.glb-usr".to_string(),
+                "qmt.*.{dt,md,lqa-dt,lqa-md}-*.glb-prj".to_string(),
+                "qmt.*.{dt,md,lqa-dt,lqa-md}-*.glb-grp".to_string(),
             ]
         )
     }

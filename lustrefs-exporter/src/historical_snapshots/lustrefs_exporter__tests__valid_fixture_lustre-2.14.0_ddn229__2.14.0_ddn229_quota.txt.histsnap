@@ -1,0 +1,63 @@
+---
+source: lustrefs-exporter/src/lib.rs
+expression: x
+input_file: lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn229/2.14.0_ddn229_quota.txt
+---
+# HELP lustre_quota_hard The hard quota for a given component.
+# TYPE lustre_quota_hard gauge
+lustre_quota_hard{accounting="group",id="0",manager="dt",pool="",target="lustre-QMT0000"} 0
+lustre_quota_hard{accounting="group",id="0",manager="dt",pool="local",target="lustre-QMT0000"} 0
+lustre_quota_hard{accounting="group",id="0",manager="md",pool="",target="lustre-QMT0000"} 0
+lustre_quota_hard{accounting="project",id="0",manager="dt",pool="",target="lustre-QMT0000"} 0
+lustre_quota_hard{accounting="project",id="0",manager="dt",pool="local",target="lustre-QMT0000"} 0
+lustre_quota_hard{accounting="project",id="0",manager="md",pool="",target="lustre-QMT0000"} 0
+lustre_quota_hard{accounting="user",id="0",manager="dt",pool="",target="lustre-QMT0000"} 0
+lustre_quota_hard{accounting="user",id="0",manager="dt",pool="local",target="lustre-QMT0000"} 0
+lustre_quota_hard{accounting="user",id="0",manager="md",pool="",target="lustre-QMT0000"} 0
+# HELP lustre_quota_soft The soft quota for a given component.
+# TYPE lustre_quota_soft gauge
+lustre_quota_soft{accounting="group",id="0",manager="dt",pool="",target="lustre-QMT0000"} 0
+lustre_quota_soft{accounting="group",id="0",manager="dt",pool="local",target="lustre-QMT0000"} 0
+lustre_quota_soft{accounting="group",id="0",manager="md",pool="",target="lustre-QMT0000"} 0
+lustre_quota_soft{accounting="project",id="0",manager="dt",pool="",target="lustre-QMT0000"} 0
+lustre_quota_soft{accounting="project",id="0",manager="dt",pool="local",target="lustre-QMT0000"} 0
+lustre_quota_soft{accounting="project",id="0",manager="md",pool="",target="lustre-QMT0000"} 0
+lustre_quota_soft{accounting="user",id="0",manager="dt",pool="",target="lustre-QMT0000"} 0
+lustre_quota_soft{accounting="user",id="0",manager="dt",pool="local",target="lustre-QMT0000"} 0
+lustre_quota_soft{accounting="user",id="0",manager="md",pool="",target="lustre-QMT0000"} 0
+# HELP lustre_quota_granted The granted quota for a given component.
+# TYPE lustre_quota_granted gauge
+lustre_quota_granted{accounting="group",id="0",manager="dt",pool="",target="lustre-QMT0000"} 0
+lustre_quota_granted{accounting="group",id="0",manager="dt",pool="local",target="lustre-QMT0000"} 0
+lustre_quota_granted{accounting="group",id="0",manager="md",pool="",target="lustre-QMT0000"} 0
+lustre_quota_granted{accounting="project",id="0",manager="dt",pool="",target="lustre-QMT0000"} 0
+lustre_quota_granted{accounting="project",id="0",manager="dt",pool="local",target="lustre-QMT0000"} 0
+lustre_quota_granted{accounting="project",id="0",manager="md",pool="",target="lustre-QMT0000"} 0
+lustre_quota_granted{accounting="user",id="0",manager="dt",pool="",target="lustre-QMT0000"} 0
+lustre_quota_granted{accounting="user",id="0",manager="dt",pool="local",target="lustre-QMT0000"} 0
+lustre_quota_granted{accounting="user",id="0",manager="md",pool="",target="lustre-QMT0000"} 0
+# HELP lustre_lqa_quota_hard The aggregated hard quota for a given tenant.
+# TYPE lustre_lqa_quota_hard gauge
+lustre_lqa_quota_hard{accounting="group",id="0",manager="lqa-dt",tenant="tenant0",target="lustre-QMT0000"} 0
+lustre_lqa_quota_hard{accounting="group",id="0",manager="lqa-md",tenant="tenant0",target="lustre-QMT0000"} 0
+lustre_lqa_quota_hard{accounting="project",id="0",manager="lqa-dt",tenant="tenant0",target="lustre-QMT0000"} 0
+lustre_lqa_quota_hard{accounting="project",id="0",manager="lqa-md",tenant="tenant0",target="lustre-QMT0000"} 0
+lustre_lqa_quota_hard{accounting="user",id="0",manager="lqa-dt",tenant="tenant0",target="lustre-QMT0000"} 0
+lustre_lqa_quota_hard{accounting="user",id="0",manager="lqa-md",tenant="tenant0",target="lustre-QMT0000"} 0
+# HELP lustre_lqa_quota_soft The aggregated soft quota for a given tenant.
+# TYPE lustre_lqa_quota_soft gauge
+lustre_lqa_quota_soft{accounting="group",id="0",manager="lqa-dt",tenant="tenant0",target="lustre-QMT0000"} 0
+lustre_lqa_quota_soft{accounting="group",id="0",manager="lqa-md",tenant="tenant0",target="lustre-QMT0000"} 0
+lustre_lqa_quota_soft{accounting="project",id="0",manager="lqa-dt",tenant="tenant0",target="lustre-QMT0000"} 0
+lustre_lqa_quota_soft{accounting="project",id="0",manager="lqa-md",tenant="tenant0",target="lustre-QMT0000"} 0
+lustre_lqa_quota_soft{accounting="user",id="0",manager="lqa-dt",tenant="tenant0",target="lustre-QMT0000"} 0
+lustre_lqa_quota_soft{accounting="user",id="0",manager="lqa-md",tenant="tenant0",target="lustre-QMT0000"} 0
+# HELP lustre_lqa_quota_granted The aggregated granted quota for a given tenant.
+# TYPE lustre_lqa_quota_granted gauge
+lustre_lqa_quota_granted{accounting="group",id="0",manager="lqa-dt",tenant="tenant0",target="lustre-QMT0000"} 0
+lustre_lqa_quota_granted{accounting="group",id="0",manager="lqa-md",tenant="tenant0",target="lustre-QMT0000"} 0
+lustre_lqa_quota_granted{accounting="project",id="0",manager="lqa-dt",tenant="tenant0",target="lustre-QMT0000"} 0
+lustre_lqa_quota_granted{accounting="project",id="0",manager="lqa-md",tenant="tenant0",target="lustre-QMT0000"} 0
+lustre_lqa_quota_granted{accounting="user",id="0",manager="lqa-dt",tenant="tenant0",target="lustre-QMT0000"} 0
+lustre_lqa_quota_granted{accounting="user",id="0",manager="lqa-md",tenant="tenant0",target="lustre-QMT0000"} 0
+# EOF
