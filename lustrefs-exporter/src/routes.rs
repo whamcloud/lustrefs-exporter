@@ -249,10 +249,7 @@ mod tests {
     };
     use commandeer_test::commandeer;
     use serial_test::serial;
-    use std::{
-        env,
-        io::{self, BufReader, Read},
-    };
+    use std::io::{self, BufReader, Read};
     use tokio::task::JoinSet;
     use tower::ServiceExt as _;
 
