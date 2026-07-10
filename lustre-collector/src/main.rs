@@ -5,8 +5,7 @@
 use clap::{Arg, ValueEnum, value_parser};
 use lustre_collector::{
     error::LustreCollectorError, mgs::mgs_fs_parser, parse_lctl_output, parse_lnetctl_output,
-    parse_lnetctl_stats, parse_mgs_fs_output, parse_recovery_status_output, parser,
-    recovery_status_parser, types::Record,
+    parse_lnetctl_stats, parse_mgs_fs_output, parser, types::Record,
 };
 use std::{
     fmt, panic,
@@ -61,15 +60,6 @@ fn get_lctl_mgs_fs_output() -> Result<Vec<u8>, LustreCollectorError> {
         .arg("get_param")
         .arg("-N")
         .args(mgs_fs_parser::params())
-        .output()?;
-
-    Ok(r.stdout)
-}
-
-fn get_recovery_status_output() -> Result<Vec<u8>, LustreCollectorError> {
-    let r = Command::new("lctl")
-        .arg("get_param")
-        .args(recovery_status_parser::params())
         .output()?;
 
     Ok(r.stdout)
@@ -136,14 +126,6 @@ fn run() -> Result<(), LustreCollectorError> {
             Ok(lnetctl_stats_record)
         });
 
-    let recovery_status_handle =
-        thread::spawn(move || -> Result<Vec<Record>, LustreCollectorError> {
-            let recovery_status_output = get_recovery_status_output()?;
-            let recovery_statuses = parse_recovery_status_output(&recovery_status_output)?;
-
-            Ok(recovery_statuses)
-        });
-
     let lnetctl_net_show_output = Command::new("lnetctl")
         .args(["net", "show", "-v", "4"])
         .output()
@@ -162,11 +144,6 @@ fn run() -> Result<(), LustreCollectorError> {
         Err(e) => panic::resume_unwind(e),
     };
 
-    let mut recovery_status_records = match recovery_status_handle.join() {
-        Ok(r) => r.unwrap_or_default(),
-        Err(e) => panic::resume_unwind(e),
-    };
-
     let mut lnetctl_stats_record = match lnetctl_stats_handle.join() {
         Ok(r) => r.unwrap_or_default(),
         Err(e) => panic::resume_unwind(e),
@@ -174,7 +151,6 @@ fn run() -> Result<(), LustreCollectorError> {
 
     lctl_record.append(&mut lnet_record);
     lctl_record.append(&mut mgs_fs_record);
-    lctl_record.append(&mut recovery_status_records);
     lctl_record.append(&mut lnetctl_stats_record);
 
     let x = match format {
