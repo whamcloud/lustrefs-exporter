@@ -1,5 +1,5 @@
 ---
 source: lustrefs-exporter/src/routes.rs
-expression: original_body_str
+expression: response.try_into_string().await
 ---
 # EOF

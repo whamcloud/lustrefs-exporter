@@ -2,6 +2,19 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
+//! `llite` metrics
+//!
+//! This file defines metrics related to `llite`.
+//!
+//! The associated lustre parameter path is `llite.*.stats`.
+//!
+//! Registered metrics:
+//!
+//! | Metric | Content | Content |
+//! |-|-|-|
+//! | `lustre_client_stats` | Lustre client interface stats | `Counter<u64>` |
+//!
+
 use crate::Family;
 use lustre_collector::LliteStat;
 use prometheus_client::{metrics::counter::Counter, registry::Registry};
