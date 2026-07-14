@@ -26,6 +26,7 @@ criterion = "0.7"
 iai-callgrind = "0.16"
 include_dir = { version = "0.7", features = ["glob"] }
 insta = "1"
+pprof = "0.15"
 pretty_assertions = "1.4.1"
 prometheus-client = { git = "https://github.com/whamcloud/client_rust", branch = "whamcloud-08-12-2025" }
 prometheus-parse = "0.2.5"
