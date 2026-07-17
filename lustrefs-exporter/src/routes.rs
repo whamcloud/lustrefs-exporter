@@ -16,7 +16,9 @@ use axum::{
     response::{IntoResponse, Response},
     routing::get,
 };
-use lustre_collector::{parse_lctl_output, parse_lnetctl_output, parse_lnetctl_stats, parser};
+use lustre_collector::{
+    parse_lctl_output, parse_lnetctl_global_show, parse_lnetctl_output, parse_lnetctl_stats, parser,
+};
 use prometheus_client::{encoding::text::encode, registry::Registry};
 use serde::Deserialize;
 use std::{
@@ -105,6 +107,14 @@ pub fn lnet_stats_output() -> Command {
     let mut cmd = Command::new("lnetctl");
 
     cmd.args(["stats", "show"]).kill_on_drop(true);
+
+    cmd
+}
+
+pub fn lnet_global_output() -> Command {
+    let mut cmd = Command::new("lnetctl");
+
+    cmd.args(["global", "show"]).kill_on_drop(true);
 
     cmd
 }
@@ -219,6 +229,12 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 
     output.append(&mut lnetctl_stats_record);
 
+    let lnetctl_global_output = lnet_global_output().output().await?;
+
+    let mut lnetctl_global_record = parse_lnetctl_global_show(&lnetctl_global_output.stdout)?;
+
+    output.append(&mut lnetctl_global_record);
+
     // Build and register Lustre metrics
     metrics::build_lustre_stats(&output, &mut opentelemetry_metrics);
     opentelemetry_metrics.register_metric(&mut registry);
@@ -240,7 +256,8 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 #[cfg(test)]
 mod tests {
     use crate::routes::{
-        jobstats_metrics_cmd, lnet_stats_output, lustre_metrics_output, net_show_output,
+        jobstats_metrics_cmd, lnet_global_output, lnet_stats_output, lustre_metrics_output,
+        net_show_output,
     };
     use axum::{
         Router,
@@ -451,6 +468,53 @@ mod tests {
         let output = lnet_stats_output().output().await.unwrap();
 
         insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
+    }
+
+    /// Test that demonstrates both lustre_health_sensitivity (global) and
+    /// lustre_health_value (per-NID) metrics from LNet health monitoring.
+    ///
+    /// This test uses mock data that includes:
+    /// - lnetctl global show: provides health_sensitivity (global gauge)
+    /// - lnetctl net show -v 4: provides health_value for each NID (per-NID gauge)
+    #[commandeer(Replay, "lnetctl")]
+    #[tokio::test]
+    #[serial]
+    async fn test_lnet_health_metrics() -> Result<(), Box<dyn std::error::Error>> {
+        use crate::metrics::{self, Metrics};
+        use lustre_collector::{parse_lnetctl_global_show, parse_lnetctl_output};
+        use prometheus_client::{encoding::text::encode, registry::Registry};
+
+        // Collect LNet network interface stats (health_value per NID)
+        let net_show = net_show_output().output().await?;
+        let mut lnet_records = parse_lnetctl_output(&net_show.stdout)?;
+
+        // Collect LNet global stats (health_sensitivity)
+        let global_show = lnet_global_output().output().await?;
+        let mut global_records = parse_lnetctl_global_show(&global_show.stdout)?;
+
+        // Combine all records
+        let mut all_records = Vec::new();
+        all_records.append(&mut lnet_records);
+        all_records.append(&mut global_records);
+
+        // Build metrics
+        let mut registry = Registry::default();
+        let mut metrics = Metrics::default();
+        metrics::build_lustre_stats(&all_records, &mut metrics);
+        metrics.register_metric(&mut registry);
+
+        // Encode to Prometheus text format
+        let mut output = String::new();
+        encode(&mut output, &registry)?;
+
+        // Verify the output contains both health metrics
+        assert!(output.contains("lustre_health_sensitivity"));
+        assert!(output.contains("lustre_health_value"));
+
+        // Create snapshot for the complete output
+        insta::assert_snapshot!(output);
+
+        Ok(())
     }
 
     #[commandeer(Replay, "lctl", "lnetctl")]

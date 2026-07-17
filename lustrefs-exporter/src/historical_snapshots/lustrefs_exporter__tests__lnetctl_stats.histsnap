@@ -210,6 +210,10 @@ lustre_disk_io_total{component="ost",operation="write",target="ai400x2-OST0001",
 # TYPE lustre_drop_bytes_total counter
 lustre_drop_bytes_total 568792
 
+# HELP lustre_health_sensitivity Lustre LNet health sensitivity
+# TYPE lustre_health_sensitivity gauge
+lustre_health_sensitivity 100
+
 # HELP lustre_drop_count_total Total number of messages that have been dropped
 # TYPE lustre_drop_count_total counter
 lustre_drop_count_total{nid="0@lo"} 14
