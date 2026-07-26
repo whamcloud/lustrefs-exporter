@@ -37,6 +37,9 @@ pub struct Params {
     // Only enable jobstats if "jobstats=true"
     #[serde(default)]
     jobstats: bool,
+    // Reset md_stats between scrapes if "reset_md_stats=true"
+    #[serde(default)]
+    reset_md_stats: bool,
 }
 
 const TIMEOUT_DURATION_SECS: u64 = 120;
@@ -93,6 +96,24 @@ pub fn lustre_metrics_output() -> Command {
         .kill_on_drop(true);
 
     cmd
+}
+
+async fn reset_md_stats() -> Result<(), Error> {
+    let output = Command::new("lctl")
+        .args(["set_param", "mdt.*.md_stats", "0"])
+        .kill_on_drop(true)
+        .output()
+        .await
+        .map_err(|e| Error::MdStatsReset(format!("Failed to execute reset command: {e}"), None))?;
+
+    if !output.status.success() {
+        return Err(Error::MdStatsReset(
+            String::from_utf8_lossy(&output.stderr).to_string(),
+            output.status.code(),
+        ));
+    }
+
+    Ok(())
 }
 
 pub fn net_show_output() -> Command {
@@ -216,6 +237,11 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
     let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
 
     output.append(&mut lctl_output);
+
+    // Reset md_stats if requested (after collection)
+    if params.reset_md_stats {
+        reset_md_stats().await?;
+    }
 
     let lnetctl = net_show_output().output().await?;
 
@@ -531,5 +557,37 @@ mod tests {
         insta::assert_snapshot!(original_body_str);
 
         Ok(())
+    }
+
+    /// Covers reset_md_stats() success path: command execution and Ok(()) return.
+    #[commandeer(Replay, "lctl")]
+    #[tokio::test]
+    #[serial]
+    async fn test_reset_md_stats_returns_ok_on_successful_lctl_command() {
+        use crate::routes::reset_md_stats;
+
+        let result = reset_md_stats().await;
+
+        assert!(result.is_ok());
+    }
+
+    /// Covers reset_md_stats() error path: captures stderr, exit code, and returns MdStatsReset error.
+    #[commandeer(Replay, "lctl")]
+    #[tokio::test]
+    #[serial]
+    async fn test_reset_md_stats_returns_error_with_stderr_and_exit_code_on_failure() {
+        use crate::routes::reset_md_stats;
+
+        let result = reset_md_stats().await;
+
+        match result {
+            Err(crate::Error::MdStatsReset(msg, exit_code)) => {
+                assert!(!msg.is_empty());
+                assert_eq!(exit_code, Some(1));
+                assert!(msg.contains("Permission denied") || msg.contains("error"));
+            }
+            Err(e) => panic!("Expected MdStatsReset error, got: {e:?}"),
+            Ok(_) => panic!("Expected error, got success"),
+        }
     }
 }

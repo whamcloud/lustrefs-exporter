@@ -1,0 +1,17 @@
+{
+    "commands": {
+        "lctl:set_param mdt.*.md_stats 0": [
+            {
+                "binary_name": "lctl",
+                "args": [
+                    "set_param",
+                    "mdt.*.md_stats",
+                    "0"
+                ],
+                "stdout": "",
+                "stderr": "error: set_param: setting mdt.*.md_stats=0: Permission denied\n",
+                "exit_code": 1
+            }
+        ]
+    }
+}

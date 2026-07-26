@@ -43,6 +43,8 @@ pub enum Error {
     OneshotReceive(#[from] tokio::sync::oneshot::error::RecvError),
     #[error("{0}")]
     Prometheus(std::fmt::Error),
+    #[error("Failed to reset md_stats: {0} (exit code: {1:?})")]
+    MdStatsReset(String, Option<i32>),
     #[error(transparent)]
     TaskJoin(#[from] tokio::task::JoinError),
     #[error(transparent)]
