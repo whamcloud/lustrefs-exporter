@@ -37,9 +37,9 @@ pub struct Params {
     // Only enable jobstats if "jobstats=true"
     #[serde(default)]
     jobstats: bool,
-    // Reset md_stats between scrapes if "reset_md_stats=true"
+    // Reset mdt md_stats between scrapes if "reset_mdt_md_stats=true"
     #[serde(default)]
-    reset_md_stats: bool,
+    reset_mdt_md_stats: bool,
 }
 
 const TIMEOUT_DURATION_SECS: u64 = 120;
@@ -98,16 +98,16 @@ pub fn lustre_metrics_output() -> Command {
     cmd
 }
 
-async fn reset_md_stats() -> Result<(), Error> {
+async fn reset_mdt_md_stats() -> Result<(), Error> {
     let output = Command::new("lctl")
         .args(["set_param", "mdt.*.md_stats", "0"])
         .kill_on_drop(true)
         .output()
         .await
-        .map_err(|e| Error::MdStatsReset(format!("Failed to execute reset command: {e}"), None))?;
+        .map_err(|e| Error::MdtStatsReset(format!("Failed to execute reset command: {e}"), None))?;
 
     if !output.status.success() {
-        return Err(Error::MdStatsReset(
+        return Err(Error::MdtStatsReset(
             String::from_utf8_lossy(&output.stderr).to_string(),
             output.status.code(),
         ));
@@ -239,8 +239,8 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
     output.append(&mut lctl_output);
 
     // Reset md_stats if requested (after collection)
-    if params.reset_md_stats {
-        reset_md_stats().await?;
+    if params.reset_mdt_md_stats {
+        reset_mdt_md_stats().await?;
     }
 
     let lnetctl = net_show_output().output().await?;
@@ -559,29 +559,29 @@ mod tests {
         Ok(())
     }
 
-    /// Covers reset_md_stats() success path: command execution and Ok(()) return.
+    /// Covers reset_mdt_md_stats() success path: command execution and Ok(()) return.
     #[commandeer(Replay, "lctl")]
     #[tokio::test]
     #[serial]
-    async fn test_reset_md_stats_returns_ok_on_successful_lctl_command() {
-        use crate::routes::reset_md_stats;
+    async fn test_reset_mdt_md_stats_returns_ok_on_successful_lctl_command() {
+        use crate::routes::reset_mdt_md_stats;
 
-        let result = reset_md_stats().await;
+        let result = reset_mdt_md_stats().await;
 
         assert!(result.is_ok());
     }
 
-    /// Covers reset_md_stats() error path: captures stderr, exit code, and returns MdStatsReset error.
+    /// Covers reset_mdt_md_stats() error path: captures stderr, exit code, and returns MdStatsReset error.
     #[commandeer(Replay, "lctl")]
     #[tokio::test]
     #[serial]
-    async fn test_reset_md_stats_returns_error_with_stderr_and_exit_code_on_failure() {
-        use crate::routes::reset_md_stats;
+    async fn test_reset_mdt_md_stats_returns_error_with_stderr_and_exit_code_on_failure() {
+        use crate::routes::reset_mdt_md_stats;
 
-        let result = reset_md_stats().await;
+        let result = reset_mdt_md_stats().await;
 
         match result {
-            Err(crate::Error::MdStatsReset(msg, exit_code)) => {
+            Err(crate::Error::MdtStatsReset(msg, exit_code)) => {
                 assert!(!msg.is_empty());
                 assert_eq!(exit_code, Some(1));
                 assert!(msg.contains("Permission denied") || msg.contains("error"));
