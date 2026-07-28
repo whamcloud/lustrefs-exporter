@@ -1,0 +1,17 @@
+{
+    "commands": {
+        "lctl:set_param mdt.*.md_stats 0": [
+            {
+                "binary_name": "lctl",
+                "args": [
+                    "set_param",
+                    "mdt.*.md_stats",
+                    "0"
+                ],
+                "stdout": "mdt.fs-MDT0000.md_stats=0\nmdt.fs-MDT0001.md_stats=0\n",
+                "stderr": "",
+                "exit_code": 0
+            }
+        ]
+    }
+}
