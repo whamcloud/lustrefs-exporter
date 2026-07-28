@@ -994,24 +994,6 @@ lustre_io_time_milliseconds_total{component="ost",operation="write",size="64",ta
 lustre_io_time_milliseconds_total{component="ost",operation="write",size="64",target="ai400x2-OST0001"} 1111493
 lustre_io_time_milliseconds_total{component="ost",operation="write",size="8",target="ai400x2-OST0000"} 4652495
 lustre_io_time_milliseconds_total{component="ost",operation="write",size="8",target="ai400x2-OST0001"} 5122744
-# HELP lustre_io_time_milliseconds_start_time Unix epoch seconds when lustre_io_time_milliseconds was last reset.
-# TYPE lustre_io_time_milliseconds_start_time gauge
-lustre_io_time_milliseconds_start_time{component="ost",operation="read",opsize="1024K",size="1024",target="ai400x2-OST0000"} 1775125270
-lustre_io_time_milliseconds_start_time{component="ost",operation="read",opsize="1024K",size="1024",target="ai400x2-OST0001"} 1775125270
-lustre_io_time_milliseconds_start_time{component="ost",operation="read",opsize="1024K",size="2048",target="ai400x2-OST0001"} 1775125270
-lustre_io_time_milliseconds_start_time{component="ost",operation="read",opsize="1024K",size="4096",target="ai400x2-OST0000"} 1775125270
-lustre_io_time_milliseconds_start_time{component="ost",operation="read",opsize="1024K",size="4096",target="ai400x2-OST0001"} 1775125270
-lustre_io_time_milliseconds_start_time{component="ost",operation="read",opsize="1024K",size="512",target="ai400x2-OST0000"} 1775125270
-lustre_io_time_milliseconds_start_time{component="ost",operation="read",opsize="1024K",size="512",target="ai400x2-OST0001"} 1775125270
-lustre_io_time_milliseconds_start_time{component="ost",operation="read",opsize="1024K",size="8192",target="ai400x2-OST0000"} 1775125270
-lustre_io_time_milliseconds_start_time{component="ost",operation="write",opsize="1024K",size="1024",target="ai400x2-OST0000"} 1775125270
-lustre_io_time_milliseconds_start_time{component="ost",operation="write",opsize="1024K",size="1024",target="ai400x2-OST0001"} 1775125270
-lustre_io_time_milliseconds_start_time{component="ost",operation="write",opsize="1024K",size="2048",target="ai400x2-OST0001"} 1775125270
-lustre_io_time_milliseconds_start_time{component="ost",operation="write",opsize="1024K",size="4096",target="ai400x2-OST0000"} 1775125270
-lustre_io_time_milliseconds_start_time{component="ost",operation="write",opsize="1024K",size="4096",target="ai400x2-OST0001"} 1775125270
-lustre_io_time_milliseconds_start_time{component="ost",operation="write",opsize="1024K",size="512",target="ai400x2-OST0000"} 1775125270
-lustre_io_time_milliseconds_start_time{component="ost",operation="write",opsize="1024K",size="512",target="ai400x2-OST0001"} 1775125270
-lustre_io_time_milliseconds_start_time{component="ost",operation="write",opsize="1024K",size="8192",target="ai400x2-OST0000"} 1775125270
 # HELP lustre_pages_per_bulk_rw_total Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request.
 # TYPE lustre_pages_per_bulk_rw_total counter
 lustre_pages_per_bulk_rw_total{component="ost",operation="read",size="1",target="ai400x2-OST0000"} 8747797
@@ -1050,6 +1032,12 @@ lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="64",targe
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="64",target="ai400x2-OST0001"} 118139
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="8",target="ai400x2-OST0000"} 116099
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="8",target="ai400x2-OST0001"} 316631
+# HELP lustre_brw_stats_start_time Unix epoch seconds when the brw_stats counters were last reset.
+# TYPE lustre_brw_stats_start_time gauge
+lustre_brw_stats_start_time{component="mdt",target="ai400x2-MDT0000"} 1775125270
+lustre_brw_stats_start_time{component="mgt",target="MGS"} 1775125270
+lustre_brw_stats_start_time{component="ost",target="ai400x2-OST0000"} 1775125270
+lustre_brw_stats_start_time{component="ost",target="ai400x2-OST0001"} 1775125270
 # HELP lustre_inodes_free The number of inodes (objects) available.
 # TYPE lustre_inodes_free gauge
 lustre_inodes_free{component="mdt",target="ai400x2-MDT0000"} 255306055

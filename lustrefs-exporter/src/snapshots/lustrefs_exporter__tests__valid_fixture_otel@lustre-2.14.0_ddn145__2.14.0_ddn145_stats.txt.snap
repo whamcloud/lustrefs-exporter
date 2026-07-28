@@ -95,6 +95,12 @@ lustre_ldlm_cbd_stats{operation="req_qdepth"} 32
 lustre_ldlm_cbd_stats{operation="req_timeout"} 32
 lustre_ldlm_cbd_stats{operation="req_waittime"} 32
 lustre_ldlm_cbd_stats{operation="reqbuf_avail"} 70
+# HELP lustre_brw_stats_start_time Unix epoch seconds when the brw_stats counters were last reset.
+# TYPE lustre_brw_stats_start_time gauge
+lustre_brw_stats_start_time{component="mdt",target="fs-MDT0000"} 9540
+lustre_brw_stats_start_time{component="mgt",target="MGS"} 9538
+lustre_brw_stats_start_time{component="ost",target="fs-OST0000"} 9539
+lustre_brw_stats_start_time{component="ost",target="fs-OST0001"} 9539
 # HELP lustre_inodes_free The number of inodes (objects) available.
 # TYPE lustre_inodes_free gauge
 lustre_inodes_free{component="mdt",target="fs-MDT0000"} 1885355

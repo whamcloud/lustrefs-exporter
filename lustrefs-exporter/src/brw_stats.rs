@@ -21,19 +21,14 @@ use std::{collections::HashSet, sync::atomic::AtomicU64};
 #[derive(Debug, Default)]
 pub struct BrwStatsMetrics {
     pub(crate) disk_io_total: Family<Counter<u64>>,
-    pub(crate) disk_io_total_start_time: Family<Gauge<u64, AtomicU64>>,
     pub(crate) disk_io_frags: Family<Counter<u64>>,
-    pub(crate) disk_io_frags_start_time: Family<Gauge<u64, AtomicU64>>,
     pub(crate) disk_io: Family<Counter<u64>>,
-    pub(crate) disk_io_start_time: Family<Gauge<u64, AtomicU64>>,
     pub(crate) discontiguous_pages_total: Family<Counter<u64>>,
-    pub(crate) discontiguous_pages_total_start_time: Family<Gauge<u64, AtomicU64>>,
     pub(crate) discontiguous_blocks_total: Family<Counter<u64>>,
-    pub(crate) discontiguous_blocks_total_start_time: Family<Gauge<u64, AtomicU64>>,
     pub(crate) io_time_milliseconds_total: Family<Counter<u64>>,
-    pub(crate) io_time_milliseconds_total_start_time: Family<Gauge<u64, AtomicU64>>,
     pub(crate) pages_per_bulk_rw_total: Family<Counter<u64>>,
-    pub(crate) pages_per_bulk_rw_total_start_time: Family<Gauge<u64, AtomicU64>>,
+    // GCP-226: one start_time gauge per target for all brw_stats counters
+    pub(crate) brw_stats_start_time: Family<Gauge<u64, AtomicU64>>,
     pub(crate) inodes_free: Family<Gauge<u64, AtomicU64>>,
     pub(crate) inodes_maximum: Family<Gauge<u64, AtomicU64>>,
     pub(crate) available_kbytes: Family<Gauge<u64, AtomicU64>>,
@@ -49,7 +44,6 @@ pub struct BrwStatsMetrics {
     pub(crate) lock_count_total: Family<Gauge<u64, AtomicU64>>,
     pub(crate) lock_timeout_total: Family<Counter<u64>>,
     pub(crate) block_maps_msec_total: Family<Counter<u64>>,
-    pub(crate) block_maps_msec_total_start_time: Family<Gauge<u64, AtomicU64>>,
     pub(crate) recovery_status: Family<Gauge<u64, AtomicU64>>,
     pub(crate) recovery_status_completed_clients: Family<Gauge<u64, AtomicU64>>,
     pub(crate) recovery_status_connected_clients: Family<Gauge<u64, AtomicU64>>,
@@ -74,33 +68,16 @@ impl BrwStatsMetrics {
             "Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation",
             self.disk_io_total.clone()
         );
-        registry.register(
-            "lustre_disk_io_total_start_time",
-            "Unix epoch seconds when lustre_disk_io_total was last reset",
-            self.disk_io_total_start_time.clone(),
-        );
         registry.register_without_auto_suffix(
             "lustre_dio_frags",
             "Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially",
             self.disk_io_frags.clone()
         );
 
-        registry.register(
-            "lustre_dio_frags_start_time",
-            "Unix epoch seconds when lustre_dio_frags was last reset",
-            self.disk_io_frags_start_time.clone(),
-        );
-
         registry.register_without_auto_suffix(
             "lustre_disk_io",
             "Current number of I/O operations that are processing during the snapshot. 'size' label represents 'Disk I/Os in flight', the number of disk I/Os currently pending",
             self.disk_io.clone()
-        );
-
-        registry.register(
-            "lustre_disk_io_start_time",
-            "Unix epoch seconds when lustre_disk_io was last reset",
-            self.disk_io_start_time.clone(),
         );
 
         registry.register_without_auto_suffix(
@@ -110,21 +87,9 @@ impl BrwStatsMetrics {
         );
 
         registry.register(
-            "lustre_discontiguous_pages_total_start_time",
-            "Unix epoch seconds when lustre_discontiguous_pages_total was last reset",
-            self.discontiguous_pages_total_start_time.clone(),
-        );
-
-        registry.register(
             "lustre_discontiguous_blocks",
             "'size' label represents 'Discontiguous blocks', the number of discontinuities in the physical block allocation in the file system for a single RPC",
     self.discontiguous_blocks_total.clone()
-        );
-
-        registry.register(
-            "lustre_discontiguous_blocks_start_time",
-            "Unix epoch seconds when lustre_discontiguous_blocks was last reset",
-            self.discontiguous_blocks_total_start_time.clone(),
         );
 
         registry.register(
@@ -134,21 +99,16 @@ impl BrwStatsMetrics {
         );
 
         registry.register(
-            "lustre_io_time_milliseconds_start_time",
-            "Unix epoch seconds when lustre_io_time_milliseconds was last reset",
-            self.io_time_milliseconds_total_start_time.clone(),
-        );
-
-        registry.register(
             "lustre_pages_per_bulk_rw",
             "Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request",
     self.pages_per_bulk_rw_total.clone()
         );
 
+        // GCP-226: one start_time gauge per target for all brw_stats counters
         registry.register(
-            "lustre_pages_per_bulk_rw_start_time",
-            "Unix epoch seconds when lustre_pages_per_bulk_rw was last reset",
-            self.pages_per_bulk_rw_total_start_time.clone(),
+            "lustre_brw_stats_start_time",
+            "Unix epoch seconds when the brw_stats counters were last reset",
+            self.brw_stats_start_time.clone(),
         );
 
         registry.register(
@@ -239,12 +199,6 @@ impl BrwStatsMetrics {
             "lustre_block_maps_milliseconds",
             "Number of block maps in milliseconds",
             self.block_maps_msec_total.clone(),
-        );
-
-        registry.register(
-            "lustre_block_maps_milliseconds_start_time",
-            "Unix epoch seconds when lustre_block_maps_milliseconds was last reset",
-            self.block_maps_msec_total_start_time.clone(),
         );
 
         registry.register(
@@ -358,6 +312,18 @@ fn build_brw_stats(
         .and_then(|s| s.parse::<f64>().ok())
         .map(|f| f as u64);
 
+    // GCP-226: emit one start_time per target. OTel's metricstarttimeprocessor
+    // (start_time_metric strategy) applies a single start_time to all cumulative
+    // points from a source, so one series per target is the correct shape.
+    if let Some(start) = start_epoch {
+        brw.brw_stats_start_time
+            .get_or_create(&vec![
+                ("component", kind.to_prom_label().to_string()),
+                ("target", target.to_string()),
+            ])
+            .set(start);
+    }
+
     for x in value {
         let BrwStats { name, buckets, .. } = x;
 
@@ -391,27 +357,11 @@ fn build_brw_stats(
                         brw.disk_io_total
                             .get_or_create(&write_labels)
                             .inc_by(b.write);
-
-                        if let Some(start) = start_epoch {
-                            brw.disk_io_total_start_time
-                                .get_or_create(&labels)
-                                .set(start);
-                            brw.disk_io_total_start_time
-                                .get_or_create(&write_labels)
-                                .set(start);
-                        }
                     }
                     "rpc_hist" => {
                         brw.disk_io.get_or_create(&labels).inc_by(b.read);
 
                         brw.disk_io.get_or_create(&write_labels).inc_by(b.write);
-
-                        if let Some(start) = start_epoch {
-                            brw.disk_io_start_time.get_or_create(&labels).set(start);
-                            brw.disk_io_start_time
-                                .get_or_create(&write_labels)
-                                .set(start);
-                        }
                     }
                     "pages" => {
                         brw.pages_per_bulk_rw_total
@@ -421,15 +371,6 @@ fn build_brw_stats(
                         brw.pages_per_bulk_rw_total
                             .get_or_create(&write_labels)
                             .inc_by(b.write);
-
-                        if let Some(start) = start_epoch {
-                            brw.pages_per_bulk_rw_total_start_time
-                                .get_or_create(&labels)
-                                .set(start);
-                            brw.pages_per_bulk_rw_total_start_time
-                                .get_or_create(&write_labels)
-                                .set(start);
-                        }
                     }
                     "discont_pages" => {
                         brw.discontiguous_pages_total
@@ -439,15 +380,6 @@ fn build_brw_stats(
                         brw.discontiguous_pages_total
                             .get_or_create(&write_labels)
                             .inc_by(b.write);
-
-                        if let Some(start) = start_epoch {
-                            brw.discontiguous_pages_total_start_time
-                                .get_or_create(&labels)
-                                .set(start);
-                            brw.discontiguous_pages_total_start_time
-                                .get_or_create(&write_labels)
-                                .set(start);
-                        }
                     }
                     "dio_frags" => {
                         brw.disk_io_frags.get_or_create(&labels).inc_by(b.read);
@@ -455,15 +387,6 @@ fn build_brw_stats(
                         brw.disk_io_frags
                             .get_or_create(&write_labels)
                             .inc_by(b.write);
-
-                        if let Some(start) = start_epoch {
-                            brw.disk_io_frags_start_time
-                                .get_or_create(&labels)
-                                .set(start);
-                            brw.disk_io_frags_start_time
-                                .get_or_create(&write_labels)
-                                .set(start);
-                        }
                     }
                     "discont_blocks" => {
                         brw.discontiguous_blocks_total
@@ -473,15 +396,6 @@ fn build_brw_stats(
                         brw.discontiguous_blocks_total
                             .get_or_create(&write_labels)
                             .inc_by(b.write);
-
-                        if let Some(start) = start_epoch {
-                            brw.discontiguous_blocks_total_start_time
-                                .get_or_create(&labels)
-                                .set(start);
-                            brw.discontiguous_blocks_total_start_time
-                                .get_or_create(&write_labels)
-                                .set(start);
-                        }
                     }
                     "io_time" => {
                         brw.io_time_milliseconds_total
@@ -491,15 +405,6 @@ fn build_brw_stats(
                         brw.io_time_milliseconds_total
                             .get_or_create(&write_labels)
                             .inc_by(b.write);
-
-                        if let Some(start) = start_epoch {
-                            brw.io_time_milliseconds_total_start_time
-                                .get_or_create(&labels)
-                                .set(start);
-                            brw.io_time_milliseconds_total_start_time
-                                .get_or_create(&write_labels)
-                                .set(start);
-                        }
                     }
                     "block_maps_msec" => {
                         brw.block_maps_msec_total
@@ -509,15 +414,6 @@ fn build_brw_stats(
                         brw.block_maps_msec_total
                             .get_or_create(&write_labels)
                             .inc_by(b.write);
-
-                        if let Some(start) = start_epoch {
-                            brw.block_maps_msec_total_start_time
-                                .get_or_create(&labels)
-                                .set(start);
-                            brw.block_maps_msec_total_start_time
-                                .get_or_create(&write_labels)
-                                .set(start);
-                        }
                     }
                     _ if name.starts_with("io_time_") => {
                         let opsize = name.strip_prefix("io_time_").unwrap_or_default();
@@ -542,15 +438,6 @@ fn build_brw_stats(
                         brw.io_time_milliseconds_total
                             .get_or_create(&write_labels)
                             .inc_by(b.write);
-
-                        if let Some(start) = start_epoch {
-                            brw.io_time_milliseconds_total_start_time
-                                .get_or_create(&read_labels)
-                                .set(start);
-                            brw.io_time_milliseconds_total_start_time
-                                .get_or_create(&write_labels)
-                                .set(start);
-                        }
                     }
                     _ => {}
                 }
@@ -959,10 +846,10 @@ mod tests {
         let mut buffer = String::new();
         encode(&mut buffer, &registry).unwrap();
 
-        // Companion metric is emitted with the second-truncated epoch value.
-        assert!(buffer.contains("lustre_io_time_milliseconds_start_time"));
+        // One start_time per target, with the second-truncated epoch value.
+        assert!(buffer.contains("lustre_brw_stats_start_time"));
         assert!(buffer.contains(
-            "lustre_io_time_milliseconds_start_time{component=\"ost\",operation=\"read\",opsize=\"1024K\",size=\"1024\",target=\"testfs-OST0001\"} 1745254800"
+            "lustre_brw_stats_start_time{component=\"ost\",target=\"testfs-OST0001\"} 1745254800"
         ));
     }
 
