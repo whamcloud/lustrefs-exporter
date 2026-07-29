@@ -1,3 +1,16 @@
+prometheus-lustrefs-exporter (0.12.5-0.1) unstable; urgency=medium
+
+  * Add support to reset MDT metadata statistics (mdt.*.md_stats)
+  after each scrape
+  * Add lnetctl global show metrics: health_value per interface and
+  health_sensitivity from global stats
+  * Add OSP metrics for target active/deactivation status and object
+  creation limits
+  * Add RPM build support for EL10 (Rocky Linux 10)
+  * Fix build warnings: remove unused parentheses and env variables
+
+ -- EMF Team <emf@whamcloud.com>  Wed, 29 Jul 2026 17:00:00 +0200
+
 prometheus-lustrefs-exporter (0.12.4-0.1) unstable; urgency=medium
 
   * Add opsize dimension to lustre_io_time_milliseconds
