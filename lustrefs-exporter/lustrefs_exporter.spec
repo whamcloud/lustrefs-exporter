@@ -1,5 +1,5 @@
 Name:           lustrefs_exporter
-Version:        0.12.4
+Version:        0.12.5
 Release:        1%{?dist}
 Summary:        prometheus exporter for lustre
 License:        MIT
