@@ -89,6 +89,7 @@ where
                             target,
                             param: param.clone(),
                             value: fs_name,
+                            header: None,
                         })
                     })
                     .map(Record::Target)
@@ -118,6 +119,7 @@ mgs.MGS.live.params
                 param: Param("fsnames".into()),
                 target: Target("MGS".into()),
                 value: vec![FsName("fs".into())],
+                header: None,
             }))],
             records
         );
@@ -139,6 +141,7 @@ mgs.MGS.live.params
                 param: Param("fsnames".into()),
                 target: Target("MGS".into()),
                 value: vec![FsName("fs".into()), FsName("fs2".into())],
+                header: None,
             }))],
             records
         );
@@ -179,12 +182,14 @@ mgs.MGS2.live.mgs2fs2
                     param: Param("fsnames".into()),
                     target: Target("MGS".into()),
                     value: vec![FsName("fs".into()), FsName("fs2".into())],
+                    header: None,
                 })),
                 Record::Target(TargetStats::FsNames(TargetStat {
                     kind: TargetVariant::Mgt,
                     param: Param("fsnames".into()),
                     target: Target("MGS2".into()),
                     value: vec![FsName("mgs2fs1".into()), FsName("mgs2fs2".into())],
+                    header: None,
                 }))
             ],
             records

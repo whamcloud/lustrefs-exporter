@@ -24,8 +24,13 @@ where
     )
         .map(|(_, _, secs, nsecs)| format!("{secs}.{nsecs}"))
 }
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+pub struct StatsHeader {
+    pub snapshot_time: String,
+    pub start_time: Option<String>,
+}
 
-pub(crate) fn time_triple<I>() -> impl Parser<I, Output = String>
+pub(crate) fn time_triple<I>() -> impl Parser<I, Output = StatsHeader>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -47,7 +52,10 @@ where
             ),
         ),
     )
-        .map(|(time, _)| time)
+        .map(|(snapshot, optional_start)| StatsHeader {
+            snapshot_time: snapshot,
+            start_time: optional_start.map(|(start, _elapsed)| start),
+        })
 }
 
 #[cfg(test)]

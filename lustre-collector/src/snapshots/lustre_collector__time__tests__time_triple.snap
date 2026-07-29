@@ -1,8 +1,13 @@
 ---
-source: src/time.rs
+source: lustre-collector/src/time.rs
 expression: result
 ---
 (
-    "1684948453.142852820",
+    StatsHeader {
+        snapshot_time: "1684948453.142852820",
+        start_time: Some(
+            "1684946875.504329012",
+        ),
+    },
     "",
 )

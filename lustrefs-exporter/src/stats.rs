@@ -29,6 +29,7 @@ pub struct StatsMetrics {
 
     // MDT metrics
     stats_total: Family<Counter<u64>>,
+    stats_start_time: Family<Gauge<u64, AtomicU64>>,
     stats_time_min: Family<Gauge<u64, AtomicU64>>,
     stats_time_max: Family<Gauge<u64, AtomicU64>>,
     stats_time_total: Family<Gauge<u64, AtomicU64>>,
@@ -103,6 +104,12 @@ impl StatsMetrics {
             "lustre_stats",
             "Number of operations the filesystem has performed",
             self.stats_total.clone(),
+        );
+
+        registry.register(
+            "lustre_stats_start_time",
+            "Unix epoch seconds when lustre_stats was last reset",
+            self.stats_start_time.clone(),
         );
 
         registry.register(
@@ -389,8 +396,28 @@ pub fn build_stats(x: &TargetStat<Vec<Stat>>, stats: &mut StatsMetrics) {
         kind,
         target,
         value,
+        header,
         ..
     } = x;
+
+    let start_epoch: Option<u64> = header
+        .as_ref()
+        .and_then(|h| h.start_time.as_ref())
+        .and_then(|s| s.parse::<f64>().ok())
+        .map(|f| f as u64);
+
+    // GCP-226: one start_time per target for all stats kinds (Ost/Mgt/Mdt).
+    // OTel's metricstarttimeprocessor applies a single start_time to all
+    // cumulative points from a source, so one series per target is correct.
+    if let Some(start) = start_epoch {
+        stats
+            .stats_start_time
+            .get_or_create(&vec![
+                ("component", kind.to_prom_label().to_string()),
+                ("target", target.deref().to_string()),
+            ])
+            .set(start);
+    }
 
     match kind {
         TargetVariant::Ost => build_ost_stats(value, target, stats),
@@ -460,6 +487,7 @@ pub fn build_export_stats(x: &TargetStat<Vec<ExportStats>>, metrics: &mut StatsM
         target,
         param,
         value: export_stats,
+        ..
     } = x;
 
     if param.0.as_str() != "exports" {

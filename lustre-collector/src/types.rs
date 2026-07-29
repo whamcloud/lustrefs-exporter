@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::LustreCollectorError;
+use crate::{LustreCollectorError, time::StatsHeader};
 use std::{fmt, ops::Deref, time::Duration};
 
 #[derive(Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
@@ -348,6 +348,7 @@ pub struct TargetStat<T> {
     pub param: Param,
     pub target: Target,
     pub value: T,
+    pub header: Option<StatsHeader>,
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
@@ -363,6 +364,7 @@ pub struct LliteStat {
     pub target: Target,
     pub param: Param,
     pub stats: Vec<Stat>,
+    pub header: Option<StatsHeader>,
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]

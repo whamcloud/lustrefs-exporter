@@ -6,7 +6,7 @@ use std::collections::BTreeMap;
 
 use crate::{
     base_parsers::digits,
-    time::time_triple,
+    time::{StatsHeader, time_triple},
     types::{BrwStats, BrwStatsBucket},
 };
 use combine::{
@@ -65,7 +65,7 @@ where
 
 /// Parses the full io_latency_stats output into Vec<BrwStats>.
 /// Groups rd/wr lines by opsize into BrwStats entries with name "io_time_{opsize}".
-pub(crate) fn io_latency_stats<I>() -> impl Parser<I, Output = Vec<BrwStats>>
+pub(crate) fn io_latency_stats<I>() -> impl Parser<I, Output = (StatsHeader, Vec<BrwStats>)>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -76,7 +76,7 @@ where
         time_triple(),
         many::<Vec<_>, _, _>(latency_line()),
     )
-        .map(|(_, _, _, lines)| {
+        .map(|(_, _, header, lines)| {
             let mut map: BTreeMap<String, BTreeMap<u64, (u64, u64)>> = BTreeMap::new();
 
             for (operation, size, buckets) in lines {
@@ -93,7 +93,8 @@ where
                 }
             }
 
-            map.into_iter()
+            let states = map
+                .into_iter()
                 .map(|(size, buckets)| BrwStats {
                     name: format!("io_time_{size}"),
                     unit: "ios".to_string(),
@@ -106,7 +107,8 @@ where
                         })
                         .collect(),
                 })
-                .collect()
+                .collect();
+            (header, states)
         })
 }
 
@@ -191,7 +193,7 @@ elapsed_time:   3011.066966653
 
         let result = io_latency_stats().easy_parse(input).unwrap();
 
-        assert_eq!(result.0, vec![]);
+        assert_eq!(result.0.1, vec![]);
     }
 
     #[test]

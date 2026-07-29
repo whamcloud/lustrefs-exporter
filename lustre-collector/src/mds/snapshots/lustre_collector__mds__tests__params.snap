@@ -1,5 +1,5 @@
 ---
-source: src/mds/mod.rs
+source: lustre-collector/src/mds/mod.rs
 expression: result
 ---
 (
@@ -25,6 +25,12 @@ expression: result
                             sumsquare: None,
                         },
                     ],
+                    header: Some(
+                        StatsHeader {
+                            snapshot_time: "1566017453.9677077",
+                            start_time: None,
+                        },
+                    ),
                 },
             ),
         ),
@@ -49,6 +55,12 @@ expression: result
                             sumsquare: None,
                         },
                     ],
+                    header: Some(
+                        StatsHeader {
+                            snapshot_time: "1566017453.9825550",
+                            start_time: None,
+                        },
+                    ),
                 },
             ),
         ),
@@ -73,6 +85,12 @@ expression: result
                             sumsquare: None,
                         },
                     ],
+                    header: Some(
+                        StatsHeader {
+                            snapshot_time: "1566017453.9857366",
+                            start_time: None,
+                        },
+                    ),
                 },
             ),
         ),
@@ -87,6 +105,7 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 16,
+                    header: None,
                 },
             ),
         ),
@@ -101,6 +120,7 @@ expression: result
                         "fs-MDT0001",
                     ),
                     value: 13,
+                    header: None,
                 },
             ),
         ),
@@ -115,6 +135,7 @@ expression: result
                         "fs-MDT0002",
                     ),
                     value: 13,
+                    header: None,
                 },
             ),
         ),

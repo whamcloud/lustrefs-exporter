@@ -7,6 +7,7 @@ use crate::{
     base_parsers::{digits, param, param_period, period, target},
     exports_parser::exports_stats,
     stats_parser::stats,
+    time::StatsHeader,
     types::{Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
 };
 use combine::{
@@ -57,7 +58,7 @@ where
 
 #[derive(Debug)]
 enum ObdfilterStat {
-    Stats(Vec<Stat>),
+    Stats(StatsHeader, Vec<Stat>),
     ExportStats(Vec<ExportStats>),
     NumExports(u64),
     TotDirty(u64),
@@ -71,7 +72,10 @@ where
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     choice((
-        (param(STATS), stats().map(ObdfilterStat::Stats)),
+        (
+            param(STATS),
+            stats().map(|(h, v)| ObdfilterStat::Stats(h, v)),
+        ),
         (
             param(NUM_EXPORTS),
             digits().skip(newline()).map(ObdfilterStat::NumExports),
@@ -103,41 +107,47 @@ where
 {
     (target_name(), obdfilter_stat())
         .map(|(target, (param, value))| match value {
-            ObdfilterStat::Stats(value) => TargetStats::Stats(TargetStat {
+            ObdfilterStat::Stats(header, value) => TargetStats::Stats(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
+                header: Some(header),
             }),
             ObdfilterStat::NumExports(value) => TargetStats::NumExports(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
+                header: None,
             }),
             ObdfilterStat::TotDirty(value) => TargetStats::TotDirty(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
+                header: None,
             }),
             ObdfilterStat::TotGranted(value) => TargetStats::TotGranted(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
+                header: None,
             }),
             ObdfilterStat::TotPending(value) => TargetStats::TotPending(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
+                header: None,
             }),
             ObdfilterStat::ExportStats(value) => TargetStats::ExportStats(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
+                header: None,
             }),
         })
         .map(Record::Target)

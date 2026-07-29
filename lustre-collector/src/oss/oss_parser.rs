@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    OssStat,
+    OssStat, StatsHeader,
     base_parsers::{equals, period},
     stats_parser::stats,
     types::{Param, Record, Stat, TargetStats},
@@ -52,7 +52,7 @@ where
         .message("while parsing `oss_suffix`")
 }
 
-fn oss_stat<I>() -> impl Parser<I, Output = (Param, Vec<Stat>)>
+fn oss_stat<I>() -> impl Parser<I, Output = (Param, (StatsHeader, Vec<Stat>))>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -77,7 +77,7 @@ where
 {
     oss_prefix()
         .with(oss_stat())
-        .map(|(param, stats)| TargetStats::Oss(OssStat { param, stats }))
+        .map(|(param, (_, stats))| TargetStats::Oss(OssStat { param, stats }))
         .map(Record::Target)
         .message("while parsing oss")
 }

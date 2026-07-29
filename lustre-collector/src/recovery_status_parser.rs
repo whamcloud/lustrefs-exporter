@@ -172,6 +172,7 @@ where
                         param: param.clone(),
                         target: target.clone(),
                         value: *value,
+                        header: None,
                     }),
                     RecoveryStat::Completed(value) => {
                         TargetStats::RecoveryCompletedClients(TargetStat {
@@ -179,6 +180,7 @@ where
                             param: param.clone(),
                             target: target.clone(),
                             value: *value,
+                            header: None,
                         })
                     }
                     RecoveryStat::Connected(value) => {
@@ -187,6 +189,7 @@ where
                             param: param.clone(),
                             target: target.clone(),
                             value: *value,
+                            header: None,
                         })
                     }
                     RecoveryStat::Evicted(value) => {
@@ -195,6 +198,7 @@ where
                             param: param.clone(),
                             target: target.clone(),
                             value: *value,
+                            header: None,
                         })
                     }
                     RecoveryStat::RecoveryDuration(value) => {
@@ -203,6 +207,7 @@ where
                             param: param.clone(),
                             target: target.clone(),
                             value: *value,
+                            header: None,
                         })
                     }
                     RecoveryStat::TimeRemaining(value) => {
@@ -211,6 +216,7 @@ where
                             param: param.clone(),
                             target: target.clone(),
                             value: *value,
+                            header: None,
                         })
                     }
                     RecoveryStat::Total(value) => TargetStats::RecoveryTotalClients(TargetStat {
@@ -218,6 +224,7 @@ where
                         param: param.clone(),
                         target: target.clone(),
                         value: value.unwrap_or(0),
+                        header: None,
                     }),
                 })
                 .collect()

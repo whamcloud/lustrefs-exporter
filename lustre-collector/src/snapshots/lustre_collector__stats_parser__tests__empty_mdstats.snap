@@ -1,8 +1,14 @@
 ---
-source: src/stats_parser.rs
+source: lustre-collector/src/stats_parser.rs
 expression: result
 ---
 (
-    [],
+    (
+        StatsHeader {
+            snapshot_time: "1581546409.693472737",
+            start_time: None,
+        },
+        [],
+    ),
     "",
 )

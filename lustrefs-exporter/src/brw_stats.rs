@@ -27,6 +27,8 @@ pub struct BrwStatsMetrics {
     pub(crate) discontiguous_blocks_total: Family<Counter<u64>>,
     pub(crate) io_time_milliseconds_total: Family<Counter<u64>>,
     pub(crate) pages_per_bulk_rw_total: Family<Counter<u64>>,
+    // GCP-226: one start_time gauge per target for all brw_stats counters
+    pub(crate) brw_stats_start_time: Family<Gauge<u64, AtomicU64>>,
     pub(crate) inodes_free: Family<Gauge<u64, AtomicU64>>,
     pub(crate) inodes_maximum: Family<Gauge<u64, AtomicU64>>,
     pub(crate) available_kbytes: Family<Gauge<u64, AtomicU64>>,
@@ -66,7 +68,6 @@ impl BrwStatsMetrics {
             "Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation",
             self.disk_io_total.clone()
         );
-
         registry.register_without_auto_suffix(
             "lustre_dio_frags",
             "Current disk IO fragmentation for the given size. 'size' label represents 'Disk fragmented I/Os', the number of I/Os that were not written entirely sequentially",
@@ -101,6 +102,13 @@ impl BrwStatsMetrics {
             "lustre_pages_per_bulk_rw",
             "Total number of pages per block RPC. 'size' label represents 'Pages per bulk r/w', the number of pages per RPC request",
     self.pages_per_bulk_rw_total.clone()
+        );
+
+        // GCP-226: one start_time gauge per target for all brw_stats counters
+        registry.register(
+            "lustre_brw_stats_start_time",
+            "Unix epoch seconds when the brw_stats counters were last reset",
+            self.brw_stats_start_time.clone(),
         );
 
         registry.register(
@@ -294,8 +302,27 @@ fn build_brw_stats(
         kind,
         target,
         value,
+        header,
         ..
     } = x;
+
+    let start_epoch: Option<u64> = header
+        .as_ref()
+        .and_then(|h| h.start_time.as_ref())
+        .and_then(|s| s.parse::<f64>().ok())
+        .map(|f| f as u64);
+
+    // GCP-226: emit one start_time per target. OTel's metricstarttimeprocessor
+    // (start_time_metric strategy) applies a single start_time to all cumulative
+    // points from a source, so one series per target is the correct shape.
+    if let Some(start) = start_epoch {
+        brw.brw_stats_start_time
+            .get_or_create(&vec![
+                ("component", kind.to_prom_label().to_string()),
+                ("target", target.to_string()),
+            ])
+            .set(start);
+    }
 
     for x in value {
         let BrwStats { name, buckets, .. } = x;
@@ -771,6 +798,7 @@ mod tests {
                     },
                 ],
             }],
+            header: None,
         };
 
         build_brw_stats(&stat, &mut brw, &mut set);
@@ -781,5 +809,80 @@ mod tests {
         assert!(buffer.contains("opsize=\"1024K\""));
         assert!(buffer.contains("size=\"512\""));
         assert!(buffer.contains("size=\"1024\""));
+    }
+
+    #[test]
+    fn test_build_brw_stats_emits_start_time() {
+        use lustre_collector::StatsHeader;
+
+        let mut registry = Registry::default();
+        let mut brw = BrwStatsMetrics::default();
+
+        brw.register_metric(&mut registry);
+
+        let mut set = HashSet::new();
+
+        let stat = TargetStat {
+            kind: TargetVariant::Ost,
+            target: Target("testfs-OST0001".to_string()),
+            param: Param("io_latency_stats".to_string()),
+            value: vec![BrwStats {
+                name: "io_time_1024K".to_string(),
+                unit: "ios".to_string(),
+                buckets: vec![BrwStatsBucket {
+                    name: 1024,
+                    read: 1,
+                    write: 7,
+                }],
+            }],
+            header: Some(StatsHeader {
+                snapshot_time: "1745254907.328261129".to_string(),
+                start_time: Some("1745254800.111111111".to_string()),
+            }),
+        };
+
+        build_brw_stats(&stat, &mut brw, &mut set);
+
+        let mut buffer = String::new();
+        encode(&mut buffer, &registry).unwrap();
+
+        // One start_time per target, with the second-truncated epoch value.
+        assert!(buffer.contains("lustre_brw_stats_start_time"));
+        assert!(buffer.contains(
+            "lustre_brw_stats_start_time{component=\"ost\",target=\"testfs-OST0001\"} 1745254800"
+        ));
+    }
+
+    #[test]
+    fn test_build_brw_stats_no_start_time_when_header_absent() {
+        let mut registry = Registry::default();
+        let mut brw = BrwStatsMetrics::default();
+
+        brw.register_metric(&mut registry);
+
+        let mut set = HashSet::new();
+
+        let stat = TargetStat {
+            kind: TargetVariant::Ost,
+            target: Target("testfs-OST0001".to_string()),
+            param: Param("brw_stats".to_string()),
+            value: vec![BrwStats {
+                name: "pages".to_string(),
+                unit: "rpcs".to_string(),
+                buckets: vec![BrwStatsBucket {
+                    name: 1,
+                    read: 5,
+                    write: 5,
+                }],
+            }],
+            header: None,
+        };
+
+        build_brw_stats(&stat, &mut brw, &mut set);
+
+        let mut buffer = String::new();
+        encode(&mut buffer, &registry).unwrap();
+
+        assert!(!buffer.contains("_start_time"));
     }
 }

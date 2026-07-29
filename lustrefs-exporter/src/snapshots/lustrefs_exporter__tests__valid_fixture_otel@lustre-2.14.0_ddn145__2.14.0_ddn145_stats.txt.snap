@@ -95,6 +95,12 @@ lustre_ldlm_cbd_stats{operation="req_qdepth"} 32
 lustre_ldlm_cbd_stats{operation="req_timeout"} 32
 lustre_ldlm_cbd_stats{operation="req_waittime"} 32
 lustre_ldlm_cbd_stats{operation="reqbuf_avail"} 70
+# HELP lustre_brw_stats_start_time Unix epoch seconds when the brw_stats counters were last reset.
+# TYPE lustre_brw_stats_start_time gauge
+lustre_brw_stats_start_time{component="mdt",target="fs-MDT0000"} 9540
+lustre_brw_stats_start_time{component="mgt",target="MGS"} 9538
+lustre_brw_stats_start_time{component="ost",target="fs-OST0000"} 9539
+lustre_brw_stats_start_time{component="ost",target="fs-OST0001"} 9539
 # HELP lustre_inodes_free The number of inodes (objects) available.
 # TYPE lustre_inodes_free gauge
 lustre_inodes_free{component="mdt",target="fs-MDT0000"} 1885355
@@ -192,10 +198,19 @@ lustre_changelog_current_index{target="fs-MDT0000"} 0
 # HELP lustre_client_stats Lustre client interface stats.
 # TYPE lustre_client_stats counter
 lustre_client_stats{operation="getattr",target="fs-ffff97e895d31000"} 6
+# HELP lustre_client_stats_start_time Unix epoch seconds when lustre_client_stats was last reset.
+# TYPE lustre_client_stats_start_time gauge
+lustre_client_stats_start_time{target="fs-ffff97e895d31000"} 1715767600
 # HELP lustre_stats_total Number of operations the filesystem has performed.
 # TYPE lustre_stats_total counter
 lustre_stats_total{component="mdt",operation="getattr",target="fs-MDT0000"} 7
 lustre_stats_total{component="mdt",operation="statfs",target="fs-MDT0000"} 113929
+# HELP lustre_stats_start_time Unix epoch seconds when lustre_stats was last reset.
+# TYPE lustre_stats_start_time gauge
+lustre_stats_start_time{component="mdt",target="fs-MDT0000"} 1715712429
+lustre_stats_start_time{component="mgt",target="MGS"} 1715712427
+lustre_stats_start_time{component="ost",target="fs-OST0000"} 1715712428
+lustre_stats_start_time{component="ost",target="fs-OST0001"} 1715712428
 # HELP lustre_stats_time_min Minimum time taken for an operation in microseconds.
 # TYPE lustre_stats_time_min gauge
 lustre_stats_time_min{component="mdt",operation="getattr",target="fs-MDT0000"} 11
