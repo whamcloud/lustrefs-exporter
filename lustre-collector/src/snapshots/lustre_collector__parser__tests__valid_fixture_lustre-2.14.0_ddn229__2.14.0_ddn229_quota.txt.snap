@@ -1,0 +1,457 @@
+---
+source: lustre-collector/src/parser.rs
+assertion_line: 89
+expression: result
+---
+(
+    [
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "0x0",
+                    tenant: None,
+                    manager: "dt",
+                    param: Param(
+                        "grp",
+                    ),
+                    target: Target(
+                        "lustre-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Grp,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "0x0",
+                    tenant: None,
+                    manager: "dt",
+                    param: Param(
+                        "prj",
+                    ),
+                    target: Target(
+                        "lustre-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Prj,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "0x0",
+                    tenant: None,
+                    manager: "dt",
+                    param: Param(
+                        "usr",
+                    ),
+                    target: Target(
+                        "lustre-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Usr,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "local",
+                    tenant: None,
+                    manager: "dt",
+                    param: Param(
+                        "grp",
+                    ),
+                    target: Target(
+                        "lustre-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Grp,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "local",
+                    tenant: None,
+                    manager: "dt",
+                    param: Param(
+                        "prj",
+                    ),
+                    target: Target(
+                        "lustre-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Prj,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "local",
+                    tenant: None,
+                    manager: "dt",
+                    param: Param(
+                        "usr",
+                    ),
+                    target: Target(
+                        "lustre-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Usr,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "",
+                    tenant: Some(
+                        "tenant0",
+                    ),
+                    manager: "lqa-dt",
+                    param: Param(
+                        "grp",
+                    ),
+                    target: Target(
+                        "lustre-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Grp,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "",
+                    tenant: Some(
+                        "tenant0",
+                    ),
+                    manager: "lqa-dt",
+                    param: Param(
+                        "prj",
+                    ),
+                    target: Target(
+                        "lustre-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Prj,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "",
+                    tenant: Some(
+                        "tenant0",
+                    ),
+                    manager: "lqa-dt",
+                    param: Param(
+                        "usr",
+                    ),
+                    target: Target(
+                        "lustre-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Usr,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "",
+                    tenant: Some(
+                        "tenant0",
+                    ),
+                    manager: "lqa-md",
+                    param: Param(
+                        "grp",
+                    ),
+                    target: Target(
+                        "lustre-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Grp,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "",
+                    tenant: Some(
+                        "tenant0",
+                    ),
+                    manager: "lqa-md",
+                    param: Param(
+                        "prj",
+                    ),
+                    target: Target(
+                        "lustre-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Prj,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "",
+                    tenant: Some(
+                        "tenant0",
+                    ),
+                    manager: "lqa-md",
+                    param: Param(
+                        "usr",
+                    ),
+                    target: Target(
+                        "lustre-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Usr,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "0x0",
+                    tenant: None,
+                    manager: "md",
+                    param: Param(
+                        "grp",
+                    ),
+                    target: Target(
+                        "lustre-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Grp,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "0x0",
+                    tenant: None,
+                    manager: "md",
+                    param: Param(
+                        "prj",
+                    ),
+                    target: Target(
+                        "lustre-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Prj,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            QuotaStats(
+                TargetQuotaStat {
+                    pool: "0x0",
+                    tenant: None,
+                    manager: "md",
+                    param: Param(
+                        "usr",
+                    ),
+                    target: Target(
+                        "lustre-QMT0000",
+                    ),
+                    value: QuotaStats {
+                        kind: Usr,
+                        stats: [
+                            QuotaStat {
+                                id: 0,
+                                limits: QuotaStatLimits {
+                                    hard: 0,
+                                    soft: 0,
+                                    granted: 0,
+                                    time: 604800,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+    ],
+    "",
+)

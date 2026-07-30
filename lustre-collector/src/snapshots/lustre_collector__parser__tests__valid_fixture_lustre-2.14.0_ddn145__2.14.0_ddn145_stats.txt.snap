@@ -4146,6 +4146,7 @@ expression: result
             QuotaStats(
                 TargetQuotaStat {
                     pool: "0x0",
+                    tenant: None,
                     manager: "dt",
                     param: Param(
                         "usr",
@@ -4174,6 +4175,7 @@ expression: result
             QuotaStats(
                 TargetQuotaStat {
                     pool: "ddn_hdd",
+                    tenant: None,
                     manager: "dt",
                     param: Param(
                         "usr",
@@ -4202,6 +4204,7 @@ expression: result
             QuotaStats(
                 TargetQuotaStat {
                     pool: "ddn_ssd",
+                    tenant: None,
                     manager: "dt",
                     param: Param(
                         "usr",
@@ -4230,6 +4233,7 @@ expression: result
             QuotaStats(
                 TargetQuotaStat {
                     pool: "0x0",
+                    tenant: None,
                     manager: "md",
                     param: Param(
                         "usr",
@@ -4258,6 +4262,7 @@ expression: result
             QuotaStats(
                 TargetQuotaStat {
                     pool: "0x0",
+                    tenant: None,
                     manager: "dt",
                     param: Param(
                         "prj",
@@ -4286,6 +4291,7 @@ expression: result
             QuotaStats(
                 TargetQuotaStat {
                     pool: "ddn_hdd",
+                    tenant: None,
                     manager: "dt",
                     param: Param(
                         "prj",
@@ -4314,6 +4320,7 @@ expression: result
             QuotaStats(
                 TargetQuotaStat {
                     pool: "ddn_ssd",
+                    tenant: None,
                     manager: "dt",
                     param: Param(
                         "prj",
@@ -4342,6 +4349,7 @@ expression: result
             QuotaStats(
                 TargetQuotaStat {
                     pool: "0x0",
+                    tenant: None,
                     manager: "md",
                     param: Param(
                         "prj",
@@ -4370,6 +4378,7 @@ expression: result
             QuotaStats(
                 TargetQuotaStat {
                     pool: "0x0",
+                    tenant: None,
                     manager: "dt",
                     param: Param(
                         "grp",
@@ -4398,6 +4407,7 @@ expression: result
             QuotaStats(
                 TargetQuotaStat {
                     pool: "ddn_hdd",
+                    tenant: None,
                     manager: "dt",
                     param: Param(
                         "grp",
@@ -4426,6 +4436,7 @@ expression: result
             QuotaStats(
                 TargetQuotaStat {
                     pool: "ddn_ssd",
+                    tenant: None,
                     manager: "dt",
                     param: Param(
                         "grp",
@@ -4454,6 +4465,7 @@ expression: result
             QuotaStats(
                 TargetQuotaStat {
                     pool: "0x0",
+                    tenant: None,
                     manager: "md",
                     param: Param(
                         "grp",

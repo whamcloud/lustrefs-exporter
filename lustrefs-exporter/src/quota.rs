@@ -14,6 +14,9 @@ pub struct QuotaMetrics {
     quota_granted: Family<Gauge<u64, AtomicU64>>,
     quota_used_kbytes: Family<Gauge<u64, AtomicU64>>,
     quota_used_inodes: Family<Gauge<u64, AtomicU64>>,
+    lqa_quota_hard: Family<Gauge<u64, AtomicU64>>,
+    lqa_quota_soft: Family<Gauge<u64, AtomicU64>>,
+    lqa_quota_granted: Family<Gauge<u64, AtomicU64>>,
 }
 
 impl QuotaMetrics {
@@ -47,6 +50,24 @@ impl QuotaMetrics {
             "The amount of inodes used by quota",
             self.quota_used_inodes.clone(),
         );
+
+        registry.register(
+            "lustre_lqa_quota_hard",
+            "The aggregated hard quota for a given tenant",
+            self.lqa_quota_hard.clone(),
+        );
+
+        registry.register(
+            "lustre_lqa_quota_soft",
+            "The aggregated soft quota for a given tenant",
+            self.lqa_quota_soft.clone(),
+        );
+
+        registry.register(
+            "lustre_lqa_quota_granted",
+            "The aggregated granted quota for a given tenant",
+            self.lqa_quota_granted.clone(),
+        );
     }
 }
 
@@ -55,20 +76,49 @@ pub fn build_quota_stats(x: &TargetQuotaStat<QuotaStats>, quota: &mut QuotaMetri
         target,
         value,
         pool,
+        tenant,
         manager,
         param,
         ..
     } = x;
 
     for s in &value.stats {
-        let pool = pool.deref().to_string();
-        let pool = if pool == "0x0" { String::new() } else { pool };
         let accounting = match param.deref() {
             "usr" => "user".to_string(),
             "grp" => "group".to_string(),
             "prj" => "project".to_string(),
             _ => param.to_string(),
         };
+
+        if let Some(tenant) = tenant {
+            let label = vec![
+                ("accounting", accounting),
+                ("id", s.id.to_string()),
+                ("manager", manager.to_string()),
+                ("tenant", tenant.clone()),
+                ("target", target.to_string()),
+            ];
+
+            quota
+                .lqa_quota_hard
+                .get_or_create(&label)
+                .set(s.limits.hard);
+
+            quota
+                .lqa_quota_soft
+                .get_or_create(&label)
+                .set(s.limits.soft);
+
+            quota
+                .lqa_quota_granted
+                .get_or_create(&label)
+                .set(s.limits.granted);
+
+            continue;
+        }
+
+        let pool = pool.deref().to_string();
+        let pool = if pool == "0x0" { String::new() } else { pool };
 
         let label = vec![
             ("accounting", accounting.clone()),

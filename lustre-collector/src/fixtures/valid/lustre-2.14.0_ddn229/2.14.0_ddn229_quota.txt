@@ -1,0 +1,60 @@
+qmt.lustre-QMT0000.dt-0x0.glb-grp=
+global_pool0_dt_grp
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustre-QMT0000.dt-0x0.glb-prj=
+global_pool0_dt_prj
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustre-QMT0000.dt-0x0.glb-usr=
+global_pool0_dt_usr
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustre-QMT0000.dt-local.glb-grp=
+global_index_copy:
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustre-QMT0000.dt-local.glb-prj=
+global_index_copy:
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustre-QMT0000.dt-local.glb-usr=
+global_index_copy:
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustre-QMT0000.lqa-dt-tenant0.glb-grp=
+global_index_copy:
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustre-QMT0000.lqa-dt-tenant0.glb-prj=
+global_index_copy:
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustre-QMT0000.lqa-dt-tenant0.glb-usr=
+global_index_copy:
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustre-QMT0000.lqa-md-tenant0.glb-grp=
+global_index_copy:
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustre-QMT0000.lqa-md-tenant0.glb-prj=
+global_index_copy:
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustre-QMT0000.lqa-md-tenant0.glb-usr=
+global_index_copy:
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustre-QMT0000.md-0x0.glb-grp=
+global_pool0_md_grp
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustre-QMT0000.md-0x0.glb-prj=
+global_pool0_md_prj
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
+qmt.lustre-QMT0000.md-0x0.glb-usr=
+global_pool0_md_usr
+- id:      0
+  limits:  { hard:            0, soft:            0, granted:            0, time:          604800 }
