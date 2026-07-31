@@ -4194,14 +4194,12 @@ expression: result
                             ),
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1716295737.291444030",
-                            start_time: Some(
-                                "1715767600.564021089",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1716295737.291444030",
+                        start_time: Some(
+                            "1715767600.564021089",
+                        ),
+                    },
                 },
             ),
         ),

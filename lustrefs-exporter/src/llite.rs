@@ -42,8 +42,8 @@ pub fn build_llite_stats(x: &LliteStat, metrics: &mut LliteMetrics) {
 
     // GCP-226: one start_time per target
     let start_epoch: Option<u64> = header
+        .start_time
         .as_ref()
-        .and_then(|h| h.start_time.as_ref())
         .and_then(|s| s.parse::<f64>().ok())
         .map(|f| f as u64);
 

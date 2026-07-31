@@ -372,7 +372,7 @@ pub struct LliteStat {
     pub target: Target,
     pub param: Param,
     pub stats: Vec<Stat>,
-    pub header: Option<StatsHeader>,
+    pub header: StatsHeader,
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]

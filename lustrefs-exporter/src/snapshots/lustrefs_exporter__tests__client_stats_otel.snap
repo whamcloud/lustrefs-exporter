@@ -71,6 +71,9 @@ lustre_client_stats{operation="write",target="exafs-ffff9239aa0c4800"} 2726169
 lustre_client_stats{operation="write",target="exatest-ffff923a1497d800"} 204800
 lustre_client_stats{operation="write_bytes",target="exafs-ffff9239aa0c4800"} 2726169
 lustre_client_stats{operation="write_bytes",target="exatest-ffff923a1497d800"} 204800
+# HELP lustre_client_stats_start_time Unix epoch seconds when lustre_client_stats was last reset.
+# TYPE lustre_client_stats_start_time gauge
+lustre_client_stats_start_time{target="exatest-ffff923a1497d800"} 1534429278
 # HELP lustre_send_count_total Total number of messages that have been sent.
 # TYPE lustre_send_count_total counter
 lustre_send_count_total{nid="0@lo"} 0

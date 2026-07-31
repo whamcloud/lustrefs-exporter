@@ -396,12 +396,10 @@ expression: result
                             ),
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1710759783.271040288",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1710759783.271040288",
+                        start_time: None,
+                    },
                 },
             ),
         ),

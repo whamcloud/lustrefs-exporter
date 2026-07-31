@@ -53,7 +53,7 @@ where
                 target,
                 param,
                 stats,
-                header: Some(header),
+                header,
             }),
         })
         .map(Record::Target)

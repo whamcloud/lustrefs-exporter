@@ -3124,7 +3124,11 @@
             "sum": 14,
             "sumsquare": 14
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
