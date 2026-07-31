@@ -15,7 +15,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 2,
-                    header: None,
                 },
             ),
         ),

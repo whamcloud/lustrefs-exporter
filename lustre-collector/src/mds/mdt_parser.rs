@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    ExportStats, StatsHeader,
+    ExportStats, StatsHeader, TimedTargetStat,
     base_parsers::{digits, param, param_period, period, target},
     exports_parser::exports_stats,
     oss::obdfilter_parser::{EXPORTS, EXPORTS_PARAMS},
@@ -75,26 +75,24 @@ where
 {
     (target_name(), mdt_stat())
         .map(|(target, (param, value))| match value {
-            MdtStat::Stats(header, value) => TargetStats::Stats(TargetStat {
+            MdtStat::Stats(header, value) => TargetStats::Stats(TimedTargetStat {
                 kind: TargetVariant::Mdt,
                 target,
                 param,
                 value,
-                header: Some(header),
+                header,
             }),
             MdtStat::NumExports(value) => TargetStats::NumExports(TargetStat {
                 kind: TargetVariant::Mdt,
                 target,
                 param,
                 value,
-                header: None,
             }),
             MdtStat::ExportStats(value) => TargetStats::ExportStats(TargetStat {
                 kind: TargetVariant::Mdt,
                 target,
                 param,
                 value,
-                header: None,
             }),
         })
         .map(Record::Target)

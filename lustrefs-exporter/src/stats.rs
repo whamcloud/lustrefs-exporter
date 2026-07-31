@@ -3,7 +3,9 @@
 // license that can be found in the LICENSE file.
 
 use crate::{Family, LabelProm};
-use lustre_collector::{ExportStats, MdsStat, Stat, Target, TargetStat, TargetVariant};
+use lustre_collector::{
+    ExportStats, MdsStat, Stat, Target, TargetStat, TargetVariant, TimedTargetStat,
+};
 use prometheus_client::{
     metrics::{counter::Counter, gauge::Gauge},
     registry::Registry,
@@ -391,8 +393,8 @@ pub fn build_mdt_stats(stats: &[Stat], target: &Target, metrics: &mut StatsMetri
     }
 }
 
-pub fn build_stats(x: &TargetStat<Vec<Stat>>, stats: &mut StatsMetrics) {
-    let TargetStat {
+pub fn build_stats(x: &TimedTargetStat<Vec<Stat>>, stats: &mut StatsMetrics) {
+    let TimedTargetStat {
         kind,
         target,
         value,
@@ -401,8 +403,8 @@ pub fn build_stats(x: &TargetStat<Vec<Stat>>, stats: &mut StatsMetrics) {
     } = x;
 
     let start_epoch: Option<u64> = header
+        .start_time
         .as_ref()
-        .and_then(|h| h.start_time.as_ref())
         .and_then(|s| s.parse::<f64>().ok())
         .map(|f| f as u64);
 

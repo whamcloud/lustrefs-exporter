@@ -6,7 +6,7 @@ expression: result
     [
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "stats",
@@ -15,14 +15,12 @@ expression: result
                         "fs-OST0003",
                     ),
                     value: [],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1750226041.107594239",
-                            start_time: Some(
-                                "1750176720.831807230",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1750226041.107594239",
+                        start_time: Some(
+                            "1750176720.831807230",
+                        ),
+                    },
                 },
             ),
         ),
@@ -37,7 +35,6 @@ expression: result
                         "MGS",
                     ),
                     value: 32531,
-                    header: None,
                 },
             ),
         ),
@@ -52,7 +49,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 1885343,
-                    header: None,
                 },
             ),
         ),
@@ -67,7 +63,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 39110,
-                    header: None,
                 },
             ),
         ),
@@ -82,7 +77,6 @@ expression: result
                         "fs-OST0010",
                     ),
                     value: 39110,
-                    header: None,
                 },
             ),
         ),
@@ -97,7 +91,6 @@ expression: result
                         "MGS",
                     ),
                     value: 32768,
-                    header: None,
                 },
             ),
         ),
@@ -112,7 +105,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 1885696,
-                    header: None,
                 },
             ),
         ),
@@ -127,7 +119,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 40960,
-                    header: None,
                 },
             ),
         ),
@@ -142,7 +133,6 @@ expression: result
                         "fs-OST0010",
                     ),
                     value: 40960,
-                    header: None,
                 },
             ),
         ),
@@ -157,7 +147,6 @@ expression: result
                         "MGS",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -172,7 +161,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -187,7 +175,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -202,7 +189,6 @@ expression: result
                         "fs-OST0010",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -217,7 +203,6 @@ expression: result
                         "MGS",
                     ),
                     value: 462528,
-                    header: None,
                 },
             ),
         ),
@@ -232,7 +217,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 2365872,
-                    header: None,
                 },
             ),
         ),
@@ -247,7 +231,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 4037288,
-                    header: None,
                 },
             ),
         ),
@@ -262,7 +245,6 @@ expression: result
                         "fs-OST0010",
                     ),
                     value: 4037288,
-                    header: None,
                 },
             ),
         ),
@@ -277,7 +259,6 @@ expression: result
                         "MGS",
                     ),
                     value: 488740,
-                    header: None,
                 },
             ),
         ),
@@ -292,7 +273,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 2599980,
-                    header: None,
                 },
             ),
         ),
@@ -307,7 +287,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 4106100,
-                    header: None,
                 },
             ),
         ),
@@ -322,7 +301,6 @@ expression: result
                         "fs-OST0010",
                     ),
                     value: 4106100,
-                    header: None,
                 },
             ),
         ),
@@ -337,7 +315,6 @@ expression: result
                         "MGS",
                     ),
                     value: 491092,
-                    header: None,
                 },
             ),
         ),
@@ -352,7 +329,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 2602832,
-                    header: None,
                 },
             ),
         ),
@@ -367,7 +343,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 4108388,
-                    header: None,
                 },
             ),
         ),
@@ -382,13 +357,12 @@ expression: result
                         "fs-OST0010",
                     ),
                     value: 4108388,
-                    header: None,
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mgt,
                     param: Param(
                         "brw_stats",
@@ -433,18 +407,16 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1648754081.716383375",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1648754081.716383375",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "brw_stats",
@@ -489,18 +461,16 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1648754081.716523297",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1648754081.716523297",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -545,18 +515,16 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1648754081.716654344",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1648754081.716654344",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -601,18 +569,16 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1648754081.716778676",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1648754081.716778676",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -662,12 +628,10 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1698140569.773721492",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1698140569.773721492",
+                        start_time: None,
+                    },
                 },
             ),
         ),

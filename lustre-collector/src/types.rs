@@ -348,7 +348,15 @@ pub struct TargetStat<T> {
     pub param: Param,
     pub target: Target,
     pub value: T,
-    pub header: Option<StatsHeader>,
+}
+
+#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
+pub struct TimedTargetStat<T> {
+    pub kind: TargetVariant,
+    pub param: Param,
+    pub target: Target,
+    pub value: T,
+    pub header: StatsHeader,
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
@@ -502,8 +510,8 @@ pub struct FsName(pub String);
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
 pub enum TargetStats {
     /// Operations per OST. Read and write data is particularly interesting
-    Stats(TargetStat<Vec<Stat>>),
-    BrwStats(TargetStat<Vec<BrwStats>>),
+    Stats(TimedTargetStat<Vec<Stat>>),
+    BrwStats(TimedTargetStat<Vec<BrwStats>>),
     /// Available inodes
     FilesFree(TargetStat<u64>),
     /// Total inodes

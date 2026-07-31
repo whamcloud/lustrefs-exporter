@@ -10,7 +10,7 @@ use crate::{
     stats::{build_export_stats, build_mds_stats, build_stats},
 };
 use lustre_collector::{
-    BrwStats, ChangeLogUser, ChangelogStat, OssStat, Stat, TargetStat, TargetStats,
+    BrwStats, ChangeLogUser, ChangelogStat, OssStat, Stat, TargetStat, TargetStats, TimedTargetStat,
 };
 use prometheus_client::{
     metrics::{counter::Counter, gauge::Gauge},
@@ -294,11 +294,11 @@ impl BrwStatsMetrics {
 }
 
 fn build_brw_stats(
-    x: &TargetStat<Vec<BrwStats>>,
+    x: &TimedTargetStat<Vec<BrwStats>>,
     brw: &mut BrwStatsMetrics,
     set: &mut HashSet<(String, String, String, String)>,
 ) {
-    let TargetStat {
+    let TimedTargetStat {
         kind,
         target,
         value,
@@ -307,8 +307,8 @@ fn build_brw_stats(
     } = x;
 
     let start_epoch: Option<u64> = header
+        .start_time
         .as_ref()
-        .and_then(|h| h.start_time.as_ref())
         .and_then(|s| s.parse::<f64>().ok())
         .map(|f| f as u64);
 
@@ -765,7 +765,9 @@ pub fn build_target_stats(
 #[cfg(test)]
 mod tests {
     use super::{BrwStatsMetrics, build_brw_stats};
-    use lustre_collector::{BrwStats, BrwStatsBucket, Param, Target, TargetStat, TargetVariant};
+    use lustre_collector::{
+        BrwStats, BrwStatsBucket, Param, StatsHeader, Target, TargetVariant, TimedTargetStat,
+    };
     use prometheus_client::{encoding::text::encode, registry::Registry};
     use std::collections::HashSet;
 
@@ -778,7 +780,7 @@ mod tests {
 
         let mut set = HashSet::new();
 
-        let stat = TargetStat {
+        let stat = TimedTargetStat {
             kind: TargetVariant::Ost,
             target: Target("testfs-OST0001".to_string()),
             param: Param("io_latency_stats".to_string()),
@@ -798,7 +800,10 @@ mod tests {
                     },
                 ],
             }],
-            header: None,
+            header: StatsHeader {
+                snapshot_time: "1745254907.328261129".to_string(),
+                start_time: None,
+            },
         };
 
         build_brw_stats(&stat, &mut brw, &mut set);
@@ -822,7 +827,7 @@ mod tests {
 
         let mut set = HashSet::new();
 
-        let stat = TargetStat {
+        let stat = TimedTargetStat {
             kind: TargetVariant::Ost,
             target: Target("testfs-OST0001".to_string()),
             param: Param("io_latency_stats".to_string()),
@@ -835,10 +840,10 @@ mod tests {
                     write: 7,
                 }],
             }],
-            header: Some(StatsHeader {
+            header: StatsHeader {
                 snapshot_time: "1745254907.328261129".to_string(),
                 start_time: Some("1745254800.111111111".to_string()),
-            }),
+            },
         };
 
         build_brw_stats(&stat, &mut brw, &mut set);
@@ -851,38 +856,5 @@ mod tests {
         assert!(buffer.contains(
             "lustre_brw_stats_start_time{component=\"ost\",target=\"testfs-OST0001\"} 1745254800"
         ));
-    }
-
-    #[test]
-    fn test_build_brw_stats_no_start_time_when_header_absent() {
-        let mut registry = Registry::default();
-        let mut brw = BrwStatsMetrics::default();
-
-        brw.register_metric(&mut registry);
-
-        let mut set = HashSet::new();
-
-        let stat = TargetStat {
-            kind: TargetVariant::Ost,
-            target: Target("testfs-OST0001".to_string()),
-            param: Param("brw_stats".to_string()),
-            value: vec![BrwStats {
-                name: "pages".to_string(),
-                unit: "rpcs".to_string(),
-                buckets: vec![BrwStatsBucket {
-                    name: 1,
-                    read: 5,
-                    write: 5,
-                }],
-            }],
-            header: None,
-        };
-
-        build_brw_stats(&stat, &mut brw, &mut set);
-
-        let mut buffer = String::new();
-        encode(&mut buffer, &registry).unwrap();
-
-        assert!(!buffer.contains("_start_time"));
     }
 }

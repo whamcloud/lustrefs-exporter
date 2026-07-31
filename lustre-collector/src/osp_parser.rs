@@ -110,14 +110,12 @@ where
                 target,
                 param,
                 value,
-                header: None,
             }),
             OspStat::MaxCreateCount(value) => TargetStats::OspMaxCreateCount(TargetStat {
                 kind,
                 target,
                 param,
                 value,
-                header: None,
             }),
         })
         .map(Record::Target)

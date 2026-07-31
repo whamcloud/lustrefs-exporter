@@ -3,11 +3,12 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
+    TimedTargetStat,
     base_parsers::{param, period, target},
     mds::mdt_parser::STATS as MD_STATS,
     stats_parser::stats,
     time::StatsHeader,
-    types::{Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
+    types::{Param, Record, Stat, Target, TargetStats, TargetVariant},
 };
 use combine::{Parser, choice, error::ParseError, parser::char::string, stream::Stream};
 
@@ -57,19 +58,19 @@ where
 {
     (target_name(), nodemap_stat())
         .map(|(target, (param, value))| match value {
-            NodemapStat::Dt(header, value) => TargetStats::Stats(TargetStat {
+            NodemapStat::Dt(header, value) => TargetStats::Stats(TimedTargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
-                header: Some(header),
+                header,
             }),
-            NodemapStat::Md(header, value) => TargetStats::Stats(TargetStat {
+            NodemapStat::Md(header, value) => TargetStats::Stats(TimedTargetStat {
                 kind: TargetVariant::Mdt,
                 target,
                 param,
                 value,
-                header: Some(header),
+                header,
             }),
         })
         .map(Record::Target)
@@ -110,7 +111,7 @@ sync                      1 samples [usecs] 88 88 88 7744
         [
             Target(
                 Stats(
-                    TargetStat {
+                    TimedTargetStat {
                         kind: Mdt,
                         param: Param(
                             "md_stats",
@@ -222,20 +223,18 @@ sync                      1 samples [usecs] 88 88 88 7744
                                 ),
                             },
                         ],
-                        header: Some(
-                            StatsHeader {
-                                snapshot_time: "1746601510.804589748",
-                                start_time: Some(
-                                    "1746601507.675857245",
-                                ),
-                            },
-                        ),
+                        header: StatsHeader {
+                            snapshot_time: "1746601510.804589748",
+                            start_time: Some(
+                                "1746601507.675857245",
+                            ),
+                        },
                     },
                 ),
             ),
             Target(
                 Stats(
-                    TargetStat {
+                    TimedTargetStat {
                         kind: Ost,
                         param: Param(
                             "dt_stats",
@@ -296,14 +295,12 @@ sync                      1 samples [usecs] 88 88 88 7744
                                 ),
                             },
                         ],
-                        header: Some(
-                            StatsHeader {
-                                snapshot_time: "1746601510.814726699",
-                                start_time: Some(
-                                    "1746601507.675852028",
-                                ),
-                            },
-                        ),
+                        header: StatsHeader {
+                            snapshot_time: "1746601510.814726699",
+                            start_time: Some(
+                                "1746601507.675852028",
+                            ),
+                        },
                     },
                 ),
             ),

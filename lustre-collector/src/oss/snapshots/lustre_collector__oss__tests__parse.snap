@@ -6,7 +6,7 @@ expression: result
     [
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "stats",
@@ -121,12 +121,10 @@ expression: result
                             sumsquare: None,
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1535148988.363769785",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1535148988.363769785",
+                        start_time: None,
+                    },
                 },
             ),
         ),
@@ -141,7 +139,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 2,
-                    header: None,
                 },
             ),
         ),
@@ -156,7 +153,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -171,7 +167,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 8666816,
-                    header: None,
                 },
             ),
         ),
@@ -186,7 +181,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),

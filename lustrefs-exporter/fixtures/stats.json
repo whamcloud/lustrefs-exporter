@@ -326,7 +326,11 @@
             "unit": "ios",
             "buckets": []
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
@@ -372,7 +376,11 @@
             "unit": "ios",
             "buckets": []
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
@@ -835,7 +843,11 @@
               }
             ]
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
@@ -1408,7 +1420,11 @@
               }
             ]
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
@@ -1555,7 +1571,11 @@
             "sum": 7446,
             "sumsquare": 1063150
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
@@ -1705,7 +1725,11 @@
             "sum": 71,
             "sumsquare": 687
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
@@ -1815,7 +1839,11 @@
             "sum": 111,
             "sumsquare": 1135
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
@@ -2487,7 +2515,11 @@
             "sum": 1433,
             "sumsquare": 11323
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
@@ -3033,7 +3065,11 @@
             "sum": null,
             "sumsquare": null
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": "1534429278.185762481"
+        }
       }
     }
   },

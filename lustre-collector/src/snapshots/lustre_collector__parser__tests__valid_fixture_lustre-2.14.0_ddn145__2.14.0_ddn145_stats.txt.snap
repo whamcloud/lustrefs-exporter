@@ -58,7 +58,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 1,
-                    header: None,
                 },
             ),
         ),
@@ -73,7 +72,6 @@ expression: result
                         "MGS",
                     ),
                     value: 32573,
-                    header: None,
                 },
             ),
         ),
@@ -88,7 +86,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 1885355,
-                    header: None,
                 },
             ),
         ),
@@ -103,7 +100,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 40592,
-                    header: None,
                 },
             ),
         ),
@@ -118,7 +114,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 40592,
-                    header: None,
                 },
             ),
         ),
@@ -133,7 +128,6 @@ expression: result
                         "MGS",
                     ),
                     value: 32768,
-                    header: None,
                 },
             ),
         ),
@@ -148,7 +142,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 1885696,
-                    header: None,
                 },
             ),
         ),
@@ -163,7 +156,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 40960,
-                    header: None,
                 },
             ),
         ),
@@ -178,7 +170,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 40960,
-                    header: None,
                 },
             ),
         ),
@@ -193,7 +184,6 @@ expression: result
                         "MGS",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -208,7 +198,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -223,7 +212,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -238,7 +226,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -253,7 +240,6 @@ expression: result
                         "MGS",
                     ),
                     value: 463708,
-                    header: None,
                 },
             ),
         ),
@@ -268,7 +254,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 2366504,
-                    header: None,
                 },
             ),
         ),
@@ -283,7 +268,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 4038040,
-                    header: None,
                 },
             ),
         ),
@@ -298,7 +282,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 4038040,
-                    header: None,
                 },
             ),
         ),
@@ -313,7 +296,6 @@ expression: result
                         "MGS",
                     ),
                     value: 489920,
-                    header: None,
                 },
             ),
         ),
@@ -328,7 +310,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 2600612,
-                    header: None,
                 },
             ),
         ),
@@ -343,7 +324,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 4106852,
-                    header: None,
                 },
             ),
         ),
@@ -358,7 +338,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 4106852,
-                    header: None,
                 },
             ),
         ),
@@ -373,7 +352,6 @@ expression: result
                         "MGS",
                     ),
                     value: 491092,
-                    header: None,
                 },
             ),
         ),
@@ -388,7 +366,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 2602832,
-                    header: None,
                 },
             ),
         ),
@@ -403,7 +380,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 4108388,
-                    header: None,
                 },
             ),
         ),
@@ -418,13 +394,12 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 4108388,
-                    header: None,
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mgt,
                     param: Param(
                         "brw_stats",
@@ -474,20 +449,18 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1716295737.286540466",
-                            start_time: Some(
-                                "9538.444882862",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1716295737.286540466",
+                        start_time: Some(
+                            "9538.444882862",
+                        ),
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "brw_stats",
@@ -537,20 +510,18 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1716295737.286566031",
-                            start_time: Some(
-                                "9540.843836838",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1716295737.286566031",
+                        start_time: Some(
+                            "9540.843836838",
+                        ),
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -600,20 +571,18 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1716295737.286585650",
-                            start_time: Some(
-                                "9539.298492617",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1716295737.286585650",
+                        start_time: Some(
+                            "9539.298492617",
+                        ),
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -663,20 +632,18 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1716295737.286612379",
-                            start_time: Some(
-                                "9539.326245646",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1716295737.286612379",
+                        start_time: Some(
+                            "9539.326245646",
+                        ),
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mgt,
                     param: Param(
                         "brw_stats",
@@ -726,20 +693,18 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1716295737.286635994",
-                            start_time: Some(
-                                "9538.444882862",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1716295737.286635994",
+                        start_time: Some(
+                            "9538.444882862",
+                        ),
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "brw_stats",
@@ -789,20 +754,18 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1716295737.286656748",
-                            start_time: Some(
-                                "9540.843836838",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1716295737.286656748",
+                        start_time: Some(
+                            "9540.843836838",
+                        ),
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -852,20 +815,18 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1716295737.286676964",
-                            start_time: Some(
-                                "9539.298492617",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1716295737.286676964",
+                        start_time: Some(
+                            "9539.298492617",
+                        ),
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -915,14 +876,12 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1716295737.286701613",
-                            start_time: Some(
-                                "9539.326245646",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1716295737.286701613",
+                        start_time: Some(
+                            "9539.326245646",
+                        ),
+                    },
                 },
             ),
         ),
@@ -948,7 +907,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -974,7 +932,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -1000,7 +957,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -1026,7 +982,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -1052,7 +1007,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -1078,7 +1032,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -1104,7 +1057,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -1130,7 +1082,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -1156,13 +1107,12 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mgt,
                     param: Param(
                         "stats",
@@ -1393,14 +1343,12 @@ expression: result
                             ),
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1716295737.287495518",
-                            start_time: Some(
-                                "1715712427.194053418",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1716295737.287495518",
+                        start_time: Some(
+                            "1715712427.194053418",
+                        ),
+                    },
                 },
             ),
         ),
@@ -1415,7 +1363,6 @@ expression: result
                         "MGS",
                     ),
                     value: 32,
-                    header: None,
                 },
             ),
         ),
@@ -1430,7 +1377,6 @@ expression: result
                         "MGS",
                     ),
                     value: 3,
-                    header: None,
                 },
             ),
         ),
@@ -1445,7 +1391,6 @@ expression: result
                         "MGS",
                     ),
                     value: 3,
-                    header: None,
                 },
             ),
         ),
@@ -1460,13 +1405,12 @@ expression: result
                         "MGS",
                     ),
                     value: 2,
-                    header: None,
                 },
             ),
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "stats",
@@ -1527,20 +1471,18 @@ expression: result
                             ),
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1716295737.287969347",
-                            start_time: Some(
-                                "1715712428.324534805",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1716295737.287969347",
+                        start_time: Some(
+                            "1715712428.324534805",
+                        ),
+                    },
                 },
             ),
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "stats",
@@ -1601,14 +1543,12 @@ expression: result
                             ),
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1716295737.287994905",
-                            start_time: Some(
-                                "1715712428.714128597",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1716295737.287994905",
+                        start_time: Some(
+                            "1715712428.714128597",
+                        ),
+                    },
                 },
             ),
         ),
@@ -1623,7 +1563,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 2,
-                    header: None,
                 },
             ),
         ),
@@ -1638,7 +1577,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 2,
-                    header: None,
                 },
             ),
         ),
@@ -1653,7 +1591,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -1668,7 +1605,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -1683,7 +1619,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 278208,
-                    header: None,
                 },
             ),
         ),
@@ -1698,7 +1633,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 278208,
-                    header: None,
                 },
             ),
         ),
@@ -1713,7 +1647,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -1728,7 +1661,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -1800,7 +1732,6 @@ expression: result
                             ],
                         },
                     ],
-                    header: None,
                 },
             ),
         ),
@@ -1872,7 +1803,6 @@ expression: result
                             ],
                         },
                     ],
-                    header: None,
                 },
             ),
         ),
@@ -1944,7 +1874,6 @@ expression: result
                             ],
                         },
                     ],
-                    header: None,
                 },
             ),
         ),
@@ -2042,7 +1971,6 @@ expression: result
                             ],
                         },
                     ],
-                    header: None,
                 },
             ),
         ),
@@ -3360,7 +3288,7 @@ expression: result
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "md_stats",
@@ -3404,14 +3332,12 @@ expression: result
                             ),
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1716295737.289304635",
-                            start_time: Some(
-                                "1715712429.906866119",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1716295737.289304635",
+                        start_time: Some(
+                            "1715712429.906866119",
+                        ),
+                    },
                 },
             ),
         ),
@@ -3426,7 +3352,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 8,
-                    header: None,
                 },
             ),
         ),
@@ -3481,7 +3406,6 @@ expression: result
                             ],
                         },
                     ],
-                    header: None,
                 },
             ),
         ),
@@ -3519,7 +3443,6 @@ expression: result
                             ],
                         },
                     ],
-                    header: None,
                 },
             ),
         ),
@@ -3534,7 +3457,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 32,
-                    header: None,
                 },
             ),
         ),
@@ -3549,7 +3471,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 32,
-                    header: None,
                 },
             ),
         ),
@@ -3564,7 +3485,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 32,
-                    header: None,
                 },
             ),
         ),
@@ -3579,7 +3499,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 2,
-                    header: None,
                 },
             ),
         ),
@@ -3594,7 +3513,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 2,
-                    header: None,
                 },
             ),
         ),
@@ -3609,7 +3527,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 2,
-                    header: None,
                 },
             ),
         ),
@@ -3624,7 +3541,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 10,
-                    header: None,
                 },
             ),
         ),
@@ -3639,7 +3555,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 10,
-                    header: None,
                 },
             ),
         ),
@@ -3654,7 +3569,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 10,
-                    header: None,
                 },
             ),
         ),
@@ -3669,7 +3583,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -3684,7 +3597,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -3699,7 +3611,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -3714,7 +3625,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 24,
-                    header: None,
                 },
             ),
         ),
@@ -3729,7 +3639,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -3744,7 +3653,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -3759,7 +3667,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -3774,7 +3681,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -3789,7 +3695,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -3804,7 +3709,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -3819,7 +3723,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -3834,7 +3737,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -3849,7 +3751,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 3900000,
-                    header: None,
                 },
             ),
         ),
@@ -3864,7 +3765,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 3900000,
-                    header: None,
                 },
             ),
         ),
@@ -3879,7 +3779,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 3900000,
-                    header: None,
                 },
             ),
         ),
@@ -3894,7 +3793,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 800,
-                    header: None,
                 },
             ),
         ),
@@ -3909,7 +3807,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 800,
-                    header: None,
                 },
             ),
         ),
@@ -3924,7 +3821,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 800,
-                    header: None,
                 },
             ),
         ),
@@ -3939,7 +3835,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -3954,7 +3849,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -3969,7 +3863,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -3984,7 +3877,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 1024,
-                    header: None,
                 },
             ),
         ),
@@ -3999,7 +3891,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 1024,
-                    header: None,
                 },
             ),
         ),
@@ -4014,7 +3905,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 1024,
-                    header: None,
                 },
             ),
         ),
@@ -4029,7 +3919,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 6,
-                    header: None,
                 },
             ),
         ),
@@ -4044,7 +3933,6 @@ expression: result
                         "fs-OST0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -4059,7 +3947,6 @@ expression: result
                         "fs-OST0001",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -4332,7 +4219,6 @@ expression: result
                         current_index: 0,
                         users: [],
                     },
-                    header: None,
                 },
             ),
         ),

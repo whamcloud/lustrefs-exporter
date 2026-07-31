@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    QuotaKind, QuotaStatsOsd,
+    QuotaKind, QuotaStatsOsd, TimedTargetStat,
     base_parsers::{digits, param, period, target, till_newline, till_period},
     brw_stats_parser::brw_stats,
     io_latency_stats_parser::io_latency_stats,
@@ -171,68 +171,61 @@ where
 {
     (target_and_variant(), osd_stat())
         .map(|((target, kind), (param, stat))| match stat {
-            OsdStat::Stats(header, value) => TargetStats::Stats(TargetStat {
+            OsdStat::Stats(header, value) => TargetStats::Stats(TimedTargetStat {
                 kind,
                 target,
                 param,
                 value,
-                header: Some(header),
+                header,
             }),
             OsdStat::FilesFree(value) => TargetStats::FilesFree(TargetStat {
                 kind,
                 target,
                 param,
                 value,
-                header: None,
             }),
             OsdStat::FilesTotal(value) => TargetStats::FilesTotal(TargetStat {
                 kind,
                 target,
                 param,
                 value,
-                header: None,
             }),
             OsdStat::FsType(value) => TargetStats::FsType(TargetStat {
                 kind,
                 target,
                 param,
                 value,
-                header: None,
             }),
             OsdStat::KBytesAvail(value) => TargetStats::KBytesAvail(TargetStat {
                 kind,
                 target,
                 param,
                 value,
-                header: None,
             }),
             OsdStat::KBytesFree(value) => TargetStats::KBytesFree(TargetStat {
                 kind,
                 target,
                 param,
                 value,
-                header: None,
             }),
             OsdStat::KBytesTotal(value) => TargetStats::KBytesTotal(TargetStat {
                 kind,
                 target,
                 param,
                 value,
-                header: None,
             }),
-            OsdStat::BrwStats(header, value) => TargetStats::BrwStats(TargetStat {
+            OsdStat::BrwStats(header, value) => TargetStats::BrwStats(TimedTargetStat {
                 kind,
                 target,
                 param,
                 value,
-                header: Some(header),
+                header,
             }),
             OsdStat::QuotaStats(value) => TargetStats::QuotaStatsOsd(TargetStat {
                 kind,
                 target,
                 param,
                 value,
-                header: None,
             }),
         })
         .map(Record::Target)

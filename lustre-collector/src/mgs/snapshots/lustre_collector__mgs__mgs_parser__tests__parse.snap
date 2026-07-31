@@ -6,7 +6,7 @@ expression: result
     [
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mgt,
                     param: Param(
                         "stats",
@@ -254,12 +254,10 @@ expression: result
                             ),
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1596728874.484750908",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1596728874.484750908",
+                        start_time: None,
+                    },
                 },
             ),
         ),
@@ -274,7 +272,6 @@ expression: result
                         "MGS",
                     ),
                     value: 32,
-                    header: None,
                 },
             ),
         ),
@@ -289,7 +286,6 @@ expression: result
                         "MGS",
                     ),
                     value: 3,
-                    header: None,
                 },
             ),
         ),
@@ -304,7 +300,6 @@ expression: result
                         "MGS",
                     ),
                     value: 4,
-                    header: None,
                 },
             ),
         ),
@@ -319,7 +314,6 @@ expression: result
                         "MGS",
                     ),
                     value: 5,
-                    header: None,
                 },
             ),
         ),

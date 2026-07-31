@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    ExportStats,
+    ExportStats, TimedTargetStat,
     base_parsers::{digits, param, param_period, period, target},
     exports_parser::exports_stats,
     stats_parser::stats,
@@ -107,47 +107,42 @@ where
 {
     (target_name(), obdfilter_stat())
         .map(|(target, (param, value))| match value {
-            ObdfilterStat::Stats(header, value) => TargetStats::Stats(TargetStat {
+            ObdfilterStat::Stats(header, value) => TargetStats::Stats(TimedTargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
-                header: Some(header),
+                header,
             }),
             ObdfilterStat::NumExports(value) => TargetStats::NumExports(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
-                header: None,
             }),
             ObdfilterStat::TotDirty(value) => TargetStats::TotDirty(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
-                header: None,
             }),
             ObdfilterStat::TotGranted(value) => TargetStats::TotGranted(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
-                header: None,
             }),
             ObdfilterStat::TotPending(value) => TargetStats::TotPending(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
-                header: None,
             }),
             ObdfilterStat::ExportStats(value) => TargetStats::ExportStats(TargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
-                header: None,
             }),
         })
         .map(Record::Target)

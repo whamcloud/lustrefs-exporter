@@ -6,7 +6,7 @@ expression: result
     [
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "stats",
@@ -78,14 +78,12 @@ expression: result
                             sumsquare: None,
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1750226041.107629473",
-                            start_time: Some(
-                                "1750176720.390243856",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1750226041.107629473",
+                        start_time: Some(
+                            "1750176720.390243856",
+                        ),
+                    },
                 },
             ),
         ),
@@ -100,7 +98,6 @@ expression: result
                         "MGS",
                     ),
                     value: 130871,
-                    header: None,
                 },
             ),
         ),
@@ -115,7 +112,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 97713887,
-                    header: None,
                 },
             ),
         ),
@@ -130,7 +126,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 1073740846,
-                    header: None,
                 },
             ),
         ),
@@ -145,13 +140,12 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 1073740847,
-                    header: None,
                 },
             ),
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "stats",
@@ -223,14 +217,12 @@ expression: result
                             sumsquare: None,
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1750226041.107629473",
-                            start_time: Some(
-                                "1750176720.390243856",
-                            ),
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1750226041.107629473",
+                        start_time: Some(
+                            "1750176720.390243856",
+                        ),
+                    },
                 },
             ),
         ),
@@ -245,7 +237,6 @@ expression: result
                         "MGS",
                     ),
                     value: 131072,
-                    header: None,
                 },
             ),
         ),
@@ -260,7 +251,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 97714176,
-                    header: None,
                 },
             ),
         ),
@@ -275,7 +265,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 1073741824,
-                    header: None,
                 },
             ),
         ),
@@ -290,7 +279,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 1073741824,
-                    header: None,
                 },
             ),
         ),
@@ -305,7 +293,6 @@ expression: result
                         "MGS",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -320,7 +307,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -335,7 +321,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -350,7 +335,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -365,7 +349,6 @@ expression: result
                         "MGS",
                     ),
                     value: 1873796,
-                    header: None,
                 },
             ),
         ),
@@ -380,7 +363,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 138705356,
-                    header: None,
                 },
             ),
         ),
@@ -395,7 +377,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 3258994352,
-                    header: None,
                 },
             ),
         ),
@@ -410,7 +391,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 3259399856,
-                    header: None,
                 },
             ),
         ),
@@ -425,7 +405,6 @@ expression: result
                         "MGS",
                     ),
                     value: 1978652,
-                    header: None,
                 },
             ),
         ),
@@ -440,7 +419,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 141148044,
-                    header: None,
                 },
             ),
         ),
@@ -455,7 +433,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 3460337328,
-                    header: None,
                 },
             ),
         ),
@@ -470,7 +447,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 3460742832,
-                    header: None,
                 },
             ),
         ),
@@ -485,7 +461,6 @@ expression: result
                         "MGS",
                     ),
                     value: 1980036,
-                    header: None,
                 },
             ),
         ),
@@ -500,7 +475,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 141153940,
-                    header: None,
                 },
             ),
         ),
@@ -515,7 +489,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 3461006668,
-                    header: None,
                 },
             ),
         ),
@@ -530,13 +503,12 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 3461006668,
-                    header: None,
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mgt,
                     param: Param(
                         "brw_stats",
@@ -581,18 +553,16 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1648756189.775843543",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1648756189.775843543",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "brw_stats",
@@ -637,18 +607,16 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1648756189.775990671",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1648756189.775990671",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -775,18 +743,16 @@ expression: result
                             ],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1648756189.776128799",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1648756189.776128799",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -888,12 +854,10 @@ expression: result
                             ],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1648756189.776499035",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1648756189.776499035",
+                        start_time: None,
+                    },
                 },
             ),
         ),

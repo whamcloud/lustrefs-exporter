@@ -18,7 +18,6 @@ expression: expected
                         "testfs",
                     ),
                 ],
-                header: None,
             },
         ),
     ),

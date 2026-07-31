@@ -6,7 +6,7 @@ expression: result
     [
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "md_stats",
@@ -25,18 +25,16 @@ expression: result
                             sumsquare: None,
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1566017453.9677077",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1566017453.9677077",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "md_stats",
@@ -55,18 +53,16 @@ expression: result
                             sumsquare: None,
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1566017453.9825550",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1566017453.9825550",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "md_stats",
@@ -85,12 +81,10 @@ expression: result
                             sumsquare: None,
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1566017453.9857366",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1566017453.9857366",
+                        start_time: None,
+                    },
                 },
             ),
         ),
@@ -105,7 +99,6 @@ expression: result
                         "fs-MDT0000",
                     ),
                     value: 16,
-                    header: None,
                 },
             ),
         ),
@@ -120,7 +113,6 @@ expression: result
                         "fs-MDT0001",
                     ),
                     value: 13,
-                    header: None,
                 },
             ),
         ),
@@ -135,7 +127,6 @@ expression: result
                         "fs-MDT0002",
                     ),
                     value: 13,
-                    header: None,
                 },
             ),
         ),

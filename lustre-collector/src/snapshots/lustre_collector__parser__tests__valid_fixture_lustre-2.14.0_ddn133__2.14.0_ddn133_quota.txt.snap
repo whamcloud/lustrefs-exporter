@@ -58,7 +58,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 16,
-                    header: None,
                 },
             ),
         ),
@@ -73,7 +72,6 @@ expression: result
                         "MGS",
                     ),
                     value: 130871,
-                    header: None,
                 },
             ),
         ),
@@ -88,7 +86,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 255306055,
-                    header: None,
                 },
             ),
         ),
@@ -103,7 +100,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 276820333,
-                    header: None,
                 },
             ),
         ),
@@ -118,7 +114,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 276820336,
-                    header: None,
                 },
             ),
         ),
@@ -133,7 +128,6 @@ expression: result
                         "MGS",
                     ),
                     value: 131072,
-                    header: None,
                 },
             ),
         ),
@@ -148,7 +142,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 257722920,
-                    header: None,
                 },
             ),
         ),
@@ -163,7 +156,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 276824064,
-                    header: None,
                 },
             ),
         ),
@@ -178,7 +170,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 276824064,
-                    header: None,
                 },
             ),
         ),
@@ -193,7 +184,6 @@ expression: result
                         "MGS",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -208,7 +198,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -223,7 +212,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -238,7 +226,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: "ldiskfs",
-                    header: None,
                 },
             ),
         ),
@@ -253,7 +240,6 @@ expression: result
                         "MGS",
                     ),
                     value: 1873804,
-                    header: None,
                 },
             ),
         ),
@@ -268,7 +254,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 349493720,
-                    header: None,
                 },
             ),
         ),
@@ -283,7 +268,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 31477515820,
-                    header: None,
                 },
             ),
         ),
@@ -298,7 +282,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 31406306552,
-                    header: None,
                 },
             ),
         ),
@@ -313,7 +296,6 @@ expression: result
                         "MGS",
                     ),
                     value: 1978660,
-                    header: None,
                 },
             ),
         ),
@@ -328,7 +310,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 355935844,
-                    header: None,
                 },
             ),
         ),
@@ -343,7 +324,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 31831867004,
-                    header: None,
                 },
             ),
         ),
@@ -358,7 +338,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 31760657736,
-                    header: None,
                 },
             ),
         ),
@@ -373,7 +352,6 @@ expression: result
                         "MGS",
                     ),
                     value: 1980036,
-                    header: None,
                 },
             ),
         ),
@@ -388,7 +366,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 366222772,
-                    header: None,
                 },
             ),
         ),
@@ -403,7 +380,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 35016088872,
-                    header: None,
                 },
             ),
         ),
@@ -418,13 +394,12 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 35016088872,
-                    header: None,
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mgt,
                     param: Param(
                         "brw_stats",
@@ -474,18 +449,16 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1709306082.166044071",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1709306082.166044071",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "brw_stats",
@@ -535,18 +508,16 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1709306082.166074142",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1709306082.166074142",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -1414,18 +1385,16 @@ expression: result
                             ],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1709306082.166133102",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1709306082.166133102",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -2293,18 +2262,16 @@ expression: result
                             ],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1709306082.166474785",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1709306082.166474785",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mgt,
                     param: Param(
                         "brw_stats",
@@ -2354,18 +2321,16 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1709306082.166847283",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1709306082.166847283",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "brw_stats",
@@ -2415,18 +2380,16 @@ expression: result
                             buckets: [],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1709306082.166874063",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1709306082.166874063",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -3294,18 +3257,16 @@ expression: result
                             ],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1709306082.166934531",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1709306082.166934531",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -4173,12 +4134,10 @@ expression: result
                             ],
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1709306082.167343866",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1709306082.167343866",
+                        start_time: None,
+                    },
                 },
             ),
         ),
@@ -4204,7 +4163,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -4230,7 +4188,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -4256,7 +4213,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -4289,7 +4245,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -4315,7 +4270,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -4341,7 +4295,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -4367,7 +4320,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -4393,7 +4345,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -4419,7 +4370,6 @@ expression: result
                             },
                         ],
                     },
-                    header: None,
                 },
             ),
         ),
@@ -4434,13 +4384,12 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 16,
-                    header: None,
                 },
             ),
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mgt,
                     param: Param(
                         "stats",
@@ -4688,12 +4637,10 @@ expression: result
                             ),
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1709306082.170692005",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1709306082.170692005",
+                        start_time: None,
+                    },
                 },
             ),
         ),
@@ -4708,7 +4655,6 @@ expression: result
                         "MGS",
                     ),
                     value: 32,
-                    header: None,
                 },
             ),
         ),
@@ -4723,7 +4669,6 @@ expression: result
                         "MGS",
                     ),
                     value: 3,
-                    header: None,
                 },
             ),
         ),
@@ -4738,7 +4683,6 @@ expression: result
                         "MGS",
                     ),
                     value: 4,
-                    header: None,
                 },
             ),
         ),
@@ -4753,13 +4697,12 @@ expression: result
                         "MGS",
                     ),
                     value: 20,
-                    header: None,
                 },
             ),
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "stats",
@@ -4939,18 +4882,16 @@ expression: result
                             ),
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1709306082.170995043",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1709306082.170995043",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "stats",
@@ -5130,12 +5071,10 @@ expression: result
                             ),
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1709306082.171022229",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1709306082.171022229",
+                        start_time: None,
+                    },
                 },
             ),
         ),
@@ -5150,7 +5089,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 12,
-                    header: None,
                 },
             ),
         ),
@@ -5165,7 +5103,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 12,
-                    header: None,
                 },
             ),
         ),
@@ -5180,7 +5117,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 94437376,
-                    header: None,
                 },
             ),
         ),
@@ -5195,7 +5131,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 98729984,
-                    header: None,
                 },
             ),
         ),
@@ -5210,7 +5145,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 4544887232,
-                    header: None,
                 },
             ),
         ),
@@ -5225,7 +5159,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 4448762304,
-                    header: None,
                 },
             ),
         ),
@@ -5240,7 +5173,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -5255,7 +5187,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -5944,7 +5875,7 @@ expression: result
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "md_stats",
@@ -6090,12 +6021,10 @@ expression: result
                             ),
                         },
                     ],
-                    header: Some(
-                        StatsHeader {
-                            snapshot_time: "1709306082.171569687",
-                            start_time: None,
-                        },
-                    ),
+                    header: StatsHeader {
+                        snapshot_time: "1709306082.171569687",
+                        start_time: None,
+                    },
                 },
             ),
         ),
@@ -6110,7 +6039,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 31,
-                    header: None,
                 },
             ),
         ),
@@ -6299,7 +6227,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 32,
-                    header: None,
                 },
             ),
         ),
@@ -6314,7 +6241,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 32,
-                    header: None,
                 },
             ),
         ),
@@ -6329,7 +6255,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 32,
-                    header: None,
                 },
             ),
         ),
@@ -6344,7 +6269,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 2,
-                    header: None,
                 },
             ),
         ),
@@ -6359,7 +6283,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 2,
-                    header: None,
                 },
             ),
         ),
@@ -6374,7 +6297,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 2,
-                    header: None,
                 },
             ),
         ),
@@ -6389,7 +6311,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 10,
-                    header: None,
                 },
             ),
         ),
@@ -6404,7 +6325,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 10,
-                    header: None,
                 },
             ),
         ),
@@ -6419,7 +6339,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 10,
-                    header: None,
                 },
             ),
         ),
@@ -6434,7 +6353,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -6449,7 +6367,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -6464,7 +6381,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -6479,7 +6395,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 520,
-                    header: None,
                 },
             ),
         ),
@@ -6494,7 +6409,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 347,
-                    header: None,
                 },
             ),
         ),
@@ -6509,7 +6423,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 364,
-                    header: None,
                 },
             ),
         ),
@@ -6524,7 +6437,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -6539,7 +6451,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -6554,7 +6465,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -6569,7 +6479,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -6584,7 +6493,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -6599,7 +6507,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -6614,7 +6521,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 3900000,
-                    header: None,
                 },
             ),
         ),
@@ -6629,7 +6535,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 3900000,
-                    header: None,
                 },
             ),
         ),
@@ -6644,7 +6549,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 3900000,
-                    header: None,
                 },
             ),
         ),
@@ -6659,7 +6563,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 2400,
-                    header: None,
                 },
             ),
         ),
@@ -6674,7 +6577,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 2400,
-                    header: None,
                 },
             ),
         ),
@@ -6689,7 +6591,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 2400,
-                    header: None,
                 },
             ),
         ),
@@ -6704,7 +6605,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -6719,7 +6619,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -6734,7 +6633,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 0,
-                    header: None,
                 },
             ),
         ),
@@ -6749,7 +6647,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 1024,
-                    header: None,
                 },
             ),
         ),
@@ -6764,7 +6661,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 1024,
-                    header: None,
                 },
             ),
         ),
@@ -6779,7 +6675,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 1024,
-                    header: None,
                 },
             ),
         ),
@@ -6794,7 +6689,6 @@ expression: result
                         "ai400x2-MDT0000",
                     ),
                     value: 257,
-                    header: None,
                 },
             ),
         ),
@@ -6809,7 +6703,6 @@ expression: result
                         "ai400x2-OST0000",
                     ),
                     value: 347,
-                    header: None,
                 },
             ),
         ),
@@ -6824,7 +6717,6 @@ expression: result
                         "ai400x2-OST0001",
                     ),
                     value: 364,
-                    header: None,
                 },
             ),
         ),
