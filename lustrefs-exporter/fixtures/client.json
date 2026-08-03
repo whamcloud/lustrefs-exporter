@@ -37,6 +37,11 @@
     {
         "LustreService": {
             "LdlmCbd": [
+              {
+                "snapshot_time": "1596728874.484750908",
+                "start_time": null
+              },
+              [
                 {
                     "name": "req_waittime",
                     "units": "usecs",
@@ -109,6 +114,7 @@
                     "sum": 761,
                     "sumsquare": 23453
                 }
+              ]
             ]
         }
     },

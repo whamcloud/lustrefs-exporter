@@ -2419,6 +2419,12 @@ expression: result
         ),
         LustreService(
             LdlmCanceld(
+                StatsHeader {
+                    snapshot_time: "1688603042.556495184",
+                    start_time: Some(
+                        "1688526463.472430928",
+                    ),
+                },
                 [
                     Stat {
                         name: "req_waittime",
@@ -2527,6 +2533,12 @@ expression: result
         ),
         LustreService(
             LdlmCbd(
+                StatsHeader {
+                    snapshot_time: "1688603042.556553639",
+                    start_time: Some(
+                        "1688526463.470283048",
+                    ),
+                },
                 [
                     Stat {
                         name: "req_waittime",

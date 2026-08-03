@@ -180,6 +180,8 @@ pub mod tests {
         "lustre_brw_stats_start_time",
         "lustre_stats_start_time",
         "lustre_client_stats_start_time",
+        "lustre_ldlm_canceld_stats_start_time",
+        "lustre_ldlm_cbd_stats_start_time",
     ];
 
     #[test]

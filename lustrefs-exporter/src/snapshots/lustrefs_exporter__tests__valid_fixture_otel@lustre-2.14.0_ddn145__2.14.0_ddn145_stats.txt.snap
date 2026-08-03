@@ -1,5 +1,6 @@
 ---
 source: lustrefs-exporter/src/lib.rs
+assertion_line: 306
 expression: x
 input_file: lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn145/2.14.0_ddn145_stats.txt
 ---
@@ -95,6 +96,12 @@ lustre_ldlm_cbd_stats{operation="req_qdepth"} 32
 lustre_ldlm_cbd_stats{operation="req_timeout"} 32
 lustre_ldlm_cbd_stats{operation="req_waittime"} 32
 lustre_ldlm_cbd_stats{operation="reqbuf_avail"} 70
+# HELP lustre_ldlm_canceld_stats_start_time Time (epoch seconds) the LDLM Canceld service stats were last reset.
+# TYPE lustre_ldlm_canceld_stats_start_time gauge
+lustre_ldlm_canceld_stats_start_time{} 1715712427
+# HELP lustre_ldlm_cbd_stats_start_time Time (epoch seconds) the LDLM Callback service stats were last reset.
+# TYPE lustre_ldlm_cbd_stats_start_time gauge
+lustre_ldlm_cbd_stats_start_time{} 1715712427
 # HELP lustre_brw_stats_start_time Unix epoch seconds when the brw_stats counters were last reset.
 # TYPE lustre_brw_stats_start_time gauge
 lustre_brw_stats_start_time{component="mdt",target="fs-MDT0000"} 9540

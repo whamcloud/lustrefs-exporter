@@ -1,5 +1,6 @@
 ---
 source: lustrefs-exporter/src/lib.rs
+assertion_line: 306
 expression: x
 input_file: lustre-collector/src/fixtures/valid/valid.txt
 ---
@@ -31,6 +32,12 @@ lustre_ldlm_cbd_stats{operation="req_qdepth"} 1
 lustre_ldlm_cbd_stats{operation="req_timeout"} 1
 lustre_ldlm_cbd_stats{operation="req_waittime"} 1
 lustre_ldlm_cbd_stats{operation="reqbuf_avail"} 3
+# HELP lustre_ldlm_canceld_stats_start_time Time (epoch seconds) the LDLM Canceld service stats were last reset.
+# TYPE lustre_ldlm_canceld_stats_start_time gauge
+lustre_ldlm_canceld_stats_start_time{} 1688526463
+# HELP lustre_ldlm_cbd_stats_start_time Time (epoch seconds) the LDLM Callback service stats were last reset.
+# TYPE lustre_ldlm_cbd_stats_start_time gauge
+lustre_ldlm_cbd_stats_start_time{} 1688526463
 # HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation.
 # TYPE lustre_disk_io_total counter
 lustre_disk_io_total{component="ost",operation="read",size="1048576",target="ai400-OST0000"} 0

@@ -41,7 +41,7 @@ where
 {
     attempt((string(LDLM_CANCELD), period(), param(STATS)))
         .with(stats())
-        .map(|(_, v)| LustreServiceStats::LdlmCanceld(v))
+        .map(|(header, v)| LustreServiceStats::LdlmCanceld(header, v))
         .message("While parsing ldlm_canceld.stats")
 }
 
@@ -52,6 +52,6 @@ where
 {
     (string(LDLM_CBD), period(), param(STATS))
         .with(stats())
-        .map(|(_, v)| LustreServiceStats::LdlmCbd(v))
+        .map(|(header, v)| LustreServiceStats::LdlmCbd(header, v))
         .message("While parsing ldlm_cbd.stats")
 }

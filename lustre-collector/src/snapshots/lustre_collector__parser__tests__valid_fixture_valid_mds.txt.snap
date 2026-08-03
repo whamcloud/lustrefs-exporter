@@ -2076,11 +2076,19 @@ expression: result
         ),
         LustreService(
             LdlmCanceld(
+                StatsHeader {
+                    snapshot_time: "1709915907.135170975",
+                    start_time: None,
+                },
                 [],
             ),
         ),
         LustreService(
             LdlmCbd(
+                StatsHeader {
+                    snapshot_time: "1709915907.135211631",
+                    start_time: None,
+                },
                 [
                     Stat {
                         name: "req_waittime",

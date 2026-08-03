@@ -49,6 +49,10 @@ expression: result
         ),
         LustreService(
             LdlmCbd(
+                StatsHeader {
+                    snapshot_time: "1710759783.270541554",
+                    start_time: None,
+                },
                 [
                     Stat {
                         name: "req_waittime",

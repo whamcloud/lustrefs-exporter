@@ -2869,6 +2869,11 @@
     "LustreService": {
       "LdlmCanceld": [
         {
+          "snapshot_time": "1596728874.484750908",
+          "start_time": null
+        },
+        [
+        {
           "name": "req_waittime",
           "units": "usec",
           "samples": 30049,
@@ -2922,12 +2927,18 @@
           "sum": 2293482,
           "sumsquare": 1623673342
         }
+        ]
       ]
     }
   },
   {
     "LustreService": {
       "LdlmCbd": [
+        {
+          "snapshot_time": "1596728874.484750908",
+          "start_time": null
+        },
+        [
         {
           "name": "req_waittime",
           "units": "usec",
@@ -2982,6 +2993,7 @@
           "sum": 1378,
           "sumsquare": 29612
         }
+        ]
       ]
     }
   },

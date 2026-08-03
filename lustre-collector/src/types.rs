@@ -577,8 +577,8 @@ pub enum LNetStats {
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
 pub enum LustreServiceStats {
-    LdlmCanceld(Vec<Stat>),
-    LdlmCbd(Vec<Stat>),
+    LdlmCanceld(StatsHeader, Vec<Stat>),
+    LdlmCbd(StatsHeader, Vec<Stat>),
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
