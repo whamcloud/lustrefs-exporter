@@ -330,7 +330,11 @@
             "unit": "ios",
             "buckets": []
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": "1534429278.185762481"
+        }
       }
     }
   },
@@ -376,7 +380,11 @@
             "unit": "ios",
             "buckets": []
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
@@ -839,7 +847,11 @@
               }
             ]
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
@@ -1412,7 +1424,11 @@
               }
             ]
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
@@ -1559,7 +1575,11 @@
             "sum": 7446,
             "sumsquare": 1063150
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
@@ -1709,7 +1729,11 @@
             "sum": 71,
             "sumsquare": 687
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
@@ -1819,7 +1843,11 @@
             "sum": 111,
             "sumsquare": 1135
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
@@ -2459,7 +2487,11 @@
             "sum": 1433,
             "sumsquare": 11323
           }
-        ]
+        ],
+        "header": {
+          "snapshot_time": "1534429278.185762481",
+          "start_time": null
+        }
       }
     }
   },
@@ -2837,6 +2869,11 @@
     "LustreService": {
       "LdlmCanceld": [
         {
+          "snapshot_time": "1596728874.484750908",
+          "start_time": null
+        },
+        [
+        {
           "name": "req_waittime",
           "units": "usec",
           "samples": 30049,
@@ -2890,12 +2927,18 @@
           "sum": 2293482,
           "sumsquare": 1623673342
         }
+        ]
       ]
     }
   },
   {
     "LustreService": {
       "LdlmCbd": [
+        {
+          "snapshot_time": "1596728874.484750908",
+          "start_time": null
+        },
+        [
         {
           "name": "req_waittime",
           "units": "usec",
@@ -2950,6 +2993,7 @@
           "sum": 1378,
           "sumsquare": 29612
         }
+        ]
       ]
     }
   },

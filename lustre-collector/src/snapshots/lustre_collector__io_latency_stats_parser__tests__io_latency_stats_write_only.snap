@@ -1,26 +1,33 @@
 ---
 source: lustre-collector/src/io_latency_stats_parser.rs
-assertion_line: 263
 expression: result
 ---
 (
-    [
-        BrwStats {
-            name: "io_time_4K",
-            unit: "ios",
-            buckets: [
-                BrwStatsBucket {
-                    name: 256,
-                    read: 0,
-                    write: 50,
-                },
-                BrwStatsBucket {
-                    name: 512,
-                    read: 0,
-                    write: 10,
-                },
-            ],
+    (
+        StatsHeader {
+            snapshot_time: "1775128065.882649010",
+            start_time: Some(
+                "1775125270.244958271",
+            ),
         },
-    ],
+        [
+            BrwStats {
+                name: "io_time_4K",
+                unit: "ios",
+                buckets: [
+                    BrwStatsBucket {
+                        name: 256,
+                        read: 0,
+                        write: 50,
+                    },
+                    BrwStatsBucket {
+                        name: 512,
+                        read: 0,
+                        write: 10,
+                    },
+                ],
+            },
+        ],
+    ),
     "",
 )

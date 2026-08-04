@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::LustreCollectorError;
+use crate::{LustreCollectorError, time::StatsHeader};
 use std::{fmt, ops::Deref, time::Duration};
 
 #[derive(Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
@@ -351,6 +351,15 @@ pub struct TargetStat<T> {
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
+pub struct TimedTargetStat<T> {
+    pub kind: TargetVariant,
+    pub param: Param,
+    pub target: Target,
+    pub value: T,
+    pub header: StatsHeader,
+}
+
+#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
 /// Stats from parsing `ost.OSS.<PARAM>.stats`
 pub struct OssStat {
     pub param: Param,
@@ -363,6 +372,7 @@ pub struct LliteStat {
     pub target: Target,
     pub param: Param,
     pub stats: Vec<Stat>,
+    pub header: StatsHeader,
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
@@ -500,8 +510,8 @@ pub struct FsName(pub String);
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
 pub enum TargetStats {
     /// Operations per OST. Read and write data is particularly interesting
-    Stats(TargetStat<Vec<Stat>>),
-    BrwStats(TargetStat<Vec<BrwStats>>),
+    Stats(TimedTargetStat<Vec<Stat>>),
+    BrwStats(TimedTargetStat<Vec<BrwStats>>),
     /// Available inodes
     FilesFree(TargetStat<u64>),
     /// Total inodes
@@ -567,8 +577,8 @@ pub enum LNetStats {
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
 pub enum LustreServiceStats {
-    LdlmCanceld(Vec<Stat>),
-    LdlmCbd(Vec<Stat>),
+    LdlmCanceld(StatsHeader, Vec<Stat>),
+    LdlmCbd(StatsHeader, Vec<Stat>),
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]

@@ -3,10 +3,12 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
+    TimedTargetStat,
     base_parsers::{param, period, target},
     mds::mdt_parser::STATS as MD_STATS,
     stats_parser::stats,
-    types::{Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
+    time::StatsHeader,
+    types::{Param, Record, Stat, Target, TargetStats, TargetVariant},
 };
 use combine::{Parser, choice, error::ParseError, parser::char::string, stream::Stream};
 
@@ -15,8 +17,8 @@ pub(crate) const NODEMAP: &str = "nodemap";
 
 #[derive(Debug)]
 enum NodemapStat {
-    Md(Vec<Stat>),
-    Dt(Vec<Stat>),
+    Md(StatsHeader, Vec<Stat>),
+    Dt(StatsHeader, Vec<Stat>),
 }
 
 pub(crate) fn params() -> Vec<String> {
@@ -32,8 +34,8 @@ where
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     choice((
-        (param(MD_STATS), stats().map(NodemapStat::Md)),
-        (param(DT_STATS), stats().map(NodemapStat::Dt)),
+        (param(MD_STATS), stats().map(|(h, v)| NodemapStat::Md(h, v))),
+        (param(DT_STATS), stats().map(|(h, v)| NodemapStat::Dt(h, v))),
     ))
     .message("while parsing nodemap params")
 }
@@ -56,17 +58,19 @@ where
 {
     (target_name(), nodemap_stat())
         .map(|(target, (param, value))| match value {
-            NodemapStat::Dt(value) => TargetStats::Stats(TargetStat {
+            NodemapStat::Dt(header, value) => TargetStats::Stats(TimedTargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
+                header,
             }),
-            NodemapStat::Md(value) => TargetStats::Stats(TargetStat {
+            NodemapStat::Md(header, value) => TargetStats::Stats(TimedTargetStat {
                 kind: TargetVariant::Mdt,
                 target,
                 param,
                 value,
+                header,
             }),
         })
         .map(Record::Target)
@@ -107,7 +111,7 @@ sync                      1 samples [usecs] 88 88 88 7744
         [
             Target(
                 Stats(
-                    TargetStat {
+                    TimedTargetStat {
                         kind: Mdt,
                         param: Param(
                             "md_stats",
@@ -219,12 +223,18 @@ sync                      1 samples [usecs] 88 88 88 7744
                                 ),
                             },
                         ],
+                        header: StatsHeader {
+                            snapshot_time: "1746601510.804589748",
+                            start_time: Some(
+                                "1746601507.675857245",
+                            ),
+                        },
                     },
                 ),
             ),
             Target(
                 Stats(
-                    TargetStat {
+                    TimedTargetStat {
                         kind: Ost,
                         param: Param(
                             "dt_stats",
@@ -285,6 +295,12 @@ sync                      1 samples [usecs] 88 88 88 7744
                                 ),
                             },
                         ],
+                        header: StatsHeader {
+                            snapshot_time: "1746601510.814726699",
+                            start_time: Some(
+                                "1746601507.675852028",
+                            ),
+                        },
                     },
                 ),
             ),

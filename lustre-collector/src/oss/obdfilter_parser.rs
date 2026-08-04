@@ -3,10 +3,11 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    ExportStats,
+    ExportStats, TimedTargetStat,
     base_parsers::{digits, param, param_period, period, target},
     exports_parser::exports_stats,
     stats_parser::stats,
+    time::StatsHeader,
     types::{Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
 };
 use combine::{
@@ -57,7 +58,7 @@ where
 
 #[derive(Debug)]
 enum ObdfilterStat {
-    Stats(Vec<Stat>),
+    Stats(StatsHeader, Vec<Stat>),
     ExportStats(Vec<ExportStats>),
     NumExports(u64),
     TotDirty(u64),
@@ -71,7 +72,10 @@ where
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
     choice((
-        (param(STATS), stats().map(ObdfilterStat::Stats)),
+        (
+            param(STATS),
+            stats().map(|(h, v)| ObdfilterStat::Stats(h, v)),
+        ),
         (
             param(NUM_EXPORTS),
             digits().skip(newline()).map(ObdfilterStat::NumExports),
@@ -103,11 +107,12 @@ where
 {
     (target_name(), obdfilter_stat())
         .map(|(target, (param, value))| match value {
-            ObdfilterStat::Stats(value) => TargetStats::Stats(TargetStat {
+            ObdfilterStat::Stats(header, value) => TargetStats::Stats(TimedTargetStat {
                 kind: TargetVariant::Ost,
                 target,
                 param,
                 value,
+                header,
             }),
             ObdfilterStat::NumExports(value) => TargetStats::NumExports(TargetStat {
                 kind: TargetVariant::Ost,

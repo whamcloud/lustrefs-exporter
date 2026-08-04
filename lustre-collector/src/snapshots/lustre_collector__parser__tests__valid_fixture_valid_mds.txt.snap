@@ -315,7 +315,7 @@ expression: result
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "brw_stats",
@@ -365,12 +365,16 @@ expression: result
                             buckets: [],
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1709915907.131002949",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -420,12 +424,16 @@ expression: result
                             buckets: [],
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1709915907.131035195",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -475,6 +483,10 @@ expression: result
                             buckets: [],
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1709915907.131054918",
+                        start_time: None,
+                    },
                 },
             ),
         ),
@@ -494,7 +506,7 @@ expression: result
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "stats",
@@ -555,12 +567,16 @@ expression: result
                             ),
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1709915907.131555726",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "stats",
@@ -621,6 +637,10 @@ expression: result
                             ),
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1709915907.131611450",
+                        start_time: None,
+                    },
                 },
             ),
         ),
@@ -1502,7 +1522,7 @@ expression: result
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "md_stats",
@@ -1529,6 +1549,10 @@ expression: result
                             ),
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1709915907.133029192",
+                        start_time: None,
+                    },
                 },
             ),
         ),
@@ -2052,11 +2076,19 @@ expression: result
         ),
         LustreService(
             LdlmCanceld(
+                StatsHeader {
+                    snapshot_time: "1709915907.135170975",
+                    start_time: None,
+                },
                 [],
             ),
         ),
         LustreService(
             LdlmCbd(
+                StatsHeader {
+                    snapshot_time: "1709915907.135211631",
+                    start_time: None,
+                },
                 [
                     Stat {
                         name: "req_waittime",

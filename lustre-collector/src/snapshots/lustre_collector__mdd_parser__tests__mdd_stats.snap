@@ -1,5 +1,5 @@
 ---
-source: src/mdd_parser.rs
+source: lustre-collector/src/mdd_parser.rs
 expression: result
 ---
 (

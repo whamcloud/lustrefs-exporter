@@ -6,6 +6,7 @@ use crate::{
     Param, Record, Stat, Target, TargetStats,
     base_parsers::{param, period, target},
     stats_parser::stats,
+    time::StatsHeader,
 };
 use combine::{ParseError, Parser, Stream, parser::char::string};
 
@@ -30,7 +31,7 @@ where
 }
 
 enum LliteStat {
-    Stats(Vec<Stat>),
+    Stats(StatsHeader, Vec<Stat>),
 }
 
 fn llite_stat<I>() -> impl Parser<I, Output = (Param, LliteStat)>
@@ -38,7 +39,7 @@ where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
-    (param(STATS), stats().map(LliteStat::Stats)).message("while parsing llite_stat")
+    (param(STATS), stats().map(|(h, v)| LliteStat::Stats(h, v))).message("while parsing llite_stat")
 }
 
 pub(crate) fn parse<I>() -> impl Parser<I, Output = Record>
@@ -48,10 +49,11 @@ where
 {
     (target_name(), llite_stat())
         .map(|(target, (param, value))| match value {
-            LliteStat::Stats(stats) => TargetStats::Llite(crate::types::LliteStat {
+            LliteStat::Stats(header, stats) => TargetStats::Llite(crate::types::LliteStat {
                 target,
                 param,
                 stats,
+                header,
             }),
         })
         .map(Record::Target)

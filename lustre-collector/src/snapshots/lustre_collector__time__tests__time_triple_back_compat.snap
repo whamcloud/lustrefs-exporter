@@ -1,8 +1,11 @@
 ---
-source: src/time.rs
+source: lustre-collector/src/time.rs
 expression: result
 ---
 (
-    "1596728874.484750908",
+    StatsHeader {
+        snapshot_time: "1596728874.484750908",
+        start_time: None,
+    },
     "req_waittime              31280 samples [usec] 11 2695 5020274 1032267156\n\n",
 )

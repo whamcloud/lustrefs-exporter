@@ -1,12 +1,12 @@
 ---
-source: src/oss/mod.rs
+source: lustre-collector/src/oss/mod.rs
 expression: result
 ---
 (
     [
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "stats",
@@ -121,6 +121,10 @@ expression: result
                             sumsquare: None,
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1535148988.363769785",
+                        start_time: None,
+                    },
                 },
             ),
         ),
