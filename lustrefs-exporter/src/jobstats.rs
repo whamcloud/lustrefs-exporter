@@ -334,6 +334,7 @@ fn render_stat(
                 | "parallel_rename_file"
                 | "parallel_rename_dir"
                 | "crossdir_rename"
+                | "rename_trylocks"
                 | "read"
                 | "write"
                 | "read_bytes"
@@ -519,5 +520,14 @@ job_stats:
         ));
 
         compare_metrics(&current, &previous);
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn parse_2_14_0_259_jobstats() {
+        let f = BufReader::new(File::open("fixtures/jobstats_only/2.14.0_259.txt").unwrap());
+
+        let stats = stream_jobstats(f).await;
+
+        insta::assert_snapshot!(stats);
     }
 }
