@@ -73,7 +73,9 @@ where
             healthy: false,
             targets: vec![],
         })),
-        ((targets_health(), string("NOT HEALTHY")).map(|(targets, _)| HealthCheckStat {
+        // Format: health_check=\ndevice...\ndevice...\n
+        // targets_health() consumes all newlines, top_level_stat().skip(optional(newline())) handles the optional final one
+        ((optional(newline()), targets_health()).map(|(_, targets)| HealthCheckStat {
             healthy: false,
             targets,
         })),
@@ -105,7 +107,7 @@ where
             health_stats().map(TopLevelStat::HealthCheck),
         ),
     ))
-    .skip(newline())
+    .skip(optional(newline()))
 }
 
 pub(crate) fn parse<I>() -> impl Parser<I, Output = Record>
@@ -192,8 +194,9 @@ mod tests {
     }
 
     #[test]
-    fn test_healthy_health_check() {
-        let result = parse().parse("health_check=healthy\n");
+    fn test_health_check_healthy() {
+        let output_str = "health_check=healthy\n";
+        let result = parse().parse(output_str);
 
         assert_eq!(
             result,
@@ -209,9 +212,11 @@ mod tests {
             ))
         )
     }
+
     #[test]
-    fn test_unhealthy_old_health_check() {
-        let result = parse().parse("health_check=NOT HEALTHY\n");
+    fn test_health_check_unhealthy() {
+        let output_str = "health_check=NOT HEALTHY\n";
+        let result = parse().parse(output_str);
 
         assert_eq!(
             result,
@@ -227,6 +232,7 @@ mod tests {
             ))
         )
     }
+
     #[test]
     fn test_lbug_health_check() {
         let result = parse().parse("health_check=LBUG\n");
@@ -245,54 +251,105 @@ mod tests {
             ))
         )
     }
+
     #[test]
-    fn test_unhealthy_health_check() {
-        let result = parse().parse(
-            r#"health_check=device lustre-OST0012 reported unhealthy
+    fn test_health_check_unhealthy_with_devices() {
+        // Test real-world output with two health_check records (single trailing newline)
+        use combine::Parser;
+
+        let output_str = r"health_check=NOT HEALTHY
+health_check=
+device lustre-OST0012 reported unhealthy
 device lustre-OST0014 reported unhealthy
 device lustre-OST0016 reported unhealthy
-NOT HEALTHY
-"#,
-        );
+";
+        let result = crate::parser::parse().parse(output_str);
 
         assert_eq!(
             result,
             Ok((
-                Record::Host(HostStats::HealthCheck(HostStat {
-                    param: Param(HEALTH_CHECK.to_string()),
-                    value: HealthCheckStat {
-                        healthy: false,
-                        targets: vec![
-                            Target("lustre-OST0012".to_string()),
-                            Target("lustre-OST0014".to_string()),
-                            Target("lustre-OST0016".to_string())
-                        ]
-                    }
-                })),
+                vec![
+                    Record::Host(HostStats::HealthCheck(HostStat {
+                        param: Param(HEALTH_CHECK.to_string()),
+                        value: HealthCheckStat {
+                            healthy: false,
+                            targets: vec![]
+                        }
+                    })),
+                    Record::Host(HostStats::HealthCheck(HostStat {
+                        param: Param(HEALTH_CHECK.to_string()),
+                        value: HealthCheckStat {
+                            healthy: false,
+                            targets: vec![
+                                Target("lustre-OST0012".to_string()),
+                                Target("lustre-OST0014".to_string()),
+                                Target("lustre-OST0016".to_string())
+                            ]
+                        }
+                    })),
+                ],
                 ""
             ))
         )
     }
+
     #[test]
-    fn test_unhealthy_single_target_health_check() {
-        let result = parse().parse(
-            r#"health_check=device lustre-OST0012 reported unhealthy
-NOT HEALTHY
-"#,
-        );
+    fn test_health_check_unhealthy_with_single_device() {
+        // Test real-world output with two health_check records (single trailing newline)
+        use combine::Parser;
+
+        let output_str = r"health_check=NOT HEALTHY
+health_check=device lustre-OST0012 reported unhealthy
+";
+        let result = crate::parser::parse().parse(output_str);
 
         assert_eq!(
             result,
             Ok((
-                Record::Host(HostStats::HealthCheck(HostStat {
-                    param: Param(HEALTH_CHECK.to_string()),
-                    value: HealthCheckStat {
-                        healthy: false,
-                        targets: vec![Target("lustre-OST0012".to_string()),]
-                    }
-                })),
+                vec![
+                    Record::Host(HostStats::HealthCheck(HostStat {
+                        param: Param(HEALTH_CHECK.to_string()),
+                        value: HealthCheckStat {
+                            healthy: false,
+                            targets: vec![]
+                        }
+                    })),
+                    Record::Host(HostStats::HealthCheck(HostStat {
+                        param: Param(HEALTH_CHECK.to_string()),
+                        value: HealthCheckStat {
+                            healthy: false,
+                            targets: vec![Target("lustre-OST0012".to_string())]
+                        }
+                    })),
+                ],
                 ""
             ))
         )
+    }
+
+    #[test]
+    fn test_real_world_multi_param_with_unhealthy_devices() {
+        // Test complete real-world lctl output from node3
+        use combine::Parser;
+
+        let output_str = r"memused=467705725
+lnet_memused=20951852
+health_check=NOT HEALTHY
+health_check=
+device lustre-OST0012 reported unhealthy
+device lustre-OST0014 reported unhealthy
+device lustre-OST0016 reported unhealthy
+";
+        let result = crate::parser::parse().parse(output_str);
+
+        // Should parse all parameters successfully
+        assert!(result.is_ok());
+        let (records, remaining) = result.unwrap();
+
+        // Should have consumed all input
+        assert_eq!(remaining, "");
+
+        // Should have 4 records
+        assert_eq!(records.len(), 4);
     }
 }

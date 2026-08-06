@@ -42,6 +42,19 @@ expression: result
                     ),
                     value: HealthCheckStat {
                         healthy: false,
+                        targets: [],
+                    },
+                },
+            ),
+        ),
+        Host(
+            HealthCheck(
+                HostStat {
+                    param: Param(
+                        "health_check",
+                    ),
+                    value: HealthCheckStat {
+                        healthy: false,
                         targets: [
                             Target(
                                 "lustre-OST0012",
