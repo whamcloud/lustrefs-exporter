@@ -1,10 +1,11 @@
 memused=5969573401
 memused_max=7511503233
 lnet_memused=159290577
-health_check=device lustre-OST0012 reported unhealthy
+health_check=NOT HEALTHY
+health_check=
+device lustre-OST0012 reported unhealthy
 device lustre-OST0014 reported unhealthy
 device lustre-OST0016 reported unhealthy
-NOT HEALTHY
 mdt.ai400-MDT0000.exports.0@lo.uuid=
 52cb8dca-ba5c-4725-9cff-41cd0d45e3e7
 ai400-MDT0000-lwp-OST0000_UUID
