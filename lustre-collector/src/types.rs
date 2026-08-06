@@ -29,6 +29,18 @@ impl Deref for Target {
     }
 }
 
+#[derive(Clone, Debug, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
+/// The Lustre controller corresponding to these stats (e.g., OSC, MDC).
+pub struct Controller(pub String);
+
+impl Deref for Controller {
+    type Target = str;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
 #[derive(Clone, Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 /// The name of the stat.
 pub struct Param(pub String);
@@ -341,6 +353,29 @@ impl Deref for TargetVariant {
     }
 }
 
+#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize, Clone, Copy)]
+pub enum ControllerVariant {
+    Osc,
+}
+
+impl fmt::Display for ControllerVariant {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            ControllerVariant::Osc => write!(f, "OSC"),
+        }
+    }
+}
+
+impl Deref for ControllerVariant {
+    type Target = str;
+
+    fn deref(&self) -> &Self::Target {
+        match *self {
+            ControllerVariant::Osc => "OSC",
+        }
+    }
+}
+
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
 /// Stats specific to a target.
 pub struct TargetStat<T> {
@@ -357,6 +392,15 @@ pub struct TimedTargetStat<T> {
     pub target: Target,
     pub value: T,
     pub header: StatsHeader,
+}
+
+#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
+/// Stats specific to a controller (e.g., OSC, MDC).
+pub struct ControllerStat<T> {
+    pub kind: ControllerVariant,
+    pub param: Param,
+    pub controller: Controller,
+    pub value: T,
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
@@ -563,6 +607,12 @@ pub enum TargetStats {
     OspMaxCreateCount(TargetStat<u64>),
 }
 
+/// The controller stats currently collected
+#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
+pub enum ControllerStats {
+    OscState(ControllerStat<OscState>),
+}
+
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
 pub enum LNetStats {
     SendCount(LNetStat<i64>),
@@ -588,6 +638,7 @@ pub enum Record {
     LustreService(LustreServiceStats),
     Node(NodeStats),
     Target(TargetStats),
+    Controller(ControllerStats),
 }
 
 #[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
@@ -633,6 +684,50 @@ pub enum QuotaKind {
     Usr,
     Grp,
     Prj,
+}
+
+/// Controller state enum matching Lustre's import_state_names
+#[derive(PartialEq, Eq, Debug, Clone, Copy, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "SCREAMING_SNAKE_CASE")]
+pub enum ControllerState {
+    #[serde(rename = "<UNKNOWN>")]
+    Unknown,
+    Closed,
+    New,
+    Disconn,
+    Connecting,
+    Replay,
+    ReplayLocks,
+    ReplayWait,
+    Recover,
+    Full,
+    Evicted,
+    Idle,
+}
+
+impl std::fmt::Display for ControllerState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let s = match self {
+            ControllerState::Unknown => "<UNKNOWN>",
+            ControllerState::Closed => "CLOSED",
+            ControllerState::New => "NEW",
+            ControllerState::Disconn => "DISCONN",
+            ControllerState::Connecting => "CONNECTING",
+            ControllerState::Replay => "REPLAY",
+            ControllerState::ReplayLocks => "REPLAY_LOCKS",
+            ControllerState::ReplayWait => "REPLAY_WAIT",
+            ControllerState::Recover => "RECOVER",
+            ControllerState::Full => "FULL",
+            ControllerState::Evicted => "EVICTED",
+            ControllerState::Idle => "IDLE",
+        };
+        write!(f, "{}", s)
+    }
+}
+
+#[derive(PartialEq, Eq, Debug, serde::Serialize, serde::Deserialize)]
+pub struct OscState {
+    pub current_state: ControllerState,
 }
 
 #[cfg(test)]

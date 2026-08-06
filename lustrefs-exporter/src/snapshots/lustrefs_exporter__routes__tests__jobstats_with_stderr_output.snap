@@ -1183,6 +1183,16 @@ lustre_osp_active{component="ost",target="ai400x2-OST0001-osc-MDT0000"} 1
 # TYPE lustre_osp_max_create_count gauge
 lustre_osp_max_create_count{component="ost",target="ai400x2-OST0000-osc-MDT0000"} 20000
 lustre_osp_max_create_count{component="ost",target="ai400x2-OST0001-osc-MDT0000"} 20000
+# HELP lustre_osc_state Lustre OSC connection state.
+# TYPE lustre_osc_state gauge
+lustre_osc_state{controller="tesfs-OST0000-osc-MDT0000",current_state="DISCONN"} 0
+lustre_osc_state{controller="tesfs-OST0001-osc-MDT0000",current_state="FULL"} 1
+lustre_osc_state{controller="tesfs-OST0002-osc-MDT0000",current_state="FULL"} 1
+lustre_osc_state{controller="tesfs-OST0003-osc-MDT0000",current_state="FULL"} 1
+lustre_osc_state{controller="tesfs-OST0004-osc-MDT0000",current_state="FULL"} 1
+lustre_osc_state{controller="tesfs-OST0005-osc-MDT0000",current_state="FULL"} 1
+lustre_osc_state{controller="tesfs-OST0006-osc-MDT0000",current_state="FULL"} 1
+lustre_osc_state{controller="tesfs-OST0007-osc-MDT0000",current_state="FULL"} 1
 # HELP lustre_send_count_total Total number of messages that have been sent.
 # TYPE lustre_send_count_total counter
 lustre_send_count_total{nid="0@lo"} 180076

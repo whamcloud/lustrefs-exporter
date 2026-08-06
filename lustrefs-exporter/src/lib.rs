@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 pub mod brw_stats;
+pub mod controller;
 pub mod host;
 pub mod jobstats;
 pub mod llite;
@@ -21,7 +22,7 @@ use axum::{
     http::{self, StatusCode},
     response::{IntoResponse, Response},
 };
-use lustre_collector::{LustreCollectorError, TargetVariant};
+use lustre_collector::{ControllerVariant, LustreCollectorError, TargetVariant};
 use prometheus_client::metrics::family::Family as PrometheusFamily;
 
 pub type LabelContainer = Vec<(&'static str, String)>;
@@ -69,6 +70,14 @@ impl LabelProm for TargetVariant {
             TargetVariant::Ost => "ost",
             TargetVariant::Mgt => "mgt",
             TargetVariant::Mdt => "mdt",
+        }
+    }
+}
+
+impl LabelProm for ControllerVariant {
+    fn to_prom_label(&self) -> &'static str {
+        match self {
+            ControllerVariant::Osc => "osc",
         }
     }
 }
@@ -146,7 +155,7 @@ pub mod tests {
     use axum::{http::StatusCode, response::IntoResponse as _};
     use combine::EasyParser as _;
     use commandeer_test::commandeer;
-    use lustre_collector::{Record, TargetVariant, parser::parse};
+    use lustre_collector::{ControllerVariant, Record, TargetVariant, parser::parse};
     use prometheus_client::{encoding::text::encode, registry::Registry};
     use prometheus_parse::{Sample, Scrape};
     use serial_test::serial;
@@ -165,6 +174,7 @@ pub mod tests {
         "lustre_health_healthy",
         "lustre_health_value",
         "lustre_many_credits_total",
+        "lustre_osc_state",
         "lustre_osp_active",
         "lustre_osp_max_create_count",
         "lustre_stats_time_max",
@@ -197,6 +207,11 @@ pub mod tests {
         assert_eq!(TargetVariant::Ost.to_prom_label(), "ost");
         assert_eq!(TargetVariant::Mgt.to_prom_label(), "mgt");
         assert_eq!(TargetVariant::Mdt.to_prom_label(), "mdt");
+    }
+
+    #[test]
+    fn test_controller_variant_to_prom_label() {
+        assert_eq!(ControllerVariant::Osc.to_prom_label(), "osc");
     }
 
     #[commandeer(Replay, "lctl", "lnetctl")]
