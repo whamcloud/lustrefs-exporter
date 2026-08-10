@@ -42,7 +42,7 @@ where
         string("stats").skip(equals()),
         stats(),
     ))
-    .map(|(nid, _, stats)| ExportStats { nid, stats })
+    .map(|(nid, _, (_, stats))| ExportStats { nid, stats })
     .message("while parsing export_stats")
 }
 

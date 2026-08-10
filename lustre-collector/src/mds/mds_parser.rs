@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    MdsStat,
+    MdsStat, StatsHeader,
     base_parsers::{equals, period, target},
     stats_parser::stats,
     types::{Param, Record, Stat, Target, TargetStats},
@@ -64,7 +64,7 @@ where
         .message("while parsing `mds_suffix`")
 }
 
-fn mds_stat<I>() -> impl Parser<I, Output = (Param, Vec<Stat>)>
+fn mds_stat<I>() -> impl Parser<I, Output = (Param, (StatsHeader, Vec<Stat>))>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -92,7 +92,7 @@ where
 {
     mds_prefix()
         .with(mds_stat())
-        .map(|(param, stats)| TargetStats::Mds(MdsStat { param, stats }))
+        .map(|(param, (_, stats))| TargetStats::Mds(MdsStat { param, stats }))
         .map(Record::Target)
         .message("while parsing mds")
 }

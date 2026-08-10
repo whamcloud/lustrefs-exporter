@@ -1,49 +1,57 @@
 ---
-source: src/brw_stats_parser.rs
+source: lustre-collector/src/brw_stats_parser.rs
 expression: result
 ---
 (
-    [
-        BrwStats {
-            name: "pages",
-            unit: "rpcs",
-            buckets: [],
+    (
+        StatsHeader {
+            snapshot_time: "1684867636.682465202",
+            start_time: Some(
+                "1684865295.727058577",
+            ),
         },
-        BrwStats {
-            name: "discont_pages",
-            unit: "rpcs",
-            buckets: [],
-        },
-        BrwStats {
-            name: "discont_blocks",
-            unit: "rpcs",
-            buckets: [],
-        },
-        BrwStats {
-            name: "dio_frags",
-            unit: "ios",
-            buckets: [],
-        },
-        BrwStats {
-            name: "rpc_hist",
-            unit: "ios",
-            buckets: [],
-        },
-        BrwStats {
-            name: "io_time",
-            unit: "ios",
-            buckets: [],
-        },
-        BrwStats {
-            name: "disk_iosize",
-            unit: "ios",
-            buckets: [],
-        },
-        BrwStats {
-            name: "block_maps_msec",
-            unit: "maps",
-            buckets: [],
-        },
-    ],
+        [
+            BrwStats {
+                name: "pages",
+                unit: "rpcs",
+                buckets: [],
+            },
+            BrwStats {
+                name: "discont_pages",
+                unit: "rpcs",
+                buckets: [],
+            },
+            BrwStats {
+                name: "discont_blocks",
+                unit: "rpcs",
+                buckets: [],
+            },
+            BrwStats {
+                name: "dio_frags",
+                unit: "ios",
+                buckets: [],
+            },
+            BrwStats {
+                name: "rpc_hist",
+                unit: "ios",
+                buckets: [],
+            },
+            BrwStats {
+                name: "io_time",
+                unit: "ios",
+                buckets: [],
+            },
+            BrwStats {
+                name: "disk_iosize",
+                unit: "ios",
+                buckets: [],
+            },
+            BrwStats {
+                name: "block_maps_msec",
+                unit: "maps",
+                buckets: [],
+            },
+        ],
+    ),
     "",
 )

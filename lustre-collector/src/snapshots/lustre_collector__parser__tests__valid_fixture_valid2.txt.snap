@@ -399,7 +399,7 @@ expression: result
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mgt,
                     param: Param(
                         "brw_stats",
@@ -449,12 +449,16 @@ expression: result
                             buckets: [],
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1701093031.364733547",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "brw_stats",
@@ -504,12 +508,16 @@ expression: result
                             buckets: [],
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1701093031.364752320",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -559,12 +567,16 @@ expression: result
                             buckets: [],
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1701093031.364765737",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             BrwStats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "brw_stats",
@@ -614,6 +626,10 @@ expression: result
                             buckets: [],
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1701093031.364778711",
+                        start_time: None,
+                    },
                 },
             ),
         ),
@@ -633,7 +649,7 @@ expression: result
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mgt,
                     param: Param(
                         "stats",
@@ -864,6 +880,10 @@ expression: result
                             ),
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1701093031.364906323",
+                        start_time: None,
+                    },
                 },
             ),
         ),
@@ -925,7 +945,7 @@ expression: result
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "stats",
@@ -986,12 +1006,16 @@ expression: result
                             ),
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1701093031.365202411",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Ost,
                     param: Param(
                         "stats",
@@ -1052,6 +1076,10 @@ expression: result
                             ),
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1701093031.365218851",
+                        start_time: None,
+                    },
                 },
             ),
         ),
@@ -1750,7 +1778,7 @@ expression: result
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "md_stats",
@@ -1896,6 +1924,10 @@ expression: result
                             ),
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1701093031.365709921",
+                        start_time: None,
+                    },
                 },
             ),
         ),
@@ -2419,6 +2451,10 @@ expression: result
         ),
         LustreService(
             LdlmCanceld(
+                StatsHeader {
+                    snapshot_time: "1701093031.367196745",
+                    start_time: None,
+                },
                 [
                     Stat {
                         name: "req_waittime",
@@ -2527,6 +2563,10 @@ expression: result
         ),
         LustreService(
             LdlmCbd(
+                StatsHeader {
+                    snapshot_time: "1701093031.367229301",
+                    start_time: None,
+                },
                 [
                     Stat {
                         name: "req_waittime",

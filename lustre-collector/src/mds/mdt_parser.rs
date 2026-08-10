@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    ExportStats,
+    ExportStats, StatsHeader, TimedTargetStat,
     base_parsers::{digits, param, param_period, period, target},
     exports_parser::exports_stats,
     oss::obdfilter_parser::{EXPORTS, EXPORTS_PARAMS},
@@ -21,7 +21,7 @@ pub(crate) const STATS: &str = "md_stats";
 pub(crate) const NUM_EXPORTS: &str = "num_exports";
 
 enum MdtStat {
-    Stats(Vec<Stat>),
+    Stats(StatsHeader, Vec<Stat>),
     NumExports(u64),
     ExportStats(Vec<ExportStats>),
 }
@@ -36,7 +36,8 @@ where
             param(NUM_EXPORTS),
             digits().skip(newline()).map(MdtStat::NumExports),
         ),
-        (param(STATS), stats().map(MdtStat::Stats)).message("while parsing mdt_stat"),
+        (param(STATS), stats().map(|(h, v)| MdtStat::Stats(h, v)))
+            .message("while parsing mdt_stat"),
         (
             param_period(EXPORTS),
             exports_stats().map(MdtStat::ExportStats),
@@ -74,11 +75,12 @@ where
 {
     (target_name(), mdt_stat())
         .map(|(target, (param, value))| match value {
-            MdtStat::Stats(value) => TargetStats::Stats(TargetStat {
+            MdtStat::Stats(header, value) => TargetStats::Stats(TimedTargetStat {
                 kind: TargetVariant::Mdt,
                 target,
                 param,
                 value,
+                header,
             }),
             MdtStat::NumExports(value) => TargetStats::NumExports(TargetStat {
                 kind: TargetVariant::Mdt,

@@ -1,5 +1,5 @@
 ---
-source: src/llite/mod.rs
+source: lustre-collector/src/llite/mod.rs
 expression: result
 ---
 (
@@ -228,6 +228,10 @@ expression: result
                             ),
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1689697369.331040915",
+                        start_time: None,
+                    },
                 },
             ),
         ),

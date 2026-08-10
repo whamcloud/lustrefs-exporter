@@ -1,5 +1,6 @@
 ---
 source: lustrefs-exporter/src/lib.rs
+assertion_line: 306
 expression: x
 input_file: lustre-collector/src/fixtures/valid/valid_unhealthy_host.txt
 ---
@@ -34,6 +35,12 @@ lustre_ldlm_cbd_stats{operation="req_qdepth"} 1
 lustre_ldlm_cbd_stats{operation="req_timeout"} 1
 lustre_ldlm_cbd_stats{operation="req_waittime"} 1
 lustre_ldlm_cbd_stats{operation="reqbuf_avail"} 3
+# HELP lustre_ldlm_canceld_stats_start_time Time (epoch seconds) the LDLM Canceld service stats were last reset.
+# TYPE lustre_ldlm_canceld_stats_start_time gauge
+lustre_ldlm_canceld_stats_start_time{} 1688526463
+# HELP lustre_ldlm_cbd_stats_start_time Time (epoch seconds) the LDLM Callback service stats were last reset.
+# TYPE lustre_ldlm_cbd_stats_start_time gauge
+lustre_ldlm_cbd_stats_start_time{} 1688526463
 # HELP lustre_disk_io_total Total number of operations the filesystem has performed for the given size. 'size' label represents 'Disk I/O size', the size of each I/O operation.
 # TYPE lustre_disk_io_total counter
 lustre_disk_io_total{component="ost",operation="read",size="1048576",target="ai400-OST0000"} 0
@@ -130,6 +137,11 @@ lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="256",targ
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="32",target="ai400-OST0000"} 1
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="512",target="ai400-OST0000"} 0
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="64",target="ai400-OST0000"} 0
+# HELP lustre_brw_stats_start_time Unix epoch seconds when the brw_stats counters were last reset.
+# TYPE lustre_brw_stats_start_time gauge
+lustre_brw_stats_start_time{component="mdt",target="ai400-MDT0000"} 1688526476
+lustre_brw_stats_start_time{component="ost",target="ai400-OST0000"} 1688526475
+lustre_brw_stats_start_time{component="ost",target="ai400-OST0001"} 1688526463
 # HELP lustre_inodes_free The number of inodes (objects) available.
 # TYPE lustre_inodes_free gauge
 lustre_inodes_free{component="mdt",target="ai400-MDT0000"} 85908200
@@ -248,6 +260,11 @@ lustre_stats_total{component="mdt",operation="getxattr",target="ai400-MDT0000"} 
 lustre_stats_total{component="mdt",operation="mknod",target="ai400-MDT0000"} 3
 lustre_stats_total{component="mdt",operation="open",target="ai400-MDT0000"} 3
 lustre_stats_total{component="mdt",operation="statfs",target="ai400-MDT0000"} 44863
+# HELP lustre_stats_start_time Unix epoch seconds when lustre_stats was last reset.
+# TYPE lustre_stats_start_time gauge
+lustre_stats_start_time{component="mdt",target="ai400-MDT0000"} 1688526476
+lustre_stats_start_time{component="ost",target="ai400-OST0000"} 1688526475
+lustre_stats_start_time{component="ost",target="ai400-OST0001"} 1688526474
 # HELP lustre_stats_time_min Minimum time taken for an operation in microseconds.
 # TYPE lustre_stats_time_min gauge
 lustre_stats_time_min{component="mdt",operation="close",target="ai400-MDT0000"} 116

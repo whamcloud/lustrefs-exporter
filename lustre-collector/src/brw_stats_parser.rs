@@ -4,7 +4,7 @@
 
 use crate::{
     base_parsers::{digits, string_to, till_newline, word},
-    time::time_triple,
+    time::{StatsHeader, time_triple},
     types::{BrwStats, BrwStatsBucket},
 };
 use combine::{
@@ -120,17 +120,19 @@ where
         })
 }
 
-pub(crate) fn brw_stats<I>() -> impl Parser<I, Output = Vec<BrwStats>>
+pub(crate) fn brw_stats<I>() -> impl Parser<I, Output = (StatsHeader, Vec<BrwStats>)>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
-    (newline().with(time_triple()), spaces(), many1(section())).map(|(_, _, y)| y)
+    (newline().with(time_triple()), spaces(), many1(section()))
+        .map(|(header, _, sections)| (header, sections))
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::time::StatsHeader;
     use insta::assert_debug_snapshot;
 
     #[test]
@@ -307,48 +309,54 @@ pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
         assert_eq!(
             result,
             Ok((
-                vec![
-                    BrwStats {
-                        name: "pages".to_string(),
-                        unit: "rpcs".to_string(),
-                        buckets: vec![],
+                (
+                    StatsHeader {
+                        snapshot_time: "1534429278.185762481".to_string(),
+                        start_time: None,
                     },
-                    BrwStats {
-                        name: "discont_pages".to_string(),
-                        unit: "rpcs".to_string(),
-                        buckets: vec![],
-                    },
-                    BrwStats {
-                        name: "discont_blocks".to_string(),
-                        unit: "rpcs".to_string(),
-                        buckets: vec![],
-                    },
-                    BrwStats {
-                        name: "dio_frags".to_string(),
-                        unit: "ios".to_string(),
-                        buckets: vec![],
-                    },
-                    BrwStats {
-                        name: "rpc_hist".to_string(),
-                        unit: "ios".to_string(),
-                        buckets: vec![],
-                    },
-                    BrwStats {
-                        name: "io_time".to_string(),
-                        unit: "ios".to_string(),
-                        buckets: vec![],
-                    },
-                    BrwStats {
-                        name: "disk_iosize".to_string(),
-                        unit: "ios".to_string(),
-                        buckets: vec![],
-                    },
-                    BrwStats {
-                        name: "block_maps_msec".to_string(),
-                        unit: "maps".to_string(),
-                        buckets: vec![],
-                    },
-                ],
+                    vec![
+                        BrwStats {
+                            name: "pages".to_string(),
+                            unit: "rpcs".to_string(),
+                            buckets: vec![],
+                        },
+                        BrwStats {
+                            name: "discont_pages".to_string(),
+                            unit: "rpcs".to_string(),
+                            buckets: vec![],
+                        },
+                        BrwStats {
+                            name: "discont_blocks".to_string(),
+                            unit: "rpcs".to_string(),
+                            buckets: vec![],
+                        },
+                        BrwStats {
+                            name: "dio_frags".to_string(),
+                            unit: "ios".to_string(),
+                            buckets: vec![],
+                        },
+                        BrwStats {
+                            name: "rpc_hist".to_string(),
+                            unit: "ios".to_string(),
+                            buckets: vec![],
+                        },
+                        BrwStats {
+                            name: "io_time".to_string(),
+                            unit: "ios".to_string(),
+                            buckets: vec![],
+                        },
+                        BrwStats {
+                            name: "disk_iosize".to_string(),
+                            unit: "ios".to_string(),
+                            buckets: vec![],
+                        },
+                        BrwStats {
+                            name: "block_maps_msec".to_string(),
+                            unit: "maps".to_string(),
+                            buckets: vec![],
+                        },
+                    ],
+                ),
                 ""
             ))
         );
@@ -358,7 +366,7 @@ pages per bulk r/w     rpcs  % cum % |  rpcs        % cum %
     fn test_brw_stats() {
         let x = include_str!("fixtures/brw_stats_with_data.txt");
 
-        let result: (Vec<_>, _) = brw_stats().parse(x).unwrap();
+        let result = brw_stats().parse(x).unwrap();
 
         assert_debug_snapshot!(result);
     }

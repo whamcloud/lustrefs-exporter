@@ -1,5 +1,5 @@
 ---
-source: src/parser.rs
+source: lustre-collector/src/parser.rs
 expression: result
 ---
 (
@@ -413,7 +413,7 @@ expression: result
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "md_stats",
@@ -441,12 +441,16 @@ expression: result
                             sumsquare: None,
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1583789082.568118366",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "md_stats",
@@ -474,6 +478,10 @@ expression: result
                             sumsquare: None,
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1583789082.568222478",
+                        start_time: None,
+                    },
                 },
             ),
         ),

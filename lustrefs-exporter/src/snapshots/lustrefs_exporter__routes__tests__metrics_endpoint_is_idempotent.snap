@@ -1032,6 +1032,12 @@ lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="64",targe
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="64",target="ai400x2-OST0001"} 118139
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="8",target="ai400x2-OST0000"} 116099
 lustre_pages_per_bulk_rw_total{component="ost",operation="write",size="8",target="ai400x2-OST0001"} 316631
+# HELP lustre_brw_stats_start_time Unix epoch seconds when the brw_stats counters were last reset.
+# TYPE lustre_brw_stats_start_time gauge
+lustre_brw_stats_start_time{component="mdt",target="ai400x2-MDT0000"} 1775125270
+lustre_brw_stats_start_time{component="mgt",target="MGS"} 1775125270
+lustre_brw_stats_start_time{component="ost",target="ai400x2-OST0000"} 1775125270
+lustre_brw_stats_start_time{component="ost",target="ai400x2-OST0001"} 1775125270
 # HELP lustre_inodes_free The number of inodes (objects) available.
 # TYPE lustre_inodes_free gauge
 lustre_inodes_free{component="mdt",target="ai400x2-MDT0000"} 255306055

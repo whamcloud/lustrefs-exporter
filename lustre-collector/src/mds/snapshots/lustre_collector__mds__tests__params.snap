@@ -1,12 +1,12 @@
 ---
-source: src/mds/mod.rs
+source: lustre-collector/src/mds/mod.rs
 expression: result
 ---
 (
     [
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "md_stats",
@@ -25,12 +25,16 @@ expression: result
                             sumsquare: None,
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1566017453.9677077",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "md_stats",
@@ -49,12 +53,16 @@ expression: result
                             sumsquare: None,
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1566017453.9825550",
+                        start_time: None,
+                    },
                 },
             ),
         ),
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mdt,
                     param: Param(
                         "md_stats",
@@ -73,6 +81,10 @@ expression: result
                             sumsquare: None,
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1566017453.9857366",
+                        start_time: None,
+                    },
                 },
             ),
         ),

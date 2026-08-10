@@ -1,13 +1,12 @@
 ---
-source: src/mgs/mgs_parser.rs
+source: lustre-collector/src/mgs/mgs_parser.rs
 expression: result
-
 ---
 (
     [
         Target(
             Stats(
-                TargetStat {
+                TimedTargetStat {
                     kind: Mgt,
                     param: Param(
                         "stats",
@@ -255,6 +254,10 @@ expression: result
                             ),
                         },
                     ],
+                    header: StatsHeader {
+                        snapshot_time: "1596728874.484750908",
+                        start_time: None,
+                    },
                 },
             ),
         ),

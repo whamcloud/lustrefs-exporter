@@ -3,8 +3,10 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
+    TimedTargetStat,
     base_parsers::{digits, param, period, target},
     stats_parser::stats,
+    time::StatsHeader,
     types::{Param, Record, Stat, Target, TargetStat, TargetStats, TargetVariant},
 };
 use combine::{
@@ -35,7 +37,7 @@ pub fn params() -> Vec<String> {
 
 #[derive(Debug)]
 enum MgsStat {
-    Stats(Vec<Stat>),
+    Stats(StatsHeader, Vec<Stat>),
     ThreadsMin(u64),
     ThreadsMax(u64),
     ThreadsStarted(u64),
@@ -69,7 +71,7 @@ where
         (
             string("mgs").skip(period()),
             choice((
-                (param(STATS), stats().map(MgsStat::Stats)),
+                (param(STATS), stats().map(|(h, v)| MgsStat::Stats(h, v))),
                 (
                     param(THREADS_MIN),
                     digits().skip(newline()).map(MgsStat::ThreadsMin),
@@ -96,11 +98,12 @@ where
 {
     (target_name(), mgs_stat())
         .map(|(target, (param, value))| match value {
-            MgsStat::Stats(value) => TargetStats::Stats(TargetStat {
+            MgsStat::Stats(header, value) => TargetStats::Stats(TimedTargetStat {
                 kind: TargetVariant::Mgt,
                 target,
                 param,
                 value,
+                header,
             }),
             MgsStat::NumExports(value) => TargetStats::NumExports(TargetStat {
                 kind: TargetVariant::Mgt,

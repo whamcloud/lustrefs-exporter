@@ -27,6 +27,7 @@ mod top_level_parser;
 pub mod types;
 
 pub use crate::error::LustreCollectorError;
+pub use crate::time::StatsHeader;
 use combine::parser::EasyParser;
 pub use lnetctl_parser::{
     parse as parse_lnetctl_output, parse_lnetctl_global_show, parse_lnetctl_stats,
