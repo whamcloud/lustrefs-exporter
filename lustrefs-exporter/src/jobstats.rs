@@ -181,11 +181,10 @@ pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
             }
         }
 
-        if let State::TargetJobStats(target, job, stats) = state
-            && let Err(e) = render_stat(&mut jobstats, &target, job, stats)
-        {
-            tracing::debug!("Unexpected error processing jobstats lines: {e}");
-        };
+        if let State::TargetJobStats(target, job, stats) = state {
+            let _ = render_stat(&mut jobstats, &target, job, stats)
+                .map_err(|e| tracing::debug!("Unexpected error processing jobstats lines: {e}"));
+        }
 
         jobstats
     })
