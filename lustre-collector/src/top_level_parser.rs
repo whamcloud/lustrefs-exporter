@@ -10,7 +10,7 @@ use crate::{
 use combine::{
     Parser, choice,
     error::ParseError,
-    many1, optional,
+    many, optional,
     parser::char::{newline, space, string},
     stream::Stream,
     token,
@@ -52,7 +52,7 @@ where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
-    many1(target_health().skip(newline()))
+    many(target_health().skip(newline()))
 }
 
 fn health_stats<I>() -> impl Parser<I, Output = HealthCheckStat>
@@ -350,6 +350,65 @@ device lustre-OST0016 reported unhealthy
         assert_eq!(remaining, "");
 
         // Should have 4 records
-        assert_eq!(records.len(), 4);
+        insta::assert_debug_snapshot!(records, @r#"
+        [
+            Host(
+                Memused(
+                    HostStat {
+                        param: Param(
+                            "memused",
+                        ),
+                        value: 467705725,
+                    },
+                ),
+            ),
+            Host(
+                LNetMemUsed(
+                    HostStat {
+                        param: Param(
+                            "lnet_memused",
+                        ),
+                        value: 20951852,
+                    },
+                ),
+            ),
+            Host(
+                HealthCheck(
+                    HostStat {
+                        param: Param(
+                            "health_check",
+                        ),
+                        value: HealthCheckStat {
+                            healthy: false,
+                            targets: [],
+                        },
+                    },
+                ),
+            ),
+            Host(
+                HealthCheck(
+                    HostStat {
+                        param: Param(
+                            "health_check",
+                        ),
+                        value: HealthCheckStat {
+                            healthy: false,
+                            targets: [
+                                Target(
+                                    "lustre-OST0012",
+                                ),
+                                Target(
+                                    "lustre-OST0014",
+                                ),
+                                Target(
+                                    "lustre-OST0016",
+                                ),
+                            ],
+                        },
+                    },
+                ),
+            ),
+        ]
+        "#);
     }
 }
