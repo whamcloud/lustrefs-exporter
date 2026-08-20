@@ -1,3 +1,11 @@
+prometheus-lustrefs-exporter (0.12.7-0.1) unstable; urgency=medium
+
+  * Add metrics for osc.*.state.current_state
+  * Derive package version from git tags for package builds
+  * Parse health_check unhealthy output correctly
+
+ -- EMF Team <emf@whamcloud.com>  Thu, 20 Aug 2026 17:00:00 +0200
+
 prometheus-lustrefs-exporter (0.12.6-0.1) unstable; urgency=medium
 
   * Add rename_trylocks to MDT jobstats metrics
