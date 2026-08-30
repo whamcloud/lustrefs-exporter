@@ -8,7 +8,7 @@ use tokio::{task::JoinSet, time::Instant};
 // Create a single request using `oneshot`. This is equivalent to hitting the
 // `/scrape` endpoint if the http service was running.
 async fn make_single_request() -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
-    let body = reqwest::get("http://localhost:12345/metrics?jobstats=true")
+    let body = reqwest::get("http://0.0.0.0:12345/metrics?jobstats=true")
         .await?
         .text()
         .await?;

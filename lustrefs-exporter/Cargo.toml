@@ -33,6 +33,7 @@ const_format.workspace = true
 criterion = { workspace = true, features = ["html_reports", "async_tokio"] }
 iai-callgrind.workspace = true
 insta = { workspace = true, features = ["glob"] }
+pprof = { workspace = true, features = ["criterion", "flamegraph"] }
 pretty_assertions.workspace = true
 prometheus-parse.workspace = true
 reqwest.workspace = true
