@@ -1,0 +1,15 @@
+[package]
+name = "memory-benchmarking"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+version.workspace = true
+
+[dependencies]
+serde = { workspace = true, features = ["derive"] }
+sysinfo.workspace = true
+thiserror.workspace = true
+tokio = { workspace = true, features = ["full"] }
+
+[lints]
+workspace = true
