@@ -7,7 +7,7 @@
           "global",
           "show"
         ],
-        "stdout": "global:\n    numa_range: 0\n    max_intf: 200\n    discovery: 1\n    drop_asym_route: 0\n    retry_count: 2\n    transaction_timeout: 150\n    health_sensitivity: 100\n    recovery_interval: 1\n    router_sensitivity: 100\n    lnd_timeout: 49\n    response_tracking: 3\n    recovery_limit: 0\n    max_recovery_ping_interval: 900\n",
+        "stdout": "global:\n    numa_range: 0\n    max_interfaces: 200\n    discovery: 1\n    drop_asym_route: 0\n    retry_count: 2\n    transaction_timeout: 150\n    health_sensitivity: 100\n    recovery_interval: 1\n    router_sensitivity: 100\n    lnd_timeout: 49\n    response_tracking: 3\n    recovery_limit: 0\n    max_recovery_ping_interval: 900\n",
         "stderr": "",
         "exit_code": 0
       }
