@@ -540,7 +540,7 @@ mod tests {
         let x = parse_lnetctl_global_show(
             br#"global:
     numa_range: 0
-    max_intf: 200
+    max_interfaces: 200
     discovery: 1
     drop_asym_route: 0
     retry_count: 2
