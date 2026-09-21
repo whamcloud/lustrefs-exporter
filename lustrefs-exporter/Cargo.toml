@@ -14,6 +14,7 @@ regex = { version = "1", default-features = false, features = [
   "std",
   "perf-dfa-full",
 ] }
+rustix = { version = "1", features = ["param"] }
 serde = { version = "1", features = ["derive"] }
 thiserror.workspace = true
 tokio = { workspace = true, features = [

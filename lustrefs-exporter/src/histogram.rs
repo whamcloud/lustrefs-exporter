@@ -58,6 +58,15 @@ pub enum Table {
     Latency,
 }
 
+impl Bucket {
+    pub fn scaled(self, factor: u64) -> Self {
+        Self {
+            key: self.key * factor,
+            le: self.le.map(|le| le * factor),
+        }
+    }
+}
+
 impl Table {
     pub fn bucket(self, key: u64) -> Bucket {
         let le = match self {

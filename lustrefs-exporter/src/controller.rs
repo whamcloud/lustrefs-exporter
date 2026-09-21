@@ -4,7 +4,7 @@
 
 use crate::{
     Family,
-    client::{ClientLabels, fs_name},
+    client::{ClientLabels, ExtendedClientMetrics, fs_name},
     client_target,
     client_target::ClientTargetMetrics,
     histogram::HistogramEncoding,
@@ -23,17 +23,25 @@ pub struct ControllerMetrics {
 
 impl Default for ControllerMetrics {
     fn default() -> Self {
-        Self::new(ClientLabels::default(), HistogramEncoding::default())
+        Self::new(
+            ClientLabels::default(),
+            HistogramEncoding::default(),
+            ExtendedClientMetrics::default(),
+        )
     }
 }
 
 impl ControllerMetrics {
-    pub fn new(labels: ClientLabels, histograms: HistogramEncoding) -> Self {
+    pub fn new(
+        labels: ClientLabels,
+        histograms: HistogramEncoding,
+        extended: ExtendedClientMetrics,
+    ) -> Self {
         Self {
             labels,
             osc_state: Family::default(),
-            osc: ClientTargetMetrics::new(ControllerVariant::Osc, labels, histograms),
-            mdc: ClientTargetMetrics::new(ControllerVariant::Mdc, labels, histograms),
+            osc: ClientTargetMetrics::new(ControllerVariant::Osc, labels, histograms, extended),
+            mdc: ClientTargetMetrics::new(ControllerVariant::Mdc, labels, histograms, extended),
         }
     }
 

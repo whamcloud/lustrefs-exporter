@@ -155,7 +155,7 @@ pub async fn dump_stats() -> Result<(), Error> {
 pub mod tests {
     use crate::{
         Error, LabelProm as _,
-        client::ClientLabels,
+        client::{ClientLabels, ExtendedClientMetrics},
         dump_stats,
         histogram::HistogramEncoding,
         metrics::{self, Metrics},
@@ -183,6 +183,7 @@ pub mod tests {
         "lustre_exporter_parse_errors",
         "lustre_exporter_command_errors",
         "lustre_get_page_total",
+        "lustre_page_size_bytes",
         "lustre_health_healthy",
         "lustre_health_value",
         "lustre_many_credits_total",
@@ -764,13 +765,115 @@ pub mod tests {
         );
     }
 
+    #[test]
+    fn client_fixture_extended() {
+        let contents = include_str!(
+            "../../lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn259/client/client.txt"
+        );
+
+        let (records, _) = parse()
+            .easy_parse(contents)
+            .map_err(|err| err.map_position(|p| p.translate_position(contents)))
+            .unwrap();
+
+        let x = build_lustre_stats_extended(
+            &records,
+            ClientLabels::PerTarget,
+            HistogramEncoding::BucketCounters,
+            ExtendedClientMetrics::On { page_size: 65536 },
+        );
+
+        let scrape = get_scrape(x.clone());
+        let sizes = |family: &str| -> Vec<(u64, u64)> {
+            let mut xs: Vec<(u64, u64)> = scrape
+                .samples
+                .iter()
+                .filter(|s| s.metric == format!("{family}_total"))
+                .map(|s| {
+                    let Value::Counter(rpcs) = &s.value else {
+                        panic!("{}", s.metric)
+                    };
+
+                    (s.labels["size"].parse().unwrap(), *rpcs as u64)
+                })
+                .collect();
+            xs.sort_unstable();
+            xs
+        };
+
+        for component in ["osc", "mdc"] {
+            let pages = sizes(&format!(
+                "lustre_client_{component}_rpc_stats_pages_per_rpc"
+            ));
+            let bytes = sizes(&format!(
+                "lustre_client_{component}_rpc_stats_bytes_per_rpc"
+            ));
+
+            assert!(!pages.is_empty(), "{component}");
+            assert_eq!(
+                bytes,
+                pages
+                    .iter()
+                    .map(|&(pages, rpcs)| (pages * 65536, rpcs))
+                    .collect::<Vec<_>>(),
+                "{component}"
+            );
+        }
+
+        let without_bytes: String = x
+            .lines()
+            .filter(|l| !l.contains("_rpc_stats_bytes_per_rpc"))
+            .map(|l| format!("{l}\n"))
+            .collect();
+        assert_eq!(
+            without_bytes,
+            build_lustre_stats(
+                &records,
+                ClientLabels::PerTarget,
+                HistogramEncoding::BucketCounters
+            )
+        );
+
+        let x = build_lustre_stats_extended(
+            &records,
+            ClientLabels::ByFilesystem,
+            HistogramEncoding::Histogram,
+            ExtendedClientMetrics::On { page_size: 4096 },
+        );
+
+        assert_valid_histograms(&x);
+
+        let sum = |name: &str| -> f64 {
+            series(
+                &x,
+                &format!("{name}_sum{{fs=\"a361000\",operation=\"write\"}}"),
+            )
+            .parse()
+            .unwrap()
+        };
+        assert_eq!(
+            sum("lustre_client_osc_rpc_stats_bytes_per_rpc"),
+            sum("lustre_client_osc_rpc_stats_pages_per_rpc") * 4096.0
+        );
+        insta::assert_snapshot!("client_fixture_extended_aggregated_histograms", x);
+    }
+
     fn build_lustre_stats(
         x: &Vec<Record>,
         client_labels: ClientLabels,
         histograms: HistogramEncoding,
     ) -> String {
+        build_lustre_stats_extended(x, client_labels, histograms, ExtendedClientMetrics::Off)
+    }
+
+    fn build_lustre_stats_extended(
+        x: &Vec<Record>,
+        client_labels: ClientLabels,
+        histograms: HistogramEncoding,
+        extended: ExtendedClientMetrics,
+    ) -> String {
         let mut registry = Registry::default();
-        let mut metrics = Metrics::new(client_labels, histograms);
+        let mut metrics = Metrics::new(client_labels, histograms, extended);
 
         metrics::build_lustre_stats(x, &mut metrics);
 

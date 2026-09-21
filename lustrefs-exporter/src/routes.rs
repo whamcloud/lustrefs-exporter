@@ -4,7 +4,7 @@
 
 use crate::{
     Error,
-    client::ClientLabels,
+    client::{ClientLabels, ExtendedClientMetrics},
     histogram::HistogramEncoding,
     jobstats::{JobstatMetrics, jobstats_stream},
     metrics::{self, Metrics, fold_records},
@@ -52,10 +52,34 @@ pub struct Params {
 
 const TIMEOUT_DURATION_SECS: u64 = 120;
 
-#[derive(Clone, Copy, Debug, Default)]
+#[derive(Clone, Copy, Debug)]
 pub struct ExporterConfig {
     pub client_labels: ClientLabels,
     pub histogram_encoding: HistogramEncoding,
+    pub extended_client_metrics: bool,
+    pub page_size: u64,
+}
+
+impl Default for ExporterConfig {
+    fn default() -> Self {
+        Self {
+            client_labels: ClientLabels::default(),
+            histogram_encoding: HistogramEncoding::default(),
+            extended_client_metrics: false,
+            page_size: crate::host::page_size(),
+        }
+    }
+}
+
+impl ExporterConfig {
+    /// Page size fixed at 4096 so test output does not depend on the machine.
+    #[cfg(test)]
+    pub(crate) fn for_tests() -> Self {
+        Self {
+            page_size: 4096,
+            ..Self::default()
+        }
+    }
 }
 
 pub fn app(config: ExporterConfig) -> Router {
@@ -303,7 +327,15 @@ pub async fn scrape(
     let mut registry = Registry::default();
 
     // Build the lustre stats
-    let mut opentelemetry_metrics = Metrics::new(config.client_labels, config.histogram_encoding);
+    let extended = if config.extended_client_metrics {
+        ExtendedClientMetrics::On {
+            page_size: config.page_size,
+        }
+    } else {
+        ExtendedClientMetrics::Off
+    };
+    let mut opentelemetry_metrics =
+        Metrics::new(config.client_labels, config.histogram_encoding, extended);
     let mut set = HashSet::new();
 
     if params.jobstats {
@@ -375,6 +407,8 @@ pub async fn scrape(
         metrics::process_record(record, &mut opentelemetry_metrics, &mut set);
     }
 
+    opentelemetry_metrics.host.set_page_size(config.page_size);
+
     opentelemetry_metrics.register_metric(&mut registry);
 
     let mut buffer = String::new();
@@ -411,7 +445,7 @@ mod tests {
     /// Create a new Axum app with the provided state and a Request
     /// to scrape the metrics endpoint.
     fn get_app() -> (Request<Body>, Router) {
-        let app = crate::routes::app(crate::routes::ExporterConfig::default());
+        let app = crate::routes::app(crate::routes::ExporterConfig::for_tests());
 
         let request = Request::builder()
             .uri("/metrics?jobstats=true")
@@ -451,7 +485,7 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn test_unmatched_params_are_not_errors() {
-        let app = crate::routes::app(crate::routes::ExporterConfig::default());
+        let app = crate::routes::app(crate::routes::ExporterConfig::for_tests());
 
         let request = Request::builder()
             .uri("/metrics")
@@ -474,7 +508,7 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn test_bad_block_and_stderr_error_are_counted() {
-        let app = crate::routes::app(crate::routes::ExporterConfig::default());
+        let app = crate::routes::app(crate::routes::ExporterConfig::for_tests());
 
         let request = Request::builder()
             .uri("/metrics")
@@ -551,7 +585,7 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn test_app_routes() {
-        let app = crate::routes::app(crate::routes::ExporterConfig::default());
+        let app = crate::routes::app(crate::routes::ExporterConfig::for_tests());
 
         // Test that the /metrics route exists
         let request = Request::builder()
@@ -569,7 +603,7 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn test_concurrent_requests() {
-        let app = crate::routes::app(crate::routes::ExporterConfig::default());
+        let app = crate::routes::app(crate::routes::ExporterConfig::for_tests());
 
         // Test that concurrency limiting works by sending multiple requests
         // This test verifies the load_shed layer is applied

@@ -32,6 +32,17 @@ impl ClientLabels {
     }
 }
 
+/// Bytes per RPC is pages per RPC times the page size of the kernel the
+/// exporter runs under.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum ExtendedClientMetrics {
+    #[default]
+    Off,
+    On {
+        page_size: u64,
+    },
+}
+
 /// `server_name2fsname()`: the part before the last `-` or `:` within the
 /// first `LUSTRE_MAXFSNAME + 1` characters, so a hyphenated name stays whole.
 pub fn fs_name(target: &str) -> &str {

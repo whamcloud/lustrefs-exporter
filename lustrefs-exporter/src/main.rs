@@ -8,6 +8,7 @@ use lustrefs_exporter::{
     client::ClientLabels,
     dump_stats,
     histogram::HistogramEncoding,
+    host::page_size,
     routes::{ExporterConfig, app},
 };
 use std::net::SocketAddr;
@@ -41,6 +42,15 @@ pub struct CommandOpts {
         value_parser = clap::builder::BoolishValueParser::new()
     )]
     client_histograms: bool,
+
+    /// Also export bytes per RPC: pages per RPC scaled by this kernel's page
+    /// size.
+    #[clap(
+        long,
+        env = "LUSTREFS_EXPORTER_EXTENDED_CLIENT_METRICS",
+        value_parser = clap::builder::BoolishValueParser::new()
+    )]
+    extended_client_metrics: bool,
 }
 
 #[tokio::main]
@@ -69,6 +79,8 @@ async fn main() -> Result<(), Error> {
             } else {
                 HistogramEncoding::BucketCounters
             },
+            extended_client_metrics: opts.extended_client_metrics,
+            page_size: page_size(),
         };
 
         axum::serve(listener, app(config)).await?;

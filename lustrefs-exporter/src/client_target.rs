@@ -7,7 +7,7 @@
 
 use crate::{
     Family, LabelProm,
-    client::{ClientLabels, merge_max, merge_min, set_start_time, with},
+    client::{ClientLabels, ExtendedClientMetrics, merge_max, merge_min, set_start_time, with},
     histogram::{Bucketed, HistogramEncoding, Table},
 };
 use lustre_collector::{
@@ -24,6 +24,7 @@ use std::sync::atomic::AtomicU64;
 pub struct ClientTargetMetrics {
     component: ControllerVariant,
     labels: ClientLabels,
+    extended: ExtendedClientMetrics,
     stats_total: Family<Counter<u64>>,
     stats_start_time: Family<Gauge<u64, AtomicU64>>,
     stats_time_min: Family<Gauge<u64, AtomicU64>>,
@@ -34,6 +35,7 @@ pub struct ClientTargetMetrics {
     rpc_pending_write_pages: Family<Gauge<u64, AtomicU64>>,
     rpc_pending_read_pages: Family<Gauge<u64, AtomicU64>>,
     rpc_pages_per_rpc_total: Bucketed,
+    rpc_bytes_per_rpc_total: Bucketed,
     rpc_rpcs_in_flight_total: Bucketed,
     rpc_offset_total: Bucketed,
     lockless_read_bytes_total: Family<Counter<u64>>,
@@ -65,10 +67,12 @@ impl ClientTargetMetrics {
         component: ControllerVariant,
         labels: ClientLabels,
         histograms: HistogramEncoding,
+        extended: ExtendedClientMetrics,
     ) -> Self {
         Self {
             component,
             labels,
+            extended,
             stats_total: Family::default(),
             stats_start_time: Family::default(),
             stats_time_min: Family::default(),
@@ -79,6 +83,7 @@ impl ClientTargetMetrics {
             rpc_pending_write_pages: Family::default(),
             rpc_pending_read_pages: Family::default(),
             rpc_pages_per_rpc_total: Bucketed::new(histograms),
+            rpc_bytes_per_rpc_total: Bucketed::new(histograms),
             rpc_rpcs_in_flight_total: Bucketed::new(histograms),
             rpc_offset_total: Bucketed::new(histograms),
             lockless_read_bytes_total: Family::default(),
@@ -209,6 +214,16 @@ impl ClientTargetMetrics {
             "the inclusive upper edge of the pages-per-RPC bucket",
             "pages per RPC, inclusive upper bounds",
         );
+        if self.extended != ExtendedClientMetrics::Off {
+            self.rpc_bytes_per_rpc_total.register(
+                registry,
+                &name("rpc_stats_bytes_per_rpc"),
+                None,
+                "Number of RPCs by bytes per RPC: pages per RPC times this kernel's page size",
+                "the inclusive upper edge of the bucket in bytes",
+                "bytes per RPC, inclusive upper bounds",
+            );
+        }
         self.rpc_rpcs_in_flight_total.register(
             registry,
             &name("rpc_stats_rpcs_in_flight"),
@@ -412,6 +427,18 @@ pub fn build_rpc_stats(x: &TimedControllerStat<RpcStats>, metrics: &mut ClientTa
                 .iter()
                 .map(|b| (table.bucket(b.name), b.read, b.write)),
         );
+
+        if let (Table::PagesPerRpc, ExtendedClientMetrics::On { page_size }) =
+            (table, metrics.extended)
+        {
+            metrics.rpc_bytes_per_rpc_total.observe_rw(
+                &labels,
+                histogram
+                    .buckets
+                    .iter()
+                    .map(|b| (table.bucket(b.name).scaled(page_size), b.read, b.write)),
+            );
+        }
     }
 }
 

@@ -5,7 +5,7 @@
 use crate::{
     Error, Family,
     brw_stats::{BrwStatsMetrics, build_target_stats},
-    client::ClientLabels,
+    client::{ClientLabels, ExtendedClientMetrics},
     controller::{ControllerMetrics, build_controller_stats},
     histogram::HistogramEncoding,
     host::{HostMetrics, build_host_stats},
@@ -41,9 +41,13 @@ pub struct Metrics {
 }
 
 impl Metrics {
-    pub fn new(client_labels: ClientLabels, histograms: HistogramEncoding) -> Self {
+    pub fn new(
+        client_labels: ClientLabels,
+        histograms: HistogramEncoding,
+        extended: ExtendedClientMetrics,
+    ) -> Self {
         Self {
-            controller: ControllerMetrics::new(client_labels, histograms),
+            controller: ControllerMetrics::new(client_labels, histograms, extended),
             llite: LliteMetrics::new(histograms),
             ..Self::default()
         }
