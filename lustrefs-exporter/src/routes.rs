@@ -4,6 +4,7 @@
 
 use crate::{
     Error,
+    client::ClientLabels,
     jobstats::{JobstatMetrics, jobstats_stream},
     metrics::{self, Metrics, fold_records},
     stream::lctl_records,
@@ -12,7 +13,7 @@ use axum::{
     BoxError, Router,
     body::Body,
     error_handling::HandleErrorLayer,
-    extract::Query,
+    extract::{Query, State},
     http::{StatusCode, header::CONTENT_TYPE},
     response::{IntoResponse, Response},
     routing::get,
@@ -50,7 +51,12 @@ pub struct Params {
 
 const TIMEOUT_DURATION_SECS: u64 = 120;
 
-pub fn app() -> Router {
+#[derive(Clone, Copy, Debug, Default)]
+pub struct ExporterConfig {
+    pub client_labels: ClientLabels,
+}
+
+pub fn app(config: ExporterConfig) -> Router {
     let load_shedder = ServiceBuilder::new()
         .layer(HandleErrorLayer::new(handle_error))
         .layer(LoadShedLayer::new())
@@ -63,6 +69,7 @@ pub fn app() -> Router {
     Router::new()
         .route("/metrics", get(scrape))
         .layer(load_shedder)
+        .with_state(config)
 }
 
 pub async fn handle_error(error: BoxError) -> impl IntoResponse {
@@ -287,11 +294,14 @@ pub fn lnet_global_output() -> Command {
 /// - `lctl get_param` output is parsed one parameter at a time on a blocking
 ///   thread, so neither the raw text nor its records are ever held in full
 /// - Only metrics with actual data are registered to keep output clean
-pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
+pub async fn scrape(
+    State(config): State<ExporterConfig>,
+    Query(params): Query<Params>,
+) -> Result<Response<Body>, Error> {
     let mut registry = Registry::default();
 
     // Build the lustre stats
-    let mut opentelemetry_metrics = Metrics::default();
+    let mut opentelemetry_metrics = Metrics::new(config.client_labels);
     let mut set = HashSet::new();
 
     if params.jobstats {
@@ -399,7 +409,7 @@ mod tests {
     /// Create a new Axum app with the provided state and a Request
     /// to scrape the metrics endpoint.
     fn get_app() -> (Request<Body>, Router) {
-        let app = crate::routes::app();
+        let app = crate::routes::app(crate::routes::ExporterConfig::default());
 
         let request = Request::builder()
             .uri("/metrics?jobstats=true")
@@ -439,7 +449,7 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn test_unmatched_params_are_not_errors() {
-        let app = crate::routes::app();
+        let app = crate::routes::app(crate::routes::ExporterConfig::default());
 
         let request = Request::builder()
             .uri("/metrics")
@@ -462,7 +472,7 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn test_bad_block_and_stderr_error_are_counted() {
-        let app = crate::routes::app();
+        let app = crate::routes::app(crate::routes::ExporterConfig::default());
 
         let request = Request::builder()
             .uri("/metrics")
@@ -539,7 +549,7 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn test_app_routes() {
-        let app = crate::routes::app();
+        let app = crate::routes::app(crate::routes::ExporterConfig::default());
 
         // Test that the /metrics route exists
         let request = Request::builder()
@@ -557,7 +567,7 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn test_concurrent_requests() {
-        let app = crate::routes::app();
+        let app = crate::routes::app(crate::routes::ExporterConfig::default());
 
         // Test that concurrency limiting works by sending multiple requests
         // This test verifies the load_shed layer is applied

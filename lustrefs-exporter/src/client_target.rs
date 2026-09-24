@@ -7,7 +7,7 @@
 
 use crate::{
     Family, LabelProm,
-    client::{labels, observe_rw, set_start_time, with},
+    client::{ClientLabels, merge_max, merge_min, observe_rw, set_start_time, with},
 };
 use lustre_collector::{
     BrwStats, ControllerStat, ControllerVariant, KeyValue, LocklessStats, RpcStats, Stat,
@@ -22,6 +22,7 @@ use std::sync::atomic::AtomicU64;
 #[derive(Debug)]
 pub struct ClientTargetMetrics {
     component: ControllerVariant,
+    labels: ClientLabels,
     stats_total: Family<Counter<u64>>,
     stats_start_time: Family<Gauge<u64, AtomicU64>>,
     stats_time_min: Family<Gauge<u64, AtomicU64>>,
@@ -59,9 +60,10 @@ pub struct ClientTargetMetrics {
 }
 
 impl ClientTargetMetrics {
-    pub fn new(component: ControllerVariant) -> Self {
+    pub fn new(component: ControllerVariant, labels: ClientLabels) -> Self {
         Self {
             component,
+            labels,
             stats_total: Family::default(),
             stats_start_time: Family::default(),
             stats_time_min: Family::default(),
@@ -115,7 +117,12 @@ impl ClientTargetMetrics {
         );
         registry.register(
             name("stats_start_time"),
-            "Unix epoch seconds when the stats were last reset",
+            match self.labels {
+                ClientLabels::PerTarget => "Unix epoch seconds when the stats were last reset",
+                ClientLabels::ByFilesystem => {
+                    "Unix epoch seconds of the earliest stats reset among the filesystem's targets"
+                }
+            },
             self.stats_start_time.clone(),
         );
         registry.register(
@@ -289,7 +296,7 @@ impl ClientTargetMetrics {
 }
 
 pub fn build_md_stats(x: &TimedControllerStat<Vec<Stat>>, metrics: &mut ClientTargetMetrics) {
-    let labels = labels(&x.controller);
+    let labels = metrics.labels.labels(&x.controller);
 
     for stat in &x.value {
         metrics
@@ -301,7 +308,7 @@ pub fn build_md_stats(x: &TimedControllerStat<Vec<Stat>>, metrics: &mut ClientTa
 
 /// `read_bytes` and `write_bytes` also feed the byte counters.
 pub fn build_stats(x: &TimedControllerStat<Vec<Stat>>, metrics: &mut ClientTargetMetrics) {
-    let labels = labels(&x.controller);
+    let labels = metrics.labels.labels(&x.controller);
 
     set_start_time(&metrics.stats_start_time, &labels, &x.header);
 
@@ -312,10 +319,10 @@ pub fn build_stats(x: &TimedControllerStat<Vec<Stat>>, metrics: &mut ClientTarge
 
         if stat.units.starts_with("usec") {
             if let Some(min) = stat.min {
-                metrics.stats_time_min.get_or_create(&op).set(min);
+                merge_min(&metrics.stats_time_min, &op, min);
             }
             if let Some(max) = stat.max {
-                metrics.stats_time_max.get_or_create(&op).set(max);
+                merge_max(&metrics.stats_time_max, &op, max);
             }
             if let Some(sum) = stat.sum {
                 metrics.stats_time_sum.get_or_create(&op).inc_by(sum);
@@ -335,7 +342,7 @@ pub fn build_stats(x: &TimedControllerStat<Vec<Stat>>, metrics: &mut ClientTarge
 }
 
 pub fn build_rpc_stats(x: &TimedControllerStat<RpcStats>, metrics: &mut ClientTargetMetrics) {
-    let labels = labels(&x.controller);
+    let labels = metrics.labels.labels(&x.controller);
 
     for scalar in &x.value.scalars {
         let family = match scalar.name.as_str() {
@@ -351,7 +358,7 @@ pub fn build_rpc_stats(x: &TimedControllerStat<RpcStats>, metrics: &mut ClientTa
             }
         };
 
-        family.get_or_create(&labels).set(scalar.value);
+        family.get_or_create(&labels).inc_by(scalar.value);
     }
 
     if let Some(buckets) = &x.value.modify_rpcs_in_flight {
@@ -389,7 +396,7 @@ pub fn build_io_latency_stats(
     x: &TimedControllerStat<Vec<BrwStats>>,
     metrics: &mut ClientTargetMetrics,
 ) {
-    let labels = labels(&x.controller);
+    let labels = metrics.labels.labels(&x.controller);
 
     for BrwStats { name, buckets, .. } in &x.value {
         let Some(opsize) = name.strip_prefix("io_time_") else {
@@ -412,7 +419,7 @@ pub fn build_lockless_stats(
     x: &TimedControllerStat<LocklessStats>,
     metrics: &mut ClientTargetMetrics,
 ) {
-    let labels = labels(&x.controller);
+    let labels = metrics.labels.labels(&x.controller);
 
     metrics
         .lockless_read_bytes_total
@@ -431,7 +438,7 @@ pub fn build_lockless_stats(
 }
 
 pub fn build_unstable_stats(x: &ControllerStat<Vec<KeyValue>>, metrics: &mut ClientTargetMetrics) {
-    let labels = labels(&x.controller);
+    let labels = metrics.labels.labels(&x.controller);
 
     for kv in &x.value {
         let family = match kv.name.as_str() {
@@ -444,7 +451,7 @@ pub fn build_unstable_stats(x: &ControllerStat<Vec<KeyValue>>, metrics: &mut Cli
             }
         };
 
-        family.get_or_create(&labels).set(kv.value);
+        family.get_or_create(&labels).inc_by(kv.value);
     }
 }
 
@@ -453,7 +460,7 @@ pub fn build_compression_stats(
     x: &ControllerStat<Vec<KeyValue>>,
     metrics: &mut ClientTargetMetrics,
 ) {
-    let labels = labels(&x.controller);
+    let labels = metrics.labels.labels(&x.controller);
 
     for kv in &x.value {
         let (family, kind) = match kv.name.split('_').collect::<Vec<_>>().as_slice() {
@@ -482,13 +489,13 @@ pub fn build_compression_stats(
 pub fn build_cur_grant_bytes(x: &ControllerStat<u64>, metrics: &mut ClientTargetMetrics) {
     metrics
         .cur_grant_bytes
-        .get_or_create(&labels(&x.controller))
-        .set(x.value);
+        .get_or_create(&metrics.labels.labels(&x.controller))
+        .inc_by(x.value);
 }
 
 pub fn build_cur_dirty_bytes(x: &ControllerStat<u64>, metrics: &mut ClientTargetMetrics) {
     metrics
         .cur_dirty_bytes
-        .get_or_create(&labels(&x.controller))
-        .set(x.value);
+        .get_or_create(&metrics.labels.labels(&x.controller))
+        .inc_by(x.value);
 }

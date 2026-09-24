@@ -153,7 +153,9 @@ pub async fn dump_stats() -> Result<(), Error> {
 #[cfg(test)]
 pub mod tests {
     use crate::{
-        Error, LabelProm as _, dump_stats,
+        Error, LabelProm as _,
+        client::ClientLabels,
+        dump_stats,
         metrics::{self, Metrics},
     };
     use axum::{http::StatusCode, response::IntoResponse as _};
@@ -325,7 +327,7 @@ pub mod tests {
             |path| {
                 let contents = std::fs::read_to_string(path).unwrap();
 
-                let x = parse_lustre_metrics(&contents);
+                let x = parse_lustre_metrics(&contents, ClientLabels::PerTarget);
 
                 insta::assert_snapshot!(x);
 
@@ -489,26 +491,40 @@ pub mod tests {
         get_scrape(x.to_string())
     }
 
-    fn parse_lustre_metrics(contents: &str) -> String {
+    fn parse_lustre_metrics(contents: &str, client_labels: ClientLabels) -> String {
         let (records, _) = parse()
             .easy_parse(contents)
             .map_err(|err| err.map_position(|p| p.translate_position(contents)))
             .unwrap();
 
-        build_lustre_stats(&records)
+        build_lustre_stats(&records, client_labels)
+    }
+
+    /// The value of the one sample line for `series` (name and labels).
+    fn series(output: &str, series: &str) -> String {
+        let mut values = output
+            .lines()
+            .filter_map(|l| l.strip_prefix(series)?.strip_prefix(' '));
+        let value = values
+            .next()
+            .unwrap_or_else(|| panic!("no series {series}"));
+
+        assert!(values.next().is_none(), "more than one series {series}");
+
+        value.to_string()
     }
 
     fn encode_lustre_stats_from_fixture(content: &str) -> String {
         let records = serde_json::from_str(content).unwrap();
 
-        build_lustre_stats(&records)
+        build_lustre_stats(&records, ClientLabels::PerTarget)
     }
 
     #[test]
     fn osp_stats_under_osc_name_are_not_client_families() {
         let contents = "osc.lustre-OST0000-osc-MDT0000.stats=\nsnapshot_time             1789952232.668377739 secs.nsecs\nstart_time                1787073662.340515449 secs.nsecs\nelapsed_time              2878570.327862290 secs.nsecs\nreq_waittime              1383 samples [usecs] 12 3057 1421392 4185129512\nreq_active                1383 samples [reqs] 1 2 1414 1476\nost_connect               1 samples [usecs] 1205 1205 1205 1452025\nobd_ping                  1382 samples [usecs] 12 3057 1420187 4183677487\nosc.lustre-OST0000-osc-MDT0000.state=\ncurrent_state: FULL\nstate_history:\n";
 
-        let x = parse_lustre_metrics(contents);
+        let x = parse_lustre_metrics(contents, ClientLabels::PerTarget);
 
         assert!(!x.contains("lustre_client_osc"), "{x}");
         assert!(x.contains("lustre_osc_state{controller=\"lustre-OST0000-osc-MDT0000\",current_state=\"FULL\"} 1"), "{x}");
@@ -518,15 +534,126 @@ pub mod tests {
     fn lockless_truncates_are_exported() {
         let contents = "osc.lustre-OST0000-osc-ffff949bc0626000.osc_stats=\nsnapshot_time:            1689697369.331040915 secs.nsecs\nlockless_write_bytes\t\t0\nlockless_read_bytes\t\t8192\nlockless_truncate\t\t3\nmemused=1\n";
 
-        let x = parse_lustre_metrics(contents);
+        let x = parse_lustre_metrics(contents, ClientLabels::PerTarget);
 
         assert!(x.contains("lustre_client_osc_lockless_truncates_total{fs=\"lustre\",target=\"lustre-OST0000-osc-ffff949bc0626000\"} 3\n"), "{x}");
         assert!(x.contains("lustre_client_osc_lockless_read_bytes_total{fs=\"lustre\",target=\"lustre-OST0000-osc-ffff949bc0626000\"} 8192\n"), "{x}");
     }
 
-    fn build_lustre_stats(x: &Vec<Record>) -> String {
+    #[test]
+    fn client_fixture_aggregated_by_filesystem() {
+        let contents = include_str!(
+            "../../lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn259/client/client.txt"
+        );
+
+        let x = parse_lustre_metrics(contents, ClientLabels::ByFilesystem);
+
+        assert!(!x.contains("a361000-OST"), "{x}");
+        assert!(!x.contains("a361000-MDT"), "{x}");
+        assert_eq!(
+            series(&x, "lustre_client_osc_cur_grant_bytes{fs=\"a361000\"}"),
+            "33751040"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_osc_stats_total{fs=\"a361000\",operation=\"ldlm_cancel\"}"
+            ),
+            "32"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_osc_stats_time_microseconds_min{fs=\"a361000\",operation=\"ldlm_cancel\"}"
+            ),
+            "754"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_osc_stats_time_microseconds_max{fs=\"a361000\",operation=\"ldlm_cancel\"}"
+            ),
+            "1827"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_osc_stats_time_microseconds_total{fs=\"a361000\",operation=\"ldlm_cancel\"}"
+            ),
+            "37818"
+        );
+        assert_eq!(
+            series(&x, "lustre_client_osc_stats_start_time{fs=\"a361000\"}"),
+            "1790276704"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_osc_state{fs=\"a361000\",current_state=\"FULL\"}"
+            ),
+            "4"
+        );
+        assert!(
+            x.contains("lustre_client_llite_read_bytes_total{fs=\"a361000\",target=\"a361000-"),
+            "{x}"
+        );
+
+        insta::assert_snapshot!(x);
+    }
+
+    #[test]
+    fn client_fixture_2_16_aggregated_by_filesystem() {
+        let contents = include_str!(
+            "../../lustre-collector/src/fixtures/valid/lustre-2.16.0_ddn56b/client/client.txt"
+        );
+
+        let x = parse_lustre_metrics(contents, ClientLabels::ByFilesystem);
+
+        assert!(!x.contains("-OST"), "{x}");
+        assert!(!x.contains("-MDT"), "{x}");
+        assert_eq!(
+            series(&x, "lustre_client_osc_cur_grant_bytes{fs=\"a361000\"}"),
+            "29532160"
+        );
+        assert_eq!(
+            series(&x, "lustre_client_osc_read_bytes_total{fs=\"a361000\"}"),
+            "66647912448"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_osc_stats_total{fs=\"a361000\",operation=\"ldlm_cancel\"}"
+            ),
+            "2023004"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_osc_stats_time_microseconds_min{fs=\"a361000\",operation=\"ldlm_cancel\"}"
+            ),
+            "99"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_osc_stats_time_microseconds_max{fs=\"a361000\",operation=\"ldlm_cancel\"}"
+            ),
+            "31061"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_osc_state{fs=\"a361000\",current_state=\"FULL\"}"
+            ),
+            "4"
+        );
+
+        insta::assert_snapshot!(x);
+    }
+
+    fn build_lustre_stats(x: &Vec<Record>, client_labels: ClientLabels) -> String {
         let mut registry = Registry::default();
-        let mut metrics = Metrics::default();
+        let mut metrics = Metrics::new(client_labels);
 
         metrics::build_lustre_stats(x, &mut metrics);
 

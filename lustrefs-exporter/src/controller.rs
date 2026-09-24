@@ -2,12 +2,19 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-use crate::{Family, client_target, client_target::ClientTargetMetrics, metrics::Metrics};
+use crate::{
+    Family,
+    client::{ClientLabels, fs_name},
+    client_target,
+    client_target::ClientTargetMetrics,
+    metrics::Metrics,
+};
 use lustre_collector::{ControllerState, ControllerStats, ControllerVariant};
 use prometheus_client::{metrics::gauge::Gauge, registry::Registry};
 
 #[derive(Debug)]
 pub struct ControllerMetrics {
+    labels: ClientLabels,
     osc_state: Family<Gauge>,
     osc: ClientTargetMetrics,
     mdc: ClientTargetMetrics,
@@ -15,19 +22,29 @@ pub struct ControllerMetrics {
 
 impl Default for ControllerMetrics {
     fn default() -> Self {
-        Self {
-            osc_state: Family::default(),
-            osc: ClientTargetMetrics::new(ControllerVariant::Osc),
-            mdc: ClientTargetMetrics::new(ControllerVariant::Mdc),
-        }
+        Self::new(ClientLabels::default())
     }
 }
 
 impl ControllerMetrics {
+    pub fn new(labels: ClientLabels) -> Self {
+        Self {
+            labels,
+            osc_state: Family::default(),
+            osc: ClientTargetMetrics::new(ControllerVariant::Osc, labels),
+            mdc: ClientTargetMetrics::new(ControllerVariant::Mdc, labels),
+        }
+    }
+
     pub fn register_metric(&self, registry: &mut Registry) {
         registry.register(
             "lustre_osc_state",
-            "Lustre OSC connection state",
+            match self.labels {
+                ClientLabels::PerTarget => "Lustre OSC connection state",
+                ClientLabels::ByFilesystem => {
+                    "Number of OSCs in each connection state, by filesystem"
+                }
+            },
             self.osc_state.clone(),
         );
         self.osc.register_metric(registry);
@@ -60,20 +77,31 @@ pub fn build_controller_stats(x: &ControllerStats, metrics: &mut Metrics) {
     let metrics = &mut metrics.controller;
 
     match x {
-        ControllerStats::OscState(x) => {
-            let value = match x.value.current_state {
-                ControllerState::Full | ControllerState::Idle => 1,
-                _ => 0,
-            };
+        ControllerStats::OscState(x) => match metrics.labels {
+            ClientLabels::PerTarget => {
+                let value = match x.value.current_state {
+                    ControllerState::Full | ControllerState::Idle => 1,
+                    _ => 0,
+                };
 
-            metrics
-                .osc_state
-                .get_or_create(&vec![
-                    ("controller", x.controller.to_string()),
-                    ("current_state", x.value.current_state.to_string()),
-                ])
-                .set(value);
-        }
+                metrics
+                    .osc_state
+                    .get_or_create(&vec![
+                        ("controller", x.controller.to_string()),
+                        ("current_state", x.value.current_state.to_string()),
+                    ])
+                    .set(value);
+            }
+            ClientLabels::ByFilesystem => {
+                metrics
+                    .osc_state
+                    .get_or_create(&vec![
+                        ("fs", fs_name(&x.controller).to_string()),
+                        ("current_state", x.value.current_state.to_string()),
+                    ])
+                    .inc();
+            }
+        },
         ControllerStats::Stats(x) => client_target::build_stats(x, metrics.client_target(x.kind)),
         ControllerStats::MdStats(x) => {
             client_target::build_md_stats(x, metrics.client_target(x.kind))

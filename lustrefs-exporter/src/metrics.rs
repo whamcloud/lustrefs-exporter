@@ -5,6 +5,7 @@
 use crate::{
     Error, Family,
     brw_stats::{BrwStatsMetrics, build_target_stats},
+    client::ClientLabels,
     controller::{ControllerMetrics, build_controller_stats},
     host::{HostMetrics, build_host_stats},
     llite::LliteMetrics,
@@ -39,6 +40,13 @@ pub struct Metrics {
 }
 
 impl Metrics {
+    pub fn new(client_labels: ClientLabels) -> Self {
+        Self {
+            controller: ControllerMetrics::new(client_labels),
+            ..Self::default()
+        }
+    }
+
     pub fn register_metric(&self, registry: &mut Registry) {
         self.host.register_metric(registry);
         self.quota.register_metric(registry);
