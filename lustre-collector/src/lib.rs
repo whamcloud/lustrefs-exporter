@@ -57,17 +57,40 @@ fn check_output(
     Ok(records)
 }
 
-/// Must be called with output of `lctl get_params` for all params returned from `parser::parse()`
-pub fn parse_lctl_output(lctl_output: &[u8]) -> Result<Vec<Record>, LustreCollectorError> {
+fn parse_records(lctl_output: &[u8]) -> Result<(Vec<Record>, &str), LustreCollectorError> {
     let lctl_stats = str::from_utf8(lctl_output)?;
 
-    let (lctl_record, state) = parser::parse()
+    let parsed = parser::parse()
         .easy_parse(lctl_stats)
         .map_err(|err| err.map_position(|p| p.translate_position(lctl_stats)))?;
+
+    Ok(parsed)
+}
+
+/// Must be called with output of `lctl get_params` for all params returned from `parser::parse()`
+pub fn parse_lctl_output(lctl_output: &[u8]) -> Result<Vec<Record>, LustreCollectorError> {
+    let (lctl_record, state) = parse_records(lctl_output)?;
 
     let params = parser::params().join(" ");
 
     check_output(lctl_record, state, &params)
+}
+
+/// Parses the output of one parameter; the error names the unparsed line, not the parameter list.
+pub fn parse_lctl_block(block: &[u8]) -> Result<Vec<Record>, LustreCollectorError> {
+    let (records, state) = parse_records(block)?;
+
+    if !state.is_empty() {
+        let line = state.split_once('\n').map_or(state, |(line, _)| line);
+
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidInput,
+            format!("Content left in input buffer: {line:?}"),
+        )
+        .into());
+    }
+
+    Ok(records)
 }
 
 pub fn parse_mgs_fs_output(mgs_fs_output: &[u8]) -> Result<Vec<Record>, LustreCollectorError> {

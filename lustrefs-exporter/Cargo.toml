@@ -17,6 +17,7 @@ regex = { version = "1", default-features = false, features = [
 serde = { version = "1", features = ["derive"] }
 thiserror.workspace = true
 tokio = { workspace = true, features = [
+  "io-util",
   "macros",
   "process",
   "rt-multi-thread",

@@ -15,6 +15,7 @@ pub mod quota;
 pub mod routes;
 pub mod service;
 pub mod stats;
+pub mod stream;
 
 use crate::routes::{
     jobstats_metrics_cmd, lnet_global_output, lnet_stats_output, lustre_metrics_output,
@@ -118,7 +119,7 @@ pub async fn dump_stats() -> Result<(), Error> {
 
     let mut lctl = jobstats_metrics_cmd();
 
-    let lctl = tokio::task::spawn_blocking(move || lctl.output()).await??;
+    let lctl = lctl.output().await?;
 
     println!("{}", std::str::from_utf8(&lctl.stdout)?);
 
@@ -175,6 +176,8 @@ pub mod tests {
         "lustre_cache_miss_total",
         "lustre_client_llite_read_bytes_total",
         "lustre_client_llite_write_bytes_total",
+        "lustre_exporter_parse_errors",
+        "lustre_exporter_command_errors",
         "lustre_get_page_total",
         "lustre_health_healthy",
         "lustre_health_value",
