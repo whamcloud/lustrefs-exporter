@@ -7,6 +7,7 @@ use lustrefs_exporter::{
     Error,
     client::ClientLabels,
     dump_stats,
+    histogram::HistogramEncoding,
     routes::{ExporterConfig, app},
 };
 use std::net::SocketAddr;
@@ -31,6 +32,15 @@ pub struct CommandOpts {
         value_parser = clap::builder::BoolishValueParser::new()
     )]
     aggregate_client_metrics: bool,
+
+    /// Export client-side bucketed statistics as Prometheus histograms
+    /// instead of one counter per bucket.
+    #[clap(
+        long,
+        env = "LUSTREFS_EXPORTER_CLIENT_HISTOGRAMS",
+        value_parser = clap::builder::BoolishValueParser::new()
+    )]
+    client_histograms: bool,
 }
 
 #[tokio::main]
@@ -53,6 +63,11 @@ async fn main() -> Result<(), Error> {
                 ClientLabels::ByFilesystem
             } else {
                 ClientLabels::PerTarget
+            },
+            histogram_encoding: if opts.client_histograms {
+                HistogramEncoding::Histogram
+            } else {
+                HistogramEncoding::BucketCounters
             },
         };
 

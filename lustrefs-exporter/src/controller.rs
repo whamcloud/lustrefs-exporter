@@ -7,6 +7,7 @@ use crate::{
     client::{ClientLabels, fs_name},
     client_target,
     client_target::ClientTargetMetrics,
+    histogram::HistogramEncoding,
     metrics::Metrics,
 };
 use lustre_collector::{ControllerState, ControllerStats, ControllerVariant};
@@ -22,17 +23,17 @@ pub struct ControllerMetrics {
 
 impl Default for ControllerMetrics {
     fn default() -> Self {
-        Self::new(ClientLabels::default())
+        Self::new(ClientLabels::default(), HistogramEncoding::default())
     }
 }
 
 impl ControllerMetrics {
-    pub fn new(labels: ClientLabels) -> Self {
+    pub fn new(labels: ClientLabels, histograms: HistogramEncoding) -> Self {
         Self {
             labels,
             osc_state: Family::default(),
-            osc: ClientTargetMetrics::new(ControllerVariant::Osc, labels),
-            mdc: ClientTargetMetrics::new(ControllerVariant::Mdc, labels),
+            osc: ClientTargetMetrics::new(ControllerVariant::Osc, labels, histograms),
+            mdc: ClientTargetMetrics::new(ControllerVariant::Mdc, labels, histograms),
         }
     }
 

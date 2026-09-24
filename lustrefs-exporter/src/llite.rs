@@ -4,7 +4,8 @@
 
 use crate::{
     Family,
-    client::{fs_name, labels, observe_rw, set_start_time, with},
+    client::{fs_name, labels, set_start_time, with},
+    histogram::{Bucket, Bucketed, HistogramEncoding},
 };
 use lustre_collector::{
     ExtentsBucket, KeyValue, LliteStat, LliteTargetStat, ProcessExtents, RwStats,
@@ -23,13 +24,21 @@ pub struct LliteMetrics {
     write_bytes_total: Family<Counter<u64>>,
     read_ahead_stats_total: Family<Counter<u64>>,
     statahead_stats_total: Family<Counter<u64>>,
-    extents_total: Family<Counter<u64>>,
-    extents_per_process_total: Family<Counter<u64>>,
+    extents_total: Bucketed,
+    extents_per_process_total: Bucketed,
     unstable_pages: Family<Gauge<u64, AtomicU64>>,
     unstable_check: Family<Gauge<u64, AtomicU64>>,
 }
 
 impl LliteMetrics {
+    pub fn new(histograms: HistogramEncoding) -> Self {
+        Self {
+            extents_total: Bucketed::new(histograms),
+            extents_per_process_total: Bucketed::new(histograms),
+            ..Self::default()
+        }
+    }
+
     pub fn register_metric(&self, registry: &mut Registry) {
         registry.register_without_auto_suffix(
             "lustre_client_stats",
@@ -62,15 +71,21 @@ impl LliteMetrics {
             "Lustre statahead counters, by operation",
             self.statahead_stats_total.clone(),
         );
-        registry.register(
+        self.extents_total.register(
+            registry,
             "lustre_client_llite_extents_stats",
-            "Number of I/O calls by I/O size. 'size' label is the lower bound of the size bucket in bytes",
-            self.extents_total.clone(),
+            None,
+            "Number of I/O calls by I/O size",
+            "the lower bound of the size bucket in bytes",
+            "I/O size in bytes, inclusive upper bounds",
         );
-        registry.register(
+        self.extents_per_process_total.register(
+            registry,
             "lustre_client_llite_extents_stats_per_process",
-            "Number of I/O calls by I/O size and process. 'size' label is the lower bound of the size bucket in bytes; every 'pid' is a new series",
-            self.extents_per_process_total.clone(),
+            None,
+            "Number of I/O calls by I/O size and process",
+            "the lower bound of the size bucket in bytes; every 'pid' is a new series",
+            "I/O size in bytes, inclusive upper bounds; every 'pid' is a new series",
         );
         registry.register(
             "lustre_client_llite_unstable_pages",
@@ -161,10 +176,16 @@ pub fn build_unstable_stats(x: &LliteTargetStat<Vec<KeyValue>>, metrics: &mut Ll
     }
 }
 
-fn extents(buckets: &[ExtentsBucket]) -> impl Iterator<Item = (u64, u64, u64)> + '_ {
-    buckets
-        .iter()
-        .map(|b| (b.lower_bytes, b.read_calls, b.write_calls))
+/// Buckets hold `[lower, upper)`, so the inclusive bound is `upper - 1`.
+fn extents(buckets: &[ExtentsBucket]) -> impl Iterator<Item = (Bucket, u64, u64)> + '_ {
+    buckets.iter().map(|b| {
+        let bucket = Bucket {
+            key: b.lower_bytes,
+            le: (!b.overflow).then(|| b.upper_bytes - 1),
+        };
+
+        (bucket, b.read_calls, b.write_calls)
+    })
 }
 
 pub fn build_extents_stats(
@@ -172,7 +193,9 @@ pub fn build_extents_stats(
     metrics: &mut LliteMetrics,
 ) {
     if let RwStats::Enabled { value, .. } = &x.value {
-        observe_rw(&metrics.extents_total, &labels(&x.target), extents(value));
+        metrics
+            .extents_total
+            .observe_rw(&labels(&x.target), extents(value));
     }
 }
 
@@ -184,8 +207,7 @@ pub fn build_extents_stats_per_process(
         let labels = labels(&x.target);
 
         for process in value {
-            observe_rw(
-                &metrics.extents_per_process_total,
+            metrics.extents_per_process_total.observe_rw(
                 &with(&labels, "pid", process.pid.to_string()),
                 extents(&process.buckets),
             );

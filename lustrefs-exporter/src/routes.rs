@@ -5,6 +5,7 @@
 use crate::{
     Error,
     client::ClientLabels,
+    histogram::HistogramEncoding,
     jobstats::{JobstatMetrics, jobstats_stream},
     metrics::{self, Metrics, fold_records},
     stream::lctl_records,
@@ -54,6 +55,7 @@ const TIMEOUT_DURATION_SECS: u64 = 120;
 #[derive(Clone, Copy, Debug, Default)]
 pub struct ExporterConfig {
     pub client_labels: ClientLabels,
+    pub histogram_encoding: HistogramEncoding,
 }
 
 pub fn app(config: ExporterConfig) -> Router {
@@ -301,7 +303,7 @@ pub async fn scrape(
     let mut registry = Registry::default();
 
     // Build the lustre stats
-    let mut opentelemetry_metrics = Metrics::new(config.client_labels);
+    let mut opentelemetry_metrics = Metrics::new(config.client_labels, config.histogram_encoding);
     let mut set = HashSet::new();
 
     if params.jobstats {

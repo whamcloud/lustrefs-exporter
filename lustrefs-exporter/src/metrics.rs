@@ -7,6 +7,7 @@ use crate::{
     brw_stats::{BrwStatsMetrics, build_target_stats},
     client::ClientLabels,
     controller::{ControllerMetrics, build_controller_stats},
+    histogram::HistogramEncoding,
     host::{HostMetrics, build_host_stats},
     llite::LliteMetrics,
     lnet::{LNetMetrics, build_lnet_stats},
@@ -40,9 +41,10 @@ pub struct Metrics {
 }
 
 impl Metrics {
-    pub fn new(client_labels: ClientLabels) -> Self {
+    pub fn new(client_labels: ClientLabels, histograms: HistogramEncoding) -> Self {
         Self {
-            controller: ControllerMetrics::new(client_labels),
+            controller: ControllerMetrics::new(client_labels, histograms),
+            llite: LliteMetrics::new(histograms),
             ..Self::default()
         }
     }

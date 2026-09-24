@@ -6,6 +6,7 @@ pub mod brw_stats;
 pub mod client;
 pub mod client_target;
 pub mod controller;
+pub mod histogram;
 pub mod host;
 pub mod jobstats;
 pub mod llite;
@@ -156,6 +157,7 @@ pub mod tests {
         Error, LabelProm as _,
         client::ClientLabels,
         dump_stats,
+        histogram::HistogramEncoding,
         metrics::{self, Metrics},
     };
     use axum::{http::StatusCode, response::IntoResponse as _};
@@ -163,7 +165,7 @@ pub mod tests {
     use commandeer_test::commandeer;
     use lustre_collector::{ControllerVariant, Record, TargetVariant, parser::parse};
     use prometheus_client::{encoding::text::encode, registry::Registry};
-    use prometheus_parse::{Sample, Scrape};
+    use prometheus_parse::{Sample, Scrape, Value};
     use serial_test::serial;
     use std::{
         collections::HashSet,
@@ -497,7 +499,7 @@ pub mod tests {
             .map_err(|err| err.map_position(|p| p.translate_position(contents)))
             .unwrap();
 
-        build_lustre_stats(&records, client_labels)
+        build_lustre_stats(&records, client_labels, HistogramEncoding::BucketCounters)
     }
 
     /// The value of the one sample line for `series` (name and labels).
@@ -517,7 +519,11 @@ pub mod tests {
     fn encode_lustre_stats_from_fixture(content: &str) -> String {
         let records = serde_json::from_str(content).unwrap();
 
-        build_lustre_stats(&records, ClientLabels::PerTarget)
+        build_lustre_stats(
+            &records,
+            ClientLabels::PerTarget,
+            HistogramEncoding::BucketCounters,
+        )
     }
 
     #[test]
@@ -651,9 +657,120 @@ pub mod tests {
         insta::assert_snapshot!(x);
     }
 
-    fn build_lustre_stats(x: &Vec<Record>, client_labels: ClientLabels) -> String {
+    fn parse_lustre_histograms(contents: &str, client_labels: ClientLabels) -> String {
+        let (records, _) = parse()
+            .easy_parse(contents)
+            .map_err(|err| err.map_position(|p| p.translate_position(contents)))
+            .unwrap();
+
+        let x = build_lustre_stats(&records, client_labels, HistogramEncoding::Histogram);
+
+        assert_valid_histograms(&x);
+
+        x
+    }
+
+    /// What Prometheus checks before accepting a histogram: buckets ascend,
+    /// are cumulative, and end in `+Inf` equal to `_count`.
+    fn assert_valid_histograms(output: &str) {
+        let scrape = get_scrape(output.to_string());
+        let mut histograms = 0;
+
+        for sample in &scrape.samples {
+            let Value::Histogram(buckets) = &sample.value else {
+                continue;
+            };
+            let name = format!("{}{:?}", sample.metric, sample.labels);
+
+            for pair in buckets.windows(2) {
+                assert!(pair[0].less_than < pair[1].less_than, "{name}");
+                assert!(pair[0].count <= pair[1].count, "{name}");
+            }
+
+            let last = buckets.last().unwrap();
+            assert_eq!(last.less_than, f64::INFINITY, "{name}");
+
+            let count = scrape
+                .samples
+                .iter()
+                .find(|s| {
+                    s.metric == format!("{}_count", sample.metric) && s.labels == sample.labels
+                })
+                .unwrap_or_else(|| panic!("{name}: no _count"));
+            assert_eq!(count.value, Value::Untyped(last.count), "{name}");
+
+            histograms += 1;
+        }
+
+        assert!(histograms > 0);
+    }
+
+    #[test]
+    fn client_fixture_as_histograms() {
+        let contents = include_str!(
+            "../../lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn259/client/client.txt"
+        );
+
+        let x = parse_lustre_histograms(contents, ClientLabels::PerTarget);
+
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_llite_extents_stats_bucket{le=\"8191.0\",fs=\"a361000\",target=\"a361000-ffff8b524be17800\",operation=\"read\"}"
+            ),
+            "1"
+        );
+        insta::assert_snapshot!(x);
+
+        let x = parse_lustre_histograms(contents, ClientLabels::ByFilesystem);
+
+        insta::assert_snapshot!("client_fixture_as_histograms_aggregated", x);
+    }
+
+    #[test]
+    fn rpc_stats_histogram_bounds() {
+        let contents = "osc.a361000-OST0001-osc-ffff949bc0626000.rpc_stats=\nsnapshot_time:            1789952232.703630742 secs.nsecs\nstart_time:               1787864516.502993110 secs.nsecs\nelapsed_time:             2087716.200637632 secs.nsecs\nread RPCs in flight:  0\nwrite RPCs in flight: 0\nDIO RPCs in flight: 0\npending write pages:  0\npending read pages:   0\n\n\t\t\tread\t\t\twrite\npages per rpc         rpcs   % cum % |       rpcs   % cum %\n1:\t\t         0   0   0   |    52489  50  50\n2:\t\t         0   0   0   |    36540  35  85\n4:\t\t         1   0   0   |    14030  13  99\n8:\t\t       511  99 100   |      784   0 100\n\n\t\t\tread\t\t\twrite\nrpcs in flight        rpcs   % cum % |       rpcs   % cum %\n1:\t\t       512 100 100   |   103843 100 100\n\n\t\t\tread\t\t\twrite\noffset                rpcs   % cum % |       rpcs   % cum %\n0:\t\t       512 100 100   |   103843 100 100\n\n\t\t\tread\t\t\twrite\nRPC latency (us)       count   % cum % |       count   % cum %\n0:\t\t         0   0   0   |        0   0   0\n512:\t\t         3   0   0   |      567   0   0\n1024:\t\t       327  63  64   |    93264  89  90\n2048:\t\t       159  31  95   |     9820   9  99\n4096:\t\t        19   3  99   |      180   0  99\n8192:\t\t         3   0 100   |       10   0  99\n16384:\t\t         1   0 100   |        2   0 100\n";
+
+        let x = parse_lustre_histograms(contents, ClientLabels::ByFilesystem);
+
+        let bucket = |name: &str, op: &str, le: &str| {
+            series(
+                &x,
+                &format!("{name}_bucket{{le=\"{le}\",fs=\"a361000\",operation=\"{op}\"}}"),
+            )
+        };
+        let lat = "lustre_client_osc_rpc_stats_latency_microseconds";
+        assert_eq!(bucket(lat, "read", "1.0"), "0");
+        assert_eq!(bucket(lat, "read", "1024.0"), "3");
+        assert_eq!(bucket(lat, "read", "2048.0"), "330");
+        assert_eq!(bucket(lat, "read", "4096.0"), "489");
+        assert_eq!(bucket(lat, "read", "32768.0"), "512");
+        assert_eq!(bucket(lat, "read", "+Inf"), "512");
+        assert_eq!(bucket(lat, "write", "2048.0"), "93831");
+        assert!(!x.contains(&format!("{lat}_bucket{{le=\"512.0\"")));
+
+        let pages = "lustre_client_osc_rpc_stats_pages_per_rpc";
+        assert_eq!(bucket(pages, "read", "4.0"), "1");
+        assert_eq!(bucket(pages, "read", "8.0"), "512");
+        assert_eq!(bucket(pages, "write", "1.0"), "52489");
+
+        assert_eq!(
+            bucket("lustre_client_osc_rpc_stats_offset", "read", "0.0"),
+            "512"
+        );
+        assert_eq!(
+            bucket("lustre_client_osc_rpc_stats_rpcs_in_flight", "write", "1.0"),
+            "103843"
+        );
+    }
+
+    fn build_lustre_stats(
+        x: &Vec<Record>,
+        client_labels: ClientLabels,
+        histograms: HistogramEncoding,
+    ) -> String {
         let mut registry = Registry::default();
-        let mut metrics = Metrics::new(client_labels);
+        let mut metrics = Metrics::new(client_labels, histograms);
 
         metrics::build_lustre_stats(x, &mut metrics);
 

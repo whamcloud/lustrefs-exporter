@@ -7,7 +7,8 @@
 
 use crate::{
     Family, LabelProm,
-    client::{ClientLabels, merge_max, merge_min, observe_rw, set_start_time, with},
+    client::{ClientLabels, merge_max, merge_min, set_start_time, with},
+    histogram::{Bucketed, HistogramEncoding, Table},
 };
 use lustre_collector::{
     BrwStats, ControllerStat, ControllerVariant, KeyValue, LocklessStats, RpcStats, Stat,
@@ -32,9 +33,9 @@ pub struct ClientTargetMetrics {
     rpc_write_in_flight: Family<Gauge<u64, AtomicU64>>,
     rpc_pending_write_pages: Family<Gauge<u64, AtomicU64>>,
     rpc_pending_read_pages: Family<Gauge<u64, AtomicU64>>,
-    rpc_pages_per_rpc_total: Family<Counter<u64>>,
-    rpc_rpcs_in_flight_total: Family<Counter<u64>>,
-    rpc_offset_total: Family<Counter<u64>>,
+    rpc_pages_per_rpc_total: Bucketed,
+    rpc_rpcs_in_flight_total: Bucketed,
+    rpc_offset_total: Bucketed,
     lockless_read_bytes_total: Family<Counter<u64>>,
     lockless_write_bytes_total: Family<Counter<u64>>,
     lockless_truncates_total: Family<Counter<u64>>,
@@ -42,8 +43,8 @@ pub struct ClientTargetMetrics {
     read_bytes_total: Family<Counter<u64>>,
     write_bytes_total: Family<Counter<u64>>,
     rpc_dio_in_flight: Family<Gauge<u64, AtomicU64>>,
-    rpc_latency_total: Family<Counter<u64>>,
-    io_latency_total: Family<Counter<u64>>,
+    rpc_latency_total: Bucketed,
+    io_latency_total: Bucketed,
     unstable_pages: Family<Gauge<u64, AtomicU64>>,
     compress_write_pages: Family<Counter<u64>>,
     compress_write_chunks: Family<Counter<u64>>,
@@ -56,11 +57,15 @@ pub struct ClientTargetMetrics {
     // mdc only
     md_stats_requests_total: Family<Counter<u64>>,
     rpc_modify_in_flight: Family<Gauge<u64, AtomicU64>>,
-    rpc_modify_rpcs_in_flight_total: Family<Counter<u64>>,
+    rpc_modify_rpcs_in_flight_total: Bucketed,
 }
 
 impl ClientTargetMetrics {
-    pub fn new(component: ControllerVariant, labels: ClientLabels) -> Self {
+    pub fn new(
+        component: ControllerVariant,
+        labels: ClientLabels,
+        histograms: HistogramEncoding,
+    ) -> Self {
         Self {
             component,
             labels,
@@ -73,17 +78,17 @@ impl ClientTargetMetrics {
             rpc_write_in_flight: Family::default(),
             rpc_pending_write_pages: Family::default(),
             rpc_pending_read_pages: Family::default(),
-            rpc_pages_per_rpc_total: Family::default(),
-            rpc_rpcs_in_flight_total: Family::default(),
-            rpc_offset_total: Family::default(),
+            rpc_pages_per_rpc_total: Bucketed::new(histograms),
+            rpc_rpcs_in_flight_total: Bucketed::new(histograms),
+            rpc_offset_total: Bucketed::new(histograms),
             lockless_read_bytes_total: Family::default(),
             lockless_write_bytes_total: Family::default(),
             lockless_truncates_total: Family::default(),
             read_bytes_total: Family::default(),
             write_bytes_total: Family::default(),
             rpc_dio_in_flight: Family::default(),
-            rpc_latency_total: Family::default(),
-            io_latency_total: Family::default(),
+            rpc_latency_total: Bucketed::new(histograms),
+            io_latency_total: Bucketed::new(histograms),
             unstable_pages: Family::default(),
             compress_write_pages: Family::default(),
             compress_write_chunks: Family::default(),
@@ -95,7 +100,7 @@ impl ClientTargetMetrics {
             cur_dirty_bytes: Family::default(),
             md_stats_requests_total: Family::default(),
             rpc_modify_in_flight: Family::default(),
-            rpc_modify_rpcs_in_flight_total: Family::default(),
+            rpc_modify_rpcs_in_flight_total: Bucketed::new(histograms),
         }
     }
 
@@ -187,37 +192,55 @@ impl ClientTargetMetrics {
             self.rpc_pending_read_pages.clone(),
         );
         if self.component == ControllerVariant::Mdc {
-            registry.register(
-                name("rpc_stats_modify_rpcs_in_flight"),
-                "Number of modify RPCs by modify RPCs in flight when issued. 'size' label is the number in flight",
-                self.rpc_modify_rpcs_in_flight_total.clone(),
+            self.rpc_modify_rpcs_in_flight_total.register(
+                registry,
+                &name("rpc_stats_modify_rpcs_in_flight"),
+                None,
+                "Number of modify RPCs by modify RPCs in flight when issued",
+                "the number in flight",
+                "modify RPCs in flight, exact values",
             );
         }
-        registry.register(
-            name("rpc_stats_pages_per_rpc"),
-            "Number of RPCs by pages per RPC. 'size' label is the inclusive upper edge of the pages-per-RPC bucket",
-            self.rpc_pages_per_rpc_total.clone(),
+        self.rpc_pages_per_rpc_total.register(
+            registry,
+            &name("rpc_stats_pages_per_rpc"),
+            None,
+            "Number of RPCs by pages per RPC",
+            "the inclusive upper edge of the pages-per-RPC bucket",
+            "pages per RPC, inclusive upper bounds",
         );
-        registry.register(
-            name("rpc_stats_rpcs_in_flight"),
-            "Number of RPCs by RPCs in flight when issued. 'size' label is the number of RPCs in flight",
-            self.rpc_rpcs_in_flight_total.clone(),
+        self.rpc_rpcs_in_flight_total.register(
+            registry,
+            &name("rpc_stats_rpcs_in_flight"),
+            None,
+            "Number of RPCs by RPCs in flight when issued",
+            "the number of RPCs in flight",
+            "RPCs in flight, exact values",
         );
-        registry.register(
-            name("rpc_stats_offset"),
-            "Number of RPCs by starting file offset. 'size' label is the kernel's log2 bucket key, the lower edge of the bucket in pages",
-            self.rpc_offset_total.clone(),
+        self.rpc_offset_total.register(
+            registry,
+            &name("rpc_stats_offset"),
+            None,
+            "Number of RPCs by starting file offset",
+            "the kernel's log2 bucket key, the lower edge of the bucket in pages",
+            "starting offset in pages, inclusive upper bounds",
         );
         if self.component == ControllerVariant::Osc {
-            registry.register(
-                name("rpc_stats_latency"),
-                "Number of RPCs (a count, not a time) by round-trip latency (DDN 2.14 builds, upstream 2.17.51+). 'size' label is the lower edge of the latency bucket in microseconds",
-                self.rpc_latency_total.clone(),
+            self.rpc_latency_total.register(
+                registry,
+                &name("rpc_stats_latency"),
+                Some("microseconds"),
+                "Number of RPCs (a count, not a time) by round-trip latency (DDN 2.14 builds, upstream 2.17.51+)",
+                "the lower edge of the latency bucket in microseconds",
+                "latency in binary microseconds (1024 ns units), inclusive upper bounds",
             );
-            registry.register(
-                name("io_latency"),
-                "Number of I/Os (a count, not a time) by latency and I/O size (DDN 2.14 builds, upstream 2.17.51+). 'size' label is the lower edge of the latency bucket in microseconds, 'opsize' the lower bound of the I/O size bucket",
-                self.io_latency_total.clone(),
+            self.io_latency_total.register(
+                registry,
+                &name("io_latency"),
+                Some("microseconds"),
+                "Number of I/Os (a count, not a time) by latency and I/O size (DDN 2.14 builds, upstream 2.17.51+)",
+                "the lower edge of the latency bucket in microseconds, 'opsize' the lower bound of the I/O size bucket",
+                "latency in binary microseconds (1024 ns units), inclusive upper bounds; 'opsize' is the lower bound of the I/O size bucket",
             );
         }
         registry.register(
@@ -362,30 +385,32 @@ pub fn build_rpc_stats(x: &TimedControllerStat<RpcStats>, metrics: &mut ClientTa
     }
 
     if let Some(buckets) = &x.value.modify_rpcs_in_flight {
-        for bucket in buckets {
-            metrics
-                .rpc_modify_rpcs_in_flight_total
-                .get_or_create(&with(&labels, "size", bucket.key.to_string()))
-                .inc_by(bucket.count);
-        }
+        metrics.rpc_modify_rpcs_in_flight_total.observe(
+            &labels,
+            buckets
+                .iter()
+                .map(|b| (Table::RpcsInFlight.bucket(b.key), b.count)),
+        );
     }
 
     for histogram in &x.value.histograms {
-        let family = match histogram.name.as_str() {
-            "pages per rpc" => &metrics.rpc_pages_per_rpc_total,
-            "rpcs in flight" => &metrics.rpc_rpcs_in_flight_total,
-            "offset" => &metrics.rpc_offset_total,
-            "RPC latency (us)" => &metrics.rpc_latency_total,
+        let (family, table) = match histogram.name.as_str() {
+            "pages per rpc" => (&metrics.rpc_pages_per_rpc_total, Table::PagesPerRpc),
+            "rpcs in flight" => (&metrics.rpc_rpcs_in_flight_total, Table::RpcsInFlight),
+            "offset" => (&metrics.rpc_offset_total, Table::Offset),
+            "RPC latency (us)" => (&metrics.rpc_latency_total, Table::Latency),
             other => {
                 tracing::warn!("{}: unknown rpc_stats table {other:?}", &*x.controller);
                 continue;
             }
         };
 
-        observe_rw(
-            family,
+        family.observe_rw(
             &labels,
-            histogram.buckets.iter().map(|b| (b.name, b.read, b.write)),
+            histogram
+                .buckets
+                .iter()
+                .map(|b| (table.bucket(b.name), b.read, b.write)),
         );
     }
 }
@@ -407,10 +432,11 @@ pub fn build_io_latency_stats(
             continue;
         };
 
-        observe_rw(
-            &metrics.io_latency_total,
+        metrics.io_latency_total.observe_rw(
             &with(&labels, "opsize", opsize.to_string()),
-            buckets.iter().map(|b| (b.name, b.read, b.write)),
+            buckets
+                .iter()
+                .map(|b| (Table::Latency.bucket(b.name), b.read, b.write)),
         );
     }
 }
