@@ -1,0 +1,584 @@
+---
+source: lustrefs-exporter/src/lib.rs
+expression: x
+---
+# HELP lustre_version_info The Lustre version string, as a label.
+# TYPE lustre_version_info gauge
+lustre_version_info{version="2.14.0_ddn259"} 1
+# HELP lustre_osc_state Number of OSCs in each connection state, by filesystem.
+# TYPE lustre_osc_state gauge
+lustre_osc_state{fs="a361000",current_state="FULL"} 4
+# HELP lustre_client_osc_stats_total Number of RPCs the client has sent to the target, by operation.
+# TYPE lustre_client_osc_stats_total counter
+lustre_client_osc_stats_total{fs="a361000",operation="ldlm_cancel"} 32
+lustre_client_osc_stats_total{fs="a361000",operation="ldlm_extent_enqueue"} 1
+lustre_client_osc_stats_total{fs="a361000",operation="ldlm_glimpse_enqueue"} 62
+lustre_client_osc_stats_total{fs="a361000",operation="obd_ping"} 4
+lustre_client_osc_stats_total{fs="a361000",operation="ost_connect"} 8
+lustre_client_osc_stats_total{fs="a361000",operation="ost_disconnect"} 4
+lustre_client_osc_stats_total{fs="a361000",operation="ost_read"} 1
+lustre_client_osc_stats_total{fs="a361000",operation="ost_sync"} 1
+lustre_client_osc_stats_total{fs="a361000",operation="ost_write"} 1
+lustre_client_osc_stats_total{fs="a361000",operation="read_bytes"} 1
+lustre_client_osc_stats_total{fs="a361000",operation="req_active"} 114
+lustre_client_osc_stats_total{fs="a361000",operation="req_waittime"} 114
+lustre_client_osc_stats_total{fs="a361000",operation="write_bytes"} 1
+# HELP lustre_client_osc_stats_start_time Unix epoch seconds of the earliest stats reset among the filesystem's targets.
+# TYPE lustre_client_osc_stats_start_time gauge
+lustre_client_osc_stats_start_time{fs="a361000"} 1790276704
+# HELP lustre_client_osc_stats_time_microseconds_min Minimum time taken for an operation, by operation, in microseconds.
+# TYPE lustre_client_osc_stats_time_microseconds_min gauge
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",operation="ldlm_cancel"} 754
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",operation="obd_ping"} 1437
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",operation="ost_connect"} 780
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",operation="ost_disconnect"} 1033
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",operation="ost_read"} 5625
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",operation="ost_sync"} 1818
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",operation="ost_write"} 3809
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",operation="req_waittime"} 733
+# HELP lustre_client_osc_stats_time_microseconds_max Maximum time taken for an operation, by operation, in microseconds.
+# TYPE lustre_client_osc_stats_time_microseconds_max gauge
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",operation="ldlm_cancel"} 1827
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",operation="obd_ping"} 1542
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",operation="ost_connect"} 838
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",operation="ost_disconnect"} 1220
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",operation="ost_read"} 5625
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",operation="ost_sync"} 1818
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",operation="ost_write"} 3809
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",operation="req_waittime"} 10425
+# HELP lustre_client_osc_stats_time_microseconds_total Total time taken by operations, by operation, in microseconds.
+# TYPE lustre_client_osc_stats_time_microseconds_total counter
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",operation="ldlm_cancel"} 37818
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",operation="obd_ping"} 6033
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",operation="ost_connect"} 6425
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",operation="ost_disconnect"} 4332
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",operation="ost_read"} 5625
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",operation="ost_sync"} 1818
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",operation="ost_write"} 3809
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",operation="req_waittime"} 124434
+# HELP lustre_client_osc_read_bytes_total Total bytes read by the client via OSC.
+# TYPE lustre_client_osc_read_bytes_total counter
+lustre_client_osc_read_bytes_total{fs="a361000"} 65536
+# HELP lustre_client_osc_write_bytes_total Total bytes written by the client via OSC.
+# TYPE lustre_client_osc_write_bytes_total counter
+lustre_client_osc_write_bytes_total{fs="a361000"} 65536
+# HELP lustre_client_osc_rpc_stats_read_in_flight Number of read RPCs in flight.
+# TYPE lustre_client_osc_rpc_stats_read_in_flight gauge
+lustre_client_osc_rpc_stats_read_in_flight{fs="a361000"} 0
+# HELP lustre_client_osc_rpc_stats_write_in_flight Number of write RPCs in flight.
+# TYPE lustre_client_osc_rpc_stats_write_in_flight gauge
+lustre_client_osc_rpc_stats_write_in_flight{fs="a361000"} 0
+# HELP lustre_client_osc_rpc_stats_dio_in_flight Number of direct I/O RPCs in flight (DDN 2.14 builds, upstream 2.17.51+).
+# TYPE lustre_client_osc_rpc_stats_dio_in_flight gauge
+lustre_client_osc_rpc_stats_dio_in_flight{fs="a361000"} 0
+# HELP lustre_client_osc_rpc_stats_pending_write_pages Number of pages waiting to be written.
+# TYPE lustre_client_osc_rpc_stats_pending_write_pages gauge
+lustre_client_osc_rpc_stats_pending_write_pages{fs="a361000"} 0
+# HELP lustre_client_osc_rpc_stats_pending_read_pages Number of pages waiting to be read.
+# TYPE lustre_client_osc_rpc_stats_pending_read_pages gauge
+lustre_client_osc_rpc_stats_pending_read_pages{fs="a361000"} 0
+# HELP lustre_client_osc_rpc_stats_pages_per_rpc Number of RPCs by pages per RPC. Bucket bounds are pages per RPC, inclusive upper bounds; _sum is count times bucket upper bound, not observed.
+# TYPE lustre_client_osc_rpc_stats_pages_per_rpc histogram
+lustre_client_osc_rpc_stats_pages_per_rpc_sum{fs="a361000",operation="read"} 16.0
+lustre_client_osc_rpc_stats_pages_per_rpc_count{fs="a361000",operation="read"} 1
+lustre_client_osc_rpc_stats_pages_per_rpc_bucket{le="1.0",fs="a361000",operation="read"} 0
+lustre_client_osc_rpc_stats_pages_per_rpc_bucket{le="2.0",fs="a361000",operation="read"} 0
+lustre_client_osc_rpc_stats_pages_per_rpc_bucket{le="4.0",fs="a361000",operation="read"} 0
+lustre_client_osc_rpc_stats_pages_per_rpc_bucket{le="8.0",fs="a361000",operation="read"} 0
+lustre_client_osc_rpc_stats_pages_per_rpc_bucket{le="16.0",fs="a361000",operation="read"} 1
+lustre_client_osc_rpc_stats_pages_per_rpc_bucket{le="+Inf",fs="a361000",operation="read"} 1
+lustre_client_osc_rpc_stats_pages_per_rpc_sum{fs="a361000",operation="write"} 16.0
+lustre_client_osc_rpc_stats_pages_per_rpc_count{fs="a361000",operation="write"} 1
+lustre_client_osc_rpc_stats_pages_per_rpc_bucket{le="1.0",fs="a361000",operation="write"} 0
+lustre_client_osc_rpc_stats_pages_per_rpc_bucket{le="2.0",fs="a361000",operation="write"} 0
+lustre_client_osc_rpc_stats_pages_per_rpc_bucket{le="4.0",fs="a361000",operation="write"} 0
+lustre_client_osc_rpc_stats_pages_per_rpc_bucket{le="8.0",fs="a361000",operation="write"} 0
+lustre_client_osc_rpc_stats_pages_per_rpc_bucket{le="16.0",fs="a361000",operation="write"} 1
+lustre_client_osc_rpc_stats_pages_per_rpc_bucket{le="+Inf",fs="a361000",operation="write"} 1
+# HELP lustre_client_osc_rpc_stats_bytes_per_rpc Number of RPCs by bytes per RPC: pages per RPC times this kernel's page size. Bucket bounds are bytes per RPC, inclusive upper bounds; _sum is count times bucket upper bound, not observed.
+# TYPE lustre_client_osc_rpc_stats_bytes_per_rpc histogram
+lustre_client_osc_rpc_stats_bytes_per_rpc_sum{fs="a361000",operation="read"} 65536.0
+lustre_client_osc_rpc_stats_bytes_per_rpc_count{fs="a361000",operation="read"} 1
+lustre_client_osc_rpc_stats_bytes_per_rpc_bucket{le="4096.0",fs="a361000",operation="read"} 0
+lustre_client_osc_rpc_stats_bytes_per_rpc_bucket{le="8192.0",fs="a361000",operation="read"} 0
+lustre_client_osc_rpc_stats_bytes_per_rpc_bucket{le="16384.0",fs="a361000",operation="read"} 0
+lustre_client_osc_rpc_stats_bytes_per_rpc_bucket{le="32768.0",fs="a361000",operation="read"} 0
+lustre_client_osc_rpc_stats_bytes_per_rpc_bucket{le="65536.0",fs="a361000",operation="read"} 1
+lustre_client_osc_rpc_stats_bytes_per_rpc_bucket{le="+Inf",fs="a361000",operation="read"} 1
+lustre_client_osc_rpc_stats_bytes_per_rpc_sum{fs="a361000",operation="write"} 65536.0
+lustre_client_osc_rpc_stats_bytes_per_rpc_count{fs="a361000",operation="write"} 1
+lustre_client_osc_rpc_stats_bytes_per_rpc_bucket{le="4096.0",fs="a361000",operation="write"} 0
+lustre_client_osc_rpc_stats_bytes_per_rpc_bucket{le="8192.0",fs="a361000",operation="write"} 0
+lustre_client_osc_rpc_stats_bytes_per_rpc_bucket{le="16384.0",fs="a361000",operation="write"} 0
+lustre_client_osc_rpc_stats_bytes_per_rpc_bucket{le="32768.0",fs="a361000",operation="write"} 0
+lustre_client_osc_rpc_stats_bytes_per_rpc_bucket{le="65536.0",fs="a361000",operation="write"} 1
+lustre_client_osc_rpc_stats_bytes_per_rpc_bucket{le="+Inf",fs="a361000",operation="write"} 1
+# HELP lustre_client_osc_rpc_stats_rpcs_in_flight Number of RPCs by RPCs in flight when issued. Bucket bounds are RPCs in flight, exact values; _sum is count times bucket upper bound, not observed.
+# TYPE lustre_client_osc_rpc_stats_rpcs_in_flight histogram
+lustre_client_osc_rpc_stats_rpcs_in_flight_sum{fs="a361000",operation="read"} 1.0
+lustre_client_osc_rpc_stats_rpcs_in_flight_count{fs="a361000",operation="read"} 1
+lustre_client_osc_rpc_stats_rpcs_in_flight_bucket{le="1.0",fs="a361000",operation="read"} 1
+lustre_client_osc_rpc_stats_rpcs_in_flight_bucket{le="+Inf",fs="a361000",operation="read"} 1
+lustre_client_osc_rpc_stats_rpcs_in_flight_sum{fs="a361000",operation="write"} 1.0
+lustre_client_osc_rpc_stats_rpcs_in_flight_count{fs="a361000",operation="write"} 1
+lustre_client_osc_rpc_stats_rpcs_in_flight_bucket{le="1.0",fs="a361000",operation="write"} 1
+lustre_client_osc_rpc_stats_rpcs_in_flight_bucket{le="+Inf",fs="a361000",operation="write"} 1
+# HELP lustre_client_osc_rpc_stats_offset Number of RPCs by starting file offset. Bucket bounds are starting offset in pages, inclusive upper bounds; _sum is count times bucket upper bound, not observed.
+# TYPE lustre_client_osc_rpc_stats_offset histogram
+lustre_client_osc_rpc_stats_offset_sum{fs="a361000",operation="read"} 0.0
+lustre_client_osc_rpc_stats_offset_count{fs="a361000",operation="read"} 1
+lustre_client_osc_rpc_stats_offset_bucket{le="0.0",fs="a361000",operation="read"} 1
+lustre_client_osc_rpc_stats_offset_bucket{le="+Inf",fs="a361000",operation="read"} 1
+lustre_client_osc_rpc_stats_offset_sum{fs="a361000",operation="write"} 0.0
+lustre_client_osc_rpc_stats_offset_count{fs="a361000",operation="write"} 1
+lustre_client_osc_rpc_stats_offset_bucket{le="0.0",fs="a361000",operation="write"} 1
+lustre_client_osc_rpc_stats_offset_bucket{le="+Inf",fs="a361000",operation="write"} 1
+# HELP lustre_client_osc_rpc_stats_latency_microseconds Number of RPCs (a count, not a time) by round-trip latency (DDN 2.14 builds, upstream 2.17.51+). Bucket bounds are latency in binary microseconds (1024 ns units), inclusive upper bounds; _sum is count times bucket upper bound, not observed.
+# TYPE lustre_client_osc_rpc_stats_latency_microseconds histogram
+lustre_client_osc_rpc_stats_latency_microseconds_sum{fs="a361000",operation="read"} 0.0
+lustre_client_osc_rpc_stats_latency_microseconds_count{fs="a361000",operation="read"} 0
+lustre_client_osc_rpc_stats_latency_microseconds_bucket{le="1.0",fs="a361000",operation="read"} 0
+lustre_client_osc_rpc_stats_latency_microseconds_bucket{le="+Inf",fs="a361000",operation="read"} 0
+lustre_client_osc_rpc_stats_latency_microseconds_sum{fs="a361000",operation="write"} 0.0
+lustre_client_osc_rpc_stats_latency_microseconds_count{fs="a361000",operation="write"} 0
+lustre_client_osc_rpc_stats_latency_microseconds_bucket{le="1.0",fs="a361000",operation="write"} 0
+lustre_client_osc_rpc_stats_latency_microseconds_bucket{le="+Inf",fs="a361000",operation="write"} 0
+# HELP lustre_client_osc_io_latency_microseconds Number of I/Os (a count, not a time) by latency and I/O size (DDN 2.14 builds, upstream 2.17.51+). Bucket bounds are latency in binary microseconds (1024 ns units), inclusive upper bounds; 'opsize' is the lower bound of the I/O size bucket; _sum is count times bucket upper bound, not observed.
+# TYPE lustre_client_osc_io_latency_microseconds histogram
+lustre_client_osc_io_latency_microseconds_sum{fs="a361000",opsize="64K",operation="read"} 8192.0
+lustre_client_osc_io_latency_microseconds_count{fs="a361000",opsize="64K",operation="read"} 1
+lustre_client_osc_io_latency_microseconds_bucket{le="4096.0",fs="a361000",opsize="64K",operation="read"} 0
+lustre_client_osc_io_latency_microseconds_bucket{le="8192.0",fs="a361000",opsize="64K",operation="read"} 1
+lustre_client_osc_io_latency_microseconds_bucket{le="+Inf",fs="a361000",opsize="64K",operation="read"} 1
+lustre_client_osc_io_latency_microseconds_sum{fs="a361000",opsize="64K",operation="write"} 4096.0
+lustre_client_osc_io_latency_microseconds_count{fs="a361000",opsize="64K",operation="write"} 1
+lustre_client_osc_io_latency_microseconds_bucket{le="4096.0",fs="a361000",opsize="64K",operation="write"} 1
+lustre_client_osc_io_latency_microseconds_bucket{le="8192.0",fs="a361000",opsize="64K",operation="write"} 1
+lustre_client_osc_io_latency_microseconds_bucket{le="+Inf",fs="a361000",opsize="64K",operation="write"} 1
+# HELP lustre_client_osc_lockless_read_bytes_total Total lockless read bytes.
+# TYPE lustre_client_osc_lockless_read_bytes_total counter
+lustre_client_osc_lockless_read_bytes_total{fs="a361000"} 0
+# HELP lustre_client_osc_lockless_write_bytes_total Total lockless write bytes.
+# TYPE lustre_client_osc_lockless_write_bytes_total counter
+lustre_client_osc_lockless_write_bytes_total{fs="a361000"} 0
+# HELP lustre_client_osc_unstable_pages Number of unstable pages.
+# TYPE lustre_client_osc_unstable_pages gauge
+lustre_client_osc_unstable_pages{fs="a361000"} 0
+# HELP lustre_client_osc_compress_write_pages_total RPC compression write page counters (DDN builds). 'type' label is the key suffix as the kernel prints it.
+# TYPE lustre_client_osc_compress_write_pages_total counter
+lustre_client_osc_compress_write_pages_total{fs="a361000",type="compressible"} 0
+lustre_client_osc_compress_write_pages_total{fs="a361000",type="incompressible"} 0
+# HELP lustre_client_osc_compress_write_chunks_total RPC compression write chunk counters (DDN builds). 'type' label is the key suffix as the kernel prints it.
+# TYPE lustre_client_osc_compress_write_chunks_total counter
+lustre_client_osc_compress_write_chunks_total{fs="a361000",type="compressible"} 0
+lustre_client_osc_compress_write_chunks_total{fs="a361000",type="incompressible"} 0
+# HELP lustre_client_osc_compress_write_bytes_total RPC compression write byte counters (DDN builds). 'type' label is the key suffix as the kernel prints it.
+# TYPE lustre_client_osc_compress_write_bytes_total counter
+lustre_client_osc_compress_write_bytes_total{fs="a361000",type="compr"} 0
+lustre_client_osc_compress_write_bytes_total{fs="a361000",type="incompr"} 0
+lustre_client_osc_compress_write_bytes_total{fs="a361000",type="raw"} 0
+# HELP lustre_client_osc_compress_read_pages_total RPC compression read page counters (DDN builds). 'type' label is the key suffix as the kernel prints it.
+# TYPE lustre_client_osc_compress_read_pages_total counter
+lustre_client_osc_compress_read_pages_total{fs="a361000",type="compressed"} 0
+lustre_client_osc_compress_read_pages_total{fs="a361000",type="uncompressed"} 0
+# HELP lustre_client_osc_compress_read_chunks_total RPC compression read chunk counters (DDN builds). 'type' label is the key suffix as the kernel prints it.
+# TYPE lustre_client_osc_compress_read_chunks_total counter
+lustre_client_osc_compress_read_chunks_total{fs="a361000",type="compressed"} 0
+# HELP lustre_client_osc_compress_read_bytes_total RPC compression read byte counters (DDN builds). 'type' label is the key suffix as the kernel prints it.
+# TYPE lustre_client_osc_compress_read_bytes_total counter
+lustre_client_osc_compress_read_bytes_total{fs="a361000",type="compr"} 0
+lustre_client_osc_compress_read_bytes_total{fs="a361000",type="raw"} 0
+# HELP lustre_client_osc_cur_grant_bytes Bytes of write grant the client currently holds from the OST.
+# TYPE lustre_client_osc_cur_grant_bytes gauge
+lustre_client_osc_cur_grant_bytes{fs="a361000"} 33751040
+# HELP lustre_client_osc_cur_dirty_bytes Bytes of dirty data the client currently caches for the OST.
+# TYPE lustre_client_osc_cur_dirty_bytes gauge
+lustre_client_osc_cur_dirty_bytes{fs="a361000"} 0
+# HELP lustre_client_mdc_md_stats_requests_total Total number of metadata requests, by operation.
+# TYPE lustre_client_mdc_md_stats_requests_total counter
+lustre_client_mdc_md_stats_requests_total{fs="a361000",operation="close"} 434
+lustre_client_mdc_md_stats_requests_total{fs="a361000",operation="create"} 414
+lustre_client_mdc_md_stats_requests_total{fs="a361000",operation="fsync"} 12
+lustre_client_mdc_md_stats_requests_total{fs="a361000",operation="getattr"} 1
+lustre_client_mdc_md_stats_requests_total{fs="a361000",operation="getxattr"} 1
+lustre_client_mdc_md_stats_requests_total{fs="a361000",operation="intent_getattr_async"} 398
+lustre_client_mdc_md_stats_requests_total{fs="a361000",operation="intent_lock"} 3751
+lustre_client_mdc_md_stats_requests_total{fs="a361000",operation="read_page"} 27
+lustre_client_mdc_md_stats_requests_total{fs="a361000",operation="revalidate_lock"} 806
+lustre_client_mdc_md_stats_requests_total{fs="a361000",operation="unlink"} 207
+# HELP lustre_client_mdc_stats_total Number of RPCs the client has sent to the target, by operation.
+# TYPE lustre_client_mdc_stats_total counter
+lustre_client_mdc_stats_total{fs="a361000",operation="ldlm_cancel"} 39
+lustre_client_mdc_stats_total{fs="a361000",operation="ldlm_ibits_enqueue"} 993
+lustre_client_mdc_stats_total{fs="a361000",operation="mds_close"} 434
+lustre_client_mdc_stats_total{fs="a361000",operation="mds_connect"} 1
+lustre_client_mdc_stats_total{fs="a361000",operation="mds_get_root"} 1
+lustre_client_mdc_stats_total{fs="a361000",operation="mds_getattr"} 1
+lustre_client_mdc_stats_total{fs="a361000",operation="mds_getxattr"} 1
+lustre_client_mdc_stats_total{fs="a361000",operation="mds_readpage"} 7
+lustre_client_mdc_stats_total{fs="a361000",operation="mds_statfs"} 4
+lustre_client_mdc_stats_total{fs="a361000",operation="mds_sync"} 12
+lustre_client_mdc_stats_total{fs="a361000",operation="obd_ping"} 9
+lustre_client_mdc_stats_total{fs="a361000",operation="req_active"} 1714
+lustre_client_mdc_stats_total{fs="a361000",operation="req_waittime"} 1714
+lustre_client_mdc_stats_total{fs="a361000",operation="seq_query"} 1
+# HELP lustre_client_mdc_stats_start_time Unix epoch seconds of the earliest stats reset among the filesystem's targets.
+# TYPE lustre_client_mdc_stats_start_time gauge
+lustre_client_mdc_stats_start_time{fs="a361000"} 1790276704
+# HELP lustre_client_mdc_stats_time_microseconds_min Minimum time taken for an operation, by operation, in microseconds.
+# TYPE lustre_client_mdc_stats_time_microseconds_min gauge
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",operation="ldlm_cancel"} 809
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",operation="mds_close"} 769
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",operation="mds_connect"} 959
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",operation="mds_get_root"} 821
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",operation="mds_getattr"} 857
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",operation="mds_getxattr"} 825
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",operation="mds_readpage"} 1571
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",operation="mds_statfs"} 805
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",operation="mds_sync"} 847
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",operation="obd_ping"} 1076
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",operation="req_waittime"} 660
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",operation="seq_query"} 936
+# HELP lustre_client_mdc_stats_time_microseconds_max Maximum time taken for an operation, by operation, in microseconds.
+# TYPE lustre_client_mdc_stats_time_microseconds_max gauge
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",operation="ldlm_cancel"} 1157
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",operation="mds_close"} 1591
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",operation="mds_connect"} 959
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",operation="mds_get_root"} 821
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",operation="mds_getattr"} 857
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",operation="mds_getxattr"} 825
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",operation="mds_readpage"} 3547
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",operation="mds_statfs"} 884
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",operation="mds_sync"} 2268
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",operation="obd_ping"} 1707
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",operation="req_waittime"} 63833
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",operation="seq_query"} 936
+# HELP lustre_client_mdc_stats_time_microseconds_total Total time taken by operations, by operation, in microseconds.
+# TYPE lustre_client_mdc_stats_time_microseconds_total counter
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",operation="ldlm_cancel"} 34378
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",operation="mds_close"} 344135
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",operation="mds_connect"} 959
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",operation="mds_get_root"} 821
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",operation="mds_getattr"} 857
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",operation="mds_getxattr"} 825
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",operation="mds_readpage"} 13527
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",operation="mds_statfs"} 3417
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",operation="mds_sync"} 19978
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",operation="obd_ping"} 13168
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",operation="req_waittime"} 1483797
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",operation="seq_query"} 936
+# HELP lustre_client_mdc_rpc_stats_modify_in_flight Number of modify RPCs in flight.
+# TYPE lustre_client_mdc_rpc_stats_modify_in_flight gauge
+lustre_client_mdc_rpc_stats_modify_in_flight{fs="a361000"} 0
+# HELP lustre_client_mdc_rpc_stats_read_in_flight Number of read RPCs in flight.
+# TYPE lustre_client_mdc_rpc_stats_read_in_flight gauge
+lustre_client_mdc_rpc_stats_read_in_flight{fs="a361000"} 0
+# HELP lustre_client_mdc_rpc_stats_write_in_flight Number of write RPCs in flight.
+# TYPE lustre_client_mdc_rpc_stats_write_in_flight gauge
+lustre_client_mdc_rpc_stats_write_in_flight{fs="a361000"} 0
+# HELP lustre_client_mdc_rpc_stats_pending_write_pages Number of pages waiting to be written.
+# TYPE lustre_client_mdc_rpc_stats_pending_write_pages gauge
+lustre_client_mdc_rpc_stats_pending_write_pages{fs="a361000"} 0
+# HELP lustre_client_mdc_rpc_stats_pending_read_pages Number of pages waiting to be read.
+# TYPE lustre_client_mdc_rpc_stats_pending_read_pages gauge
+lustre_client_mdc_rpc_stats_pending_read_pages{fs="a361000"} 0
+# HELP lustre_client_mdc_rpc_stats_modify_rpcs_in_flight Number of modify RPCs by modify RPCs in flight when issued. Bucket bounds are modify RPCs in flight, exact values; _sum is count times bucket upper bound, not observed.
+# TYPE lustre_client_mdc_rpc_stats_modify_rpcs_in_flight histogram
+lustre_client_mdc_rpc_stats_modify_rpcs_in_flight_sum{fs="a361000"} 1079.0
+lustre_client_mdc_rpc_stats_modify_rpcs_in_flight_count{fs="a361000"} 1079
+lustre_client_mdc_rpc_stats_modify_rpcs_in_flight_bucket{le="0.0",fs="a361000"} 0
+lustre_client_mdc_rpc_stats_modify_rpcs_in_flight_bucket{le="1.0",fs="a361000"} 1079
+lustre_client_mdc_rpc_stats_modify_rpcs_in_flight_bucket{le="+Inf",fs="a361000"} 1079
+# HELP lustre_client_mdc_rpc_stats_pages_per_rpc Number of RPCs by pages per RPC. Bucket bounds are pages per RPC, inclusive upper bounds; _sum is count times bucket upper bound, not observed.
+# TYPE lustre_client_mdc_rpc_stats_pages_per_rpc histogram
+lustre_client_mdc_rpc_stats_pages_per_rpc_sum{fs="a361000",operation="read"} 0.0
+lustre_client_mdc_rpc_stats_pages_per_rpc_count{fs="a361000",operation="read"} 0
+lustre_client_mdc_rpc_stats_pages_per_rpc_bucket{le="1.0",fs="a361000",operation="read"} 0
+lustre_client_mdc_rpc_stats_pages_per_rpc_bucket{le="+Inf",fs="a361000",operation="read"} 0
+lustre_client_mdc_rpc_stats_pages_per_rpc_sum{fs="a361000",operation="write"} 0.0
+lustre_client_mdc_rpc_stats_pages_per_rpc_count{fs="a361000",operation="write"} 0
+lustre_client_mdc_rpc_stats_pages_per_rpc_bucket{le="1.0",fs="a361000",operation="write"} 0
+lustre_client_mdc_rpc_stats_pages_per_rpc_bucket{le="+Inf",fs="a361000",operation="write"} 0
+# HELP lustre_client_mdc_rpc_stats_bytes_per_rpc Number of RPCs by bytes per RPC: pages per RPC times this kernel's page size. Bucket bounds are bytes per RPC, inclusive upper bounds; _sum is count times bucket upper bound, not observed.
+# TYPE lustre_client_mdc_rpc_stats_bytes_per_rpc histogram
+lustre_client_mdc_rpc_stats_bytes_per_rpc_sum{fs="a361000",operation="read"} 0.0
+lustre_client_mdc_rpc_stats_bytes_per_rpc_count{fs="a361000",operation="read"} 0
+lustre_client_mdc_rpc_stats_bytes_per_rpc_bucket{le="4096.0",fs="a361000",operation="read"} 0
+lustre_client_mdc_rpc_stats_bytes_per_rpc_bucket{le="+Inf",fs="a361000",operation="read"} 0
+lustre_client_mdc_rpc_stats_bytes_per_rpc_sum{fs="a361000",operation="write"} 0.0
+lustre_client_mdc_rpc_stats_bytes_per_rpc_count{fs="a361000",operation="write"} 0
+lustre_client_mdc_rpc_stats_bytes_per_rpc_bucket{le="4096.0",fs="a361000",operation="write"} 0
+lustre_client_mdc_rpc_stats_bytes_per_rpc_bucket{le="+Inf",fs="a361000",operation="write"} 0
+# HELP lustre_client_mdc_rpc_stats_rpcs_in_flight Number of RPCs by RPCs in flight when issued. Bucket bounds are RPCs in flight, exact values; _sum is count times bucket upper bound, not observed.
+# TYPE lustre_client_mdc_rpc_stats_rpcs_in_flight histogram
+lustre_client_mdc_rpc_stats_rpcs_in_flight_sum{fs="a361000",operation="read"} 0.0
+lustre_client_mdc_rpc_stats_rpcs_in_flight_count{fs="a361000",operation="read"} 0
+lustre_client_mdc_rpc_stats_rpcs_in_flight_bucket{le="1.0",fs="a361000",operation="read"} 0
+lustre_client_mdc_rpc_stats_rpcs_in_flight_bucket{le="+Inf",fs="a361000",operation="read"} 0
+lustre_client_mdc_rpc_stats_rpcs_in_flight_sum{fs="a361000",operation="write"} 0.0
+lustre_client_mdc_rpc_stats_rpcs_in_flight_count{fs="a361000",operation="write"} 0
+lustre_client_mdc_rpc_stats_rpcs_in_flight_bucket{le="1.0",fs="a361000",operation="write"} 0
+lustre_client_mdc_rpc_stats_rpcs_in_flight_bucket{le="+Inf",fs="a361000",operation="write"} 0
+# HELP lustre_client_mdc_rpc_stats_offset Number of RPCs by starting file offset. Bucket bounds are starting offset in pages, inclusive upper bounds; _sum is count times bucket upper bound, not observed.
+# TYPE lustre_client_mdc_rpc_stats_offset histogram
+lustre_client_mdc_rpc_stats_offset_sum{fs="a361000",operation="read"} 0.0
+lustre_client_mdc_rpc_stats_offset_count{fs="a361000",operation="read"} 0
+lustre_client_mdc_rpc_stats_offset_bucket{le="0.0",fs="a361000",operation="read"} 0
+lustre_client_mdc_rpc_stats_offset_bucket{le="+Inf",fs="a361000",operation="read"} 0
+lustre_client_mdc_rpc_stats_offset_sum{fs="a361000",operation="write"} 0.0
+lustre_client_mdc_rpc_stats_offset_count{fs="a361000",operation="write"} 0
+lustre_client_mdc_rpc_stats_offset_bucket{le="0.0",fs="a361000",operation="write"} 0
+lustre_client_mdc_rpc_stats_offset_bucket{le="+Inf",fs="a361000",operation="write"} 0
+# HELP lustre_client_mdc_lockless_read_bytes_total Total lockless read bytes.
+# TYPE lustre_client_mdc_lockless_read_bytes_total counter
+lustre_client_mdc_lockless_read_bytes_total{fs="a361000"} 0
+# HELP lustre_client_mdc_lockless_write_bytes_total Total lockless write bytes.
+# TYPE lustre_client_mdc_lockless_write_bytes_total counter
+lustre_client_mdc_lockless_write_bytes_total{fs="a361000"} 0
+# HELP lustre_client_stats Lustre client interface stats.
+# TYPE lustre_client_stats counter
+lustre_client_stats{fs="a361000",operation="close",target="a361000-ffff8b524be17800"} 434
+lustre_client_stats{fs="a361000",operation="fsync",target="a361000-ffff8b524be17800"} 12
+lustre_client_stats{fs="a361000",operation="getattr",target="a361000-ffff8b524be17800"} 897
+lustre_client_stats{fs="a361000",operation="getxattr",target="a361000-ffff8b524be17800"} 76
+lustre_client_stats{fs="a361000",operation="getxattr_hits",target="a361000-ffff8b524be17800"} 2
+lustre_client_stats{fs="a361000",operation="inode_permission",target="a361000-ffff8b524be17800"} 7576
+lustre_client_stats{fs="a361000",operation="ioctl",target="a361000-ffff8b524be17800"} 2
+lustre_client_stats{fs="a361000",operation="mkdir",target="a361000-ffff8b524be17800"} 4
+lustre_client_stats{fs="a361000",operation="mknod",target="a361000-ffff8b524be17800"} 410
+lustre_client_stats{fs="a361000",operation="open",target="a361000-ffff8b524be17800"} 434
+lustre_client_stats{fs="a361000",operation="openclosetime",target="a361000-ffff8b524be17800"} 18
+lustre_client_stats{fs="a361000",operation="opencount",target="a361000-ffff8b524be17800"} 435
+lustre_client_stats{fs="a361000",operation="read",target="a361000-ffff8b524be17800"} 16
+lustre_client_stats{fs="a361000",operation="read_bytes",target="a361000-ffff8b524be17800"} 16
+lustre_client_stats{fs="a361000",operation="readdir",target="a361000-ffff8b524be17800"} 20
+lustre_client_stats{fs="a361000",operation="rmdir",target="a361000-ffff8b524be17800"} 2
+lustre_client_stats{fs="a361000",operation="seek",target="a361000-ffff8b524be17800"} 2
+lustre_client_stats{fs="a361000",operation="statfs",target="a361000-ffff8b524be17800"} 1
+lustre_client_stats{fs="a361000",operation="unlink",target="a361000-ffff8b524be17800"} 205
+lustre_client_stats{fs="a361000",operation="write",target="a361000-ffff8b524be17800"} 16
+lustre_client_stats{fs="a361000",operation="write_bytes",target="a361000-ffff8b524be17800"} 16
+# HELP lustre_client_stats_start_time Unix epoch seconds when lustre_client_stats was last reset.
+# TYPE lustre_client_stats_start_time gauge
+lustre_client_stats_start_time{fs="a361000",target="a361000-ffff8b524be17800"} 1790276703
+# HELP lustre_client_llite_read_bytes_total Total bytes read by the client.
+# TYPE lustre_client_llite_read_bytes_total counter
+lustre_client_llite_read_bytes_total{fs="a361000",target="a361000-ffff8b524be17800"} 44179456
+# HELP lustre_client_llite_write_bytes_total Total bytes written by the client.
+# TYPE lustre_client_llite_write_bytes_total counter
+lustre_client_llite_write_bytes_total{fs="a361000",target="a361000-ffff8b524be17800"} 44204032
+# HELP lustre_client_llite_read_ahead_stats_total Lustre read-ahead counters, by operation.
+# TYPE lustre_client_llite_read_ahead_stats_total counter
+lustre_client_llite_read_ahead_stats_total{fs="a361000",target="a361000-ffff8b524be17800",operation="failed_to_fast_read"} 24
+lustre_client_llite_read_ahead_stats_total{fs="a361000",target="a361000-ffff8b524be17800",operation="hits"} 10772
+lustre_client_llite_read_ahead_stats_total{fs="a361000",target="a361000-ffff8b524be17800",operation="misses"} 14
+lustre_client_llite_read_ahead_stats_total{fs="a361000",target="a361000-ffff8b524be17800",operation="readahead_pages"} 12
+lustre_client_llite_read_ahead_stats_total{fs="a361000",target="a361000-ffff8b524be17800",operation="zero_size_window"} 8726
+# HELP lustre_client_llite_statahead_stats_total Lustre statahead counters, by operation.
+# TYPE lustre_client_llite_statahead_stats_total counter
+lustre_client_llite_statahead_stats_total{fs="a361000",target="a361000-ffff8b524be17800",operation="agl_total"} 3
+lustre_client_llite_statahead_stats_total{fs="a361000",target="a361000-ffff8b524be17800",operation="statahead_total"} 3
+lustre_client_llite_statahead_stats_total{fs="a361000",target="a361000-ffff8b524be17800",operation="statahead_wrong"} 0
+# HELP lustre_client_llite_extents_stats Number of I/O calls by I/O size. Bucket bounds are I/O size in bytes, inclusive upper bounds; _sum is count times bucket upper bound, not observed.
+# TYPE lustre_client_llite_extents_stats histogram
+lustre_client_llite_extents_stats_sum{fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 44179448.0
+lustre_client_llite_extents_stats_count{fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 8
+lustre_client_llite_extents_stats_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 0
+lustre_client_llite_extents_stats_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 1
+lustre_client_llite_extents_stats_bucket{le="16383.0",fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 1
+lustre_client_llite_extents_stats_bucket{le="32767.0",fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 1
+lustre_client_llite_extents_stats_bucket{le="65535.0",fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 1
+lustre_client_llite_extents_stats_bucket{le="131071.0",fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 2
+lustre_client_llite_extents_stats_bucket{le="262143.0",fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 2
+lustre_client_llite_extents_stats_bucket{le="524287.0",fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 2
+lustre_client_llite_extents_stats_bucket{le="1048575.0",fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 2
+lustre_client_llite_extents_stats_bucket{le="2097151.0",fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 3
+lustre_client_llite_extents_stats_bucket{le="4194303.0",fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 3
+lustre_client_llite_extents_stats_bucket{le="8388607.0",fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 8
+lustre_client_llite_extents_stats_bucket{le="16777215.0",fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 8
+lustre_client_llite_extents_stats_bucket{le="33554431.0",fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 8
+lustre_client_llite_extents_stats_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",operation="read"} 8
+lustre_client_llite_extents_stats_sum{fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 44204024.0
+lustre_client_llite_extents_stats_count{fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 8
+lustre_client_llite_extents_stats_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 0
+lustre_client_llite_extents_stats_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 4
+lustre_client_llite_extents_stats_bucket{le="16383.0",fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 4
+lustre_client_llite_extents_stats_bucket{le="32767.0",fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 4
+lustre_client_llite_extents_stats_bucket{le="65535.0",fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 4
+lustre_client_llite_extents_stats_bucket{le="131071.0",fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 5
+lustre_client_llite_extents_stats_bucket{le="262143.0",fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 5
+lustre_client_llite_extents_stats_bucket{le="524287.0",fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 5
+lustre_client_llite_extents_stats_bucket{le="1048575.0",fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 5
+lustre_client_llite_extents_stats_bucket{le="2097151.0",fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 6
+lustre_client_llite_extents_stats_bucket{le="4194303.0",fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 6
+lustre_client_llite_extents_stats_bucket{le="8388607.0",fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 7
+lustre_client_llite_extents_stats_bucket{le="16777215.0",fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 7
+lustre_client_llite_extents_stats_bucket{le="33554431.0",fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 8
+lustre_client_llite_extents_stats_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",operation="write"} 8
+# HELP lustre_client_llite_extents_stats_per_process Number of I/O calls by I/O size and process. Bucket bounds are I/O size in bytes, inclusive upper bounds; every 'pid' is a new series; _sum is count times bucket upper bound, not observed.
+# TYPE lustre_client_llite_extents_stats_per_process histogram
+lustre_client_llite_extents_stats_per_process_sum{fs="a361000",target="a361000-ffff8b524be17800",pid="8195",operation="read"} 0.0
+lustre_client_llite_extents_stats_per_process_count{fs="a361000",target="a361000-ffff8b524be17800",pid="8195",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8195",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8195",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",pid="8195",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_sum{fs="a361000",target="a361000-ffff8b524be17800",pid="8195",operation="write"} 8191.0
+lustre_client_llite_extents_stats_per_process_count{fs="a361000",target="a361000-ffff8b524be17800",pid="8195",operation="write"} 1
+lustre_client_llite_extents_stats_per_process_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8195",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8195",operation="write"} 1
+lustre_client_llite_extents_stats_per_process_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",pid="8195",operation="write"} 1
+lustre_client_llite_extents_stats_per_process_sum{fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="read"} 0.0
+lustre_client_llite_extents_stats_per_process_count{fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="16383.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="32767.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="65535.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="131071.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_sum{fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="write"} 131071.0
+lustre_client_llite_extents_stats_per_process_count{fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="write"} 1
+lustre_client_llite_extents_stats_per_process_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="16383.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="32767.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="65535.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="131071.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="write"} 1
+lustre_client_llite_extents_stats_per_process_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",pid="8197",operation="write"} 1
+lustre_client_llite_extents_stats_per_process_sum{fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="read"} 0.0
+lustre_client_llite_extents_stats_per_process_count{fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="16383.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="32767.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="65535.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="131071.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="262143.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="524287.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="1048575.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="2097151.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_sum{fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="write"} 2097151.0
+lustre_client_llite_extents_stats_per_process_count{fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="write"} 1
+lustre_client_llite_extents_stats_per_process_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="16383.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="32767.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="65535.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="131071.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="262143.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="524287.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="1048575.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="2097151.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="write"} 1
+lustre_client_llite_extents_stats_per_process_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",pid="8199",operation="write"} 1
+lustre_client_llite_extents_stats_per_process_sum{fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="read"} 0.0
+lustre_client_llite_extents_stats_per_process_count{fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="16383.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="32767.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="65535.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="131071.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="262143.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="524287.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="1048575.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="2097151.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="4194303.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8388607.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_sum{fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="write"} 8388607.0
+lustre_client_llite_extents_stats_per_process_count{fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="write"} 1
+lustre_client_llite_extents_stats_per_process_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="16383.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="32767.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="65535.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="131071.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="262143.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="524287.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="1048575.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="2097151.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="4194303.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8388607.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="write"} 1
+lustre_client_llite_extents_stats_per_process_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",pid="8201",operation="write"} 1
+lustre_client_llite_extents_stats_per_process_sum{fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0.0
+lustre_client_llite_extents_stats_per_process_count{fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="16383.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="32767.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="65535.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="131071.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="262143.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="524287.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="1048575.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="2097151.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="4194303.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8388607.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="16777215.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="33554431.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_sum{fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 33554431.0
+lustre_client_llite_extents_stats_per_process_count{fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 1
+lustre_client_llite_extents_stats_per_process_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="16383.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="32767.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="65535.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="131071.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="262143.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="524287.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="1048575.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="2097151.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="4194303.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8388607.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="16777215.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="33554431.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 1
+lustre_client_llite_extents_stats_per_process_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",pid="8203",operation="write"} 1
+lustre_client_llite_extents_stats_per_process_sum{fs="a361000",target="a361000-ffff8b524be17800",pid="8205",operation="read"} 0.0
+lustre_client_llite_extents_stats_per_process_count{fs="a361000",target="a361000-ffff8b524be17800",pid="8205",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8205",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8205",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",pid="8205",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_sum{fs="a361000",target="a361000-ffff8b524be17800",pid="8205",operation="write"} 24573.0
+lustre_client_llite_extents_stats_per_process_count{fs="a361000",target="a361000-ffff8b524be17800",pid="8205",operation="write"} 3
+lustre_client_llite_extents_stats_per_process_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8205",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8205",operation="write"} 3
+lustre_client_llite_extents_stats_per_process_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",pid="8205",operation="write"} 3
+lustre_client_llite_extents_stats_per_process_sum{fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="read"} 44179448.0
+lustre_client_llite_extents_stats_per_process_count{fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="read"} 8
+lustre_client_llite_extents_stats_per_process_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="read"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="read"} 1
+lustre_client_llite_extents_stats_per_process_bucket{le="16383.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="read"} 1
+lustre_client_llite_extents_stats_per_process_bucket{le="32767.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="read"} 1
+lustre_client_llite_extents_stats_per_process_bucket{le="65535.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="read"} 1
+lustre_client_llite_extents_stats_per_process_bucket{le="131071.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="read"} 2
+lustre_client_llite_extents_stats_per_process_bucket{le="262143.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="read"} 2
+lustre_client_llite_extents_stats_per_process_bucket{le="524287.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="read"} 2
+lustre_client_llite_extents_stats_per_process_bucket{le="1048575.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="read"} 2
+lustre_client_llite_extents_stats_per_process_bucket{le="2097151.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="read"} 3
+lustre_client_llite_extents_stats_per_process_bucket{le="4194303.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="read"} 3
+lustre_client_llite_extents_stats_per_process_bucket{le="8388607.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="read"} 8
+lustre_client_llite_extents_stats_per_process_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="read"} 8
+lustre_client_llite_extents_stats_per_process_sum{fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="write"} 0.0
+lustre_client_llite_extents_stats_per_process_count{fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="4095.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8191.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="16383.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="32767.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="65535.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="131071.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="262143.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="524287.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="1048575.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="2097151.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="4194303.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="8388607.0",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="write"} 0
+lustre_client_llite_extents_stats_per_process_bucket{le="+Inf",fs="a361000",target="a361000-ffff8b524be17800",pid="8209",operation="write"} 0
+# HELP lustre_client_llite_unstable_pages Number of unstable pages.
+# TYPE lustre_client_llite_unstable_pages gauge
+lustre_client_llite_unstable_pages{fs="a361000",target="a361000-ffff8b524be17800"} 0
+# HELP lustre_client_llite_unstable_check Whether unstable page accounting is enabled.
+# TYPE lustre_client_llite_unstable_check gauge
+lustre_client_llite_unstable_check{fs="a361000",target="a361000-ffff8b524be17800"} 1
+# EOF
