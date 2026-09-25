@@ -536,6 +536,40 @@ mod tests {
     }
 
     #[test]
+    fn test_lnet_global_show_lustre_2_15() {
+        // `lnetctl global show` on Lustre 2.15 (here 2.15.8) spells the
+        // interface limit `max_interfaces` and has no
+        // `max_recovery_ping_interval`; both must still parse.
+        let x = parse_lnetctl_global_show(
+            br#"global:
+    numa_range: 0
+    max_interfaces: 200
+    discovery: 1
+    drop_asym_route: 0
+    retry_count: 2
+    transaction_timeout: 50
+    health_sensitivity: 100
+    recovery_interval: 1
+    router_sensitivity: 100
+    lnd_timeout: 16
+    response_tracking: 3
+    recovery_limit: 0
+"#,
+        )
+        .unwrap();
+
+        assert_eq!(
+            x,
+            vec![Record::LNetStat(LNetStats::HealthSensitiveValue(
+                LNetStatGlobal {
+                    param: Param("health_sensitivity".to_string()),
+                    value: 100,
+                }
+            ))]
+        );
+    }
+
+    #[test]
     fn test_lnet_global_show() {
         let x = parse_lnetctl_global_show(
             br#"global:
