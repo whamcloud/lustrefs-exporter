@@ -1294,4 +1294,7 @@ lustre_stats_time_total{component="mdt",operation="open",target="ai400x2-MDT0000
 lustre_stats_time_total{component="mdt",operation="setattr",target="ai400x2-MDT0000"} 22544
 lustre_stats_time_total{component="mdt",operation="statfs",target="ai400x2-MDT0000"} 1292933
 lustre_stats_time_total{component="mdt",operation="sync",target="ai400x2-MDT0000"} 7767
+# HELP lustre_exporter_command_errors Number of error lines a command printed on stderr in this scrape, not counting patterns that match nothing on this node; what it could not read is missing from the scrape.
+# TYPE lustre_exporter_command_errors gauge
+lustre_exporter_command_errors{command="lctl get_param job_stats"} 1
 # EOF

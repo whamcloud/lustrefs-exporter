@@ -1,0 +1,161 @@
+---
+source: lustre-collector/src/mdc_parser.rs
+expression: records
+---
+[
+    Controller(
+        MdStats(
+            TimedControllerStat {
+                kind: Mdc,
+                param: Param(
+                    "md_stats",
+                ),
+                controller: Controller(
+                    "a361000-MDT0000-mdc-ffff94d28d903800",
+                ),
+                value: [
+                    Stat {
+                        name: "close",
+                        units: "reqs",
+                        samples: 1024327,
+                        min: None,
+                        max: None,
+                        sum: None,
+                        sumsquare: None,
+                    },
+                    Stat {
+                        name: "create",
+                        units: "reqs",
+                        samples: 2,
+                        min: None,
+                        max: None,
+                        sum: None,
+                        sumsquare: None,
+                    },
+                    Stat {
+                        name: "enqueue",
+                        units: "reqs",
+                        samples: 45166,
+                        min: None,
+                        max: None,
+                        sum: None,
+                        sumsquare: None,
+                    },
+                    Stat {
+                        name: "getattr",
+                        units: "reqs",
+                        samples: 4326,
+                        min: None,
+                        max: None,
+                        sum: None,
+                        sumsquare: None,
+                    },
+                    Stat {
+                        name: "intent_lock",
+                        units: "reqs",
+                        samples: 1046326,
+                        min: None,
+                        max: None,
+                        sum: None,
+                        sumsquare: None,
+                    },
+                ],
+                header: StatsHeader {
+                    snapshot_time: "1789952232.646146706",
+                    start_time: Some(
+                        "1787864516.486398220",
+                    ),
+                },
+            },
+        ),
+    ),
+    Controller(
+        Stats(
+            TimedControllerStat {
+                kind: Mdc,
+                param: Param(
+                    "stats",
+                ),
+                controller: Controller(
+                    "a361000-MDT0000-mdc-ffff94d28d903800",
+                ),
+                value: [
+                    Stat {
+                        name: "req_waittime",
+                        units: "usecs",
+                        samples: 2222271,
+                        min: Some(
+                            101,
+                        ),
+                        max: Some(
+                            189010,
+                        ),
+                        sum: Some(
+                            927538421,
+                        ),
+                        sumsquare: Some(
+                            1313195185071,
+                        ),
+                    },
+                    Stat {
+                        name: "req_active",
+                        units: "reqs",
+                        samples: 2222271,
+                        min: Some(
+                            1,
+                        ),
+                        max: Some(
+                            4,
+                        ),
+                        sum: Some(
+                            4224905,
+                        ),
+                        sumsquare: Some(
+                            9948733,
+                        ),
+                    },
+                    Stat {
+                        name: "mds_close",
+                        units: "usecs",
+                        samples: 1024327,
+                        min: Some(
+                            103,
+                        ),
+                        max: Some(
+                            189010,
+                        ),
+                        sum: Some(
+                            417563414,
+                        ),
+                        sumsquare: Some(
+                            597054272656,
+                        ),
+                    },
+                    Stat {
+                        name: "ldlm_enqueue",
+                        units: "usecs",
+                        samples: 1091492,
+                        min: Some(
+                            105,
+                        ),
+                        max: Some(
+                            165006,
+                        ),
+                        sum: Some(
+                            434824356,
+                        ),
+                        sumsquare: Some(
+                            553257670099,
+                        ),
+                    },
+                ],
+                header: StatsHeader {
+                    snapshot_time: "1789952232.657219153",
+                    start_time: Some(
+                        "1787864516.486401920",
+                    ),
+                },
+            },
+        ),
+    ),
+]

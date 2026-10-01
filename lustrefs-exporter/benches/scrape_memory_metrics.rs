@@ -235,7 +235,7 @@ fn scrape_load_test(c: &mut Criterion) {
             .await
             .expect("Failed to bind to port 12345");
 
-        axum::serve(listener, lustrefs_exporter::routes::app())
+        axum::serve(listener, lustrefs_exporter::routes::app(Default::default()))
             .await
             .expect("Failed to serve app.");
     });
