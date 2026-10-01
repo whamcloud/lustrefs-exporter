@@ -283,6 +283,7 @@ pub mod lnet_exports {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LNetGlobal {
         pub numa_range: i64,
+        #[serde(alias = "max_interfaces")]
         pub max_intf: i64,
         pub discovery: i64,
         pub drop_asym_route: i64,
@@ -294,7 +295,8 @@ pub mod lnet_exports {
         pub lnd_timeout: i64,
         pub response_tracking: i64,
         pub recovery_limit: i64,
-        pub max_recovery_ping_interval: i64,
+        /// Since 2.16.0.
+        pub max_recovery_ping_interval: Option<i64>,
     }
 
     #[derive(serde::Serialize, serde::Deserialize)]
