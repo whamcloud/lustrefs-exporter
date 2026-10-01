@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 use crate::{
-    ldlm, llite, mdd_parser,
+    ldlm, llite, mdc_parser, mdd_parser,
     mds::{self, client_count_parser},
     mgs::mgs_parser,
     nodemap, osc_parser, osd_parser, osp_parser, oss, quota, recovery_status_parser,
@@ -24,6 +24,7 @@ pub fn params() -> Vec<String> {
         .chain(mds::params())
         .chain(ldlm::params())
         .chain(llite::params())
+        .chain(mdc_parser::params())
         .chain(mdd_parser::params())
         .chain(quota::params())
         .chain(nodemap::params())
@@ -47,6 +48,7 @@ where
         mds::parse().map(|x| vec![x]),
         ldlm::parse().map(|x| vec![x]),
         llite::parse().map(|x| vec![x]),
+        mdc_parser::parse().map(|x| vec![x]),
         mdd_parser::parse().map(|x| vec![x]),
         quota::parse().map(|x| vec![x]),
         nodemap::parse().map(|x| vec![x]),
@@ -95,6 +97,8 @@ mod tests {
     test_fixtures!(test_lustre_2_14_0_ddn133_fixtures, "*ddn133*");
     test_fixtures!(test_lustre_2_14_0_ddn212_fixtures, "*ddn212*");
     test_fixtures!(test_lustre_2_14_0_ddn229_fixtures, "*ddn229*");
+    test_fixtures!(test_lustre_2_14_0_ddn259_fixtures, "*ddn259*");
+    test_fixtures!(test_lustre_2_16_0_ddn56b_fixtures, "*ddn56b*");
 
     #[test]
     fn test_params() {

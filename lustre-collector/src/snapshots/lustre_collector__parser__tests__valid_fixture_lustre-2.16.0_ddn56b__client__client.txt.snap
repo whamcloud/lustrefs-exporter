@@ -1,0 +1,4363 @@
+---
+source: lustre-collector/src/parser.rs
+expression: result
+---
+(
+    [
+        Host(
+            LustreVersion(
+                HostStat {
+                    param: Param(
+                        "version",
+                    ),
+                    value: "2.16.0_ddn56b",
+                },
+            ),
+        ),
+        Target(
+            Llite(
+                LliteStat {
+                    target: Target(
+                        "a361000-ffff000189257000",
+                    ),
+                    param: Param(
+                        "stats",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "read_bytes",
+                            units: "bytes",
+                            samples: 57406355,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                4194304,
+                            ),
+                            sum: Some(
+                                1496254921055,
+                            ),
+                            sumsquare: Some(
+                                47236230193563213,
+                            ),
+                        },
+                        Stat {
+                            name: "write_bytes",
+                            units: "bytes",
+                            samples: 16229451,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                16777216,
+                            ),
+                            sum: Some(
+                                1184274862535,
+                            ),
+                            sumsquare: Some(
+                                265164318462171099,
+                            ),
+                        },
+                        Stat {
+                            name: "hybrid_write_bytes",
+                            units: "bytes",
+                            samples: 2,
+                            min: Some(
+                                4194304,
+                            ),
+                            max: Some(
+                                16777216,
+                            ),
+                            sum: Some(
+                                20971520,
+                            ),
+                            sumsquare: Some(
+                                299067162755072,
+                            ),
+                        },
+                        Stat {
+                            name: "read",
+                            units: "usecs",
+                            samples: 57406355,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1609928,
+                            ),
+                            sum: Some(
+                                7034832815,
+                            ),
+                            sumsquare: Some(
+                                27868360314999,
+                            ),
+                        },
+                        Stat {
+                            name: "write",
+                            units: "usecs",
+                            samples: 16229453,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                492497,
+                            ),
+                            sum: Some(
+                                3002623522,
+                            ),
+                            sumsquare: Some(
+                                2072185935164,
+                            ),
+                        },
+                        Stat {
+                            name: "open",
+                            units: "usecs",
+                            samples: 33538615,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                36643,
+                            ),
+                            sum: Some(
+                                3420852446,
+                            ),
+                            sumsquare: Some(
+                                695595244118,
+                            ),
+                        },
+                        Stat {
+                            name: "close",
+                            units: "usecs",
+                            samples: 33538615,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                27750,
+                            ),
+                            sum: Some(
+                                5798013687,
+                            ),
+                            sumsquare: Some(
+                                1334339965363,
+                            ),
+                        },
+                        Stat {
+                            name: "seek",
+                            units: "usecs",
+                            samples: 15185541,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                98,
+                            ),
+                            sum: Some(
+                                326590,
+                            ),
+                            sumsquare: Some(
+                                2512480,
+                            ),
+                        },
+                        Stat {
+                            name: "fsync",
+                            units: "usecs",
+                            samples: 6,
+                            min: Some(
+                                1449,
+                            ),
+                            max: Some(
+                                8257,
+                            ),
+                            sum: Some(
+                                24250,
+                            ),
+                            sumsquare: Some(
+                                132241616,
+                            ),
+                        },
+                        Stat {
+                            name: "readdir",
+                            units: "usecs",
+                            samples: 10856756,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                83934,
+                            ),
+                            sum: Some(
+                                1226840837,
+                            ),
+                            sumsquare: Some(
+                                482538698179,
+                            ),
+                        },
+                        Stat {
+                            name: "setattr",
+                            units: "usecs",
+                            samples: 45511804,
+                            min: Some(
+                                102,
+                            ),
+                            max: Some(
+                                447829,
+                            ),
+                            sum: Some(
+                                18120558851,
+                            ),
+                            sumsquare: Some(
+                                10598919039563,
+                            ),
+                        },
+                        Stat {
+                            name: "getattr",
+                            units: "usecs",
+                            samples: 59347920,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                59652,
+                            ),
+                            sum: Some(
+                                4903684132,
+                            ),
+                            sumsquare: Some(
+                                4208522683446,
+                            ),
+                        },
+                        Stat {
+                            name: "unlink",
+                            units: "usecs",
+                            samples: 18379792,
+                            min: Some(
+                                113,
+                            ),
+                            max: Some(
+                                38091,
+                            ),
+                            sum: Some(
+                                4082865159,
+                            ),
+                            sumsquare: Some(
+                                1800709278913,
+                            ),
+                        },
+                        Stat {
+                            name: "symlink",
+                            units: "usecs",
+                            samples: 536558,
+                            min: Some(
+                                120,
+                            ),
+                            max: Some(
+                                33050,
+                            ),
+                            sum: Some(
+                                87788631,
+                            ),
+                            sumsquare: Some(
+                                21071183709,
+                            ),
+                        },
+                        Stat {
+                            name: "mkdir",
+                            units: "usecs",
+                            samples: 2166667,
+                            min: Some(
+                                122,
+                            ),
+                            max: Some(
+                                21158,
+                            ),
+                            sum: Some(
+                                398671447,
+                            ),
+                            sumsquare: Some(
+                                95950994077,
+                            ),
+                        },
+                        Stat {
+                            name: "rmdir",
+                            units: "usecs",
+                            samples: 2795170,
+                            min: Some(
+                                128,
+                            ),
+                            max: Some(
+                                41785,
+                            ),
+                            sum: Some(
+                                1257063765,
+                            ),
+                            sumsquare: Some(
+                                1128423935881,
+                            ),
+                        },
+                        Stat {
+                            name: "mknod",
+                            units: "usecs",
+                            samples: 12835380,
+                            min: Some(
+                                152,
+                            ),
+                            max: Some(
+                                58424,
+                            ),
+                            sum: Some(
+                                2897123003,
+                            ),
+                            sumsquare: Some(
+                                789976447533,
+                            ),
+                        },
+                        Stat {
+                            name: "rename",
+                            units: "usecs",
+                            samples: 12835381,
+                            min: Some(
+                                119,
+                            ),
+                            max: Some(
+                                37048,
+                            ),
+                            sum: Some(
+                                2363352721,
+                            ),
+                            sumsquare: Some(
+                                525557581187,
+                            ),
+                        },
+                        Stat {
+                            name: "statfs",
+                            units: "usecs",
+                            samples: 1526,
+                            min: Some(
+                                139,
+                            ),
+                            max: Some(
+                                649,
+                            ),
+                            sum: Some(
+                                277389,
+                            ),
+                            sumsquare: Some(
+                                51456723,
+                            ),
+                        },
+                        Stat {
+                            name: "getxattr",
+                            units: "usecs",
+                            samples: 1516,
+                            min: Some(
+                                147,
+                            ),
+                            max: Some(
+                                1085,
+                            ),
+                            sum: Some(
+                                290062,
+                            ),
+                            sumsquare: Some(
+                                57805970,
+                            ),
+                        },
+                        Stat {
+                            name: "getxattr_hits",
+                            units: "reqs",
+                            samples: 201,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "listxattr",
+                            units: "usecs",
+                            samples: 471,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                593,
+                            ),
+                            sum: Some(
+                                62081,
+                            ),
+                            sumsquare: Some(
+                                17334649,
+                            ),
+                        },
+                        Stat {
+                            name: "inode_permission",
+                            units: "usecs",
+                            samples: 922787668,
+                            min: Some(
+                                0,
+                            ),
+                            max: Some(
+                                7416,
+                            ),
+                            sum: Some(
+                                72809506,
+                            ),
+                            sumsquare: Some(
+                                854368134,
+                            ),
+                        },
+                        Stat {
+                            name: "opencount",
+                            units: "reqs",
+                            samples: 33538618,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                422,
+                            ),
+                            sum: Some(
+                                48334893,
+                            ),
+                            sumsquare: Some(
+                                276156007,
+                            ),
+                        },
+                        Stat {
+                            name: "openclosetime",
+                            units: "usecs",
+                            samples: 14904841,
+                            min: Some(
+                                766,
+                            ),
+                            max: Some(
+                                129984077,
+                            ),
+                            sum: Some(
+                                549421294037909,
+                            ),
+                            sumsquare: Some(
+                                9223372036854775807,
+                            ),
+                        },
+                        Stat {
+                            name: "hybrid_noswitch",
+                            units: "reqs",
+                            samples: 88821351,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "hybrid_writesize_switch",
+                            units: "reqs",
+                            samples: 2,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                    ],
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.611962111",
+                        start_time: Some(
+                            "1790008165.367572621",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Target(
+            LliteExtentsStats(
+                LliteTargetStat {
+                    target: Target(
+                        "a361000-ffff000189257000",
+                    ),
+                    param: Param(
+                        "extents_stats",
+                    ),
+                    value: Enabled {
+                        header: StatsHeader {
+                            snapshot_time: "1790277040.612077271",
+                            start_time: Some(
+                                "1790277033.450659014",
+                            ),
+                        },
+                        value: [
+                            ExtentsBucket {
+                                lower_bytes: 0,
+                                upper_bytes: 4096,
+                                overflow: false,
+                                read_calls: 0,
+                                write_calls: 0,
+                            },
+                            ExtentsBucket {
+                                lower_bytes: 4096,
+                                upper_bytes: 8192,
+                                overflow: false,
+                                read_calls: 1,
+                                write_calls: 4,
+                            },
+                            ExtentsBucket {
+                                lower_bytes: 8192,
+                                upper_bytes: 16384,
+                                overflow: false,
+                                read_calls: 0,
+                                write_calls: 0,
+                            },
+                            ExtentsBucket {
+                                lower_bytes: 16384,
+                                upper_bytes: 32768,
+                                overflow: false,
+                                read_calls: 0,
+                                write_calls: 0,
+                            },
+                            ExtentsBucket {
+                                lower_bytes: 32768,
+                                upper_bytes: 65536,
+                                overflow: false,
+                                read_calls: 0,
+                                write_calls: 0,
+                            },
+                            ExtentsBucket {
+                                lower_bytes: 65536,
+                                upper_bytes: 131072,
+                                overflow: false,
+                                read_calls: 1,
+                                write_calls: 1,
+                            },
+                            ExtentsBucket {
+                                lower_bytes: 131072,
+                                upper_bytes: 262144,
+                                overflow: false,
+                                read_calls: 0,
+                                write_calls: 0,
+                            },
+                            ExtentsBucket {
+                                lower_bytes: 262144,
+                                upper_bytes: 524288,
+                                overflow: false,
+                                read_calls: 0,
+                                write_calls: 0,
+                            },
+                            ExtentsBucket {
+                                lower_bytes: 524288,
+                                upper_bytes: 1048576,
+                                overflow: false,
+                                read_calls: 0,
+                                write_calls: 0,
+                            },
+                            ExtentsBucket {
+                                lower_bytes: 1048576,
+                                upper_bytes: 2097152,
+                                overflow: false,
+                                read_calls: 1,
+                                write_calls: 1,
+                            },
+                            ExtentsBucket {
+                                lower_bytes: 2097152,
+                                upper_bytes: 4194304,
+                                overflow: false,
+                                read_calls: 0,
+                                write_calls: 0,
+                            },
+                            ExtentsBucket {
+                                lower_bytes: 4194304,
+                                upper_bytes: 8388608,
+                                overflow: false,
+                                read_calls: 5,
+                                write_calls: 1,
+                            },
+                            ExtentsBucket {
+                                lower_bytes: 8388608,
+                                upper_bytes: 16777216,
+                                overflow: false,
+                                read_calls: 0,
+                                write_calls: 0,
+                            },
+                            ExtentsBucket {
+                                lower_bytes: 16777216,
+                                upper_bytes: 33554432,
+                                overflow: false,
+                                read_calls: 0,
+                                write_calls: 1,
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            LliteExtentsStatsPerProcess(
+                LliteTargetStat {
+                    target: Target(
+                        "a361000-ffff000189257000",
+                    ),
+                    param: Param(
+                        "extents_stats_per_process",
+                    ),
+                    value: Enabled {
+                        header: StatsHeader {
+                            snapshot_time: "1790277040.612137391",
+                            start_time: Some(
+                                "1790277033.450659014",
+                            ),
+                        },
+                        value: [
+                            ProcessExtents {
+                                pid: 2134827,
+                                buckets: [
+                                    ExtentsBucket {
+                                        lower_bytes: 0,
+                                        upper_bytes: 4096,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 4096,
+                                        upper_bytes: 8192,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 1,
+                                    },
+                                ],
+                            },
+                            ProcessExtents {
+                                pid: 2134829,
+                                buckets: [
+                                    ExtentsBucket {
+                                        lower_bytes: 0,
+                                        upper_bytes: 4096,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 4096,
+                                        upper_bytes: 8192,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 8192,
+                                        upper_bytes: 16384,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 16384,
+                                        upper_bytes: 32768,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 32768,
+                                        upper_bytes: 65536,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 65536,
+                                        upper_bytes: 131072,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 1,
+                                    },
+                                ],
+                            },
+                            ProcessExtents {
+                                pid: 2134831,
+                                buckets: [
+                                    ExtentsBucket {
+                                        lower_bytes: 0,
+                                        upper_bytes: 4096,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 4096,
+                                        upper_bytes: 8192,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 8192,
+                                        upper_bytes: 16384,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 16384,
+                                        upper_bytes: 32768,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 32768,
+                                        upper_bytes: 65536,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 65536,
+                                        upper_bytes: 131072,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 131072,
+                                        upper_bytes: 262144,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 262144,
+                                        upper_bytes: 524288,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 524288,
+                                        upper_bytes: 1048576,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 1048576,
+                                        upper_bytes: 2097152,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 1,
+                                    },
+                                ],
+                            },
+                            ProcessExtents {
+                                pid: 2134833,
+                                buckets: [
+                                    ExtentsBucket {
+                                        lower_bytes: 0,
+                                        upper_bytes: 4096,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 4096,
+                                        upper_bytes: 8192,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 8192,
+                                        upper_bytes: 16384,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 16384,
+                                        upper_bytes: 32768,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 32768,
+                                        upper_bytes: 65536,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 65536,
+                                        upper_bytes: 131072,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 131072,
+                                        upper_bytes: 262144,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 262144,
+                                        upper_bytes: 524288,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 524288,
+                                        upper_bytes: 1048576,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 1048576,
+                                        upper_bytes: 2097152,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 2097152,
+                                        upper_bytes: 4194304,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 4194304,
+                                        upper_bytes: 8388608,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 1,
+                                    },
+                                ],
+                            },
+                            ProcessExtents {
+                                pid: 2134835,
+                                buckets: [
+                                    ExtentsBucket {
+                                        lower_bytes: 0,
+                                        upper_bytes: 4096,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 4096,
+                                        upper_bytes: 8192,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 8192,
+                                        upper_bytes: 16384,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 16384,
+                                        upper_bytes: 32768,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 32768,
+                                        upper_bytes: 65536,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 65536,
+                                        upper_bytes: 131072,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 131072,
+                                        upper_bytes: 262144,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 262144,
+                                        upper_bytes: 524288,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 524288,
+                                        upper_bytes: 1048576,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 1048576,
+                                        upper_bytes: 2097152,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 2097152,
+                                        upper_bytes: 4194304,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 4194304,
+                                        upper_bytes: 8388608,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 8388608,
+                                        upper_bytes: 16777216,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 16777216,
+                                        upper_bytes: 33554432,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 1,
+                                    },
+                                ],
+                            },
+                            ProcessExtents {
+                                pid: 2134837,
+                                buckets: [
+                                    ExtentsBucket {
+                                        lower_bytes: 0,
+                                        upper_bytes: 4096,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 4096,
+                                        upper_bytes: 8192,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 3,
+                                    },
+                                ],
+                            },
+                            ProcessExtents {
+                                pid: 2134840,
+                                buckets: [
+                                    ExtentsBucket {
+                                        lower_bytes: 0,
+                                        upper_bytes: 4096,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 4096,
+                                        upper_bytes: 8192,
+                                        overflow: false,
+                                        read_calls: 1,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 8192,
+                                        upper_bytes: 16384,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 16384,
+                                        upper_bytes: 32768,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 32768,
+                                        upper_bytes: 65536,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 65536,
+                                        upper_bytes: 131072,
+                                        overflow: false,
+                                        read_calls: 1,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 131072,
+                                        upper_bytes: 262144,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 262144,
+                                        upper_bytes: 524288,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 524288,
+                                        upper_bytes: 1048576,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 1048576,
+                                        upper_bytes: 2097152,
+                                        overflow: false,
+                                        read_calls: 1,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 2097152,
+                                        upper_bytes: 4194304,
+                                        overflow: false,
+                                        read_calls: 0,
+                                        write_calls: 0,
+                                    },
+                                    ExtentsBucket {
+                                        lower_bytes: 4194304,
+                                        upper_bytes: 8388608,
+                                        overflow: false,
+                                        read_calls: 5,
+                                        write_calls: 0,
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                },
+            ),
+        ),
+        Target(
+            LliteReadAheadStats(
+                LliteStat {
+                    target: Target(
+                        "a361000-ffff000189257000",
+                    ),
+                    param: Param(
+                        "read_ahead_stats",
+                    ),
+                    stats: [
+                        Stat {
+                            name: "hits",
+                            units: "pages",
+                            samples: 7072178,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "misses",
+                            units: "pages",
+                            samples: 3591559,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "miss_inside_window",
+                            units: "pages",
+                            samples: 420,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "failed_grab_cache_page",
+                            units: "pages",
+                            samples: 462,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "zero_size_window",
+                            units: "pages",
+                            samples: 3879993,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "readahead_to_eof",
+                            units: "pages",
+                            samples: 346509,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "failed_to_reach_end",
+                            units: "pages",
+                            samples: 229484,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "async_readahead",
+                            units: "pages",
+                            samples: 20052,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "failed_to_fast_read",
+                            units: "pages",
+                            samples: 4443042,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "readahead_pages",
+                            units: "pages",
+                            samples: 344943,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                510,
+                            ),
+                            sum: Some(
+                                7072198,
+                            ),
+                            sumsquare: None,
+                        },
+                    ],
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.612302871",
+                        start_time: Some(
+                            "1790008165.367575861",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Target(
+            LliteStataheadStats(
+                LliteTargetStat {
+                    target: Target(
+                        "a361000-ffff000189257000",
+                    ),
+                    param: Param(
+                        "statahead_stats",
+                    ),
+                    value: [
+                        KeyValue {
+                            name: "statahead total",
+                            value: 1025277,
+                        },
+                        KeyValue {
+                            name: "statahead wrong",
+                            value: 4,
+                        },
+                        KeyValue {
+                            name: "agl total",
+                            value: 1025277,
+                        },
+                        KeyValue {
+                            name: "list_total",
+                            value: 1022112,
+                        },
+                        KeyValue {
+                            name: "fname_total",
+                            value: 3165,
+                        },
+                        KeyValue {
+                            name: "hit_total",
+                            value: 5259531,
+                        },
+                        KeyValue {
+                            name: "miss_total",
+                            value: 1374618,
+                        },
+                    ],
+                },
+            ),
+        ),
+        Target(
+            LliteUnstableStats(
+                LliteTargetStat {
+                    target: Target(
+                        "a361000-ffff000189257000",
+                    ),
+                    param: Param(
+                        "unstable_stats",
+                    ),
+                    value: [
+                        KeyValue {
+                            name: "unstable_check",
+                            value: 1,
+                        },
+                        KeyValue {
+                            name: "unstable_pages",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "unstable_mb",
+                            value: 0,
+                        },
+                    ],
+                },
+            ),
+        ),
+        Controller(
+            MdStats(
+                TimedControllerStat {
+                    kind: Mdc,
+                    param: Param(
+                        "md_stats",
+                    ),
+                    controller: Controller(
+                        "a361000-MDT0000-mdc-ffff000189257000",
+                    ),
+                    value: [
+                        Stat {
+                            name: "close",
+                            units: "reqs",
+                            samples: 33486455,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "create",
+                            units: "reqs",
+                            samples: 15538608,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "getattr",
+                            units: "reqs",
+                            samples: 5646,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "intent_lock",
+                            units: "reqs",
+                            samples: 211513064,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "rename",
+                            units: "reqs",
+                            samples: 12835382,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "setattr",
+                            units: "reqs",
+                            samples: 45511805,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "fsync",
+                            units: "reqs",
+                            samples: 5,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "read_page",
+                            units: "reqs",
+                            samples: 3879130,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "unlink",
+                            units: "reqs",
+                            samples: 21192871,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "getxattr",
+                            units: "reqs",
+                            samples: 8421,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "intent_getattr_async",
+                            units: "reqs",
+                            samples: 2233586,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                        Stat {
+                            name: "revalidate_lock",
+                            units: "reqs",
+                            samples: 41063888,
+                            min: None,
+                            max: None,
+                            sum: None,
+                            sumsquare: None,
+                        },
+                    ],
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.612445791",
+                        start_time: Some(
+                            "1790008165.372789941",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            RpcStats(
+                TimedControllerStat {
+                    kind: Mdc,
+                    param: Param(
+                        "rpc_stats",
+                    ),
+                    controller: Controller(
+                        "a361000-MDT0000-mdc-ffff000189257000",
+                    ),
+                    value: RpcStats {
+                        scalars: [
+                            KeyValue {
+                                name: "modify_RPCs_in_flight",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "read RPCs in flight",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "write RPCs in flight",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "pending write pages",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "pending read pages",
+                                value: 0,
+                            },
+                        ],
+                        modify_rpcs_in_flight: Some(
+                            [
+                                CountBucket {
+                                    key: 0,
+                                    count: 0,
+                                },
+                                CountBucket {
+                                    key: 1,
+                                    count: 152722953,
+                                },
+                                CountBucket {
+                                    key: 2,
+                                    count: 9312962,
+                                },
+                                CountBucket {
+                                    key: 3,
+                                    count: 6,
+                                },
+                            ],
+                        ),
+                        histograms: [
+                            BrwStats {
+                                name: "pages per rpc",
+                                unit: "rpcs",
+                                buckets: [
+                                    BrwStatsBucket {
+                                        name: 1,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                ],
+                            },
+                            BrwStats {
+                                name: "rpcs in flight",
+                                unit: "rpcs",
+                                buckets: [
+                                    BrwStatsBucket {
+                                        name: 1,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                ],
+                            },
+                            BrwStats {
+                                name: "offset",
+                                unit: "rpcs",
+                                buckets: [
+                                    BrwStatsBucket {
+                                        name: 0,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.612499951",
+                        start_time: Some(
+                            "1790008165.372336901",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            Stats(
+                TimedControllerStat {
+                    kind: Mdc,
+                    param: Param(
+                        "stats",
+                    ),
+                    controller: Controller(
+                        "a361000-MDT0000-mdc-ffff000189257000",
+                    ),
+                    value: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usecs",
+                            samples: 275910125,
+                            min: Some(
+                                84,
+                            ),
+                            max: Some(
+                                83843,
+                            ),
+                            sum: Some(
+                                45158219745,
+                            ),
+                            sumsquare: Some(
+                                9703505293811,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 275910125,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                21,
+                            ),
+                            sum: Some(
+                                342625349,
+                            ),
+                            sumsquare: Some(
+                                537084973,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_glimpse_enqueue",
+                            units: "reqs",
+                            samples: 406969,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                406969,
+                            ),
+                            sumsquare: Some(
+                                406969,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_ibits_enqueue",
+                            units: "reqs",
+                            samples: 142489651,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                142489651,
+                            ),
+                            sumsquare: Some(
+                                142489651,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_set_info",
+                            units: "usecs",
+                            samples: 223,
+                            min: Some(
+                                117,
+                            ),
+                            max: Some(
+                                1137,
+                            ),
+                            sum: Some(
+                                149225,
+                            ),
+                            sumsquare: Some(
+                                127165569,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_getattr",
+                            units: "usecs",
+                            samples: 5646,
+                            min: Some(
+                                92,
+                            ),
+                            max: Some(
+                                295,
+                            ),
+                            sum: Some(
+                                742781,
+                            ),
+                            sumsquare: Some(
+                                99060529,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_close",
+                            units: "usecs",
+                            samples: 33486455,
+                            min: Some(
+                                87,
+                            ),
+                            max: Some(
+                                21942,
+                            ),
+                            sum: Some(
+                                5207949051,
+                            ),
+                            sumsquare: Some(
+                                894766263927,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_readpage",
+                            units: "usecs",
+                            samples: 3879130,
+                            min: Some(
+                                199,
+                            ),
+                            max: Some(
+                                83843,
+                            ),
+                            sum: Some(
+                                1167844852,
+                            ),
+                            sumsquare: Some(
+                                392263467652,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_connect",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                322,
+                            ),
+                            max: Some(
+                                322,
+                            ),
+                            sum: Some(
+                                322,
+                            ),
+                            sumsquare: Some(
+                                103684,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_get_root",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                245,
+                            ),
+                            max: Some(
+                                245,
+                            ),
+                            sum: Some(
+                                245,
+                            ),
+                            sumsquare: Some(
+                                60025,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_statfs",
+                            units: "usecs",
+                            samples: 2291,
+                            min: Some(
+                                119,
+                            ),
+                            max: Some(
+                                589,
+                            ),
+                            sum: Some(
+                                380660,
+                            ),
+                            sumsquare: Some(
+                                64614102,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_sync",
+                            units: "usecs",
+                            samples: 5,
+                            min: Some(
+                                1022,
+                            ),
+                            max: Some(
+                                1749,
+                            ),
+                            sum: Some(
+                                6488,
+                            ),
+                            sumsquare: Some(
+                                8748552,
+                            ),
+                        },
+                        Stat {
+                            name: "mds_getxattr",
+                            units: "usecs",
+                            samples: 8421,
+                            min: Some(
+                                97,
+                            ),
+                            max: Some(
+                                2257,
+                            ),
+                            sum: Some(
+                                1603849,
+                            ),
+                            sumsquare: Some(
+                                324143243,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_cancel",
+                            units: "usecs",
+                            samples: 13380217,
+                            min: Some(
+                                86,
+                            ),
+                            max: Some(
+                                14620,
+                            ),
+                            sum: Some(
+                                1872938571,
+                            ),
+                            sumsquare: Some(
+                                271717571693,
+                            ),
+                        },
+                        Stat {
+                            name: "obd_ping",
+                            units: "usecs",
+                            samples: 7709,
+                            min: Some(
+                                353,
+                            ),
+                            max: Some(
+                                2936,
+                            ),
+                            sum: Some(
+                                6531152,
+                            ),
+                            sumsquare: Some(
+                                5868486200,
+                            ),
+                        },
+                        Stat {
+                            name: "seq_query",
+                            units: "usecs",
+                            samples: 119,
+                            min: Some(
+                                133,
+                            ),
+                            max: Some(
+                                223,
+                            ),
+                            sum: Some(
+                                19087,
+                            ),
+                            sumsquare: Some(
+                                3089617,
+                            ),
+                        },
+                    ],
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.612548951",
+                        start_time: Some(
+                            "1790008165.372794021",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            LocklessStats(
+                TimedControllerStat {
+                    kind: Mdc,
+                    param: Param(
+                        "mdc_stats",
+                    ),
+                    controller: Controller(
+                        "a361000-MDT0000-mdc-ffff000189257000",
+                    ),
+                    value: LocklessStats {
+                        write_bytes: 0,
+                        read_bytes: 0,
+                        truncates: None,
+                    },
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.612639671",
+                        start_time: Some(
+                            "1790008165.372904061",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            CurDirtyBytes(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "cur_dirty_bytes",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0000-osc-ffff000189257000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Controller(
+            CurDirtyBytes(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "cur_dirty_bytes",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0001-osc-ffff000189257000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Controller(
+            CurDirtyBytes(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "cur_dirty_bytes",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0002-osc-ffff000189257000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Controller(
+            CurDirtyBytes(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "cur_dirty_bytes",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0003-osc-ffff000189257000",
+                    ),
+                    value: 0,
+                },
+            ),
+        ),
+        Controller(
+            CurGrantBytes(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "cur_grant_bytes",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0000-osc-ffff000189257000",
+                    ),
+                    value: 8437760,
+                },
+            ),
+        ),
+        Controller(
+            CurGrantBytes(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "cur_grant_bytes",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0001-osc-ffff000189257000",
+                    ),
+                    value: 4218880,
+                },
+            ),
+        ),
+        Controller(
+            CurGrantBytes(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "cur_grant_bytes",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0002-osc-ffff000189257000",
+                    ),
+                    value: 8437760,
+                },
+            ),
+        ),
+        Controller(
+            CurGrantBytes(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "cur_grant_bytes",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0003-osc-ffff000189257000",
+                    ),
+                    value: 8437760,
+                },
+            ),
+        ),
+        Controller(
+            LocklessStats(
+                TimedControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "osc_stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0000-osc-ffff000189257000",
+                    ),
+                    value: LocklessStats {
+                        write_bytes: 0,
+                        read_bytes: 0,
+                        truncates: None,
+                    },
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.614220511",
+                        start_time: Some(
+                            "1790008165.378271140",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            LocklessStats(
+                TimedControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "osc_stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0001-osc-ffff000189257000",
+                    ),
+                    value: LocklessStats {
+                        write_bytes: 4194304,
+                        read_bytes: 0,
+                        truncates: None,
+                    },
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.614239271",
+                        start_time: Some(
+                            "1790008165.379615180",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            LocklessStats(
+                TimedControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "osc_stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0002-osc-ffff000189257000",
+                    ),
+                    value: LocklessStats {
+                        write_bytes: 0,
+                        read_bytes: 0,
+                        truncates: None,
+                    },
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.614268391",
+                        start_time: Some(
+                            "1790008165.375590461",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            LocklessStats(
+                TimedControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "osc_stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0003-osc-ffff000189257000",
+                    ),
+                    value: LocklessStats {
+                        write_bytes: 0,
+                        read_bytes: 0,
+                        truncates: None,
+                    },
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.614284631",
+                        start_time: Some(
+                            "1790008165.373394941",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            RpcStats(
+                TimedControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "rpc_stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0000-osc-ffff000189257000",
+                    ),
+                    value: RpcStats {
+                        scalars: [
+                            KeyValue {
+                                name: "read RPCs in flight",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "write RPCs in flight",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "DIO RPCs in flight",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "pending write pages",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "pending read pages",
+                                value: 0,
+                            },
+                        ],
+                        modify_rpcs_in_flight: None,
+                        histograms: [
+                            BrwStats {
+                                name: "pages per rpc",
+                                unit: "rpcs",
+                                buckets: [
+                                    BrwStatsBucket {
+                                        name: 1,
+                                        read: 100395,
+                                        write: 320551,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 2,
+                                        read: 1452,
+                                        write: 32639,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 4,
+                                        read: 3229,
+                                        write: 9276,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 8,
+                                        read: 1584,
+                                        write: 4453,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 16,
+                                        read: 1842,
+                                        write: 3104,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 32,
+                                        read: 1674,
+                                        write: 1334,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 64,
+                                        read: 2674,
+                                        write: 6268,
+                                    },
+                                ],
+                            },
+                            BrwStats {
+                                name: "rpcs in flight",
+                                unit: "rpcs",
+                                buckets: [
+                                    BrwStatsBucket {
+                                        name: 1,
+                                        read: 110932,
+                                        write: 84042,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 2,
+                                        read: 621,
+                                        write: 186011,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 3,
+                                        read: 346,
+                                        write: 58901,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 4,
+                                        read: 262,
+                                        write: 8434,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 5,
+                                        read: 188,
+                                        write: 3254,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 6,
+                                        read: 180,
+                                        write: 2336,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 7,
+                                        read: 162,
+                                        write: 2163,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 8,
+                                        read: 159,
+                                        write: 3523,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 9,
+                                        read: 0,
+                                        write: 28707,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 10,
+                                        read: 0,
+                                        write: 254,
+                                    },
+                                ],
+                            },
+                            BrwStats {
+                                name: "offset",
+                                unit: "rpcs",
+                                buckets: [
+                                    BrwStatsBucket {
+                                        name: 0,
+                                        read: 97259,
+                                        write: 372455,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 1,
+                                        read: 13489,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 2,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 4,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 8,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 16,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 32,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 64,
+                                        read: 770,
+                                        write: 1986,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 128,
+                                        read: 643,
+                                        write: 2101,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 256,
+                                        read: 689,
+                                        write: 1083,
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.614799671",
+                        start_time: Some(
+                            "1790008165.378161500",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            RpcStats(
+                TimedControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "rpc_stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0001-osc-ffff000189257000",
+                    ),
+                    value: RpcStats {
+                        scalars: [
+                            KeyValue {
+                                name: "read RPCs in flight",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "write RPCs in flight",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "DIO RPCs in flight",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "pending write pages",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "pending read pages",
+                                value: 0,
+                            },
+                        ],
+                        modify_rpcs_in_flight: None,
+                        histograms: [
+                            BrwStats {
+                                name: "pages per rpc",
+                                unit: "rpcs",
+                                buckets: [
+                                    BrwStatsBucket {
+                                        name: 1,
+                                        read: 100827,
+                                        write: 320375,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 2,
+                                        read: 1396,
+                                        write: 32676,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 4,
+                                        read: 3224,
+                                        write: 9479,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 8,
+                                        read: 1610,
+                                        write: 4460,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 16,
+                                        read: 1946,
+                                        write: 2978,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 32,
+                                        read: 1625,
+                                        write: 1268,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 64,
+                                        read: 2537,
+                                        write: 5673,
+                                    },
+                                ],
+                            },
+                            BrwStats {
+                                name: "rpcs in flight",
+                                unit: "rpcs",
+                                buckets: [
+                                    BrwStatsBucket {
+                                        name: 1,
+                                        read: 111354,
+                                        write: 84646,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 2,
+                                        read: 622,
+                                        write: 185785,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 3,
+                                        read: 340,
+                                        write: 58108,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 4,
+                                        read: 251,
+                                        write: 8360,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 5,
+                                        read: 170,
+                                        write: 3142,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 6,
+                                        read: 160,
+                                        write: 2297,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 7,
+                                        read: 135,
+                                        write: 2110,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 8,
+                                        read: 133,
+                                        write: 3603,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 9,
+                                        read: 0,
+                                        write: 28635,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 10,
+                                        read: 0,
+                                        write: 223,
+                                    },
+                                ],
+                            },
+                            BrwStats {
+                                name: "offset",
+                                unit: "rpcs",
+                                buckets: [
+                                    BrwStatsBucket {
+                                        name: 0,
+                                        read: 97636,
+                                        write: 372318,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 1,
+                                        read: 13568,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 2,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 4,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 8,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 16,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 32,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 64,
+                                        read: 739,
+                                        write: 1817,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 128,
+                                        read: 626,
+                                        write: 1920,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 256,
+                                        read: 596,
+                                        write: 854,
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.614833151",
+                        start_time: Some(
+                            "1790008165.379509540",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            RpcStats(
+                TimedControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "rpc_stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0002-osc-ffff000189257000",
+                    ),
+                    value: RpcStats {
+                        scalars: [
+                            KeyValue {
+                                name: "read RPCs in flight",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "write RPCs in flight",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "DIO RPCs in flight",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "pending write pages",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "pending read pages",
+                                value: 0,
+                            },
+                        ],
+                        modify_rpcs_in_flight: None,
+                        histograms: [
+                            BrwStats {
+                                name: "pages per rpc",
+                                unit: "rpcs",
+                                buckets: [
+                                    BrwStatsBucket {
+                                        name: 1,
+                                        read: 100332,
+                                        write: 321014,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 2,
+                                        read: 1425,
+                                        write: 32398,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 4,
+                                        read: 3124,
+                                        write: 9365,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 8,
+                                        read: 1592,
+                                        write: 4563,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 16,
+                                        read: 1886,
+                                        write: 3051,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 32,
+                                        read: 1627,
+                                        write: 1310,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 64,
+                                        read: 2431,
+                                        write: 6011,
+                                    },
+                                ],
+                            },
+                            BrwStats {
+                                name: "rpcs in flight",
+                                unit: "rpcs",
+                                buckets: [
+                                    BrwStatsBucket {
+                                        name: 1,
+                                        read: 110692,
+                                        write: 85279,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 2,
+                                        read: 608,
+                                        write: 187553,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 3,
+                                        read: 324,
+                                        write: 56447,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 4,
+                                        read: 219,
+                                        write: 8380,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 5,
+                                        read: 164,
+                                        write: 3203,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 6,
+                                        read: 150,
+                                        write: 2352,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 7,
+                                        read: 131,
+                                        write: 2117,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 8,
+                                        read: 129,
+                                        write: 3487,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 9,
+                                        read: 0,
+                                        write: 28640,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 10,
+                                        read: 0,
+                                        write: 254,
+                                    },
+                                ],
+                            },
+                            BrwStats {
+                                name: "offset",
+                                unit: "rpcs",
+                                buckets: [
+                                    BrwStatsBucket {
+                                        name: 0,
+                                        read: 97173,
+                                        write: 372792,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 1,
+                                        read: 13354,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 2,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 4,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 8,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 16,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 32,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 64,
+                                        read: 750,
+                                        write: 1922,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 128,
+                                        read: 572,
+                                        write: 1983,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 256,
+                                        read: 568,
+                                        write: 991,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 512,
+                                        read: 0,
+                                        write: 8,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 1024,
+                                        read: 0,
+                                        write: 16,
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.614864871",
+                        start_time: Some(
+                            "1790008165.375482901",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            RpcStats(
+                TimedControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "rpc_stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0003-osc-ffff000189257000",
+                    ),
+                    value: RpcStats {
+                        scalars: [
+                            KeyValue {
+                                name: "read RPCs in flight",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "write RPCs in flight",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "DIO RPCs in flight",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "pending write pages",
+                                value: 0,
+                            },
+                            KeyValue {
+                                name: "pending read pages",
+                                value: 0,
+                            },
+                        ],
+                        modify_rpcs_in_flight: None,
+                        histograms: [
+                            BrwStats {
+                                name: "pages per rpc",
+                                unit: "rpcs",
+                                buckets: [
+                                    BrwStatsBucket {
+                                        name: 1,
+                                        read: 100638,
+                                        write: 320802,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 2,
+                                        read: 1420,
+                                        write: 32602,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 4,
+                                        read: 3174,
+                                        write: 9322,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 8,
+                                        read: 1618,
+                                        write: 4467,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 16,
+                                        read: 1840,
+                                        write: 2895,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 32,
+                                        read: 1609,
+                                        write: 1289,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 64,
+                                        read: 2564,
+                                        write: 5935,
+                                    },
+                                ],
+                            },
+                            BrwStats {
+                                name: "rpcs in flight",
+                                unit: "rpcs",
+                                buckets: [
+                                    BrwStatsBucket {
+                                        name: 1,
+                                        read: 111064,
+                                        write: 86111,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 2,
+                                        read: 618,
+                                        write: 188767,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 3,
+                                        read: 335,
+                                        write: 55506,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 4,
+                                        read: 238,
+                                        write: 7471,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 5,
+                                        read: 174,
+                                        write: 2810,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 6,
+                                        read: 160,
+                                        write: 2202,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 7,
+                                        read: 137,
+                                        write: 2122,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 8,
+                                        read: 137,
+                                        write: 3597,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 9,
+                                        read: 0,
+                                        write: 28504,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 10,
+                                        read: 0,
+                                        write: 222,
+                                    },
+                                ],
+                            },
+                            BrwStats {
+                                name: "offset",
+                                unit: "rpcs",
+                                buckets: [
+                                    BrwStatsBucket {
+                                        name: 0,
+                                        read: 97497,
+                                        write: 372516,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 1,
+                                        read: 13430,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 2,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 4,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 8,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 16,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 32,
+                                        read: 0,
+                                        write: 0,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 64,
+                                        read: 729,
+                                        write: 1843,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 128,
+                                        read: 602,
+                                        write: 1946,
+                                    },
+                                    BrwStatsBucket {
+                                        name: 256,
+                                        read: 605,
+                                        write: 1007,
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.614897391",
+                        start_time: Some(
+                            "1790008165.373274301",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            OscState(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "state",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0000-osc-ffff000189257000",
+                    ),
+                    value: OscState {
+                        current_state: Full,
+                    },
+                },
+            ),
+        ),
+        Controller(
+            OscState(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "state",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0001-osc-ffff000189257000",
+                    ),
+                    value: OscState {
+                        current_state: Full,
+                    },
+                },
+            ),
+        ),
+        Controller(
+            OscState(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "state",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0002-osc-ffff000189257000",
+                    ),
+                    value: OscState {
+                        current_state: Full,
+                    },
+                },
+            ),
+        ),
+        Controller(
+            OscState(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "state",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0003-osc-ffff000189257000",
+                    ),
+                    value: OscState {
+                        current_state: Full,
+                    },
+                },
+            ),
+        ),
+        Controller(
+            Stats(
+                TimedControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0000-osc-ffff000189257000",
+                    ),
+                    value: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usecs",
+                            samples: 2813484,
+                            min: Some(
+                                102,
+                            ),
+                            max: Some(
+                                421471,
+                            ),
+                            sum: Some(
+                                3073592183,
+                            ),
+                            sumsquare: Some(
+                                25988436929955,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 2813484,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                18,
+                            ),
+                            sum: Some(
+                                6167641,
+                            ),
+                            sumsquare: Some(
+                                28609895,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_glimpse_enqueue",
+                            units: "reqs",
+                            samples: 113496,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                113496,
+                            ),
+                            sumsquare: Some(
+                                113496,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_extent_enqueue",
+                            units: "reqs",
+                            samples: 493898,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                493898,
+                            ),
+                            sumsquare: Some(
+                                493898,
+                            ),
+                        },
+                        Stat {
+                            name: "read_bytes",
+                            units: "bytes",
+                            samples: 112850,
+                            min: Some(
+                                4096,
+                            ),
+                            max: Some(
+                                4194304,
+                            ),
+                            sum: Some(
+                                17220562944,
+                            ),
+                            sumsquare: Some(
+                                44858222896480256,
+                            ),
+                        },
+                        Stat {
+                            name: "write_bytes",
+                            units: "bytes",
+                            samples: 377625,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                4194304,
+                            ),
+                            sum: Some(
+                                37172654672,
+                            ),
+                            sumsquare: Some(
+                                103055240542894292,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_setattr",
+                            units: "usecs",
+                            samples: 1208752,
+                            min: Some(
+                                105,
+                            ),
+                            max: Some(
+                                143906,
+                            ),
+                            sum: Some(
+                                212612759,
+                            ),
+                            sumsquare: Some(
+                                89200496069,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_read",
+                            units: "usecs",
+                            samples: 112850,
+                            min: Some(
+                                247,
+                            ),
+                            max: Some(
+                                197100,
+                            ),
+                            sum: Some(
+                                159080727,
+                            ),
+                            sumsquare: Some(
+                                616103649601,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_write",
+                            units: "usecs",
+                            samples: 377625,
+                            min: Some(
+                                461,
+                            ),
+                            max: Some(
+                                421471,
+                            ),
+                            sum: Some(
+                                979664781,
+                            ),
+                            sumsquare: Some(
+                                20082940007221,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_connect",
+                            units: "usecs",
+                            samples: 3,
+                            min: Some(
+                                249,
+                            ),
+                            max: Some(
+                                378,
+                            ),
+                            sum: Some(
+                                896,
+                            ),
+                            sumsquare: Some(
+                                277246,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_disconnect",
+                            units: "usecs",
+                            samples: 2,
+                            min: Some(
+                                596,
+                            ),
+                            max: Some(
+                                980,
+                            ),
+                            sum: Some(
+                                1576,
+                            ),
+                            sumsquare: Some(
+                                1315616,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_statfs",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                289,
+                            ),
+                            max: Some(
+                                289,
+                            ),
+                            sum: Some(
+                                289,
+                            ),
+                            sumsquare: Some(
+                                83521,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_sync",
+                            units: "usecs",
+                            samples: 905,
+                            min: Some(
+                                123,
+                            ),
+                            max: Some(
+                                557,
+                            ),
+                            sum: Some(
+                                147781,
+                            ),
+                            sumsquare: Some(
+                                24748731,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_set_info",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                286,
+                            ),
+                            max: Some(
+                                286,
+                            ),
+                            sum: Some(
+                                286,
+                            ),
+                            sumsquare: Some(
+                                81796,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_cancel",
+                            units: "usecs",
+                            samples: 505534,
+                            min: Some(
+                                102,
+                            ),
+                            max: Some(
+                                31061,
+                            ),
+                            sum: Some(
+                                1522415514,
+                            ),
+                            sumsquare: Some(
+                                5050585401166,
+                            ),
+                        },
+                        Stat {
+                            name: "obd_ping",
+                            units: "usecs",
+                            samples: 417,
+                            min: Some(
+                                173,
+                            ),
+                            max: Some(
+                                2648,
+                            ),
+                            sum: Some(
+                                140527,
+                            ),
+                            sumsquare: Some(
+                                59657279,
+                            ),
+                        },
+                    ],
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.616663711",
+                        start_time: Some(
+                            "1790008165.378268220",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            Stats(
+                TimedControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0001-osc-ffff000189257000",
+                    ),
+                    value: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usecs",
+                            samples: 2813785,
+                            min: Some(
+                                99,
+                            ),
+                            max: Some(
+                                1099054,
+                            ),
+                            sum: Some(
+                                3058819324,
+                            ),
+                            sumsquare: Some(
+                                26202999930286,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 2813785,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                19,
+                            ),
+                            sum: Some(
+                                6165905,
+                            ),
+                            sumsquare: Some(
+                                28607385,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_glimpse_enqueue",
+                            units: "reqs",
+                            samples: 113992,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                113992,
+                            ),
+                            sumsquare: Some(
+                                113992,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_extent_enqueue",
+                            units: "reqs",
+                            samples: 494087,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                494087,
+                            ),
+                            sumsquare: Some(
+                                494087,
+                            ),
+                        },
+                        Stat {
+                            name: "read_bytes",
+                            units: "bytes",
+                            samples: 113165,
+                            min: Some(
+                                4096,
+                            ),
+                            max: Some(
+                                4194304,
+                            ),
+                            sum: Some(
+                                16653676544,
+                            ),
+                            sumsquare: Some(
+                                42412005516115968,
+                            ),
+                        },
+                        Stat {
+                            name: "write_bytes",
+                            units: "bytes",
+                            samples: 376909,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                4194304,
+                            ),
+                            sum: Some(
+                                34544699259,
+                            ),
+                            sumsquare: Some(
+                                92424993326445639,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_setattr",
+                            units: "usecs",
+                            samples: 1208482,
+                            min: Some(
+                                99,
+                            ),
+                            max: Some(
+                                208817,
+                            ),
+                            sum: Some(
+                                213531551,
+                            ),
+                            sumsquare: Some(
+                                144028875635,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_read",
+                            units: "usecs",
+                            samples: 113165,
+                            min: Some(
+                                253,
+                            ),
+                            max: Some(
+                                98689,
+                            ),
+                            sum: Some(
+                                148431230,
+                            ),
+                            sumsquare: Some(
+                                394080236300,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_write",
+                            units: "usecs",
+                            samples: 376909,
+                            min: Some(
+                                455,
+                            ),
+                            max: Some(
+                                1099054,
+                            ),
+                            sum: Some(
+                                973998824,
+                            ),
+                            sumsquare: Some(
+                                20420364342608,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_connect",
+                            units: "usecs",
+                            samples: 3,
+                            min: Some(
+                                210,
+                            ),
+                            max: Some(
+                                555,
+                            ),
+                            sum: Some(
+                                1084,
+                            ),
+                            sumsquare: Some(
+                                453886,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_disconnect",
+                            units: "usecs",
+                            samples: 2,
+                            min: Some(
+                                442,
+                            ),
+                            max: Some(
+                                911,
+                            ),
+                            sum: Some(
+                                1353,
+                            ),
+                            sumsquare: Some(
+                                1025285,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_statfs",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                277,
+                            ),
+                            max: Some(
+                                277,
+                            ),
+                            sum: Some(
+                                277,
+                            ),
+                            sumsquare: Some(
+                                76729,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_sync",
+                            units: "usecs",
+                            samples: 895,
+                            min: Some(
+                                122,
+                            ),
+                            max: Some(
+                                347,
+                            ),
+                            sum: Some(
+                                146609,
+                            ),
+                            sumsquare: Some(
+                                24479473,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_set_info",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                328,
+                            ),
+                            max: Some(
+                                328,
+                            ),
+                            sum: Some(
+                                328,
+                            ),
+                            sumsquare: Some(
+                                107584,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_cancel",
+                            units: "usecs",
+                            samples: 505829,
+                            min: Some(
+                                99,
+                            ),
+                            max: Some(
+                                12801,
+                            ),
+                            sum: Some(
+                                1522402490,
+                            ),
+                            sumsquare: Some(
+                                5046835359830,
+                            ),
+                        },
+                        Stat {
+                            name: "obd_ping",
+                            units: "usecs",
+                            samples: 419,
+                            min: Some(
+                                153,
+                            ),
+                            max: Some(
+                                2581,
+                            ),
+                            sum: Some(
+                                142133,
+                            ),
+                            sumsquare: Some(
+                                58523869,
+                            ),
+                        },
+                    ],
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.616724111",
+                        start_time: Some(
+                            "1790008165.379612140",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            Stats(
+                TimedControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0002-osc-ffff000189257000",
+                    ),
+                    value: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usecs",
+                            samples: 2814740,
+                            min: Some(
+                                102,
+                            ),
+                            max: Some(
+                                275543,
+                            ),
+                            sum: Some(
+                                3053780672,
+                            ),
+                            sumsquare: Some(
+                                24943201231912,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 2814740,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                17,
+                            ),
+                            sum: Some(
+                                6161150,
+                            ),
+                            sumsquare: Some(
+                                28556258,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_glimpse_enqueue",
+                            units: "reqs",
+                            samples: 113270,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                113270,
+                            ),
+                            sumsquare: Some(
+                                113270,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_extent_enqueue",
+                            units: "reqs",
+                            samples: 494162,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                494162,
+                            ),
+                            sumsquare: Some(
+                                494162,
+                            ),
+                        },
+                        Stat {
+                            name: "read_bytes",
+                            units: "bytes",
+                            samples: 112417,
+                            min: Some(
+                                4096,
+                            ),
+                            max: Some(
+                                4194304,
+                            ),
+                            sum: Some(
+                                16133509120,
+                            ),
+                            sumsquare: Some(
+                                40607866922467328,
+                            ),
+                        },
+                        Stat {
+                            name: "write_bytes",
+                            units: "bytes",
+                            samples: 377712,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                4194304,
+                            ),
+                            sum: Some(
+                                35999896643,
+                            ),
+                            sumsquare: Some(
+                                98128178185995907,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_setattr",
+                            units: "usecs",
+                            samples: 1210005,
+                            min: Some(
+                                107,
+                            ),
+                            max: Some(
+                                202493,
+                            ),
+                            sum: Some(
+                                212460796,
+                            ),
+                            sumsquare: Some(
+                                132927957920,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_read",
+                            units: "usecs",
+                            samples: 112417,
+                            min: Some(
+                                236,
+                            ),
+                            max: Some(
+                                275543,
+                            ),
+                            sum: Some(
+                                150737004,
+                            ),
+                            sumsquare: Some(
+                                563848309208,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_write",
+                            units: "usecs",
+                            samples: 377712,
+                            min: Some(
+                                466,
+                            ),
+                            max: Some(
+                                101819,
+                            ),
+                            sum: Some(
+                                969309590,
+                            ),
+                            sumsquare: Some(
+                                19004617199170,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_connect",
+                            units: "usecs",
+                            samples: 3,
+                            min: Some(
+                                195,
+                            ),
+                            max: Some(
+                                328,
+                            ),
+                            sum: Some(
+                                739,
+                            ),
+                            sumsquare: Some(
+                                192265,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_disconnect",
+                            units: "usecs",
+                            samples: 2,
+                            min: Some(
+                                455,
+                            ),
+                            max: Some(
+                                904,
+                            ),
+                            sum: Some(
+                                1359,
+                            ),
+                            sumsquare: Some(
+                                1024241,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_statfs",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                282,
+                            ),
+                            max: Some(
+                                282,
+                            ),
+                            sum: Some(
+                                282,
+                            ),
+                            sumsquare: Some(
+                                79524,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_sync",
+                            units: "usecs",
+                            samples: 906,
+                            min: Some(
+                                121,
+                            ),
+                            max: Some(
+                                1103,
+                            ),
+                            sum: Some(
+                                148878,
+                            ),
+                            sumsquare: Some(
+                                25827494,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_set_info",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                308,
+                            ),
+                            max: Some(
+                                308,
+                            ),
+                            sum: Some(
+                                308,
+                            ),
+                            sumsquare: Some(
+                                94864,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_cancel",
+                            units: "usecs",
+                            samples: 505852,
+                            min: Some(
+                                102,
+                            ),
+                            max: Some(
+                                12709,
+                            ),
+                            sum: Some(
+                                1521564610,
+                            ),
+                            sumsquare: Some(
+                                5044954540918,
+                            ),
+                        },
+                        Stat {
+                            name: "obd_ping",
+                            units: "usecs",
+                            samples: 409,
+                            min: Some(
+                                170,
+                            ),
+                            max: Some(
+                                2630,
+                            ),
+                            sum: Some(
+                                143693,
+                            ),
+                            sumsquare: Some(
+                                62460423,
+                            ),
+                        },
+                    ],
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.616780911",
+                        start_time: Some(
+                            "1790008165.375576941",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            Stats(
+                TimedControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0003-osc-ffff000189257000",
+                    ),
+                    value: [
+                        Stat {
+                            name: "req_waittime",
+                            units: "usecs",
+                            samples: 2814122,
+                            min: Some(
+                                96,
+                            ),
+                            max: Some(
+                                386283,
+                            ),
+                            sum: Some(
+                                3059051295,
+                            ),
+                            sumsquare: Some(
+                                24833856237737,
+                            ),
+                        },
+                        Stat {
+                            name: "req_active",
+                            units: "reqs",
+                            samples: 2814122,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                18,
+                            ),
+                            sum: Some(
+                                6155140,
+                            ),
+                            sumsquare: Some(
+                                28524712,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_glimpse_enqueue",
+                            units: "reqs",
+                            samples: 113857,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                113857,
+                            ),
+                            sumsquare: Some(
+                                113857,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_extent_enqueue",
+                            units: "reqs",
+                            samples: 494079,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                1,
+                            ),
+                            sum: Some(
+                                494079,
+                            ),
+                            sumsquare: Some(
+                                494079,
+                            ),
+                        },
+                        Stat {
+                            name: "read_bytes",
+                            units: "bytes",
+                            samples: 112863,
+                            min: Some(
+                                4096,
+                            ),
+                            max: Some(
+                                4194304,
+                            ),
+                            sum: Some(
+                                16640163840,
+                            ),
+                            sumsquare: Some(
+                                42822534344736768,
+                            ),
+                        },
+                        Stat {
+                            name: "write_bytes",
+                            units: "bytes",
+                            samples: 377312,
+                            min: Some(
+                                1,
+                            ),
+                            max: Some(
+                                4194304,
+                            ),
+                            sum: Some(
+                                35515823333,
+                            ),
+                            sumsquare: Some(
+                                96682377804115379,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_setattr",
+                            units: "usecs",
+                            samples: 1208890,
+                            min: Some(
+                                106,
+                            ),
+                            max: Some(
+                                52146,
+                            ),
+                            sum: Some(
+                                212099047,
+                            ),
+                            sumsquare: Some(
+                                68672631943,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_read",
+                            units: "usecs",
+                            samples: 112863,
+                            min: Some(
+                                251,
+                            ),
+                            max: Some(
+                                141128,
+                            ),
+                            sum: Some(
+                                162907407,
+                            ),
+                            sumsquare: Some(
+                                544845065729,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_write",
+                            units: "usecs",
+                            samples: 377312,
+                            min: Some(
+                                464,
+                            ),
+                            max: Some(
+                                386283,
+                            ),
+                            sum: Some(
+                                961290480,
+                            ),
+                            sumsquare: Some(
+                                19011190083638,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_connect",
+                            units: "usecs",
+                            samples: 3,
+                            min: Some(
+                                234,
+                            ),
+                            max: Some(
+                                409,
+                            ),
+                            sum: Some(
+                                915,
+                            ),
+                            sumsquare: Some(
+                                296021,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_disconnect",
+                            units: "usecs",
+                            samples: 2,
+                            min: Some(
+                                455,
+                            ),
+                            max: Some(
+                                902,
+                            ),
+                            sum: Some(
+                                1357,
+                            ),
+                            sumsquare: Some(
+                                1020629,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_statfs",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                281,
+                            ),
+                            max: Some(
+                                281,
+                            ),
+                            sum: Some(
+                                281,
+                            ),
+                            sumsquare: Some(
+                                78961,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_sync",
+                            units: "usecs",
+                            samples: 918,
+                            min: Some(
+                                120,
+                            ),
+                            max: Some(
+                                1243,
+                            ),
+                            sum: Some(
+                                152351,
+                            ),
+                            sumsquare: Some(
+                                28026693,
+                            ),
+                        },
+                        Stat {
+                            name: "ost_set_info",
+                            units: "usecs",
+                            samples: 1,
+                            min: Some(
+                                283,
+                            ),
+                            max: Some(
+                                283,
+                            ),
+                            sum: Some(
+                                283,
+                            ),
+                            sumsquare: Some(
+                                80089,
+                            ),
+                        },
+                        Stat {
+                            name: "ldlm_cancel",
+                            units: "usecs",
+                            samples: 505789,
+                            min: Some(
+                                103,
+                            ),
+                            max: Some(
+                                12599,
+                            ),
+                            sum: Some(
+                                1522507837,
+                            ),
+                            sumsquare: Some(
+                                5048337758521,
+                            ),
+                        },
+                        Stat {
+                            name: "obd_ping",
+                            units: "usecs",
+                            samples: 407,
+                            min: Some(
+                                186,
+                            ),
+                            max: Some(
+                                1104,
+                            ),
+                            sum: Some(
+                                144744,
+                            ),
+                            sumsquare: Some(
+                                58108286,
+                            ),
+                        },
+                    ],
+                    header: StatsHeader {
+                        snapshot_time: "1790277040.616838391",
+                        start_time: Some(
+                            "1790008165.373367461",
+                        ),
+                    },
+                },
+            ),
+        ),
+        Controller(
+            CompressionStats(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "stats_compr",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0000-osc-ffff000189257000",
+                    ),
+                    value: [
+                        KeyValue {
+                            name: "write_pages_compressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_pages_incompressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_chunks_compressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_chunks_incompressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_bytes_compr",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_bytes_raw",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_bytes_incompr",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_pages_compressed",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_chunks_compressed",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_bytes_compr",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_bytes_raw",
+                            value: 0,
+                        },
+                    ],
+                },
+            ),
+        ),
+        Controller(
+            CompressionStats(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "stats_compr",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0001-osc-ffff000189257000",
+                    ),
+                    value: [
+                        KeyValue {
+                            name: "write_pages_compressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_pages_incompressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_chunks_compressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_chunks_incompressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_bytes_compr",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_bytes_raw",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_bytes_incompr",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_pages_compressed",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_chunks_compressed",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_bytes_compr",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_bytes_raw",
+                            value: 0,
+                        },
+                    ],
+                },
+            ),
+        ),
+        Controller(
+            CompressionStats(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "stats_compr",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0002-osc-ffff000189257000",
+                    ),
+                    value: [
+                        KeyValue {
+                            name: "write_pages_compressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_pages_incompressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_chunks_compressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_chunks_incompressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_bytes_compr",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_bytes_raw",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_bytes_incompr",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_pages_compressed",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_chunks_compressed",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_bytes_compr",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_bytes_raw",
+                            value: 0,
+                        },
+                    ],
+                },
+            ),
+        ),
+        Controller(
+            CompressionStats(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "stats_compr",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0003-osc-ffff000189257000",
+                    ),
+                    value: [
+                        KeyValue {
+                            name: "write_pages_compressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_pages_incompressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_chunks_compressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_chunks_incompressible",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_bytes_compr",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_bytes_raw",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "write_bytes_incompr",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_pages_compressed",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_chunks_compressed",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_bytes_compr",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "read_bytes_raw",
+                            value: 0,
+                        },
+                    ],
+                },
+            ),
+        ),
+        Controller(
+            UnstableStats(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "unstable_stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0000-osc-ffff000189257000",
+                    ),
+                    value: [
+                        KeyValue {
+                            name: "unstable_pages",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "unstable_mb",
+                            value: 0,
+                        },
+                    ],
+                },
+            ),
+        ),
+        Controller(
+            UnstableStats(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "unstable_stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0001-osc-ffff000189257000",
+                    ),
+                    value: [
+                        KeyValue {
+                            name: "unstable_pages",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "unstable_mb",
+                            value: 0,
+                        },
+                    ],
+                },
+            ),
+        ),
+        Controller(
+            UnstableStats(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "unstable_stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0002-osc-ffff000189257000",
+                    ),
+                    value: [
+                        KeyValue {
+                            name: "unstable_pages",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "unstable_mb",
+                            value: 0,
+                        },
+                    ],
+                },
+            ),
+        ),
+        Controller(
+            UnstableStats(
+                ControllerStat {
+                    kind: Osc,
+                    param: Param(
+                        "unstable_stats",
+                    ),
+                    controller: Controller(
+                        "a361000-OST0003-osc-ffff000189257000",
+                    ),
+                    value: [
+                        KeyValue {
+                            name: "unstable_pages",
+                            value: 0,
+                        },
+                        KeyValue {
+                            name: "unstable_mb",
+                            value: 0,
+                        },
+                    ],
+                },
+            ),
+        ),
+    ],
+    "",
+)

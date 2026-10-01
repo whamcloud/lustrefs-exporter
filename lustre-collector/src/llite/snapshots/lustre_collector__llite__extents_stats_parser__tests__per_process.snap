@@ -1,0 +1,45 @@
+---
+source: lustre-collector/src/llite/extents_stats_parser.rs
+expression: xs
+---
+Enabled {
+    header: StatsHeader {
+        snapshot_time: "1789953552.218611921",
+        start_time: Some(
+            "1789953080.395147468",
+        ),
+    },
+    value: [
+        ProcessExtents {
+            pid: 1748326,
+            buckets: [
+                ExtentsBucket {
+                    lower_bytes: 0,
+                    upper_bytes: 4096,
+                    overflow: false,
+                    read_calls: 443,
+                    write_calls: 0,
+                },
+                ExtentsBucket {
+                    lower_bytes: 4096,
+                    upper_bytes: 8192,
+                    overflow: false,
+                    read_calls: 424,
+                    write_calls: 0,
+                },
+            ],
+        },
+        ProcessExtents {
+            pid: 1748455,
+            buckets: [
+                ExtentsBucket {
+                    lower_bytes: 0,
+                    upper_bytes: 4096,
+                    overflow: false,
+                    read_calls: 444,
+                    write_calls: 0,
+                },
+            ],
+        },
+    ],
+}

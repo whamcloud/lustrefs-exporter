@@ -12,6 +12,7 @@ use std::{ops::Deref, sync::atomic::AtomicU64};
 
 #[derive(Debug, Default)]
 pub struct HostMetrics {
+    lustre_version: Family<Gauge<u64, AtomicU64>>,
     lustre_targets_healthy: Family<Gauge<u64, AtomicU64>>,
     lnet_mem_used: Family<Gauge<u64, AtomicU64>>,
     mem_used: Family<Gauge<u64, AtomicU64>>,
@@ -20,6 +21,11 @@ pub struct HostMetrics {
 
 impl HostMetrics {
     pub fn register_metric(&self, registry: &mut Registry) {
+        registry.register(
+            "lustre_version_info",
+            "The Lustre version string, as a label",
+            self.lustre_version.clone(),
+        );
         registry.register(
             "lustre_health_healthy",
             "Indicates whether the Lustre server is healthy or not. 1 is healthy, 0 is unhealthy",
@@ -71,6 +77,12 @@ pub fn build_host_stats(stats: &HostStats, metrics: &mut HostMetrics) {
         }
         HostStats::MemusedMax(x) => {
             metrics.mem_used_max.get_or_create(&vec![]).inc_by(x.value);
+        }
+        HostStats::LustreVersion(x) => {
+            metrics
+                .lustre_version
+                .get_or_create(&vec![("version", x.value.clone())])
+                .set(1);
         }
     }
 }

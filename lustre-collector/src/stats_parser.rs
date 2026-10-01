@@ -6,6 +6,7 @@ use crate::{
     base_parsers::{digits, not_words, word},
     ldlm::LDLM,
     llite::LLITE,
+    mdc_parser::MDC,
     mdd_parser::MDD,
     mds::mds_parser::MDS,
     nodemap::NODEMAP,
@@ -42,6 +43,7 @@ where
             OST,
             LLITE,
             MDS,
+            MDC,
             MDD,
             NODEMAP,
             QMT,
@@ -124,12 +126,22 @@ where
         )
 }
 
+/// The `snapshot_time` header followed by `body`.
+pub(crate) fn stats_header_and<I, P>(body: P) -> impl Parser<I, Output = (StatsHeader, P::Output)>
+where
+    I: Stream<Token = char>,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+    P: Parser<I>,
+{
+    (optional(newline()).with(time_triple()), body)
+}
+
 pub(crate) fn stats<I>() -> impl Parser<I, Output = (StatsHeader, Vec<Stat>)>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
 {
-    (optional(newline()).with(time_triple()), many(stat())).map(|(header, xs)| (header, xs))
+    stats_header_and(many(stat()))
 }
 
 #[cfg(test)]

@@ -56,7 +56,7 @@ lustre_client_export_stats{component="ost",name="statfs",nid="10.73.20.12@tcp",t
 lustre_client_export_stats{component="ost",name="statfs",nid="10.73.20.12@tcp",target="fs-OST0001",units="usecs",otel_scope_name="lustre"} 113927
 # HELP lustre_client_stats Lustre client interface stats.
 # TYPE lustre_client_stats counter
-lustre_client_stats{operation="getattr",target="fs-ffff97e895d31000",otel_scope_name="lustre"} 6
+lustre_client_stats{fs="fs",operation="getattr",target="fs-ffff97e895d31000",otel_scope_name="lustre"} 6
 # HELP lustre_connected_clients Number of connected clients
 # TYPE lustre_connected_clients gauge
 lustre_connected_clients{component="mdt",target="fs-MDT0000",otel_scope_name="lustre"} 1
