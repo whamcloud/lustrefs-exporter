@@ -4,7 +4,7 @@
 
 use crate::{
     HealthCheckStat, Target,
-    base_parsers::{digits, param, target},
+    base_parsers::{digits, param, target, till_newline},
     types::{HostStat, HostStats, Param, Record},
 };
 use combine::{
@@ -20,8 +20,10 @@ pub(crate) const MEMUSED_MAX: &str = "memused_max";
 pub(crate) const MEMUSED: &str = "memused";
 pub(crate) const LNET_MEMUSED: &str = "lnet_memused";
 pub(crate) const HEALTH_CHECK: &str = "health_check";
+pub(crate) const VERSION: &str = "version";
 
-pub(crate) const TOP_LEVEL_PARAMS: [&str; 4] = [MEMUSED, MEMUSED_MAX, LNET_MEMUSED, HEALTH_CHECK];
+pub(crate) const TOP_LEVEL_PARAMS: [&str; 5] =
+    [MEMUSED, MEMUSED_MAX, LNET_MEMUSED, HEALTH_CHECK, VERSION];
 
 pub(crate) fn top_level_params() -> Vec<String> {
     TOP_LEVEL_PARAMS.iter().map(|x| (*x).to_string()).collect()
@@ -32,6 +34,7 @@ enum TopLevelStat {
     MemusedMax(u64),
     LnetMemused(u64),
     HealthCheck(HealthCheckStat),
+    Version(String),
 }
 
 fn target_health<I>() -> impl Parser<I, Output = Target>
@@ -106,6 +109,7 @@ where
             param(HEALTH_CHECK),
             health_stats().map(TopLevelStat::HealthCheck),
         ),
+        (param(VERSION), till_newline().map(TopLevelStat::Version)),
     ))
     .skip(optional(newline()))
 }
@@ -121,6 +125,7 @@ where
             TopLevelStat::MemusedMax(value) => HostStats::MemusedMax(HostStat { param, value }),
             TopLevelStat::LnetMemused(value) => HostStats::LNetMemUsed(HostStat { param, value }),
             TopLevelStat::HealthCheck(value) => HostStats::HealthCheck(HostStat { param, value }),
+            TopLevelStat::Version(value) => HostStats::LustreVersion(HostStat { param, value }),
         })
         .map(Record::Host)
         .message("while parsing top_level_param")
@@ -141,6 +146,7 @@ mod tests {
                 "memused_max".to_string(),
                 "lnet_memused".to_string(),
                 "health_check".to_string(),
+                "version".to_string(),
             ]
         )
     }

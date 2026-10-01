@@ -1,0 +1,87 @@
+---
+source: lustre-collector/src/rpc_stats_parser.rs
+expression: stats
+---
+RpcStats {
+    scalars: [
+        KeyValue {
+            name: "modify_RPCs_in_flight",
+            value: 0,
+        },
+        KeyValue {
+            name: "read RPCs in flight",
+            value: 0,
+        },
+        KeyValue {
+            name: "write RPCs in flight",
+            value: 0,
+        },
+        KeyValue {
+            name: "pending write pages",
+            value: 0,
+        },
+        KeyValue {
+            name: "pending read pages",
+            value: 0,
+        },
+    ],
+    modify_rpcs_in_flight: Some(
+        [
+            CountBucket {
+                key: 0,
+                count: 0,
+            },
+            CountBucket {
+                key: 1,
+                count: 1383,
+            },
+            CountBucket {
+                key: 2,
+                count: 9773,
+            },
+            CountBucket {
+                key: 3,
+                count: 3486,
+            },
+            CountBucket {
+                key: 4,
+                count: 7375,
+            },
+        ],
+    ),
+    histograms: [
+        BrwStats {
+            name: "pages per rpc",
+            unit: "rpcs",
+            buckets: [
+                BrwStatsBucket {
+                    name: 1,
+                    read: 0,
+                    write: 0,
+                },
+            ],
+        },
+        BrwStats {
+            name: "rpcs in flight",
+            unit: "rpcs",
+            buckets: [
+                BrwStatsBucket {
+                    name: 1,
+                    read: 0,
+                    write: 0,
+                },
+            ],
+        },
+        BrwStats {
+            name: "offset",
+            unit: "rpcs",
+            buckets: [
+                BrwStatsBucket {
+                    name: 0,
+                    read: 0,
+                    write: 0,
+                },
+            ],
+        },
+    ],
+}

@@ -97,10 +97,11 @@ impl JobstatMetrics {
     }
 }
 
+/// The flag is whether any job was lost to a line the parser did not expect.
 pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
     f: R,
     mut jobstats: JobstatMetrics,
-) -> JoinHandle<JobstatMetrics> {
+) -> JoinHandle<(JobstatMetrics, bool)> {
     enum LoopInstruction {
         Noop,
         Return,
@@ -172,11 +173,11 @@ pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
 
             match r {
                 Ok((new_state, LoopInstruction::Noop)) => state = new_state,
-                Ok((_, LoopInstruction::Return)) => return jobstats,
+                Ok((_, LoopInstruction::Return)) => return (jobstats, true),
                 Err(e) => {
                     tracing::debug!("Unexpected error processing jobstats lines: {e}");
 
-                    return jobstats;
+                    return (jobstats, true);
                 }
             }
         }
@@ -185,9 +186,11 @@ pub fn jobstats_stream<R: BufRead + std::marker::Send + 'static>(
             && let Err(e) = render_stat(&mut jobstats, &target, job, stats)
         {
             tracing::debug!("Unexpected error processing jobstats lines: {e}");
+
+            return (jobstats, true);
         };
 
-        jobstats
+        (jobstats, false)
     })
 }
 
@@ -377,7 +380,7 @@ pub mod tests {
 
         let stream = BufReader::with_capacity(128 * 1_024, f);
 
-        let jobstats = jobstats::jobstats_stream(stream, metrics).await.unwrap();
+        let (jobstats, _) = jobstats::jobstats_stream(stream, metrics).await.unwrap();
 
         jobstats.register_metric(&mut registry);
 

@@ -4,28 +4,36 @@
 
 use crate::{
     Error,
+    client::{ClientLabels, ExtendedClientMetrics},
+    histogram::HistogramEncoding,
     jobstats::{JobstatMetrics, jobstats_stream},
-    metrics::{self, Metrics},
+    metrics::{self, Metrics, fold_records},
+    stream::lctl_records,
 };
 use axum::{
     BoxError, Router,
     body::Body,
     error_handling::HandleErrorLayer,
-    extract::Query,
+    extract::{Query, State},
     http::{StatusCode, header::CONTENT_TYPE},
     response::{IntoResponse, Response},
     routing::get,
 };
 use lustre_collector::{
-    parse_lctl_output, parse_lnetctl_global_show, parse_lnetctl_output, parse_lnetctl_stats, parser,
+    parse_lnetctl_global_show, parse_lnetctl_output, parse_lnetctl_stats, parser,
 };
 use prometheus_client::{encoding::text::encode, registry::Registry};
 use serde::Deserialize;
 use std::{
     borrow::Cow,
-    io::{self, BufRead as _, BufReader},
+    collections::HashSet,
+    io::{self, BufReader},
+    os::unix::process::ExitStatusExt,
 };
-use tokio::process::Command;
+use tokio::{
+    io::AsyncReadExt as _,
+    process::{Child, ChildStdout, Command},
+};
 use tower::{
     ServiceBuilder, limit::GlobalConcurrencyLimitLayer, load_shed::LoadShedLayer,
     timeout::TimeoutLayer,
@@ -44,7 +52,37 @@ pub struct Params {
 
 const TIMEOUT_DURATION_SECS: u64 = 120;
 
-pub fn app() -> Router {
+#[derive(Clone, Copy, Debug)]
+pub struct ExporterConfig {
+    pub client_labels: ClientLabels,
+    pub histogram_encoding: HistogramEncoding,
+    pub extended_client_metrics: bool,
+    pub page_size: u64,
+}
+
+impl Default for ExporterConfig {
+    fn default() -> Self {
+        Self {
+            client_labels: ClientLabels::default(),
+            histogram_encoding: HistogramEncoding::default(),
+            extended_client_metrics: false,
+            page_size: crate::host::page_size(),
+        }
+    }
+}
+
+impl ExporterConfig {
+    /// Page size fixed at 4096 so test output does not depend on the machine.
+    #[cfg(test)]
+    pub(crate) fn for_tests() -> Self {
+        Self {
+            page_size: 4096,
+            ..Self::default()
+        }
+    }
+}
+
+pub fn app(config: ExporterConfig) -> Router {
     let load_shedder = ServiceBuilder::new()
         .layer(HandleErrorLayer::new(handle_error))
         .layer(LoadShedLayer::new())
@@ -57,6 +95,7 @@ pub fn app() -> Router {
     Router::new()
         .route("/metrics", get(scrape))
         .layer(load_shedder)
+        .with_state(config)
 }
 
 pub async fn handle_error(error: BoxError) -> impl IntoResponse {
@@ -77,13 +116,15 @@ pub async fn handle_error(error: BoxError) -> impl IntoResponse {
     )
 }
 
-pub fn jobstats_metrics_cmd() -> std::process::Command {
-    let mut cmd = std::process::Command::new("lctl");
+pub fn jobstats_metrics_cmd() -> Command {
+    let mut cmd = Command::new("lctl");
 
     cmd.arg("get_param")
         .args(["obdfilter.*OST*.job_stats", "mdt.*.job_stats"])
+        .env("LC_ALL", "C")
         .stdout(std::process::Stdio::piped())
-        .stderr(std::process::Stdio::piped());
+        .stderr(std::process::Stdio::piped())
+        .kill_on_drop(true);
 
     cmd
 }
@@ -91,11 +132,111 @@ pub fn jobstats_metrics_cmd() -> std::process::Command {
 pub fn lustre_metrics_output() -> Command {
     let mut cmd = Command::new("lctl");
 
+    // The stderr classification matches strerror text.
     cmd.arg("get_param")
         .args(parser::params())
+        .env("LC_ALL", "C")
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped())
         .kill_on_drop(true);
 
     cmd
+}
+
+struct Piped {
+    child: Child,
+    name: &'static str,
+    stderr: tokio::task::JoinHandle<io::Result<String>>,
+}
+
+/// stderr is drained in the background so a chatty `lctl` cannot stall on a
+/// full pipe.
+fn spawn_piped(
+    mut cmd: Command,
+    name: &'static str,
+) -> Result<(Piped, BufReader<std::process::ChildStdout>), Error> {
+    let mut child = cmd.spawn()?;
+
+    let stdout = child.stdout.take().ok_or_else(|| {
+        io::Error::new(
+            io::ErrorKind::NotFound,
+            format!("stdout missing for {name}"),
+        )
+    })?;
+
+    let mut stderr = child.stderr.take().ok_or_else(|| {
+        io::Error::new(
+            io::ErrorKind::NotFound,
+            format!("stderr missing for {name}"),
+        )
+    })?;
+    let stderr = tokio::spawn(async move {
+        let mut bytes = Vec::new();
+
+        stderr.read_to_end(&mut bytes).await?;
+
+        Ok(String::from_utf8_lossy(&bytes).into_owned())
+    });
+
+    Ok((
+        Piped {
+            child,
+            name,
+            stderr,
+        },
+        BufReader::with_capacity(128 * 1_024, blocking(stdout)?),
+    ))
+}
+
+/// tokio switches the fd back to blocking mode on the way out.
+fn blocking(stdout: ChildStdout) -> Result<std::process::ChildStdout, Error> {
+    Ok(std::process::ChildStdout::from(stdout.into_owned_fd()?))
+}
+
+/// A pattern that matches nothing on the node, which the exporter's list
+/// always has; a parameter that could not be read prints `read_param:`.
+fn is_expected_stderr(line: &str) -> bool {
+    line.contains("param_path '") && line.contains("No such file or directory")
+}
+
+/// The command was still writing when this side stopped reading.
+const SIGPIPE: i32 = 13;
+
+impl Piped {
+    /// A signal death means truncated output, so the scrape fails; unexpected
+    /// stderr is counted. The exit status is 2 whenever any pattern matched
+    /// nothing, so it is only logged.
+    async fn finish(mut self, metrics: &Metrics) -> Result<(), Error> {
+        let status = self.child.wait().await?;
+        let stderr = self.stderr.await.map_err(io::Error::other)??;
+
+        if let Some(signal) = status.signal()
+            && signal != SIGPIPE
+        {
+            return Err(io::Error::other(format!(
+                "{} was killed by signal {signal}; its output is incomplete",
+                self.name
+            ))
+            .into());
+        }
+
+        let unexpected: Vec<&str> = stderr
+            .lines()
+            .filter(|l| !l.trim().is_empty() && !is_expected_stderr(l))
+            .collect();
+
+        if let Some(first) = unexpected.first() {
+            metrics.record_command_errors(self.name, unexpected.len() as u64, first.trim());
+        } else {
+            tracing::debug!(
+                "{} exited with {status}; stderr: {}",
+                self.name,
+                stderr.trim_end()
+            );
+        }
+
+        Ok(())
+    }
 }
 
 async fn reset_mdt_md_stats() -> Result<(), Error> {
@@ -176,53 +317,44 @@ pub fn lnet_global_output() -> Command {
 /// - Jobstats collection can be resource-intensive and is optional but will
 ///   be run within a spawned task.
 /// - Standard metrics collection runs commands concurrently for efficiency
+/// - `lctl get_param` output is parsed one parameter at a time on a blocking
+///   thread, so neither the raw text nor its records are ever held in full
 /// - Only metrics with actual data are registered to keep output clean
-pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Error> {
+pub async fn scrape(
+    State(config): State<ExporterConfig>,
+    Query(params): Query<Params>,
+) -> Result<Response<Body>, Error> {
     let mut registry = Registry::default();
 
     // Build the lustre stats
-    let mut opentelemetry_metrics = Metrics::default();
+    let extended = if config.extended_client_metrics {
+        ExtendedClientMetrics::On {
+            page_size: config.page_size,
+        }
+    } else {
+        ExtendedClientMetrics::Off
+    };
+    let mut opentelemetry_metrics =
+        Metrics::new(config.client_labels, config.histogram_encoding, extended);
+    let mut set = HashSet::new();
 
     if params.jobstats {
-        let child = tokio::task::spawn_blocking(move || {
-            let child = jobstats_metrics_cmd().spawn()?;
-
-            Ok::<_, Error>(child)
-        })
-        .await?;
-
-        match child {
-            Ok(mut child) => {
-                let reader = BufReader::with_capacity(
-                    128 * 1_024,
-                    child.stdout.take().ok_or(io::Error::new(
-                        io::ErrorKind::NotFound,
-                        "stdout missing for lctl jobstats call.",
-                    ))?,
-                );
-
-                let reader_stderr = BufReader::new(child.stderr.take().ok_or(io::Error::new(
-                    io::ErrorKind::NotFound,
-                    "stderr missing for lctl jobstats call.",
-                ))?);
-
-                tokio::task::spawn(async move {
-                    for line in reader_stderr.lines().map_while(Result::ok) {
-                        tracing::debug!("stderr: {line}");
-                    }
-                });
-
-                tokio::task::spawn_blocking(move || {
-                    if let Err(e) = child.wait() {
-                        tracing::debug!("Unexpected error when waiting for child: {e}");
-                    }
-                });
-
-                let handle = jobstats_stream(reader, JobstatMetrics::default());
-
-                let metrics = handle.await?;
+        match spawn_piped(jobstats_metrics_cmd(), "lctl get_param job_stats") {
+            Ok((child, reader)) => {
+                let (metrics, truncated) =
+                    jobstats_stream(reader, JobstatMetrics::default()).await?;
 
                 metrics.register_metric(&mut registry);
+
+                if truncated {
+                    opentelemetry_metrics.record_parse_errors(
+                        "jobstats",
+                        1,
+                        "the jobstats parser stopped at an unexpected line",
+                    );
+                }
+
+                child.finish(&opentelemetry_metrics).await?;
             }
             Err(e) => {
                 tracing::debug!("Error while spawning lctl jobstats: {e}");
@@ -230,18 +362,28 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
         }
     }
 
-    let mut output = vec![];
+    let (child, reader) = spawn_piped(lustre_metrics_output(), "lctl get_param")?;
 
-    let lctl = lustre_metrics_output().output().await?;
+    (opentelemetry_metrics, set) = tokio::task::spawn_blocking(move || {
+        fold_records(
+            lctl_records(reader),
+            "lctl",
+            &mut opentelemetry_metrics,
+            &mut set,
+        )?;
 
-    let mut lctl_output = parse_lctl_output(&lctl.stdout)?;
+        Ok::<_, Error>((opentelemetry_metrics, set))
+    })
+    .await??;
 
-    output.append(&mut lctl_output);
+    child.finish(&opentelemetry_metrics).await?;
 
     // Reset md_stats if requested (after collection)
     if params.reset_mdt_md_stats {
         reset_mdt_md_stats().await?;
     }
+
+    let mut output = vec![];
 
     let lnetctl = net_show_output().output().await?;
 
@@ -261,8 +403,12 @@ pub async fn scrape(Query(params): Query<Params>) -> Result<Response<Body>, Erro
 
     output.append(&mut lnetctl_global_record);
 
-    // Build and register Lustre metrics
-    metrics::build_lustre_stats(&output, &mut opentelemetry_metrics);
+    for record in &output {
+        metrics::process_record(record, &mut opentelemetry_metrics, &mut set);
+    }
+
+    opentelemetry_metrics.host.set_page_size(config.page_size);
+
     opentelemetry_metrics.register_metric(&mut registry);
 
     let mut buffer = String::new();
@@ -289,17 +435,17 @@ mod tests {
         Router,
         body::{Body, to_bytes},
         extract::Request,
+        http::StatusCode,
     };
     use commandeer_test::commandeer;
     use serial_test::serial;
-    use std::io::{self, BufReader, Read};
-    use tokio::task::JoinSet;
+    use tokio::{process::Command, task::JoinSet};
     use tower::ServiceExt as _;
 
     /// Create a new Axum app with the provided state and a Request
     /// to scrape the metrics endpoint.
     fn get_app() -> (Request<Body>, Router) {
-        let app = crate::routes::app();
+        let app = crate::routes::app(crate::routes::ExporterConfig::for_tests());
 
         let request = Request::builder()
             .uri("/metrics?jobstats=true")
@@ -338,6 +484,95 @@ mod tests {
     #[commandeer(Replay, "lctl", "lnetctl")]
     #[tokio::test]
     #[serial]
+    async fn test_unmatched_params_are_not_errors() {
+        let app = crate::routes::app(crate::routes::ExporterConfig::for_tests());
+
+        let request = Request::builder()
+            .uri("/metrics")
+            .method("GET")
+            .body(Body::empty())
+            .unwrap();
+
+        let resp = app.oneshot(request).await.unwrap();
+
+        assert_eq!(resp.status(), StatusCode::OK);
+
+        let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
+        let body = std::str::from_utf8(&body).unwrap();
+
+        assert!(!body.contains("lustre_exporter_"), "{body}");
+        assert!(body.contains("lustre_mem_used "));
+    }
+
+    #[commandeer(Replay, "lctl", "lnetctl")]
+    #[tokio::test]
+    #[serial]
+    async fn test_bad_block_and_stderr_error_are_counted() {
+        let app = crate::routes::app(crate::routes::ExporterConfig::for_tests());
+
+        let request = Request::builder()
+            .uri("/metrics")
+            .method("GET")
+            .body(Body::empty())
+            .unwrap();
+
+        let resp = app.oneshot(request).await.unwrap();
+
+        assert_eq!(resp.status(), StatusCode::OK);
+
+        let body = to_bytes(resp.into_body(), usize::MAX).await.unwrap();
+        let body = std::str::from_utf8(&body).unwrap();
+
+        assert!(body.contains("lustre_exporter_parse_errors{source=\"lctl\"} 1\n"));
+        assert!(body.contains("lustre_exporter_command_errors{command=\"lctl get_param\"} 1\n"));
+        assert!(body.contains("lustre_mem_used "));
+    }
+
+    async fn finish(script: &str) -> (Result<(), crate::Error>, String) {
+        let mut cmd = Command::new("sh");
+        cmd.args(["-c", script])
+            .stdout(std::process::Stdio::piped())
+            .stderr(std::process::Stdio::piped());
+        let (child, mut reader) = super::spawn_piped(cmd, "sh").unwrap();
+        let mut out = String::new();
+        std::io::Read::read_to_string(&mut reader, &mut out).unwrap();
+        let metrics = crate::metrics::Metrics::default();
+        let result = child.finish(&metrics).await;
+        let mut registry = prometheus_client::registry::Registry::default();
+        metrics.register_metric(&mut registry);
+        let mut text = String::new();
+        prometheus_client::encoding::text::encode(&mut text, &registry).unwrap();
+        (result, text)
+    }
+
+    #[tokio::test]
+    async fn finish_classifies_exit_and_stderr() {
+        let (killed, _) = finish("kill -KILL $$").await;
+        assert!(killed.is_err());
+
+        let (pipe, text) = finish("kill -PIPE $$").await;
+        assert!(pipe.is_ok());
+        assert!(!text.contains("lustre_exporter_command_errors"));
+
+        let (exit3, text) =
+            finish("echo x; echo 'error: get_param: something bad' >&2; exit 3").await;
+        assert!(exit3.is_ok());
+        assert!(
+            text.contains("lustre_exporter_command_errors{command=\"sh\"} 1\n"),
+            "{text}"
+        );
+
+        let (enoent, text) = finish(
+            "echo \"error: get_param: param_path 'llite/*/stats': No such file or directory\" >&2; exit 2",
+        )
+        .await;
+        assert!(enoent.is_ok());
+        assert!(!text.contains("lustre_exporter_command_errors"), "{text}");
+    }
+
+    #[commandeer(Replay, "lctl", "lnetctl")]
+    #[tokio::test]
+    #[serial]
     async fn test_app_function() {
         let (request, app) = get_app();
 
@@ -350,7 +585,7 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn test_app_routes() {
-        let app = crate::routes::app();
+        let app = crate::routes::app(crate::routes::ExporterConfig::for_tests());
 
         // Test that the /metrics route exists
         let request = Request::builder()
@@ -368,7 +603,7 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn test_concurrent_requests() {
-        let app = crate::routes::app();
+        let app = crate::routes::app(crate::routes::ExporterConfig::for_tests());
 
         // Test that concurrency limiting works by sending multiple requests
         // This test verifies the load_shed layer is applied
@@ -442,31 +677,12 @@ mod tests {
     }
 
     #[commandeer(Replay, "lctl")]
-    #[test]
+    #[tokio::test]
     #[serial]
-    fn test_jobstats_metrics_cmd_with_mock() {
-        let mut child = jobstats_metrics_cmd()
-            .spawn()
-            .expect("Failed to spawn child.");
+    async fn test_jobstats_metrics_cmd_with_mock() {
+        let output = jobstats_metrics_cmd().output().await.unwrap();
 
-        let mut reader = BufReader::with_capacity(
-            128 * 1_024,
-            child
-                .stdout
-                .take()
-                .ok_or(io::Error::new(
-                    io::ErrorKind::NotFound,
-                    "stdout missing for lctl jobstats call.",
-                ))
-                .unwrap(),
-        );
-
-        let mut buff = String::new();
-        reader.read_to_string(&mut buff).unwrap();
-
-        child.wait().expect("Failed to wait for child process");
-
-        insta::assert_snapshot!(buff);
+        insta::assert_snapshot!(String::from_utf8(output.stdout).unwrap());
     }
 
     #[commandeer(Replay, "lctl")]

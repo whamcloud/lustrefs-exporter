@@ -3,7 +3,10 @@
 // license that can be found in the LICENSE file.
 
 pub mod brw_stats;
+pub mod client;
+pub mod client_target;
 pub mod controller;
+pub mod histogram;
 pub mod host;
 pub mod jobstats;
 pub mod llite;
@@ -13,6 +16,7 @@ pub mod quota;
 pub mod routes;
 pub mod service;
 pub mod stats;
+pub mod stream;
 
 use crate::routes::{
     jobstats_metrics_cmd, lnet_global_output, lnet_stats_output, lustre_metrics_output,
@@ -60,7 +64,7 @@ impl IntoResponse for Error {
     }
 }
 
-trait LabelProm {
+pub(crate) trait LabelProm {
     fn to_prom_label(&self) -> &'static str;
 }
 
@@ -78,6 +82,7 @@ impl LabelProm for ControllerVariant {
     fn to_prom_label(&self) -> &'static str {
         match self {
             ControllerVariant::Osc => "osc",
+            ControllerVariant::Mdc => "mdc",
         }
     }
 }
@@ -115,7 +120,7 @@ pub async fn dump_stats() -> Result<(), Error> {
 
     let mut lctl = jobstats_metrics_cmd();
 
-    let lctl = tokio::task::spawn_blocking(move || lctl.output()).await??;
+    let lctl = lctl.output().await?;
 
     println!("{}", std::str::from_utf8(&lctl.stdout)?);
 
@@ -149,7 +154,10 @@ pub async fn dump_stats() -> Result<(), Error> {
 #[cfg(test)]
 pub mod tests {
     use crate::{
-        Error, LabelProm as _, dump_stats,
+        Error, LabelProm as _,
+        client::{ClientLabels, ExtendedClientMetrics},
+        dump_stats,
+        histogram::HistogramEncoding,
         metrics::{self, Metrics},
     };
     use axum::{http::StatusCode, response::IntoResponse as _};
@@ -157,7 +165,7 @@ pub mod tests {
     use commandeer_test::commandeer;
     use lustre_collector::{ControllerVariant, Record, TargetVariant, parser::parse};
     use prometheus_client::{encoding::text::encode, registry::Registry};
-    use prometheus_parse::{Sample, Scrape};
+    use prometheus_parse::{Sample, Scrape, Value};
     use serial_test::serial;
     use std::{
         collections::HashSet,
@@ -170,7 +178,12 @@ pub mod tests {
         "lustre_cache_hit_total",
         "lustre_cache_access_total",
         "lustre_cache_miss_total",
+        "lustre_client_llite_read_bytes_total",
+        "lustre_client_llite_write_bytes_total",
+        "lustre_exporter_parse_errors",
+        "lustre_exporter_command_errors",
         "lustre_get_page_total",
+        "lustre_page_size_bytes",
         "lustre_health_healthy",
         "lustre_health_value",
         "lustre_many_credits_total",
@@ -212,6 +225,7 @@ pub mod tests {
     #[test]
     fn test_controller_variant_to_prom_label() {
         assert_eq!(ControllerVariant::Osc.to_prom_label(), "osc");
+        assert_eq!(ControllerVariant::Mdc.to_prom_label(), "mdc");
     }
 
     #[commandeer(Replay, "lctl", "lnetctl")]
@@ -316,7 +330,7 @@ pub mod tests {
             |path| {
                 let contents = std::fs::read_to_string(path).unwrap();
 
-                let x = parse_lustre_metrics(&contents);
+                let x = parse_lustre_metrics(&contents, ClientLabels::PerTarget);
 
                 insta::assert_snapshot!(x);
 
@@ -480,24 +494,386 @@ pub mod tests {
         get_scrape(x.to_string())
     }
 
-    fn parse_lustre_metrics(contents: &str) -> String {
+    fn parse_lustre_metrics(contents: &str, client_labels: ClientLabels) -> String {
         let (records, _) = parse()
             .easy_parse(contents)
             .map_err(|err| err.map_position(|p| p.translate_position(contents)))
             .unwrap();
 
-        build_lustre_stats(&records)
+        build_lustre_stats(&records, client_labels, HistogramEncoding::BucketCounters)
+    }
+
+    /// The value of the one sample line for `series` (name and labels).
+    fn series(output: &str, series: &str) -> String {
+        let mut values = output
+            .lines()
+            .filter_map(|l| l.strip_prefix(series)?.strip_prefix(' '));
+        let value = values
+            .next()
+            .unwrap_or_else(|| panic!("no series {series}"));
+
+        assert!(values.next().is_none(), "more than one series {series}");
+
+        value.to_string()
     }
 
     fn encode_lustre_stats_from_fixture(content: &str) -> String {
         let records = serde_json::from_str(content).unwrap();
 
-        build_lustre_stats(&records)
+        build_lustre_stats(
+            &records,
+            ClientLabels::PerTarget,
+            HistogramEncoding::BucketCounters,
+        )
     }
 
-    fn build_lustre_stats(x: &Vec<Record>) -> String {
+    #[test]
+    fn osp_stats_under_osc_name_are_not_client_families() {
+        let contents = "osc.lustre-OST0000-osc-MDT0000.stats=\nsnapshot_time             1789952232.668377739 secs.nsecs\nstart_time                1787073662.340515449 secs.nsecs\nelapsed_time              2878570.327862290 secs.nsecs\nreq_waittime              1383 samples [usecs] 12 3057 1421392 4185129512\nreq_active                1383 samples [reqs] 1 2 1414 1476\nost_connect               1 samples [usecs] 1205 1205 1205 1452025\nobd_ping                  1382 samples [usecs] 12 3057 1420187 4183677487\nosc.lustre-OST0000-osc-MDT0000.state=\ncurrent_state: FULL\nstate_history:\n";
+
+        let x = parse_lustre_metrics(contents, ClientLabels::PerTarget);
+
+        assert!(!x.contains("lustre_client_osc"), "{x}");
+        assert!(x.contains("lustre_osc_state{controller=\"lustre-OST0000-osc-MDT0000\",current_state=\"FULL\"} 1"), "{x}");
+    }
+
+    #[test]
+    fn lockless_truncates_are_exported() {
+        let contents = "osc.lustre-OST0000-osc-ffff949bc0626000.osc_stats=\nsnapshot_time:            1689697369.331040915 secs.nsecs\nlockless_write_bytes\t\t0\nlockless_read_bytes\t\t8192\nlockless_truncate\t\t3\nmemused=1\n";
+
+        let x = parse_lustre_metrics(contents, ClientLabels::PerTarget);
+
+        assert!(x.contains("lustre_client_osc_lockless_truncates_total{fs=\"lustre\",target=\"lustre-OST0000-osc-ffff949bc0626000\"} 3\n"), "{x}");
+        assert!(x.contains("lustre_client_osc_lockless_read_bytes_total{fs=\"lustre\",target=\"lustre-OST0000-osc-ffff949bc0626000\"} 8192\n"), "{x}");
+    }
+
+    #[test]
+    fn client_fixture_aggregated_by_filesystem() {
+        let contents = include_str!(
+            "../../lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn259/client/client.txt"
+        );
+
+        let x = parse_lustre_metrics(contents, ClientLabels::ByFilesystem);
+
+        assert!(!x.contains("a361000-OST"), "{x}");
+        assert!(!x.contains("a361000-MDT"), "{x}");
+        assert_eq!(
+            series(&x, "lustre_client_osc_cur_grant_bytes{fs=\"a361000\"}"),
+            "33751040"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_osc_stats_total{fs=\"a361000\",operation=\"ldlm_cancel\"}"
+            ),
+            "32"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_osc_stats_time_microseconds_min{fs=\"a361000\",operation=\"ldlm_cancel\"}"
+            ),
+            "754"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_osc_stats_time_microseconds_max{fs=\"a361000\",operation=\"ldlm_cancel\"}"
+            ),
+            "1827"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_osc_stats_time_microseconds_total{fs=\"a361000\",operation=\"ldlm_cancel\"}"
+            ),
+            "37818"
+        );
+        assert_eq!(
+            series(&x, "lustre_client_osc_stats_start_time{fs=\"a361000\"}"),
+            "1790276704"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_osc_state{fs=\"a361000\",current_state=\"FULL\"}"
+            ),
+            "4"
+        );
+        assert!(
+            x.contains("lustre_client_llite_read_bytes_total{fs=\"a361000\",target=\"a361000-"),
+            "{x}"
+        );
+
+        insta::assert_snapshot!(x);
+    }
+
+    #[test]
+    fn client_fixture_2_16_aggregated_by_filesystem() {
+        let contents = include_str!(
+            "../../lustre-collector/src/fixtures/valid/lustre-2.16.0_ddn56b/client/client.txt"
+        );
+
+        let x = parse_lustre_metrics(contents, ClientLabels::ByFilesystem);
+
+        assert!(!x.contains("-OST"), "{x}");
+        assert!(!x.contains("-MDT"), "{x}");
+        assert_eq!(
+            series(&x, "lustre_client_osc_cur_grant_bytes{fs=\"a361000\"}"),
+            "29532160"
+        );
+        assert_eq!(
+            series(&x, "lustre_client_osc_read_bytes_total{fs=\"a361000\"}"),
+            "66647912448"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_osc_stats_total{fs=\"a361000\",operation=\"ldlm_cancel\"}"
+            ),
+            "2023004"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_osc_stats_time_microseconds_min{fs=\"a361000\",operation=\"ldlm_cancel\"}"
+            ),
+            "99"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_osc_stats_time_microseconds_max{fs=\"a361000\",operation=\"ldlm_cancel\"}"
+            ),
+            "31061"
+        );
+        assert_eq!(
+            series(
+                &x,
+                "lustre_osc_state{fs=\"a361000\",current_state=\"FULL\"}"
+            ),
+            "4"
+        );
+
+        insta::assert_snapshot!(x);
+    }
+
+    fn parse_lustre_histograms(contents: &str, client_labels: ClientLabels) -> String {
+        let (records, _) = parse()
+            .easy_parse(contents)
+            .map_err(|err| err.map_position(|p| p.translate_position(contents)))
+            .unwrap();
+
+        let x = build_lustre_stats(&records, client_labels, HistogramEncoding::Histogram);
+
+        assert_valid_histograms(&x);
+
+        x
+    }
+
+    /// What Prometheus checks before accepting a histogram: buckets ascend,
+    /// are cumulative, and end in `+Inf` equal to `_count`.
+    fn assert_valid_histograms(output: &str) {
+        let scrape = get_scrape(output.to_string());
+        let mut histograms = 0;
+
+        for sample in &scrape.samples {
+            let Value::Histogram(buckets) = &sample.value else {
+                continue;
+            };
+            let name = format!("{}{:?}", sample.metric, sample.labels);
+
+            for pair in buckets.windows(2) {
+                assert!(pair[0].less_than < pair[1].less_than, "{name}");
+                assert!(pair[0].count <= pair[1].count, "{name}");
+            }
+
+            let last = buckets.last().unwrap();
+            assert_eq!(last.less_than, f64::INFINITY, "{name}");
+
+            let count = scrape
+                .samples
+                .iter()
+                .find(|s| {
+                    s.metric == format!("{}_count", sample.metric) && s.labels == sample.labels
+                })
+                .unwrap_or_else(|| panic!("{name}: no _count"));
+            assert_eq!(count.value, Value::Untyped(last.count), "{name}");
+
+            histograms += 1;
+        }
+
+        assert!(histograms > 0);
+    }
+
+    #[test]
+    fn client_fixture_as_histograms() {
+        let contents = include_str!(
+            "../../lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn259/client/client.txt"
+        );
+
+        let x = parse_lustre_histograms(contents, ClientLabels::PerTarget);
+
+        assert_eq!(
+            series(
+                &x,
+                "lustre_client_llite_extents_stats_bucket{le=\"8191.0\",fs=\"a361000\",target=\"a361000-ffff8b524be17800\",operation=\"read\"}"
+            ),
+            "1"
+        );
+        insta::assert_snapshot!(x);
+
+        let x = parse_lustre_histograms(contents, ClientLabels::ByFilesystem);
+
+        insta::assert_snapshot!("client_fixture_as_histograms_aggregated", x);
+    }
+
+    #[test]
+    fn rpc_stats_histogram_bounds() {
+        let contents = "osc.a361000-OST0001-osc-ffff949bc0626000.rpc_stats=\nsnapshot_time:            1789952232.703630742 secs.nsecs\nstart_time:               1787864516.502993110 secs.nsecs\nelapsed_time:             2087716.200637632 secs.nsecs\nread RPCs in flight:  0\nwrite RPCs in flight: 0\nDIO RPCs in flight: 0\npending write pages:  0\npending read pages:   0\n\n\t\t\tread\t\t\twrite\npages per rpc         rpcs   % cum % |       rpcs   % cum %\n1:\t\t         0   0   0   |    52489  50  50\n2:\t\t         0   0   0   |    36540  35  85\n4:\t\t         1   0   0   |    14030  13  99\n8:\t\t       511  99 100   |      784   0 100\n\n\t\t\tread\t\t\twrite\nrpcs in flight        rpcs   % cum % |       rpcs   % cum %\n1:\t\t       512 100 100   |   103843 100 100\n\n\t\t\tread\t\t\twrite\noffset                rpcs   % cum % |       rpcs   % cum %\n0:\t\t       512 100 100   |   103843 100 100\n\n\t\t\tread\t\t\twrite\nRPC latency (us)       count   % cum % |       count   % cum %\n0:\t\t         0   0   0   |        0   0   0\n512:\t\t         3   0   0   |      567   0   0\n1024:\t\t       327  63  64   |    93264  89  90\n2048:\t\t       159  31  95   |     9820   9  99\n4096:\t\t        19   3  99   |      180   0  99\n8192:\t\t         3   0 100   |       10   0  99\n16384:\t\t         1   0 100   |        2   0 100\n";
+
+        let x = parse_lustre_histograms(contents, ClientLabels::ByFilesystem);
+
+        let bucket = |name: &str, op: &str, le: &str| {
+            series(
+                &x,
+                &format!("{name}_bucket{{le=\"{le}\",fs=\"a361000\",operation=\"{op}\"}}"),
+            )
+        };
+        let lat = "lustre_client_osc_rpc_stats_latency_microseconds";
+        assert_eq!(bucket(lat, "read", "1.0"), "0");
+        assert_eq!(bucket(lat, "read", "1024.0"), "3");
+        assert_eq!(bucket(lat, "read", "2048.0"), "330");
+        assert_eq!(bucket(lat, "read", "4096.0"), "489");
+        assert_eq!(bucket(lat, "read", "32768.0"), "512");
+        assert_eq!(bucket(lat, "read", "+Inf"), "512");
+        assert_eq!(bucket(lat, "write", "2048.0"), "93831");
+        assert!(!x.contains(&format!("{lat}_bucket{{le=\"512.0\"")));
+
+        let pages = "lustre_client_osc_rpc_stats_pages_per_rpc";
+        assert_eq!(bucket(pages, "read", "4.0"), "1");
+        assert_eq!(bucket(pages, "read", "8.0"), "512");
+        assert_eq!(bucket(pages, "write", "1.0"), "52489");
+
+        assert_eq!(
+            bucket("lustre_client_osc_rpc_stats_offset", "read", "0.0"),
+            "512"
+        );
+        assert_eq!(
+            bucket("lustre_client_osc_rpc_stats_rpcs_in_flight", "write", "1.0"),
+            "103843"
+        );
+    }
+
+    #[test]
+    fn client_fixture_extended() {
+        let contents = include_str!(
+            "../../lustre-collector/src/fixtures/valid/lustre-2.14.0_ddn259/client/client.txt"
+        );
+
+        let (records, _) = parse()
+            .easy_parse(contents)
+            .map_err(|err| err.map_position(|p| p.translate_position(contents)))
+            .unwrap();
+
+        let x = build_lustre_stats_extended(
+            &records,
+            ClientLabels::PerTarget,
+            HistogramEncoding::BucketCounters,
+            ExtendedClientMetrics::On { page_size: 65536 },
+        );
+
+        let scrape = get_scrape(x.clone());
+        let sizes = |family: &str| -> Vec<(u64, u64)> {
+            let mut xs: Vec<(u64, u64)> = scrape
+                .samples
+                .iter()
+                .filter(|s| s.metric == format!("{family}_total"))
+                .map(|s| {
+                    let Value::Counter(rpcs) = &s.value else {
+                        panic!("{}", s.metric)
+                    };
+
+                    (s.labels["size"].parse().unwrap(), *rpcs as u64)
+                })
+                .collect();
+            xs.sort_unstable();
+            xs
+        };
+
+        for component in ["osc", "mdc"] {
+            let pages = sizes(&format!(
+                "lustre_client_{component}_rpc_stats_pages_per_rpc"
+            ));
+            let bytes = sizes(&format!(
+                "lustre_client_{component}_rpc_stats_bytes_per_rpc"
+            ));
+
+            assert!(!pages.is_empty(), "{component}");
+            assert_eq!(
+                bytes,
+                pages
+                    .iter()
+                    .map(|&(pages, rpcs)| (pages * 65536, rpcs))
+                    .collect::<Vec<_>>(),
+                "{component}"
+            );
+        }
+
+        let without_bytes: String = x
+            .lines()
+            .filter(|l| !l.contains("_rpc_stats_bytes_per_rpc"))
+            .map(|l| format!("{l}\n"))
+            .collect();
+        assert_eq!(
+            without_bytes,
+            build_lustre_stats(
+                &records,
+                ClientLabels::PerTarget,
+                HistogramEncoding::BucketCounters
+            )
+        );
+
+        let x = build_lustre_stats_extended(
+            &records,
+            ClientLabels::ByFilesystem,
+            HistogramEncoding::Histogram,
+            ExtendedClientMetrics::On { page_size: 4096 },
+        );
+
+        assert_valid_histograms(&x);
+
+        let sum = |name: &str| -> f64 {
+            series(
+                &x,
+                &format!("{name}_sum{{fs=\"a361000\",operation=\"write\"}}"),
+            )
+            .parse()
+            .unwrap()
+        };
+        assert_eq!(
+            sum("lustre_client_osc_rpc_stats_bytes_per_rpc"),
+            sum("lustre_client_osc_rpc_stats_pages_per_rpc") * 4096.0
+        );
+        insta::assert_snapshot!("client_fixture_extended_aggregated_histograms", x);
+    }
+
+    fn build_lustre_stats(
+        x: &Vec<Record>,
+        client_labels: ClientLabels,
+        histograms: HistogramEncoding,
+    ) -> String {
+        build_lustre_stats_extended(x, client_labels, histograms, ExtendedClientMetrics::Off)
+    }
+
+    fn build_lustre_stats_extended(
+        x: &Vec<Record>,
+        client_labels: ClientLabels,
+        histograms: HistogramEncoding,
+        extended: ExtendedClientMetrics,
+    ) -> String {
         let mut registry = Registry::default();
-        let mut metrics = Metrics::default();
+        let mut metrics = Metrics::new(client_labels, histograms, extended);
 
         metrics::build_lustre_stats(x, &mut metrics);
 

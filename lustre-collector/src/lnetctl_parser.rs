@@ -500,6 +500,103 @@ mod tests {
 
         assert_debug_snapshot!(x);
     }
+
+    #[test]
+    fn test_lnet_global_show_2_16() {
+        let x = parse_lnetctl_global_show(
+            br#"global:
+    numa_range: 0
+    max_interfaces: 4096
+    discovery: 1
+    drop_asym_route: 0
+    retry_count: 2
+    transaction_timeout: 150
+    health_sensitivity: 100
+    recovery_interval: 1
+    router_sensitivity: 100
+    lnd_timeout: 49
+    response_tracking: 3
+    recovery_limit: 0
+    max_recovery_ping_interval: 900
+"#,
+        )
+        .unwrap();
+
+        assert_eq!(
+            x,
+            vec![Record::LNetStat(LNetStats::HealthSensitiveValue(
+                LNetStatGlobal {
+                    param: Param("health_sensitivity".to_string()),
+                    value: 100,
+                }
+            ))]
+        );
+    }
+
+    #[test]
+    fn test_lnet_global_show_2_15() {
+        let x = parse_lnetctl_global_show(
+            br#"global:
+    numa_range: 0
+    max_interfaces: 200
+    discovery: 1
+    drop_asym_route: 0
+    retry_count: 2
+    transaction_timeout: 150
+    health_sensitivity: 100
+    recovery_interval: 1
+    router_sensitivity: 100
+    lnd_timeout: 49
+    response_tracking: 3
+    recovery_limit: 0
+"#,
+        )
+        .unwrap();
+
+        assert_eq!(
+            x,
+            vec![Record::LNetStat(LNetStats::HealthSensitiveValue(
+                LNetStatGlobal {
+                    param: Param("health_sensitivity".to_string()),
+                    value: 100,
+                }
+            ))]
+        );
+    }
+
+    #[test]
+    fn test_lnet_global_show_unknown_key() {
+        let x = parse_lnetctl_global_show(
+            br#"global:
+    numa_range: 0
+    max_interfaces: 200
+    discovery: 1
+    drop_asym_route: 0
+    latency_stats: 0
+    retry_count: 2
+    transaction_timeout: 150
+    health_sensitivity: 100
+    recovery_interval: 1
+    router_sensitivity: 100
+    lnd_timeout: 49
+    response_tracking: 3
+    recovery_limit: 0
+    max_recovery_ping_interval: 900
+"#,
+        )
+        .unwrap();
+
+        assert_eq!(
+            x,
+            vec![Record::LNetStat(LNetStats::HealthSensitiveValue(
+                LNetStatGlobal {
+                    param: Param("health_sensitivity".to_string()),
+                    value: 100,
+                }
+            ))]
+        );
+    }
+
     #[test]
     fn test_lnet_stats_parse() {
         let x = parse_lnetctl_stats(

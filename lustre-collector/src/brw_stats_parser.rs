@@ -16,7 +16,7 @@ use combine::{
     token,
 };
 
-fn human_to_bytes((x, y): (u64, Option<char>)) -> u64 {
+pub(crate) fn human_to_bytes((x, y): (u64, Option<char>)) -> u64 {
     let mult = match y {
         None => 1,
         Some('K') | Some('k') => 2_u64.pow(10),
@@ -82,7 +82,21 @@ where
     })
 }
 
-fn bucket<I>() -> impl Parser<I, Output = BrwStatsBucket>
+/// `count  %  cum%`: three numbers, of which only the count is kept.
+pub(crate) fn count_pct_cum<I>() -> impl Parser<I, Output = u64>
+where
+    I: Stream<Token = char>,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    (
+        spaces().with(digits()),
+        spaces().with(digits()),
+        spaces().with(digits()),
+    )
+        .map(|(count, _, _)| count)
+}
+
+pub(crate) fn bucket<I>() -> impl Parser<I, Output = BrwStatsBucket>
 where
     I: Stream<Token = char>,
     I::Error: ParseError<I::Token, I::Range, I::Position>,
@@ -92,16 +106,12 @@ where
             .and(optional(one_of("KkMmGg".chars())))
             .map(human_to_bytes),
         token(':'),
-        spaces().with(digits()),
-        spaces().with(digits()),
-        spaces().with(digits()),
+        count_pct_cum(),
         spaces().skip(token('|')),
-        spaces().with(digits()),
-        spaces().with(digits()),
-        spaces().with(digits()),
+        count_pct_cum(),
         till_newline(),
     )
-        .map(|(name, _, read, _, _, _, write, _, _, _)| BrwStatsBucket { name, read, write })
+        .map(|(name, _, read, _, write, _)| BrwStatsBucket { name, read, write })
 }
 
 fn section<I>() -> impl Parser<I, Output = BrwStats>

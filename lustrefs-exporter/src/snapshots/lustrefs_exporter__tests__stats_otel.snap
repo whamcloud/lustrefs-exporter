@@ -729,11 +729,11 @@ lustre_osp_max_create_count{component="ost",target="ai400x2-OST0000-osc-MDT0000"
 lustre_osp_max_create_count{component="ost",target="ai400x2-OST0001-osc-MDT0000"} 0
 # HELP lustre_client_stats Lustre client interface stats.
 # TYPE lustre_client_stats counter
-lustre_client_stats{operation="getattr",target="exatest-ff3f2ef8d0a64000"} 84
-lustre_client_stats{operation="inode_permission",target="exatest-ff3f2ef8d0a64000"} 18
-lustre_client_stats{operation="ioctl",target="exatest-ff3f2ef8d0a64000"} 22
-lustre_client_stats{operation="opencount",target="exatest-ff3f2ef8d0a64000"} 14
-lustre_client_stats{operation="statfs",target="exatest-ff3f2ef8d0a64000"} 3468656
+lustre_client_stats{fs="exatest",operation="getattr",target="exatest-ff3f2ef8d0a64000"} 84
+lustre_client_stats{fs="exatest",operation="inode_permission",target="exatest-ff3f2ef8d0a64000"} 18
+lustre_client_stats{fs="exatest",operation="ioctl",target="exatest-ff3f2ef8d0a64000"} 22
+lustre_client_stats{fs="exatest",operation="opencount",target="exatest-ff3f2ef8d0a64000"} 14
+lustre_client_stats{fs="exatest",operation="statfs",target="exatest-ff3f2ef8d0a64000"} 3468656
 # HELP lustre_send_count_total Total number of messages that have been sent.
 # TYPE lustre_send_count_total counter
 lustre_send_count_total{nid="0@lo"} 191882

@@ -12,6 +12,8 @@ use std::{ops::Deref, sync::atomic::AtomicU64};
 
 #[derive(Debug, Default)]
 pub struct HostMetrics {
+    lustre_version: Family<Gauge<u64, AtomicU64>>,
+    page_size: Family<Gauge<u64, AtomicU64>>,
     lustre_targets_healthy: Family<Gauge<u64, AtomicU64>>,
     lnet_mem_used: Family<Gauge<u64, AtomicU64>>,
     mem_used: Family<Gauge<u64, AtomicU64>>,
@@ -20,6 +22,16 @@ pub struct HostMetrics {
 
 impl HostMetrics {
     pub fn register_metric(&self, registry: &mut Registry) {
+        registry.register(
+            "lustre_version_info",
+            "The Lustre version string, as a label",
+            self.lustre_version.clone(),
+        );
+        registry.register(
+            "lustre_page_size_bytes",
+            "Page size of this kernel in bytes, the unit of every statistic Lustre counts in pages",
+            self.page_size.clone(),
+        );
         registry.register(
             "lustre_health_healthy",
             "Indicates whether the Lustre server is healthy or not. 1 is healthy, 0 is unhealthy",
@@ -44,6 +56,15 @@ impl HostMetrics {
             self.mem_used_max.clone(),
         );
     }
+
+    /// Not a Lustre statistic, so it comes from the configuration, not a record.
+    pub fn set_page_size(&self, page_size: u64) {
+        self.page_size.get_or_create(&vec![]).set(page_size);
+    }
+}
+
+pub fn page_size() -> u64 {
+    rustix::param::page_size() as u64
 }
 
 pub fn build_host_stats(stats: &HostStats, metrics: &mut HostMetrics) {
@@ -71,6 +92,12 @@ pub fn build_host_stats(stats: &HostStats, metrics: &mut HostMetrics) {
         }
         HostStats::MemusedMax(x) => {
             metrics.mem_used_max.get_or_create(&vec![]).inc_by(x.value);
+        }
+        HostStats::LustreVersion(x) => {
+            metrics
+                .lustre_version
+                .get_or_create(&vec![("version", x.value.clone())])
+                .set(1);
         }
     }
 }

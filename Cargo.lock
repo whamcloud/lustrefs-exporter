@@ -1392,6 +1392,7 @@ dependencies = [
  "prometheus-parse",
  "regex",
  "reqwest",
+ "rustix",
  "serde",
  "serde_json",
  "serial_test",
