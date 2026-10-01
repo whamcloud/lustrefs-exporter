@@ -60,7 +60,7 @@ lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="10.73.20.12@
 
 # HELP lustre_client_stats Lustre client interface stats.
 # TYPE lustre_client_stats counter
-lustre_client_stats{operation="getattr",target="fs-ffff97e895d31000"} 6
+lustre_client_stats{fs="fs",operation="getattr",target="fs-ffff97e895d31000"} 6
 
 # HELP lustre_connected_clients Number of connected clients
 # TYPE lustre_connected_clients gauge

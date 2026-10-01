@@ -1,0 +1,911 @@
+---
+source: lustrefs-exporter/src/lib.rs
+expression: x
+input_file: lustre-collector/src/fixtures/valid/lustre-2.16.0_ddn56b/client/client.txt
+---
+# HELP lustre_version_info The Lustre version string, as a label.
+# TYPE lustre_version_info gauge
+lustre_version_info{version="2.16.0_ddn56b"} 1
+# HELP lustre_osc_state Lustre OSC connection state.
+# TYPE lustre_osc_state gauge
+lustre_osc_state{controller="a361000-OST0000-osc-ffff000189257000",current_state="FULL"} 1
+lustre_osc_state{controller="a361000-OST0001-osc-ffff000189257000",current_state="FULL"} 1
+lustre_osc_state{controller="a361000-OST0002-osc-ffff000189257000",current_state="FULL"} 1
+lustre_osc_state{controller="a361000-OST0003-osc-ffff000189257000",current_state="FULL"} 1
+# HELP lustre_client_osc_stats_total Number of RPCs the client has sent to the target, by operation.
+# TYPE lustre_client_osc_stats_total counter
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ldlm_cancel"} 505534
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ldlm_extent_enqueue"} 493898
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ldlm_glimpse_enqueue"} 113496
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="obd_ping"} 417
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_connect"} 3
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_disconnect"} 2
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_read"} 112850
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_set_info"} 1
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_setattr"} 1208752
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_statfs"} 1
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_sync"} 905
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_write"} 377625
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read_bytes"} 112850
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="req_active"} 2813484
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="req_waittime"} 2813484
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write_bytes"} 377625
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ldlm_cancel"} 505829
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ldlm_extent_enqueue"} 494087
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ldlm_glimpse_enqueue"} 113992
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="obd_ping"} 419
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_connect"} 3
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_disconnect"} 2
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_read"} 113165
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_set_info"} 1
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_setattr"} 1208482
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_statfs"} 1
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_sync"} 895
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_write"} 376909
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read_bytes"} 113165
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="req_active"} 2813785
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="req_waittime"} 2813785
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write_bytes"} 376909
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ldlm_cancel"} 505852
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ldlm_extent_enqueue"} 494162
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ldlm_glimpse_enqueue"} 113270
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="obd_ping"} 409
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_connect"} 3
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_disconnect"} 2
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_read"} 112417
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_set_info"} 1
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_setattr"} 1210005
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_statfs"} 1
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_sync"} 906
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_write"} 377712
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read_bytes"} 112417
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="req_active"} 2814740
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="req_waittime"} 2814740
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write_bytes"} 377712
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ldlm_cancel"} 505789
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ldlm_extent_enqueue"} 494079
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ldlm_glimpse_enqueue"} 113857
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="obd_ping"} 407
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_connect"} 3
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_disconnect"} 2
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_read"} 112863
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_set_info"} 1
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_setattr"} 1208890
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_statfs"} 1
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_sync"} 918
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_write"} 377312
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read_bytes"} 112863
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="req_active"} 2814122
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="req_waittime"} 2814122
+lustre_client_osc_stats_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write_bytes"} 377312
+# HELP lustre_client_osc_stats_start_time Unix epoch seconds when the stats were last reset.
+# TYPE lustre_client_osc_stats_start_time gauge
+lustre_client_osc_stats_start_time{fs="a361000",target="a361000-OST0000-osc-ffff000189257000"} 1790008165
+lustre_client_osc_stats_start_time{fs="a361000",target="a361000-OST0001-osc-ffff000189257000"} 1790008165
+lustre_client_osc_stats_start_time{fs="a361000",target="a361000-OST0002-osc-ffff000189257000"} 1790008165
+lustre_client_osc_stats_start_time{fs="a361000",target="a361000-OST0003-osc-ffff000189257000"} 1790008165
+# HELP lustre_client_osc_stats_time_microseconds_min Minimum time taken for an operation, by operation, in microseconds.
+# TYPE lustre_client_osc_stats_time_microseconds_min gauge
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ldlm_cancel"} 102
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="obd_ping"} 173
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_connect"} 249
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_disconnect"} 596
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_read"} 247
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_set_info"} 286
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_setattr"} 105
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_statfs"} 289
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_sync"} 123
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_write"} 461
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="req_waittime"} 102
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ldlm_cancel"} 99
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="obd_ping"} 153
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_connect"} 210
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_disconnect"} 442
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_read"} 253
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_set_info"} 328
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_setattr"} 99
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_statfs"} 277
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_sync"} 122
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_write"} 455
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="req_waittime"} 99
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ldlm_cancel"} 102
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="obd_ping"} 170
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_connect"} 195
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_disconnect"} 455
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_read"} 236
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_set_info"} 308
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_setattr"} 107
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_statfs"} 282
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_sync"} 121
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_write"} 466
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="req_waittime"} 102
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ldlm_cancel"} 103
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="obd_ping"} 186
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_connect"} 234
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_disconnect"} 455
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_read"} 251
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_set_info"} 283
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_setattr"} 106
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_statfs"} 281
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_sync"} 120
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_write"} 464
+lustre_client_osc_stats_time_microseconds_min{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="req_waittime"} 96
+# HELP lustre_client_osc_stats_time_microseconds_max Maximum time taken for an operation, by operation, in microseconds.
+# TYPE lustre_client_osc_stats_time_microseconds_max gauge
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ldlm_cancel"} 31061
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="obd_ping"} 2648
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_connect"} 378
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_disconnect"} 980
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_read"} 197100
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_set_info"} 286
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_setattr"} 143906
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_statfs"} 289
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_sync"} 557
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_write"} 421471
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="req_waittime"} 421471
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ldlm_cancel"} 12801
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="obd_ping"} 2581
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_connect"} 555
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_disconnect"} 911
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_read"} 98689
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_set_info"} 328
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_setattr"} 208817
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_statfs"} 277
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_sync"} 347
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_write"} 1099054
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="req_waittime"} 1099054
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ldlm_cancel"} 12709
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="obd_ping"} 2630
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_connect"} 328
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_disconnect"} 904
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_read"} 275543
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_set_info"} 308
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_setattr"} 202493
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_statfs"} 282
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_sync"} 1103
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_write"} 101819
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="req_waittime"} 275543
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ldlm_cancel"} 12599
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="obd_ping"} 1104
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_connect"} 409
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_disconnect"} 902
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_read"} 141128
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_set_info"} 283
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_setattr"} 52146
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_statfs"} 281
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_sync"} 1243
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_write"} 386283
+lustre_client_osc_stats_time_microseconds_max{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="req_waittime"} 386283
+# HELP lustre_client_osc_stats_time_microseconds_total Total time taken by operations, by operation, in microseconds.
+# TYPE lustre_client_osc_stats_time_microseconds_total counter
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ldlm_cancel"} 1522415514
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="obd_ping"} 140527
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_connect"} 896
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_disconnect"} 1576
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_read"} 159080727
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_set_info"} 286
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_setattr"} 212612759
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_statfs"} 289
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_sync"} 147781
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="ost_write"} 979664781
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="req_waittime"} 3073592183
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ldlm_cancel"} 1522402490
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="obd_ping"} 142133
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_connect"} 1084
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_disconnect"} 1353
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_read"} 148431230
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_set_info"} 328
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_setattr"} 213531551
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_statfs"} 277
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_sync"} 146609
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="ost_write"} 973998824
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="req_waittime"} 3058819324
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ldlm_cancel"} 1521564610
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="obd_ping"} 143693
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_connect"} 739
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_disconnect"} 1359
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_read"} 150737004
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_set_info"} 308
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_setattr"} 212460796
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_statfs"} 282
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_sync"} 148878
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="ost_write"} 969309590
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="req_waittime"} 3053780672
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ldlm_cancel"} 1522507837
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="obd_ping"} 144744
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_connect"} 915
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_disconnect"} 1357
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_read"} 162907407
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_set_info"} 283
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_setattr"} 212099047
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_statfs"} 281
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_sync"} 152351
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="ost_write"} 961290480
+lustre_client_osc_stats_time_microseconds_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="req_waittime"} 3059051295
+# HELP lustre_client_osc_read_bytes_total Total bytes read by the client via OSC.
+# TYPE lustre_client_osc_read_bytes_total counter
+lustre_client_osc_read_bytes_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000"} 17220562944
+lustre_client_osc_read_bytes_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000"} 16653676544
+lustre_client_osc_read_bytes_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000"} 16133509120
+lustre_client_osc_read_bytes_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000"} 16640163840
+# HELP lustre_client_osc_write_bytes_total Total bytes written by the client via OSC.
+# TYPE lustre_client_osc_write_bytes_total counter
+lustre_client_osc_write_bytes_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000"} 37172654672
+lustre_client_osc_write_bytes_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000"} 34544699259
+lustre_client_osc_write_bytes_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000"} 35999896643
+lustre_client_osc_write_bytes_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000"} 35515823333
+# HELP lustre_client_osc_rpc_stats_read_in_flight Number of read RPCs in flight.
+# TYPE lustre_client_osc_rpc_stats_read_in_flight gauge
+lustre_client_osc_rpc_stats_read_in_flight{fs="a361000",target="a361000-OST0000-osc-ffff000189257000"} 0
+lustre_client_osc_rpc_stats_read_in_flight{fs="a361000",target="a361000-OST0001-osc-ffff000189257000"} 0
+lustre_client_osc_rpc_stats_read_in_flight{fs="a361000",target="a361000-OST0002-osc-ffff000189257000"} 0
+lustre_client_osc_rpc_stats_read_in_flight{fs="a361000",target="a361000-OST0003-osc-ffff000189257000"} 0
+# HELP lustre_client_osc_rpc_stats_write_in_flight Number of write RPCs in flight.
+# TYPE lustre_client_osc_rpc_stats_write_in_flight gauge
+lustre_client_osc_rpc_stats_write_in_flight{fs="a361000",target="a361000-OST0000-osc-ffff000189257000"} 0
+lustre_client_osc_rpc_stats_write_in_flight{fs="a361000",target="a361000-OST0001-osc-ffff000189257000"} 0
+lustre_client_osc_rpc_stats_write_in_flight{fs="a361000",target="a361000-OST0002-osc-ffff000189257000"} 0
+lustre_client_osc_rpc_stats_write_in_flight{fs="a361000",target="a361000-OST0003-osc-ffff000189257000"} 0
+# HELP lustre_client_osc_rpc_stats_dio_in_flight Number of direct I/O RPCs in flight (DDN 2.14 builds, upstream 2.17.51+).
+# TYPE lustre_client_osc_rpc_stats_dio_in_flight gauge
+lustre_client_osc_rpc_stats_dio_in_flight{fs="a361000",target="a361000-OST0000-osc-ffff000189257000"} 0
+lustre_client_osc_rpc_stats_dio_in_flight{fs="a361000",target="a361000-OST0001-osc-ffff000189257000"} 0
+lustre_client_osc_rpc_stats_dio_in_flight{fs="a361000",target="a361000-OST0002-osc-ffff000189257000"} 0
+lustre_client_osc_rpc_stats_dio_in_flight{fs="a361000",target="a361000-OST0003-osc-ffff000189257000"} 0
+# HELP lustre_client_osc_rpc_stats_pending_write_pages Number of pages waiting to be written.
+# TYPE lustre_client_osc_rpc_stats_pending_write_pages gauge
+lustre_client_osc_rpc_stats_pending_write_pages{fs="a361000",target="a361000-OST0000-osc-ffff000189257000"} 0
+lustre_client_osc_rpc_stats_pending_write_pages{fs="a361000",target="a361000-OST0001-osc-ffff000189257000"} 0
+lustre_client_osc_rpc_stats_pending_write_pages{fs="a361000",target="a361000-OST0002-osc-ffff000189257000"} 0
+lustre_client_osc_rpc_stats_pending_write_pages{fs="a361000",target="a361000-OST0003-osc-ffff000189257000"} 0
+# HELP lustre_client_osc_rpc_stats_pending_read_pages Number of pages waiting to be read.
+# TYPE lustre_client_osc_rpc_stats_pending_read_pages gauge
+lustre_client_osc_rpc_stats_pending_read_pages{fs="a361000",target="a361000-OST0000-osc-ffff000189257000"} 0
+lustre_client_osc_rpc_stats_pending_read_pages{fs="a361000",target="a361000-OST0001-osc-ffff000189257000"} 0
+lustre_client_osc_rpc_stats_pending_read_pages{fs="a361000",target="a361000-OST0002-osc-ffff000189257000"} 0
+lustre_client_osc_rpc_stats_pending_read_pages{fs="a361000",target="a361000-OST0003-osc-ffff000189257000"} 0
+# HELP lustre_client_osc_rpc_stats_pages_per_rpc_total Number of RPCs by pages per RPC. 'size' label is the inclusive upper edge of the pages-per-RPC bucket.
+# TYPE lustre_client_osc_rpc_stats_pages_per_rpc_total counter
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="1"} 100395
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="16"} 1842
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="2"} 1452
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="32"} 1674
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="4"} 3229
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="64"} 2674
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="8"} 1584
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="1"} 320551
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="16"} 3104
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="2"} 32639
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="32"} 1334
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="4"} 9276
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="64"} 6268
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="8"} 4453
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="1"} 100827
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="16"} 1946
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="2"} 1396
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="32"} 1625
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="4"} 3224
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="64"} 2537
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="8"} 1610
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="1"} 320375
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="16"} 2978
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="2"} 32676
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="32"} 1268
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="4"} 9479
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="64"} 5673
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="8"} 4460
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="1"} 100332
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="16"} 1886
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="2"} 1425
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="32"} 1627
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="4"} 3124
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="64"} 2431
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="8"} 1592
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="1"} 321014
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="16"} 3051
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="2"} 32398
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="32"} 1310
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="4"} 9365
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="64"} 6011
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="8"} 4563
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="1"} 100638
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="16"} 1840
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="2"} 1420
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="32"} 1609
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="4"} 3174
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="64"} 2564
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="8"} 1618
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="1"} 320802
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="16"} 2895
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="2"} 32602
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="32"} 1289
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="4"} 9322
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="64"} 5935
+lustre_client_osc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="8"} 4467
+# HELP lustre_client_osc_rpc_stats_rpcs_in_flight_total Number of RPCs by RPCs in flight when issued. 'size' label is the number of RPCs in flight.
+# TYPE lustre_client_osc_rpc_stats_rpcs_in_flight_total counter
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="1"} 110932
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="10"} 0
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="2"} 621
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="3"} 346
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="4"} 262
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="5"} 188
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="6"} 180
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="7"} 162
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="8"} 159
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="9"} 0
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="1"} 84042
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="10"} 254
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="2"} 186011
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="3"} 58901
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="4"} 8434
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="5"} 3254
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="6"} 2336
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="7"} 2163
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="8"} 3523
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="9"} 28707
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="1"} 111354
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="10"} 0
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="2"} 622
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="3"} 340
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="4"} 251
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="5"} 170
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="6"} 160
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="7"} 135
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="8"} 133
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="9"} 0
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="1"} 84646
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="10"} 223
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="2"} 185785
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="3"} 58108
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="4"} 8360
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="5"} 3142
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="6"} 2297
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="7"} 2110
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="8"} 3603
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="9"} 28635
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="1"} 110692
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="10"} 0
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="2"} 608
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="3"} 324
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="4"} 219
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="5"} 164
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="6"} 150
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="7"} 131
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="8"} 129
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="9"} 0
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="1"} 85279
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="10"} 254
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="2"} 187553
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="3"} 56447
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="4"} 8380
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="5"} 3203
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="6"} 2352
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="7"} 2117
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="8"} 3487
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="9"} 28640
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="1"} 111064
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="10"} 0
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="2"} 618
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="3"} 335
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="4"} 238
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="5"} 174
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="6"} 160
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="7"} 137
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="8"} 137
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="9"} 0
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="1"} 86111
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="10"} 222
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="2"} 188767
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="3"} 55506
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="4"} 7471
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="5"} 2810
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="6"} 2202
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="7"} 2122
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="8"} 3597
+lustre_client_osc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="9"} 28504
+# HELP lustre_client_osc_rpc_stats_offset_total Number of RPCs by starting file offset. 'size' label is the kernel's log2 bucket key, the lower edge of the bucket in pages.
+# TYPE lustre_client_osc_rpc_stats_offset_total counter
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="0"} 97259
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="1"} 13489
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="128"} 643
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="16"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="2"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="256"} 689
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="32"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="4"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="64"} 770
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="read",size="8"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="0"} 372455
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="1"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="128"} 2101
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="16"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="2"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="256"} 1083
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="32"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="4"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="64"} 1986
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",operation="write",size="8"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="0"} 97636
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="1"} 13568
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="128"} 626
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="16"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="2"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="256"} 596
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="32"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="4"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="64"} 739
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="read",size="8"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="0"} 372318
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="1"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="128"} 1920
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="16"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="2"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="256"} 854
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="32"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="4"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="64"} 1817
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",operation="write",size="8"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="0"} 97173
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="1"} 13354
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="1024"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="128"} 572
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="16"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="2"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="256"} 568
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="32"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="4"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="512"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="64"} 750
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="read",size="8"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="0"} 372792
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="1"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="1024"} 16
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="128"} 1983
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="16"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="2"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="256"} 991
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="32"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="4"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="512"} 8
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="64"} 1922
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",operation="write",size="8"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="0"} 97497
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="1"} 13430
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="128"} 602
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="16"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="2"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="256"} 605
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="32"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="4"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="64"} 729
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="read",size="8"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="0"} 372516
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="1"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="128"} 1946
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="16"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="2"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="256"} 1007
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="32"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="4"} 0
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="64"} 1843
+lustre_client_osc_rpc_stats_offset_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",operation="write",size="8"} 0
+# HELP lustre_client_osc_lockless_read_bytes_total Total lockless read bytes.
+# TYPE lustre_client_osc_lockless_read_bytes_total counter
+lustre_client_osc_lockless_read_bytes_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000"} 0
+lustre_client_osc_lockless_read_bytes_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000"} 0
+lustre_client_osc_lockless_read_bytes_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000"} 0
+lustre_client_osc_lockless_read_bytes_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000"} 0
+# HELP lustre_client_osc_lockless_write_bytes_total Total lockless write bytes.
+# TYPE lustre_client_osc_lockless_write_bytes_total counter
+lustre_client_osc_lockless_write_bytes_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000"} 0
+lustre_client_osc_lockless_write_bytes_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000"} 4194304
+lustre_client_osc_lockless_write_bytes_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000"} 0
+lustre_client_osc_lockless_write_bytes_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000"} 0
+# HELP lustre_client_osc_unstable_pages Number of unstable pages.
+# TYPE lustre_client_osc_unstable_pages gauge
+lustre_client_osc_unstable_pages{fs="a361000",target="a361000-OST0000-osc-ffff000189257000"} 0
+lustre_client_osc_unstable_pages{fs="a361000",target="a361000-OST0001-osc-ffff000189257000"} 0
+lustre_client_osc_unstable_pages{fs="a361000",target="a361000-OST0002-osc-ffff000189257000"} 0
+lustre_client_osc_unstable_pages{fs="a361000",target="a361000-OST0003-osc-ffff000189257000"} 0
+# HELP lustre_client_osc_compress_write_pages_total RPC compression write page counters (DDN builds). 'type' label is the key suffix as the kernel prints it.
+# TYPE lustre_client_osc_compress_write_pages_total counter
+lustre_client_osc_compress_write_pages_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",type="compressible"} 0
+lustre_client_osc_compress_write_pages_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",type="incompressible"} 0
+lustre_client_osc_compress_write_pages_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",type="compressible"} 0
+lustre_client_osc_compress_write_pages_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",type="incompressible"} 0
+lustre_client_osc_compress_write_pages_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",type="compressible"} 0
+lustre_client_osc_compress_write_pages_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",type="incompressible"} 0
+lustre_client_osc_compress_write_pages_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",type="compressible"} 0
+lustre_client_osc_compress_write_pages_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",type="incompressible"} 0
+# HELP lustre_client_osc_compress_write_chunks_total RPC compression write chunk counters (DDN builds). 'type' label is the key suffix as the kernel prints it.
+# TYPE lustre_client_osc_compress_write_chunks_total counter
+lustre_client_osc_compress_write_chunks_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",type="compressible"} 0
+lustre_client_osc_compress_write_chunks_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",type="incompressible"} 0
+lustre_client_osc_compress_write_chunks_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",type="compressible"} 0
+lustre_client_osc_compress_write_chunks_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",type="incompressible"} 0
+lustre_client_osc_compress_write_chunks_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",type="compressible"} 0
+lustre_client_osc_compress_write_chunks_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",type="incompressible"} 0
+lustre_client_osc_compress_write_chunks_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",type="compressible"} 0
+lustre_client_osc_compress_write_chunks_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",type="incompressible"} 0
+# HELP lustre_client_osc_compress_write_bytes_total RPC compression write byte counters (DDN builds). 'type' label is the key suffix as the kernel prints it.
+# TYPE lustre_client_osc_compress_write_bytes_total counter
+lustre_client_osc_compress_write_bytes_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",type="compr"} 0
+lustre_client_osc_compress_write_bytes_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",type="incompr"} 0
+lustre_client_osc_compress_write_bytes_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",type="raw"} 0
+lustre_client_osc_compress_write_bytes_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",type="compr"} 0
+lustre_client_osc_compress_write_bytes_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",type="incompr"} 0
+lustre_client_osc_compress_write_bytes_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",type="raw"} 0
+lustre_client_osc_compress_write_bytes_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",type="compr"} 0
+lustre_client_osc_compress_write_bytes_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",type="incompr"} 0
+lustre_client_osc_compress_write_bytes_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",type="raw"} 0
+lustre_client_osc_compress_write_bytes_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",type="compr"} 0
+lustre_client_osc_compress_write_bytes_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",type="incompr"} 0
+lustre_client_osc_compress_write_bytes_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",type="raw"} 0
+# HELP lustre_client_osc_compress_read_pages_total RPC compression read page counters (DDN builds). 'type' label is the key suffix as the kernel prints it.
+# TYPE lustre_client_osc_compress_read_pages_total counter
+lustre_client_osc_compress_read_pages_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",type="compressed"} 0
+lustre_client_osc_compress_read_pages_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",type="compressed"} 0
+lustre_client_osc_compress_read_pages_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",type="compressed"} 0
+lustre_client_osc_compress_read_pages_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",type="compressed"} 0
+# HELP lustre_client_osc_compress_read_chunks_total RPC compression read chunk counters (DDN builds). 'type' label is the key suffix as the kernel prints it.
+# TYPE lustre_client_osc_compress_read_chunks_total counter
+lustre_client_osc_compress_read_chunks_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",type="compressed"} 0
+lustre_client_osc_compress_read_chunks_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",type="compressed"} 0
+lustre_client_osc_compress_read_chunks_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",type="compressed"} 0
+lustre_client_osc_compress_read_chunks_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",type="compressed"} 0
+# HELP lustre_client_osc_compress_read_bytes_total RPC compression read byte counters (DDN builds). 'type' label is the key suffix as the kernel prints it.
+# TYPE lustre_client_osc_compress_read_bytes_total counter
+lustre_client_osc_compress_read_bytes_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",type="compr"} 0
+lustre_client_osc_compress_read_bytes_total{fs="a361000",target="a361000-OST0000-osc-ffff000189257000",type="raw"} 0
+lustre_client_osc_compress_read_bytes_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",type="compr"} 0
+lustre_client_osc_compress_read_bytes_total{fs="a361000",target="a361000-OST0001-osc-ffff000189257000",type="raw"} 0
+lustre_client_osc_compress_read_bytes_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",type="compr"} 0
+lustre_client_osc_compress_read_bytes_total{fs="a361000",target="a361000-OST0002-osc-ffff000189257000",type="raw"} 0
+lustre_client_osc_compress_read_bytes_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",type="compr"} 0
+lustre_client_osc_compress_read_bytes_total{fs="a361000",target="a361000-OST0003-osc-ffff000189257000",type="raw"} 0
+# HELP lustre_client_osc_cur_grant_bytes Bytes of write grant the client currently holds from the OST.
+# TYPE lustre_client_osc_cur_grant_bytes gauge
+lustre_client_osc_cur_grant_bytes{fs="a361000",target="a361000-OST0000-osc-ffff000189257000"} 8437760
+lustre_client_osc_cur_grant_bytes{fs="a361000",target="a361000-OST0001-osc-ffff000189257000"} 4218880
+lustre_client_osc_cur_grant_bytes{fs="a361000",target="a361000-OST0002-osc-ffff000189257000"} 8437760
+lustre_client_osc_cur_grant_bytes{fs="a361000",target="a361000-OST0003-osc-ffff000189257000"} 8437760
+# HELP lustre_client_osc_cur_dirty_bytes Bytes of dirty data the client currently caches for the OST.
+# TYPE lustre_client_osc_cur_dirty_bytes gauge
+lustre_client_osc_cur_dirty_bytes{fs="a361000",target="a361000-OST0000-osc-ffff000189257000"} 0
+lustre_client_osc_cur_dirty_bytes{fs="a361000",target="a361000-OST0001-osc-ffff000189257000"} 0
+lustre_client_osc_cur_dirty_bytes{fs="a361000",target="a361000-OST0002-osc-ffff000189257000"} 0
+lustre_client_osc_cur_dirty_bytes{fs="a361000",target="a361000-OST0003-osc-ffff000189257000"} 0
+# HELP lustre_client_mdc_md_stats_requests_total Total number of metadata requests, by operation.
+# TYPE lustre_client_mdc_md_stats_requests_total counter
+lustre_client_mdc_md_stats_requests_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="close"} 33486455
+lustre_client_mdc_md_stats_requests_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="create"} 15538608
+lustre_client_mdc_md_stats_requests_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="fsync"} 5
+lustre_client_mdc_md_stats_requests_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="getattr"} 5646
+lustre_client_mdc_md_stats_requests_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="getxattr"} 8421
+lustre_client_mdc_md_stats_requests_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="intent_getattr_async"} 2233586
+lustre_client_mdc_md_stats_requests_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="intent_lock"} 211513064
+lustre_client_mdc_md_stats_requests_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="read_page"} 3879130
+lustre_client_mdc_md_stats_requests_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="rename"} 12835382
+lustre_client_mdc_md_stats_requests_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="revalidate_lock"} 41063888
+lustre_client_mdc_md_stats_requests_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="setattr"} 45511805
+lustre_client_mdc_md_stats_requests_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="unlink"} 21192871
+# HELP lustre_client_mdc_stats_total Number of RPCs the client has sent to the target, by operation.
+# TYPE lustre_client_mdc_stats_total counter
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="ldlm_cancel"} 13380217
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="ldlm_glimpse_enqueue"} 406969
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="ldlm_ibits_enqueue"} 142489651
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_close"} 33486455
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_connect"} 1
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_get_root"} 1
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_getattr"} 5646
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_getxattr"} 8421
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_readpage"} 3879130
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_statfs"} 2291
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_sync"} 5
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="obd_ping"} 7709
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="ost_set_info"} 223
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="req_active"} 275910125
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="req_waittime"} 275910125
+lustre_client_mdc_stats_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="seq_query"} 119
+# HELP lustre_client_mdc_stats_start_time Unix epoch seconds when the stats were last reset.
+# TYPE lustre_client_mdc_stats_start_time gauge
+lustre_client_mdc_stats_start_time{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000"} 1790008165
+# HELP lustre_client_mdc_stats_time_microseconds_min Minimum time taken for an operation, by operation, in microseconds.
+# TYPE lustre_client_mdc_stats_time_microseconds_min gauge
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="ldlm_cancel"} 86
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_close"} 87
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_connect"} 322
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_get_root"} 245
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_getattr"} 92
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_getxattr"} 97
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_readpage"} 199
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_statfs"} 119
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_sync"} 1022
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="obd_ping"} 353
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="ost_set_info"} 117
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="req_waittime"} 84
+lustre_client_mdc_stats_time_microseconds_min{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="seq_query"} 133
+# HELP lustre_client_mdc_stats_time_microseconds_max Maximum time taken for an operation, by operation, in microseconds.
+# TYPE lustre_client_mdc_stats_time_microseconds_max gauge
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="ldlm_cancel"} 14620
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_close"} 21942
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_connect"} 322
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_get_root"} 245
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_getattr"} 295
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_getxattr"} 2257
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_readpage"} 83843
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_statfs"} 589
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_sync"} 1749
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="obd_ping"} 2936
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="ost_set_info"} 1137
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="req_waittime"} 83843
+lustre_client_mdc_stats_time_microseconds_max{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="seq_query"} 223
+# HELP lustre_client_mdc_stats_time_microseconds_total Total time taken by operations, by operation, in microseconds.
+# TYPE lustre_client_mdc_stats_time_microseconds_total counter
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="ldlm_cancel"} 1872938571
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_close"} 5207949051
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_connect"} 322
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_get_root"} 245
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_getattr"} 742781
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_getxattr"} 1603849
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_readpage"} 1167844852
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_statfs"} 380660
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="mds_sync"} 6488
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="obd_ping"} 6531152
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="ost_set_info"} 149225
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="req_waittime"} 45158219745
+lustre_client_mdc_stats_time_microseconds_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="seq_query"} 19087
+# HELP lustre_client_mdc_rpc_stats_modify_in_flight Number of modify RPCs in flight.
+# TYPE lustre_client_mdc_rpc_stats_modify_in_flight gauge
+lustre_client_mdc_rpc_stats_modify_in_flight{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000"} 0
+# HELP lustre_client_mdc_rpc_stats_read_in_flight Number of read RPCs in flight.
+# TYPE lustre_client_mdc_rpc_stats_read_in_flight gauge
+lustre_client_mdc_rpc_stats_read_in_flight{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000"} 0
+# HELP lustre_client_mdc_rpc_stats_write_in_flight Number of write RPCs in flight.
+# TYPE lustre_client_mdc_rpc_stats_write_in_flight gauge
+lustre_client_mdc_rpc_stats_write_in_flight{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000"} 0
+# HELP lustre_client_mdc_rpc_stats_pending_write_pages Number of pages waiting to be written.
+# TYPE lustre_client_mdc_rpc_stats_pending_write_pages gauge
+lustre_client_mdc_rpc_stats_pending_write_pages{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000"} 0
+# HELP lustre_client_mdc_rpc_stats_pending_read_pages Number of pages waiting to be read.
+# TYPE lustre_client_mdc_rpc_stats_pending_read_pages gauge
+lustre_client_mdc_rpc_stats_pending_read_pages{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000"} 0
+# HELP lustre_client_mdc_rpc_stats_modify_rpcs_in_flight_total Number of modify RPCs by modify RPCs in flight when issued. 'size' label is the number in flight.
+# TYPE lustre_client_mdc_rpc_stats_modify_rpcs_in_flight_total counter
+lustre_client_mdc_rpc_stats_modify_rpcs_in_flight_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",size="0"} 0
+lustre_client_mdc_rpc_stats_modify_rpcs_in_flight_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",size="1"} 152722953
+lustre_client_mdc_rpc_stats_modify_rpcs_in_flight_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",size="2"} 9312962
+lustre_client_mdc_rpc_stats_modify_rpcs_in_flight_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",size="3"} 6
+# HELP lustre_client_mdc_rpc_stats_pages_per_rpc_total Number of RPCs by pages per RPC. 'size' label is the inclusive upper edge of the pages-per-RPC bucket.
+# TYPE lustre_client_mdc_rpc_stats_pages_per_rpc_total counter
+lustre_client_mdc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="read",size="1"} 0
+lustre_client_mdc_rpc_stats_pages_per_rpc_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="write",size="1"} 0
+# HELP lustre_client_mdc_rpc_stats_rpcs_in_flight_total Number of RPCs by RPCs in flight when issued. 'size' label is the number of RPCs in flight.
+# TYPE lustre_client_mdc_rpc_stats_rpcs_in_flight_total counter
+lustre_client_mdc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="read",size="1"} 0
+lustre_client_mdc_rpc_stats_rpcs_in_flight_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="write",size="1"} 0
+# HELP lustre_client_mdc_rpc_stats_offset_total Number of RPCs by starting file offset. 'size' label is the kernel's log2 bucket key, the lower edge of the bucket in pages.
+# TYPE lustre_client_mdc_rpc_stats_offset_total counter
+lustre_client_mdc_rpc_stats_offset_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="read",size="0"} 0
+lustre_client_mdc_rpc_stats_offset_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000",operation="write",size="0"} 0
+# HELP lustre_client_mdc_lockless_read_bytes_total Total lockless read bytes.
+# TYPE lustre_client_mdc_lockless_read_bytes_total counter
+lustre_client_mdc_lockless_read_bytes_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000"} 0
+# HELP lustre_client_mdc_lockless_write_bytes_total Total lockless write bytes.
+# TYPE lustre_client_mdc_lockless_write_bytes_total counter
+lustre_client_mdc_lockless_write_bytes_total{fs="a361000",target="a361000-MDT0000-mdc-ffff000189257000"} 0
+# HELP lustre_client_stats Lustre client interface stats.
+# TYPE lustre_client_stats counter
+lustre_client_stats{fs="a361000",operation="close",target="a361000-ffff000189257000"} 33538615
+lustre_client_stats{fs="a361000",operation="fsync",target="a361000-ffff000189257000"} 6
+lustre_client_stats{fs="a361000",operation="getattr",target="a361000-ffff000189257000"} 59347920
+lustre_client_stats{fs="a361000",operation="getxattr",target="a361000-ffff000189257000"} 1516
+lustre_client_stats{fs="a361000",operation="getxattr_hits",target="a361000-ffff000189257000"} 201
+lustre_client_stats{fs="a361000",operation="hybrid_noswitch",target="a361000-ffff000189257000"} 88821351
+lustre_client_stats{fs="a361000",operation="hybrid_write_bytes",target="a361000-ffff000189257000"} 2
+lustre_client_stats{fs="a361000",operation="hybrid_writesize_switch",target="a361000-ffff000189257000"} 2
+lustre_client_stats{fs="a361000",operation="inode_permission",target="a361000-ffff000189257000"} 922787668
+lustre_client_stats{fs="a361000",operation="listxattr",target="a361000-ffff000189257000"} 471
+lustre_client_stats{fs="a361000",operation="mkdir",target="a361000-ffff000189257000"} 2166667
+lustre_client_stats{fs="a361000",operation="mknod",target="a361000-ffff000189257000"} 12835380
+lustre_client_stats{fs="a361000",operation="open",target="a361000-ffff000189257000"} 33538615
+lustre_client_stats{fs="a361000",operation="openclosetime",target="a361000-ffff000189257000"} 14904841
+lustre_client_stats{fs="a361000",operation="opencount",target="a361000-ffff000189257000"} 33538618
+lustre_client_stats{fs="a361000",operation="read",target="a361000-ffff000189257000"} 57406355
+lustre_client_stats{fs="a361000",operation="read_bytes",target="a361000-ffff000189257000"} 57406355
+lustre_client_stats{fs="a361000",operation="readdir",target="a361000-ffff000189257000"} 10856756
+lustre_client_stats{fs="a361000",operation="rename",target="a361000-ffff000189257000"} 12835381
+lustre_client_stats{fs="a361000",operation="rmdir",target="a361000-ffff000189257000"} 2795170
+lustre_client_stats{fs="a361000",operation="seek",target="a361000-ffff000189257000"} 15185541
+lustre_client_stats{fs="a361000",operation="setattr",target="a361000-ffff000189257000"} 45511804
+lustre_client_stats{fs="a361000",operation="statfs",target="a361000-ffff000189257000"} 1526
+lustre_client_stats{fs="a361000",operation="symlink",target="a361000-ffff000189257000"} 536558
+lustre_client_stats{fs="a361000",operation="unlink",target="a361000-ffff000189257000"} 18379792
+lustre_client_stats{fs="a361000",operation="write",target="a361000-ffff000189257000"} 16229453
+lustre_client_stats{fs="a361000",operation="write_bytes",target="a361000-ffff000189257000"} 16229451
+# HELP lustre_client_stats_start_time Unix epoch seconds when lustre_client_stats was last reset.
+# TYPE lustre_client_stats_start_time gauge
+lustre_client_stats_start_time{fs="a361000",target="a361000-ffff000189257000"} 1790008165
+# HELP lustre_client_llite_read_bytes_total Total bytes read by the client.
+# TYPE lustre_client_llite_read_bytes_total counter
+lustre_client_llite_read_bytes_total{fs="a361000",target="a361000-ffff000189257000"} 1496254921055
+# HELP lustre_client_llite_write_bytes_total Total bytes written by the client.
+# TYPE lustre_client_llite_write_bytes_total counter
+lustre_client_llite_write_bytes_total{fs="a361000",target="a361000-ffff000189257000"} 1184274862535
+# HELP lustre_client_llite_read_ahead_stats_total Lustre read-ahead counters, by operation.
+# TYPE lustre_client_llite_read_ahead_stats_total counter
+lustre_client_llite_read_ahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="async_readahead"} 20052
+lustre_client_llite_read_ahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="failed_grab_cache_page"} 462
+lustre_client_llite_read_ahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="failed_to_fast_read"} 4443042
+lustre_client_llite_read_ahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="failed_to_reach_end"} 229484
+lustre_client_llite_read_ahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="hits"} 7072178
+lustre_client_llite_read_ahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="miss_inside_window"} 420
+lustre_client_llite_read_ahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="misses"} 3591559
+lustre_client_llite_read_ahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="readahead_pages"} 344943
+lustre_client_llite_read_ahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="readahead_to_eof"} 346509
+lustre_client_llite_read_ahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="zero_size_window"} 3879993
+# HELP lustre_client_llite_statahead_stats_total Lustre statahead counters, by operation.
+# TYPE lustre_client_llite_statahead_stats_total counter
+lustre_client_llite_statahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="agl_total"} 1025277
+lustre_client_llite_statahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="fname_total"} 3165
+lustre_client_llite_statahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="hit_total"} 5259531
+lustre_client_llite_statahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="list_total"} 1022112
+lustre_client_llite_statahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="miss_total"} 1374618
+lustre_client_llite_statahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="statahead_total"} 1025277
+lustre_client_llite_statahead_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="statahead_wrong"} 4
+# HELP lustre_client_llite_extents_stats_total Number of I/O calls by I/O size. 'size' label is the lower bound of the size bucket in bytes.
+# TYPE lustre_client_llite_extents_stats_total counter
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="read",size="0"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="read",size="1048576"} 1
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="read",size="131072"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="read",size="16384"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="read",size="16777216"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="read",size="2097152"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="read",size="262144"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="read",size="32768"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="read",size="4096"} 1
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="read",size="4194304"} 5
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="read",size="524288"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="read",size="65536"} 1
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="read",size="8192"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="read",size="8388608"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="write",size="0"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="write",size="1048576"} 1
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="write",size="131072"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="write",size="16384"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="write",size="16777216"} 1
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="write",size="2097152"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="write",size="262144"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="write",size="32768"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="write",size="4096"} 4
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="write",size="4194304"} 1
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="write",size="524288"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="write",size="65536"} 1
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="write",size="8192"} 0
+lustre_client_llite_extents_stats_total{fs="a361000",target="a361000-ffff000189257000",operation="write",size="8388608"} 0
+# HELP lustre_client_llite_extents_stats_per_process_total Number of I/O calls by I/O size and process. 'size' label is the lower bound of the size bucket in bytes; every 'pid' is a new series.
+# TYPE lustre_client_llite_extents_stats_per_process_total counter
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134827",operation="read",size="0"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134827",operation="read",size="4096"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134827",operation="write",size="0"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134827",operation="write",size="4096"} 1
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134829",operation="read",size="0"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134829",operation="read",size="16384"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134829",operation="read",size="32768"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134829",operation="read",size="4096"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134829",operation="read",size="65536"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134829",operation="read",size="8192"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134829",operation="write",size="0"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134829",operation="write",size="16384"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134829",operation="write",size="32768"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134829",operation="write",size="4096"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134829",operation="write",size="65536"} 1
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134829",operation="write",size="8192"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="read",size="0"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="read",size="1048576"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="read",size="131072"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="read",size="16384"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="read",size="262144"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="read",size="32768"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="read",size="4096"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="read",size="524288"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="read",size="65536"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="read",size="8192"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="write",size="0"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="write",size="1048576"} 1
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="write",size="131072"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="write",size="16384"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="write",size="262144"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="write",size="32768"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="write",size="4096"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="write",size="524288"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="write",size="65536"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134831",operation="write",size="8192"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="read",size="0"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="read",size="1048576"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="read",size="131072"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="read",size="16384"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="read",size="2097152"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="read",size="262144"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="read",size="32768"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="read",size="4096"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="read",size="4194304"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="read",size="524288"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="read",size="65536"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="read",size="8192"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="write",size="0"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="write",size="1048576"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="write",size="131072"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="write",size="16384"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="write",size="2097152"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="write",size="262144"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="write",size="32768"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="write",size="4096"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="write",size="4194304"} 1
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="write",size="524288"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="write",size="65536"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134833",operation="write",size="8192"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="read",size="0"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="read",size="1048576"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="read",size="131072"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="read",size="16384"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="read",size="16777216"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="read",size="2097152"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="read",size="262144"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="read",size="32768"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="read",size="4096"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="read",size="4194304"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="read",size="524288"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="read",size="65536"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="read",size="8192"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="read",size="8388608"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="write",size="0"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="write",size="1048576"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="write",size="131072"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="write",size="16384"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="write",size="16777216"} 1
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="write",size="2097152"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="write",size="262144"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="write",size="32768"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="write",size="4096"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="write",size="4194304"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="write",size="524288"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="write",size="65536"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="write",size="8192"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134835",operation="write",size="8388608"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134837",operation="read",size="0"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134837",operation="read",size="4096"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134837",operation="write",size="0"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134837",operation="write",size="4096"} 3
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="read",size="0"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="read",size="1048576"} 1
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="read",size="131072"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="read",size="16384"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="read",size="2097152"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="read",size="262144"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="read",size="32768"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="read",size="4096"} 1
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="read",size="4194304"} 5
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="read",size="524288"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="read",size="65536"} 1
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="read",size="8192"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="write",size="0"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="write",size="1048576"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="write",size="131072"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="write",size="16384"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="write",size="2097152"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="write",size="262144"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="write",size="32768"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="write",size="4096"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="write",size="4194304"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="write",size="524288"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="write",size="65536"} 0
+lustre_client_llite_extents_stats_per_process_total{fs="a361000",target="a361000-ffff000189257000",pid="2134840",operation="write",size="8192"} 0
+# HELP lustre_client_llite_unstable_pages Number of unstable pages.
+# TYPE lustre_client_llite_unstable_pages gauge
+lustre_client_llite_unstable_pages{fs="a361000",target="a361000-ffff000189257000"} 0
+# HELP lustre_client_llite_unstable_check Whether unstable page accounting is enabled.
+# TYPE lustre_client_llite_unstable_check gauge
+lustre_client_llite_unstable_check{fs="a361000",target="a361000-ffff000189257000"} 1
+# EOF

@@ -656,6 +656,21 @@ pub fn build_target_stats(
                 .inc_by(x.value);
         }
         TargetStats::Llite(x) => build_llite_stats(x, &mut metrics.llite),
+        TargetStats::LliteReadAheadStats(x) => {
+            crate::llite::build_read_ahead_stats(x, &mut metrics.llite)
+        }
+        TargetStats::LliteExtentsStats(x) => {
+            crate::llite::build_extents_stats(x, &mut metrics.llite)
+        }
+        TargetStats::LliteExtentsStatsPerProcess(x) => {
+            crate::llite::build_extents_stats_per_process(x, &mut metrics.llite)
+        }
+        TargetStats::LliteStataheadStats(x) => {
+            crate::llite::build_statahead_stats(x, &mut metrics.llite)
+        }
+        TargetStats::LliteUnstableStats(x) => {
+            crate::llite::build_unstable_stats(x, &mut metrics.llite)
+        }
         TargetStats::RecoveryStatus(x) => {
             metrics
                 .brw

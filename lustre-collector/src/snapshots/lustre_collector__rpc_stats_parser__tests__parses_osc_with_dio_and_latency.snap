@@ -1,0 +1,120 @@
+---
+source: lustre-collector/src/rpc_stats_parser.rs
+expression: stats
+---
+RpcStats {
+    scalars: [
+        KeyValue {
+            name: "read RPCs in flight",
+            value: 0,
+        },
+        KeyValue {
+            name: "write RPCs in flight",
+            value: 0,
+        },
+        KeyValue {
+            name: "DIO RPCs in flight",
+            value: 0,
+        },
+        KeyValue {
+            name: "pending write pages",
+            value: 0,
+        },
+        KeyValue {
+            name: "pending read pages",
+            value: 0,
+        },
+    ],
+    modify_rpcs_in_flight: None,
+    histograms: [
+        BrwStats {
+            name: "pages per rpc",
+            unit: "rpcs",
+            buckets: [
+                BrwStatsBucket {
+                    name: 1,
+                    read: 0,
+                    write: 52489,
+                },
+                BrwStatsBucket {
+                    name: 2,
+                    read: 0,
+                    write: 36540,
+                },
+                BrwStatsBucket {
+                    name: 4,
+                    read: 1,
+                    write: 14030,
+                },
+                BrwStatsBucket {
+                    name: 8,
+                    read: 511,
+                    write: 784,
+                },
+            ],
+        },
+        BrwStats {
+            name: "rpcs in flight",
+            unit: "rpcs",
+            buckets: [
+                BrwStatsBucket {
+                    name: 1,
+                    read: 512,
+                    write: 103843,
+                },
+            ],
+        },
+        BrwStats {
+            name: "offset",
+            unit: "rpcs",
+            buckets: [
+                BrwStatsBucket {
+                    name: 0,
+                    read: 512,
+                    write: 103843,
+                },
+            ],
+        },
+        BrwStats {
+            name: "RPC latency (us)",
+            unit: "count",
+            buckets: [
+                BrwStatsBucket {
+                    name: 0,
+                    read: 0,
+                    write: 0,
+                },
+                BrwStatsBucket {
+                    name: 512,
+                    read: 3,
+                    write: 567,
+                },
+                BrwStatsBucket {
+                    name: 1024,
+                    read: 327,
+                    write: 93264,
+                },
+                BrwStatsBucket {
+                    name: 2048,
+                    read: 159,
+                    write: 9820,
+                },
+                BrwStatsBucket {
+                    name: 4096,
+                    read: 19,
+                    write: 180,
+                },
+                BrwStatsBucket {
+                    name: 8192,
+                    read: 3,
+                    write: 10,
+                },
+                BrwStatsBucket {
+                    name: 16384,
+                    read: 1,
+                    write: 2,
+                },
+            ],
+        },
+    ],
+}

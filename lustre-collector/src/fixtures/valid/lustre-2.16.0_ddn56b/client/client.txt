@@ -1,0 +1,633 @@
+version=2.16.0_ddn56b
+llite.a361000-ffff000189257000.stats=
+snapshot_time             1790277040.611962111 secs.nsecs
+start_time                1790008165.367572621 secs.nsecs
+elapsed_time              268875.244389490 secs.nsecs
+read_bytes                57406355 samples [bytes] 1 4194304 1496254921055 47236230193563213
+write_bytes               16229451 samples [bytes] 1 16777216 1184274862535 265164318462171099
+hybrid_write_bytes        2 samples [bytes] 4194304 16777216 20971520 299067162755072
+read                      57406355 samples [usecs] 1 1609928 7034832815 27868360314999
+write                     16229453 samples [usecs] 1 492497 3002623522 2072185935164
+open                      33538615 samples [usecs] 0 36643 3420852446 695595244118
+close                     33538615 samples [usecs] 0 27750 5798013687 1334339965363
+seek                      15185541 samples [usecs] 0 98 326590 2512480
+fsync                     6 samples [usecs] 1449 8257 24250 132241616
+readdir                   10856756 samples [usecs] 0 83934 1226840837 482538698179
+setattr                   45511804 samples [usecs] 102 447829 18120558851 10598919039563
+getattr                   59347920 samples [usecs] 1 59652 4903684132 4208522683446
+unlink                    18379792 samples [usecs] 113 38091 4082865159 1800709278913
+symlink                   536558 samples [usecs] 120 33050 87788631 21071183709
+mkdir                     2166667 samples [usecs] 122 21158 398671447 95950994077
+rmdir                     2795170 samples [usecs] 128 41785 1257063765 1128423935881
+mknod                     12835380 samples [usecs] 152 58424 2897123003 789976447533
+rename                    12835381 samples [usecs] 119 37048 2363352721 525557581187
+statfs                    1526 samples [usecs] 139 649 277389 51456723
+getxattr                  1516 samples [usecs] 147 1085 290062 57805970
+getxattr_hits             201 samples [reqs]
+listxattr                 471 samples [usecs] 0 593 62081 17334649
+inode_permission          922787668 samples [usecs] 0 7416 72809506 854368134
+opencount                 33538618 samples [reqs] 1 422 48334893 276156007
+openclosetime             14904841 samples [usecs] 766 129984077 549421294037909 9223372036854775807
+hybrid_noswitch           88821351 samples [reqs]
+hybrid_writesize_switch   2 samples [reqs]
+llite.a361000-ffff000189257000.extents_stats=
+snapshot_time:            1790277040.612077271 secs.nsecs
+start_time:               1790277033.450659014 secs.nsecs
+elapsed_time:             7.161418257 secs.nsecs
+                               read       |                write
+      extents            calls    % cum%  |          calls    % cum%
+   0K -    4K :              0    0    0  |              0    0    0
+   4K -    8K :              1   12   12  |              4   50   50
+   8K -   16K :              0    0   12  |              0    0   50
+  16K -   32K :              0    0   12  |              0    0   50
+  32K -   64K :              0    0   12  |              0    0   50
+  64K -  128K :              1   12   25  |              1   12   62
+ 128K -  256K :              0    0   25  |              0    0   62
+ 256K -  512K :              0    0   25  |              0    0   62
+ 512K - 1024K :              0    0   25  |              0    0   62
+   1M -    2M :              1   12   37  |              1   12   75
+   2M -    4M :              0    0   37  |              0    0   75
+   4M -    8M :              5   62  100  |              1   12   87
+   8M -   16M :              0    0  100  |              0    0   87
+  16M -   32M :              0    0  100  |              1   12  100
+llite.a361000-ffff000189257000.extents_stats_per_process=
+snapshot_time:            1790277040.612137391 secs.nsecs
+start_time:               1790277033.450659014 secs.nsecs
+elapsed_time:             7.161478377 secs.nsecs
+                               read       |                write
+      extents            calls    % cum%  |          calls    % cum%
+
+PID: 2134827
+   0K -    4K :              0    0    0  |              0    0    0
+   4K -    8K :              0    0    0  |              1  100  100
+
+PID: 2134829
+   0K -    4K :              0    0    0  |              0    0    0
+   4K -    8K :              0    0    0  |              0    0    0
+   8K -   16K :              0    0    0  |              0    0    0
+  16K -   32K :              0    0    0  |              0    0    0
+  32K -   64K :              0    0    0  |              0    0    0
+  64K -  128K :              0    0    0  |              1  100  100
+
+PID: 2134831
+   0K -    4K :              0    0    0  |              0    0    0
+   4K -    8K :              0    0    0  |              0    0    0
+   8K -   16K :              0    0    0  |              0    0    0
+  16K -   32K :              0    0    0  |              0    0    0
+  32K -   64K :              0    0    0  |              0    0    0
+  64K -  128K :              0    0    0  |              0    0    0
+ 128K -  256K :              0    0    0  |              0    0    0
+ 256K -  512K :              0    0    0  |              0    0    0
+ 512K - 1024K :              0    0    0  |              0    0    0
+   1M -    2M :              0    0    0  |              1  100  100
+
+PID: 2134833
+   0K -    4K :              0    0    0  |              0    0    0
+   4K -    8K :              0    0    0  |              0    0    0
+   8K -   16K :              0    0    0  |              0    0    0
+  16K -   32K :              0    0    0  |              0    0    0
+  32K -   64K :              0    0    0  |              0    0    0
+  64K -  128K :              0    0    0  |              0    0    0
+ 128K -  256K :              0    0    0  |              0    0    0
+ 256K -  512K :              0    0    0  |              0    0    0
+ 512K - 1024K :              0    0    0  |              0    0    0
+   1M -    2M :              0    0    0  |              0    0    0
+   2M -    4M :              0    0    0  |              0    0    0
+   4M -    8M :              0    0    0  |              1  100  100
+
+PID: 2134835
+   0K -    4K :              0    0    0  |              0    0    0
+   4K -    8K :              0    0    0  |              0    0    0
+   8K -   16K :              0    0    0  |              0    0    0
+  16K -   32K :              0    0    0  |              0    0    0
+  32K -   64K :              0    0    0  |              0    0    0
+  64K -  128K :              0    0    0  |              0    0    0
+ 128K -  256K :              0    0    0  |              0    0    0
+ 256K -  512K :              0    0    0  |              0    0    0
+ 512K - 1024K :              0    0    0  |              0    0    0
+   1M -    2M :              0    0    0  |              0    0    0
+   2M -    4M :              0    0    0  |              0    0    0
+   4M -    8M :              0    0    0  |              0    0    0
+   8M -   16M :              0    0    0  |              0    0    0
+  16M -   32M :              0    0    0  |              1  100  100
+
+PID: 2134837
+   0K -    4K :              0    0    0  |              0    0    0
+   4K -    8K :              0    0    0  |              3  100  100
+
+PID: 2134840
+   0K -    4K :              0    0    0  |              0    0    0
+   4K -    8K :              1   12   12  |              0    0    0
+   8K -   16K :              0    0   12  |              0    0    0
+  16K -   32K :              0    0   12  |              0    0    0
+  32K -   64K :              0    0   12  |              0    0    0
+  64K -  128K :              1   12   25  |              0    0    0
+ 128K -  256K :              0    0   25  |              0    0    0
+ 256K -  512K :              0    0   25  |              0    0    0
+ 512K - 1024K :              0    0   25  |              0    0    0
+   1M -    2M :              1   12   37  |              0    0    0
+   2M -    4M :              0    0   37  |              0    0    0
+   4M -    8M :              5   62  100  |              0    0    0
+llite.a361000-ffff000189257000.read_ahead_stats=
+snapshot_time             1790277040.612302871 secs.nsecs
+start_time                1790008165.367575861 secs.nsecs
+elapsed_time              268875.244727010 secs.nsecs
+hits                      7072178 samples [pages]
+misses                    3591559 samples [pages]
+miss_inside_window        420 samples [pages]
+failed_grab_cache_page    462 samples [pages]
+zero_size_window          3879993 samples [pages]
+readahead_to_eof          346509 samples [pages]
+failed_to_reach_end       229484 samples [pages]
+async_readahead           20052 samples [pages]
+failed_to_fast_read       4443042 samples [pages]
+readahead_pages           344943 samples [pages] 1 510 7072198
+llite.a361000-ffff000189257000.statahead_stats=
+statahead total: 1025277
+statahead wrong: 4
+agl total: 1025277
+list_total: 1022112
+fname_total: 3165
+hit_total: 5259531
+miss_total: 1374618
+llite.a361000-ffff000189257000.unstable_stats=
+unstable_check:            1
+unstable_pages:            0
+unstable_mb:               0
+mdc.a361000-MDT0000-mdc-ffff000189257000.md_stats=
+snapshot_time             1790277040.612445791 secs.nsecs
+start_time                1790008165.372789941 secs.nsecs
+elapsed_time              268875.239655850 secs.nsecs
+close                     33486455 samples [reqs]
+create                    15538608 samples [reqs]
+getattr                   5646 samples [reqs]
+intent_lock               211513064 samples [reqs]
+rename                    12835382 samples [reqs]
+setattr                   45511805 samples [reqs]
+fsync                     5 samples [reqs]
+read_page                 3879130 samples [reqs]
+unlink                    21192871 samples [reqs]
+getxattr                  8421 samples [reqs]
+intent_getattr_async      2233586 samples [reqs]
+revalidate_lock           41063888 samples [reqs]
+mdc.a361000-MDT0000-mdc-ffff000189257000.rpc_stats=
+snapshot_time:            1790277040.612499951 secs.nsecs
+start_time:               1790008165.372336901 secs.nsecs
+elapsed_time:             268875.240163050 secs.nsecs
+modify_RPCs_in_flight:  0
+
+			modify
+rpcs in flight        rpcs   %% cum %%
+0:		         0   0   0
+1:		 152722953  94  94
+2:		   9312962   5  99
+3:		         6   0 100
+
+read RPCs in flight:  0
+write RPCs in flight: 0
+pending write pages:  0
+pending read pages:   0
+
+			read			write
+pages per rpc         rpcs   % cum % |       rpcs   % cum %
+1:		         0   0   0   |          0   0   0
+
+			read			write
+rpcs in flight        rpcs   % cum % |       rpcs   % cum %
+1:		         0   0   0   |          0   0   0
+
+			read			write
+offset                rpcs   % cum % |       rpcs   % cum %
+0:		         0   0   0   |          0   0   0
+mdc.a361000-MDT0000-mdc-ffff000189257000.stats=
+snapshot_time             1790277040.612548951 secs.nsecs
+start_time                1790008165.372794021 secs.nsecs
+elapsed_time              268875.239754930 secs.nsecs
+req_waittime              275910125 samples [usecs] 84 83843 45158219745 9703505293811
+req_active                275910125 samples [reqs] 1 21 342625349 537084973
+ldlm_glimpse_enqueue      406969 samples [reqs] 1 1 406969 406969
+ldlm_ibits_enqueue        142489651 samples [reqs] 1 1 142489651 142489651
+ost_set_info              223 samples [usecs] 117 1137 149225 127165569
+mds_getattr               5646 samples [usecs] 92 295 742781 99060529
+mds_close                 33486455 samples [usecs] 87 21942 5207949051 894766263927
+mds_readpage              3879130 samples [usecs] 199 83843 1167844852 392263467652
+mds_connect               1 samples [usecs] 322 322 322 103684
+mds_get_root              1 samples [usecs] 245 245 245 60025
+mds_statfs                2291 samples [usecs] 119 589 380660 64614102
+mds_sync                  5 samples [usecs] 1022 1749 6488 8748552
+mds_getxattr              8421 samples [usecs] 97 2257 1603849 324143243
+ldlm_cancel               13380217 samples [usecs] 86 14620 1872938571 271717571693
+obd_ping                  7709 samples [usecs] 353 2936 6531152 5868486200
+seq_query                 119 samples [usecs] 133 223 19087 3089617
+mdc.a361000-MDT0000-mdc-ffff000189257000.mdc_stats=
+snapshot_time:            1790277040.612639671 secs.nsecs
+start_time:               1790008165.372904061 secs.nsecs
+elapsed_time:             268875.239735610 secs.nsecs
+lockless_write_bytes		0
+lockless_read_bytes		0
+osc.a361000-OST0000-osc-ffff000189257000.cur_dirty_bytes=0
+osc.a361000-OST0001-osc-ffff000189257000.cur_dirty_bytes=0
+osc.a361000-OST0002-osc-ffff000189257000.cur_dirty_bytes=0
+osc.a361000-OST0003-osc-ffff000189257000.cur_dirty_bytes=0
+osc.a361000-OST0000-osc-ffff000189257000.cur_grant_bytes=8437760
+osc.a361000-OST0001-osc-ffff000189257000.cur_grant_bytes=4218880
+osc.a361000-OST0002-osc-ffff000189257000.cur_grant_bytes=8437760
+osc.a361000-OST0003-osc-ffff000189257000.cur_grant_bytes=8437760
+osc.a361000-OST0000-osc-ffff000189257000.osc_stats=
+snapshot_time:            1790277040.614220511 secs.nsecs
+start_time:               1790008165.378271140 secs.nsecs
+elapsed_time:             268875.235949371 secs.nsecs
+lockless_write_bytes		0
+lockless_read_bytes		0
+osc.a361000-OST0001-osc-ffff000189257000.osc_stats=
+snapshot_time:            1790277040.614239271 secs.nsecs
+start_time:               1790008165.379615180 secs.nsecs
+elapsed_time:             268875.234624091 secs.nsecs
+lockless_write_bytes		4194304
+lockless_read_bytes		0
+osc.a361000-OST0002-osc-ffff000189257000.osc_stats=
+snapshot_time:            1790277040.614268391 secs.nsecs
+start_time:               1790008165.375590461 secs.nsecs
+elapsed_time:             268875.238677930 secs.nsecs
+lockless_write_bytes		0
+lockless_read_bytes		0
+osc.a361000-OST0003-osc-ffff000189257000.osc_stats=
+snapshot_time:            1790277040.614284631 secs.nsecs
+start_time:               1790008165.373394941 secs.nsecs
+elapsed_time:             268875.240889690 secs.nsecs
+lockless_write_bytes		0
+lockless_read_bytes		0
+osc.a361000-OST0000-osc-ffff000189257000.rpc_stats=
+snapshot_time:            1790277040.614799671 secs.nsecs
+start_time:               1790008165.378161500 secs.nsecs
+elapsed_time:             268875.236638171 secs.nsecs
+read RPCs in flight:  0
+write RPCs in flight: 0
+DIO RPCs in flight: 0
+pending write pages:  0
+pending read pages:   0
+
+			read			write
+pages per rpc         rpcs   % cum % |       rpcs   % cum %
+1:		    100395  88  88   |     320551  84  84
+2:		      1452   1  90   |      32639   8  93
+4:		      3229   2  93   |       9276   2  95
+8:		      1584   1  94   |       4453   1  97
+16:		      1842   1  96   |       3104   0  97
+32:		      1674   1  97   |       1334   0  98
+64:		      2674   2 100   |       6268   1 100
+
+			read			write
+rpcs in flight        rpcs   % cum % |       rpcs   % cum %
+1:		    110932  98  98   |      84042  22  22
+2:		       621   0  98   |     186011  49  71
+3:		       346   0  99   |      58901  15  87
+4:		       262   0  99   |       8434   2  89
+5:		       188   0  99   |       3254   0  90
+6:		       180   0  99   |       2336   0  90
+7:		       162   0  99   |       2163   0  91
+8:		       159   0 100   |       3523   0  92
+9:		         0   0 100   |      28707   7  99
+10:		         0   0 100   |        254   0 100
+
+			read			write
+offset                rpcs   % cum % |       rpcs   % cum %
+0:		     97259  86  86   |     372455  98  98
+1:		     13489  11  98   |          0   0  98
+2:		         0   0  98   |          0   0  98
+4:		         0   0  98   |          0   0  98
+8:		         0   0  98   |          0   0  98
+16:		         0   0  98   |          0   0  98
+32:		         0   0  98   |          0   0  98
+64:		       770   0  98   |       1986   0  99
+128:		       643   0  99   |       2101   0  99
+256:		       689   0 100   |       1083   0 100
+osc.a361000-OST0001-osc-ffff000189257000.rpc_stats=
+snapshot_time:            1790277040.614833151 secs.nsecs
+start_time:               1790008165.379509540 secs.nsecs
+elapsed_time:             268875.235323611 secs.nsecs
+read RPCs in flight:  0
+write RPCs in flight: 0
+DIO RPCs in flight: 0
+pending write pages:  0
+pending read pages:   0
+
+			read			write
+pages per rpc         rpcs   % cum % |       rpcs   % cum %
+1:		    100827  89  89   |     320375  85  85
+2:		      1396   1  90   |      32676   8  93
+4:		      3224   2  93   |       9479   2  96
+8:		      1610   1  94   |       4460   1  97
+16:		      1946   1  96   |       2978   0  98
+32:		      1625   1  97   |       1268   0  98
+64:		      2537   2 100   |       5673   1 100
+
+			read			write
+rpcs in flight        rpcs   % cum % |       rpcs   % cum %
+1:		    111354  98  98   |      84646  22  22
+2:		       622   0  98   |     185785  49  71
+3:		       340   0  99   |      58108  15  87
+4:		       251   0  99   |       8360   2  89
+5:		       170   0  99   |       3142   0  90
+6:		       160   0  99   |       2297   0  90
+7:		       135   0  99   |       2110   0  91
+8:		       133   0 100   |       3603   0  92
+9:		         0   0 100   |      28635   7  99
+10:		         0   0 100   |        223   0 100
+
+			read			write
+offset                rpcs   % cum % |       rpcs   % cum %
+0:		     97636  86  86   |     372318  98  98
+1:		     13568  11  98   |          0   0  98
+2:		         0   0  98   |          0   0  98
+4:		         0   0  98   |          0   0  98
+8:		         0   0  98   |          0   0  98
+16:		         0   0  98   |          0   0  98
+32:		         0   0  98   |          0   0  98
+64:		       739   0  98   |       1817   0  99
+128:		       626   0  99   |       1920   0  99
+256:		       596   0 100   |        854   0 100
+osc.a361000-OST0002-osc-ffff000189257000.rpc_stats=
+snapshot_time:            1790277040.614864871 secs.nsecs
+start_time:               1790008165.375482901 secs.nsecs
+elapsed_time:             268875.239381970 secs.nsecs
+read RPCs in flight:  0
+write RPCs in flight: 0
+DIO RPCs in flight: 0
+pending write pages:  0
+pending read pages:   0
+
+			read			write
+pages per rpc         rpcs   % cum % |       rpcs   % cum %
+1:		    100332  89  89   |     321014  84  84
+2:		      1425   1  90   |      32398   8  93
+4:		      3124   2  93   |       9365   2  96
+8:		      1592   1  94   |       4563   1  97
+16:		      1886   1  96   |       3051   0  98
+32:		      1627   1  97   |       1310   0  98
+64:		      2431   2 100   |       6011   1 100
+
+			read			write
+rpcs in flight        rpcs   % cum % |       rpcs   % cum %
+1:		    110692  98  98   |      85279  22  22
+2:		       608   0  99   |     187553  49  72
+3:		       324   0  99   |      56447  14  87
+4:		       219   0  99   |       8380   2  89
+5:		       164   0  99   |       3203   0  90
+6:		       150   0  99   |       2352   0  90
+7:		       131   0  99   |       2117   0  91
+8:		       129   0 100   |       3487   0  92
+9:		         0   0 100   |      28640   7  99
+10:		         0   0 100   |        254   0 100
+
+			read			write
+offset                rpcs   % cum % |       rpcs   % cum %
+0:		     97173  86  86   |     372792  98  98
+1:		     13354  11  98   |          0   0  98
+2:		         0   0  98   |          0   0  98
+4:		         0   0  98   |          0   0  98
+8:		         0   0  98   |          0   0  98
+16:		         0   0  98   |          0   0  98
+32:		         0   0  98   |          0   0  98
+64:		       750   0  98   |       1922   0  99
+128:		       572   0  99   |       1983   0  99
+256:		       568   0 100   |        991   0  99
+512:		         0   0 100   |          8   0  99
+1024:		         0   0 100   |         16   0 100
+osc.a361000-OST0003-osc-ffff000189257000.rpc_stats=
+snapshot_time:            1790277040.614897391 secs.nsecs
+start_time:               1790008165.373274301 secs.nsecs
+elapsed_time:             268875.241623090 secs.nsecs
+read RPCs in flight:  0
+write RPCs in flight: 0
+DIO RPCs in flight: 0
+pending write pages:  0
+pending read pages:   0
+
+			read			write
+pages per rpc         rpcs   % cum % |       rpcs   % cum %
+1:		    100638  89  89   |     320802  85  85
+2:		      1420   1  90   |      32602   8  93
+4:		      3174   2  93   |       9322   2  96
+8:		      1618   1  94   |       4467   1  97
+16:		      1840   1  96   |       2895   0  98
+32:		      1609   1  97   |       1289   0  98
+64:		      2564   2 100   |       5935   1 100
+
+			read			write
+rpcs in flight        rpcs   % cum % |       rpcs   % cum %
+1:		    111064  98  98   |      86111  22  22
+2:		       618   0  98   |     188767  50  72
+3:		       335   0  99   |      55506  14  87
+4:		       238   0  99   |       7471   1  89
+5:		       174   0  99   |       2810   0  90
+6:		       160   0  99   |       2202   0  90
+7:		       137   0  99   |       2122   0  91
+8:		       137   0 100   |       3597   0  92
+9:		         0   0 100   |      28504   7  99
+10:		         0   0 100   |        222   0 100
+
+			read			write
+offset                rpcs   % cum % |       rpcs   % cum %
+0:		     97497  86  86   |     372516  98  98
+1:		     13430  11  98   |          0   0  98
+2:		         0   0  98   |          0   0  98
+4:		         0   0  98   |          0   0  98
+8:		         0   0  98   |          0   0  98
+16:		         0   0  98   |          0   0  98
+32:		         0   0  98   |          0   0  98
+64:		       729   0  98   |       1843   0  99
+128:		       602   0  99   |       1946   0  99
+256:		       605   0 100   |       1007   0 100
+osc.a361000-OST0000-osc-ffff000189257000.state=
+current_state: FULL
+state_history:
+ - [ 1790008166, CONNECTING ]
+ - [ 1790008166, FULL ]
+ - [ 1790008190, CONNECTING ]
+ - [ 1790008190, IDLE ]
+ - [ 1790099169, CONNECTING ]
+ - [ 1790099169, FULL ]
+ - [ 1790171401, CONNECTING ]
+ - [ 1790171401, IDLE ]
+ - [ 1790277039, CONNECTING ]
+ - [ 1790277039, FULL ]
+osc.a361000-OST0001-osc-ffff000189257000.state=
+current_state: FULL
+state_history:
+ - [ 1790008166, CONNECTING ]
+ - [ 1790008166, FULL ]
+ - [ 1790008190, CONNECTING ]
+ - [ 1790008190, IDLE ]
+ - [ 1790099169, CONNECTING ]
+ - [ 1790099169, FULL ]
+ - [ 1790171401, CONNECTING ]
+ - [ 1790171401, IDLE ]
+ - [ 1790277033, CONNECTING ]
+ - [ 1790277033, FULL ]
+osc.a361000-OST0002-osc-ffff000189257000.state=
+current_state: FULL
+state_history:
+ - [ 1790008166, CONNECTING ]
+ - [ 1790008166, FULL ]
+ - [ 1790008190, CONNECTING ]
+ - [ 1790008190, IDLE ]
+ - [ 1790099169, CONNECTING ]
+ - [ 1790099169, FULL ]
+ - [ 1790171401, CONNECTING ]
+ - [ 1790171401, IDLE ]
+ - [ 1790277039, CONNECTING ]
+ - [ 1790277039, FULL ]
+osc.a361000-OST0003-osc-ffff000189257000.state=
+current_state: FULL
+state_history:
+ - [ 1790008166, CONNECTING ]
+ - [ 1790008166, FULL ]
+ - [ 1790008190, CONNECTING ]
+ - [ 1790008190, IDLE ]
+ - [ 1790099169, CONNECTING ]
+ - [ 1790099169, FULL ]
+ - [ 1790171401, CONNECTING ]
+ - [ 1790171401, IDLE ]
+ - [ 1790277039, CONNECTING ]
+ - [ 1790277039, FULL ]
+osc.a361000-OST0000-osc-ffff000189257000.stats=
+snapshot_time             1790277040.616663711 secs.nsecs
+start_time                1790008165.378268220 secs.nsecs
+elapsed_time              268875.238395491 secs.nsecs
+req_waittime              2813484 samples [usecs] 102 421471 3073592183 25988436929955
+req_active                2813484 samples [reqs] 1 18 6167641 28609895
+ldlm_glimpse_enqueue      113496 samples [reqs] 1 1 113496 113496
+ldlm_extent_enqueue       493898 samples [reqs] 1 1 493898 493898
+read_bytes                112850 samples [bytes] 4096 4194304 17220562944 44858222896480256
+write_bytes               377625 samples [bytes] 1 4194304 37172654672 103055240542894292
+ost_setattr               1208752 samples [usecs] 105 143906 212612759 89200496069
+ost_read                  112850 samples [usecs] 247 197100 159080727 616103649601
+ost_write                 377625 samples [usecs] 461 421471 979664781 20082940007221
+ost_connect               3 samples [usecs] 249 378 896 277246
+ost_disconnect            2 samples [usecs] 596 980 1576 1315616
+ost_statfs                1 samples [usecs] 289 289 289 83521
+ost_sync                  905 samples [usecs] 123 557 147781 24748731
+ost_set_info              1 samples [usecs] 286 286 286 81796
+ldlm_cancel               505534 samples [usecs] 102 31061 1522415514 5050585401166
+obd_ping                  417 samples [usecs] 173 2648 140527 59657279
+osc.a361000-OST0001-osc-ffff000189257000.stats=
+snapshot_time             1790277040.616724111 secs.nsecs
+start_time                1790008165.379612140 secs.nsecs
+elapsed_time              268875.237111971 secs.nsecs
+req_waittime              2813785 samples [usecs] 99 1099054 3058819324 26202999930286
+req_active                2813785 samples [reqs] 1 19 6165905 28607385
+ldlm_glimpse_enqueue      113992 samples [reqs] 1 1 113992 113992
+ldlm_extent_enqueue       494087 samples [reqs] 1 1 494087 494087
+read_bytes                113165 samples [bytes] 4096 4194304 16653676544 42412005516115968
+write_bytes               376909 samples [bytes] 1 4194304 34544699259 92424993326445639
+ost_setattr               1208482 samples [usecs] 99 208817 213531551 144028875635
+ost_read                  113165 samples [usecs] 253 98689 148431230 394080236300
+ost_write                 376909 samples [usecs] 455 1099054 973998824 20420364342608
+ost_connect               3 samples [usecs] 210 555 1084 453886
+ost_disconnect            2 samples [usecs] 442 911 1353 1025285
+ost_statfs                1 samples [usecs] 277 277 277 76729
+ost_sync                  895 samples [usecs] 122 347 146609 24479473
+ost_set_info              1 samples [usecs] 328 328 328 107584
+ldlm_cancel               505829 samples [usecs] 99 12801 1522402490 5046835359830
+obd_ping                  419 samples [usecs] 153 2581 142133 58523869
+osc.a361000-OST0002-osc-ffff000189257000.stats=
+snapshot_time             1790277040.616780911 secs.nsecs
+start_time                1790008165.375576941 secs.nsecs
+elapsed_time              268875.241203970 secs.nsecs
+req_waittime              2814740 samples [usecs] 102 275543 3053780672 24943201231912
+req_active                2814740 samples [reqs] 1 17 6161150 28556258
+ldlm_glimpse_enqueue      113270 samples [reqs] 1 1 113270 113270
+ldlm_extent_enqueue       494162 samples [reqs] 1 1 494162 494162
+read_bytes                112417 samples [bytes] 4096 4194304 16133509120 40607866922467328
+write_bytes               377712 samples [bytes] 1 4194304 35999896643 98128178185995907
+ost_setattr               1210005 samples [usecs] 107 202493 212460796 132927957920
+ost_read                  112417 samples [usecs] 236 275543 150737004 563848309208
+ost_write                 377712 samples [usecs] 466 101819 969309590 19004617199170
+ost_connect               3 samples [usecs] 195 328 739 192265
+ost_disconnect            2 samples [usecs] 455 904 1359 1024241
+ost_statfs                1 samples [usecs] 282 282 282 79524
+ost_sync                  906 samples [usecs] 121 1103 148878 25827494
+ost_set_info              1 samples [usecs] 308 308 308 94864
+ldlm_cancel               505852 samples [usecs] 102 12709 1521564610 5044954540918
+obd_ping                  409 samples [usecs] 170 2630 143693 62460423
+osc.a361000-OST0003-osc-ffff000189257000.stats=
+snapshot_time             1790277040.616838391 secs.nsecs
+start_time                1790008165.373367461 secs.nsecs
+elapsed_time              268875.243470930 secs.nsecs
+req_waittime              2814122 samples [usecs] 96 386283 3059051295 24833856237737
+req_active                2814122 samples [reqs] 1 18 6155140 28524712
+ldlm_glimpse_enqueue      113857 samples [reqs] 1 1 113857 113857
+ldlm_extent_enqueue       494079 samples [reqs] 1 1 494079 494079
+read_bytes                112863 samples [bytes] 4096 4194304 16640163840 42822534344736768
+write_bytes               377312 samples [bytes] 1 4194304 35515823333 96682377804115379
+ost_setattr               1208890 samples [usecs] 106 52146 212099047 68672631943
+ost_read                  112863 samples [usecs] 251 141128 162907407 544845065729
+ost_write                 377312 samples [usecs] 464 386283 961290480 19011190083638
+ost_connect               3 samples [usecs] 234 409 915 296021
+ost_disconnect            2 samples [usecs] 455 902 1357 1020629
+ost_statfs                1 samples [usecs] 281 281 281 78961
+ost_sync                  918 samples [usecs] 120 1243 152351 28026693
+ost_set_info              1 samples [usecs] 283 283 283 80089
+ldlm_cancel               505789 samples [usecs] 103 12599 1522507837 5048337758521
+obd_ping                  407 samples [usecs] 186 1104 144744 58108286
+osc.a361000-OST0000-osc-ffff000189257000.stats_compr=
+write_pages_compressible: 0
+write_pages_incompressible: 0
+write_chunks_compressible: 0
+write_chunks_incompressible: 0
+write_bytes_compr: 0
+write_bytes_raw: 0
+write_bytes_incompr: 0
+read_pages_compressed: 0
+read_chunks_compressed: 0
+read_bytes_compr: 0
+read_bytes_raw: 0
+osc.a361000-OST0001-osc-ffff000189257000.stats_compr=
+write_pages_compressible: 0
+write_pages_incompressible: 0
+write_chunks_compressible: 0
+write_chunks_incompressible: 0
+write_bytes_compr: 0
+write_bytes_raw: 0
+write_bytes_incompr: 0
+read_pages_compressed: 0
+read_chunks_compressed: 0
+read_bytes_compr: 0
+read_bytes_raw: 0
+osc.a361000-OST0002-osc-ffff000189257000.stats_compr=
+write_pages_compressible: 0
+write_pages_incompressible: 0
+write_chunks_compressible: 0
+write_chunks_incompressible: 0
+write_bytes_compr: 0
+write_bytes_raw: 0
+write_bytes_incompr: 0
+read_pages_compressed: 0
+read_chunks_compressed: 0
+read_bytes_compr: 0
+read_bytes_raw: 0
+osc.a361000-OST0003-osc-ffff000189257000.stats_compr=
+write_pages_compressible: 0
+write_pages_incompressible: 0
+write_chunks_compressible: 0
+write_chunks_incompressible: 0
+write_bytes_compr: 0
+write_bytes_raw: 0
+write_bytes_incompr: 0
+read_pages_compressed: 0
+read_chunks_compressed: 0
+read_bytes_compr: 0
+read_bytes_raw: 0
+osc.a361000-OST0000-osc-ffff000189257000.unstable_stats=
+unstable_pages:                    0
+unstable_mb:                       0
+osc.a361000-OST0001-osc-ffff000189257000.unstable_stats=
+unstable_pages:                    0
+unstable_mb:                       0
+osc.a361000-OST0002-osc-ffff000189257000.unstable_stats=
+unstable_pages:                    0
+unstable_mb:                       0
+osc.a361000-OST0003-osc-ffff000189257000.unstable_stats=
+unstable_pages:                    0
+unstable_mb:                       0

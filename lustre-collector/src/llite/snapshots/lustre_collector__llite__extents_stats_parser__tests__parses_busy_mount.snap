@@ -1,0 +1,70 @@
+---
+source: lustre-collector/src/llite/extents_stats_parser.rs
+expression: xs
+---
+Enabled {
+    header: StatsHeader {
+        snapshot_time: "1789953552.214577612",
+        start_time: Some(
+            "1789953080.395147468",
+        ),
+    },
+    value: [
+        ExtentsBucket {
+            lower_bytes: 0,
+            upper_bytes: 4096,
+            overflow: false,
+            read_calls: 9833,
+            write_calls: 9065,
+        },
+        ExtentsBucket {
+            lower_bytes: 4096,
+            upper_bytes: 8192,
+            overflow: false,
+            read_calls: 4885,
+            write_calls: 4142,
+        },
+        ExtentsBucket {
+            lower_bytes: 8192,
+            upper_bytes: 16384,
+            overflow: false,
+            read_calls: 3693,
+            write_calls: 2894,
+        },
+        ExtentsBucket {
+            lower_bytes: 16384,
+            upper_bytes: 32768,
+            overflow: false,
+            read_calls: 2994,
+            write_calls: 1689,
+        },
+        ExtentsBucket {
+            lower_bytes: 32768,
+            upper_bytes: 65536,
+            overflow: false,
+            read_calls: 83121,
+            write_calls: 1230,
+        },
+        ExtentsBucket {
+            lower_bytes: 65536,
+            upper_bytes: 131072,
+            overflow: false,
+            read_calls: 0,
+            write_calls: 720,
+        },
+        ExtentsBucket {
+            lower_bytes: 131072,
+            upper_bytes: 262144,
+            overflow: false,
+            read_calls: 0,
+            write_calls: 944,
+        },
+        ExtentsBucket {
+            lower_bytes: 262144,
+            upper_bytes: 524288,
+            overflow: false,
+            read_calls: 0,
+            write_calls: 9329,
+        },
+    ],
+}
