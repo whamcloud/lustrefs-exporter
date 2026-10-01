@@ -94,24 +94,24 @@ lustre_client_export_stats{component="mdt",target="fs-MDT0000",nid="0@lo",name="
 
 # HELP lustre_client_stats Lustre client interface stats.
 # TYPE lustre_client_stats counter
-lustre_client_stats{operation="read_bytes",target="fs-ffff9f7daee63800"} 125
-lustre_client_stats{operation="write_bytes",target="fs-ffff9f7daee63800"} 200
-lustre_client_stats{operation="read",target="fs-ffff9f7daee63800"} 125
-lustre_client_stats{operation="write",target="fs-ffff9f7daee63800"} 200
-lustre_client_stats{operation="open",target="fs-ffff9f7daee63800"} 5
-lustre_client_stats{operation="close",target="fs-ffff9f7daee63800"} 5
-lustre_client_stats{operation="seek",target="fs-ffff9f7daee63800"} 1
-lustre_client_stats{operation="readdir",target="fs-ffff9f7daee63800"} 20
-lustre_client_stats{operation="setattr",target="fs-ffff9f7daee63800"} 2
-lustre_client_stats{operation="truncate",target="fs-ffff9f7daee63800"} 1
-lustre_client_stats{operation="getattr",target="fs-ffff9f7daee63800"} 50
-lustre_client_stats{operation="mknod",target="fs-ffff9f7daee63800"} 2
-lustre_client_stats{operation="statfs",target="fs-ffff9f7daee63800"} 2
-lustre_client_stats{operation="setxattr",target="fs-ffff9f7daee63800"} 1
-lustre_client_stats{operation="getxattr",target="fs-ffff9f7daee63800"} 1
-lustre_client_stats{operation="inode_permission",target="fs-ffff9f7daee63800"} 35
-lustre_client_stats{operation="opencount",target="fs-ffff9f7daee63800"} 15
-lustre_client_stats{operation="openclosetime",target="fs-ffff9f7daee63800"} 2
+lustre_client_stats{fs="fs",operation="read_bytes",target="fs-ffff9f7daee63800"} 125
+lustre_client_stats{fs="fs",operation="write_bytes",target="fs-ffff9f7daee63800"} 200
+lustre_client_stats{fs="fs",operation="read",target="fs-ffff9f7daee63800"} 125
+lustre_client_stats{fs="fs",operation="write",target="fs-ffff9f7daee63800"} 200
+lustre_client_stats{fs="fs",operation="open",target="fs-ffff9f7daee63800"} 5
+lustre_client_stats{fs="fs",operation="close",target="fs-ffff9f7daee63800"} 5
+lustre_client_stats{fs="fs",operation="seek",target="fs-ffff9f7daee63800"} 1
+lustre_client_stats{fs="fs",operation="readdir",target="fs-ffff9f7daee63800"} 20
+lustre_client_stats{fs="fs",operation="setattr",target="fs-ffff9f7daee63800"} 2
+lustre_client_stats{fs="fs",operation="truncate",target="fs-ffff9f7daee63800"} 1
+lustre_client_stats{fs="fs",operation="getattr",target="fs-ffff9f7daee63800"} 50
+lustre_client_stats{fs="fs",operation="mknod",target="fs-ffff9f7daee63800"} 2
+lustre_client_stats{fs="fs",operation="statfs",target="fs-ffff9f7daee63800"} 2
+lustre_client_stats{fs="fs",operation="setxattr",target="fs-ffff9f7daee63800"} 1
+lustre_client_stats{fs="fs",operation="getxattr",target="fs-ffff9f7daee63800"} 1
+lustre_client_stats{fs="fs",operation="inode_permission",target="fs-ffff9f7daee63800"} 35
+lustre_client_stats{fs="fs",operation="opencount",target="fs-ffff9f7daee63800"} 15
+lustre_client_stats{fs="fs",operation="openclosetime",target="fs-ffff9f7daee63800"} 2
 
 # HELP lustre_connected_clients Number of connected clients
 # TYPE lustre_connected_clients gauge

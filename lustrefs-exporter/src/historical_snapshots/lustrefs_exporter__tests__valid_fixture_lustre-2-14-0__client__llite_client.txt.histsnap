@@ -4,20 +4,20 @@ expression: x
 ---
 # HELP lustre_client_stats Lustre client interface stats.
 # TYPE lustre_client_stats counter
-lustre_client_stats{operation="ioctl",target="ai400x2-ff47bce9ca35d800"} 114
-lustre_client_stats{operation="open",target="ai400x2-ff47bce9ca35d800"} 35955554
-lustre_client_stats{operation="close",target="ai400x2-ff47bce9ca35d800"} 35955554
-lustre_client_stats{operation="readdir",target="ai400x2-ff47bce9ca35d800"} 60
-lustre_client_stats{operation="getattr",target="ai400x2-ff47bce9ca35d800"} 35955647
-lustre_client_stats{operation="unlink",target="ai400x2-ff47bce9ca35d800"} 17977752
-lustre_client_stats{operation="mkdir",target="ai400x2-ff47bce9ca35d800"} 17987059
-lustre_client_stats{operation="rmdir",target="ai400x2-ff47bce9ca35d800"} 17987079
-lustre_client_stats{operation="mknod",target="ai400x2-ff47bce9ca35d800"} 17977752
-lustre_client_stats{operation="statfs",target="ai400x2-ff47bce9ca35d800"} 17864
-lustre_client_stats{operation="setxattr",target="ai400x2-ff47bce9ca35d800"} 1
-lustre_client_stats{operation="inode_permission",target="ai400x2-ff47bce9ca35d800"} 629305628
-lustre_client_stats{operation="opencount",target="ai400x2-ff47bce9ca35d800"} 35955576
-lustre_client_stats{operation="openclosetime",target="ai400x2-ff47bce9ca35d800"} 17977772
+lustre_client_stats{fs="ai400x2",operation="ioctl",target="ai400x2-ff47bce9ca35d800"} 114
+lustre_client_stats{fs="ai400x2",operation="open",target="ai400x2-ff47bce9ca35d800"} 35955554
+lustre_client_stats{fs="ai400x2",operation="close",target="ai400x2-ff47bce9ca35d800"} 35955554
+lustre_client_stats{fs="ai400x2",operation="readdir",target="ai400x2-ff47bce9ca35d800"} 60
+lustre_client_stats{fs="ai400x2",operation="getattr",target="ai400x2-ff47bce9ca35d800"} 35955647
+lustre_client_stats{fs="ai400x2",operation="unlink",target="ai400x2-ff47bce9ca35d800"} 17977752
+lustre_client_stats{fs="ai400x2",operation="mkdir",target="ai400x2-ff47bce9ca35d800"} 17987059
+lustre_client_stats{fs="ai400x2",operation="rmdir",target="ai400x2-ff47bce9ca35d800"} 17987079
+lustre_client_stats{fs="ai400x2",operation="mknod",target="ai400x2-ff47bce9ca35d800"} 17977752
+lustre_client_stats{fs="ai400x2",operation="statfs",target="ai400x2-ff47bce9ca35d800"} 17864
+lustre_client_stats{fs="ai400x2",operation="setxattr",target="ai400x2-ff47bce9ca35d800"} 1
+lustre_client_stats{fs="ai400x2",operation="inode_permission",target="ai400x2-ff47bce9ca35d800"} 629305628
+lustre_client_stats{fs="ai400x2",operation="opencount",target="ai400x2-ff47bce9ca35d800"} 35955576
+lustre_client_stats{fs="ai400x2",operation="openclosetime",target="ai400x2-ff47bce9ca35d800"} 17977772
 
 # HELP lustre_health_healthy Indicates whether the Lustre target is healthy or not. 1 is healthy, 0 is unhealthy.
 # TYPE lustre_health_healthy gauge

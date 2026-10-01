@@ -67,7 +67,7 @@ pub fn build_lustre_stats(output: &Vec<Record>, metrics: &mut Metrics) {
                 build_target_stats(x, metrics, &mut set);
             }
             lustre_collector::Record::Controller(x) => {
-                build_controller_stats(x, &mut metrics.controller);
+                build_controller_stats(x, metrics);
             }
             lustre_collector::Record::LustreService(x) => {
                 build_service_stats(x, &mut metrics.service);

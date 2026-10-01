@@ -4,10 +4,10 @@
 
 use crate::base_parsers::{digits, till_newline};
 use combine::stream::Stream;
-use combine::{Parser, optional, token};
+use combine::{Parser, many1, optional, skip_many, token};
 use combine::{
     attempt,
-    parser::char::{spaces, string},
+    parser::char::{digit, spaces, string},
 };
 use combine::{error::ParseError, parser::char::newline};
 
@@ -20,9 +20,13 @@ where
         string(name).skip(optional(token(':'))),
         spaces(),
         digits().skip(token('.')),
-        digits().skip(till_newline()),
+        // Fixed-width field: leading zeros matter, and mdc rpc_stats before
+        // 2.14.56 padded it with spaces ("%9lu").
+        skip_many(token(' '))
+            .with(many1::<String, _, _>(digit()))
+            .skip(till_newline()),
     )
-        .map(|(_, _, secs, nsecs)| format!("{secs}.{nsecs}"))
+        .map(|(_, _, secs, nsecs)| format!("{secs}.{nsecs:0>9}"))
 }
 #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub struct StatsHeader {
@@ -82,6 +86,35 @@ mod tests {
         let result = time("snapshot_time").parse(x);
 
         assert_eq!(result, Ok(("1534769431.137892896".to_string(), "\n")));
+    }
+
+    /// 1566017453.009677077 is not 1566017453.9677077.
+    #[test]
+    fn test_time_leading_zero_nsecs() {
+        let x = "snapshot_time             1566017453.009677077 secs.nsecs\n";
+
+        let result = time("snapshot_time").parse(x);
+
+        assert_eq!(result, Ok(("1566017453.009677077".to_string(), "\n")));
+    }
+
+    #[test]
+    fn test_time_triple_leading_zero_start_time() {
+        let x = "snapshot_time             1684948453.142852820 secs.nsecs\nstart_time                1684946875.004329012 secs.nsecs\nelapsed_time              1577.038523808 secs.nsecs\n";
+
+        let (result, _) = time_triple().easy_parse(x).unwrap();
+
+        assert_eq!(result.start_time.as_deref(), Some("1684946875.004329012"));
+    }
+
+    /// mdc rpc_stats before 2.14.56: "%9lu", space padded.
+    #[test]
+    fn test_time_space_padded_nanoseconds() {
+        let x = "snapshot_time:         1534158712.  4567890 (secs.nsecs)\n";
+
+        let result = time("snapshot_time").parse(x);
+
+        assert_eq!(result, Ok(("1534158712.004567890".to_string(), "\n")));
     }
 
     #[test]

@@ -26,54 +26,61 @@ lustre_ldlm_cbd_stats{operation="req_waittime"} 275530
 lustre_ldlm_cbd_stats{operation="reqbuf_avail"} 556804
 # HELP lustre_client_stats Lustre client interface stats.
 # TYPE lustre_client_stats counter
-lustre_client_stats{operation="close",target="exafs-ffff9239aa0c4800"} 82098
-lustre_client_stats{operation="close",target="exatest-ffff923a1497d800"} 200
-lustre_client_stats{operation="fallocate",target="exafs-ffff9239aa0c4800"} 196
-lustre_client_stats{operation="fallocate",target="exatest-ffff923a1497d800"} 100
-lustre_client_stats{operation="fsync",target="exafs-ffff9239aa0c4800"} 1734
-lustre_client_stats{operation="fsync",target="exatest-ffff923a1497d800"} 100
-lustre_client_stats{operation="getattr",target="exafs-ffff9239aa0c4800"} 632721
-lustre_client_stats{operation="getattr",target="exatest-ffff923a1497d800"} 445
-lustre_client_stats{operation="getxattr",target="exafs-ffff9239aa0c4800"} 499
-lustre_client_stats{operation="getxattr_hits",target="exafs-ffff9239aa0c4800"} 291
-lustre_client_stats{operation="inode_permission",target="exafs-ffff9239aa0c4800"} 8318567
-lustre_client_stats{operation="inode_permission",target="exatest-ffff923a1497d800"} 7212
-lustre_client_stats{operation="ioctl",target="exafs-ffff9239aa0c4800"} 50690
-lustre_client_stats{operation="ioctl",target="exatest-ffff923a1497d800"} 74
-lustre_client_stats{operation="link",target="exafs-ffff9239aa0c4800"} 6
-lustre_client_stats{operation="listxattr",target="exafs-ffff9239aa0c4800"} 12
-lustre_client_stats{operation="mkdir",target="exafs-ffff9239aa0c4800"} 7547
-lustre_client_stats{operation="mkdir",target="exatest-ffff923a1497d800"} 1
-lustre_client_stats{operation="mknod",target="exafs-ffff9239aa0c4800"} 38461
-lustre_client_stats{operation="mknod",target="exatest-ffff923a1497d800"} 100
-lustre_client_stats{operation="mmap",target="exafs-ffff9239aa0c4800"} 2763
-lustre_client_stats{operation="open",target="exafs-ffff9239aa0c4800"} 82098
-lustre_client_stats{operation="open",target="exatest-ffff923a1497d800"} 200
-lustre_client_stats{operation="openclosetime",target="exafs-ffff9239aa0c4800"} 38877
-lustre_client_stats{operation="openclosetime",target="exatest-ffff923a1497d800"} 100
-lustre_client_stats{operation="opencount",target="exafs-ffff9239aa0c4800"} 82130
-lustre_client_stats{operation="opencount",target="exatest-ffff923a1497d800"} 201
-lustre_client_stats{operation="page_fault",target="exafs-ffff9239aa0c4800"} 70393
-lustre_client_stats{operation="read",target="exafs-ffff9239aa0c4800"} 82150
-lustre_client_stats{operation="read_bytes",target="exafs-ffff9239aa0c4800"} 82152
-lustre_client_stats{operation="readdir",target="exafs-ffff9239aa0c4800"} 26398
-lustre_client_stats{operation="rename",target="exafs-ffff9239aa0c4800"} 16394
-lustre_client_stats{operation="rmdir",target="exafs-ffff9239aa0c4800"} 4348
-lustre_client_stats{operation="seek",target="exafs-ffff9239aa0c4800"} 80982
-lustre_client_stats{operation="setattr",target="exafs-ffff9239aa0c4800"} 1100
-lustre_client_stats{operation="statfs",target="exafs-ffff9239aa0c4800"} 40793
-lustre_client_stats{operation="statfs",target="exatest-ffff923a1497d800"} 41036
-lustre_client_stats{operation="symlink",target="exafs-ffff9239aa0c4800"} 18
-lustre_client_stats{operation="truncate",target="exafs-ffff9239aa0c4800"} 202
-lustre_client_stats{operation="truncate",target="exatest-ffff923a1497d800"} 100
-lustre_client_stats{operation="unlink",target="exafs-ffff9239aa0c4800"} 22512
-lustre_client_stats{operation="write",target="exafs-ffff9239aa0c4800"} 2726169
-lustre_client_stats{operation="write",target="exatest-ffff923a1497d800"} 204800
-lustre_client_stats{operation="write_bytes",target="exafs-ffff9239aa0c4800"} 2726169
-lustre_client_stats{operation="write_bytes",target="exatest-ffff923a1497d800"} 204800
+lustre_client_stats{fs="exafs",operation="close",target="exafs-ffff9239aa0c4800"} 82098
+lustre_client_stats{fs="exafs",operation="fallocate",target="exafs-ffff9239aa0c4800"} 196
+lustre_client_stats{fs="exafs",operation="fsync",target="exafs-ffff9239aa0c4800"} 1734
+lustre_client_stats{fs="exafs",operation="getattr",target="exafs-ffff9239aa0c4800"} 632721
+lustre_client_stats{fs="exafs",operation="getxattr",target="exafs-ffff9239aa0c4800"} 499
+lustre_client_stats{fs="exafs",operation="getxattr_hits",target="exafs-ffff9239aa0c4800"} 291
+lustre_client_stats{fs="exafs",operation="inode_permission",target="exafs-ffff9239aa0c4800"} 8318567
+lustre_client_stats{fs="exafs",operation="ioctl",target="exafs-ffff9239aa0c4800"} 50690
+lustre_client_stats{fs="exafs",operation="link",target="exafs-ffff9239aa0c4800"} 6
+lustre_client_stats{fs="exafs",operation="listxattr",target="exafs-ffff9239aa0c4800"} 12
+lustre_client_stats{fs="exafs",operation="mkdir",target="exafs-ffff9239aa0c4800"} 7547
+lustre_client_stats{fs="exafs",operation="mknod",target="exafs-ffff9239aa0c4800"} 38461
+lustre_client_stats{fs="exafs",operation="mmap",target="exafs-ffff9239aa0c4800"} 2763
+lustre_client_stats{fs="exafs",operation="open",target="exafs-ffff9239aa0c4800"} 82098
+lustre_client_stats{fs="exafs",operation="openclosetime",target="exafs-ffff9239aa0c4800"} 38877
+lustre_client_stats{fs="exafs",operation="opencount",target="exafs-ffff9239aa0c4800"} 82130
+lustre_client_stats{fs="exafs",operation="page_fault",target="exafs-ffff9239aa0c4800"} 70393
+lustre_client_stats{fs="exafs",operation="read",target="exafs-ffff9239aa0c4800"} 82150
+lustre_client_stats{fs="exafs",operation="read_bytes",target="exafs-ffff9239aa0c4800"} 82152
+lustre_client_stats{fs="exafs",operation="readdir",target="exafs-ffff9239aa0c4800"} 26398
+lustre_client_stats{fs="exafs",operation="rename",target="exafs-ffff9239aa0c4800"} 16394
+lustre_client_stats{fs="exafs",operation="rmdir",target="exafs-ffff9239aa0c4800"} 4348
+lustre_client_stats{fs="exafs",operation="seek",target="exafs-ffff9239aa0c4800"} 80982
+lustre_client_stats{fs="exafs",operation="setattr",target="exafs-ffff9239aa0c4800"} 1100
+lustre_client_stats{fs="exafs",operation="statfs",target="exafs-ffff9239aa0c4800"} 40793
+lustre_client_stats{fs="exafs",operation="symlink",target="exafs-ffff9239aa0c4800"} 18
+lustre_client_stats{fs="exafs",operation="truncate",target="exafs-ffff9239aa0c4800"} 202
+lustre_client_stats{fs="exafs",operation="unlink",target="exafs-ffff9239aa0c4800"} 22512
+lustre_client_stats{fs="exafs",operation="write",target="exafs-ffff9239aa0c4800"} 2726169
+lustre_client_stats{fs="exafs",operation="write_bytes",target="exafs-ffff9239aa0c4800"} 2726169
+lustre_client_stats{fs="exatest",operation="close",target="exatest-ffff923a1497d800"} 200
+lustre_client_stats{fs="exatest",operation="fallocate",target="exatest-ffff923a1497d800"} 100
+lustre_client_stats{fs="exatest",operation="fsync",target="exatest-ffff923a1497d800"} 100
+lustre_client_stats{fs="exatest",operation="getattr",target="exatest-ffff923a1497d800"} 445
+lustre_client_stats{fs="exatest",operation="inode_permission",target="exatest-ffff923a1497d800"} 7212
+lustre_client_stats{fs="exatest",operation="ioctl",target="exatest-ffff923a1497d800"} 74
+lustre_client_stats{fs="exatest",operation="mkdir",target="exatest-ffff923a1497d800"} 1
+lustre_client_stats{fs="exatest",operation="mknod",target="exatest-ffff923a1497d800"} 100
+lustre_client_stats{fs="exatest",operation="open",target="exatest-ffff923a1497d800"} 200
+lustre_client_stats{fs="exatest",operation="openclosetime",target="exatest-ffff923a1497d800"} 100
+lustre_client_stats{fs="exatest",operation="opencount",target="exatest-ffff923a1497d800"} 201
+lustre_client_stats{fs="exatest",operation="statfs",target="exatest-ffff923a1497d800"} 41036
+lustre_client_stats{fs="exatest",operation="truncate",target="exatest-ffff923a1497d800"} 100
+lustre_client_stats{fs="exatest",operation="write",target="exatest-ffff923a1497d800"} 204800
+lustre_client_stats{fs="exatest",operation="write_bytes",target="exatest-ffff923a1497d800"} 204800
 # HELP lustre_client_stats_start_time Unix epoch seconds when lustre_client_stats was last reset.
 # TYPE lustre_client_stats_start_time gauge
-lustre_client_stats_start_time{target="exatest-ffff923a1497d800"} 1534429278
+lustre_client_stats_start_time{fs="exatest",target="exatest-ffff923a1497d800"} 1534429278
+# HELP lustre_client_llite_read_bytes_total Total bytes read by the client.
+# TYPE lustre_client_llite_read_bytes_total counter
+lustre_client_llite_read_bytes_total{fs="exafs",target="exafs-ffff9239aa0c4800"} 640379742
+# HELP lustre_client_llite_write_bytes_total Total bytes written by the client.
+# TYPE lustre_client_llite_write_bytes_total counter
+lustre_client_llite_write_bytes_total{fs="exafs",target="exafs-ffff9239aa0c4800"} 4027228138649
+lustre_client_llite_write_bytes_total{fs="exatest",target="exatest-ffff923a1497d800"} 214748364800
 # HELP lustre_send_count_total Total number of messages that have been sent.
 # TYPE lustre_send_count_total counter
 lustre_send_count_total{nid="0@lo"} 0

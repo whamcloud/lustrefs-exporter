@@ -26,7 +26,7 @@ expression: result
                         },
                     ],
                     header: StatsHeader {
-                        snapshot_time: "1566017453.9677077",
+                        snapshot_time: "1566017453.009677077",
                         start_time: None,
                     },
                 },
@@ -54,7 +54,7 @@ expression: result
                         },
                     ],
                     header: StatsHeader {
-                        snapshot_time: "1566017453.9825550",
+                        snapshot_time: "1566017453.009825550",
                         start_time: None,
                     },
                 },
@@ -82,7 +82,7 @@ expression: result
                         },
                     ],
                     header: StatsHeader {
-                        snapshot_time: "1566017453.9857366",
+                        snapshot_time: "1566017453.009857366",
                         start_time: None,
                     },
                 },

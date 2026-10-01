@@ -3,6 +3,8 @@
 // license that can be found in the LICENSE file.
 
 pub mod brw_stats;
+pub mod client;
+pub mod client_target;
 pub mod controller;
 pub mod host;
 pub mod jobstats;
@@ -60,7 +62,7 @@ impl IntoResponse for Error {
     }
 }
 
-trait LabelProm {
+pub(crate) trait LabelProm {
     fn to_prom_label(&self) -> &'static str;
 }
 
@@ -78,6 +80,7 @@ impl LabelProm for ControllerVariant {
     fn to_prom_label(&self) -> &'static str {
         match self {
             ControllerVariant::Osc => "osc",
+            ControllerVariant::Mdc => "mdc",
         }
     }
 }
@@ -170,6 +173,8 @@ pub mod tests {
         "lustre_cache_hit_total",
         "lustre_cache_access_total",
         "lustre_cache_miss_total",
+        "lustre_client_llite_read_bytes_total",
+        "lustre_client_llite_write_bytes_total",
         "lustre_get_page_total",
         "lustre_health_healthy",
         "lustre_health_value",
@@ -212,6 +217,7 @@ pub mod tests {
     #[test]
     fn test_controller_variant_to_prom_label() {
         assert_eq!(ControllerVariant::Osc.to_prom_label(), "osc");
+        assert_eq!(ControllerVariant::Mdc.to_prom_label(), "mdc");
     }
 
     #[commandeer(Replay, "lctl", "lnetctl")]
@@ -493,6 +499,26 @@ pub mod tests {
         let records = serde_json::from_str(content).unwrap();
 
         build_lustre_stats(&records)
+    }
+
+    #[test]
+    fn osp_stats_under_osc_name_are_not_client_families() {
+        let contents = "osc.lustre-OST0000-osc-MDT0000.stats=\nsnapshot_time             1789952232.668377739 secs.nsecs\nstart_time                1787073662.340515449 secs.nsecs\nelapsed_time              2878570.327862290 secs.nsecs\nreq_waittime              1383 samples [usecs] 12 3057 1421392 4185129512\nreq_active                1383 samples [reqs] 1 2 1414 1476\nost_connect               1 samples [usecs] 1205 1205 1205 1452025\nobd_ping                  1382 samples [usecs] 12 3057 1420187 4183677487\nosc.lustre-OST0000-osc-MDT0000.state=\ncurrent_state: FULL\nstate_history:\n";
+
+        let x = parse_lustre_metrics(contents);
+
+        assert!(!x.contains("lustre_client_osc"), "{x}");
+        assert!(x.contains("lustre_osc_state{controller=\"lustre-OST0000-osc-MDT0000\",current_state=\"FULL\"} 1"), "{x}");
+    }
+
+    #[test]
+    fn lockless_truncates_are_exported() {
+        let contents = "osc.lustre-OST0000-osc-ffff949bc0626000.osc_stats=\nsnapshot_time:            1689697369.331040915 secs.nsecs\nlockless_write_bytes\t\t0\nlockless_read_bytes\t\t8192\nlockless_truncate\t\t3\nmemused=1\n";
+
+        let x = parse_lustre_metrics(contents);
+
+        assert!(x.contains("lustre_client_osc_lockless_truncates_total{fs=\"lustre\",target=\"lustre-OST0000-osc-ffff949bc0626000\"} 3\n"), "{x}");
+        assert!(x.contains("lustre_client_osc_lockless_read_bytes_total{fs=\"lustre\",target=\"lustre-OST0000-osc-ffff949bc0626000\"} 8192\n"), "{x}");
     }
 
     fn build_lustre_stats(x: &Vec<Record>) -> String {

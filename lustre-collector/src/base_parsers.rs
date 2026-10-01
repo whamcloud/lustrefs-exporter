@@ -14,7 +14,7 @@ use combine::{
     token, unexpected, unexpected_any, value,
 };
 
-use crate::types::{Param, Target};
+use crate::types::{Controller, Param, Target};
 
 pub(crate) fn period<I>() -> impl Parser<I, Output = char>
 where
@@ -120,6 +120,20 @@ where
     attempt(string(x).skip(token('.')))
         .map(|x| Param(x.to_string()))
         .message("while getting param")
+}
+
+/// `<prefix>.<controller>.`, the start of an osc or mdc parameter.
+pub(crate) fn controller<I>(prefix: &'static str) -> impl Parser<I, Output = Controller>
+where
+    I: Stream<Token = char>,
+    I::Error: ParseError<I::Token, I::Range, I::Position>,
+{
+    (
+        attempt(string(prefix).skip(period())),
+        till_period().skip(period()),
+    )
+        .map(|(_, x)| Controller(x))
+        .message("while parsing controller name")
 }
 
 #[cfg(test)]
